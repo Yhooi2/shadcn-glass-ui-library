@@ -83,7 +83,7 @@ export const YearCardGlass = forwardRef<HTMLDivElement, YearCardGlassProps>(
         </div>
         <ProgressGlass
           value={progress}
-          gradient="from-blue-400 to-violet-500"
+          gradient="blue"
           size="sm"
         />
       </div>

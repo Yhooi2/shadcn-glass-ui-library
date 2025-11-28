@@ -10,6 +10,8 @@ import { themeStyles } from "@/lib/themeStyles";
 import { ProgressGlass } from "./ProgressGlass";
 import "@/glass-theme.css";
 
+import type { ProgressGradient } from "./ProgressGlass";
+
 export type MetricColor = "emerald" | "amber" | "blue" | "red";
 
 export interface MetricCardGlassProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -18,11 +20,12 @@ export interface MetricCardGlassProps extends React.HTMLAttributes<HTMLDivElemen
   readonly color?: MetricColor;
 }
 
-const colorGradients: Record<MetricColor, string> = {
-  emerald: "from-emerald-400 to-emerald-500",
-  amber: "from-amber-400 to-amber-500",
-  blue: "from-blue-400 to-blue-500",
-  red: "from-red-400 to-red-500",
+// Map MetricColor to ProgressGradient
+const colorToGradient: Record<MetricColor, ProgressGradient> = {
+  emerald: "emerald",
+  amber: "amber",
+  blue: "blue",
+  red: "rose",
 };
 
 const colorGlows: Record<MetricColor, string> = {
@@ -105,7 +108,7 @@ export const MetricCardGlass = forwardRef<HTMLDivElement, MetricCardGlassProps>(
         </div>
         <ProgressGlass
           value={value}
-          gradient={colorGradients[color]}
+          gradient={colorToGradient[color]}
           size="sm"
         />
       </div>

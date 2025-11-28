@@ -36,58 +36,26 @@ export const NotificationGlass = forwardRef<HTMLDivElement, NotificationGlassPro
     const isGlass = theme === "glass";
     const Icon = NOTIFICATION_ICONS[type];
 
-    // Get type-specific colors
-    const getTypeStyles = (): { bg: string; border: string; text: string; glow: string } => {
-      const types: Record<NotificationType, { bg: string; border: string; text: string; glow: string }> = {
-        info: {
-          bg: t.alertInfoBg,
-          border: t.alertInfoBorder,
-          text: t.alertInfoText,
-          glow: isGlass ? `0 0 20px ${t.statusBlue}40` : "none",
-        },
-        success: {
-          bg: t.alertSuccessBg,
-          border: t.alertSuccessBorder,
-          text: t.alertSuccessText,
-          glow: isGlass ? `0 0 20px ${t.statusGreen}40` : "none",
-        },
-        warning: {
-          bg: t.alertWarningBg,
-          border: t.alertWarningBorder,
-          text: t.alertWarningText,
-          glow: isGlass ? `0 0 20px ${t.statusYellow}40` : "none",
-        },
-        error: {
-          bg: t.alertDangerBg,
-          border: t.alertDangerBorder,
-          text: t.alertDangerText,
-          glow: isGlass ? `0 0 20px ${t.statusRed}40` : "none",
-        },
-      };
-      return types[type];
+    // Type-specific config with colors and glows
+    const typeConfig: Record<NotificationType, { color: string; glow: string }> = {
+      info: { color: t.statusBlue, glow: "0 0 20px rgba(96,165,250,0.30)" },
+      success: { color: t.statusGreen, glow: "0 0 20px rgba(52,211,153,0.30)" },
+      warning: { color: t.statusYellow, glow: "0 0 20px rgba(251,191,36,0.30)" },
+      error: { color: t.statusRed, glow: "0 0 20px rgba(251,113,133,0.30)" },
     };
 
-    const typeStyles = getTypeStyles();
+    const config = typeConfig[type];
 
     const containerStyles: CSSProperties = {
-      background: isGlass ? t.notificationBg : t.notificationBg,
-      border: `1px solid ${isGlass ? t.glassMediumBorder : typeStyles.border}`,
-      boxShadow: isGlass
-        ? `${t.notificationGlow}, inset 0 1px 0 rgba(255,255,255,0.10)`
-        : t.notificationGlow,
-      backdropFilter: isGlass ? "blur(16px)" : undefined,
-      WebkitBackdropFilter: isGlass ? "blur(16px)" : undefined,
+      background: isGlass ? "rgba(255,255,255,0.08)" : t.notificationBg,
+      border: `1px solid ${isGlass ? "rgba(255,255,255,0.15)" : t.glassSubtleBorder}`,
+      boxShadow: isHovered && isGlass ? config.glow : t.notificationGlow,
+      transform: isHovered ? "translateY(-2px)" : "translateY(0)",
     };
 
     const iconContainerStyles: CSSProperties = {
-      background: typeStyles.bg,
-      border: `1px solid ${typeStyles.border}`,
-      boxShadow: typeStyles.glow,
-    };
-
-    const closeButtonStyles: CSSProperties = {
-      color: t.textMuted,
-      background: isHovered ? t.listItemHover : "transparent",
+      background: isGlass ? `${config.color}20` : `${config.color}15`,
+      boxShadow: isHovered && isGlass ? config.glow : "none",
     };
 
     return (
@@ -101,6 +69,8 @@ export const NotificationGlass = forwardRef<HTMLDivElement, NotificationGlassPro
         style={containerStyles}
         role="alert"
         aria-live="polite"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         {...props}
       >
         {/* Icon with glow */}
@@ -108,7 +78,7 @@ export const NotificationGlass = forwardRef<HTMLDivElement, NotificationGlassPro
           className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
           style={iconContainerStyles}
         >
-          <Icon className="w-5 h-5" style={{ color: typeStyles.text }} />
+          <Icon className="w-5 h-5" style={{ color: config.color }} />
         </div>
 
         {/* Content */}
@@ -120,7 +90,7 @@ export const NotificationGlass = forwardRef<HTMLDivElement, NotificationGlassPro
             {title}
           </p>
           <p
-            className="text-sm leading-relaxed"
+            className="text-sm"
             style={{ color: t.textSecondary }}
           >
             {message}
@@ -130,12 +100,10 @@ export const NotificationGlass = forwardRef<HTMLDivElement, NotificationGlassPro
         {/* Close button */}
         <button
           onClick={onClose}
-          className="p-1.5 rounded-lg shrink-0 transition-all duration-200"
-          style={closeButtonStyles}
+          className="p-1.5 rounded-lg shrink-0"
+          style={{ color: t.textMuted }}
           type="button"
           aria-label="Close notification"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
         >
           <X className="w-4 h-4" />
         </button>

@@ -529,12 +529,12 @@ export function DesktopShowcase(): JSX.Element {
               Progress & Loading
             </h2>
             <div className="space-y-4 mb-6">
-              <ProgressGlass value={25} size="sm" gradient="from-blue-400 to-cyan-400" />
-              <ProgressGlass value={50} size="md" gradient="from-violet-500 to-purple-500" />
+              <ProgressGlass value={25} size="sm" gradient="cyan" />
+              <ProgressGlass value={50} size="md" gradient="violet" />
               <ProgressGlass
                 value={75}
                 size="lg"
-                gradient="from-amber-400 to-orange-500"
+                gradient="amber"
                 showLabel
               />
               <RainbowProgressGlass value={72} size="lg" />
