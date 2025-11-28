@@ -140,6 +140,7 @@ export const DropdownGlass = forwardRef<HTMLDivElement, DropdownGlassProps>(
       <div
         ref={internalRef}
         className={cn("relative inline-block", className)}
+        style={{ zIndex: isOpen ? 50000 : "auto" }}
         {...props}
       >
         {/* Trigger */}
@@ -157,13 +158,17 @@ export const DropdownGlass = forwardRef<HTMLDivElement, DropdownGlassProps>(
         {/* Dropdown menu */}
         {isOpen && (
           <>
-            <div className="fixed inset-0 z-40" onClick={handleClose} />
+            <div
+              className="fixed inset-0"
+              style={{ zIndex: 50001 }}
+              onClick={handleClose}
+            />
             <div
               className={cn(
-                "absolute z-50 mt-2 min-w-[200px] rounded-2xl py-2",
+                "absolute mt-2 min-w-[200px] rounded-2xl py-2",
                 align === "right" ? "right-0" : "left-0"
               )}
-              style={dropdownStyles}
+              style={{ ...dropdownStyles, zIndex: 50002 }}
               role="menu"
               aria-orientation="vertical"
             >

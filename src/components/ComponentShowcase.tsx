@@ -5,9 +5,6 @@
 
 import { useState } from "react";
 import {
-  Sun,
-  Moon,
-  Palette,
   Sparkles,
   Settings,
   Eye,

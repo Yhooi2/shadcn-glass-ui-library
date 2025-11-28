@@ -6,7 +6,6 @@
 import { forwardRef, useState, type ReactNode, type CSSProperties } from "react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/lib/theme-context";
-import { themeStyles } from "@/lib/themeStyles";
 import "@/glass-theme.css";
 
 export type TooltipPosition = "top" | "bottom" | "left" | "right";
@@ -35,17 +34,17 @@ export const TooltipGlass = forwardRef<HTMLDivElement, TooltipGlassProps>(
     },
     ref
   ) => {
-    const { theme } = useTheme();
-    const t = themeStyles[theme];
+    useTheme(); // Theme context for potential future use
     const [isVisible, setIsVisible] = useState(false);
 
+    // Unified dark tooltip design for all themes (consistent UX)
     const tooltipStyles: CSSProperties = {
-      background: t.tooltipBg,
-      color: t.tooltipText,
-      border: `1px solid ${t.tooltipBorder}`,
-      boxShadow: "0 4px 20px rgba(0,0,0,0.25)",
-      backdropFilter: "blur(8px)",
-      WebkitBackdropFilter: "blur(8px)",
+      background: "#1e293b",
+      color: "#f8fafc",
+      border: "none",
+      boxShadow: "0 4px 12px rgba(0,0,0,0.25)",
+      backdropFilter: "none",
+      WebkitBackdropFilter: "none",
     };
 
     return (

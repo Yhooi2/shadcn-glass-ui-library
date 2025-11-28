@@ -113,12 +113,12 @@ export const AvatarGlass = forwardRef<HTMLDivElement, AvatarGlassProps>(
         {status && (
           <span
             className={cn(
-              "absolute bottom-0 right-0 rounded-full transition-all duration-300",
+              "absolute -bottom-0.5 -right-0.5 rounded-full",
               statusSizeClasses[size]
             )}
             style={{
               background: getStatusStyle(status).bg,
-              boxShadow: isGlass ? getStatusStyle(status).glow : `0 0 6px ${getStatusStyle(status).bg}`,
+              boxShadow: isGlass ? getStatusStyle(status).glow : "none",
             }}
             role="status"
             aria-label={`Status: ${status}`}

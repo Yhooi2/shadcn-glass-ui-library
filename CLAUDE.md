@@ -32,7 +32,8 @@ npm run test:visual:update       # Update visual test baselines
 
 Visual tests are located in `src/components/__visual__/`:
 - `components.visual.test.tsx` - Individual component visual tests
-- `showcase.visual.test.tsx` - Full demo page tests (55 tests across 3 themes)
+- `showcase.visual.test.tsx` - ComponentShowcase demo page tests (55 tests)
+- `desktop.visual.test.tsx` - DesktopShowcase demo page tests (80+ tests)
 
 Screenshots are stored in `__screenshots__/` directories. Tests run on:
 - Full page screenshots for glass/light/aurora themes
@@ -73,12 +74,40 @@ npx shadcn add <component-name>
 
 Glassmorphism UI components with multi-theme support:
 
-- **Components**: ButtonGlass, InputGlass, GlassCard, ProgressGlass, BadgeGlass, AlertGlass, ToggleGlass, CheckboxGlass, TabsGlass, TooltipGlass, SliderGlass, SkeletonGlass, ModalGlass, DropdownGlass, AvatarGlass, NotificationGlass
-- **Demo page**: `src/components/ComponentShowcase.tsx`
-- **Themes**: glass (dark glassmorphism), light, aurora (gradient)
-- **Theme system**: `src/lib/theme-context.tsx` (ThemeProvider, useTheme, cycleTheme)
-- **Theme styles**: `src/lib/themeStyles.ts`
-- **CSS variables**: `src/glass-theme.css`
+**Core Components** (16):
+- ButtonGlass, InputGlass, GlassCard, ProgressGlass, BadgeGlass, AlertGlass
+- ToggleGlass, CheckboxGlass, TabsGlass, TooltipGlass, SliderGlass
+- SkeletonGlass, ModalGlass, DropdownGlass, AvatarGlass, NotificationGlass
+
+**Atomic Components** (4):
+- StatusIndicatorGlass - Status dots with glow effect
+- SegmentedControlGlass - Segmented button group
+- RainbowProgressGlass - Rainbow gradient progress bar
+- LanguageBarGlass - Language proficiency bar with legend
+
+**Composite Components** (5):
+- MetricCardGlass - Metric display card with progress
+- ProfileAvatarGlass - Large avatar with glow animation
+- FlagAlertGlass - Warning/danger flag alert
+- YearCardGlass - Year card for career timeline
+- AICardGlass - AI summary card with feature list
+
+**Section Components** (6):
+- HeaderNavGlass - Navigation header with search and theme toggle
+- TrustScoreCardGlass - Trust score display with metrics
+- ProfileHeaderGlass - User profile header with avatar, stats, languages
+- CareerStatsGlass - Career statistics with expandable year cards
+- FlagsSectionGlass - Expandable flags/warnings section
+- RepoCardGlass - Repository card with expandable details
+
+**Demo Pages**:
+- `src/components/ComponentShowcase.tsx` - Core components demo
+- `src/components/DesktopShowcase.tsx` - GitHub Analytics desktop demo
+
+**Themes**: glass (dark glassmorphism), light, aurora (gradient)
+**Theme system**: `src/lib/theme-context.tsx` (ThemeProvider, useTheme, cycleTheme)
+**Theme styles**: `src/lib/themeStyles.ts`
+**CSS variables**: `src/glass-theme.css`
 
 ### Key Files
 

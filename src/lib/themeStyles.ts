@@ -198,6 +198,15 @@ export interface ThemeStyle {
   sliderThumbGlow: string;
   // Footer
   footerText: string;
+  // Year Card
+  yearCardBg: string;
+  yearCardBorder: string;
+  // AI Card
+  aiCardBg: string;
+  aiCardBorder: string;
+  // Search Button
+  searchBtnBg: string;
+  searchBtnText: string;
 }
 
 export const themeStyles: Record<Theme, ThemeStyle> = {
@@ -389,6 +398,15 @@ export const themeStyles: Record<Theme, ThemeStyle> = {
     sliderThumbGlow: '0 0 8px rgba(124,58,237,0.4)',
     // Footer
     footerText: 'rgba(148,163,184,0.6)',
+    // Year Card
+    yearCardBg: 'rgba(248,250,252,0.80)',
+    yearCardBorder: 'rgba(226,232,240,0.6)',
+    // AI Card
+    aiCardBg: 'linear-gradient(135deg, rgba(238,242,255,0.9), rgba(224,231,255,0.9))',
+    aiCardBorder: 'rgba(199,210,254,0.6)',
+    // Search Button
+    searchBtnBg: '#1e293b',
+    searchBtnText: 'white',
   },
 
   aurora: {
@@ -579,6 +597,15 @@ export const themeStyles: Record<Theme, ThemeStyle> = {
     sliderThumbGlow: '0 0 12px rgba(139,92,246,0.5)',
     // Footer
     footerText: '#64748b',
+    // Year Card
+    yearCardBg: 'rgba(30,41,59,0.60)',
+    yearCardBorder: 'rgba(51,65,85,0.50)',
+    // AI Card
+    aiCardBg: 'linear-gradient(135deg, rgba(30,41,59,0.80), rgba(15,23,42,0.90))',
+    aiCardBorder: 'rgba(139,92,246,0.30)',
+    // Search Button
+    searchBtnBg: '#e2e8f0',
+    searchBtnText: '#0f172a',
   },
 
   glass: {
@@ -774,6 +801,15 @@ export const themeStyles: Record<Theme, ThemeStyle> = {
     sliderThumbGlow: '0 0 15px rgba(168,85,247,0.6)',
     // Footer
     footerText: 'rgba(255,255,255,0.30)',
+    // Year Card
+    yearCardBg: 'rgba(255,255,255,0.08)',
+    yearCardBorder: 'rgba(255,255,255,0.12)',
+    // AI Card
+    aiCardBg: 'linear-gradient(135deg, rgba(168,85,247,0.20), rgba(139,92,246,0.15))',
+    aiCardBorder: 'rgba(168,85,247,0.30)',
+    // Search Button
+    searchBtnBg: 'rgba(255,255,255,0.15)',
+    searchBtnText: 'rgba(255,255,255,0.90)',
   },
 };
 
