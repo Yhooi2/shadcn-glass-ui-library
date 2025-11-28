@@ -3,8 +3,10 @@
 // Range slider with glow effect
 // ========================================
 
-import { forwardRef } from "react";
+import { forwardRef, useState, type CSSProperties } from "react";
 import { cn } from "@/lib/utils";
+import { useTheme } from "@/lib/theme-context";
+import { themeStyles } from "@/lib/themeStyles";
 import "@/glass-theme.scss";
 
 export interface SliderGlassProps
@@ -34,7 +36,39 @@ export const SliderGlass = forwardRef<HTMLInputElement, SliderGlassProps>(
     },
     ref
   ) => {
+    const { theme } = useTheme();
+    const t = themeStyles[theme];
+    const [isHovered, setIsHovered] = useState(false);
+    const [isDragging, setIsDragging] = useState(false);
+
+    const isGlass = theme === "glass";
     const percentage = ((value - min) / (max - min)) * 100;
+
+    const trackStyles: CSSProperties = {
+      background: t.sliderTrack,
+    };
+
+    const fillStyles: CSSProperties = {
+      width: `${percentage}%`,
+      background: isGlass
+        ? `linear-gradient(90deg, #8b5cf6, ${t.sliderFill})`
+        : t.sliderFill,
+      boxShadow: isGlass && (isHovered || isDragging)
+        ? `0 0 12px ${t.sliderFill}80`
+        : undefined,
+    };
+
+    const thumbStyles: CSSProperties = {
+      left: `calc(${percentage}% - 10px)`,
+      background: t.sliderThumb,
+      border: `2px solid ${t.sliderThumbBorder}`,
+      boxShadow: isHovered || isDragging
+        ? t.sliderThumbGlow
+        : isGlass
+          ? `0 2px 8px rgba(0,0,0,0.3)`
+          : `0 2px 4px rgba(0,0,0,0.1)`,
+      transform: isDragging ? "scale(1.15)" : isHovered ? "scale(1.05)" : "scale(1)",
+    };
 
     return (
       <div className={cn("w-full", className)}>
@@ -43,30 +77,35 @@ export const SliderGlass = forwardRef<HTMLInputElement, SliderGlassProps>(
             {label && (
               <label
                 className="text-sm font-medium"
-                style={{ color: "var(--text-secondary)" }}
+                style={{ color: t.textSecondary }}
               >
                 {label}
               </label>
             )}
             {showValue && (
               <span
-                className="text-sm font-medium"
-                style={{ color: "var(--text-secondary)" }}
+                className="text-sm font-medium tabular-nums"
+                style={{ color: t.textSecondary }}
               >
                 {value}
               </span>
             )}
           </div>
         )}
-        <div className="relative w-full h-6 flex items-center">
+        <div
+          className="relative w-full h-6 flex items-center"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
           {/* Track */}
           <div
-            className="glass-slider__track absolute w-full h-2 rounded-full"
+            className="absolute w-full h-2 rounded-full"
+            style={trackStyles}
           />
           {/* Fill */}
           <div
-            className="glass-slider__fill absolute h-2 rounded-full transition-all duration-150"
-            style={{ width: `${percentage}%` }}
+            className="absolute h-2 rounded-full transition-all duration-150"
+            style={fillStyles}
           />
           {/* Hidden input for accessibility */}
           <input
@@ -74,17 +113,21 @@ export const SliderGlass = forwardRef<HTMLInputElement, SliderGlassProps>(
             type="range"
             value={value}
             onChange={(e) => onChange(Number(e.target.value))}
+            onMouseDown={() => setIsDragging(true)}
+            onMouseUp={() => setIsDragging(false)}
+            onTouchStart={() => setIsDragging(true)}
+            onTouchEnd={() => setIsDragging(false)}
             min={min}
             max={max}
             step={step}
             disabled={disabled}
-            className="absolute w-full h-6 opacity-0 cursor-pointer disabled:cursor-not-allowed"
+            className="absolute w-full h-6 opacity-0 cursor-pointer disabled:cursor-not-allowed z-10"
             {...props}
           />
           {/* Thumb */}
           <div
-            className="glass-slider__thumb absolute w-5 h-5 rounded-full shadow-lg transition-all duration-150 pointer-events-none"
-            style={{ left: `calc(${percentage}% - 10px)` }}
+            className="absolute w-5 h-5 rounded-full transition-all duration-150 pointer-events-none"
+            style={thumbStyles}
           />
         </div>
       </div>

@@ -3,48 +3,36 @@
 // Text input with glassmorphism styling
 // ========================================
 
-import { forwardRef, useState, type InputHTMLAttributes } from "react";
-import { cva, type VariantProps } from "class-variance-authority";
+import { forwardRef, useState, type InputHTMLAttributes, type CSSProperties } from "react";
 import { type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTheme } from "@/lib/theme-context";
+import { themeStyles } from "@/lib/themeStyles";
 import "@/glass-theme.scss";
 
-const inputVariants = cva(
-  [
-    "glass-input",
-    "w-full rounded-xl px-4 py-2.5 text-sm",
-    "transition-all duration-300",
-    "outline-none",
-  ],
-  {
-    variants: {
-      inputSize: {
-        sm: "px-3 py-2 text-xs rounded-lg",
-        md: "px-4 py-2.5 text-sm rounded-xl",
-        lg: "px-5 py-3 text-base rounded-xl",
-      },
-    },
-    defaultVariants: {
-      inputSize: "md",
-    },
-  }
-);
+export type InputGlassSize = "sm" | "md" | "lg";
 
 export interface InputGlassProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, "size">,
-    VariantProps<typeof inputVariants> {
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
   readonly label?: string;
   readonly error?: string;
   readonly success?: string;
   readonly icon?: LucideIcon;
   readonly iconPosition?: "left" | "right";
+  readonly inputSize?: InputGlassSize;
 }
+
+const sizes: Record<InputGlassSize, string> = {
+  sm: "px-3 py-2 text-xs rounded-lg",
+  md: "px-4 py-2.5 text-sm rounded-xl",
+  lg: "px-5 py-3 text-base rounded-xl",
+};
 
 export const InputGlass = forwardRef<HTMLInputElement, InputGlassProps>(
   (
     {
       className,
-      inputSize,
+      inputSize = "md",
       label,
       error,
       success,
@@ -55,18 +43,36 @@ export const InputGlass = forwardRef<HTMLInputElement, InputGlassProps>(
     },
     ref
   ) => {
+    const { theme } = useTheme();
+    const t = themeStyles[theme];
     const [isFocused, setIsFocused] = useState(false);
+
+    const getBorderColor = (): string => {
+      if (error) return t.statusRed;
+      if (success) return t.statusGreen;
+      if (isFocused) return t.inputFocusBorder;
+      return t.inputBorder;
+    };
+
+    const inputStyles: CSSProperties = {
+      background: t.inputBg,
+      border: `1px solid ${getBorderColor()}`,
+      color: t.inputText,
+      boxShadow: isFocused ? t.inputFocusGlow : "none",
+      backdropFilter: "blur(8px)",
+      WebkitBackdropFilter: "blur(8px)",
+    };
 
     const hasIcon = Boolean(Icon);
     const paddingLeft = hasIcon && iconPosition === "left" ? "pl-10" : "";
     const paddingRight = hasIcon && iconPosition === "right" ? "pr-10" : "";
 
     return (
-      <div className="flex flex-col gap-1.5">
+      <div className={cn("flex flex-col gap-1.5", className)}>
         {label && (
           <label
             className="text-sm font-medium"
-            style={{ color: "var(--text-secondary)" }}
+            style={{ color: t.textSecondary }}
           >
             {label}
           </label>
@@ -76,21 +82,20 @@ export const InputGlass = forwardRef<HTMLInputElement, InputGlassProps>(
             <Icon
               className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 transition-colors duration-300"
               style={{
-                color: isFocused ? "var(--text-accent)" : "var(--text-muted)",
+                color: isFocused ? t.textAccent : t.textMuted,
               }}
             />
           )}
           <input
             ref={ref}
             className={cn(
-              inputVariants({ inputSize }),
+              "w-full transition-all duration-300 outline-none",
+              sizes[inputSize],
               paddingLeft,
               paddingRight,
-              error && "glass-input--error",
-              success && "glass-input--success",
-              disabled && "opacity-50 cursor-not-allowed",
-              className
+              disabled && "opacity-50 cursor-not-allowed"
             )}
+            style={inputStyles}
             disabled={disabled}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
@@ -100,24 +105,18 @@ export const InputGlass = forwardRef<HTMLInputElement, InputGlassProps>(
             <Icon
               className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 transition-colors duration-300"
               style={{
-                color: isFocused ? "var(--text-accent)" : "var(--text-muted)",
+                color: isFocused ? t.textAccent : t.textMuted,
               }}
             />
           )}
         </div>
         {error && (
-          <span
-            className="text-xs"
-            style={{ color: "var(--alert-danger-text)" }}
-          >
+          <span className="text-xs" style={{ color: t.alertDangerText }}>
             {error}
           </span>
         )}
         {success && (
-          <span
-            className="text-xs"
-            style={{ color: "var(--alert-success-text)" }}
-          >
+          <span className="text-xs" style={{ color: t.alertSuccessText }}>
             {success}
           </span>
         )}

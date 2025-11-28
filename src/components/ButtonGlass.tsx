@@ -3,63 +3,39 @@
 // Multi-theme support with glow effects
 // ========================================
 
-import { forwardRef, useState, type MouseEvent } from "react";
-import { cva, type VariantProps } from "class-variance-authority";
+import { forwardRef, useState, type MouseEvent, type CSSProperties } from "react";
 import { RefreshCw, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTheme } from "@/lib/theme-context";
+import { themeStyles } from "@/lib/themeStyles";
 import "@/glass-theme.scss";
 
-const buttonVariants = cva(
-  [
-    "glass-button",
-    "inline-flex items-center justify-center gap-2",
-    "rounded-xl font-medium",
-    "transition-all duration-300 ease-out",
-    "focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent",
-    "disabled:pointer-events-none disabled:opacity-50",
-    "relative overflow-hidden",
-    "cursor-pointer",
-  ],
-  {
-    variants: {
-      variant: {
-        primary: "glass-button--primary",
-        secondary: "glass-button--secondary",
-        ghost: "glass-button--ghost",
-        danger: "glass-button--danger",
-        success: "glass-button--success",
-        text: "glass-button--text",
-      },
-      size: {
-        sm: "px-3 py-1.5 text-xs rounded-lg",
-        md: "px-4 py-2 text-sm rounded-xl",
-        lg: "px-6 py-3 text-base rounded-xl",
-        xl: "px-8 py-4 text-lg rounded-2xl",
-        icon: "p-2.5 rounded-xl",
-      },
-    },
-    defaultVariants: {
-      variant: "primary",
-      size: "md",
-    },
-  }
-);
+export type ButtonGlassVariant = "primary" | "secondary" | "ghost" | "danger" | "success" | "text";
+export type ButtonGlassSize = "sm" | "md" | "lg" | "xl" | "icon";
 
 export interface ButtonGlassProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-  readonly asChild?: boolean;
+  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "style"> {
+  readonly variant?: ButtonGlassVariant;
+  readonly size?: ButtonGlassSize;
   readonly loading?: boolean;
   readonly icon?: LucideIcon;
   readonly iconPosition?: "left" | "right";
 }
 
+const sizes: Record<ButtonGlassSize, string> = {
+  sm: "px-3 py-1.5 text-xs gap-1.5",
+  md: "px-4 py-2 text-sm gap-2",
+  lg: "px-6 py-3 text-base gap-2.5",
+  xl: "px-8 py-4 text-lg gap-3",
+  icon: "p-2.5",
+};
+
 export const ButtonGlass = forwardRef<HTMLButtonElement, ButtonGlassProps>(
   (
     {
       className,
-      variant,
-      size,
+      variant = "primary",
+      size = "md",
       children,
       loading = false,
       disabled,
@@ -70,8 +46,52 @@ export const ButtonGlass = forwardRef<HTMLButtonElement, ButtonGlassProps>(
     },
     ref
   ) => {
+    const { theme } = useTheme();
+    const t = themeStyles[theme];
     const [isHovered, setIsHovered] = useState(false);
     const [ripple, setRipple] = useState<{ x: number; y: number } | null>(null);
+
+    const getVariantStyles = (): CSSProperties => {
+      const variants: Record<ButtonGlassVariant, CSSProperties> = {
+        primary: {
+          background: isHovered ? t.btnPrimaryHoverBg : t.btnPrimaryBg,
+          color: t.btnPrimaryText,
+          border: "none",
+          boxShadow: isHovered ? t.btnPrimaryGlow : "0 4px 15px rgba(124,58,237,0.25)",
+        },
+        secondary: {
+          background: isHovered ? t.btnSecondaryHoverBg : t.btnSecondaryBg,
+          color: t.btnSecondaryText,
+          border: `1px solid ${t.btnSecondaryBorder}`,
+          boxShadow: isHovered ? t.btnSecondaryGlow : "none",
+        },
+        ghost: {
+          background: isHovered ? t.btnGhostHoverBg : t.btnGhostBg,
+          color: t.btnGhostText,
+          border: "none",
+          boxShadow: "none",
+        },
+        danger: {
+          background: t.btnDangerBg,
+          color: t.btnDangerText,
+          border: "none",
+          boxShadow: isHovered ? t.btnDangerGlow : "0 4px 15px rgba(239,68,68,0.25)",
+        },
+        success: {
+          background: t.btnSuccessBg,
+          color: t.btnSuccessText,
+          border: "none",
+          boxShadow: isHovered ? t.btnSuccessGlow : "0 4px 15px rgba(16,185,129,0.25)",
+        },
+        text: {
+          background: "transparent",
+          color: t.textSecondary,
+          border: "none",
+          boxShadow: "none",
+        },
+      };
+      return variants[variant];
+    };
 
     const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
       if (disabled || loading) return;
@@ -92,10 +112,14 @@ export const ButtonGlass = forwardRef<HTMLButtonElement, ButtonGlassProps>(
       <button
         ref={ref}
         className={cn(
-          buttonVariants({ variant, size }),
+          "relative overflow-hidden rounded-xl font-medium inline-flex items-center justify-center",
+          "transition-all duration-300 ease-out",
+          sizes[size],
+          isDisabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer",
           isHovered && !isDisabled && "scale-[1.02]",
           className
         )}
+        style={getVariantStyles()}
         type="button"
         disabled={isDisabled}
         onClick={handleClick}

@@ -3,8 +3,10 @@
 // Tooltip with glassmorphism styling
 // ========================================
 
-import { forwardRef, useState, type ReactNode } from "react";
+import { forwardRef, useState, type ReactNode, type CSSProperties } from "react";
 import { cn } from "@/lib/utils";
+import { useTheme } from "@/lib/theme-context";
+import { themeStyles } from "@/lib/themeStyles";
 import "@/glass-theme.scss";
 
 export type TooltipPosition = "top" | "bottom" | "left" | "right";
@@ -33,7 +35,18 @@ export const TooltipGlass = forwardRef<HTMLDivElement, TooltipGlassProps>(
     },
     ref
   ) => {
+    const { theme } = useTheme();
+    const t = themeStyles[theme];
     const [isVisible, setIsVisible] = useState(false);
+
+    const tooltipStyles: CSSProperties = {
+      background: t.tooltipBg,
+      color: t.tooltipText,
+      border: `1px solid ${t.tooltipBorder}`,
+      boxShadow: "0 4px 20px rgba(0,0,0,0.25)",
+      backdropFilter: "blur(8px)",
+      WebkitBackdropFilter: "blur(8px)",
+    };
 
     return (
       <div
@@ -46,14 +59,11 @@ export const TooltipGlass = forwardRef<HTMLDivElement, TooltipGlassProps>(
         {isVisible && (
           <div
             className={cn(
-              "glass-tooltip",
-              "absolute z-50",
-              "px-3 py-1.5 rounded-lg",
-              "text-xs font-medium whitespace-nowrap",
-              "transition-all duration-200",
-              "animate-float",
+              "absolute z-50 px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap",
+              "transition-all duration-200 animate-float",
               POSITION_CLASSES[position]
             )}
+            style={tooltipStyles}
             role="tooltip"
           >
             {content}
