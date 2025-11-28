@@ -1,0 +1,107 @@
+/* Storybook-specific styles */
+
+/* Glass story container - wraps each story */
+.glass-story-container {
+  background: var(--story-bg, linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%));
+  display: inline-block;
+  border-radius: 12px;
+  width: 100%;
+  min-width: 70vw;
+  overflow: hidden;
+  position: relative;
+  padding: 2rem;
+  transition: background 0.3s ease;
+}
+
+/* Orbs for container */
+.glass-story-container::before,
+.glass-story-container::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(64px);
+  pointer-events: none;
+  z-index: 0;
+  transition: background 0.3s ease;
+}
+
+.glass-story-container::before {
+  top: 20px;
+  left: -60px;
+  width: 200px;
+  height: 200px;
+  background: var(--story-orb-1, rgba(168, 85, 247, 0.3));
+}
+
+.glass-story-container::after {
+  bottom: 20px;
+  right: -60px;
+  width: 240px;
+  height: 240px;
+  background: var(--story-orb-2, rgba(59, 130, 246, 0.2));
+}
+
+/* Fullscreen stories */
+.glass-story-fullscreen {
+  background: var(--story-bg, linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%));
+  min-height: 100vh;
+  min-width: 100vw;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s ease;
+}
+
+/* Orbs for fullscreen */
+.glass-story-fullscreen::before,
+.glass-story-fullscreen::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(64px);
+  pointer-events: none;
+  z-index: 0;
+  transition: background 0.3s ease;
+}
+
+.glass-story-fullscreen::before {
+  top: 80px;
+  left: -80px;
+  width: 320px;
+  height: 320px;
+  background: var(--story-orb-1, rgba(168, 85, 247, 0.3));
+}
+
+.glass-story-fullscreen::after {
+  bottom: 80px;
+  right: -80px;
+  width: 384px;
+  height: 384px;
+  background: var(--story-orb-2, rgba(59, 130, 246, 0.2));
+}
+
+/* Docs page - neutral background */
+.sbdocs-wrapper {
+  background: #1a1a2e !important;
+}
+
+/* Docs content area */
+.sbdocs-content {
+  background: transparent !important;
+}
+
+/* Story preview container in Docs */
+.docs-story {
+  background: transparent !important;
+  padding: 1rem !important;
+  min-height: auto !important;
+}
+
+/* Canvas background - neutral */
+.sb-show-main {
+  background: #1a1a2e !important;
+}
+
+/* Remove default Storybook backgrounds */
+.sb-main-padded {
+  background: transparent !important;
+}
