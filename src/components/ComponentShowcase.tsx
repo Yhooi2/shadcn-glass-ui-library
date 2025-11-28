@@ -122,7 +122,7 @@ export const ComponentShowcase = () => {
   ];
 
   return (
-    <div className="min-h-screen font-sans">
+    <div className="min-h-screen font-sans" data-testid="component-showcase">
       <AnimatedBackground />
 
       {/* Content */}
@@ -151,7 +151,7 @@ export const ComponentShowcase = () => {
           </div>
 
           {/* Buttons Section */}
-          <GlassCard className="p-6" intensity="strong" hover={false}>
+          <GlassCard className="p-6" intensity="strong" hover={false} data-testid="section-buttons">
             <h2
               className="text-lg font-semibold mb-4"
               style={{ color: t.textPrimary }}
@@ -187,7 +187,7 @@ export const ComponentShowcase = () => {
           </GlassCard>
 
           {/* Inputs & Forms Section */}
-          <GlassCard className="p-6" intensity="strong" hover={false}>
+          <GlassCard className="p-6" intensity="strong" hover={false} data-testid="section-inputs">
             <h2
               className="text-lg font-semibold mb-4"
               style={{ color: t.textPrimary }}
@@ -231,7 +231,7 @@ export const ComponentShowcase = () => {
           </GlassCard>
 
           {/* Toggles & Selection Section */}
-          <GlassCard className="p-6" intensity="strong" hover={false}>
+          <GlassCard className="p-6" intensity="strong" hover={false} data-testid="section-toggles">
             <h2
               className="text-lg font-semibold mb-4"
               style={{ color: t.textPrimary }}
@@ -295,7 +295,7 @@ export const ComponentShowcase = () => {
           </GlassCard>
 
           {/* Progress Section */}
-          <GlassCard className="p-6" intensity="strong" hover={false}>
+          <GlassCard className="p-6" intensity="strong" hover={false} data-testid="section-progress">
             <h2
               className="text-lg font-semibold mb-4"
               style={{ color: t.textPrimary }}
@@ -311,7 +311,7 @@ export const ComponentShowcase = () => {
           </GlassCard>
 
           {/* Tabs & Navigation Section */}
-          <GlassCard className="p-6" intensity="strong" hover={false}>
+          <GlassCard className="p-6" intensity="strong" hover={false} data-testid="section-tabs">
             <h2
               className="text-lg font-semibold mb-4"
               style={{ color: t.textPrimary }}
@@ -348,7 +348,7 @@ export const ComponentShowcase = () => {
           </GlassCard>
 
           {/* Badges & Status Section */}
-          <GlassCard className="p-6" intensity="strong" hover={false}>
+          <GlassCard className="p-6" intensity="strong" hover={false} data-testid="section-badges">
             <h2
               className="text-lg font-semibold mb-4"
               style={{ color: t.textPrimary }}
@@ -381,7 +381,7 @@ export const ComponentShowcase = () => {
           </GlassCard>
 
           {/* Avatars Section */}
-          <GlassCard className="p-6" intensity="strong" hover={false}>
+          <GlassCard className="p-6" intensity="strong" hover={false} data-testid="section-avatars">
             <h2
               className="text-lg font-semibold mb-4"
               style={{ color: t.textPrimary }}
@@ -429,7 +429,7 @@ export const ComponentShowcase = () => {
           </GlassCard>
 
           {/* Alerts Section */}
-          <GlassCard className="p-6" intensity="strong" hover={false}>
+          <GlassCard className="p-6" intensity="strong" hover={false} data-testid="section-alerts">
             <h2
               className="text-lg font-semibold mb-4"
               style={{ color: t.textPrimary }}
@@ -453,7 +453,7 @@ export const ComponentShowcase = () => {
           </GlassCard>
 
           {/* Notifications Section */}
-          <GlassCard className="p-6" intensity="strong" hover={false}>
+          <GlassCard className="p-6" intensity="strong" hover={false} data-testid="section-notifications">
             <h2
               className="text-lg font-semibold mb-4"
               style={{ color: t.textPrimary }}
@@ -477,7 +477,7 @@ export const ComponentShowcase = () => {
           </GlassCard>
 
           {/* Skeletons Section */}
-          <GlassCard className="p-6" intensity="strong" hover={false}>
+          <GlassCard className="p-6" intensity="strong" hover={false} data-testid="section-skeletons">
             <h2
               className="text-lg font-semibold mb-4"
               style={{ color: t.textPrimary }}
