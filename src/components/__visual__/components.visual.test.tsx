@@ -504,4 +504,261 @@ describe('Visual Regression Tests', () => {
       await expect(container).toMatchScreenshot(`dropdown-opened-${theme}`);
     });
   });
+
+  // ==========================================
+  // ITERATION 3: Disabled States
+  // ==========================================
+
+  describe.each(THEMES)('Disabled States - Theme: %s', (theme) => {
+    test(`ButtonGlass primary disabled - ${theme}`, async () => {
+      renderWithTheme(
+        <ButtonGlass variant="primary" disabled data-testid="button">
+          Disabled Primary
+        </ButtonGlass>,
+        theme
+      );
+      await waitForStability();
+      const button = page.getByTestId('button');
+      await expect(button).toMatchScreenshot(`button-primary-disabled-${theme}`);
+    });
+
+    test(`ButtonGlass ghost disabled - ${theme}`, async () => {
+      renderWithTheme(
+        <ButtonGlass variant="ghost" disabled data-testid="button">
+          Disabled Ghost
+        </ButtonGlass>,
+        theme
+      );
+      await waitForStability();
+      const button = page.getByTestId('button');
+      await expect(button).toMatchScreenshot(`button-ghost-disabled-${theme}`);
+    });
+
+    test(`InputGlass disabled - ${theme}`, async () => {
+      renderWithTheme(
+        <InputGlass placeholder="Disabled input" disabled data-testid="input" />,
+        theme
+      );
+      await waitForStability();
+      const input = page.getByTestId('input');
+      await expect(input).toMatchScreenshot(`input-disabled-${theme}`);
+    });
+
+    test(`ToggleGlass disabled on - ${theme}`, async () => {
+      renderWithTheme(
+        <ToggleGlass checked={true} onChange={() => {}} disabled data-testid="toggle" />,
+        theme
+      );
+      await waitForStability();
+      const toggle = page.getByTestId('toggle');
+      await expect(toggle).toMatchScreenshot(`toggle-disabled-on-${theme}`);
+    });
+
+    test(`ToggleGlass disabled off - ${theme}`, async () => {
+      renderWithTheme(
+        <ToggleGlass checked={false} onChange={() => {}} disabled data-testid="toggle" />,
+        theme
+      );
+      await waitForStability();
+      const toggle = page.getByTestId('toggle');
+      await expect(toggle).toMatchScreenshot(`toggle-disabled-off-${theme}`);
+    });
+
+    test(`CheckboxGlass disabled checked - ${theme}`, async () => {
+      renderWithTheme(
+        <CheckboxGlass checked={true} onChange={() => {}} disabled label="Disabled Checked" data-testid="checkbox" />,
+        theme
+      );
+      await waitForStability();
+      const checkbox = page.getByTestId('checkbox');
+      await expect(checkbox).toMatchScreenshot(`checkbox-disabled-checked-${theme}`);
+    });
+
+    test(`CheckboxGlass disabled unchecked - ${theme}`, async () => {
+      renderWithTheme(
+        <CheckboxGlass checked={false} onChange={() => {}} disabled label="Disabled Unchecked" data-testid="checkbox" />,
+        theme
+      );
+      await waitForStability();
+      const checkbox = page.getByTestId('checkbox');
+      await expect(checkbox).toMatchScreenshot(`checkbox-disabled-unchecked-${theme}`);
+    });
+
+    test(`SliderGlass disabled - ${theme}`, async () => {
+      renderWithTheme(
+        <div data-testid="slider-container" style={{ width: '200px' }}>
+          <SliderGlass value={50} onChange={() => {}} disabled />
+        </div>,
+        theme
+      );
+      await waitForStability();
+      const container = page.getByTestId('slider-container');
+      await expect(container).toMatchScreenshot(`slider-disabled-${theme}`);
+    });
+  });
+
+  // ==========================================
+  // ITERATION 4: Size Variants
+  // ==========================================
+
+  describe.each(THEMES)('Size Variants - Theme: %s', (theme) => {
+    // ButtonGlass sizes
+    test(`ButtonGlass size sm - ${theme}`, async () => {
+      renderWithTheme(
+        <ButtonGlass variant="primary" size="sm" data-testid="button">
+          Small
+        </ButtonGlass>,
+        theme
+      );
+      await waitForStability();
+      const button = page.getByTestId('button');
+      await expect(button).toMatchScreenshot(`button-size-sm-${theme}`);
+    });
+
+    test(`ButtonGlass size lg - ${theme}`, async () => {
+      renderWithTheme(
+        <ButtonGlass variant="primary" size="lg" data-testid="button">
+          Large
+        </ButtonGlass>,
+        theme
+      );
+      await waitForStability();
+      const button = page.getByTestId('button');
+      await expect(button).toMatchScreenshot(`button-size-lg-${theme}`);
+    });
+
+    test(`ButtonGlass size icon - ${theme}`, async () => {
+      renderWithTheme(
+        <ButtonGlass variant="primary" size="icon" data-testid="button">
+          +
+        </ButtonGlass>,
+        theme
+      );
+      await waitForStability();
+      const button = page.getByTestId('button');
+      await expect(button).toMatchScreenshot(`button-size-icon-${theme}`);
+    });
+
+    // AvatarGlass sizes
+    test(`AvatarGlass size sm - ${theme}`, async () => {
+      renderWithTheme(
+        <AvatarGlass size="sm" name="Small Avatar" data-testid="avatar" />,
+        theme
+      );
+      await waitForStability();
+      const avatar = page.getByTestId('avatar');
+      await expect(avatar).toMatchScreenshot(`avatar-size-sm-${theme}`);
+    });
+
+    test(`AvatarGlass size lg - ${theme}`, async () => {
+      renderWithTheme(
+        <AvatarGlass size="lg" name="Large Avatar" data-testid="avatar" />,
+        theme
+      );
+      await waitForStability();
+      const avatar = page.getByTestId('avatar');
+      await expect(avatar).toMatchScreenshot(`avatar-size-lg-${theme}`);
+    });
+
+    test(`AvatarGlass size xl - ${theme}`, async () => {
+      renderWithTheme(
+        <AvatarGlass size="xl" name="XL Avatar" data-testid="avatar" />,
+        theme
+      );
+      await waitForStability();
+      const avatar = page.getByTestId('avatar');
+      await expect(avatar).toMatchScreenshot(`avatar-size-xl-${theme}`);
+    });
+
+    // ProgressGlass sizes
+    test(`ProgressGlass size sm - ${theme}`, async () => {
+      renderWithTheme(
+        <div data-testid="progress-container" style={{ width: '200px' }}>
+          <ProgressGlass value={70} size="sm" />
+        </div>,
+        theme
+      );
+      await waitForStability();
+      const container = page.getByTestId('progress-container');
+      await expect(container).toMatchScreenshot(`progress-size-sm-${theme}`);
+    });
+
+    test(`ProgressGlass size lg - ${theme}`, async () => {
+      renderWithTheme(
+        <div data-testid="progress-container" style={{ width: '200px' }}>
+          <ProgressGlass value={70} size="lg" />
+        </div>,
+        theme
+      );
+      await waitForStability();
+      const container = page.getByTestId('progress-container');
+      await expect(container).toMatchScreenshot(`progress-size-lg-${theme}`);
+    });
+
+    test(`ProgressGlass size xl - ${theme}`, async () => {
+      renderWithTheme(
+        <div data-testid="progress-container" style={{ width: '200px' }}>
+          <ProgressGlass value={70} size="xl" />
+        </div>,
+        theme
+      );
+      await waitForStability();
+      const container = page.getByTestId('progress-container');
+      await expect(container).toMatchScreenshot(`progress-size-xl-${theme}`);
+    });
+
+    // ModalGlass sizes
+    test(`ModalGlass size sm - ${theme}`, async () => {
+      renderWithTheme(
+        <div data-testid="modal-container" style={{ width: '600px', height: '400px', position: 'relative' }}>
+          <ModalGlass isOpen={true} onClose={() => {}} title="Small Modal" size="sm">
+            <p>Small modal content</p>
+          </ModalGlass>
+        </div>,
+        theme
+      );
+      await waitForStability(300);
+      const container = page.getByTestId('modal-container');
+      await expect(container).toMatchScreenshot(`modal-size-sm-${theme}`);
+    });
+
+    test(`ModalGlass size lg - ${theme}`, async () => {
+      renderWithTheme(
+        <div data-testid="modal-container" style={{ width: '800px', height: '500px', position: 'relative' }}>
+          <ModalGlass isOpen={true} onClose={() => {}} title="Large Modal" size="lg">
+            <p>Large modal content</p>
+          </ModalGlass>
+        </div>,
+        theme
+      );
+      await waitForStability(300);
+      const container = page.getByTestId('modal-container');
+      await expect(container).toMatchScreenshot(`modal-size-lg-${theme}`);
+    });
+
+    // SkeletonGlass variants
+    test(`SkeletonGlass circular - ${theme}`, async () => {
+      renderWithTheme(
+        <div data-testid="skeleton-container">
+          <SkeletonGlass variant="circular" width={48} height={48} />
+        </div>,
+        theme
+      );
+      await waitForStability();
+      const container = page.getByTestId('skeleton-container');
+      await expect(container).toMatchScreenshot(`skeleton-circular-${theme}`);
+    });
+
+    test(`SkeletonGlass rectangular - ${theme}`, async () => {
+      renderWithTheme(
+        <div data-testid="skeleton-container">
+          <SkeletonGlass variant="rectangular" width={200} height={100} />
+        </div>,
+        theme
+      );
+      await waitForStability();
+      const container = page.getByTestId('skeleton-container');
+      await expect(container).toMatchScreenshot(`skeleton-rectangular-${theme}`);
+    });
+  });
 });
