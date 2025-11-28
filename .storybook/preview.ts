@@ -1,5 +1,7 @@
 import type { Preview } from '@storybook/react-vite';
 import React, { useEffect } from 'react';
+import { ThemeProvider } from '../src/lib/theme-context';
+import type { Theme } from '../src/lib/themeStyles';
 import '../src/index.css';
 import '../src/glass-theme.scss';
 import './storybook.css';
@@ -23,8 +25,6 @@ const THEME_BACKGROUNDS = {
   },
 } as const;
 
-type Theme = keyof typeof THEME_BACKGROUNDS;
-
 // Theme decorator component
 function ThemeDecorator({
   children,
@@ -46,17 +46,21 @@ function ThemeDecorator({
   const containerClass = isFullscreen ? 'glass-story-fullscreen' : 'glass-story-container';
 
   return React.createElement(
-    'div',
-    {
-      className: containerClass,
-      'data-theme': theme,
-      style: {
-        '--story-bg': themeConfig.background,
-        '--story-orb-1': themeConfig.orb1,
-        '--story-orb-2': themeConfig.orb2,
-      } as React.CSSProperties,
-    },
-    children
+    ThemeProvider,
+    { defaultTheme: theme },
+    React.createElement(
+      'div',
+      {
+        className: containerClass,
+        'data-theme': theme,
+        style: {
+          '--story-bg': themeConfig.background,
+          '--story-orb-1': themeConfig.orb1,
+          '--story-orb-2': themeConfig.orb2,
+        } as React.CSSProperties,
+      },
+      children
+    )
   );
 }
 
@@ -72,6 +76,10 @@ const preview: Preview = {
     },
     a11y: {
       test: 'todo',
+    },
+    // Visual regression testing - disable animations for stable screenshots
+    testingLibrary: {
+      asyncUtilTimeout: 3000,
     },
   },
   globalTypes: {

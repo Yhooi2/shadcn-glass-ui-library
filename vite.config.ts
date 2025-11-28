@@ -21,6 +21,7 @@ export default defineConfig({
   },
   test: {
     projects: [
+      // Storybook component tests
       {
         extends: true,
         plugins: [
@@ -43,6 +44,33 @@ export default defineConfig({
             ],
           },
           setupFiles: ['.storybook/vitest.setup.ts'],
+        },
+      },
+      // Visual regression tests
+      {
+        extends: true,
+        test: {
+          name: 'visual',
+          include: ['src/**/*.visual.test.{ts,tsx}'],
+          browser: {
+            enabled: true,
+            headless: true,
+            provider: playwright({}),
+            instances: [
+              {
+                browser: 'chromium',
+              },
+            ],
+            expect: {
+              toMatchScreenshot: {
+                comparatorName: 'pixelmatch',
+                comparatorOptions: {
+                  threshold: 0.1,
+                  allowedMismatchedPixelRatio: 0.02,
+                },
+              },
+            },
+          },
         },
       },
     ],

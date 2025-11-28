@@ -105,3 +105,18 @@
 .sb-main-padded {
   background: transparent !important;
 }
+
+/*
+ * Visual regression testing - disable animations for stable screenshots
+ * Applied globally to ensure consistent captures
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
