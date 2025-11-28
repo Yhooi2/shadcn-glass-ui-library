@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { ThemeProvider } from '../src/lib/theme-context';
 import type { Theme } from '../src/lib/themeStyles';
 import '../src/index.css';
-import '../src/glass-theme.scss';
+import '../src/glass-theme.css';
 import './storybook.css';
 
 // Theme backgrounds for Storybook
@@ -42,7 +42,7 @@ function ThemeDecorator({
     };
   }, [theme]);
 
-  const themeConfig = THEME_BACKGROUNDS[theme];
+  const themeConfig = THEME_BACKGROUNDS[theme] || THEME_BACKGROUNDS.glass;
   const containerClass = isFullscreen ? 'glass-story-fullscreen' : 'glass-story-container';
 
   return React.createElement(

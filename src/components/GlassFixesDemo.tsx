@@ -9,7 +9,7 @@ import { AvatarGlass } from "./AvatarGlass";
 import { DropdownGlass, type DropdownItem } from "./DropdownGlass";
 import { ModalGlass } from "./ModalGlass";
 import { ButtonGlass } from "./ButtonGlass";
-import "@/glass-theme.scss";
+import "@/glass-theme.css";
 
 export const GlassFixesDemo = () => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);

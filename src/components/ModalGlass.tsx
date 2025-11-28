@@ -7,7 +7,7 @@ import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/lib/theme-context";
 import { themeStyles } from "@/lib/themeStyles";
-import "@/glass-theme.scss";
+import "@/glass-theme.css";
 
 const MODAL_ANIMATION_DURATION = 200;
 

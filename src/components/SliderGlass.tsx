@@ -7,7 +7,7 @@ import { forwardRef, useState, type CSSProperties } from "react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/lib/theme-context";
 import { themeStyles } from "@/lib/themeStyles";
-import "@/glass-theme.scss";
+import "@/glass-theme.css";
 
 export interface SliderGlassProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange" | "value"> {

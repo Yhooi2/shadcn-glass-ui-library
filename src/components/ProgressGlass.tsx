@@ -7,7 +7,7 @@ import { forwardRef, type CSSProperties } from "react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/lib/theme-context";
 import { themeStyles } from "@/lib/themeStyles";
-import "@/glass-theme.scss";
+import "@/glass-theme.css";
 
 export type ProgressSize = "sm" | "md" | "lg" | "xl";
 export type ProgressGradient = "violet" | "blue" | "cyan" | "amber" | "emerald" | "rose";

@@ -8,7 +8,7 @@ import { RefreshCw, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/lib/theme-context";
 import { themeStyles } from "@/lib/themeStyles";
-import "@/glass-theme.scss";
+import "@/glass-theme.css";
 
 export type ButtonGlassVariant = "primary" | "secondary" | "ghost" | "danger" | "success" | "text";
 export type ButtonGlassSize = "sm" | "md" | "lg" | "xl" | "icon";

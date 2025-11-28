@@ -1,10 +1,10 @@
 import { ThemeProvider } from "@/lib/theme-context";
-import { GlassFixesDemo } from "./components/GlassFixesDemo";
+import { ComponentShowcase } from "./components/ComponentShowcase";
 
 function App() {
   return (
     <ThemeProvider defaultTheme="glass">
-      <GlassFixesDemo />
+      <ComponentShowcase />
     </ThemeProvider>
   );
 }

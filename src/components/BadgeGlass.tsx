@@ -7,7 +7,7 @@ import { forwardRef, type ReactNode, type CSSProperties } from "react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/lib/theme-context";
 import { themeStyles } from "@/lib/themeStyles";
-import "@/glass-theme.scss";
+import "@/glass-theme.css";
 
 export type BadgeVariant = "default" | "success" | "warning" | "danger" | "info" | "violet";
 export type BadgeSize = "sm" | "md" | "lg";
