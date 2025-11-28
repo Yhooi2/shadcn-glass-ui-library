@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import { useTheme } from "@/lib/theme-context";
 import { themeStyles } from "@/lib/themeStyles";
 import { BadgeGlass } from "./BadgeGlass";
-import { ProgressGlass } from "./ProgressGlass";
+import { ProgressGlass, type ProgressGradient } from "./ProgressGlass";
 import "@/glass-theme.css";
 
 export interface YearCardGlassProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -19,11 +19,12 @@ export interface YearCardGlassProps extends React.HTMLAttributes<HTMLDivElement>
   readonly commits: string;
   readonly progress: number;
   readonly isExpanded?: boolean;
+  readonly gradient?: ProgressGradient;
 }
 
 export const YearCardGlass = forwardRef<HTMLDivElement, YearCardGlassProps>(
   (
-    { year, emoji, label, commits, progress, isExpanded = false, className, onClick, ...props },
+    { year, emoji, label, commits, progress, isExpanded = false, gradient = "blue", className, onClick, ...props },
     ref
   ) => {
     const { theme } = useTheme();
@@ -83,7 +84,7 @@ export const YearCardGlass = forwardRef<HTMLDivElement, YearCardGlassProps>(
         </div>
         <ProgressGlass
           value={progress}
-          gradient="blue"
+          gradient={gradient}
           size="sm"
         />
       </div>
