@@ -61,7 +61,7 @@ export const ProfileHeaderGlass = forwardRef<HTMLDivElement, ProfileHeaderGlassP
         hover={false}
         {...props}
       >
-        <div className="flex gap-6">
+        <div className="flex flex-col md:flex-row gap-3 md:gap-6">
           <div className="flex-1">
             <div className="flex gap-4">
               <ProfileAvatarGlass
@@ -70,7 +70,7 @@ export const ProfileHeaderGlass = forwardRef<HTMLDivElement, ProfileHeaderGlassP
                 status="online"
               />
               <div>
-                <h1 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>
+                <h1 className="text-lg md:text-xl font-bold" style={{ color: "var(--text-primary)" }}>
                   {name}
                 </h1>
                 <div
@@ -90,7 +90,7 @@ export const ProfileHeaderGlass = forwardRef<HTMLDivElement, ProfileHeaderGlassP
                   </span>
                 </div>
                 <div
-                  className="flex items-center gap-4 mt-2 text-sm"
+                  className="flex items-center gap-3 md:gap-4 mt-2 text-sm flex-wrap"
                   style={{ color: "var(--text-secondary)" }}
                 >
                   <span className="flex items-center gap-1">

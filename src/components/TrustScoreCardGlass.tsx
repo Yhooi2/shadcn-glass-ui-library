@@ -52,7 +52,7 @@ export const TrustScoreCardGlass = forwardRef<HTMLDivElement, TrustScoreCardGlas
         </div>
         <RainbowProgressGlass value={score} size="lg" showGlow />
         {metrics.length > 0 && (
-          <div className="grid grid-cols-4 gap-4 mt-5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-5">
             {metrics.map((m) => (
               <MetricCardGlass
                 key={m.label}

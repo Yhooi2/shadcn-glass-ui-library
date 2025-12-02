@@ -108,7 +108,7 @@ export const HeaderNavGlass = forwardRef<HTMLElement, HeaderNavGlassProps>(
                 type="text"
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
-                className="px-4 py-2 w-48 text-sm outline-none"
+                className="px-4 py-2 w-32 sm:w-40 md:w-48 text-sm outline-none"
                 style={inputStyles}
                 onFocus={() => setIsSearchFocused(true)}
                 onBlur={() => setIsSearchFocused(false)}
@@ -118,12 +118,12 @@ export const HeaderNavGlass = forwardRef<HTMLElement, HeaderNavGlassProps>(
               />
               <button
                 onClick={handleSearch}
-                className="px-5 py-2 text-sm font-medium flex items-center gap-2 hover:scale-[1.02] transition-transform"
+                className="px-3 sm:px-5 py-2 text-sm font-medium flex items-center gap-2 hover:scale-[1.02] transition-transform"
                 style={searchBtnStyles}
                 type="button"
               >
                 <Search className="w-4 h-4" />
-                Search
+                <span className="hidden sm:inline">Search</span>
               </button>
             </div>
           </div>
@@ -137,7 +137,7 @@ export const HeaderNavGlass = forwardRef<HTMLElement, HeaderNavGlassProps>(
             >
               <NextIcon className="w-5 h-5" style={{ color: "var(--text-secondary)" }} />
             </button>
-            <ButtonGlass variant="secondary" icon={Github}>
+            <ButtonGlass variant="secondary" icon={Github} className="hidden md:inline-flex">
               Sign in with GitHub
             </ButtonGlass>
           </div>

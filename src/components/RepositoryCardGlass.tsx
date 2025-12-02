@@ -89,7 +89,7 @@ export const RepositoryCardGlass = forwardRef<HTMLDivElement, RepositoryCardGlas
       >
         {/* Main Card Content */}
         <div
-          className="p-3.5 cursor-pointer"
+          className="p-3 md:p-3.5 cursor-pointer"
           onClick={onToggle}
           role="button"
           tabIndex={0}
@@ -227,7 +227,7 @@ export const RepositoryCardGlass = forwardRef<HTMLDivElement, RepositoryCardGlas
             </div>
 
             {/* Action Buttons */}
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-2">
               <ButtonGlass
                 variant="secondary"
                 size="sm"
