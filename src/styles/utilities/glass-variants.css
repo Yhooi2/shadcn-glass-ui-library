@@ -1,0 +1,200 @@
+/**
+ * Glass Variants Utilities
+ *
+ * Four glassmorphism style variants inspired by @crenspire/glass-ui:
+ * - glass: Standard glassmorphism (20px blur, 180% saturation)
+ * - frosted: Matte finish with maximum blur (30px blur, 100% saturation)
+ * - fluted: Ribbed effect with vertical stripes (16px blur, 120% saturation)
+ * - crystal: Crystal-clear with minimal blur (8px blur, 200% saturation, brightness)
+ *
+ * Usage:
+ * <div className="glass">...</div>
+ * <div className="frosted">...</div>
+ * <div className="fluted">...</div>
+ * <div className="crystal">...</div>
+ */
+
+/* ========================================
+   GLASS - Standard glassmorphism
+   ======================================== */
+
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='light'] .glass {
+  background: rgba(255, 255, 255, 0.60);
+  border: 1px solid rgba(255, 255, 255, 0.30);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme='aurora'] .glass {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+/* ========================================
+   FROSTED - Matte finish (maximum blur)
+   ======================================== */
+
+.frosted {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(30px) saturate(100%);
+  -webkit-backdrop-filter: blur(30px) saturate(100%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+[data-theme='light'] .frosted {
+  background: rgba(255, 255, 255, 0.70);
+  border: 1px solid rgba(255, 255, 255, 0.40);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme='aurora'] .frosted {
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+/* ========================================
+   FLUTED - Ribbed effect (vertical stripes)
+   ======================================== */
+
+.fluted {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(16px) saturate(120%);
+  -webkit-backdrop-filter: blur(16px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  mask-image: repeating-linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.95) 0px 8px,
+    rgba(0, 0, 0, 0.75) 8px 10px
+  );
+  -webkit-mask-image: repeating-linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.95) 0px 8px,
+    rgba(0, 0, 0, 0.75) 8px 10px
+  );
+}
+
+[data-theme='light'] .fluted {
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme='aurora'] .fluted {
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.10);
+}
+
+/* ========================================
+   CRYSTAL - Crystal-clear (minimal blur, bright)
+   ======================================== */
+
+.crystal {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px) saturate(200%) brightness(1.1);
+  -webkit-backdrop-filter: blur(8px) saturate(200%) brightness(1.1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+[data-theme='light'] .crystal {
+  background: rgba(255, 255, 255, 0.80);
+  border: 1px solid rgba(255, 255, 255, 0.50);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.03),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+[data-theme='aurora'] .crystal {
+  background: rgba(255, 255, 255, 0.20);
+  border: 1px solid rgba(255, 255, 255, 0.30);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* ========================================
+   HOVER STATES
+   ======================================== */
+
+.glass:hover,
+.frosted:hover,
+.fluted:hover,
+.crystal:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme='light'] .glass:hover,
+[data-theme='light'] .frosted:hover,
+[data-theme='light'] .fluted:hover,
+[data-theme='light'] .crystal:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+[data-theme='aurora'] .glass:hover,
+[data-theme='aurora'] .frosted:hover,
+[data-theme='aurora'] .fluted:hover,
+[data-theme='aurora'] .crystal:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* ========================================
+   UTILITY MODIFIERS
+   ======================================== */
+
+/* Intensity modifiers for all variants */
+.glass-subtle,
+.frosted-subtle,
+.fluted-subtle,
+.crystal-subtle {
+  opacity: 0.7;
+}
+
+.glass-strong,
+.frosted-strong,
+.fluted-strong,
+.crystal-strong {
+  opacity: 1;
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+}
+
+/* Color tints for glass variants */
+.glass-tint-primary,
+.frosted-tint-primary,
+.fluted-tint-primary,
+.crystal-tint-primary {
+  background: rgba(139, 92, 246, 0.1);
+}
+
+.glass-tint-success,
+.frosted-tint-success,
+.fluted-tint-success,
+.crystal-tint-success {
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.glass-tint-warning,
+.frosted-tint-warning,
+.fluted-tint-warning,
+.crystal-tint-warning {
+  background: rgba(245, 158, 11, 0.1);
+}
+
+.glass-tint-error,
+.frosted-tint-error,
+.fluted-tint-error,
+.crystal-tint-error {
+  background: rgba(239, 68, 68, 0.1);
+}

@@ -1,0 +1,241 @@
+/* ========================================
+   GLASS EFFECTS UTILITIES
+   @utility directives and component classes
+   ======================================== */
+
+/* ========================================
+   @UTILITY DIRECTIVES (Tailwind v4)
+   ======================================== */
+
+@utility glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(var(--blur-md));
+  -webkit-backdrop-filter: blur(var(--blur-md));
+}
+
+@utility glass-subtle {
+  background: var(--glass-bg-subtle);
+  border-color: var(--glass-border-subtle);
+  backdrop-filter: blur(var(--blur-sm));
+  -webkit-backdrop-filter: blur(var(--blur-sm));
+}
+
+@utility glass-medium {
+  background: var(--glass-bg-medium);
+  border-color: var(--glass-border-medium);
+  backdrop-filter: blur(var(--blur-md));
+  -webkit-backdrop-filter: blur(var(--blur-md));
+}
+
+@utility glass-strong {
+  background: var(--glass-bg-strong);
+  border-color: var(--glass-border-strong);
+  backdrop-filter: blur(var(--blur-lg));
+  -webkit-backdrop-filter: blur(var(--blur-lg));
+}
+
+/* ========================================
+   GLASS COMPONENT CLASSES
+   ======================================== */
+
+.glass-card {
+  @apply glass rounded-lg shadow-md transition-all duration-200;
+}
+
+.glass-card:hover {
+  @apply shadow-lg -translate-y-0.5;
+}
+
+.glass-button {
+  @apply inline-flex items-center justify-center rounded-lg font-medium transition-all duration-200;
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2;
+  @apply disabled:pointer-events-none disabled:opacity-50;
+}
+
+.glass-input {
+  @apply glass rounded-md px-4 py-2 text-sm transition-all duration-200;
+  @apply placeholder:text-muted-foreground;
+  @apply focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
+}
+
+.glass-badge {
+  @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold transition-all;
+}
+
+.glass-avatar {
+  @apply relative inline-flex items-center justify-center overflow-hidden rounded-full;
+  background: linear-gradient(135deg, hsl(var(--primary-base)), hsl(var(--chart-2-base)));
+  box-shadow: var(--shadow-md);
+  transition: all 200ms ease;
+}
+
+.glass-avatar:hover {
+  box-shadow: var(--glow-primary);
+}
+
+.glass-modal-overlay {
+  @apply fixed inset-0 z-50 bg-black/60;
+  backdrop-filter: blur(var(--blur-sm));
+  -webkit-backdrop-filter: blur(var(--blur-sm));
+}
+
+.glass-modal-content {
+  @apply glass-strong rounded-xl shadow-xl;
+}
+
+.glass-dropdown {
+  @apply glass-strong rounded-lg shadow-lg;
+}
+
+.glass-dropdown-item {
+  @apply flex items-center px-3 py-2 text-sm transition-colors cursor-pointer;
+  @apply hover:bg-accent hover:text-accent-foreground;
+}
+
+.glass-toggle {
+  @apply relative inline-flex h-6 w-11 items-center rounded-full transition-colors;
+  background: var(--glass-bg-medium);
+}
+
+.glass-toggle[data-state="checked"] {
+  background: linear-gradient(135deg, hsl(var(--primary-base)), hsl(var(--chart-2-base)));
+  box-shadow: var(--glow-primary);
+}
+
+.glass-toggle-thumb {
+  @apply inline-block h-4 w-4 rounded-full bg-white shadow-sm transition-transform;
+}
+
+.glass-skeleton {
+  @apply animate-pulse rounded-md;
+  background: linear-gradient(
+    90deg,
+    var(--glass-bg) 25%,
+    var(--glass-bg-medium) 50%,
+    var(--glass-bg) 75%
+  );
+  background-size: 200% 100%;
+}
+
+.glass-alert {
+  @apply glass-subtle rounded-lg p-4;
+}
+
+.glass-alert-destructive {
+  @apply border-destructive/50 text-destructive;
+  background: hsl(var(--destructive-base) / 0.1);
+}
+
+.glass-alert-success {
+  @apply text-[hsl(var(--success-base))];
+  border-color: hsl(var(--success-base) / 0.5);
+  background: hsl(var(--success-base) / 0.1);
+}
+
+.glass-alert-warning {
+  @apply text-[hsl(var(--warning-base))];
+  border-color: hsl(var(--warning-base) / 0.5);
+  background: hsl(var(--warning-base) / 0.1);
+}
+
+.glass-tabs {
+  @apply glass-subtle rounded-lg p-1;
+}
+
+.glass-tab {
+  @apply px-3 py-1.5 text-sm font-medium transition-all rounded-md;
+  @apply hover:text-foreground;
+}
+
+.glass-tab[data-state="active"] {
+  @apply bg-primary/20 text-primary;
+}
+
+.glass-tooltip {
+  @apply glass-strong rounded-md px-3 py-1.5 text-sm shadow-md;
+}
+
+/* ========================================
+   BACKGROUND & ORBS
+   ======================================== */
+
+.glass-bg-gradient {
+  background: linear-gradient(
+    135deg,
+    hsl(var(--background-base)),
+    hsl(var(--primary-base) / 0.1),
+    hsl(var(--background-base))
+  );
+}
+
+.glass-orb {
+  @apply absolute rounded-full blur-3xl;
+  animation: orb-float 8s ease-in-out infinite;
+}
+
+.glass-orb-1 {
+  background: var(--orb-1);
+}
+
+.glass-orb-2 {
+  background: var(--orb-2);
+}
+
+.glass-orb-3 {
+  background: var(--orb-3);
+}
+
+.glass-orb-4 {
+  background: var(--orb-4);
+}
+
+.glass-orb-5 {
+  background: var(--orb-5);
+}
+
+/* ========================================
+   CUSTOM SCROLLBAR
+   ======================================== */
+
+.custom-scrollbar::-webkit-scrollbar {
+  @apply w-1.5 h-1.5;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-muted-foreground/30 rounded-full;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  @apply bg-muted-foreground/50;
+}
+
+/* ========================================
+   TEXT UTILITIES
+   ======================================== */
+
+.text-gradient {
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(135deg, hsl(var(--primary-base)), hsl(var(--chart-2-base)));
+}
+
+.border-gradient {
+  border-image: linear-gradient(135deg, hsl(var(--primary-base)), hsl(var(--chart-2-base))) 1;
+}
+
+/* ========================================
+   BASE STYLES
+   ======================================== */
+
+* {
+  @apply border-border;
+}
+
+body {
+  @apply bg-background text-foreground;
+  font-feature-settings: "rlig" 1, "calt" 1;
+}

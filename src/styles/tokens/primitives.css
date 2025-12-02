@@ -1,0 +1,75 @@
+/* ========================================
+   PRIMITIVE TOKENS
+   Design scales for spacing, blur, radius, opacity, and transitions
+   ======================================== */
+
+@theme {
+  /* ========================================
+     BLUR SCALE
+     Standardized scale with consistent progression
+     ======================================== */
+  --blur-xs: 4px;
+  --blur-sm: 8px;
+  --blur-md: 12px;
+  --blur-lg: 20px;
+  --blur-xl: 32px;
+  --blur-glass: var(--blur-lg);
+
+  /* ========================================
+     RADIUS SCALE
+     Based on 0.75rem base with calc adjustments
+     ======================================== */
+  --radius: 0.75rem;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-full: 9999px;
+
+  /* ========================================
+     TRANSITION DURATIONS
+     Fast for micro-interactions, slow for emphasis
+     ======================================== */
+  --duration-fast: 150ms;
+  --duration-base: 200ms;
+  --duration-slow: 300ms;
+
+  /* Backward compatibility aliases */
+  --transition-fast: var(--duration-fast);
+  --transition-base: var(--duration-base);
+  --transition-slow: var(--duration-slow);
+
+  /* ========================================
+     GLOW INTENSITY SCALE
+     Used for box-shadow glow effects
+     ======================================== */
+  --glow-sm: 8px;
+  --glow-md: 16px;
+  --glow-lg: 24px;
+  --glow-xl: 40px;
+
+  /* ========================================
+     OPACITY SCALE
+     For glass backgrounds and overlays
+     ======================================== */
+  --opacity-subtle: 0.03;
+  --opacity-light: 0.05;
+  --opacity-medium: 0.08;
+  --opacity-strong: 0.15;
+  --opacity-solid: 0.25;
+
+  /* ========================================
+     SHADOW ALIASES FOR @theme
+     Maps semantic shadows to glow variables (defined in themes)
+     ======================================== */
+  --shadow-glass-sm: var(--shadow-sm);
+  --shadow-glass: var(--shadow);
+  --shadow-glass-md: var(--shadow-md);
+  --shadow-glass-lg: var(--shadow-lg);
+  --shadow-glass-xl: var(--shadow-xl);
+  --shadow-glow-primary: var(--glow-primary);
+  --shadow-glow-secondary: var(--glow-secondary);
+  --shadow-glow-success: var(--glow-success);
+  --shadow-glow-warning: var(--glow-warning);
+  --shadow-glow-error: var(--glow-error);
+}

@@ -1,0 +1,92 @@
+/* ========================================
+   GLOW EFFECTS UTILITIES
+   Box-shadow based glow classes
+   ======================================== */
+
+/* ========================================
+   SEMANTIC GLOW CLASSES
+   ======================================== */
+
+.glow-primary {
+  box-shadow: var(--glow-primary);
+}
+
+.glow-secondary {
+  box-shadow: var(--glow-secondary);
+}
+
+.glow-success {
+  box-shadow: var(--glow-success);
+}
+
+.glow-warning {
+  box-shadow: var(--glow-warning);
+}
+
+.glow-error {
+  box-shadow: var(--glow-error);
+}
+
+/* ========================================
+   COLOR GLOW CLASSES
+   ======================================== */
+
+.glow-blue {
+  box-shadow: var(--glow-blue);
+}
+
+.glow-violet {
+  box-shadow: var(--glow-violet);
+}
+
+.glow-cyan {
+  box-shadow: var(--glow-cyan);
+}
+
+.glow-neutral {
+  box-shadow: var(--glow-neutral);
+}
+
+/* ========================================
+   HOVER GLOW EFFECTS
+   ======================================== */
+
+.hover\:glow-primary:hover {
+  box-shadow: var(--glow-primary);
+}
+
+.hover\:glow-secondary:hover {
+  box-shadow: var(--glow-secondary);
+}
+
+.hover\:glow-success:hover {
+  box-shadow: var(--glow-success);
+}
+
+.hover\:glow-warning:hover {
+  box-shadow: var(--glow-warning);
+}
+
+.hover\:glow-error:hover {
+  box-shadow: var(--glow-error);
+}
+
+/* ========================================
+   FOCUS GLOW EFFECTS
+   ======================================== */
+
+.focus\:glow-primary:focus {
+  box-shadow: var(--glow-primary);
+}
+
+.focus\:glow-secondary:focus {
+  box-shadow: var(--glow-secondary);
+}
+
+/* ========================================
+   GLOW TRANSITION
+   ======================================== */
+
+.glow-transition {
+  transition: box-shadow var(--duration-base) ease;
+}

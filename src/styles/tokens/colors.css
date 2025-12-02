@@ -1,0 +1,61 @@
+/* ========================================
+   COLOR TOKENS
+   Tailwind v4 @theme color system with oklch
+   Colors reference --*-base variables defined in theme files
+   ======================================== */
+
+@theme {
+  /* ========================================
+     CORE COLORS (shadcn standard)
+     ======================================== */
+  --color-background: oklch(from var(--background-base) l c h);
+  --color-foreground: oklch(from var(--foreground-base) l c h);
+
+  --color-primary: oklch(from var(--primary-base) l c h);
+  --color-primary-foreground: oklch(from var(--primary-fg-base) l c h);
+
+  --color-secondary: oklch(from var(--secondary-base) l c h);
+  --color-secondary-foreground: oklch(from var(--secondary-fg-base) l c h);
+
+  --color-muted: oklch(from var(--muted-base) l c h);
+  --color-muted-foreground: oklch(from var(--muted-fg-base) l c h);
+
+  --color-accent: oklch(from var(--accent-base) l c h);
+  --color-accent-foreground: oklch(from var(--accent-fg-base) l c h);
+
+  --color-destructive: oklch(from var(--destructive-base) l c h);
+  --color-destructive-foreground: oklch(from var(--destructive-fg-base) l c h);
+
+  /* ========================================
+     SURFACE COLORS
+     ======================================== */
+  --color-card: oklch(from var(--card-base) l c h);
+  --color-card-foreground: oklch(from var(--card-fg-base) l c h);
+
+  --color-popover: oklch(from var(--popover-base) l c h);
+  --color-popover-foreground: oklch(from var(--popover-fg-base) l c h);
+
+  /* ========================================
+     BORDER & INPUT
+     ======================================== */
+  --color-border: oklch(from var(--border-base) l c h);
+  --color-input: oklch(from var(--input-base) l c h);
+  --color-ring: oklch(from var(--ring-base) l c h);
+
+  /* ========================================
+     SEMANTIC COLORS
+     ======================================== */
+  --color-success: oklch(from var(--success-base) l c h);
+  --color-warning: oklch(from var(--warning-base) l c h);
+  --color-error: oklch(from var(--error-base) l c h);
+  --color-info: oklch(from var(--info-base) l c h);
+
+  /* ========================================
+     CHART COLORS
+     ======================================== */
+  --color-chart-1: oklch(from var(--chart-1-base) l c h);
+  --color-chart-2: oklch(from var(--chart-2-base) l c h);
+  --color-chart-3: oklch(from var(--chart-3-base) l c h);
+  --color-chart-4: oklch(from var(--chart-4-base) l c h);
+  --color-chart-5: oklch(from var(--chart-5-base) l c h);
+}
