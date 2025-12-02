@@ -5,8 +5,6 @@
 
 import { forwardRef, useState, type CSSProperties } from "react";
 import { cn } from "@/lib/utils";
-import { useTheme } from "@/lib/theme-context";
-import { themeStyles } from "@/lib/themeStyles";
 import { StatusIndicatorGlass, type StatusType } from "./StatusIndicatorGlass";
 import "@/glass-theme.css";
 
@@ -18,32 +16,26 @@ export interface FlagAlertGlassProps extends React.HTMLAttributes<HTMLDivElement
   readonly description?: string;
 }
 
+// CSS variable maps for flag types
+const flagVarMap: Record<FlagType, { bg: string; border: string; text: string; statusType: StatusType }> = {
+  danger: {
+    bg: "var(--alert-danger-bg)",
+    border: "var(--alert-danger-border)",
+    text: "var(--alert-danger-text)",
+    statusType: "red",
+  },
+  warning: {
+    bg: "var(--alert-warning-bg)",
+    border: "var(--alert-warning-border)",
+    text: "var(--alert-warning-text)",
+    statusType: "yellow",
+  },
+};
+
 export const FlagAlertGlass = forwardRef<HTMLDivElement, FlagAlertGlassProps>(
   ({ type = "warning", title, description, className, ...props }, ref) => {
-    const { theme } = useTheme();
-    const t = themeStyles[theme];
     const [isHovered, setIsHovered] = useState(false);
-
-    const getConfig = (
-      flagType: FlagType
-    ): { bg: string; border: string; text: string; statusType: StatusType } => {
-      if (flagType === "danger") {
-        return {
-          bg: t.alertDangerBg,
-          border: t.alertDangerBorder,
-          text: t.alertDangerText,
-          statusType: "red",
-        };
-      }
-      return {
-        bg: t.alertWarningBg,
-        border: t.alertWarningBorder,
-        text: t.alertWarningText,
-        statusType: "yellow",
-      };
-    };
-
-    const config = getConfig(type);
+    const config = flagVarMap[type];
 
     const alertStyles: CSSProperties = {
       background: config.bg,
@@ -74,7 +66,7 @@ export const FlagAlertGlass = forwardRef<HTMLDivElement, FlagAlertGlassProps>(
         {description && (
           <p
             className="text-xs mt-1 ml-5"
-            style={{ color: `${config.text}99` }}
+            style={{ color: "var(--text-muted)" }}
           >
             {description}
           </p>

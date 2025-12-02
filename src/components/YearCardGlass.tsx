@@ -6,8 +6,6 @@
 import { forwardRef, useState, type CSSProperties } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useTheme } from "@/lib/theme-context";
-import { themeStyles } from "@/lib/themeStyles";
 import { BadgeGlass } from "./BadgeGlass";
 import { ProgressGlass, type ProgressGradient } from "./ProgressGlass";
 import "@/glass-theme.css";
@@ -27,16 +25,13 @@ export const YearCardGlass = forwardRef<HTMLDivElement, YearCardGlassProps>(
     { year, emoji, label, commits, progress, isExpanded = false, gradient = "blue", className, onClick, ...props },
     ref
   ) => {
-    const { theme } = useTheme();
-    const t = themeStyles[theme];
-    const isGlass = theme === "glass";
     const [isHovered, setIsHovered] = useState(false);
 
     const cardStyles: CSSProperties = {
-      background: isHovered ? t.cardHoverBg : t.yearCardBg,
-      borderColor: t.yearCardBorder,
+      background: isHovered ? "var(--card-hover-bg)" : "var(--year-card-bg)",
+      borderColor: "var(--year-card-border)",
       transform: isHovered ? "translateY(-2px)" : "translateY(0)",
-      boxShadow: isHovered && isGlass ? "0 8px 32px rgba(168,85,247,0.20)" : "none",
+      boxShadow: isHovered ? "var(--year-card-hover-glow)" : "none",
     };
 
     return (
@@ -63,7 +58,7 @@ export const YearCardGlass = forwardRef<HTMLDivElement, YearCardGlassProps>(
       >
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
-            <span className="font-semibold" style={{ color: t.textPrimary }}>
+            <span className="font-semibold" style={{ color: "var(--text-primary)" }}>
               {year}
             </span>
             <BadgeGlass>
@@ -72,7 +67,7 @@ export const YearCardGlass = forwardRef<HTMLDivElement, YearCardGlassProps>(
           </div>
           <span
             className="text-sm flex items-center gap-1"
-            style={{ color: t.textSecondary }}
+            style={{ color: "var(--text-secondary)" }}
           >
             {commits}
             {isExpanded ? (

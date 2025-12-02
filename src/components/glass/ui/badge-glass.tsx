@@ -2,7 +2,7 @@
  * BadgeGlass Component
  *
  * Glass-themed badge with:
- * - Theme-aware styling (glass/light/aurora)
+ * - Theme-aware styling via CSS variables (glass/light/aurora)
  * - Multiple variants (default, success, warning, danger, info, violet)
  * - Size options
  * - Optional animated dot
@@ -11,8 +11,6 @@
 import { forwardRef, type ReactNode, type CSSProperties } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
-import { useTheme } from '@/lib/theme-context';
-import { themeStyles } from '@/lib/themeStyles';
 import '@/glass-theme.css';
 
 // ========================================
@@ -29,21 +27,72 @@ export type BadgeVariant =
 export type BadgeSize = 'sm' | 'md' | 'lg';
 
 // ========================================
-// SIZE VARIANTS (using CVA)
+// CVA VARIANTS
 // ========================================
 
-const badgeSizes = cva('inline-flex items-center gap-1.5 rounded-full font-medium', {
-  variants: {
-    size: {
-      sm: 'px-1.5 py-0.5 text-[10px]',
-      md: 'px-2.5 py-0.5 text-xs',
-      lg: 'px-3 py-1 text-sm',
+const badgeVariants = cva(
+  'inline-flex items-center gap-1.5 rounded-full font-medium',
+  {
+    variants: {
+      size: {
+        sm: 'px-1.5 py-0.5 text-[10px]',
+        md: 'px-2.5 py-0.5 text-xs',
+        lg: 'px-3 py-1 text-sm',
+      },
     },
+    defaultVariants: {
+      size: 'md',
+    },
+  }
+);
+
+// ========================================
+// CSS VARIABLE HELPERS
+// ========================================
+
+type BadgeStyleVars = { bg: string; text: string; border: string };
+
+const variantStyles: Record<BadgeVariant, BadgeStyleVars> = {
+  default: {
+    bg: 'var(--badge-default-bg)',
+    text: 'var(--badge-default-text)',
+    border: 'var(--badge-default-border)',
   },
-  defaultVariants: {
-    size: 'md',
+  success: {
+    bg: 'var(--badge-success-bg)',
+    text: 'var(--badge-success-text)',
+    border: 'var(--badge-success-border)',
   },
-});
+  warning: {
+    bg: 'var(--badge-warning-bg)',
+    text: 'var(--badge-warning-text)',
+    border: 'var(--badge-warning-border)',
+  },
+  danger: {
+    bg: 'var(--badge-danger-bg)',
+    text: 'var(--badge-danger-text)',
+    border: 'var(--badge-danger-border)',
+  },
+  info: {
+    bg: 'var(--badge-primary-bg)',
+    text: 'var(--badge-primary-text)',
+    border: 'var(--badge-primary-border)',
+  },
+  violet: {
+    bg: 'var(--badge-violet-bg)',
+    text: 'var(--badge-violet-text)',
+    border: 'var(--badge-violet-border)',
+  },
+};
+
+const getBadgeStyles = (variant: BadgeVariant): CSSProperties => {
+  const v = variantStyles[variant];
+  return {
+    background: v.bg,
+    color: v.text,
+    border: `1px solid ${v.border}`,
+  };
+};
 
 // ========================================
 // PROPS INTERFACE
@@ -51,7 +100,7 @@ const badgeSizes = cva('inline-flex items-center gap-1.5 rounded-full font-mediu
 
 export interface BadgeGlassProps
   extends Omit<React.HTMLAttributes<HTMLSpanElement>, 'style'>,
-    VariantProps<typeof badgeSizes> {
+    VariantProps<typeof badgeVariants> {
   readonly children: ReactNode;
   readonly variant?: BadgeVariant;
   readonly dot?: boolean;
@@ -62,59 +111,17 @@ export interface BadgeGlassProps
 // ========================================
 
 export const BadgeGlass = forwardRef<HTMLSpanElement, BadgeGlassProps>(
-  ({ children, className, variant = 'default', size = 'md', dot, ...props }, ref) => {
-    const { theme } = useTheme();
-    const t = themeStyles[theme];
-
-    const getVariantStyles = (): { bg: string; text: string; border: string } => {
-      const variants: Record<BadgeVariant, { bg: string; text: string; border: string }> = {
-        default: {
-          bg: t.badgeDefaultBg,
-          text: t.badgeDefaultText,
-          border: t.badgeDefaultBorder,
-        },
-        success: {
-          bg: t.badgeSuccessBg,
-          text: t.badgeSuccessText,
-          border: t.badgeSuccessBorder,
-        },
-        warning: {
-          bg: t.badgeWarningBg,
-          text: t.badgeWarningText,
-          border: t.badgeWarningBorder,
-        },
-        danger: {
-          bg: t.badgeDangerBg,
-          text: t.badgeDangerText,
-          border: t.badgeDangerBorder,
-        },
-        info: {
-          bg: t.badgePrimaryBg,
-          text: t.badgePrimaryText,
-          border: t.badgePrimaryBorder,
-        },
-        violet: {
-          bg: t.badgeVioletBg,
-          text: t.badgeVioletText,
-          border: t.badgeVioletBorder,
-        },
-      };
-      return variants[variant];
-    };
-
-    const v = getVariantStyles();
-
-    const badgeStyles: CSSProperties = {
-      background: v.bg,
-      color: v.text,
-      border: v.border && v.border !== 'transparent' ? `1px solid ${v.border}` : 'none',
-    };
+  (
+    { children, className, variant = 'default', size = 'md', dot, ...props },
+    ref
+  ) => {
+    const v = variantStyles[variant];
 
     return (
       <span
         ref={ref}
-        className={cn(badgeSizes({ size }), className)}
-        style={badgeStyles}
+        className={cn(badgeVariants({ size }), className)}
+        style={getBadgeStyles(variant)}
         {...props}
       >
         {dot && (
@@ -131,4 +138,4 @@ export const BadgeGlass = forwardRef<HTMLSpanElement, BadgeGlassProps>(
 
 BadgeGlass.displayName = 'BadgeGlass';
 
-export { badgeSizes as badgeGlassVariants };
+export { badgeVariants as badgeGlassVariants };

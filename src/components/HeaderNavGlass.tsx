@@ -7,7 +7,6 @@ import { forwardRef, useState, type CSSProperties } from "react";
 import { Github, Search, Sun, Moon, Palette } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme, type ThemeName } from "@/lib/theme-context";
-import { themeStyles } from "@/lib/themeStyles";
 import { ButtonGlass } from "./ButtonGlass";
 import "@/glass-theme.css";
 
@@ -28,49 +27,47 @@ export interface HeaderNavGlassProps extends React.HTMLAttributes<HTMLElement> {
 export const HeaderNavGlass = forwardRef<HTMLElement, HeaderNavGlassProps>(
   ({ username = "Yhooi2", onSearch, onThemeToggle, className, ...props }, ref) => {
     const { theme, cycleTheme } = useTheme();
-    const t = themeStyles[theme];
     const [searchValue, setSearchValue] = useState(username);
     const [isSearchFocused, setIsSearchFocused] = useState(false);
-    const isGlass = theme === "glass";
 
     const nextTheme = themes[(themes.indexOf(theme) + 1) % themes.length];
     const NextIcon = themeConfig[nextTheme].icon;
 
     const headerStyles: CSSProperties = {
-      background: t.headerBg,
-      borderColor: t.headerBorder,
+      background: "var(--header-bg)",
+      borderColor: "var(--header-border)",
       backdropFilter: "blur(16px)",
       WebkitBackdropFilter: "blur(16px)",
     };
 
     const iconBtnStyles: CSSProperties = {
-      background: `linear-gradient(135deg, ${t.iconBtnFrom}, ${t.iconBtnTo})`,
-      boxShadow: t.iconBtnShadow,
+      background: "linear-gradient(135deg, var(--icon-btn-from), var(--icon-btn-to))",
+      boxShadow: "var(--icon-btn-shadow)",
     };
 
     const searchBoxStyles: CSSProperties = {
-      boxShadow: isSearchFocused && isGlass ? "0 0 20px rgba(168,85,247,0.25)" : "none",
+      boxShadow: isSearchFocused ? "var(--search-focus-glow)" : "none",
     };
 
     const inputStyles: CSSProperties = {
-      background: t.searchBg,
-      color: t.textPrimary,
-      border: `1px solid ${t.searchBorder}`,
+      background: "var(--search-bg)",
+      color: "var(--text-primary)",
+      border: "1px solid var(--search-border)",
       borderRight: "none",
       borderTopLeftRadius: "0.75rem",
       borderBottomLeftRadius: "0.75rem",
     };
 
     const searchBtnStyles: CSSProperties = {
-      background: t.searchBtnBg,
-      color: t.searchBtnText,
+      background: "var(--search-btn-bg)",
+      color: "var(--search-btn-text)",
       borderTopRightRadius: "0.75rem",
       borderBottomRightRadius: "0.75rem",
     };
 
     const themeBtnStyles: CSSProperties = {
-      background: t.glassSubtleBg,
-      border: `1px solid ${t.glassSubtleBorder}`,
+      background: "var(--card-subtle-bg)",
+      border: "1px solid var(--card-subtle-border)",
     };
 
     const handleSearch = (): void => {
@@ -98,9 +95,9 @@ export const HeaderNavGlass = forwardRef<HTMLElement, HeaderNavGlassProps>(
               type="button"
               aria-label="GitHub"
             >
-              <Github className="w-5 h-5" style={{ color: t.iconBtnText }} />
+              <Github className="w-5 h-5" style={{ color: "var(--icon-btn-text)" }} />
             </button>
-            <span className="font-semibold text-lg" style={{ color: t.textPrimary }}>
+            <span className="font-semibold text-lg" style={{ color: "var(--text-primary)" }}>
               User Analytics
             </span>
             <div
@@ -138,7 +135,7 @@ export const HeaderNavGlass = forwardRef<HTMLElement, HeaderNavGlassProps>(
               type="button"
               aria-label={`Switch to ${themeConfig[nextTheme].label} theme`}
             >
-              <NextIcon className="w-5 h-5" style={{ color: t.textSecondary }} />
+              <NextIcon className="w-5 h-5" style={{ color: "var(--text-secondary)" }} />
             </button>
             <ButtonGlass variant="secondary" icon={Github}>
               Sign in with GitHub

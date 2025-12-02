@@ -21,7 +21,6 @@ import {
   Lock,
 } from "lucide-react";
 import { useTheme, type ThemeName } from "@/lib/theme-context";
-import { themeStyles } from "@/lib/themeStyles";
 
 // Import all glass components
 import { GlassCard } from "./GlassCard";
@@ -51,7 +50,7 @@ import { TrustScoreCardGlass, type MetricData } from "./TrustScoreCardGlass";
 import { ProfileHeaderGlass } from "./ProfileHeaderGlass";
 import { CareerStatsGlass, type YearData } from "./CareerStatsGlass";
 import { FlagsSectionGlass, type FlagData } from "./FlagsSectionGlass";
-import { RepoCardGlass, type RepoLanguage, type RepoStatus } from "./RepoCardGlass";
+import { RepositoryCardGlass, type RepositoryFlagType } from "./RepositoryCardGlass";
 
 import "@/glass-theme.css";
 
@@ -99,34 +98,31 @@ const flags: FlagData[] = [
 
 interface RepoData {
   name: string;
-  status: RepoStatus;
+  flagType: RepositoryFlagType;
   stars: number;
-  commits: string;
+  commits: number;
   contribution: number;
-  languages: RepoLanguage[];
+  languages: string;
   issues: string[];
 }
 
 const repos: RepoData[] = [
   {
     name: "bot-scripts",
-    status: "danger",
+    flagType: "red",
     stars: 0,
-    commits: "89",
+    commits: 89,
     contribution: 100,
-    languages: [{ name: "Python", percent: 100, color: "bg-emerald-500" }],
+    languages: "Python 100%",
     issues: ["Empty commits (avg 3 lines/commit)", "Burst: 67 commits on Oct 15"],
   },
   {
     name: "portfolio",
-    status: "good",
+    flagType: "green",
     stars: 5,
-    commits: "134",
+    commits: 134,
     contribution: 100,
-    languages: [
-      { name: "TypeScript", percent: 78, color: "bg-blue-500" },
-      { name: "CSS", percent: 22, color: "bg-purple-500" },
-    ],
+    languages: "TypeScript 78% · CSS 22%",
     issues: [],
   },
 ];
@@ -137,9 +133,9 @@ const navTabs = [
   { id: "activity", label: "Activity" },
 ];
 
-export function DesktopShowcase(): JSX.Element {
+export function DesktopShowcase() {
   const { theme, cycleTheme } = useTheme();
-  const t = themeStyles[theme];
+  const isGlass = theme === "glass";
 
   // State
   const [flagsExpanded, setFlagsExpanded] = useState(true);
@@ -164,13 +160,13 @@ export function DesktopShowcase(): JSX.Element {
   ];
 
   const bgStyles: CSSProperties = {
-    background: `linear-gradient(135deg, ${t.bgFrom}, ${t.bgVia}, ${t.bgTo})`,
+    background: "linear-gradient(135deg, var(--bg-from), var(--bg-via), var(--bg-to))",
   };
 
   const orbStyles = {
-    orb1: { background: t.orb1, animation: "orb-float 8s ease-in-out infinite" },
-    orb2: { background: t.orb2, animation: "orb-float 8s ease-in-out infinite 2s" },
-    orb3: { background: t.orb3, animation: "orb-float 8s ease-in-out infinite 4s" },
+    orb1: { background: "var(--orb-1)", animation: "orb-float 8s ease-in-out infinite" },
+    orb2: { background: "var(--orb-2)", animation: "orb-float 8s ease-in-out infinite 2s" },
+    orb3: { background: "var(--orb-3)", animation: "orb-float 8s ease-in-out infinite 4s" },
   };
 
   return (
@@ -189,10 +185,10 @@ export function DesktopShowcase(): JSX.Element {
           className="absolute bottom-20 left-1/4 w-72 h-72 rounded-full blur-3xl"
           style={orbStyles.orb3}
         />
-        {theme === "glass" && (
+        {isGlass && (
           <div
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full blur-3xl"
-            style={{ background: t.orb5 ?? "rgba(139,92,246,0.10)" }}
+            style={{ background: "var(--orb-5)" }}
           />
         )}
       </div>
@@ -205,11 +201,11 @@ export function DesktopShowcase(): JSX.Element {
             <div>
               <h1
                 className="text-2xl md:text-3xl font-bold mb-1"
-                style={{ color: t.textPrimary }}
+                style={{ color: "var(--text-primary)" }}
               >
                 Desktop Demo
               </h1>
-              <p className="text-sm" style={{ color: t.textSecondary }}>
+              <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
                 GitHub Analytics UI · {themeConfig[theme].label} theme
               </p>
             </div>
@@ -220,7 +216,7 @@ export function DesktopShowcase(): JSX.Element {
 
           {/* Header Navigation */}
           <div data-testid="section-header-nav">
-            <h2 className="text-lg font-semibold mb-3" style={{ color: t.textPrimary }}>
+            <h2 className="text-lg font-semibold mb-3" style={{ color: "var(--text-primary)" }}>
               Header Navigation
             </h2>
             <HeaderNavGlass username="Yhooi2" onThemeToggle={cycleTheme} />
@@ -228,7 +224,7 @@ export function DesktopShowcase(): JSX.Element {
 
           {/* Trust Score */}
           <div data-testid="section-trust-score">
-            <h2 className="text-lg font-semibold mb-3" style={{ color: t.textPrimary }}>
+            <h2 className="text-lg font-semibold mb-3" style={{ color: "var(--text-primary)" }}>
               Trust Score
             </h2>
             <TrustScoreCardGlass score={72} metrics={metrics} />
@@ -236,7 +232,7 @@ export function DesktopShowcase(): JSX.Element {
 
           {/* Profile Header */}
           <div data-testid="section-profile-header">
-            <h2 className="text-lg font-semibold mb-3" style={{ color: t.textPrimary }}>
+            <h2 className="text-lg font-semibold mb-3" style={{ color: "var(--text-primary)" }}>
               Profile Header
             </h2>
             <ProfileHeaderGlass
@@ -251,7 +247,7 @@ export function DesktopShowcase(): JSX.Element {
           {/* Two Column: Flags + Career Stats */}
           <div className="grid md:grid-cols-2 gap-6">
             <div data-testid="section-flags">
-              <h2 className="text-lg font-semibold mb-3" style={{ color: t.textPrimary }}>
+              <h2 className="text-lg font-semibold mb-3" style={{ color: "var(--text-primary)" }}>
                 Flags Section
               </h2>
               <FlagsSectionGlass
@@ -261,7 +257,7 @@ export function DesktopShowcase(): JSX.Element {
               />
             </div>
             <div data-testid="section-career-stats">
-              <h2 className="text-lg font-semibold mb-3" style={{ color: t.textPrimary }}>
+              <h2 className="text-lg font-semibold mb-3" style={{ color: "var(--text-primary)" }}>
                 Career Stats
               </h2>
               <CareerStatsGlass
@@ -275,7 +271,7 @@ export function DesktopShowcase(): JSX.Element {
 
           {/* Repository Cards */}
           <div data-testid="section-repos">
-            <h2 className="text-lg font-semibold mb-3" style={{ color: t.textPrimary }}>
+            <h2 className="text-lg font-semibold mb-3" style={{ color: "var(--text-primary)" }}>
               Repository Cards
             </h2>
             <div className="flex items-center gap-3 mb-4">
@@ -291,10 +287,10 @@ export function DesktopShowcase(): JSX.Element {
             </div>
             <div className="space-y-3">
               {repos.map((repo, idx) => (
-                <RepoCardGlass
+                <RepositoryCardGlass
                   key={repo.name}
                   name={repo.name}
-                  status={repo.status}
+                  flagType={repo.flagType}
                   stars={repo.stars}
                   commits={repo.commits}
                   contribution={repo.contribution}
@@ -314,7 +310,7 @@ export function DesktopShowcase(): JSX.Element {
             hover={false}
             data-testid="section-tabs-dropdown"
           >
-            <h2 className="text-lg font-semibold mb-4" style={{ color: t.textPrimary }}>
+            <h2 className="text-lg font-semibold mb-4" style={{ color: "var(--text-primary)" }}>
               Tabs, Dropdown & Modal
             </h2>
             <div className="space-y-4">
@@ -356,7 +352,7 @@ export function DesktopShowcase(): JSX.Element {
             hover={false}
             data-testid="section-buttons"
           >
-            <h2 className="text-lg font-semibold mb-4" style={{ color: t.textPrimary }}>
+            <h2 className="text-lg font-semibold mb-4" style={{ color: "var(--text-primary)" }}>
               Buttons
             </h2>
             <div className="flex flex-wrap gap-3 mb-4">
@@ -392,7 +388,7 @@ export function DesktopShowcase(): JSX.Element {
             hover={false}
             data-testid="section-forms"
           >
-            <h2 className="text-lg font-semibold mb-4" style={{ color: t.textPrimary }}>
+            <h2 className="text-lg font-semibold mb-4" style={{ color: "var(--text-primary)" }}>
               Form Elements
             </h2>
             <div className="grid md:grid-cols-2 gap-6">
@@ -413,7 +409,7 @@ export function DesktopShowcase(): JSX.Element {
               <div>
                 <label
                   className="text-sm font-medium mb-2 block"
-                  style={{ color: t.textSecondary }}
+                  style={{ color: "var(--text-secondary)" }}
                 >
                   Slider: {sliderValue}
                 </label>
@@ -422,7 +418,7 @@ export function DesktopShowcase(): JSX.Element {
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <ToggleGlass checked={toggle1} onChange={setToggle1} />
-                  <span className="text-sm" style={{ color: t.textSecondary }}>
+                  <span className="text-sm" style={{ color: "var(--text-secondary)" }}>
                     Toggle
                   </span>
                 </div>
@@ -442,7 +438,7 @@ export function DesktopShowcase(): JSX.Element {
             hover={false}
             data-testid="section-alerts"
           >
-            <h2 className="text-lg font-semibold mb-4" style={{ color: t.textPrimary }}>
+            <h2 className="text-lg font-semibold mb-4" style={{ color: "var(--text-primary)" }}>
               Alerts & Notifications
             </h2>
             <div className="space-y-3 mb-6">
@@ -482,7 +478,7 @@ export function DesktopShowcase(): JSX.Element {
             hover={false}
             data-testid="section-badges"
           >
-            <h2 className="text-lg font-semibold mb-4" style={{ color: t.textPrimary }}>
+            <h2 className="text-lg font-semibold mb-4" style={{ color: "var(--text-primary)" }}>
               Badges & Status
             </h2>
             <div className="flex flex-wrap gap-3 mb-6">
@@ -499,19 +495,19 @@ export function DesktopShowcase(): JSX.Element {
             <div className="flex items-center gap-6">
               <div className="flex items-center gap-2">
                 <StatusIndicatorGlass type="green" size="large" />
-                <span className="text-sm" style={{ color: t.textSecondary }}>
+                <span className="text-sm" style={{ color: "var(--text-secondary)" }}>
                   Good
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 <StatusIndicatorGlass type="yellow" size="large" />
-                <span className="text-sm" style={{ color: t.textSecondary }}>
+                <span className="text-sm" style={{ color: "var(--text-secondary)" }}>
                   Warning
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 <StatusIndicatorGlass type="red" size="large" />
-                <span className="text-sm" style={{ color: t.textSecondary }}>
+                <span className="text-sm" style={{ color: "var(--text-secondary)" }}>
                   Critical
                 </span>
               </div>
@@ -525,7 +521,7 @@ export function DesktopShowcase(): JSX.Element {
             hover={false}
             data-testid="section-progress"
           >
-            <h2 className="text-lg font-semibold mb-4" style={{ color: t.textPrimary }}>
+            <h2 className="text-lg font-semibold mb-4" style={{ color: "var(--text-primary)" }}>
               Progress & Loading
             </h2>
             <div className="space-y-4 mb-6">
@@ -539,7 +535,7 @@ export function DesktopShowcase(): JSX.Element {
               />
               <RainbowProgressGlass value={72} size="lg" />
             </div>
-            <h3 className="text-sm font-medium mb-3" style={{ color: t.textSecondary }}>
+            <h3 className="text-sm font-medium mb-3" style={{ color: "var(--text-secondary)" }}>
               Skeleton Loading
             </h3>
             <div className="flex items-start gap-4">
@@ -559,7 +555,7 @@ export function DesktopShowcase(): JSX.Element {
             hover={false}
             data-testid="section-avatars"
           >
-            <h2 className="text-lg font-semibold mb-4" style={{ color: t.textPrimary }}>
+            <h2 className="text-lg font-semibold mb-4" style={{ color: "var(--text-primary)" }}>
               Avatars with Status
             </h2>
             <div className="flex items-center gap-4">
@@ -577,14 +573,14 @@ export function DesktopShowcase(): JSX.Element {
             hover={false}
             data-testid="section-language-bar"
           >
-            <h2 className="text-lg font-semibold mb-4" style={{ color: t.textPrimary }}>
+            <h2 className="text-lg font-semibold mb-4" style={{ color: "var(--text-primary)" }}>
               Language Bar
             </h2>
             <LanguageBarGlass languages={languages} />
           </GlassCard>
 
           {/* Footer */}
-          <footer className="text-center py-6 text-xs" style={{ color: t.footerText }}>
+          <footer className="text-center py-6 text-xs" style={{ color: "var(--footer-text)" }}>
             GitHub Analytics Desktop Demo · {themeConfig[theme].label} Theme
           </footer>
         </div>

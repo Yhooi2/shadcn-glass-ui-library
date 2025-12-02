@@ -74,20 +74,8 @@ export function useFocus(options: UseFocusOptions = {}): UseFocusReturn {
   const hadKeyboardEventRef = useRef(false);
   const focusRef = useRef(false);
 
-  // Track keyboard events globally to determine focus source
-  const handleGlobalKeyDown = useCallback(() => {
-    hadKeyboardEventRef.current = true;
-  }, []);
-
-  const handleGlobalPointerDown = useCallback(() => {
-    hadKeyboardEventRef.current = false;
-  }, []);
-
-  // Set up global listeners for focus-visible detection
-  if (typeof window !== 'undefined' && focusVisible) {
-    // Note: In a real implementation, you'd want to use useEffect
-    // and proper cleanup. This is simplified for the example.
-  }
+  // TODO: Implement global event listeners in useEffect for full focus-visible support
+  // Currently focusVisible works via handleKeyDown which updates hadKeyboardEventRef
 
   const setIsFocused = useCallback(
     (value: boolean) => {

@@ -16,13 +16,12 @@ import {
   forwardRef,
   useImperativeHandle,
   useCallback,
+  useMemo,
   type CSSProperties,
 } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import type { LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useTheme } from '@/lib/theme-context';
-import { themeStyles } from '@/lib/themeStyles';
 import '@/glass-theme.css';
 
 // ========================================
@@ -72,13 +71,9 @@ export interface DropdownGlassProps
 
 export const DropdownGlass = forwardRef<HTMLDivElement, DropdownGlassProps>(
   ({ trigger, items, align = 'left', className, ...props }, ref) => {
-    const { theme } = useTheme();
-    const t = themeStyles[theme];
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [hoveredItem, setHoveredItem] = useState<number | null>(null);
     const internalRef = useRef<HTMLDivElement>(null);
-
-    const isGlass = theme === 'glass';
 
     useImperativeHandle(ref, () => internalRef.current as HTMLDivElement);
 
@@ -90,6 +85,7 @@ export const DropdownGlass = forwardRef<HTMLDivElement, DropdownGlassProps>(
       setIsOpen((prev) => !prev);
     }, []);
 
+    // Combined effect for click outside and escape key
     useEffect(() => {
       if (!isOpen) return;
 
@@ -102,23 +98,17 @@ export const DropdownGlass = forwardRef<HTMLDivElement, DropdownGlassProps>(
         }
       };
 
-      document.addEventListener('mousedown', handleClickOutside);
-      return () => {
-        document.removeEventListener('mousedown', handleClickOutside);
-      };
-    }, [isOpen, handleClose]);
-
-    useEffect(() => {
-      if (!isOpen) return;
-
       const handleEscape = (event: KeyboardEvent): void => {
         if (event.key === 'Escape') {
           handleClose();
         }
       };
 
+      document.addEventListener('mousedown', handleClickOutside);
       document.addEventListener('keydown', handleEscape);
+
       return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
         document.removeEventListener('keydown', handleEscape);
       };
     }, [isOpen, handleClose]);
@@ -135,55 +125,28 @@ export const DropdownGlass = forwardRef<HTMLDivElement, DropdownGlassProps>(
       }
     };
 
-    // Glass theme specific styles
-    const dropdownStyles: CSSProperties = isGlass
-      ? {
-          background: 'rgba(255,255,255,0.08)',
-          border: '1px solid rgba(255,255,255,0.15)',
-          boxShadow:
-            '0 15px 50px rgba(168,85,247,0.25), inset 0 1px 0 rgba(255,255,255,0.10)',
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
-          animation: 'dropdownFadeIn 0.2s ease-out',
-        }
-      : {
-          background: t.dropdownBg,
-          border: `1px solid ${t.dropdownBorder}`,
-          boxShadow: t.dropdownGlow,
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
-          animation: 'dropdownFadeIn 0.2s ease-out',
-        };
+    const dropdownStyles: CSSProperties = useMemo(() => ({
+      background: 'var(--dropdown-bg)',
+      border: '1px solid var(--dropdown-border)',
+      boxShadow: 'var(--dropdown-glow)',
+      backdropFilter: 'blur(20px)',
+      WebkitBackdropFilter: 'blur(20px)',
+      animation: 'dropdownFadeIn 0.2s ease-out',
+    }), []);
 
     const getItemStyles = (idx: number, danger?: boolean): CSSProperties => ({
-      color: danger
-        ? isGlass
-          ? '#fb7185'
-          : t.alertDangerText
-        : isGlass
-          ? 'rgba(255,255,255,0.80)'
-          : t.textSecondary,
+      color: danger ? 'var(--alert-danger-text)' : 'var(--dropdown-item-text)',
       background:
-        hoveredItem === idx
-          ? isGlass
-            ? 'rgba(255,255,255,0.10)'
-            : t.dropdownItemHover
-          : 'transparent',
+        hoveredItem === idx ? 'var(--dropdown-item-hover)' : 'transparent',
       transition: 'all 0.2s',
     });
 
     const getIconStyles = (idx: number, danger?: boolean): CSSProperties => ({
       color: danger
-        ? isGlass
-          ? '#fb7185'
-          : t.alertDangerText
+        ? 'var(--alert-danger-text)'
         : hoveredItem === idx
-          ? isGlass
-            ? '#c4b5fd'
-            : t.textAccent
-          : isGlass
-            ? 'rgba(255,255,255,0.50)'
-            : t.textMuted,
+          ? 'var(--dropdown-icon-hover)'
+          : 'var(--dropdown-icon)',
       transition: 'all 0.2s',
     });
 
@@ -226,7 +189,7 @@ export const DropdownGlass = forwardRef<HTMLDivElement, DropdownGlassProps>(
                     key={`divider-${idx}`}
                     className="my-2 mx-3"
                     style={{
-                      borderTop: `1px solid ${isGlass ? 'rgba(255,255,255,0.08)' : t.listDivider}`,
+                      borderTop: '1px solid var(--dropdown-divider)',
                     }}
                     role="separator"
                   />

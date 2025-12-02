@@ -1,7 +1,6 @@
 import type { Preview } from '@storybook/react-vite';
 import React, { useEffect } from 'react';
-import { ThemeProvider } from '../src/lib/theme-context';
-import type { Theme } from '../src/lib/themeStyles';
+import { ThemeProvider, type Theme } from '../src/lib/theme-context';
 import '../src/index.css';
 import '../src/glass-theme.css';
 import './storybook.css';
@@ -75,7 +74,7 @@ const preview: Preview = {
       },
     },
     a11y: {
-      test: 'todo',
+      test: 'warn', // Changed from 'todo' - shows violations in addon panel
     },
     // Visual regression testing - disable animations for stable screenshots
     testingLibrary: {

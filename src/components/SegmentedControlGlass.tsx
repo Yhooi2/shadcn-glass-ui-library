@@ -4,8 +4,6 @@
 
 import { forwardRef, type CSSProperties } from "react";
 import { cn } from "@/lib/utils";
-import { useTheme } from "@/lib/theme-context";
-import { themeStyles } from "@/lib/themeStyles";
 import "@/glass-theme.css";
 
 export interface SegmentOption {
@@ -21,32 +19,9 @@ export interface SegmentedControlGlassProps extends Omit<React.HTMLAttributes<HT
 
 export const SegmentedControlGlass = forwardRef<HTMLDivElement, SegmentedControlGlassProps>(
   ({ options, value, onChange, className, ...props }, ref) => {
-    const { theme } = useTheme();
-    const t = themeStyles[theme];
-    const isGlass = theme === "glass";
-
-    // Background colors based on theme
-    const activeBg = isGlass
-      ? "rgba(255,255,255,0.20)"
-      : theme === "aurora"
-        ? "rgba(15,23,42,0.80)"
-        : "#1e293b";
-
-    const activeText = isGlass
-      ? "rgba(255,255,255,0.95)"
-      : theme === "aurora"
-        ? "#e2e8f0"
-        : "#ffffff";
-
-    const inactiveText = isGlass
-      ? "rgba(255,255,255,0.50)"
-      : theme === "aurora"
-        ? "#94a3b8"
-        : "#64748b";
-
     const containerStyles: CSSProperties = {
-      border: `1px solid ${t.glassSubtleBorder}`,
-      background: isGlass ? "rgba(255,255,255,0.05)" : t.glassSubtleBg,
+      border: "1px solid var(--segmented-container-border)",
+      background: "var(--segmented-container-bg)",
     };
 
     return (
@@ -60,8 +35,8 @@ export const SegmentedControlGlass = forwardRef<HTMLDivElement, SegmentedControl
         {options.map((opt) => {
           const isActive = value === opt.value;
           const buttonStyles: CSSProperties = {
-            background: isActive ? activeBg : "transparent",
-            color: isActive ? activeText : inactiveText,
+            background: isActive ? "var(--segmented-active-bg)" : "transparent",
+            color: isActive ? "var(--segmented-active-text)" : "var(--segmented-inactive-text)",
           };
 
           return (

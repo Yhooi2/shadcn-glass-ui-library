@@ -2,7 +2,7 @@
  * InputGlass Component
  *
  * Glass-themed input with:
- * - Theme-aware styling (glass/light/aurora)
+ * - Theme-aware styling via CSS variables (glass/light/aurora)
  * - Focus glow effects
  * - Error/success states
  * - Icon support (left/right position)
@@ -19,8 +19,6 @@ import {
 import { cva, type VariantProps } from 'class-variance-authority';
 import { type LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useTheme } from '@/lib/theme-context';
-import { themeStyles } from '@/lib/themeStyles';
 import { useFocus } from '@/lib/hooks/use-focus';
 import '@/glass-theme.css';
 
@@ -31,21 +29,51 @@ import '@/glass-theme.css';
 export type InputGlassSize = 'sm' | 'md' | 'lg';
 
 // ========================================
-// SIZE VARIANTS (using CVA)
+// CVA VARIANTS
 // ========================================
 
-const inputSizes = cva('', {
-  variants: {
-    inputSize: {
-      sm: 'px-3 py-2 text-xs rounded-lg',
-      md: 'px-4 py-2.5 text-sm rounded-xl',
-      lg: 'px-5 py-3 text-base rounded-xl',
+const inputVariants = cva(
+  'w-full transition-all duration-300 outline-none backdrop-blur-sm disabled:opacity-50 disabled:cursor-not-allowed',
+  {
+    variants: {
+      inputSize: {
+        sm: 'px-3 py-2 text-xs rounded-lg',
+        md: 'px-4 py-2.5 text-sm rounded-xl',
+        lg: 'px-5 py-3 text-base rounded-xl',
+      },
     },
-  },
-  defaultVariants: {
-    inputSize: 'md',
-  },
-});
+    defaultVariants: {
+      inputSize: 'md',
+    },
+  }
+);
+
+// ========================================
+// CSS VARIABLE HELPERS
+// ========================================
+
+const getInputStyles = (
+  isFocused: boolean,
+  error?: string,
+  success?: string
+): CSSProperties => {
+  // Determine border color based on state
+  let borderColor = 'var(--input-border)';
+  if (error) {
+    borderColor = 'var(--alert-danger-text)';
+  } else if (success) {
+    borderColor = 'var(--alert-success-text)';
+  } else if (isFocused) {
+    borderColor = 'var(--input-focus-border)';
+  }
+
+  return {
+    background: 'var(--input-bg)',
+    border: `1px solid ${borderColor}`,
+    color: 'var(--input-text)',
+    boxShadow: isFocused ? 'var(--input-focus-glow)' : 'none',
+  };
+};
 
 // ========================================
 // PROPS INTERFACE
@@ -53,7 +81,7 @@ const inputSizes = cva('', {
 
 export interface InputGlassProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>,
-    VariantProps<typeof inputSizes> {
+    VariantProps<typeof inputVariants> {
   readonly label?: string;
   readonly error?: string;
   readonly success?: string;
@@ -82,8 +110,6 @@ export const InputGlass = forwardRef<HTMLInputElement, InputGlassProps>(
     },
     ref
   ) => {
-    const { theme } = useTheme();
-    const t = themeStyles[theme];
     const { isFocused, focusProps } = useFocus();
 
     // Wrap focus handlers to call both internal and external callbacks
@@ -103,22 +129,6 @@ export const InputGlass = forwardRef<HTMLInputElement, InputGlassProps>(
       [focusProps, onBlur]
     );
 
-    const getBorderColor = (): string => {
-      if (error) return t.statusRed;
-      if (success) return t.statusGreen;
-      if (isFocused) return t.inputFocusBorder;
-      return t.inputBorder;
-    };
-
-    const inputStyles: CSSProperties = {
-      background: t.inputBg,
-      border: `1px solid ${getBorderColor()}`,
-      color: t.inputText,
-      boxShadow: isFocused ? t.inputFocusGlow : 'none',
-      backdropFilter: 'blur(8px)',
-      WebkitBackdropFilter: 'blur(8px)',
-    };
-
     const hasIcon = Boolean(Icon);
     const paddingLeft = hasIcon && iconPosition === 'left' ? 'pl-10' : '';
     const paddingRight = hasIcon && iconPosition === 'right' ? 'pr-10' : '';
@@ -128,7 +138,7 @@ export const InputGlass = forwardRef<HTMLInputElement, InputGlassProps>(
         {label && (
           <label
             className="text-sm font-medium"
-            style={{ color: t.textSecondary }}
+            style={{ color: 'var(--text-secondary)' }}
           >
             {label}
           </label>
@@ -138,20 +148,18 @@ export const InputGlass = forwardRef<HTMLInputElement, InputGlassProps>(
             <Icon
               className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 transition-colors duration-300"
               style={{
-                color: isFocused ? t.textAccent : t.textMuted,
+                color: isFocused ? 'var(--text-accent)' : 'var(--text-muted)',
               }}
             />
           )}
           <input
             ref={ref}
             className={cn(
-              'w-full transition-all duration-300 outline-none',
-              inputSizes({ inputSize }),
+              inputVariants({ inputSize }),
               paddingLeft,
-              paddingRight,
-              disabled && 'opacity-50 cursor-not-allowed'
+              paddingRight
             )}
-            style={inputStyles}
+            style={getInputStyles(isFocused, error, success)}
             disabled={disabled}
             onFocus={handleFocus}
             onBlur={handleBlur}
@@ -161,18 +169,24 @@ export const InputGlass = forwardRef<HTMLInputElement, InputGlassProps>(
             <Icon
               className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 transition-colors duration-300"
               style={{
-                color: isFocused ? t.textAccent : t.textMuted,
+                color: isFocused ? 'var(--text-accent)' : 'var(--text-muted)',
               }}
             />
           )}
         </div>
         {error && (
-          <span className="text-xs" style={{ color: t.alertDangerText }}>
+          <span
+            className="text-xs"
+            style={{ color: 'var(--alert-danger-text)' }}
+          >
             {error}
           </span>
         )}
         {success && (
-          <span className="text-xs" style={{ color: t.alertSuccessText }}>
+          <span
+            className="text-xs"
+            style={{ color: 'var(--alert-success-text)' }}
+          >
             {success}
           </span>
         )}
@@ -183,4 +197,4 @@ export const InputGlass = forwardRef<HTMLInputElement, InputGlassProps>(
 
 InputGlass.displayName = 'InputGlass';
 
-export { inputSizes as inputGlassVariants };
+export { inputVariants as inputGlassVariants };

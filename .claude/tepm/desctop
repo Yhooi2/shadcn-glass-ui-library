@@ -1,0 +1,2654 @@
+import React, { useState, createContext, useContext } from 'react';
+import {
+  Sun,
+  Moon,
+  Palette,
+  X,
+  Check,
+  ChevronDown,
+  ChevronUp,
+  AlertTriangle,
+  AlertCircle,
+  Info,
+  CheckCircle,
+  Search,
+  Settings,
+  User,
+  LogOut,
+  Mail,
+  Calendar,
+  Star,
+  Trash2,
+  Eye,
+  RefreshCw,
+  ExternalLink,
+  Github,
+  Sparkles,
+  Lock,
+  TrendingUp,
+  Code,
+  GitPullRequest,
+  FolderGit2,
+  Users,
+  Target,
+  Zap,
+  Clock,
+  Home,
+  Folder,
+} from 'lucide-react';
+
+// ========================================
+// THEME SYSTEM
+// ========================================
+const ThemeContext = createContext();
+const themes = ['light', 'aurora', 'glass'];
+const themeConfig = {
+  light: { label: 'Light', icon: Sun },
+  aurora: { label: 'Aurora', icon: Moon },
+  glass: { label: 'Glass', icon: Palette },
+};
+
+export const useTheme = () => useContext(ThemeContext);
+
+// ========================================
+// THEME STYLES
+// ========================================
+const themeStyles = {
+  light: {
+    bgFrom: '#f1f5f9',
+    bgVia: '#eff6ff',
+    bgTo: '#f5f3ff',
+    orb1: 'rgba(96,165,250,0.20)',
+    orb2: 'rgba(167,139,250,0.15)',
+    orb3: 'rgba(34,211,238,0.15)',
+    orb4: 'rgba(129,140,248,0.10)',
+    glassSubtleBg: 'rgba(255,255,255,0.60)',
+    glassMediumBg: 'rgba(255,255,255,0.70)',
+    glassStrongBg: 'rgba(255,255,255,0.80)',
+    glassSubtleBorder: 'rgba(255,255,255,0.50)',
+    glassMediumBorder: 'rgba(255,255,255,0.60)',
+    glassStrongBorder: 'rgba(255,255,255,0.70)',
+    textPrimary: '#1e293b',
+    textSecondary: '#64748b',
+    textMuted: '#94a3b8',
+    textAccent: '#7c3aed',
+    textInverse: '#ffffff',
+    headerBg: 'rgba(255,255,255,0.60)',
+    headerBorder: 'rgba(255,255,255,0.80)',
+    glowViolet: '0 8px 32px rgba(124,58,237,0.15)',
+    glowBlue: '0 8px 32px rgba(59,130,246,0.15)',
+    glowCyan: '0 8px 32px rgba(6,182,212,0.15)',
+    glowNeutral: '0 8px 32px rgba(0,0,0,0.08)',
+    progressBg: 'rgba(226,232,240,0.60)',
+    progressGlow: '0 0 8px rgba(124,58,237,0.3)',
+    statusGreen: '#10b981',
+    statusYellow: '#f59e0b',
+    statusRed: '#ef4444',
+    statusBlue: '#3b82f6',
+    metricEmeraldBg: 'rgba(16,185,129,0.10)',
+    metricEmeraldText: '#059669',
+    metricEmeraldBorder: '#a7f3d0',
+    metricAmberBg: 'rgba(245,158,11,0.10)',
+    metricAmberText: '#d97706',
+    metricAmberBorder: '#fde68a',
+    metricBlueBg: 'rgba(59,130,246,0.10)',
+    metricBlueText: '#2563eb',
+    metricBlueBorder: '#bfdbfe',
+    metricRedBg: 'rgba(239,68,68,0.10)',
+    metricRedText: '#dc2626',
+    metricRedBorder: '#fecaca',
+    alertDangerBg: 'rgba(239,68,68,0.05)',
+    alertDangerBorder: 'rgba(254,202,202,0.6)',
+    alertDangerText: '#b91c1c',
+    alertWarningBg: 'rgba(245,158,11,0.05)',
+    alertWarningBorder: 'rgba(253,230,138,0.6)',
+    alertWarningText: '#b45309',
+    alertInfoBg: 'rgba(59,130,246,0.05)',
+    alertInfoBorder: 'rgba(191,219,254,0.6)',
+    alertInfoText: '#1d4ed8',
+    alertSuccessBg: 'rgba(16,185,129,0.05)',
+    alertSuccessBorder: 'rgba(167,243,208,0.6)',
+    alertSuccessText: '#047857',
+    cardBg: 'rgba(255,255,255,0.60)',
+    cardBorder: 'rgba(226,232,240,0.60)',
+    cardHoverBg: 'rgba(255,255,255,0.80)',
+    expandedBg: 'rgba(255,255,255,0.70)',
+    expandedBorder: 'rgba(139,92,246,0.5)',
+    btnPrimaryBg: 'linear-gradient(135deg, #7c3aed, #8b5cf6)',
+    btnPrimaryText: '#ffffff',
+    btnPrimaryHoverBg: 'linear-gradient(135deg, #6d28d9, #7c3aed)',
+    btnPrimaryGlow: '0 0 20px rgba(124,58,237,0.4)',
+    btnSecondaryBg: 'rgba(255,255,255,0.80)',
+    btnSecondaryText: '#334155',
+    btnSecondaryBorder: '#e2e8f0',
+    btnSecondaryHoverBg: 'rgba(241,245,249,1)',
+    btnSecondaryGlow: '0 4px 20px rgba(0,0,0,0.08)',
+    btnGhostBg: 'transparent',
+    btnGhostText: '#64748b',
+    btnGhostHoverBg: 'rgba(241,245,249,0.80)',
+    btnDangerBg: 'linear-gradient(135deg, #ef4444, #f87171)',
+    btnDangerText: '#ffffff',
+    btnSuccessBg: 'linear-gradient(135deg, #10b981, #34d399)',
+    btnSuccessText: '#ffffff',
+    badgeDefaultBg: 'rgba(100,116,139,0.1)',
+    badgeDefaultText: '#475569',
+    badgeDefaultBorder: '#e2e8f0',
+    badgeSuccessBg: 'rgba(16,185,129,0.1)',
+    badgeSuccessText: '#047857',
+    badgeSuccessBorder: '#a7f3d0',
+    badgeWarningBg: 'rgba(245,158,11,0.1)',
+    badgeWarningText: '#b45309',
+    badgeWarningBorder: '#fde68a',
+    badgeDangerBg: 'rgba(239,68,68,0.1)',
+    badgeDangerText: '#b91c1c',
+    badgeDangerBorder: '#fecaca',
+    badgePrimaryBg: 'rgba(59,130,246,0.1)',
+    badgePrimaryText: '#1d4ed8',
+    badgePrimaryBorder: '#bfdbfe',
+    badgeVioletBg: 'rgba(139,92,246,0.1)',
+    badgeVioletText: '#6d28d9',
+    badgeVioletBorder: '#ddd6fe',
+    searchBg: 'rgba(255,255,255,0.80)',
+    searchBorder: 'rgba(226,232,240,0.8)',
+    searchText: '#64748b',
+    searchBtnBg: '#1e293b',
+    searchBtnText: 'white',
+    inputBg: 'rgba(255,255,255,0.90)',
+    inputBorder: '#e2e8f0',
+    inputText: '#1e293b',
+    inputPlaceholder: '#94a3b8',
+    inputFocusBorder: '#7c3aed',
+    inputFocusGlow: '0 0 0 3px rgba(124,58,237,0.15)',
+    iconBtnFrom: '#1e293b',
+    iconBtnTo: '#0f172a',
+    iconBtnShadow: '0 4px 12px rgba(0,0,0,0.15)',
+    iconBtnText: 'white',
+    avatarBorder: '#ffffff',
+    avatarGlow: '0 8px 24px rgba(124,58,237,0.25)',
+    onlineBorder: 'white',
+    toggleBg: '#e2e8f0',
+    toggleActiveBg: 'linear-gradient(135deg, #7c3aed, #8b5cf6)',
+    toggleKnob: '#ffffff',
+    toggleGlow: '0 0 12px rgba(124,58,237,0.4)',
+    checkboxBg: '#ffffff',
+    checkboxBorder: '#cbd5e1',
+    checkboxCheckedBg: '#7c3aed',
+    sliderTrack: '#e2e8f0',
+    sliderFill: '#7c3aed',
+    sliderThumb: '#ffffff',
+    sliderThumbBorder: '#7c3aed',
+    sliderThumbGlow: '0 0 8px rgba(124,58,237,0.4)',
+    footerText: 'rgba(148,163,184,0.6)',
+    aiCardBg: 'linear-gradient(135deg, rgba(238,242,255,0.9), rgba(224,231,255,0.9))',
+    aiCardBorder: 'rgba(199,210,254,0.6)',
+    yearCardBg: 'rgba(248,250,252,0.80)',
+    yearCardBorder: 'rgba(226,232,240,0.6)',
+    notificationBg: 'rgba(255,255,255,0.98)',
+    notificationGlow: '0 10px 40px rgba(0,0,0,0.12)',
+    skeletonBg: '#e2e8f0',
+    skeletonShine: 'rgba(255,255,255,0.6)',
+    tooltipBg: 'rgba(255,255,255,0.95)',
+    tooltipText: '#1e293b',
+    tooltipBorder: 'rgba(226,232,240,0.80)',
+    modalBg: 'rgba(255,255,255,0.98)',
+    modalBorder: 'rgba(226,232,240,0.80)',
+    modalOverlay: 'rgba(15,23,42,0.50)',
+    modalGlow: '0 25px 50px rgba(0,0,0,0.15)',
+    dropdownBg: 'rgba(255,255,255,0.98)',
+    dropdownBorder: '#e2e8f0',
+    dropdownItemHover: 'rgba(241,245,249,0.90)',
+    dropdownGlow: '0 10px 40px rgba(0,0,0,0.10)',
+    listItemHover: 'rgba(241,245,249,0.80)',
+    listDivider: '#e2e8f0',
+    tabBg: 'transparent',
+    tabActiveBg: 'rgba(124,58,237,0.10)',
+    tabActiveText: '#7c3aed',
+    tabIndicator: '#7c3aed',
+  },
+
+  aurora: {
+    bgFrom: '#020617',
+    bgVia: '#0f172a',
+    bgTo: '#020617',
+    orb1: 'rgba(37,99,235,0.10)',
+    orb2: 'rgba(124,58,237,0.08)',
+    orb3: 'rgba(8,145,178,0.08)',
+    orb4: 'rgba(79,70,229,0.06)',
+    glassSubtleBg: 'rgba(30,41,59,0.40)',
+    glassMediumBg: 'rgba(30,41,59,0.50)',
+    glassStrongBg: 'rgba(30,41,59,0.60)',
+    glassSubtleBorder: 'rgba(51,65,85,0.30)',
+    glassMediumBorder: 'rgba(51,65,85,0.40)',
+    glassStrongBorder: 'rgba(51,65,85,0.50)',
+    textPrimary: '#e2e8f0',
+    textSecondary: '#94a3b8',
+    textMuted: '#64748b',
+    textAccent: '#a78bfa',
+    textInverse: '#0f172a',
+    headerBg: 'rgba(15,23,42,0.60)',
+    headerBorder: 'rgba(51,65,85,0.50)',
+    glowViolet: '0 8px 32px rgba(124,58,237,0.12)',
+    glowBlue: '0 8px 32px rgba(59,130,246,0.12)',
+    glowCyan: '0 8px 32px rgba(6,182,212,0.12)',
+    glowNeutral: '0 8px 32px rgba(0,0,0,0.30)',
+    progressBg: 'rgba(51,65,85,0.50)',
+    progressGlow: '0 0 12px rgba(124,58,237,0.4)',
+    statusGreen: '#34d399',
+    statusYellow: '#fbbf24',
+    statusRed: '#f87171',
+    statusBlue: '#60a5fa',
+    metricEmeraldBg: 'rgba(16,185,129,0.10)',
+    metricEmeraldText: '#34d399',
+    metricEmeraldBorder: 'rgba(16,185,129,0.20)',
+    metricAmberBg: 'rgba(245,158,11,0.10)',
+    metricAmberText: '#fbbf24',
+    metricAmberBorder: 'rgba(245,158,11,0.20)',
+    metricBlueBg: 'rgba(59,130,246,0.10)',
+    metricBlueText: '#60a5fa',
+    metricBlueBorder: 'rgba(59,130,246,0.20)',
+    metricRedBg: 'rgba(239,68,68,0.10)',
+    metricRedText: '#f87171',
+    metricRedBorder: 'rgba(239,68,68,0.20)',
+    alertDangerBg: 'rgba(239,68,68,0.10)',
+    alertDangerBorder: 'rgba(239,68,68,0.20)',
+    alertDangerText: '#f87171',
+    alertWarningBg: 'rgba(245,158,11,0.10)',
+    alertWarningBorder: 'rgba(245,158,11,0.20)',
+    alertWarningText: '#fbbf24',
+    alertInfoBg: 'rgba(96,165,250,0.10)',
+    alertInfoBorder: 'rgba(96,165,250,0.20)',
+    alertInfoText: '#60a5fa',
+    alertSuccessBg: 'rgba(52,211,153,0.10)',
+    alertSuccessBorder: 'rgba(52,211,153,0.20)',
+    alertSuccessText: '#34d399',
+    cardBg: 'rgba(30,41,59,0.40)',
+    cardBorder: 'rgba(51,65,85,0.40)',
+    cardHoverBg: 'rgba(30,41,59,0.60)',
+    expandedBg: 'rgba(30,41,59,0.40)',
+    expandedBorder: 'rgba(139,92,246,0.50)',
+    btnPrimaryBg: 'linear-gradient(135deg, #7c3aed, #8b5cf6)',
+    btnPrimaryText: '#ffffff',
+    btnPrimaryHoverBg: 'linear-gradient(135deg, #8b5cf6, #a78bfa)',
+    btnPrimaryGlow: '0 0 25px rgba(139,92,246,0.5)',
+    btnSecondaryBg: 'rgba(51,65,85,0.60)',
+    btnSecondaryText: '#e2e8f0',
+    btnSecondaryBorder: 'rgba(71,85,105,0.50)',
+    btnSecondaryHoverBg: 'rgba(71,85,105,0.80)',
+    btnSecondaryGlow: '0 4px 20px rgba(0,0,0,0.30)',
+    btnGhostBg: 'transparent',
+    btnGhostText: '#94a3b8',
+    btnGhostHoverBg: 'rgba(51,65,85,0.50)',
+    btnDangerBg: 'linear-gradient(135deg, #ef4444, #f87171)',
+    btnDangerText: '#ffffff',
+    btnSuccessBg: 'linear-gradient(135deg, #10b981, #34d399)',
+    btnSuccessText: '#ffffff',
+    badgeDefaultBg: 'rgba(71,85,105,0.30)',
+    badgeDefaultText: '#cbd5e1',
+    badgeDefaultBorder: 'rgba(71,85,105,0.50)',
+    badgeSuccessBg: 'rgba(16,185,129,0.20)',
+    badgeSuccessText: '#34d399',
+    badgeSuccessBorder: 'rgba(16,185,129,0.30)',
+    badgeWarningBg: 'rgba(245,158,11,0.20)',
+    badgeWarningText: '#fbbf24',
+    badgeWarningBorder: 'rgba(245,158,11,0.30)',
+    badgeDangerBg: 'rgba(239,68,68,0.20)',
+    badgeDangerText: '#f87171',
+    badgeDangerBorder: 'rgba(239,68,68,0.30)',
+    badgePrimaryBg: 'rgba(59,130,246,0.20)',
+    badgePrimaryText: '#60a5fa',
+    badgePrimaryBorder: 'rgba(59,130,246,0.30)',
+    badgeVioletBg: 'rgba(139,92,246,0.20)',
+    badgeVioletText: '#a78bfa',
+    badgeVioletBorder: 'rgba(139,92,246,0.30)',
+    searchBg: 'rgba(30,41,59,0.60)',
+    searchBorder: 'rgba(51,65,85,0.50)',
+    searchText: '#94a3b8',
+    searchBtnBg: 'rgba(51,65,85,0.80)',
+    searchBtnText: '#e2e8f0',
+    inputBg: 'rgba(30,41,59,0.80)',
+    inputBorder: 'rgba(51,65,85,0.60)',
+    inputText: '#e2e8f0',
+    inputPlaceholder: '#64748b',
+    inputFocusBorder: '#a78bfa',
+    inputFocusGlow: '0 0 0 3px rgba(167,139,250,0.20)',
+    iconBtnFrom: '#334155',
+    iconBtnTo: '#1e293b',
+    iconBtnShadow: '0 4px 12px rgba(0,0,0,0.30)',
+    iconBtnText: '#e2e8f0',
+    avatarBorder: '#0f172a',
+    avatarGlow: '0 8px 24px rgba(124,58,237,0.25)',
+    onlineBorder: '#0f172a',
+    toggleBg: 'rgba(51,65,85,0.80)',
+    toggleActiveBg: 'linear-gradient(135deg, #7c3aed, #8b5cf6)',
+    toggleKnob: '#f1f5f9',
+    toggleGlow: '0 0 15px rgba(139,92,246,0.5)',
+    checkboxBg: 'rgba(30,41,59,0.80)',
+    checkboxBorder: 'rgba(71,85,105,0.80)',
+    checkboxCheckedBg: '#8b5cf6',
+    sliderTrack: 'rgba(51,65,85,0.80)',
+    sliderFill: '#8b5cf6',
+    sliderThumb: '#f1f5f9',
+    sliderThumbBorder: '#8b5cf6',
+    sliderThumbGlow: '0 0 12px rgba(139,92,246,0.5)',
+    footerText: '#64748b',
+    aiCardBg: 'linear-gradient(135deg, rgba(91,33,182,0.15), rgba(59,130,246,0.15))',
+    aiCardBorder: 'rgba(139,92,246,0.30)',
+    yearCardBg: 'rgba(30,41,59,0.50)',
+    yearCardBorder: 'rgba(51,65,85,0.40)',
+    notificationBg: 'rgba(30,41,59,0.98)',
+    notificationGlow: '0 10px 40px rgba(0,0,0,0.40)',
+    skeletonBg: 'rgba(51,65,85,0.60)',
+    skeletonShine: 'rgba(255,255,255,0.08)',
+    tooltipBg: '#1e293b',
+    tooltipText: '#f1f5f9',
+    tooltipBorder: '#334155',
+    modalBg: 'rgba(15,23,42,0.98)',
+    modalBorder: 'rgba(51,65,85,0.60)',
+    modalOverlay: 'rgba(0,0,0,0.70)',
+    modalGlow: '0 25px 50px rgba(0,0,0,0.50)',
+    dropdownBg: 'rgba(30,41,59,0.98)',
+    dropdownBorder: 'rgba(51,65,85,0.60)',
+    dropdownItemHover: 'rgba(51,65,85,0.70)',
+    dropdownGlow: '0 10px 40px rgba(0,0,0,0.40)',
+    listItemHover: 'rgba(51,65,85,0.60)',
+    listDivider: 'rgba(51,65,85,0.50)',
+    tabBg: 'transparent',
+    tabActiveBg: 'rgba(139,92,246,0.15)',
+    tabActiveText: '#a78bfa',
+    tabIndicator: '#a78bfa',
+  },
+
+  glass: {
+    bgFrom: '#0f172a',
+    bgVia: '#581c87',
+    bgTo: '#0f172a',
+    orb1: 'rgba(168,85,247,0.30)',
+    orb2: 'rgba(59,130,246,0.20)',
+    orb3: 'rgba(236,72,153,0.20)',
+    orb4: 'rgba(6,182,212,0.20)',
+    orb5: 'rgba(139,92,246,0.10)',
+    glassSubtleBg: 'rgba(255,255,255,0.10)',
+    glassMediumBg: 'rgba(255,255,255,0.15)',
+    glassStrongBg: 'rgba(255,255,255,0.25)',
+    glassSubtleBorder: 'rgba(255,255,255,0.10)',
+    glassMediumBorder: 'rgba(255,255,255,0.20)',
+    glassStrongBorder: 'rgba(255,255,255,0.30)',
+    textPrimary: 'rgba(255,255,255,0.90)',
+    textSecondary: 'rgba(255,255,255,0.60)',
+    textMuted: 'rgba(255,255,255,0.40)',
+    textAccent: '#c4b5fd',
+    textInverse: '#0f172a',
+    headerBg: 'rgba(255,255,255,0.05)',
+    headerBorder: 'rgba(255,255,255,0.10)',
+    glowViolet: '0 8px 32px rgba(147,51,234,0.30)',
+    glowBlue: '0 8px 32px rgba(59,130,246,0.30)',
+    glowCyan: '0 8px 32px rgba(6,182,212,0.25)',
+    glowNeutral: '0 8px 32px rgba(0,0,0,0.12)',
+    progressBg: 'rgba(255,255,255,0.10)',
+    progressGlow: '0 0 16px rgba(147,51,234,0.4)',
+    statusGreen: '#34d399',
+    statusYellow: '#fbbf24',
+    statusRed: '#fb7185',
+    statusBlue: '#60a5fa',
+    metricEmeraldBg: 'transparent',
+    metricEmeraldText: '#34d399',
+    metricEmeraldBorder: 'transparent',
+    metricAmberBg: 'transparent',
+    metricAmberText: '#fbbf24',
+    metricAmberBorder: 'transparent',
+    metricBlueBg: 'transparent',
+    metricBlueText: '#60a5fa',
+    metricBlueBorder: 'transparent',
+    metricRedBg: 'transparent',
+    metricRedText: '#fb7185',
+    metricRedBorder: 'transparent',
+    alertDangerBg: 'rgba(251,113,133,0.10)',
+    alertDangerBorder: 'rgba(251,113,133,0.20)',
+    alertDangerText: '#fda4af',
+    alertWarningBg: 'rgba(251,191,36,0.10)',
+    alertWarningBorder: 'rgba(251,191,36,0.20)',
+    alertWarningText: '#fcd34d',
+    alertInfoBg: 'rgba(96,165,250,0.10)',
+    alertInfoBorder: 'rgba(96,165,250,0.20)',
+    alertInfoText: '#93c5fd',
+    alertSuccessBg: 'rgba(52,211,153,0.10)',
+    alertSuccessBorder: 'rgba(52,211,153,0.20)',
+    alertSuccessText: '#6ee7b7',
+    cardBg: 'rgba(255,255,255,0.05)',
+    cardBorder: 'rgba(255,255,255,0.10)',
+    cardHoverBg: 'rgba(255,255,255,0.08)',
+    expandedBg: 'rgba(255,255,255,0.05)',
+    expandedBorder: 'rgba(167,139,250,0.50)',
+    btnPrimaryBg: 'linear-gradient(135deg, #a855f7, #8b5cf6)',
+    btnPrimaryText: '#ffffff',
+    btnPrimaryHoverBg: 'linear-gradient(135deg, #c084fc, #a855f7)',
+    btnPrimaryGlow: '0 0 30px rgba(168,85,247,0.6)',
+    btnSecondaryBg: 'rgba(255,255,255,0.10)',
+    btnSecondaryText: 'rgba(255,255,255,0.80)',
+    btnSecondaryBorder: 'rgba(255,255,255,0.20)',
+    btnSecondaryHoverBg: 'rgba(255,255,255,0.18)',
+    btnSecondaryGlow: '0 4px 20px rgba(168,85,247,0.20)',
+    btnGhostBg: 'transparent',
+    btnGhostText: 'rgba(255,255,255,0.70)',
+    btnGhostHoverBg: 'rgba(255,255,255,0.10)',
+    btnDangerBg: 'linear-gradient(135deg, #f43f5e, #fb7185)',
+    btnDangerText: '#ffffff',
+    btnSuccessBg: 'linear-gradient(135deg, #10b981, #34d399)',
+    btnSuccessText: '#0f172a',
+    badgeDefaultBg: 'rgba(255,255,255,0.20)',
+    badgeDefaultText: 'rgba(255,255,255,0.90)',
+    badgeDefaultBorder: 'transparent',
+    badgeSuccessBg: 'rgba(52,211,153,0.20)',
+    badgeSuccessText: '#6ee7b7',
+    badgeSuccessBorder: 'transparent',
+    badgeWarningBg: 'rgba(251,191,36,0.20)',
+    badgeWarningText: '#fcd34d',
+    badgeWarningBorder: 'transparent',
+    badgeDangerBg: 'rgba(251,113,133,0.20)',
+    badgeDangerText: '#fda4af',
+    badgeDangerBorder: 'transparent',
+    badgePrimaryBg: 'rgba(96,165,250,0.20)',
+    badgePrimaryText: '#93c5fd',
+    badgePrimaryBorder: 'transparent',
+    badgeVioletBg: 'rgba(167,139,250,0.20)',
+    badgeVioletText: '#c4b5fd',
+    badgeVioletBorder: 'transparent',
+    searchBg: 'rgba(255,255,255,0.10)',
+    searchBorder: 'rgba(255,255,255,0.10)',
+    searchText: 'rgba(255,255,255,0.70)',
+    searchBtnBg: 'linear-gradient(135deg, #8b5cf6, #a855f7)',
+    searchBtnText: 'white',
+    inputBg: 'rgba(255,255,255,0.08)',
+    inputBorder: 'rgba(255,255,255,0.15)',
+    inputText: 'rgba(255,255,255,0.90)',
+    inputPlaceholder: 'rgba(255,255,255,0.40)',
+    inputFocusBorder: '#c4b5fd',
+    inputFocusGlow: '0 0 0 3px rgba(196,181,253,0.25)',
+    iconBtnFrom: '#8b5cf6',
+    iconBtnTo: '#9333ea',
+    iconBtnShadow: '0 0 12px rgba(147,51,234,0.50)',
+    iconBtnText: 'white',
+    avatarBorder: 'rgba(168,85,247,0.50)',
+    avatarGlow: '0 0 24px rgba(147,51,234,0.50)',
+    onlineBorder: '#0f172a',
+    toggleBg: 'rgba(255,255,255,0.15)',
+    toggleActiveBg: 'linear-gradient(135deg, #a855f7, #8b5cf6)',
+    toggleKnob: '#ffffff',
+    toggleGlow: '0 0 20px rgba(168,85,247,0.6)',
+    checkboxBg: 'rgba(255,255,255,0.08)',
+    checkboxBorder: 'rgba(255,255,255,0.25)',
+    checkboxCheckedBg: '#a855f7',
+    sliderTrack: 'rgba(255,255,255,0.15)',
+    sliderFill: '#a855f7',
+    sliderThumb: '#ffffff',
+    sliderThumbBorder: '#a855f7',
+    sliderThumbGlow: '0 0 15px rgba(168,85,247,0.6)',
+    footerText: 'rgba(255,255,255,0.30)',
+    aiCardBg: 'linear-gradient(135deg, rgba(139,92,246,0.20), rgba(59,130,246,0.15))',
+    aiCardBorder: 'rgba(167,139,250,0.30)',
+    yearCardBg: 'rgba(255,255,255,0.05)',
+    yearCardBorder: 'rgba(255,255,255,0.10)',
+    notificationBg: 'rgba(15,23,42,0.90)',
+    notificationGlow: '0 15px 50px rgba(168,85,247,0.30)',
+    skeletonBg: 'rgba(255,255,255,0.08)',
+    skeletonShine: 'rgba(255,255,255,0.15)',
+    tooltipBg: 'rgba(255,255,255,0.12)',
+    tooltipText: 'rgba(255,255,255,0.95)',
+    tooltipBorder: 'rgba(255,255,255,0.20)',
+    modalBg: 'rgba(15,23,42,0.85)',
+    modalBorder: 'rgba(255,255,255,0.15)',
+    modalOverlay: 'rgba(0,0,0,0.60)',
+    modalGlow: '0 25px 80px rgba(168,85,247,0.30)',
+    dropdownBg: 'rgba(15,23,42,0.90)',
+    dropdownBorder: 'rgba(255,255,255,0.15)',
+    dropdownItemHover: 'rgba(255,255,255,0.10)',
+    dropdownGlow: '0 15px 50px rgba(168,85,247,0.25)',
+    listItemHover: 'rgba(255,255,255,0.08)',
+    listDivider: 'rgba(255,255,255,0.10)',
+    tabBg: 'transparent',
+    tabActiveBg: 'rgba(168,85,247,0.20)',
+    tabActiveText: '#c4b5fd',
+    tabIndicator: '#c4b5fd',
+  },
+};
+
+// ========================================
+// CSS ANIMATIONS
+// ========================================
+const AnimationStyles = () => (
+  <style>{`
+    @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-6px); } }
+    @keyframes ripple { 0% { transform: scale(0); opacity: 0.6; } 100% { transform: scale(4); opacity: 0; } }
+    @keyframes glow-pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+    @keyframes skeleton-loading { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+    @keyframes orb-float { 0%, 100% { transform: translate(0, 0) scale(1); } 33% { transform: translate(10px, -10px) scale(1.05); } 66% { transform: translate(-5px, 5px) scale(0.95); } }
+    @keyframes btn-shine { 0% { left: -100%; } 50%, 100% { left: 100%; } }
+    @keyframes rainbow-glow { 0% { box-shadow: 0 0 20px rgba(251,191,36,0.5); } 25% { box-shadow: 0 0 20px rgba(52,211,153,0.5); } 50% { box-shadow: 0 0 20px rgba(96,165,250,0.5); } 75% { box-shadow: 0 0 20px rgba(168,85,247,0.5); } 100% { box-shadow: 0 0 20px rgba(251,191,36,0.5); } }
+    @keyframes score-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
+    @keyframes dropdownFadeIn { from { opacity: 0; transform: translateY(-8px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    @keyframes modalFadeIn { from { opacity: 0; transform: scale(0.95) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+  `}</style>
+);
+
+// ========================================
+// GLASS CARD COMPONENT
+// ========================================
+const GlassCard = ({
+  children,
+  className = '',
+  intensity = 'medium',
+  glow = null,
+  hover = true,
+}) => {
+  const { theme } = useTheme();
+  const t = themeStyles[theme];
+  const [isHovered, setIsHovered] = useState(false);
+  const bgMap = { subtle: t.glassSubtleBg, medium: t.glassMediumBg, strong: t.glassStrongBg };
+  const borderMap = {
+    subtle: t.glassSubtleBorder,
+    medium: t.glassMediumBorder,
+    strong: t.glassStrongBorder,
+  };
+  const blurMap = { subtle: '8px', medium: '12px', strong: '16px' };
+  const glowMap = { blue: t.glowBlue, violet: t.glowViolet, cyan: t.glowCyan, null: t.glowNeutral };
+  return (
+    <div
+      className={`border rounded-2xl transition-all duration-300 ${hover ? 'cursor-pointer' : ''} ${className}`}
+      style={{
+        background: isHovered && hover ? t.cardHoverBg : bgMap[intensity],
+        borderColor: borderMap[intensity],
+        backdropFilter: `blur(${blurMap[intensity]})`,
+        WebkitBackdropFilter: `blur(${blurMap[intensity]})`,
+        boxShadow: glow ? glowMap[glow] : t.glowNeutral,
+        transform: isHovered && hover ? 'translateY(-2px)' : 'translateY(0)',
+        overflow: 'visible',
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {children}
+    </div>
+  );
+};
+
+// ========================================
+// BUTTON COMPONENT
+// ========================================
+const Button = ({
+  children,
+  variant = 'primary',
+  size = 'md',
+  disabled = false,
+  loading = false,
+  icon: Icon,
+  iconPosition = 'left',
+  className = '',
+  onClick,
+  ...props
+}) => {
+  const { theme } = useTheme();
+  const t = themeStyles[theme];
+  const [isHovered, setIsHovered] = useState(false);
+  const [ripple, setRipple] = useState(null);
+  const sizes = {
+    sm: 'px-3 py-1.5 text-xs gap-1.5',
+    md: 'px-4 py-2 text-sm gap-2',
+    lg: 'px-6 py-3 text-base gap-2.5',
+  };
+  const getVariantStyles = () => {
+    const variants = {
+      primary: {
+        background: isHovered ? t.btnPrimaryHoverBg : t.btnPrimaryBg,
+        color: t.btnPrimaryText,
+        border: 'none',
+        boxShadow: isHovered ? t.btnPrimaryGlow : '0 4px 15px rgba(124,58,237,0.25)',
+      },
+      secondary: {
+        background: isHovered ? t.btnSecondaryHoverBg : t.btnSecondaryBg,
+        color: t.btnSecondaryText,
+        border: `1px solid ${t.btnSecondaryBorder}`,
+        boxShadow: isHovered ? t.btnSecondaryGlow : 'none',
+      },
+      ghost: {
+        background: isHovered ? t.btnGhostHoverBg : t.btnGhostBg,
+        color: t.btnGhostText,
+        border: 'none',
+        boxShadow: 'none',
+      },
+      danger: {
+        background: t.btnDangerBg,
+        color: t.btnDangerText,
+        border: 'none',
+        boxShadow: isHovered ? '0 0 20px rgba(239,68,68,0.4)' : '0 4px 15px rgba(239,68,68,0.25)',
+      },
+      success: {
+        background: t.btnSuccessBg,
+        color: t.btnSuccessText,
+        border: 'none',
+        boxShadow: isHovered ? '0 0 20px rgba(16,185,129,0.4)' : '0 4px 15px rgba(16,185,129,0.25)',
+      },
+    };
+    return variants[variant] || variants.primary;
+  };
+  const handleClick = (e) => {
+    if (disabled || loading) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    setRipple({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+    setTimeout(() => setRipple(null), 600);
+    onClick?.(e);
+  };
+  return (
+    <button
+      className={`relative overflow-hidden rounded-xl font-medium inline-flex items-center justify-center transition-all duration-300 ease-out ${sizes[size]} ${className} ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'} ${isHovered && !disabled ? 'scale-[1.02]' : ''}`}
+      style={getVariantStyles()}
+      disabled={disabled || loading}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={handleClick}
+      {...props}
+    >
+      {isHovered && variant === 'primary' && !disabled && (
+        <div className="absolute inset-0 overflow-hidden" style={{ borderRadius: 'inherit' }}>
+          <div
+            className="absolute top-0 h-full w-1/3 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+            style={{ animation: 'btn-shine 1.5s ease-in-out infinite' }}
+          />
+        </div>
+      )}
+      {ripple && (
+        <span
+          className="absolute rounded-full bg-white/30"
+          style={{
+            left: ripple.x,
+            top: ripple.y,
+            width: 10,
+            height: 10,
+            transform: 'translate(-50%, -50%)',
+            animation: 'ripple 0.6s ease-out',
+          }}
+        />
+      )}
+      {loading && <RefreshCw className="w-4 h-4 animate-spin" />}
+      {!loading && Icon && iconPosition === 'left' && <Icon className="w-4 h-4" />}
+      {!loading && children}
+      {!loading && Icon && iconPosition === 'right' && <Icon className="w-4 h-4" />}
+    </button>
+  );
+};
+
+// ========================================
+// BADGE COMPONENT
+// ========================================
+const Badge = ({ children, variant = 'default', size = 'md', dot }) => {
+  const { theme } = useTheme();
+  const t = themeStyles[theme];
+  const variants = {
+    default: { bg: t.badgeDefaultBg, text: t.badgeDefaultText, border: t.badgeDefaultBorder },
+    success: { bg: t.badgeSuccessBg, text: t.badgeSuccessText, border: t.badgeSuccessBorder },
+    warning: { bg: t.badgeWarningBg, text: t.badgeWarningText, border: t.badgeWarningBorder },
+    danger: { bg: t.badgeDangerBg, text: t.badgeDangerText, border: t.badgeDangerBorder },
+    info: { bg: t.badgePrimaryBg, text: t.badgePrimaryText, border: t.badgePrimaryBorder },
+    violet: { bg: t.badgeVioletBg, text: t.badgeVioletText, border: t.badgeVioletBorder },
+  };
+  const sizes = {
+    sm: 'px-1.5 py-0.5 text-[10px]',
+    md: 'px-2.5 py-0.5 text-xs',
+    lg: 'px-3 py-1 text-sm',
+  };
+  const v = variants[variant] || variants.default;
+  return (
+    <span
+      className={`inline-flex items-center gap-1.5 rounded-full font-medium ${sizes[size]}`}
+      style={{
+        background: v.bg,
+        color: v.text,
+        border: v.border && v.border !== 'transparent' ? `1px solid ${v.border}` : 'none',
+      }}
+    >
+      {dot && (
+        <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: v.text }} />
+      )}
+      {children}
+    </span>
+  );
+};
+
+// ========================================
+// STATUS INDICATOR
+// ========================================
+const StatusIndicator = ({ type = 'green', size = 'normal' }) => {
+  const { theme } = useTheme();
+  const t = themeStyles[theme];
+  const isGlass = theme === 'glass';
+  const colors = {
+    green: { bg: t.statusGreen, glow: `0 0 8px ${t.statusGreen}99` },
+    yellow: { bg: t.statusYellow, glow: `0 0 8px ${t.statusYellow}99` },
+    red: { bg: t.statusRed, glow: `0 0 8px ${t.statusRed}99` },
+  };
+  const sizeClass = size === 'large' ? 'w-4 h-4' : 'w-2.5 h-2.5';
+  const c = colors[type] || colors.green;
+  return (
+    <div
+      className={`${sizeClass} rounded-full flex items-center justify-center`}
+      style={{ backgroundColor: c.bg, boxShadow: isGlass ? c.glow : 'none' }}
+    >
+      {size === 'large' && (
+        <span className="text-white text-[10px] font-bold">
+          {type === 'green' ? '✓' : type === 'yellow' ? '!' : '✕'}
+        </span>
+      )}
+    </div>
+  );
+};
+
+// ========================================
+// PROGRESS BAR
+// ========================================
+const Progress = ({
+  value,
+  size = 'md',
+  gradient = 'from-violet-500 to-purple-500',
+  showLabel,
+}) => {
+  const { theme } = useTheme();
+  const t = themeStyles[theme];
+  const sizes = { sm: 'h-1', md: 'h-2', lg: 'h-3', xl: 'h-4' };
+  return (
+    <div className="w-full">
+      {showLabel && (
+        <div className="flex justify-between mb-1">
+          <span className="text-xs" style={{ color: t.textMuted }}>
+            Progress
+          </span>
+          <span className="text-xs font-medium" style={{ color: t.textSecondary }}>
+            {value}%
+          </span>
+        </div>
+      )}
+      <div
+        className={`${sizes[size]} rounded-full overflow-hidden`}
+        style={{ background: t.progressBg }}
+      >
+        <div
+          className={`h-full bg-gradient-to-r ${gradient} rounded-full transition-all duration-700`}
+          style={{ width: `${value}%`, boxShadow: t.progressGlow }}
+        />
+      </div>
+    </div>
+  );
+};
+
+// ========================================
+// RAINBOW PROGRESS
+// ========================================
+const RainbowProgress = ({ value, size = 'lg', showGlow = true }) => {
+  const { theme } = useTheme();
+  const t = themeStyles[theme];
+  const isGlass = theme === 'glass';
+  const sizes = { sm: 'h-2', md: 'h-3', lg: 'h-4', xl: 'h-5' };
+  return (
+    <div
+      className={`${sizes[size]} rounded-full overflow-hidden`}
+      style={{ background: t.progressBg }}
+    >
+      <div
+        className="h-full rounded-full transition-all duration-1000"
+        style={{
+          width: `${value}%`,
+          background:
+            'linear-gradient(90deg, #f59e0b, #fbbf24, #84cc16, #22c55e, #14b8a6, #06b6d4, #3b82f6)',
+          boxShadow: showGlow && isGlass ? '0 0 20px rgba(251,191,36,0.4)' : t.progressGlow,
+          animation: showGlow && isGlass ? 'rainbow-glow 4s ease-in-out infinite' : 'none',
+        }}
+      />
+    </div>
+  );
+};
+
+// ========================================
+// LANGUAGE BAR
+// ========================================
+const LanguageBar = ({ languages, showLegend = true }) => {
+  const { theme } = useTheme();
+  const t = themeStyles[theme];
+  const [hoveredLang, setHoveredLang] = useState(null);
+  const langColors = {
+    TypeScript: 'bg-blue-500',
+    JavaScript: 'bg-yellow-400',
+    Python: 'bg-emerald-500',
+    HTML: 'bg-orange-500',
+    CSS: 'bg-purple-500',
+  };
+  return (
+    <div className="w-full">
+      <div
+        className="flex h-2.5 rounded-full overflow-hidden"
+        style={{
+          boxShadow:
+            theme === 'glass'
+              ? '0 0 12px rgba(168,85,247,0.30)'
+              : 'inset 0 1px 2px rgba(0,0,0,0.1)',
+        }}
+      >
+        {languages.map((lang, i) => (
+          <div
+            key={i}
+            className={`${lang.color || langColors[lang.name] || 'bg-slate-400'} transition-all duration-300`}
+            style={{
+              width: `${lang.percent}%`,
+              opacity: hoveredLang !== null && hoveredLang !== i ? 0.5 : 1,
+            }}
+            onMouseEnter={() => setHoveredLang(i)}
+            onMouseLeave={() => setHoveredLang(null)}
+          />
+        ))}
+      </div>
+      {showLegend && (
+        <div
+          className="flex items-center gap-4 mt-2 text-xs flex-wrap"
+          style={{ color: t.textSecondary }}
+        >
+          {languages.map((lang, i) => (
+            <span
+              key={i}
+              className="flex items-center gap-1.5 cursor-pointer"
+              onMouseEnter={() => setHoveredLang(i)}
+              onMouseLeave={() => setHoveredLang(null)}
+            >
+              <span
+                className={`w-2.5 h-2.5 rounded-full ${lang.color || langColors[lang.name] || 'bg-slate-400'}`}
+              />
+              {lang.name} {lang.percent}%
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+// ========================================
+// METRIC CARD
+// ========================================
+const MetricCard = ({ label, value, color = 'blue' }) => {
+  const { theme } = useTheme();
+  const t = themeStyles[theme];
+  const isGlass = theme === 'glass';
+  const [isHovered, setIsHovered] = useState(false);
+  const colorMap = {
+    emerald: {
+      bg: isGlass ? 'transparent' : t.metricEmeraldBg,
+      text: t.metricEmeraldText,
+      border: isGlass ? 'transparent' : t.metricEmeraldBorder,
+      glow: '0 0 12px rgba(52,211,153,0.4)',
+      gradient: 'from-emerald-400 to-emerald-500',
+    },
+    amber: {
+      bg: isGlass ? 'transparent' : t.metricAmberBg,
+      text: t.metricAmberText,
+      border: isGlass ? 'transparent' : t.metricAmberBorder,
+      glow: '0 0 12px rgba(251,191,36,0.4)',
+      gradient: 'from-amber-400 to-amber-500',
+    },
+    blue: {
+      bg: isGlass ? 'transparent' : t.metricBlueBg,
+      text: t.metricBlueText,
+      border: isGlass ? 'transparent' : t.metricBlueBorder,
+      glow: '0 0 12px rgba(96,165,250,0.4)',
+      gradient: 'from-blue-400 to-blue-500',
+    },
+    red: {
+      bg: isGlass ? 'transparent' : t.metricRedBg,
+      text: t.metricRedText,
+      border: isGlass ? 'transparent' : t.metricRedBorder,
+      glow: '0 0 12px rgba(251,113,133,0.4)',
+      gradient: 'from-red-400 to-red-500',
+    },
+  };
+  const c = colorMap[color] || colorMap.blue;
+  return (
+    <div
+      className="p-4 rounded-xl border transition-all duration-300"
+      style={{
+        backgroundColor: c.bg,
+        borderColor: c.border || 'transparent',
+        boxShadow: isGlass && isHovered ? c.glow : 'none',
+        transform: isHovered ? 'translateY(-2px)' : 'translateY(0)',
+        backdropFilter: 'blur(8px)',
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div className="flex justify-between items-center mb-3">
+        <span className="text-sm font-medium" style={{ color: t.textSecondary }}>
+          {label}
+        </span>
+        <span
+          className="font-bold text-xl"
+          style={{ color: c.text, textShadow: isGlass ? c.glow : 'none' }}
+        >
+          {value}%
+        </span>
+      </div>
+      <Progress value={value} gradient={c.gradient} size="sm" />
+    </div>
+  );
+};
+
+// ========================================
+// TRUST SCORE CARD
+// ========================================
+const TrustScoreCard = ({ score = 72, metrics = [] }) => {
+  const { theme } = useTheme();
+  const t = themeStyles[theme];
+  const isGlass = theme === 'glass';
+  return (
+    <GlassCard className="p-5" intensity="strong" glow="cyan" hover={false}>
+      <div className="flex items-center justify-between mb-4">
+        <h2
+          className="font-semibold flex items-center gap-2 text-lg"
+          style={{ color: t.textPrimary }}
+        >
+          <Target className="w-5 h-5" style={{ color: t.textAccent }} />
+          Overall Trust Score
+        </h2>
+        <div
+          className={`flex items-center gap-2 ${isGlass ? 'animate-[score-pulse_2s_ease-in-out_infinite]' : ''}`}
+        >
+          <span className="text-4xl font-bold bg-gradient-to-r from-amber-400 via-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+            {score}
+          </span>
+          <span className="text-xl" style={{ color: t.textMuted }}>
+            / 100
+          </span>
+        </div>
+      </div>
+      <RainbowProgress value={score} size="lg" showGlow={isGlass} />
+      {metrics.length > 0 && (
+        <div className="grid grid-cols-4 gap-4 mt-5">
+          {metrics.map((m) => (
+            <MetricCard key={m.label} label={m.label} value={m.value} color={m.color} />
+          ))}
+        </div>
+      )}
+    </GlassCard>
+  );
+};
+
+// ========================================
+// TOOLTIP
+// ========================================
+const Tooltip = ({ children, content, position = 'top' }) => {
+  const { theme } = useTheme();
+  const t = themeStyles[theme];
+  const [isVisible, setIsVisible] = useState(false);
+  const isGlass = theme === 'glass';
+  const positions = {
+    top: 'bottom-full left-1/2 -translate-x-1/2 mb-2',
+    bottom: 'top-full left-1/2 -translate-x-1/2 mt-2',
+    left: 'right-full top-1/2 -translate-y-1/2 mr-2',
+    right: 'left-full top-1/2 -translate-y-1/2 ml-2',
+  };
+  // Единый темный дизайн для всех тем
+  const tooltipStyle = {
+    background: '#1e293b',
+    color: '#f8fafc',
+    border: 'none',
+    boxShadow: '0 4px 12px rgba(0,0,0,0.25)',
+    backdropFilter: 'none',
+    WebkitBackdropFilter: 'none',
+  };
+  return (
+    <div
+      className="relative inline-flex"
+      onMouseEnter={() => setIsVisible(true)}
+      onMouseLeave={() => setIsVisible(false)}
+    >
+      {children}
+      {isVisible && (
+        <div
+          className={`absolute ${positions[position]} px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap`}
+          style={{ ...tooltipStyle, zIndex: 50003, animation: 'float 0.3s ease-out' }}
+        >
+          {content}
+        </div>
+      )}
+    </div>
+  );
+};
+
+// ========================================
+// MODAL
+// ========================================
+const Modal = ({ isOpen, onClose, title, children, size = 'md' }) => {
+  const { theme } = useTheme();
+  const t = themeStyles[theme];
+  const [isClosing, setIsClosing] = useState(false);
+  const isGlass = theme === 'glass';
+  const sizes = { sm: 'max-w-sm', md: 'max-w-md', lg: 'max-w-lg', xl: 'max-w-xl' };
+  const modalStyles = isGlass
+    ? {
+        background: 'rgba(255,255,255,0.06)',
+        border: '1px solid rgba(255,255,255,0.12)',
+        boxShadow: '0 25px 80px rgba(168,85,247,0.35)',
+      }
+    : { background: t.modalBg, border: `1px solid ${t.modalBorder}`, boxShadow: t.modalGlow };
+  const handleClose = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      setIsClosing(false);
+      onClose();
+    }, 200);
+  };
+  if (!isOpen) return null;
+  return (
+    <div className="fixed inset-0 flex items-center justify-center p-4" style={{ zIndex: 60000 }}>
+      <div
+        className="absolute inset-0"
+        style={{
+          background: t.modalOverlay,
+          backdropFilter: 'blur(8px)',
+          opacity: isClosing ? 0 : 1,
+        }}
+        onClick={handleClose}
+      />
+      <div
+        className={`relative ${sizes[size]} w-full rounded-3xl p-6 transition-all duration-300`}
+        style={{
+          ...modalStyles,
+          backdropFilter: 'blur(24px)',
+          transform: isClosing ? 'scale(0.95) translateY(10px)' : 'scale(1) translateY(0)',
+          opacity: isClosing ? 0 : 1,
+          animation: !isClosing ? 'modalFadeIn 0.3s ease-out' : 'none',
+        }}
+      >
+        {isGlass && (
+          <div
+            className="absolute inset-0 rounded-3xl pointer-events-none"
+            style={{
+              background:
+                'radial-gradient(ellipse at top, rgba(168,85,247,0.15) 0%, transparent 50%)',
+            }}
+          />
+        )}
+        <div className="relative flex items-center justify-between mb-5">
+          <h3 className="text-xl font-semibold" style={{ color: t.textPrimary }}>
+            {title}
+          </h3>
+          <button
+            onClick={handleClose}
+            className="p-2 rounded-xl transition-all duration-300"
+            style={{
+              background: isGlass ? 'rgba(255,255,255,0.08)' : t.listItemHover,
+              color: t.textMuted,
+            }}
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+        <div className="relative" style={{ color: t.textSecondary }}>
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ========================================
+// DROPDOWN
+// ========================================
+const Dropdown = ({ trigger, items, align = 'left' }) => {
+  const { theme } = useTheme();
+  const t = themeStyles[theme];
+  const [isOpen, setIsOpen] = useState(false);
+  const [hoveredItem, setHoveredItem] = useState(null);
+  const isGlass = theme === 'glass';
+  const dropdownStyles = isGlass
+    ? {
+        background: 'rgba(255,255,255,0.08)',
+        border: '1px solid rgba(255,255,255,0.15)',
+        boxShadow: '0 15px 50px rgba(168,85,247,0.25)',
+      }
+    : {
+        background: t.dropdownBg,
+        border: `1px solid ${t.dropdownBorder}`,
+        boxShadow: t.dropdownGlow,
+      };
+  return (
+    <div className="relative inline-block" style={{ zIndex: isOpen ? 50000 : 'auto' }}>
+      <div onClick={() => setIsOpen(!isOpen)}>{trigger}</div>
+      {isOpen && (
+        <>
+          <div
+            className="fixed inset-0"
+            style={{ zIndex: 50001 }}
+            onClick={() => setIsOpen(false)}
+          />
+          <div
+            className={`absolute mt-2 min-w-[200px] rounded-2xl py-2 ${align === 'right' ? 'right-0' : 'left-0'}`}
+            style={{
+              ...dropdownStyles,
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              animation: 'dropdownFadeIn 0.2s ease-out',
+              zIndex: 50002,
+              position: 'absolute',
+            }}
+          >
+            {items.map((item, idx) =>
+              item.divider ? (
+                <div
+                  key={idx}
+                  className="my-2 mx-3"
+                  style={{
+                    borderTop: `1px solid ${isGlass ? 'rgba(255,255,255,0.08)' : t.listDivider}`,
+                  }}
+                />
+              ) : (
+                <button
+                  key={idx}
+                  onClick={() => {
+                    item.onClick?.();
+                    setIsOpen(false);
+                  }}
+                  className="w-full px-4 py-2.5 text-sm text-left flex items-center gap-3 transition-all duration-200"
+                  style={{
+                    color: item.danger
+                      ? isGlass
+                        ? '#fb7185'
+                        : t.alertDangerText
+                      : isGlass
+                        ? 'rgba(255,255,255,0.80)'
+                        : t.textSecondary,
+                    background:
+                      hoveredItem === idx
+                        ? isGlass
+                          ? 'rgba(255,255,255,0.10)'
+                          : t.dropdownItemHover
+                        : 'transparent',
+                  }}
+                  onMouseEnter={() => setHoveredItem(idx)}
+                  onMouseLeave={() => setHoveredItem(null)}
+                >
+                  {item.icon && (
+                    <item.icon
+                      className="w-4 h-4"
+                      style={{
+                        color: item.danger
+                          ? isGlass
+                            ? '#fb7185'
+                            : t.alertDangerText
+                          : hoveredItem === idx
+                            ? isGlass
+                              ? '#c4b5fd'
+                              : t.textAccent
+                            : isGlass
+                              ? 'rgba(255,255,255,0.50)'
+                              : t.textMuted,
+                      }}
+                    />
+                  )}
+                  <span className="font-medium">{item.label}</span>
+                </button>
+              )
+            )}
+          </div>
+        </>
+      )}
+    </div>
+  );
+};
+
+// ========================================
+// TABS
+// ========================================
+const Tabs = ({ tabs, activeTab, onChange }) => {
+  const { theme } = useTheme();
+  const t = themeStyles[theme];
+  return (
+    <div
+      className="flex gap-1 p-1 rounded-xl"
+      style={{ background: t.glassSubtleBg, border: `1px solid ${t.glassSubtleBorder}` }}
+    >
+      {tabs.map((tab) => (
+        <button
+          key={tab.id}
+          onClick={() => onChange(tab.id)}
+          className="relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300"
+          style={{
+            background: activeTab === tab.id ? t.tabActiveBg : t.tabBg,
+            color: activeTab === tab.id ? t.tabActiveText : t.textSecondary,
+          }}
+        >
+          {tab.label}
+          {activeTab === tab.id && (
+            <div
+              className="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-0.5 rounded-full"
+              style={{ background: t.tabIndicator }}
+            />
+          )}
+        </button>
+      ))}
+    </div>
+  );
+};
+
+// ========================================
+// HEADER NAV
+// ========================================
+const HeaderNav = ({ username = 'Yhooi2', onSearch, onThemeToggle }) => {
+  const { theme, cycleTheme } = useTheme();
+  const t = themeStyles[theme];
+  const [searchValue, setSearchValue] = useState(username);
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const isGlass = theme === 'glass';
+  const nextTheme = themes[(themes.indexOf(theme) + 1) % themes.length];
+  const NextIcon = themeConfig[nextTheme].icon;
+  return (
+    <header
+      className="border rounded-xl py-3 px-4 transition-all duration-300"
+      style={{ background: t.headerBg, borderColor: t.headerBorder, backdropFilter: 'blur(16px)' }}
+    >
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <button
+            className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-105"
+            style={{
+              background: `linear-gradient(135deg, ${t.iconBtnFrom}, ${t.iconBtnTo})`,
+              boxShadow: t.iconBtnShadow,
+            }}
+          >
+            <Github className="w-5 h-5" style={{ color: t.iconBtnText }} />
+          </button>
+          <span className="font-semibold text-lg" style={{ color: t.textPrimary }}>
+            User Analytics
+          </span>
+          <div
+            className="ml-4 flex rounded-xl overflow-hidden"
+            style={{
+              boxShadow: isSearchFocused && isGlass ? '0 0 20px rgba(168,85,247,0.25)' : 'none',
+            }}
+          >
+            <input
+              type="text"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              className="px-4 py-2 w-48 text-sm outline-none"
+              style={{
+                background: t.searchBg,
+                color: t.textPrimary,
+                border: `1px solid ${t.searchBorder}`,
+                borderRight: 'none',
+                borderTopLeftRadius: '0.75rem',
+                borderBottomLeftRadius: '0.75rem',
+              }}
+              onFocus={() => setIsSearchFocused(true)}
+              onBlur={() => setIsSearchFocused(false)}
+            />
+            <button
+              onClick={() => onSearch?.(searchValue)}
+              className="px-5 py-2 text-sm font-medium flex items-center gap-2 hover:scale-[1.02]"
+              style={{
+                background: t.searchBtnBg,
+                color: t.searchBtnText,
+                borderTopRightRadius: '0.75rem',
+                borderBottomRightRadius: '0.75rem',
+              }}
+            >
+              <Search className="w-4 h-4" />
+              Search
+            </button>
+          </div>
+        </div>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={onThemeToggle || cycleTheme}
+            className="p-2.5 rounded-xl transition-all duration-300 hover:scale-105"
+            style={{ background: t.glassSubtleBg, border: `1px solid ${t.glassSubtleBorder}` }}
+          >
+            <NextIcon className="w-5 h-5" style={{ color: t.textSecondary }} />
+          </button>
+          <Button variant="secondary" icon={Github}>
+            Sign in with GitHub
+          </Button>
+        </div>
+      </div>
+    </header>
+  );
+};
+
+// ========================================
+// AVATAR (fixed status position)
+// ========================================
+const Avatar = ({ name, size = 'md', status, className = '' }) => {
+  const { theme } = useTheme();
+  const t = themeStyles[theme];
+  const [isHovered, setIsHovered] = useState(false);
+  const isGlass = theme === 'glass';
+  const sizes = {
+    sm: 'w-8 h-8 text-xs',
+    md: 'w-10 h-10 text-sm',
+    lg: 'w-12 h-12 text-base',
+    xl: 'w-16 h-16 text-lg',
+  };
+  const statusSizes = { sm: 'w-2.5 h-2.5', md: 'w-3 h-3', lg: 'w-3.5 h-3.5', xl: 'w-4 h-4' };
+  const getStatusStyle = (statusType) =>
+    ({
+      online: { bg: t.statusGreen, glow: `0 0 8px ${t.statusGreen}99` },
+      offline: { bg: t.textMuted, glow: 'none' },
+      busy: { bg: t.statusRed, glow: `0 0 8px ${t.statusRed}99` },
+      away: { bg: t.statusYellow, glow: `0 0 8px ${t.statusYellow}99` },
+    })[statusType] || { bg: t.textMuted, glow: 'none' };
+  const getInitials = (name) =>
+    name
+      ?.split(' ')
+      .map((n) => n[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2) || '?';
+  const avatarStyles = isGlass
+    ? {
+        background: 'linear-gradient(135deg, rgba(168,85,247,0.80), rgba(139,92,246,0.80))',
+        border: '2px solid rgba(255,255,255,0.20)',
+        boxShadow: isHovered
+          ? '0 0 30px rgba(168,85,247,0.50)'
+          : '0 4px 20px rgba(168,85,247,0.30)',
+      }
+    : {
+        background: 'linear-gradient(135deg, #8b5cf6, #7c3aed)',
+        border: `2px solid ${t.avatarBorder}`,
+        boxShadow: isHovered ? t.avatarGlow : 'none',
+      };
+  return (
+    <div
+      className={`relative inline-flex ${className}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div
+        className={`${sizes[size]} rounded-full flex items-center justify-center font-semibold transition-all duration-300`}
+        style={{ ...avatarStyles, color: '#ffffff' }}
+      >
+        {getInitials(name)}
+      </div>
+      {status && (
+        <span
+          className={`absolute -bottom-0.5 -right-0.5 ${statusSizes[size]} rounded-full transition-all duration-300`}
+          style={{
+            background: getStatusStyle(status).bg,
+            boxShadow: isGlass ? getStatusStyle(status).glow : 'none',
+          }}
+        />
+      )}
+    </div>
+  );
+};
+
+// ========================================
+// PROFILE AVATAR (large)
+// ========================================
+const ProfileAvatar = ({ initials = 'AS', size = 'lg', status, glowing = true }) => {
+  const { theme } = useTheme();
+  const t = themeStyles[theme];
+  const isGlass = theme === 'glass';
+  const [isHovered, setIsHovered] = useState(false);
+  const sizes = {
+    sm: 'w-10 h-10 text-sm',
+    md: 'w-14 h-14 text-lg',
+    lg: 'w-16 h-16 text-xl',
+    xl: 'w-20 h-20 text-2xl',
+  };
+  const statusSizes = { sm: 'w-3 h-3', md: 'w-3.5 h-3.5', lg: 'w-4 h-4', xl: 'w-5 h-5' };
+  const statusPositions = {
+    sm: 'bottom-0 right-0',
+    md: 'bottom-0 right-0',
+    lg: '-bottom-0.5 -right-0.5',
+    xl: '-bottom-1 -right-1',
+  };
+  return (
+    <div
+      className="relative inline-flex"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div
+        className={`${sizes[size]} rounded-full bg-gradient-to-br from-blue-400 via-violet-500 to-indigo-500 flex items-center justify-center text-white font-bold transition-all duration-300 ${glowing && isGlass ? 'animate-[glow-pulse_2s_ease-in-out_infinite]' : ''}`}
+        style={{
+          boxShadow: isHovered || isGlass ? t.avatarGlow : 'none',
+          border: isGlass ? '3px solid rgba(255,255,255,0.25)' : `3px solid ${t.avatarBorder}`,
+        }}
+      >
+        {initials}
+      </div>
+      {status && (
+        <span
+          className={`absolute ${statusPositions[size]} ${statusSizes[size]} rounded-full`}
+          style={{ background: t.statusGreen, border: 'none', boxShadow: 'none' }}
+        />
+      )}
+    </div>
+  );
+};
+
+// ========================================
+// AI CARD
+// ========================================
+const AICard = ({ onGenerate }) => {
+  const { theme } = useTheme();
+  const t = themeStyles[theme];
+  const isGlass = theme === 'glass';
+  const [isHovered, setIsHovered] = useState(false);
+  const features = ['Code quality assessment', 'Architecture patterns', 'Best practices'];
+  return (
+    <div
+      className="w-64 p-4 rounded-xl transition-all duration-300"
+      style={{
+        background: t.aiCardBg,
+        border: `1px solid ${t.aiCardBorder}`,
+        backdropFilter: 'blur(12px)',
+        transform: isHovered ? 'translateY(-2px)' : 'translateY(0)',
+        boxShadow: isHovered && isGlass ? '0 12px 40px rgba(168,85,247,0.25)' : 'none',
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div
+        className="flex items-center gap-2 font-semibold text-sm mb-2"
+        style={{ color: t.textAccent }}
+      >
+        <Sparkles className="w-4 h-4" /> AI Summary
+      </div>
+      <p className="text-xs mb-2" style={{ color: t.textSecondary }}>
+        Get comprehensive analysis:
+      </p>
+      <ul className="text-xs space-y-1 mb-3">
+        {features.map((f, i) => (
+          <li key={i} className="flex items-center gap-1" style={{ color: t.textMuted }}>
+            <Check className="w-3 h-3" style={{ color: t.statusGreen }} />
+            {f}
+          </li>
+        ))}
+      </ul>
+      <Button variant="primary" size="sm" icon={Zap} onClick={onGenerate} className="w-full">
+        Generate Report
+      </Button>
+      <p
+        className="text-xs mt-2 text-center flex items-center justify-center gap-1"
+        style={{ color: t.textMuted }}
+      >
+        <Clock className="w-3 h-3" /> ~30 seconds
+      </p>
+    </div>
+  );
+};
+
+// ========================================
+// PROFILE HEADER
+// ========================================
+const ProfileHeader = ({
+  name = 'Artem Safronov',
+  username = 'Yhooi2',
+  joinDate = 'Jan 2023',
+  stats = {},
+  languages = [],
+}) => {
+  const { theme } = useTheme();
+  const t = themeStyles[theme];
+  const s = { repos: 11, followers: 1, following: 5, ...stats };
+  return (
+    <GlassCard className="p-5" intensity="strong" glow="violet" hover={false}>
+      <div className="flex gap-6">
+        <div className="flex-1">
+          <div className="flex gap-4">
+            <ProfileAvatar
+              initials={name
+                .split(' ')
+                .map((n) => n[0])
+                .join('')}
+              size="lg"
+              status="online"
+            />
+            <div>
+              <h1 className="text-xl font-bold" style={{ color: t.textPrimary }}>
+                {name}
+              </h1>
+              <div
+                className="flex items-center gap-2 text-sm mt-0.5"
+                style={{ color: t.textSecondary }}
+              >
+                <a
+                  href="#"
+                  className="flex items-center gap-1 hover:underline"
+                  style={{ color: t.textAccent }}
+                >
+                  @{username} <ExternalLink className="w-3 h-3" />
+                </a>
+                <span>·</span>
+                <span className="flex items-center gap-1">
+                  <Calendar className="w-3 h-3" /> Joined {joinDate}
+                </span>
+              </div>
+              <div
+                className="flex items-center gap-4 mt-2 text-sm"
+                style={{ color: t.textSecondary }}
+              >
+                <span className="flex items-center gap-1">
+                  <FolderGit2 className="w-4 h-4" style={{ color: t.textAccent }} /> {s.repos} repos
+                </span>
+                <span className="flex items-center gap-1">
+                  <Users className="w-4 h-4" style={{ color: t.textAccent }} /> {s.followers}{' '}
+                  followers
+                </span>
+                <span className="flex items-center gap-1">
+                  <User className="w-4 h-4" style={{ color: t.textAccent }} /> {s.following}{' '}
+                  following
+                </span>
+              </div>
+            </div>
+          </div>
+          {languages.length > 0 && (
+            <div className="mt-4">
+              <LanguageBar languages={languages} />
+            </div>
+          )}
+        </div>
+        <AICard />
+      </div>
+    </GlassCard>
+  );
+};
+
+// ========================================
+// YEAR CARD
+// ========================================
+const YearCard = ({ year, emoji, label, commits, progress, onClick, isExpanded }) => {
+  const { theme } = useTheme();
+  const t = themeStyles[theme];
+  const isGlass = theme === 'glass';
+  const [isHovered, setIsHovered] = useState(false);
+  return (
+    <div
+      className="p-3 rounded-xl border transition-all duration-300 cursor-pointer"
+      style={{
+        background: isHovered ? t.cardHoverBg : t.yearCardBg,
+        borderColor: t.yearCardBorder,
+        transform: isHovered ? 'translateY(-2px)' : 'translateY(0)',
+        boxShadow: isHovered && isGlass ? '0 8px 32px rgba(168,85,247,0.20)' : 'none',
+      }}
+      onClick={onClick}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div className="flex items-center justify-between mb-2">
+        <div className="flex items-center gap-2">
+          <span className="font-semibold" style={{ color: t.textPrimary }}>
+            {year}
+          </span>
+          <Badge>
+            {emoji} {label}
+          </Badge>
+        </div>
+        <span className="text-sm flex items-center gap-1" style={{ color: t.textSecondary }}>
+          {commits}
+          {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+        </span>
+      </div>
+      <Progress value={progress} gradient="from-blue-400 to-violet-500" size="sm" />
+    </div>
+  );
+};
+
+// ========================================
+// CAREER STATS
+// ========================================
+const CareerStats = ({ totalCommits = 2242, totalPRs = 47, totalRepos = 11, years = [] }) => {
+  const { theme } = useTheme();
+  const t = themeStyles[theme];
+  const [expandedYear, setExpandedYear] = useState(null);
+  return (
+    <GlassCard className="p-4" intensity="medium" hover={false}>
+      <h3 className="font-semibold flex items-center gap-2 mb-1" style={{ color: t.textPrimary }}>
+        <TrendingUp className="w-5 h-5" style={{ color: t.textAccent }} />
+        Career Stats
+      </h3>
+      <p
+        className="text-sm mb-4 flex items-center gap-2 flex-wrap"
+        style={{ color: t.textSecondary }}
+      >
+        <span className="flex items-center gap-1">
+          <Code className="w-4 h-4" /> {totalCommits.toLocaleString()} commits
+        </span>
+        <span>·</span>
+        <span className="flex items-center gap-1">
+          <GitPullRequest className="w-4 h-4" /> {totalPRs} PRs
+        </span>
+        <span>·</span>
+        <span className="flex items-center gap-1">
+          <FolderGit2 className="w-4 h-4" /> {totalRepos} repos
+        </span>
+      </p>
+      <div className="space-y-2">
+        {years.map((y) => (
+          <YearCard
+            key={y.year}
+            {...y}
+            isExpanded={expandedYear === y.year}
+            onClick={() => setExpandedYear(expandedYear === y.year ? null : y.year)}
+          />
+        ))}
+      </div>
+    </GlassCard>
+  );
+};
+
+// ========================================
+// FLAG ALERT
+// ========================================
+const FlagAlert = ({ type = 'warning', title, description }) => {
+  const { theme } = useTheme();
+  const t = themeStyles[theme];
+  const [isHovered, setIsHovered] = useState(false);
+  const config =
+    type === 'danger'
+      ? {
+          bg: t.alertDangerBg,
+          border: t.alertDangerBorder,
+          text: t.alertDangerText,
+          statusType: 'red',
+        }
+      : {
+          bg: t.alertWarningBg,
+          border: t.alertWarningBorder,
+          text: t.alertWarningText,
+          statusType: 'yellow',
+        };
+  return (
+    <div
+      className="p-3 rounded-xl border transition-all duration-300"
+      style={{
+        background: config.bg,
+        borderColor: config.border,
+        transform: isHovered ? 'translateX(4px)' : 'translateX(0)',
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div className="flex items-center gap-2 font-medium text-sm" style={{ color: config.text }}>
+        <StatusIndicator type={config.statusType} />
+        {title}
+      </div>
+      {description && (
+        <p className="text-xs mt-1 ml-5" style={{ color: `${config.text}99` }}>
+          {description}
+        </p>
+      )}
+    </div>
+  );
+};
+
+// ========================================
+// FLAGS SECTION
+// ========================================
+const FlagsSection = ({ flags = [], expanded = false, onToggle }) => {
+  const { theme } = useTheme();
+  const t = themeStyles[theme];
+  return (
+    <GlassCard intensity="medium" hover={false}>
+      <button
+        onClick={onToggle}
+        className="w-full p-4 flex items-center justify-between rounded-2xl"
+        style={{ color: t.textPrimary }}
+      >
+        <div className="flex items-center gap-2">
+          <AlertTriangle className="w-5 h-5" style={{ color: t.statusYellow }} />
+          <span className="font-medium">{flags.length} flags detected</span>
+        </div>
+        {expanded ? (
+          <ChevronUp className="w-5 h-5" style={{ color: t.textMuted }} />
+        ) : (
+          <ChevronDown className="w-5 h-5" style={{ color: t.textMuted }} />
+        )}
+      </button>
+      {expanded && (
+        <div className="px-4 pb-4 space-y-2">
+          {flags.map((flag, i) => (
+            <FlagAlert key={i} type={flag.type} title={flag.title} description={flag.description} />
+          ))}
+        </div>
+      )}
+    </GlassCard>
+  );
+};
+
+// ========================================
+// REPO CARD
+// ========================================
+const RepoCard = ({
+  name,
+  status = 'good',
+  stars = 0,
+  commits,
+  contribution,
+  languages = [],
+  issues = [],
+  expanded = false,
+  onToggle,
+}) => {
+  const { theme } = useTheme();
+  const t = themeStyles[theme];
+  const isGlass = theme === 'glass';
+  const [isHovered, setIsHovered] = useState(false);
+  const statusType = status === 'good' ? 'green' : status === 'warning' ? 'yellow' : 'red';
+  const langColors = {
+    JS: 'bg-yellow-400',
+    TypeScript: 'bg-blue-500',
+    Python: 'bg-emerald-500',
+    CSS: 'bg-purple-500',
+  };
+  return (
+    <div
+      className="rounded-xl border transition-all duration-300 overflow-hidden"
+      style={{
+        background: expanded || isHovered ? t.cardHoverBg : t.cardBg,
+        borderColor: t.cardBorder,
+        boxShadow: isHovered && isGlass ? '0 8px 32px rgba(168,85,247,0.15)' : 'none',
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div className="p-3 cursor-pointer" onClick={onToggle}>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="font-medium" style={{ color: t.textPrimary }}>
+              {name}
+            </span>
+            <StatusIndicator type={statusType} size="large" />
+            {stars > 0 && (
+              <span className="text-xs flex items-center gap-0.5" style={{ color: t.textMuted }}>
+                <Star className="w-3 h-3 fill-current" />
+                {stars}
+              </span>
+            )}
+          </div>
+          <span className="text-sm flex items-center gap-1" style={{ color: t.textSecondary }}>
+            {commits} commits
+            {expanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+          </span>
+        </div>
+        <div className="flex items-center gap-2 mt-1.5 text-xs" style={{ color: t.textSecondary }}>
+          {languages.map((l, i) => (
+            <span key={i} className="flex items-center gap-1">
+              <span
+                className={`w-2 h-2 rounded-full ${l.color || langColors[l.name] || 'bg-slate-400'}`}
+              />
+              {l.name} {l.percent}%
+            </span>
+          ))}
+          <span>·</span>
+          <span>{contribution}% contribution</span>
+        </div>
+      </div>
+      {expanded && (
+        <div
+          className="px-3 pb-3 pt-2 space-y-3"
+          style={{ borderTop: `1px solid ${t.cardBorder}` }}
+        >
+          {issues.length > 0 && (
+            <div
+              className="p-2 rounded-lg border"
+              style={{ background: t.alertDangerBg, borderColor: t.alertDangerBorder }}
+            >
+              <p
+                className="text-xs font-medium mb-1 flex items-center gap-1"
+                style={{ color: t.alertDangerText }}
+              >
+                <AlertTriangle className="w-3 h-3" /> Issues detected
+              </p>
+              {issues.map((issue, i) => (
+                <p key={i} className="text-xs" style={{ color: `${t.alertDangerText}cc` }}>
+                  • {issue}
+                </p>
+              ))}
+            </div>
+          )}
+          <div className="grid grid-cols-2 gap-3">
+            <div
+              className="p-2 rounded-lg border"
+              style={{ background: t.expandedBg, borderColor: t.cardBorder }}
+            >
+              <p className="text-xs" style={{ color: t.textMuted }}>
+                Your Contribution
+              </p>
+              <p className="font-medium" style={{ color: t.textPrimary }}>
+                {commits} commits
+              </p>
+              <p className="text-xs" style={{ color: t.textSecondary }}>
+                {contribution}% of project
+              </p>
+            </div>
+            <div
+              className="p-2 rounded-lg border"
+              style={{ background: t.expandedBg, borderColor: t.cardBorder }}
+            >
+              <p className="text-xs" style={{ color: t.textMuted }}>
+                Full Project
+              </p>
+              <p className="font-medium" style={{ color: t.textPrimary }}>
+                {commits} commits
+              </p>
+              <p className="text-xs" style={{ color: t.textSecondary }}>
+                1 contributor
+              </p>
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <Button variant="secondary" size="sm" icon={Github} className="flex-1">
+              GitHub
+            </Button>
+            <Button variant="primary" size="sm" icon={Sparkles} className="flex-1">
+              AI Analysis
+            </Button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+// ========================================
+// SEGMENTED CONTROL
+// ========================================
+const SegmentedControl = ({ options, value, onChange }) => {
+  const { theme } = useTheme();
+  const t = themeStyles[theme];
+  const isGlass = theme === 'glass';
+  const activeBg = isGlass
+    ? 'rgba(255,255,255,0.20)'
+    : theme === 'aurora'
+      ? 'rgba(15,23,42,0.80)'
+      : '#1e293b';
+  const activeText = isGlass
+    ? 'rgba(255,255,255,0.95)'
+    : theme === 'aurora'
+      ? '#e2e8f0'
+      : '#ffffff';
+  const inactiveText = isGlass
+    ? 'rgba(255,255,255,0.50)'
+    : theme === 'aurora'
+      ? '#94a3b8'
+      : '#64748b';
+  return (
+    <div
+      className="flex rounded-xl overflow-hidden"
+      style={{
+        border: `1px solid ${t.glassSubtleBorder}`,
+        background: isGlass ? 'rgba(255,255,255,0.05)' : t.glassSubtleBg,
+      }}
+    >
+      {options.map((opt) => (
+        <button
+          key={opt.value}
+          onClick={() => onChange?.(opt.value)}
+          className="px-4 py-2 text-sm font-medium transition-all duration-300"
+          style={{
+            background: value === opt.value ? activeBg : 'transparent',
+            color: value === opt.value ? activeText : inactiveText,
+          }}
+        >
+          {opt.label}
+        </button>
+      ))}
+    </div>
+  );
+};
+
+// ========================================
+// TOGGLE
+// ========================================
+const Toggle = ({ checked, onChange, disabled, size = 'md' }) => {
+  const { theme } = useTheme();
+  const t = themeStyles[theme];
+  const sizes = {
+    sm: { track: 'w-8 h-4', knob: 'w-3 h-3', translate: 'translate-x-4' },
+    md: { track: 'w-11 h-6', knob: 'w-5 h-5', translate: 'translate-x-5' },
+    lg: { track: 'w-14 h-7', knob: 'w-6 h-6', translate: 'translate-x-7' },
+  };
+  const s = sizes[size];
+  return (
+    <button
+      onClick={() => !disabled && onChange?.(!checked)}
+      className={`relative ${s.track} rounded-full transition-all duration-300 ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+      style={{
+        background: checked ? t.toggleActiveBg : t.toggleBg,
+        boxShadow: checked ? t.toggleGlow : 'none',
+      }}
+    >
+      <div
+        className={`absolute top-0.5 left-0.5 ${s.knob} rounded-full shadow-md transition-all duration-300 ${checked ? s.translate : ''}`}
+        style={{ background: t.toggleKnob }}
+      />
+    </button>
+  );
+};
+
+// ========================================
+// CHECKBOX
+// ========================================
+const Checkbox = ({ checked, onChange, label, disabled }) => {
+  const { theme } = useTheme();
+  const t = themeStyles[theme];
+  const [isHovered, setIsHovered] = useState(false);
+  return (
+    <label
+      className={`inline-flex items-center gap-2 ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div
+        onClick={() => !disabled && onChange?.(!checked)}
+        className="relative w-5 h-5 rounded-md transition-all duration-300 flex items-center justify-center"
+        style={{
+          background: checked ? t.checkboxCheckedBg : t.checkboxBg,
+          border: `2px solid ${checked ? t.checkboxCheckedBg : t.checkboxBorder}`,
+          boxShadow: isHovered ? '0 0 0 3px rgba(124,58,237,0.15)' : 'none',
+        }}
+      >
+        {checked && <Check className="w-3 h-3" style={{ color: t.textInverse }} />}
+      </div>
+      {label && (
+        <span className="text-sm" style={{ color: t.textSecondary }}>
+          {label}
+        </span>
+      )}
+    </label>
+  );
+};
+
+// ========================================
+// ALERT
+// ========================================
+const Alert = ({ type = 'info', title, children, dismissible, onDismiss }) => {
+  const { theme } = useTheme();
+  const t = themeStyles[theme];
+  const types = {
+    info: { bg: t.alertInfoBg, border: t.alertInfoBorder, text: t.alertInfoText, icon: Info },
+    success: {
+      bg: t.alertSuccessBg,
+      border: t.alertSuccessBorder,
+      text: t.alertSuccessText,
+      icon: CheckCircle,
+    },
+    warning: {
+      bg: t.alertWarningBg,
+      border: t.alertWarningBorder,
+      text: t.alertWarningText,
+      icon: AlertTriangle,
+    },
+    error: {
+      bg: t.alertDangerBg,
+      border: t.alertDangerBorder,
+      text: t.alertDangerText,
+      icon: AlertCircle,
+    },
+  };
+  const config = types[type];
+  const Icon = config.icon;
+  return (
+    <div
+      className="flex items-start gap-3 p-4 rounded-xl"
+      style={{ background: config.bg, border: `1px solid ${config.border}` }}
+    >
+      <Icon className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: config.text }} />
+      <div className="flex-1">
+        {title && (
+          <p className="font-medium text-sm mb-1" style={{ color: config.text }}>
+            {title}
+          </p>
+        )}
+        <p className="text-sm" style={{ color: `${config.text}cc` }}>
+          {children}
+        </p>
+      </div>
+      {dismissible && (
+        <button onClick={onDismiss} className="p-1 rounded">
+          <X className="w-4 h-4" style={{ color: config.text }} />
+        </button>
+      )}
+    </div>
+  );
+};
+
+// ========================================
+// NOTIFICATION
+// ========================================
+const Notification = ({ type = 'info', title, message, onClose }) => {
+  const { theme } = useTheme();
+  const t = themeStyles[theme];
+  const isGlass = theme === 'glass';
+  const [isHovered, setIsHovered] = useState(false);
+  const types = {
+    info: { icon: Info, color: t.statusBlue, glow: '0 0 20px rgba(96,165,250,0.30)' },
+    success: { icon: CheckCircle, color: t.statusGreen, glow: '0 0 20px rgba(52,211,153,0.30)' },
+    warning: { icon: AlertTriangle, color: t.statusYellow, glow: '0 0 20px rgba(251,191,36,0.30)' },
+    error: { icon: AlertCircle, color: t.statusRed, glow: '0 0 20px rgba(251,113,133,0.30)' },
+  };
+  const config = types[type];
+  const Icon = config.icon;
+  return (
+    <div
+      className="flex items-start gap-4 p-5 rounded-2xl min-w-[320px] max-w-[420px] transition-all duration-300"
+      style={{
+        background: isGlass ? 'rgba(255,255,255,0.08)' : t.notificationBg,
+        border: `1px solid ${isGlass ? 'rgba(255,255,255,0.15)' : t.glassSubtleBorder}`,
+        boxShadow: isHovered && isGlass ? config.glow : t.notificationGlow,
+        transform: isHovered ? 'translateY(-2px)' : 'translateY(0)',
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div
+        className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+        style={{
+          background: isGlass ? `${config.color}20` : `${config.color}15`,
+          boxShadow: isHovered && isGlass ? config.glow : 'none',
+        }}
+      >
+        <Icon className="w-5 h-5" style={{ color: config.color }} />
+      </div>
+      <div className="flex-1 min-w-0">
+        <p className="font-semibold text-sm mb-1" style={{ color: t.textPrimary }}>
+          {title}
+        </p>
+        <p className="text-sm" style={{ color: t.textSecondary }}>
+          {message}
+        </p>
+      </div>
+      <button
+        onClick={onClose}
+        className="p-1.5 rounded-lg flex-shrink-0"
+        style={{ color: t.textMuted }}
+      >
+        <X className="w-4 h-4" />
+      </button>
+    </div>
+  );
+};
+
+// ========================================
+// SLIDER
+// ========================================
+const Slider = ({ value, onChange, min = 0, max = 100, step = 1 }) => {
+  const { theme } = useTheme();
+  const t = themeStyles[theme];
+  const pct = ((value - min) / (max - min)) * 100;
+  return (
+    <div className="relative w-full h-6 flex items-center">
+      <div className="absolute w-full h-2 rounded-full" style={{ background: t.sliderTrack }} />
+      <div
+        className="absolute h-2 rounded-full"
+        style={{
+          width: `${pct}%`,
+          background: `linear-gradient(90deg, ${t.sliderFill}, ${t.textAccent})`,
+          boxShadow: t.progressGlow,
+        }}
+      />
+      <input
+        type="range"
+        value={value}
+        onChange={(e) => onChange(Number(e.target.value))}
+        min={min}
+        max={max}
+        step={step}
+        className="absolute w-full h-6 opacity-0 cursor-pointer"
+      />
+      <div
+        className="absolute w-5 h-5 rounded-full shadow-lg pointer-events-none"
+        style={{
+          left: `calc(${pct}% - 10px)`,
+          background: t.sliderThumb,
+          border: `2px solid ${t.sliderThumbBorder}`,
+          boxShadow: t.sliderThumbGlow,
+        }}
+      />
+    </div>
+  );
+};
+
+// ========================================
+// SKELETON
+// ========================================
+const Skeleton = ({ variant = 'text', width, height, className = '' }) => {
+  const { theme } = useTheme();
+  const t = themeStyles[theme];
+  const variants = {
+    text: 'h-4 rounded',
+    title: 'h-6 rounded',
+    avatar: 'w-12 h-12 rounded-full',
+    thumbnail: 'w-full h-32 rounded-xl',
+    card: 'w-full h-48 rounded-2xl',
+  };
+  return (
+    <div
+      className={`${variants[variant]} ${className} overflow-hidden`}
+      style={{
+        width,
+        height,
+        background: `linear-gradient(90deg, ${t.skeletonBg} 25%, ${t.skeletonShine} 50%, ${t.skeletonBg} 75%)`,
+        backgroundSize: '200% 100%',
+        animation: 'skeleton-loading 1.5s infinite',
+      }}
+    />
+  );
+};
+
+// ========================================
+// INPUT
+// ========================================
+const Input = ({
+  label,
+  placeholder,
+  type = 'text',
+  value,
+  onChange,
+  error,
+  success,
+  disabled,
+  icon: Icon,
+  iconPosition = 'left',
+  className = '',
+  ...props
+}) => {
+  const { theme } = useTheme();
+  const t = themeStyles[theme];
+  const [isFocused, setIsFocused] = useState(false);
+  const getBorderColor = () => {
+    if (error) return t.statusRed;
+    if (success) return t.statusGreen;
+    if (isFocused) return t.inputFocusBorder;
+    return t.inputBorder;
+  };
+  return (
+    <div className={`flex flex-col gap-1.5 ${className}`}>
+      {label && (
+        <label className="text-sm font-medium" style={{ color: t.textSecondary }}>
+          {label}
+        </label>
+      )}
+      <div className="relative">
+        {Icon && iconPosition === 'left' && (
+          <Icon
+            className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4"
+            style={{ color: isFocused ? t.textAccent : t.textMuted }}
+          />
+        )}
+        <input
+          type={type}
+          value={value}
+          onChange={onChange}
+          placeholder={placeholder}
+          disabled={disabled}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          className={`w-full rounded-xl px-4 py-2.5 text-sm outline-none ${Icon && iconPosition === 'left' ? 'pl-10' : ''} ${Icon && iconPosition === 'right' ? 'pr-10' : ''} ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+          style={{
+            background: t.inputBg,
+            border: `1px solid ${getBorderColor()}`,
+            color: t.inputText,
+            boxShadow: isFocused ? t.inputFocusGlow : 'none',
+          }}
+          {...props}
+        />
+        {Icon && iconPosition === 'right' && (
+          <Icon
+            className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4"
+            style={{ color: isFocused ? t.textAccent : t.textMuted }}
+          />
+        )}
+      </div>
+      {error && (
+        <span className="text-xs" style={{ color: t.alertDangerText }}>
+          {error}
+        </span>
+      )}
+      {success && (
+        <span className="text-xs" style={{ color: t.alertSuccessText }}>
+          {success}
+        </span>
+      )}
+    </div>
+  );
+};
+
+// ========================================
+// DEMO SHOWCASE
+// ========================================
+function ComponentShowcase() {
+  const { theme, cycleTheme } = useTheme();
+  const t = themeStyles[theme];
+  const [flagsExpanded, setFlagsExpanded] = useState(true);
+  const [expandedRepo, setExpandedRepo] = useState(0);
+  const [activeTab, setActiveTab] = useState('your');
+  const [activeNavTab, setActiveNavTab] = useState('overview');
+  const [toggle1, setToggle1] = useState(true);
+  const [checkbox1, setCheckbox1] = useState(true);
+  const [sliderValue, setSliderValue] = useState(50);
+  const [inputValue, setInputValue] = useState('');
+  const [modalOpen, setModalOpen] = useState(false);
+  const nextTheme = themes[(themes.indexOf(theme) + 1) % themes.length];
+  const NextIcon = themeConfig[nextTheme].icon;
+  const languages = [
+    { name: 'TypeScript', percent: 56, color: 'bg-blue-500' },
+    { name: 'HTML', percent: 22, color: 'bg-orange-500' },
+    { name: 'JavaScript', percent: 13, color: 'bg-yellow-400' },
+    { name: 'Python', percent: 9, color: 'bg-emerald-500' },
+  ];
+  const metrics = [
+    { label: 'Regularity', value: 84, color: 'emerald' },
+    { label: 'Impact', value: 45, color: 'amber' },
+    { label: 'Diversity', value: 78, color: 'blue' },
+    { label: 'Collaboration', value: 12, color: 'red' },
+  ];
+  const years = [
+    { year: 2025, emoji: '🔥', label: 'Peak', commits: 629, progress: 70 },
+    { year: 2024, emoji: '📈', label: 'Growth', commits: 901, progress: 100 },
+    { year: 2023, emoji: '🌱', label: 'Start', commits: 712, progress: 79 },
+  ];
+  const flags = [
+    {
+      type: 'danger',
+      title: 'No collaboration',
+      description: '0 PRs to external repos · 0 code reviews',
+    },
+    {
+      type: 'warning',
+      title: 'Burst activity pattern',
+      description: '3 days with 50+ commits · Uneven distribution',
+    },
+  ];
+  const repos = [
+    {
+      name: 'bot-scripts',
+      status: 'critical',
+      stars: 0,
+      commits: 89,
+      contribution: 100,
+      languages: [{ name: 'Python', percent: 100, color: 'bg-emerald-500' }],
+      issues: ['Empty commits (avg 3 lines/commit)', 'Burst: 67 commits on Oct 15'],
+    },
+    {
+      name: 'portfolio',
+      status: 'good',
+      stars: 5,
+      commits: 134,
+      contribution: 100,
+      languages: [
+        { name: 'TypeScript', percent: 78, color: 'bg-blue-500' },
+        { name: 'CSS', percent: 22, color: 'bg-purple-500' },
+      ],
+      issues: [],
+    },
+  ];
+  const navTabs = [
+    { id: 'overview', label: 'Overview' },
+    { id: 'repos', label: 'Repositories' },
+    { id: 'activity', label: 'Activity' },
+  ];
+  const dropdownItems = [
+    { icon: User, label: 'Profile' },
+    { icon: Settings, label: 'Settings' },
+    { icon: Folder, label: 'Projects' },
+    { divider: true },
+    { icon: LogOut, label: 'Sign out', danger: true },
+  ];
+
+  return (
+    <div className="min-h-screen font-sans">
+      <AnimationStyles />
+      <div
+        className="fixed inset-0 transition-all duration-500"
+        style={{ background: `linear-gradient(135deg, ${t.bgFrom}, ${t.bgVia}, ${t.bgTo})` }}
+      >
+        <div
+          className="absolute top-20 -left-20 w-80 h-80 rounded-full blur-3xl"
+          style={{ background: t.orb1, animation: 'orb-float 8s ease-in-out infinite' }}
+        />
+        <div
+          className="absolute top-1/3 -right-20 w-96 h-96 rounded-full blur-3xl"
+          style={{ background: t.orb2, animation: 'orb-float 8s ease-in-out infinite 2s' }}
+        />
+        <div
+          className="absolute bottom-20 left-1/4 w-72 h-72 rounded-full blur-3xl"
+          style={{ background: t.orb3, animation: 'orb-float 8s ease-in-out infinite 4s' }}
+        />
+        {theme === 'glass' && (
+          <div
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full blur-3xl"
+            style={{ background: t.orb5 }}
+          />
+        )}
+      </div>
+      <div className="relative z-10 p-4 md:p-6">
+        <div className="max-w-6xl mx-auto space-y-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl md:text-3xl font-bold mb-1" style={{ color: t.textPrimary }}>
+                Component Library
+              </h1>
+              <p className="text-sm" style={{ color: t.textSecondary }}>
+                GitHub Analytics UI · {themeConfig[theme].label} theme
+              </p>
+            </div>
+            <Button variant="secondary" icon={NextIcon} onClick={cycleTheme}>
+              {themeConfig[nextTheme].label}
+            </Button>
+          </div>
+          <div>
+            <h2 className="text-lg font-semibold mb-3" style={{ color: t.textPrimary }}>
+              Header Navigation
+            </h2>
+            <HeaderNav username="Yhooi2" onThemeToggle={cycleTheme} />
+          </div>
+          <div>
+            <h2 className="text-lg font-semibold mb-3" style={{ color: t.textPrimary }}>
+              Trust Score
+            </h2>
+            <TrustScoreCard score={72} metrics={metrics} />
+          </div>
+          <div>
+            <h2 className="text-lg font-semibold mb-3" style={{ color: t.textPrimary }}>
+              Profile Header
+            </h2>
+            <ProfileHeader
+              name="Artem Safronov"
+              username="Yhooi2"
+              joinDate="Jan 2023"
+              stats={{ repos: 11, followers: 1, following: 5 }}
+              languages={languages}
+            />
+          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <h2 className="text-lg font-semibold mb-3" style={{ color: t.textPrimary }}>
+                Flags Section
+              </h2>
+              <FlagsSection
+                flags={flags}
+                expanded={flagsExpanded}
+                onToggle={() => setFlagsExpanded(!flagsExpanded)}
+              />
+            </div>
+            <div>
+              <h2 className="text-lg font-semibold mb-3" style={{ color: t.textPrimary }}>
+                Career Stats
+              </h2>
+              <CareerStats totalCommits={2242} totalPRs={47} totalRepos={11} years={years} />
+            </div>
+          </div>
+          <div>
+            <h2 className="text-lg font-semibold mb-3" style={{ color: t.textPrimary }}>
+              Repository Cards
+            </h2>
+            <div className="flex items-center gap-3 mb-4">
+              <SegmentedControl
+                options={[
+                  { value: 'your', label: 'Your' },
+                  { value: 'contrib', label: 'Contrib' },
+                ]}
+                value={activeTab}
+                onChange={setActiveTab}
+              />
+              <Badge variant="violet">{repos.length} repos</Badge>
+            </div>
+            <div className="space-y-3">
+              {repos.map((repo, idx) => (
+                <RepoCard
+                  key={repo.name}
+                  {...repo}
+                  expanded={expandedRepo === idx}
+                  onToggle={() => setExpandedRepo(expandedRepo === idx ? null : idx)}
+                />
+              ))}
+            </div>
+          </div>
+          <GlassCard className="p-6" intensity="strong" hover={false}>
+            <h2 className="text-lg font-semibold mb-4" style={{ color: t.textPrimary }}>
+              Tabs, Dropdown & Modal
+            </h2>
+            <div className="space-y-4">
+              <Tabs tabs={navTabs} activeTab={activeNavTab} onChange={setActiveNavTab} />
+              <div className="flex items-center gap-4 flex-wrap">
+                <Dropdown
+                  trigger={
+                    <Button variant="secondary" icon={ChevronDown} iconPosition="right">
+                      Menu
+                    </Button>
+                  }
+                  items={dropdownItems}
+                />
+                <Button variant="ghost" onClick={() => setModalOpen(true)}>
+                  Open Modal
+                </Button>
+                <Tooltip content="This is a tooltip!" position="top">
+                  <Button variant="ghost" size="sm">
+                    Hover me (top)
+                  </Button>
+                </Tooltip>
+                <Tooltip content="Bottom tooltip" position="bottom">
+                  <Button variant="ghost" size="sm">
+                    Hover me (bottom)
+                  </Button>
+                </Tooltip>
+              </div>
+            </div>
+          </GlassCard>
+          <GlassCard className="p-6" intensity="strong" hover={false}>
+            <h2 className="text-lg font-semibold mb-4" style={{ color: t.textPrimary }}>
+              Buttons
+            </h2>
+            <div className="flex flex-wrap gap-3 mb-4">
+              <Button variant="primary" icon={Sparkles}>
+                Primary
+              </Button>
+              <Button variant="secondary" icon={Settings}>
+                Secondary
+              </Button>
+              <Button variant="ghost" icon={Eye}>
+                Ghost
+              </Button>
+              <Button variant="danger" icon={Trash2}>
+                Danger
+              </Button>
+              <Button variant="success" icon={Check}>
+                Success
+              </Button>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Button size="sm">Small</Button>
+              <Button size="md">Medium</Button>
+              <Button size="lg">Large</Button>
+              <Button loading>Loading</Button>
+              <Button disabled>Disabled</Button>
+            </div>
+          </GlassCard>
+          <GlassCard className="p-6" intensity="strong" hover={false}>
+            <h2 className="text-lg font-semibold mb-4" style={{ color: t.textPrimary }}>
+              Form Elements
+            </h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              <Input
+                label="Email"
+                placeholder="Enter your email"
+                icon={Mail}
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+              />
+              <Input
+                label="Password"
+                type="password"
+                placeholder="Enter password"
+                icon={Lock}
+                iconPosition="right"
+              />
+              <div>
+                <label
+                  className="text-sm font-medium mb-2 block"
+                  style={{ color: t.textSecondary }}
+                >
+                  Slider: {sliderValue}
+                </label>
+                <Slider value={sliderValue} onChange={setSliderValue} />
+              </div>
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <Toggle checked={toggle1} onChange={setToggle1} />
+                  <span className="text-sm" style={{ color: t.textSecondary }}>
+                    Toggle
+                  </span>
+                </div>
+                <Checkbox checked={checkbox1} onChange={setCheckbox1} label="Checkbox" />
+              </div>
+            </div>
+          </GlassCard>
+          <GlassCard className="p-6" intensity="strong" hover={false}>
+            <h2 className="text-lg font-semibold mb-4" style={{ color: t.textPrimary }}>
+              Alerts & Notifications
+            </h2>
+            <div className="space-y-3 mb-6">
+              <Alert type="info" title="Information">
+                This is an informational message.
+              </Alert>
+              <Alert type="success" title="Success!" dismissible>
+                Your changes have been saved.
+              </Alert>
+              <Alert type="warning" title="Warning">
+                Please review your settings.
+              </Alert>
+              <Alert type="error" title="Error">
+                Something went wrong.
+              </Alert>
+            </div>
+            <div className="space-y-3">
+              <Notification
+                type="info"
+                title="New update available"
+                message="Version 2.0 is ready"
+                onClose={() => {}}
+              />
+              <Notification
+                type="success"
+                title="Payment successful"
+                message="Your payment has been processed"
+                onClose={() => {}}
+              />
+            </div>
+          </GlassCard>
+          <GlassCard className="p-6" intensity="strong" hover={false}>
+            <h2 className="text-lg font-semibold mb-4" style={{ color: t.textPrimary }}>
+              Badges & Status
+            </h2>
+            <div className="flex flex-wrap gap-3 mb-6">
+              <Badge>Default</Badge>
+              <Badge variant="success">Success</Badge>
+              <Badge variant="warning">Warning</Badge>
+              <Badge variant="danger">Danger</Badge>
+              <Badge variant="info">Info</Badge>
+              <Badge variant="violet">Violet</Badge>
+              <Badge variant="success" dot>
+                With Dot
+              </Badge>
+            </div>
+            <div className="flex items-center gap-6">
+              <div className="flex items-center gap-2">
+                <StatusIndicator type="green" size="large" />
+                <span className="text-sm" style={{ color: t.textSecondary }}>
+                  Good
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <StatusIndicator type="yellow" size="large" />
+                <span className="text-sm" style={{ color: t.textSecondary }}>
+                  Warning
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <StatusIndicator type="red" size="large" />
+                <span className="text-sm" style={{ color: t.textSecondary }}>
+                  Critical
+                </span>
+              </div>
+            </div>
+          </GlassCard>
+          <GlassCard className="p-6" intensity="strong" hover={false}>
+            <h2 className="text-lg font-semibold mb-4" style={{ color: t.textPrimary }}>
+              Progress & Loading
+            </h2>
+            <div className="space-y-4 mb-6">
+              <Progress value={25} size="sm" gradient="from-blue-400 to-cyan-400" />
+              <Progress value={50} size="md" gradient="from-violet-500 to-purple-500" />
+              <Progress value={75} size="lg" gradient="from-amber-400 to-orange-500" showLabel />
+              <RainbowProgress value={72} size="lg" />
+            </div>
+            <h3 className="text-sm font-medium mb-3" style={{ color: t.textSecondary }}>
+              Skeleton Loading
+            </h3>
+            <div className="flex items-start gap-4">
+              <Skeleton variant="avatar" />
+              <div className="flex-1 space-y-2">
+                <Skeleton variant="title" width="60%" />
+                <Skeleton variant="text" />
+                <Skeleton variant="text" width="80%" />
+              </div>
+            </div>
+          </GlassCard>
+          <GlassCard className="p-6" intensity="strong" hover={false}>
+            <h2 className="text-lg font-semibold mb-4" style={{ color: t.textPrimary }}>
+              Avatars with Status
+            </h2>
+            <div className="flex items-center gap-4">
+              <Avatar name="John Doe" size="sm" />
+              <Avatar name="Jane Smith" size="md" status="online" />
+              <Avatar name="Bob Johnson" size="lg" status="busy" />
+              <Avatar name="Alice Brown" size="xl" status="away" />
+            </div>
+          </GlassCard>
+          <GlassCard className="p-6" intensity="strong" hover={false}>
+            <h2 className="text-lg font-semibold mb-4" style={{ color: t.textPrimary }}>
+              Language Bar
+            </h2>
+            <LanguageBar languages={languages} />
+          </GlassCard>
+          <footer className="text-center py-6 text-xs" style={{ color: t.footerText }}>
+            GitHub Analytics Component Library · {themeConfig[theme].label} Theme
+          </footer>
+        </div>
+      </div>
+      <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)} title="Modal Title" size="md">
+        <p className="mb-4">
+          This is a modal dialog with glassmorphism styling. It includes a backdrop blur effect and
+          smooth animations.
+        </p>
+        <div className="flex gap-3 justify-end">
+          <Button variant="ghost" onClick={() => setModalOpen(false)}>
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={() => setModalOpen(false)}>
+            Confirm
+          </Button>
+        </div>
+      </Modal>
+    </div>
+  );
+}
+
+// ========================================
+// MAIN EXPORT
+// ========================================
+export default function ComponentLibrary() {
+  const [theme, setTheme] = useState('glass');
+  const cycleTheme = () => setTheme(themes[(themes.indexOf(theme) + 1) % themes.length]);
+  return (
+    <ThemeContext.Provider value={{ theme, setTheme, cycleTheme }}>
+      <ComponentShowcase />
+    </ThemeContext.Provider>
+  );
+}

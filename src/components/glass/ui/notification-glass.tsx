@@ -12,8 +12,6 @@ import { forwardRef, type CSSProperties } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { Info, CheckCircle, AlertTriangle, AlertCircle, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useTheme } from '@/lib/theme-context';
-import { themeStyles } from '@/lib/themeStyles';
 import { useHover } from '@/lib/hooks/use-hover';
 import '@/glass-theme.css';
 
@@ -72,40 +70,33 @@ export interface NotificationGlassProps
 // COMPONENT
 // ========================================
 
+// Type-specific CSS variable mapping
+const getTypeVars = (notifType: NotificationType): { color: string; glow: string; iconBg: string } => {
+  const configs: Record<NotificationType, { color: string; glow: string; iconBg: string }> = {
+    info: { color: 'var(--notification-info-color)', glow: 'var(--notification-info-glow)', iconBg: 'var(--notification-info-icon-bg)' },
+    success: { color: 'var(--notification-success-color)', glow: 'var(--notification-success-glow)', iconBg: 'var(--notification-success-icon-bg)' },
+    warning: { color: 'var(--notification-warning-color)', glow: 'var(--notification-warning-glow)', iconBg: 'var(--notification-warning-icon-bg)' },
+    error: { color: 'var(--notification-error-color)', glow: 'var(--notification-error-glow)', iconBg: 'var(--notification-error-icon-bg)' },
+  };
+  return configs[notifType];
+};
+
 export const NotificationGlass = forwardRef<HTMLDivElement, NotificationGlassProps>(
   ({ type = 'info', title, message, onClose, className, ...props }, ref) => {
-    const { theme } = useTheme();
-    const t = themeStyles[theme];
     const { isHovered, hoverProps } = useHover();
-
-    const isGlass = theme === 'glass';
     const Icon = NOTIFICATION_ICONS[type];
-
-    // Type-specific config with colors and glows
-    const getTypeConfig = (
-      notifType: NotificationType
-    ): { color: string; glow: string } => {
-      const configs: Record<NotificationType, { color: string; glow: string }> = {
-        info: { color: t.statusBlue, glow: '0 0 20px rgba(96,165,250,0.30)' },
-        success: { color: t.statusGreen, glow: '0 0 20px rgba(52,211,153,0.30)' },
-        warning: { color: t.statusYellow, glow: '0 0 20px rgba(251,191,36,0.30)' },
-        error: { color: t.statusRed, glow: '0 0 20px rgba(251,113,133,0.30)' },
-      };
-      return configs[notifType];
-    };
-
-    const config = getTypeConfig(type);
+    const config = getTypeVars(type);
 
     const containerStyles: CSSProperties = {
-      background: isGlass ? 'rgba(255,255,255,0.08)' : t.notificationBg,
-      border: `1px solid ${isGlass ? 'rgba(255,255,255,0.15)' : t.glassSubtleBorder}`,
-      boxShadow: isHovered && isGlass ? config.glow : t.notificationGlow,
+      background: 'var(--notification-bg)',
+      border: '1px solid var(--notification-border)',
+      boxShadow: isHovered ? config.glow : 'var(--notification-shadow)',
       transform: isHovered ? 'translateY(-2px)' : 'translateY(0)',
     };
 
     const iconContainerStyles: CSSProperties = {
-      background: isGlass ? `${config.color}20` : `${config.color}15`,
-      boxShadow: isHovered && isGlass ? config.glow : 'none',
+      background: config.iconBg,
+      boxShadow: isHovered ? config.glow : 'none',
     };
 
     return (
@@ -129,10 +120,10 @@ export const NotificationGlass = forwardRef<HTMLDivElement, NotificationGlassPro
 
         {/* Content */}
         <div className="flex-1 min-w-0">
-          <p className="font-semibold text-sm mb-1" style={{ color: t.textPrimary }}>
+          <p className="font-semibold text-sm mb-1" style={{ color: 'var(--text-primary)' }}>
             {title}
           </p>
-          <p className="text-sm" style={{ color: t.textSecondary }}>
+          <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
             {message}
           </p>
         </div>
@@ -141,7 +132,7 @@ export const NotificationGlass = forwardRef<HTMLDivElement, NotificationGlassPro
         <button
           onClick={onClose}
           className="p-1.5 rounded-lg shrink-0"
-          style={{ color: t.textMuted }}
+          style={{ color: 'var(--text-muted)' }}
           type="button"
           aria-label="Close notification"
         >

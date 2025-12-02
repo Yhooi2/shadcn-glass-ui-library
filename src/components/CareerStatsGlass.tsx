@@ -6,8 +6,6 @@
 import { forwardRef, useState } from "react";
 import { TrendingUp, Code, GitPullRequest, FolderGit2 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useTheme } from "@/lib/theme-context";
-import { themeStyles } from "@/lib/themeStyles";
 import { GlassCard } from "./GlassCard";
 import { YearCardGlass } from "./YearCardGlass";
 import "@/glass-theme.css";
@@ -39,8 +37,6 @@ export const CareerStatsGlass = forwardRef<HTMLDivElement, CareerStatsGlassProps
     },
     ref
   ) => {
-    const { theme } = useTheme();
-    const t = themeStyles[theme];
     const [expandedYear, setExpandedYear] = useState<string | number | null>(null);
 
     const handleYearClick = (year: string | number): void => {
@@ -57,14 +53,14 @@ export const CareerStatsGlass = forwardRef<HTMLDivElement, CareerStatsGlassProps
       >
         <h3
           className="font-semibold flex items-center gap-2 mb-1"
-          style={{ color: t.textPrimary }}
+          style={{ color: "var(--text-primary)" }}
         >
-          <TrendingUp className="w-5 h-5" style={{ color: t.textAccent }} />
+          <TrendingUp className="w-5 h-5" style={{ color: "var(--text-accent)" }} />
           Career Stats
         </h3>
         <p
           className="text-sm mb-4 flex items-center gap-2 flex-wrap"
-          style={{ color: t.textSecondary }}
+          style={{ color: "var(--text-secondary)" }}
         >
           <span className="flex items-center gap-1">
             <Code className="w-4 h-4" />

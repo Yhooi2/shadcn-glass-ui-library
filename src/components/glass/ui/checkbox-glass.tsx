@@ -10,8 +10,6 @@
 import { forwardRef, type CSSProperties } from 'react';
 import { Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useTheme } from '@/lib/theme-context';
-import { themeStyles } from '@/lib/themeStyles';
 import { useHover } from '@/lib/hooks/use-hover';
 import '@/glass-theme.css';
 
@@ -42,14 +40,12 @@ export const CheckboxGlass = forwardRef<HTMLInputElement, CheckboxGlassProps>(
     },
     ref
   ) => {
-    const { theme } = useTheme();
-    const t = themeStyles[theme];
     const { isHovered, hoverProps } = useHover();
 
     const checkboxStyles: CSSProperties = {
-      background: checked ? t.checkboxCheckedBg : t.checkboxBg,
-      border: `2px solid ${checked ? t.checkboxCheckedBg : t.checkboxBorder}`,
-      boxShadow: isHovered && !disabled ? t.checkboxGlow : 'none',
+      background: checked ? 'var(--checkbox-checked-bg)' : 'var(--checkbox-bg)',
+      border: `2px solid ${checked ? 'var(--checkbox-checked-bg)' : 'var(--checkbox-border)'}`,
+      boxShadow: isHovered && !disabled ? 'var(--checkbox-glow)' : 'none',
     };
 
     return (
@@ -79,11 +75,11 @@ export const CheckboxGlass = forwardRef<HTMLInputElement, CheckboxGlassProps>(
           aria-checked={checked}
         >
           {checked && (
-            <Check className="w-3 h-3" style={{ color: t.textInverse }} />
+            <Check className="w-3 h-3" style={{ color: 'var(--text-inverse)' }} />
           )}
         </div>
         {label && (
-          <span className="text-sm" style={{ color: t.textSecondary }}>
+          <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
             {label}
           </span>
         )}

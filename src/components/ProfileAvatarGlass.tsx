@@ -5,8 +5,6 @@
 
 import { forwardRef, useState, type CSSProperties } from "react";
 import { cn } from "@/lib/utils";
-import { useTheme } from "@/lib/theme-context";
-import { themeStyles } from "@/lib/themeStyles";
 import "@/glass-theme.css";
 
 export type ProfileAvatarSize = "sm" | "md" | "lg" | "xl";
@@ -33,6 +31,14 @@ const statusPositionClasses: Record<ProfileAvatarSize, string> = {
   xl: "-bottom-1 -right-1",
 };
 
+// CSS variable maps for status colors
+const statusVarMap: Record<ProfileAvatarStatus, string> = {
+  online: "var(--status-green)",
+  offline: "var(--text-muted)",
+  busy: "var(--status-red)",
+  away: "var(--status-yellow)",
+};
+
 export interface ProfileAvatarGlassProps extends React.HTMLAttributes<HTMLDivElement> {
   readonly initials: string;
   readonly size?: ProfileAvatarSize;
@@ -42,26 +48,11 @@ export interface ProfileAvatarGlassProps extends React.HTMLAttributes<HTMLDivEle
 
 export const ProfileAvatarGlass = forwardRef<HTMLDivElement, ProfileAvatarGlassProps>(
   ({ initials, size = "lg", status, glowing = true, className, ...props }, ref) => {
-    const { theme } = useTheme();
-    const t = themeStyles[theme];
-    const isGlass = theme === "glass";
     const [isHovered, setIsHovered] = useState(false);
 
-    const getStatusColor = (statusType: ProfileAvatarStatus): string => {
-      const colors: Record<ProfileAvatarStatus, string> = {
-        online: t.statusGreen,
-        offline: t.textMuted,
-        busy: t.statusRed,
-        away: t.statusYellow,
-      };
-      return colors[statusType];
-    };
-
     const avatarStyles: CSSProperties = {
-      boxShadow: isHovered || isGlass ? t.avatarGlow : "none",
-      border: isGlass
-        ? "3px solid rgba(255,255,255,0.25)"
-        : `3px solid ${t.avatarBorder}`,
+      boxShadow: isHovered ? "var(--profile-avatar-glow)" : "none",
+      border: "3px solid var(--profile-avatar-border)",
     };
 
     return (
@@ -77,7 +68,7 @@ export const ProfileAvatarGlass = forwardRef<HTMLDivElement, ProfileAvatarGlassP
             "rounded-full bg-gradient-to-br from-blue-400 via-violet-500 to-indigo-500",
             "flex items-center justify-center text-white font-bold transition-all duration-300",
             sizeClasses[size],
-            glowing && isGlass && "animate-[glow-pulse_2s_ease-in-out_infinite]"
+            glowing && "animate-[glow-pulse_2s_ease-in-out_infinite]"
           )}
           style={avatarStyles}
           role="img"
@@ -93,7 +84,7 @@ export const ProfileAvatarGlass = forwardRef<HTMLDivElement, ProfileAvatarGlassP
               statusSizeClasses[size]
             )}
             style={{
-              background: getStatusColor(status),
+              background: statusVarMap[status],
               border: "none",
               boxShadow: "none",
             }}

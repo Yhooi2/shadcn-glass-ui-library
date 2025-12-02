@@ -18,7 +18,6 @@ import {
   X,
 } from "lucide-react";
 import { useTheme, type ThemeName } from "@/lib/theme-context";
-import { themeStyles } from "@/lib/themeStyles";
 
 // Import glass components
 import { GlassCard } from "./GlassCard";
@@ -138,9 +137,8 @@ const repositories: Repository[] = [
   },
 ];
 
-export function MobileShowcase(): JSX.Element {
+export function MobileShowcase() {
   const { theme, cycleTheme } = useTheme();
-  const t = themeStyles[theme];
   const isGlass = theme === "glass";
 
   // State
@@ -167,36 +165,36 @@ export function MobileShowcase(): JSX.Element {
   };
 
   const bgStyles: CSSProperties = {
-    background: `linear-gradient(to bottom right, ${t.bgFrom}, ${t.bgVia}, ${t.bgTo})`,
+    background: "linear-gradient(to bottom right, var(--bg-from), var(--bg-via), var(--bg-to))",
   };
 
   const orbStyles = {
-    orb1: { background: t.orb1 },
-    orb2: { background: t.orb2 },
-    orb3: { background: t.orb3 },
-    orb4: { background: t.orb4 ?? "rgba(129,140,248,0.10)" },
-    orb5: { background: t.orb5 ?? "rgba(139,92,246,0.10)" },
+    orb1: { background: "var(--orb-1)" },
+    orb2: { background: "var(--orb-2)" },
+    orb3: { background: "var(--orb-3)" },
+    orb4: { background: "var(--orb-4)" },
+    orb5: { background: "var(--orb-5)" },
   };
 
   const headerStyles: CSSProperties = {
-    background: t.headerBg,
-    borderColor: t.headerBorder,
+    background: "var(--header-bg)",
+    borderColor: "var(--header-border)",
   };
 
   const iconBtnStyles: CSSProperties = {
-    background: `linear-gradient(to bottom right, ${t.iconBtnFrom ?? "#1e293b"}, ${t.iconBtnTo ?? "#0f172a"})`,
-    boxShadow: t.iconBtnShadow ?? "0 4px 12px rgba(0,0,0,0.15)",
+    background: "linear-gradient(to bottom right, var(--icon-btn-from), var(--icon-btn-to))",
+    boxShadow: "var(--icon-btn-shadow)",
   };
 
   const searchStyles: CSSProperties = {
-    background: t.searchBg ?? t.cardBg,
-    borderColor: t.searchBorder ?? t.cardBorder,
+    background: "var(--search-bg)",
+    borderColor: "var(--search-border)",
   };
 
   const toggleBtnStyles: CSSProperties = {
-    background: t.searchBg ?? t.cardBg,
-    borderColor: t.searchBorder ?? t.cardBorder,
-    color: t.toggleText ?? t.textSecondary,
+    background: "var(--search-bg)",
+    borderColor: "var(--search-border)",
+    color: "var(--text-secondary)",
   };
 
   return (
@@ -255,8 +253,8 @@ export function MobileShowcase(): JSX.Element {
         <div
           className="absolute inset-0 transition-opacity duration-500"
           style={{
-            opacity: t.gridOpacity ?? 0.02,
-            backgroundImage: `linear-gradient(${t.gridColor ?? "rgba(255,255,255,0.05)"} 1px, transparent 1px), linear-gradient(90deg, ${t.gridColor ?? "rgba(255,255,255,0.05)"} 1px, transparent 1px)`,
+            opacity: "var(--grid-opacity)",
+            backgroundImage: "linear-gradient(var(--grid-color) 1px, transparent 1px), linear-gradient(90deg, var(--grid-color) 1px, transparent 1px)",
             backgroundSize: "32px 32px",
           }}
         />
@@ -276,9 +274,9 @@ export function MobileShowcase(): JSX.Element {
                 className="w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-300"
                 style={iconBtnStyles}
               >
-                <Github className="w-5 h-5" style={{ color: t.iconBtnText ?? "white" }} />
+                <Github className="w-5 h-5" style={{ color: "var(--icon-btn-text)" }} />
               </div>
-              <span className="font-semibold" style={{ color: t.textPrimary }}>
+              <span className="font-semibold" style={{ color: "var(--text-primary)" }}>
                 {isGlass ? "Analytics" : "User Analytics"}
               </span>
             </div>
@@ -287,8 +285,8 @@ export function MobileShowcase(): JSX.Element {
                 className="flex items-center backdrop-blur-sm rounded-xl px-3 py-1.5 border transition-all duration-300"
                 style={searchStyles}
               >
-                <Search className="w-3.5 h-3.5 mr-2" style={{ color: t.textMuted }} />
-                <span className="text-sm" style={{ color: t.searchText ?? t.textSecondary }}>
+                <Search className="w-3.5 h-3.5 mr-2" style={{ color: "var(--text-muted)" }} />
+                <span className="text-sm" style={{ color: "var(--text-secondary)" }}>
                   Yhooi2
                 </span>
               </div>
@@ -317,18 +315,18 @@ export function MobileShowcase(): JSX.Element {
               <div className="flex-1 min-w-0">
                 <h1
                   className="text-xl font-bold truncate"
-                  style={{ color: t.textPrimary }}
+                  style={{ color: "var(--text-primary)" }}
                 >
                   Artem Safronov
                 </h1>
                 <div
                   className="flex items-center gap-1.5 text-sm mt-0.5"
-                  style={{ color: t.textSecondary }}
+                  style={{ color: "var(--text-secondary)" }}
                 >
-                  <span style={{ color: t.textAccent }}>@Yhooi2</span>
+                  <span style={{ color: "var(--text-accent)" }}>@Yhooi2</span>
                   <ExternalLink className="w-3 h-3" />
                 </div>
-                <div className="text-xs mt-1" style={{ color: t.textMuted }}>
+                <div className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>
                   Joined January 2023
                 </div>
               </div>
@@ -338,30 +336,30 @@ export function MobileShowcase(): JSX.Element {
             <div className="flex items-center gap-4 mt-4 text-sm">
               <span
                 className="flex items-center gap-1.5"
-                style={{ color: t.textSecondary }}
+                style={{ color: "var(--text-secondary)" }}
               >
                 <FolderGit2 className="w-4 h-4" style={{ color: "#a78bfa" }} />
-                <span className="font-semibold" style={{ color: t.textPrimary }}>
+                <span className="font-semibold" style={{ color: "var(--text-primary)" }}>
                   11
                 </span>{" "}
                 repos
               </span>
               <span
                 className="flex items-center gap-1.5"
-                style={{ color: t.textSecondary }}
+                style={{ color: "var(--text-secondary)" }}
               >
                 <Users className="w-4 h-4" style={{ color: "#60a5fa" }} />
-                <span className="font-semibold" style={{ color: t.textPrimary }}>
+                <span className="font-semibold" style={{ color: "var(--text-primary)" }}>
                   1
                 </span>{" "}
                 follower
               </span>
               <span
                 className="flex items-center gap-1.5"
-                style={{ color: t.textSecondary }}
+                style={{ color: "var(--text-secondary)" }}
               >
                 <Users className="w-4 h-4" style={{ color: "#22d3ee" }} />
-                <span className="font-semibold" style={{ color: t.textPrimary }}>
+                <span className="font-semibold" style={{ color: "var(--text-primary)" }}>
                   5
                 </span>{" "}
                 following
@@ -390,12 +388,12 @@ export function MobileShowcase(): JSX.Element {
                   <Sparkles className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <span className="font-semibold block" style={{ color: t.textPrimary }}>
+                  <span className="font-semibold block" style={{ color: "var(--text-primary)" }}>
                     AI Summary
                   </span>
                   <span
                     className="text-xs flex items-center gap-1"
-                    style={{ color: t.textMuted }}
+                    style={{ color: "var(--text-muted)" }}
                   >
                     <Clock className="w-3 h-3" /> ~30 sec
                   </span>
@@ -440,7 +438,7 @@ export function MobileShowcase(): JSX.Element {
               <button
                 onClick={clearFilters}
                 className="text-xs underline"
-                style={{ color: t.textMuted }}
+                style={{ color: "var(--text-muted)" }}
               >
                 Clear all
               </button>
@@ -479,7 +477,7 @@ export function MobileShowcase(): JSX.Element {
           {/* Footer */}
           <div
             className="text-center text-xs py-6"
-            style={{ color: t.footerText }}
+            style={{ color: "var(--footer-text)" }}
           >
             GitHub Analytics · {themeConfig[theme].label} Theme
           </div>

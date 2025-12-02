@@ -13,8 +13,6 @@ import {
   AlertTriangle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useTheme } from "@/lib/theme-context";
-import { themeStyles } from "@/lib/themeStyles";
 import { StatusIndicatorGlass } from "./StatusIndicatorGlass";
 import { ButtonGlass } from "./ButtonGlass";
 import "@/glass-theme.css";
@@ -54,9 +52,6 @@ export const RepositoryCardGlass = forwardRef<HTMLDivElement, RepositoryCardGlas
     },
     ref
   ) => {
-    const { theme } = useTheme();
-    const t = themeStyles[theme];
-    const isGlass = theme === "glass";
     const [isHovered, setIsHovered] = useState(false);
 
     // Calculate total project commits from contribution percentage
@@ -66,18 +61,18 @@ export const RepositoryCardGlass = forwardRef<HTMLDivElement, RepositoryCardGlas
     const estimatedLines = Math.round(commits * 12);
 
     const cardStyles: CSSProperties = {
-      background: isHovered ? t.cardHoverBg : t.cardBg,
-      borderColor: t.cardBorder,
+      background: isHovered ? "var(--card-hover-bg)" : "var(--card-bg)",
+      borderColor: "var(--card-border)",
     };
 
     const expandedStyles: CSSProperties = {
-      background: isGlass ? "rgba(255,255,255,0.03)" : t.expandedBg,
-      borderColor: t.cardBorder,
+      background: "var(--expanded-bg)",
+      borderColor: "var(--card-border)",
     };
 
     const metricCardStyles: CSSProperties = {
-      background: t.cardBg,
-      borderColor: t.cardBorder,
+      background: "var(--card-bg)",
+      borderColor: "var(--card-border)",
     };
 
     return (
@@ -110,7 +105,7 @@ export const RepositoryCardGlass = forwardRef<HTMLDivElement, RepositoryCardGlas
             <div className="flex items-center gap-2.5">
               <span
                 className="font-medium text-sm"
-                style={{ color: t.textPrimary }}
+                style={{ color: "var(--text-primary)" }}
               >
                 {name}
               </span>
@@ -120,28 +115,28 @@ export const RepositoryCardGlass = forwardRef<HTMLDivElement, RepositoryCardGlas
               {stars > 0 && (
                 <span
                   className="flex items-center gap-1 text-xs"
-                  style={{ color: t.statusYellow }}
+                  style={{ color: "var(--status-yellow)" }}
                 >
                   <Star className="w-3 h-3" />
                   {stars}
                 </span>
               )}
               {expanded ? (
-                <ChevronUp className="w-4 h-4" style={{ color: t.textMuted }} />
+                <ChevronUp className="w-4 h-4" style={{ color: "var(--text-muted)" }} />
               ) : (
-                <ChevronDown className="w-4 h-4" style={{ color: t.textMuted }} />
+                <ChevronDown className="w-4 h-4" style={{ color: "var(--text-muted)" }} />
               )}
             </div>
           </div>
           <div
             className="text-xs mt-1.5"
-            style={{ color: t.textMuted }}
+            style={{ color: "var(--text-muted)" }}
           >
             {languages}
           </div>
           <div
             className="text-xs mt-0.5"
-            style={{ color: t.textSecondary }}
+            style={{ color: "var(--text-secondary)" }}
           >
             {commits} commits · {contribution}%
           </div>
@@ -158,13 +153,13 @@ export const RepositoryCardGlass = forwardRef<HTMLDivElement, RepositoryCardGlas
               <div
                 className="p-3 rounded-xl border"
                 style={{
-                  background: t.alertDangerBg,
-                  borderColor: t.alertDangerBorder,
+                  background: "var(--alert-danger-bg)",
+                  borderColor: "var(--alert-danger-border)",
                 }}
               >
                 <div
                   className="text-xs font-semibold flex items-center gap-1.5 mb-1.5"
-                  style={{ color: t.alertDangerText }}
+                  style={{ color: "var(--alert-danger-text)" }}
                 >
                   <AlertTriangle className="w-3.5 h-3.5" />
                   Issues
@@ -172,8 +167,8 @@ export const RepositoryCardGlass = forwardRef<HTMLDivElement, RepositoryCardGlas
                 {issues.map((issue, index) => (
                   <div
                     key={index}
-                    className="text-xs"
-                    style={{ color: t.alertDangerText, opacity: 0.7 }}
+                    className="text-xs opacity-70"
+                    style={{ color: "var(--alert-danger-text)" }}
                   >
                     • {issue}
                   </div>
@@ -189,19 +184,19 @@ export const RepositoryCardGlass = forwardRef<HTMLDivElement, RepositoryCardGlas
               >
                 <div
                   className="text-xs"
-                  style={{ color: t.textMuted }}
+                  style={{ color: "var(--text-muted)" }}
                 >
-                  {isGlass ? "Your" : "Your Contribution"}
+                  Your Contribution
                 </div>
                 <div
                   className="font-semibold"
-                  style={{ color: t.textPrimary }}
+                  style={{ color: "var(--text-primary)" }}
                 >
                   {commits} commits
                 </div>
                 <div
                   className="text-xs"
-                  style={{ color: t.textMuted }}
+                  style={{ color: "var(--text-muted)" }}
                 >
                   {contribution}%
                 </div>
@@ -212,19 +207,19 @@ export const RepositoryCardGlass = forwardRef<HTMLDivElement, RepositoryCardGlas
               >
                 <div
                   className="text-xs"
-                  style={{ color: t.textMuted }}
+                  style={{ color: "var(--text-muted)" }}
                 >
-                  {isGlass ? "Project" : "Full Project"}
+                  Full Project
                 </div>
                 <div
                   className="font-semibold"
-                  style={{ color: t.textPrimary }}
+                  style={{ color: "var(--text-primary)" }}
                 >
                   {totalProjectCommits} commits
                 </div>
                 <div
                   className="text-xs"
-                  style={{ color: t.textMuted }}
+                  style={{ color: "var(--text-muted)" }}
                 >
                   ~{estimatedLines} lines
                 </div>

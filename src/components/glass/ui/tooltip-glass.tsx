@@ -10,7 +10,6 @@
 import { forwardRef, type ReactNode, type CSSProperties } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
-import { useTheme } from '@/lib/theme-context';
 import { useHover } from '@/lib/hooks/use-hover';
 import '@/glass-theme.css';
 
@@ -58,15 +57,14 @@ export interface TooltipGlassProps extends VariantProps<typeof tooltipPositions>
 
 export const TooltipGlass = forwardRef<HTMLDivElement, TooltipGlassProps>(
   ({ children, content, position = 'top', className }, ref) => {
-    useTheme(); // Theme context for potential future use
     const { isHovered, hoverProps } = useHover();
 
     // Unified dark tooltip design for all themes (consistent UX)
     const tooltipStyles: CSSProperties = {
-      background: '#1e293b',
-      color: '#f8fafc',
+      background: 'var(--tooltip-bg)',
+      color: 'var(--tooltip-text)',
       border: 'none',
-      boxShadow: '0 4px 12px rgba(0,0,0,0.25)',
+      boxShadow: 'var(--tooltip-shadow)',
       backdropFilter: 'none',
       WebkitBackdropFilter: 'none',
     };

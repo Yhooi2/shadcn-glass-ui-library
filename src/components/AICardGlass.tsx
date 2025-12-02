@@ -6,8 +6,6 @@
 import { forwardRef, useState, type CSSProperties } from "react";
 import { Sparkles, Check, Zap, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useTheme } from "@/lib/theme-context";
-import { themeStyles } from "@/lib/themeStyles";
 import { ButtonGlass } from "./ButtonGlass";
 import "@/glass-theme.css";
 
@@ -34,18 +32,15 @@ export const AICardGlass = forwardRef<HTMLDivElement, AICardGlassProps>(
     },
     ref
   ) => {
-    const { theme } = useTheme();
-    const t = themeStyles[theme];
-    const isGlass = theme === "glass";
     const [isHovered, setIsHovered] = useState(false);
 
     const cardStyles: CSSProperties = {
-      background: t.aiCardBg,
-      border: `1px solid ${t.aiCardBorder}`,
+      background: "var(--ai-card-bg)",
+      border: "1px solid var(--ai-card-border)",
       backdropFilter: "blur(12px)",
       WebkitBackdropFilter: "blur(12px)",
       transform: isHovered ? "translateY(-2px)" : "translateY(0)",
-      boxShadow: isHovered && isGlass ? "0 12px 40px rgba(168,85,247,0.25)" : "none",
+      boxShadow: isHovered ? "var(--ai-card-hover-glow)" : "none",
     };
 
     return (
@@ -59,12 +54,12 @@ export const AICardGlass = forwardRef<HTMLDivElement, AICardGlassProps>(
       >
         <div
           className="flex items-center gap-2 font-semibold text-sm mb-2"
-          style={{ color: t.textAccent }}
+          style={{ color: "var(--text-accent)" }}
         >
           <Sparkles className="w-4 h-4" />
           AI Summary
         </div>
-        <p className="text-xs mb-2" style={{ color: t.textSecondary }}>
+        <p className="text-xs mb-2" style={{ color: "var(--text-secondary)" }}>
           Get comprehensive analysis:
         </p>
         <ul className="text-xs space-y-1 mb-3">
@@ -72,9 +67,9 @@ export const AICardGlass = forwardRef<HTMLDivElement, AICardGlassProps>(
             <li
               key={`feature-${i}`}
               className="flex items-center gap-1"
-              style={{ color: t.textMuted }}
+              style={{ color: "var(--text-muted)" }}
             >
-              <Check className="w-3 h-3" style={{ color: t.statusGreen }} />
+              <Check className="w-3 h-3" style={{ color: "var(--status-green)" }} />
               {feature}
             </li>
           ))}
@@ -90,7 +85,7 @@ export const AICardGlass = forwardRef<HTMLDivElement, AICardGlassProps>(
         </ButtonGlass>
         <p
           className="text-xs mt-2 text-center flex items-center justify-center gap-1"
-          style={{ color: t.textMuted }}
+          style={{ color: "var(--text-muted)" }}
         >
           <Clock className="w-3 h-3" />
           {estimatedTime}

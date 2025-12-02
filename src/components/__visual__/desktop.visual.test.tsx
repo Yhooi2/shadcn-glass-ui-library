@@ -11,7 +11,7 @@ import { page } from 'vitest/browser';
 
 import { DesktopShowcase } from '../DesktopShowcase';
 import { ThemeProvider } from '@/lib/theme-context';
-import type { Theme } from '@/lib/themeStyles';
+import type { Theme } from '@/lib/theme-context';
 
 const THEMES: Theme[] = ['glass', 'light', 'aurora'];
 
@@ -191,8 +191,8 @@ describe('DesktopShowcase Visual Tests', () => {
       renderShowcase(theme);
       await waitForStability();
 
-      // Click the Dropdown trigger - it's the button that says "Menu"
-      const dropdownBtn = page.getByRole('button', { name: 'Menu' });
+      // Click the Dropdown trigger - use first match (DropdownGlass wrapper div with role="button")
+      const dropdownBtn = page.getByRole('button', { name: 'Menu' }).first();
       await dropdownBtn.click();
       await waitForStability(300);
 
@@ -210,8 +210,8 @@ describe('DesktopShowcase Visual Tests', () => {
       await reposTab.click();
       await waitForStability(200);
 
-      // Screenshot tabs with Repositories selected
-      const tablist = page.getByRole('tablist');
+      // Screenshot tabs section with Repositories selected (use first tablist - TabsGlass, not SegmentedControlGlass)
+      const tablist = page.getByRole('tablist').first();
       await expect(tablist).toMatchScreenshot(`desktop-tabs-repos-${theme}`);
     });
 
@@ -219,9 +219,9 @@ describe('DesktopShowcase Visual Tests', () => {
       renderShowcase(theme);
       await waitForStability();
 
-      // Click on "Contrib" segment
-      const contribBtn = page.getByRole('button', { name: 'Contrib' });
-      await contribBtn.click();
+      // Click on "Contrib" segment (uses role="tab" in SegmentedControlGlass)
+      const contribTab = page.getByRole('tab', { name: 'Contrib' });
+      await contribTab.click();
       await waitForStability(200);
 
       // Screenshot the repo section with Contrib selected
@@ -274,8 +274,8 @@ describe('DesktopShowcase Visual Tests', () => {
       renderShowcase(theme);
       await waitForStability();
 
-      // Find checkbox
-      const checkbox = page.getByRole('checkbox');
+      // Find checkbox - use nth(1) to get the visible div, not the sr-only input
+      const checkbox = page.getByRole('checkbox').nth(1);
 
       // Take screenshot in checked state
       await expect(checkbox).toMatchScreenshot(`desktop-checkbox-checked-${theme}`);

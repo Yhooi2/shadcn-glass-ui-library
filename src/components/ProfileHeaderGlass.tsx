@@ -6,8 +6,6 @@
 import { forwardRef } from "react";
 import { Calendar, ExternalLink, FolderGit2, Users, User } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useTheme } from "@/lib/theme-context";
-import { themeStyles } from "@/lib/themeStyles";
 import { GlassCard } from "./GlassCard";
 import { ProfileAvatarGlass } from "./ProfileAvatarGlass";
 import { LanguageBarGlass, type LanguageData } from "./LanguageBarGlass";
@@ -43,9 +41,6 @@ export const ProfileHeaderGlass = forwardRef<HTMLDivElement, ProfileHeaderGlassP
     },
     ref
   ) => {
-    const { theme } = useTheme();
-    const t = themeStyles[theme];
-
     const s = { repos: 11, followers: 1, following: 5, ...stats };
 
     const getInitials = (fullName: string): string => {
@@ -75,17 +70,17 @@ export const ProfileHeaderGlass = forwardRef<HTMLDivElement, ProfileHeaderGlassP
                 status="online"
               />
               <div>
-                <h1 className="text-xl font-bold" style={{ color: t.textPrimary }}>
+                <h1 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>
                   {name}
                 </h1>
                 <div
                   className="flex items-center gap-2 text-sm mt-0.5"
-                  style={{ color: t.textSecondary }}
+                  style={{ color: "var(--text-secondary)" }}
                 >
                   <a
                     href="#"
                     className="flex items-center gap-1 hover:underline"
-                    style={{ color: t.textAccent }}
+                    style={{ color: "var(--text-accent)" }}
                   >
                     @{username} <ExternalLink className="w-3 h-3" />
                   </a>
@@ -96,21 +91,21 @@ export const ProfileHeaderGlass = forwardRef<HTMLDivElement, ProfileHeaderGlassP
                 </div>
                 <div
                   className="flex items-center gap-4 mt-2 text-sm"
-                  style={{ color: t.textSecondary }}
+                  style={{ color: "var(--text-secondary)" }}
                 >
                   <span className="flex items-center gap-1">
                     <FolderGit2
                       className="w-4 h-4"
-                      style={{ color: t.textAccent }}
+                      style={{ color: "var(--text-accent)" }}
                     />
                     {s.repos} repos
                   </span>
                   <span className="flex items-center gap-1">
-                    <Users className="w-4 h-4" style={{ color: t.textAccent }} />
+                    <Users className="w-4 h-4" style={{ color: "var(--text-accent)" }} />
                     {s.followers} followers
                   </span>
                   <span className="flex items-center gap-1">
-                    <User className="w-4 h-4" style={{ color: t.textAccent }} />
+                    <User className="w-4 h-4" style={{ color: "var(--text-accent)" }} />
                     {s.following} following
                   </span>
                 </div>

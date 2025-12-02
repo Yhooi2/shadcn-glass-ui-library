@@ -14,14 +14,13 @@ import {
   useState,
   useEffect,
   useCallback,
+  useMemo,
   forwardRef,
   type CSSProperties,
 } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { X } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useTheme } from '@/lib/theme-context';
-import { themeStyles } from '@/lib/themeStyles';
 import '@/glass-theme.css';
 
 // ========================================
@@ -88,11 +87,7 @@ export interface ModalGlassProps
 
 export const ModalGlass = forwardRef<HTMLDivElement, ModalGlassProps>(
   ({ isOpen, onClose, title, children, size = 'md', className, ...props }, ref) => {
-    const { theme } = useTheme();
-    const t = themeStyles[theme];
     const [isClosing, setIsClosing] = useState<boolean>(false);
-
-    const isGlass = theme === 'glass';
 
     const handleClose = useCallback(async (): Promise<void> => {
       setIsClosing(true);
@@ -127,49 +122,34 @@ export const ModalGlass = forwardRef<HTMLDivElement, ModalGlassProps>(
       };
     }, [isOpen, handleClose]);
 
-    if (!isOpen) return null;
+    const modalStyles: CSSProperties = useMemo(() => ({
+      background: 'var(--modal-bg)',
+      border: '1px solid var(--modal-border)',
+      boxShadow: 'var(--modal-glow)',
+      backdropFilter: 'blur(24px)',
+      WebkitBackdropFilter: 'blur(24px)',
+      transform: isClosing
+        ? 'scale(0.95) translateY(10px)'
+        : 'scale(1) translateY(0)',
+      opacity: isClosing ? 0 : 1,
+      animation: !isClosing ? 'modalFadeIn 0.3s ease-out' : 'none',
+    }), [isClosing]);
 
-    // Glass theme specific styles
-    const modalStyles: CSSProperties = isGlass
-      ? {
-          background: 'rgba(255,255,255,0.06)',
-          border: '1px solid rgba(255,255,255,0.12)',
-          boxShadow:
-            '0 25px 80px rgba(168,85,247,0.35), inset 0 1px 0 rgba(255,255,255,0.15)',
-          backdropFilter: 'blur(24px)',
-          WebkitBackdropFilter: 'blur(24px)',
-          transform: isClosing
-            ? 'scale(0.95) translateY(10px)'
-            : 'scale(1) translateY(0)',
-          opacity: isClosing ? 0 : 1,
-          animation: !isClosing ? 'modalFadeIn 0.3s ease-out' : 'none',
-        }
-      : {
-          background: t.modalBg,
-          border: `1px solid ${t.modalBorder}`,
-          boxShadow: t.modalGlow,
-          backdropFilter: 'blur(24px)',
-          WebkitBackdropFilter: 'blur(24px)',
-          transform: isClosing
-            ? 'scale(0.95) translateY(10px)'
-            : 'scale(1) translateY(0)',
-          opacity: isClosing ? 0 : 1,
-          animation: !isClosing ? 'modalFadeIn 0.3s ease-out' : 'none',
-        };
-
-    const overlayStyles: CSSProperties = {
-      background: t.modalOverlay,
+    const overlayStyles: CSSProperties = useMemo(() => ({
+      background: 'var(--modal-overlay)',
       backdropFilter: 'blur(8px)',
       WebkitBackdropFilter: 'blur(8px)',
       opacity: isClosing ? 0 : 1,
       transition: 'all 0.3s',
-    };
+    }), [isClosing]);
 
-    const closeButtonStyles: CSSProperties = {
-      background: isGlass ? 'rgba(255,255,255,0.08)' : t.listItemHover,
-      border: isGlass ? '1px solid rgba(255,255,255,0.10)' : 'none',
-      color: t.textMuted,
-    };
+    const closeButtonStyles: CSSProperties = useMemo(() => ({
+      background: 'var(--modal-close-btn-bg)',
+      border: 'var(--modal-close-btn-border)',
+      color: 'var(--text-muted)',
+    }), []);
+
+    if (!isOpen) return null;
 
     return (
       <div
@@ -193,52 +173,36 @@ export const ModalGlass = forwardRef<HTMLDivElement, ModalGlassProps>(
           className={cn(modalSizes({ size }), className)}
           style={modalStyles}
         >
-          {/* Glow effect for glass theme */}
-          {isGlass && (
-            <div
-              className="absolute inset-0 rounded-3xl pointer-events-none"
-              style={{
-                background:
-                  'radial-gradient(ellipse at top, rgba(168,85,247,0.15) 0%, transparent 50%)',
-              }}
-            />
-          )}
+          {/* Glow effect */}
+          <div
+            className="absolute inset-0 rounded-3xl pointer-events-none"
+            style={{
+              background: 'var(--modal-glow-effect)',
+            }}
+          />
 
           {/* Header */}
           <div className="relative flex items-center justify-between mb-5">
             <h3
               id="modal-title"
               className="text-xl font-semibold"
-              style={{ color: t.textPrimary }}
+              style={{ color: 'var(--text-primary)' }}
             >
               {title}
             </h3>
             <button
               onClick={handleClose}
-              className="p-2 rounded-xl transition-all duration-300"
+              className="p-2 rounded-xl transition-all duration-300 hover:shadow-(--modal-close-btn-hover-glow)"
               style={closeButtonStyles}
               type="button"
               aria-label="Close modal"
-              onMouseEnter={(e) => {
-                if (isGlass) {
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.15)';
-                  e.currentTarget.style.boxShadow =
-                    '0 0 20px rgba(168,85,247,0.30)';
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (isGlass) {
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
-                  e.currentTarget.style.boxShadow = 'none';
-                }
-              }}
             >
               <X className="w-4 h-4" />
             </button>
           </div>
 
           {/* Content */}
-          <div className="relative" style={{ color: t.textSecondary }}>
+          <div className="relative" style={{ color: 'var(--text-secondary)' }}>
             {children}
           </div>
         </div>

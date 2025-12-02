@@ -4,7 +4,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-A shadcn/ui component library built with React 19, TypeScript, Tailwind CSS v4, and Storybook 10. Uses Vite (rolldown-vite) for bundling.
+A modern glassmorphism UI component library built with:
+- **React 19.2** - Latest stable release with production-ready Server Components, enabling ahead-of-time rendering in separate environments for build-time or request-time execution
+- **TypeScript 5.9** - Strict type checking for enhanced developer experience
+- **Tailwind CSS 4.1** - CSS-first configuration with 5x faster full builds, 100x faster incremental builds (microseconds), automatic content detection, and CSS variables by default
+- **Storybook 10.1** - ESM-only component workshop (29% smaller install), typesafe CSF factories, enhanced tag filtering, and native Vitest integration for testing
+- **Vite 7** (rolldown-vite) - Rust-based Rolldown bundler providing 3-16x faster builds, 100x memory reduction, and unified dev/prod bundling
+- **Vitest 4.0** - Stable browser mode with visual regression testing via `toMatchScreenshot`, Playwright traces for CI debugging, and first-class viewport testing
+
+See [DEPENDENCIES.md](DEPENDENCIES.md) for detailed dependency documentation.
 
 ## Commands
 
@@ -111,10 +119,36 @@ Glassmorphism UI components with multi-theme support:
 
 ### Key Files
 
-- `src/lib/utils.ts` - Utility functions (`cn` for className merging)
+- `src/lib/utils.ts` - Utility functions (`cn` for className merging with clsx + tailwind-merge)
 - `src/lib/theme-context.tsx` - Theme provider and hooks
 - `src/lib/themeStyles.ts` - Theme-specific style definitions
 - `src/glass-theme.css` - CSS variables and animations
-- `components.json` - shadcn/ui configuration
-- `.storybook/` - Storybook configuration
-- `vite.config.ts` - Vite + Vitest configuration
+- `components.json` - shadcn/ui configuration (new-york style, neutral base)
+- `.storybook/` - Storybook configuration with a11y, docs, vitest addons
+- `vite.config.ts` - Vite + Vitest configuration with rolldown-vite
+- `package.json` - Dependencies and scripts (see DEPENDENCIES.md for details)
+
+## Technical Requirements
+
+- **Node.js:** 20.16+, 22.19+, or 24+ (required for Storybook 10 ESM-only)
+- **Package Manager:** npm (with overrides for rolldown-vite)
+
+## Performance Characteristics
+
+Thanks to the modern stack:
+- **Build Speed:** 3-16x faster production builds with Rolldown vs traditional Rollup
+- **Memory Usage:** 100x reduction vs traditional JavaScript bundlers (e.g., GitLab: 2.5min → 40sec)
+- **Dev Server:** Near-instant start with Vite's on-demand compilation
+- **CSS Performance:**
+  - Full builds: 5x faster than Tailwind v3
+  - Incremental builds: 100x faster (measured in microseconds)
+- **Bundle Unification:** Single Rolldown bundler for both dev prebundling and production builds
+- **Install Size:** 29% smaller Storybook 10 install vs v9 (on top of 50% savings from v9)
+
+## Code Quality Standards
+
+- **TypeScript:** Strict mode enabled, no `any` types
+- **Accessibility:** WCAG 2.1 AA compliance (enforced via Storybook a11y addon)
+- **Testing:** Minimum 90% coverage target
+- **Linting:** ESLint with React hooks, TypeScript, and Storybook rules
+- **Formatting:** Prettier 3.7.1

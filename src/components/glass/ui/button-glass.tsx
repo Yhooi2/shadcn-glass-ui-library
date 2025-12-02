@@ -2,10 +2,10 @@
  * ButtonGlass Component
  *
  * Glass-themed button with:
- * - Theme-aware styling (glass/light/aurora)
+ * - Theme-aware styling via CSS variables (glass/light/aurora)
  * - Glow effects on hover
- * - Ripple effect on click
- * - Shine animation for primary variant
+ * - Ripple effect on click (JS)
+ * - Shine animation for primary variant (JS)
  * - Loading state with spinner
  * - Icon support (left/right position)
  */
@@ -14,15 +14,12 @@ import {
   forwardRef,
   useState,
   useCallback,
-  useMemo,
   type MouseEvent,
   type CSSProperties,
 } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { RefreshCw, type LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useTheme } from '@/lib/theme-context';
-import { themeStyles } from '@/lib/themeStyles';
 import { useHover } from '@/lib/hooks/use-hover';
 import '@/glass-theme.css';
 
@@ -41,23 +38,97 @@ export type ButtonGlassVariant =
 export type ButtonGlassSize = 'sm' | 'md' | 'lg' | 'xl' | 'icon';
 
 // ========================================
-// SIZE VARIANTS (using CVA)
+// CVA VARIANTS
 // ========================================
 
-const buttonSizes = cva('', {
-  variants: {
-    size: {
-      sm: 'px-3 py-1.5 text-xs gap-1.5',
-      md: 'px-4 py-2 text-sm gap-2',
-      lg: 'px-6 py-3 text-base gap-2.5',
-      xl: 'px-8 py-4 text-lg gap-3',
-      icon: 'p-2.5',
+const buttonVariants = cva(
+  'relative overflow-hidden rounded-xl font-medium inline-flex items-center justify-center transition-all duration-300 ease-out cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed',
+  {
+    variants: {
+      variant: {
+        primary: '',
+        secondary: '',
+        ghost: '',
+        danger: '',
+        success: '',
+        text: '',
+      },
+      size: {
+        sm: 'px-3 py-1.5 text-xs gap-1.5',
+        md: 'px-4 py-2 text-sm gap-2',
+        lg: 'px-6 py-3 text-base gap-2.5',
+        xl: 'px-8 py-4 text-lg gap-3',
+        icon: 'p-2.5',
+      },
     },
-  },
-  defaultVariants: {
-    size: 'md',
-  },
-});
+    defaultVariants: {
+      variant: 'primary',
+      size: 'md',
+    },
+  }
+);
+
+// ========================================
+// CSS VARIABLE STYLE MAPS
+// ========================================
+
+const getVariantStyles = (
+  variant: ButtonGlassVariant,
+  isHovered: boolean
+): CSSProperties => {
+  const baseStyles: Record<ButtonGlassVariant, CSSProperties> = {
+    primary: {
+      background: isHovered
+        ? 'var(--btn-primary-hover-bg)'
+        : 'var(--btn-primary-bg)',
+      color: 'var(--btn-primary-text)',
+      border: 'none',
+      boxShadow: isHovered
+        ? 'var(--btn-primary-glow)'
+        : '0 4px 15px rgba(124,58,237,0.25)',
+    },
+    secondary: {
+      background: isHovered
+        ? 'var(--btn-secondary-hover-bg)'
+        : 'var(--btn-secondary-bg)',
+      color: 'var(--btn-secondary-text)',
+      border: '1px solid var(--btn-secondary-border)',
+      boxShadow: isHovered ? 'var(--btn-secondary-glow)' : 'none',
+    },
+    ghost: {
+      background: isHovered
+        ? 'var(--btn-ghost-hover-bg)'
+        : 'var(--btn-ghost-bg)',
+      color: 'var(--btn-ghost-text)',
+      border: 'none',
+      boxShadow: 'none',
+    },
+    danger: {
+      background: 'var(--btn-danger-bg)',
+      color: 'var(--btn-danger-text)',
+      border: 'none',
+      boxShadow: isHovered
+        ? 'var(--btn-danger-glow)'
+        : '0 4px 15px rgba(239,68,68,0.25)',
+    },
+    success: {
+      background: 'var(--btn-success-bg)',
+      color: 'var(--btn-success-text)',
+      border: 'none',
+      boxShadow: isHovered
+        ? 'var(--btn-success-glow)'
+        : '0 4px 15px rgba(16,185,129,0.25)',
+    },
+    text: {
+      background: 'transparent',
+      color: 'var(--text-secondary)',
+      border: 'none',
+      boxShadow: 'none',
+    },
+  };
+
+  return baseStyles[variant];
+};
 
 // ========================================
 // PROPS INTERFACE
@@ -65,7 +136,7 @@ const buttonSizes = cva('', {
 
 export interface ButtonGlassProps
   extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'style'>,
-    VariantProps<typeof buttonSizes> {
+    VariantProps<typeof buttonVariants> {
   readonly variant?: ButtonGlassVariant;
   readonly loading?: boolean;
   readonly icon?: LucideIcon;
@@ -92,61 +163,10 @@ export const ButtonGlass = forwardRef<HTMLButtonElement, ButtonGlassProps>(
     },
     ref
   ) => {
-    const { theme } = useTheme();
-    const t = themeStyles[theme];
     const { isHovered, hoverProps } = useHover();
     const [ripple, setRipple] = useState<{ x: number; y: number } | null>(null);
 
     const isDisabled = disabled || loading;
-
-    // Memoized variant styles - exact match with original
-    const variantStyles = useMemo((): CSSProperties => {
-      const variants: Record<ButtonGlassVariant, CSSProperties> = {
-        primary: {
-          background: isHovered ? t.btnPrimaryHoverBg : t.btnPrimaryBg,
-          color: t.btnPrimaryText,
-          border: 'none',
-          boxShadow: isHovered
-            ? t.btnPrimaryGlow
-            : '0 4px 15px rgba(124,58,237,0.25)',
-        },
-        secondary: {
-          background: isHovered ? t.btnSecondaryHoverBg : t.btnSecondaryBg,
-          color: t.btnSecondaryText,
-          border: `1px solid ${t.btnSecondaryBorder}`,
-          boxShadow: isHovered ? t.btnSecondaryGlow : 'none',
-        },
-        ghost: {
-          background: isHovered ? t.btnGhostHoverBg : t.btnGhostBg,
-          color: t.btnGhostText,
-          border: 'none',
-          boxShadow: 'none',
-        },
-        danger: {
-          background: t.btnDangerBg,
-          color: t.btnDangerText,
-          border: 'none',
-          boxShadow: isHovered
-            ? t.btnDangerGlow
-            : '0 4px 15px rgba(239,68,68,0.25)',
-        },
-        success: {
-          background: t.btnSuccessBg,
-          color: t.btnSuccessText,
-          border: 'none',
-          boxShadow: isHovered
-            ? t.btnSuccessGlow
-            : '0 4px 15px rgba(16,185,129,0.25)',
-        },
-        text: {
-          background: 'transparent',
-          color: t.textSecondary,
-          border: 'none',
-          boxShadow: 'none',
-        },
-      };
-      return variants[variant];
-    }, [variant, isHovered, t]);
 
     // Ripple effect handler
     const handleClick = useCallback(
@@ -169,14 +189,11 @@ export const ButtonGlass = forwardRef<HTMLButtonElement, ButtonGlassProps>(
       <button
         ref={ref}
         className={cn(
-          'relative overflow-hidden rounded-xl font-medium inline-flex items-center justify-center',
-          'transition-all duration-300 ease-out',
-          buttonSizes({ size }),
-          isDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
+          buttonVariants({ variant, size }),
           isHovered && !isDisabled && 'scale-[1.02]',
           className
         )}
-        style={variantStyles}
+        style={getVariantStyles(variant, isHovered && !isDisabled)}
         type="button"
         disabled={isDisabled}
         onClick={handleClick}
@@ -245,4 +262,4 @@ export const ButtonGlass = forwardRef<HTMLButtonElement, ButtonGlassProps>(
 
 ButtonGlass.displayName = 'ButtonGlass';
 
-export { buttonSizes as buttonGlassVariants };
+export { buttonVariants as buttonGlassVariants };

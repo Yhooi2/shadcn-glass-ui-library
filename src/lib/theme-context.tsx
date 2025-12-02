@@ -19,6 +19,9 @@ import { Sun, Moon, Palette, type LucideIcon } from "lucide-react";
 
 export type Theme = "light" | "aurora" | "glass";
 
+/** @deprecated Use Theme instead */
+export type ThemeName = Theme;
+
 export interface ThemeConfig {
   readonly label: string;
   readonly icon: LucideIcon;

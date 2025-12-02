@@ -65,8 +65,8 @@ export default defineConfig({
               toMatchScreenshot: {
                 comparatorName: 'pixelmatch',
                 comparatorOptions: {
-                  threshold: 0.1,
-                  allowedMismatchedPixelRatio: 0.02,
+                  threshold: 0.02,
+                  allowedMismatchedPixelRatio: 0.005,
                 },
               },
             },

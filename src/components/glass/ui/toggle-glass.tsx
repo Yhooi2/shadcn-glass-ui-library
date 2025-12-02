@@ -11,8 +11,6 @@
 import { forwardRef, type CSSProperties } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
-import { useTheme } from '@/lib/theme-context';
-import { themeStyles } from '@/lib/themeStyles';
 import '@/glass-theme.css';
 
 // ========================================
@@ -77,17 +75,15 @@ export const ToggleGlass = forwardRef<HTMLButtonElement, ToggleGlassProps>(
     },
     ref
   ) => {
-    const { theme } = useTheme();
-    const t = themeStyles[theme];
     const s = sizesConfig[size ?? 'md'];
 
     const trackStyles: CSSProperties = {
-      background: checked ? t.toggleActiveBg : t.toggleBg,
-      boxShadow: checked ? t.toggleGlow : 'none',
+      background: checked ? 'var(--toggle-active-bg)' : 'var(--toggle-bg)',
+      boxShadow: checked ? 'var(--toggle-glow)' : 'none',
     };
 
     const knobStyles: CSSProperties = {
-      background: t.toggleKnob,
+      background: 'var(--toggle-knob)',
     };
 
     const toggle = (
@@ -127,7 +123,7 @@ export const ToggleGlass = forwardRef<HTMLButtonElement, ToggleGlassProps>(
           )}
         >
           {toggle}
-          <span className="text-sm" style={{ color: t.textSecondary }}>
+          <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
             {label}
           </span>
         </label>

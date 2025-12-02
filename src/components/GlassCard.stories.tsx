@@ -169,7 +169,7 @@ export const WithHover: Story = {
 export const AllGlows: Story = {
   render: () => (
     <div className="flex gap-4">
-      <GlassCard glow="none" className="p-4 w-40">
+      <GlassCard glow={null} className="p-4 w-40">
         <p style={{ color: "var(--text-primary)" }}>No Glow</p>
       </GlassCard>
       <GlassCard glow="blue" className="p-4 w-40">

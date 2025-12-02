@@ -6,8 +6,6 @@
 import { forwardRef } from "react";
 import { AlertTriangle, ChevronUp, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useTheme } from "@/lib/theme-context";
-import { themeStyles } from "@/lib/themeStyles";
 import { GlassCard } from "./GlassCard";
 import { FlagAlertGlass, type FlagType } from "./FlagAlertGlass";
 import "@/glass-theme.css";
@@ -26,9 +24,6 @@ export interface FlagsSectionGlassProps extends React.HTMLAttributes<HTMLDivElem
 
 export const FlagsSectionGlass = forwardRef<HTMLDivElement, FlagsSectionGlassProps>(
   ({ flags = [], expanded = false, onToggle, className, ...props }, ref) => {
-    const { theme } = useTheme();
-    const t = themeStyles[theme];
-
     return (
       <GlassCard
         ref={ref}
@@ -40,18 +35,18 @@ export const FlagsSectionGlass = forwardRef<HTMLDivElement, FlagsSectionGlassPro
         <button
           onClick={onToggle}
           className="w-full p-4 flex items-center justify-between rounded-2xl"
-          style={{ color: t.textPrimary }}
+          style={{ color: "var(--text-primary)" }}
           type="button"
           aria-expanded={expanded}
         >
           <div className="flex items-center gap-2">
-            <AlertTriangle className="w-5 h-5" style={{ color: t.statusYellow }} />
+            <AlertTriangle className="w-5 h-5" style={{ color: "var(--status-yellow)" }} />
             <span className="font-medium">{flags.length} flags detected</span>
           </div>
           {expanded ? (
-            <ChevronUp className="w-5 h-5" style={{ color: t.textMuted }} />
+            <ChevronUp className="w-5 h-5" style={{ color: "var(--text-muted)" }} />
           ) : (
-            <ChevronDown className="w-5 h-5" style={{ color: t.textMuted }} />
+            <ChevronDown className="w-5 h-5" style={{ color: "var(--text-muted)" }} />
           )}
         </button>
         {expanded && (

@@ -15,8 +15,6 @@ import {
 } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
-import { useTheme } from '@/lib/theme-context';
-import { themeStyles } from '@/lib/themeStyles';
 import { useHover } from '@/lib/hooks/use-hover';
 import '@/glass-theme.css';
 
@@ -74,6 +72,26 @@ export interface GlassCardProps
 // COMPONENT
 // ========================================
 
+// CSS variable maps for intensity
+const bgVarMap: Record<IntensityType, string> = {
+  subtle: 'var(--card-subtle-bg)',
+  medium: 'var(--card-medium-bg)',
+  strong: 'var(--card-strong-bg)',
+};
+
+const borderVarMap: Record<IntensityType, string> = {
+  subtle: 'var(--card-subtle-border)',
+  medium: 'var(--card-medium-border)',
+  strong: 'var(--card-strong-border)',
+};
+
+const glowVarMap: Record<string, string> = {
+  blue: 'var(--glow-blue)',
+  violet: 'var(--glow-violet)',
+  purple: 'var(--glow-violet)',
+  cyan: 'var(--glow-cyan)',
+};
+
 export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
   (
     {
@@ -86,44 +104,19 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
     },
     ref
   ) => {
-    const { theme } = useTheme();
-    const t = themeStyles[theme];
     const { isHovered, hoverProps } = useHover();
-
-    const bgMap: Record<IntensityType, string> = {
-      subtle: t.glassSubtleBg,
-      medium: t.glassMediumBg,
-      strong: t.glassStrongBg,
-    };
-
-    const borderMap: Record<IntensityType, string> = {
-      subtle: t.glassSubtleBorder,
-      medium: t.glassMediumBorder,
-      strong: t.glassStrongBorder,
-    };
-
-    const glowMap: Record<string, string> = {
-      blue: t.glowBlue,
-      violet: t.glowViolet,
-      purple: t.glowViolet,
-      cyan: t.glowCyan,
-    };
-
     const intensityVal = intensity ?? 'medium';
 
     const cardStyles: CSSProperties = {
-      background: isHovered && hover ? t.cardHoverBg : bgMap[intensityVal],
-      borderColor:
-        isHovered && hover
-          ? t.cardHoverBorder || borderMap[intensityVal]
-          : borderMap[intensityVal],
+      background: isHovered && hover ? 'var(--card-hover-bg)' : bgVarMap[intensityVal],
+      borderColor: isHovered && hover ? 'var(--card-hover-border)' : borderVarMap[intensityVal],
       backdropFilter: `blur(${blurMap[intensityVal]})`,
       WebkitBackdropFilter: `blur(${blurMap[intensityVal]})`,
       boxShadow: glow
-        ? glowMap[glow]
+        ? glowVarMap[glow]
         : isHovered && hover
-          ? t.cardHoverGlow
-          : t.glowNeutral,
+          ? 'var(--card-hover-glow)'
+          : 'var(--glow-neutral)',
     };
 
     return (

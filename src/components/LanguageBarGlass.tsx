@@ -5,8 +5,6 @@
 
 import { forwardRef, useState, type CSSProperties } from "react";
 import { cn } from "@/lib/utils";
-import { useTheme } from "@/lib/theme-context";
-import { themeStyles } from "@/lib/themeStyles";
 import "@/glass-theme.css";
 
 export interface LanguageData {
@@ -35,15 +33,10 @@ const defaultLangColors: Record<string, string> = {
 
 export const LanguageBarGlass = forwardRef<HTMLDivElement, LanguageBarGlassProps>(
   ({ languages, showLegend = true, className, ...props }, ref) => {
-    const { theme } = useTheme();
-    const t = themeStyles[theme];
-    const isGlass = theme === "glass";
     const [hoveredLang, setHoveredLang] = useState<number | null>(null);
 
     const barStyles: CSSProperties = {
-      boxShadow: isGlass
-        ? "0 0 12px rgba(168,85,247,0.30)"
-        : "inset 0 1px 2px rgba(0,0,0,0.1)",
+      boxShadow: "var(--rainbow-glow)",
     };
 
     return (
@@ -77,7 +70,7 @@ export const LanguageBarGlass = forwardRef<HTMLDivElement, LanguageBarGlassProps
         {showLegend && (
           <div
             className="flex items-center gap-4 mt-2 text-xs flex-wrap"
-            style={{ color: t.textSecondary }}
+            style={{ color: "var(--text-secondary)" }}
           >
             {languages.map((lang, i) => {
               const colorClass = lang.color ?? defaultLangColors[lang.name] ?? "bg-slate-400";

@@ -10,8 +10,6 @@
 
 import { forwardRef, useState, type CSSProperties } from 'react';
 import { cn } from '@/lib/utils';
-import { useTheme } from '@/lib/theme-context';
-import { themeStyles } from '@/lib/themeStyles';
 import { useHover } from '@/lib/hooks/use-hover';
 import '@/glass-theme.css';
 
@@ -50,39 +48,32 @@ export const SliderGlass = forwardRef<HTMLInputElement, SliderGlassProps>(
     },
     ref
   ) => {
-    const { theme } = useTheme();
-    const t = themeStyles[theme];
     const { isHovered, hoverProps } = useHover();
     const [isDragging, setIsDragging] = useState(false);
 
-    const isGlass = theme === 'glass';
     const percentage = ((value - min) / (max - min)) * 100;
 
     const trackStyles: CSSProperties = {
-      background: t.sliderTrack,
+      background: 'var(--slider-track)',
     };
 
     const fillStyles: CSSProperties = {
       width: `${percentage}%`,
-      background: isGlass
-        ? `linear-gradient(90deg, #8b5cf6, ${t.sliderFill})`
-        : t.sliderFill,
+      background: 'var(--slider-fill)',
       boxShadow:
-        isGlass && (isHovered || isDragging)
-          ? `0 0 12px ${t.sliderFill}80`
+        isHovered || isDragging
+          ? 'var(--slider-fill-glow)'
           : undefined,
     };
 
     const thumbStyles: CSSProperties = {
       left: `calc(${percentage}% - 10px)`,
-      background: t.sliderThumb,
-      border: `2px solid ${t.sliderThumbBorder}`,
+      background: 'var(--slider-thumb)',
+      border: '2px solid var(--slider-thumb-border)',
       boxShadow:
         isHovered || isDragging
-          ? t.sliderThumbGlow
-          : isGlass
-            ? `0 2px 8px rgba(0,0,0,0.3)`
-            : `0 2px 4px rgba(0,0,0,0.1)`,
+          ? 'var(--slider-thumb-glow)'
+          : 'var(--slider-thumb-shadow)',
       transform: isDragging
         ? 'scale(1.15)'
         : isHovered
@@ -97,7 +88,7 @@ export const SliderGlass = forwardRef<HTMLInputElement, SliderGlassProps>(
             {label && (
               <label
                 className="text-sm font-medium"
-                style={{ color: t.textSecondary }}
+                style={{ color: 'var(--text-secondary)' }}
               >
                 {label}
               </label>
@@ -105,7 +96,7 @@ export const SliderGlass = forwardRef<HTMLInputElement, SliderGlassProps>(
             {showValue && (
               <span
                 className="text-sm font-medium tabular-nums"
-                style={{ color: t.textSecondary }}
+                style={{ color: 'var(--text-secondary)' }}
               >
                 {value}
               </span>

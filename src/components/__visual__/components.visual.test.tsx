@@ -30,7 +30,7 @@ import { NotificationGlass } from '../NotificationGlass';
 
 // Theme context
 import { ThemeProvider } from '@/lib/theme-context';
-import type { Theme } from '@/lib/themeStyles';
+import type { Theme } from '@/lib/theme-context';
 
 const THEMES: Theme[] = ['glass', 'light', 'aurora'];
 
@@ -134,15 +134,19 @@ describe('Visual Regression Tests', () => {
       await expect(checkbox).toMatchScreenshot(`checkbox-checked-${theme}`);
     });
 
-    test(`TooltipGlass visible - ${theme}`, async () => {
+    test(`TooltipGlass - ${theme}`, async () => {
       renderWithTheme(
         <div data-testid="tooltip-container" style={{ padding: '50px' }}>
-          <TooltipGlass content="Tooltip text" position="top" forceVisible>
-            <span>Hover me</span>
+          <TooltipGlass content="Tooltip text" position="top">
+            <span data-testid="tooltip-trigger">Hover me</span>
           </TooltipGlass>
         </div>,
         theme
       );
+      await waitForStability(200);
+      // Hover to show tooltip
+      const trigger = page.getByTestId('tooltip-trigger');
+      await trigger.hover();
       await waitForStability(200);
       const container = page.getByTestId('tooltip-container');
       await expect(container).toMatchScreenshot(`tooltip-top-${theme}`);
@@ -153,9 +157,11 @@ describe('Visual Regression Tests', () => {
         <TabsGlass
           data-testid="tabs"
           tabs={[
-            { id: 'tab1', label: 'Tab 1', content: <p>Content 1</p> },
-            { id: 'tab2', label: 'Tab 2', content: <p>Content 2</p> },
+            { id: 'tab1', label: 'Tab 1' },
+            { id: 'tab2', label: 'Tab 2' },
           ]}
+          activeTab="tab1"
+          onChange={() => {}}
         />,
         theme
       );
@@ -216,7 +222,6 @@ describe('Visual Regression Tests', () => {
           type="info"
           title="Notification"
           message="This is a notification"
-          isVisible={true}
           onClose={() => {}}
           data-testid="notification"
         />,
@@ -343,7 +348,6 @@ describe('Visual Regression Tests', () => {
           type="success"
           title="Success"
           message="Operation completed"
-          isVisible={true}
           onClose={() => {}}
           data-testid="notification"
         />,
@@ -360,7 +364,6 @@ describe('Visual Regression Tests', () => {
           type="warning"
           title="Warning"
           message="Please review"
-          isVisible={true}
           onClose={() => {}}
           data-testid="notification"
         />,
@@ -377,7 +380,6 @@ describe('Visual Regression Tests', () => {
           type="error"
           title="Error"
           message="Something went wrong"
-          isVisible={true}
           onClose={() => {}}
           data-testid="notification"
         />,
@@ -489,16 +491,19 @@ describe('Visual Regression Tests', () => {
       renderWithTheme(
         <div data-testid="dropdown-container" style={{ padding: '100px' }}>
           <DropdownGlass
-            trigger={<ButtonGlass>Open Menu</ButtonGlass>}
+            trigger={<ButtonGlass data-testid="dropdown-trigger">Open Menu</ButtonGlass>}
             items={[
               { label: 'Item 1', onClick: () => {} },
               { label: 'Item 2', onClick: () => {} },
             ]}
-            defaultOpen={true}
           />
         </div>,
         theme
       );
+      await waitForStability(100);
+      // Click trigger to open dropdown
+      const trigger = page.getByTestId('dropdown-trigger');
+      await trigger.click();
       await waitForStability(200);
       const container = page.getByTestId('dropdown-container');
       await expect(container).toMatchScreenshot(`dropdown-opened-${theme}`);
@@ -737,28 +742,28 @@ describe('Visual Regression Tests', () => {
     });
 
     // SkeletonGlass variants
-    test(`SkeletonGlass circular - ${theme}`, async () => {
+    test(`SkeletonGlass avatar - ${theme}`, async () => {
       renderWithTheme(
         <div data-testid="skeleton-container">
-          <SkeletonGlass variant="circular" width={48} height={48} />
+          <SkeletonGlass variant="avatar" />
         </div>,
         theme
       );
       await waitForStability();
       const container = page.getByTestId('skeleton-container');
-      await expect(container).toMatchScreenshot(`skeleton-circular-${theme}`);
+      await expect(container).toMatchScreenshot(`skeleton-avatar-${theme}`);
     });
 
-    test(`SkeletonGlass rectangular - ${theme}`, async () => {
+    test(`SkeletonGlass card - ${theme}`, async () => {
       renderWithTheme(
-        <div data-testid="skeleton-container">
-          <SkeletonGlass variant="rectangular" width={200} height={100} />
+        <div data-testid="skeleton-container" style={{ width: '200px' }}>
+          <SkeletonGlass variant="card" />
         </div>,
         theme
       );
       await waitForStability();
       const container = page.getByTestId('skeleton-container');
-      await expect(container).toMatchScreenshot(`skeleton-rectangular-${theme}`);
+      await expect(container).toMatchScreenshot(`skeleton-card-${theme}`);
     });
   });
 });

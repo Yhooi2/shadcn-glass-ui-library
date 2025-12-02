@@ -5,8 +5,6 @@
 
 import { forwardRef, type CSSProperties } from "react";
 import { cn } from "@/lib/utils";
-import { useTheme } from "@/lib/theme-context";
-import { themeStyles } from "@/lib/themeStyles";
 import "@/glass-theme.css";
 
 export type RainbowProgressSize = "sm" | "md" | "lg" | "xl";
@@ -26,25 +24,25 @@ const sizeClasses: Record<RainbowProgressSize, string> = {
 
 export const RainbowProgressGlass = forwardRef<HTMLDivElement, RainbowProgressGlassProps>(
   ({ value, size = "lg", showGlow = true, className, ...props }, ref) => {
-    const { theme } = useTheme();
-    const t = themeStyles[theme];
-    const isGlass = theme === "glass";
-
     const clampedValue = Math.min(100, Math.max(0, value));
+
+    const trackStyles: CSSProperties = {
+      background: "var(--progress-bg)",
+    };
 
     const fillStyles: CSSProperties = {
       width: `${clampedValue}%`,
       background:
         "linear-gradient(90deg, #f59e0b, #fbbf24, #84cc16, #22c55e, #14b8a6, #06b6d4, #3b82f6)",
-      boxShadow: showGlow && isGlass ? "0 0 20px rgba(251,191,36,0.4)" : t.progressGlow,
-      animation: showGlow && isGlass ? "rainbow-glow 4s ease-in-out infinite" : "none",
+      boxShadow: showGlow ? "var(--rainbow-glow)" : "none",
+      animation: showGlow ? "var(--rainbow-animation)" : "none",
     };
 
     return (
       <div
         ref={ref}
         className={cn("rounded-full overflow-hidden", sizeClasses[size], className)}
-        style={{ background: t.progressBg }}
+        style={trackStyles}
         role="progressbar"
         aria-valuenow={clampedValue}
         aria-valuemin={0}

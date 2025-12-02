@@ -2,7 +2,7 @@
  * AlertGlass Component
  *
  * Glass-themed alert with:
- * - Theme-aware styling (glass/light/aurora)
+ * - Theme-aware styling via CSS variables (glass/light/aurora)
  * - Multiple types (info, success, warning, error)
  * - Optional title
  * - Dismissible option
@@ -11,10 +11,14 @@
 
 import { forwardRef, type ReactNode, type CSSProperties } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { Info, CheckCircle, AlertTriangle, AlertCircle, X } from 'lucide-react';
+import {
+  Info,
+  CheckCircle,
+  AlertTriangle,
+  AlertCircle,
+  X,
+} from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useTheme } from '@/lib/theme-context';
-import { themeStyles } from '@/lib/themeStyles';
 import '@/glass-theme.css';
 
 // ========================================
@@ -24,11 +28,11 @@ import '@/glass-theme.css';
 export type AlertType = 'info' | 'success' | 'warning' | 'error';
 
 // ========================================
-// TYPE VARIANTS (using CVA)
+// CVA VARIANTS
 // ========================================
 
 const alertVariants = cva(
-  'flex items-start gap-3 p-4 rounded-xl transition-all duration-300',
+  'flex items-start gap-3 p-4 rounded-xl transition-all duration-300 backdrop-blur-sm',
   {
     variants: {
       type: {
@@ -53,6 +57,43 @@ const iconMap = {
   success: CheckCircle,
   warning: AlertTriangle,
   error: AlertCircle,
+};
+
+// ========================================
+// CSS VARIABLE HELPERS
+// ========================================
+
+type AlertStyleVars = { bg: string; border: string; text: string };
+
+const typeStyles: Record<AlertType, AlertStyleVars> = {
+  info: {
+    bg: 'var(--alert-info-bg)',
+    border: 'var(--alert-info-border)',
+    text: 'var(--alert-info-text)',
+  },
+  success: {
+    bg: 'var(--alert-success-bg)',
+    border: 'var(--alert-success-border)',
+    text: 'var(--alert-success-text)',
+  },
+  warning: {
+    bg: 'var(--alert-warning-bg)',
+    border: 'var(--alert-warning-border)',
+    text: 'var(--alert-warning-text)',
+  },
+  error: {
+    bg: 'var(--alert-danger-bg)',
+    border: 'var(--alert-danger-border)',
+    text: 'var(--alert-danger-text)',
+  },
+};
+
+const getAlertStyles = (type: AlertType): CSSProperties => {
+  const config = typeStyles[type];
+  return {
+    background: config.bg,
+    border: `1px solid ${config.border}`,
+  };
 };
 
 // ========================================
@@ -85,50 +126,14 @@ export const AlertGlass = forwardRef<HTMLDivElement, AlertGlassProps>(
     },
     ref
   ) => {
-    const { theme } = useTheme();
-    const t = themeStyles[theme];
-
-    const getTypeConfig = () => {
-      const types = {
-        info: {
-          bg: t.alertInfoBg,
-          border: t.alertInfoBorder,
-          text: t.alertInfoText,
-        },
-        success: {
-          bg: t.alertSuccessBg,
-          border: t.alertSuccessBorder,
-          text: t.alertSuccessText,
-        },
-        warning: {
-          bg: t.alertWarningBg,
-          border: t.alertWarningBorder,
-          text: t.alertWarningText,
-        },
-        error: {
-          bg: t.alertDangerBg,
-          border: t.alertDangerBorder,
-          text: t.alertDangerText,
-        },
-      };
-      return types[type ?? 'info'];
-    };
-
-    const config = getTypeConfig();
+    const config = typeStyles[type ?? 'info'];
     const Icon = iconMap[type ?? 'info'];
-
-    const alertStyles: CSSProperties = {
-      background: config.bg,
-      border: `1px solid ${config.border}`,
-      backdropFilter: 'blur(8px)',
-      WebkitBackdropFilter: 'blur(8px)',
-    };
 
     return (
       <div
         ref={ref}
         className={cn(alertVariants({ type }), className)}
-        style={alertStyles}
+        style={getAlertStyles(type ?? 'info')}
         role="alert"
         {...props}
       >
@@ -145,7 +150,7 @@ export const AlertGlass = forwardRef<HTMLDivElement, AlertGlassProps>(
               {title}
             </p>
           )}
-          <p className="text-sm" style={{ color: `${config.text}cc` }}>
+          <p className="text-sm opacity-80" style={{ color: config.text }}>
             {children}
           </p>
         </div>

@@ -3,7 +3,7 @@
 // Demo page showcasing all glass components
 // ========================================
 
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import {
   Sparkles,
   Settings,
@@ -18,7 +18,6 @@ import {
 } from "lucide-react";
 
 import { useTheme, THEMES, THEME_CONFIG } from "@/lib/theme-context";
-import { themeStyles } from "@/lib/themeStyles";
 
 // Glass Components
 import { GlassCard } from "./GlassCard";
@@ -45,40 +44,42 @@ import "@/glass-theme.css";
 // ========================================
 const AnimatedBackground = () => {
   const { theme } = useTheme();
-  const t = themeStyles[theme];
+  const isGlass = theme === "glass";
+
+  const bgStyles: CSSProperties = {
+    background: "linear-gradient(135deg, var(--bg-from), var(--bg-via), var(--bg-to))",
+  };
 
   return (
     <div
       className="fixed inset-0 transition-all duration-500 overflow-hidden"
-      style={{
-        background: `linear-gradient(135deg, ${t.bgFrom}, ${t.bgVia}, ${t.bgTo})`,
-      }}
+      style={bgStyles}
     >
       {/* Orb 1 */}
       <div
         className="absolute top-20 -left-20 w-80 h-80 rounded-full blur-3xl animate-orb-float"
-        style={{ background: t.orb1 }}
+        style={{ background: "var(--orb-1)" }}
       />
       {/* Orb 2 */}
       <div
         className="absolute top-1/3 -right-20 w-96 h-96 rounded-full blur-3xl animate-orb-float"
-        style={{ background: t.orb2, animationDelay: "2s" }}
+        style={{ background: "var(--orb-2)", animationDelay: "2s" }}
       />
       {/* Orb 3 */}
       <div
         className="absolute bottom-20 left-1/4 w-72 h-72 rounded-full blur-3xl animate-orb-float"
-        style={{ background: t.orb3, animationDelay: "4s" }}
+        style={{ background: "var(--orb-3)", animationDelay: "4s" }}
       />
       {/* Orb 4 */}
       <div
         className="absolute top-1/2 right-1/4 w-64 h-64 rounded-full blur-3xl animate-orb-float"
-        style={{ background: t.orb4, animationDelay: "6s" }}
+        style={{ background: "var(--orb-4)", animationDelay: "6s" }}
       />
       {/* Orb 5 (glass theme only) */}
-      {t.orb5 && (
+      {isGlass && (
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full blur-3xl"
-          style={{ background: t.orb5 }}
+          style={{ background: "var(--orb-5)" }}
         />
       )}
     </div>
@@ -90,7 +91,6 @@ const AnimatedBackground = () => {
 // ========================================
 export const ComponentShowcase = () => {
   const { theme, cycleTheme } = useTheme();
-  const t = themeStyles[theme];
 
   // State
   const [modalOpen, setModalOpen] = useState(false);
@@ -133,11 +133,11 @@ export const ComponentShowcase = () => {
             <div>
               <h1
                 className="text-2xl md:text-3xl font-bold mb-1"
-                style={{ color: t.textPrimary }}
+                style={{ color: "var(--text-primary)" }}
               >
                 Component Library
               </h1>
-              <p className="text-sm" style={{ color: t.textSecondary }}>
+              <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
                 Complete UI kit · {THEME_CONFIG[theme].label} theme
               </p>
             </div>
@@ -154,7 +154,7 @@ export const ComponentShowcase = () => {
           <GlassCard className="p-6" intensity="strong" hover={false} data-testid="section-buttons">
             <h2
               className="text-lg font-semibold mb-4"
-              style={{ color: t.textPrimary }}
+              style={{ color: "var(--text-primary)" }}
             >
               Buttons with Glow & Pulse
             </h2>
@@ -190,7 +190,7 @@ export const ComponentShowcase = () => {
           <GlassCard className="p-6" intensity="strong" hover={false} data-testid="section-inputs">
             <h2
               className="text-lg font-semibold mb-4"
-              style={{ color: t.textPrimary }}
+              style={{ color: "var(--text-primary)" }}
             >
               Inputs & Forms
             </h2>
@@ -234,7 +234,7 @@ export const ComponentShowcase = () => {
           <GlassCard className="p-6" intensity="strong" hover={false} data-testid="section-toggles">
             <h2
               className="text-lg font-semibold mb-4"
-              style={{ color: t.textPrimary }}
+              style={{ color: "var(--text-primary)" }}
             >
               Toggles & Selection
             </h2>
@@ -242,7 +242,7 @@ export const ComponentShowcase = () => {
               <div className="space-y-4">
                 <h3
                   className="text-sm font-medium"
-                  style={{ color: t.textSecondary }}
+                  style={{ color: "var(--text-secondary)" }}
                 >
                   Toggles with Glow
                 </h3>
@@ -252,7 +252,7 @@ export const ComponentShowcase = () => {
                     onChange={setToggle1}
                     size="sm"
                   />
-                  <span className="text-sm" style={{ color: t.textSecondary }}>
+                  <span className="text-sm" style={{ color: "var(--text-secondary)" }}>
                     Small
                   </span>
                 </div>
@@ -262,13 +262,13 @@ export const ComponentShowcase = () => {
                     onChange={setToggle2}
                     size="md"
                   />
-                  <span className="text-sm" style={{ color: t.textSecondary }}>
+                  <span className="text-sm" style={{ color: "var(--text-secondary)" }}>
                     Medium
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
                   <ToggleGlass checked={true} onChange={() => {}} size="lg" />
-                  <span className="text-sm" style={{ color: t.textSecondary }}>
+                  <span className="text-sm" style={{ color: "var(--text-secondary)" }}>
                     Large
                   </span>
                 </div>
@@ -276,7 +276,7 @@ export const ComponentShowcase = () => {
               <div className="space-y-4">
                 <h3
                   className="text-sm font-medium"
-                  style={{ color: t.textSecondary }}
+                  style={{ color: "var(--text-secondary)" }}
                 >
                   Checkboxes
                 </h3>
@@ -298,7 +298,7 @@ export const ComponentShowcase = () => {
           <GlassCard className="p-6" intensity="strong" hover={false} data-testid="section-progress">
             <h2
               className="text-lg font-semibold mb-4"
-              style={{ color: t.textPrimary }}
+              style={{ color: "var(--text-primary)" }}
             >
               Progress Bars
             </h2>
@@ -314,7 +314,7 @@ export const ComponentShowcase = () => {
           <GlassCard className="p-6" intensity="strong" hover={false} data-testid="section-tabs">
             <h2
               className="text-lg font-semibold mb-4"
-              style={{ color: t.textPrimary }}
+              style={{ color: "var(--text-primary)" }}
             >
               Tabs & Navigation
             </h2>
@@ -351,7 +351,7 @@ export const ComponentShowcase = () => {
           <GlassCard className="p-6" intensity="strong" hover={false} data-testid="section-badges">
             <h2
               className="text-lg font-semibold mb-4"
-              style={{ color: t.textPrimary }}
+              style={{ color: "var(--text-primary)" }}
             >
               Badges & Status
             </h2>
@@ -384,7 +384,7 @@ export const ComponentShowcase = () => {
           <GlassCard className="p-6" intensity="strong" hover={false} data-testid="section-avatars">
             <h2
               className="text-lg font-semibold mb-4"
-              style={{ color: t.textPrimary }}
+              style={{ color: "var(--text-primary)" }}
             >
               Avatars
             </h2>
@@ -393,7 +393,7 @@ export const ComponentShowcase = () => {
                 <AvatarGlass name="John Doe" size="sm" status="online" />
                 <p
                   className="text-xs mt-2"
-                  style={{ color: t.textMuted }}
+                  style={{ color: "var(--text-muted)" }}
                 >
                   Small
                 </p>
@@ -402,7 +402,7 @@ export const ComponentShowcase = () => {
                 <AvatarGlass name="Jane Smith" size="md" status="online" />
                 <p
                   className="text-xs mt-2"
-                  style={{ color: t.textMuted }}
+                  style={{ color: "var(--text-muted)" }}
                 >
                   Medium
                 </p>
@@ -411,7 +411,7 @@ export const ComponentShowcase = () => {
                 <AvatarGlass name="Bob Johnson" size="lg" status="busy" />
                 <p
                   className="text-xs mt-2"
-                  style={{ color: t.textMuted }}
+                  style={{ color: "var(--text-muted)" }}
                 >
                   Large
                 </p>
@@ -420,7 +420,7 @@ export const ComponentShowcase = () => {
                 <AvatarGlass name="Alice Brown" size="xl" status="away" />
                 <p
                   className="text-xs mt-2"
-                  style={{ color: t.textMuted }}
+                  style={{ color: "var(--text-muted)" }}
                 >
                   X-Large
                 </p>
@@ -432,7 +432,7 @@ export const ComponentShowcase = () => {
           <GlassCard className="p-6" intensity="strong" hover={false} data-testid="section-alerts">
             <h2
               className="text-lg font-semibold mb-4"
-              style={{ color: t.textPrimary }}
+              style={{ color: "var(--text-primary)" }}
             >
               Alerts
             </h2>
@@ -456,7 +456,7 @@ export const ComponentShowcase = () => {
           <GlassCard className="p-6" intensity="strong" hover={false} data-testid="section-notifications">
             <h2
               className="text-lg font-semibold mb-4"
-              style={{ color: t.textPrimary }}
+              style={{ color: "var(--text-primary)" }}
             >
               Notifications
             </h2>
@@ -480,7 +480,7 @@ export const ComponentShowcase = () => {
           <GlassCard className="p-6" intensity="strong" hover={false} data-testid="section-skeletons">
             <h2
               className="text-lg font-semibold mb-4"
-              style={{ color: t.textPrimary }}
+              style={{ color: "var(--text-primary)" }}
             >
               Skeletons
             </h2>
@@ -499,7 +499,7 @@ export const ComponentShowcase = () => {
           {/* Footer */}
           <div
             className="text-center py-8"
-            style={{ color: t.footerText }}
+            style={{ color: "var(--footer-text)" }}
           >
             <p className="text-sm">
               Glass UI Components · Built with React + Tailwind CSS
@@ -522,7 +522,7 @@ export const ComponentShowcase = () => {
           </p>
           <p
             className="leading-relaxed"
-            style={{ color: t.textMuted }}
+            style={{ color: "var(--text-muted)" }}
           >
             The modal automatically locks body scroll, closes on Escape key, and
             handles click outside behavior.

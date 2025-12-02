@@ -10,8 +10,6 @@
 import { forwardRef, type CSSProperties } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
-import { useTheme } from '@/lib/theme-context';
-import { themeStyles } from '@/lib/themeStyles';
 import '@/glass-theme.css';
 
 // ========================================
@@ -66,13 +64,10 @@ export const SkeletonGlass = forwardRef<HTMLDivElement, SkeletonGlassProps>(
     },
     ref
   ) => {
-    const { theme } = useTheme();
-    const t = themeStyles[theme];
-
     const skeletonStyles: CSSProperties = {
       width,
       height,
-      background: `linear-gradient(90deg, ${t.skeletonBg} 25%, ${t.skeletonShine} 50%, ${t.skeletonBg} 75%)`,
+      background: 'linear-gradient(90deg, var(--skeleton-bg) 25%, var(--skeleton-shine) 50%, var(--skeleton-bg) 75%)',
       backgroundSize: '200% 100%',
       animation: 'skeleton-loading 1.5s infinite',
       ...style,

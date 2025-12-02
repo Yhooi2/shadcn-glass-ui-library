@@ -6,8 +6,6 @@
 import { forwardRef, useState, type CSSProperties } from "react";
 import { FolderGit2, AlertTriangle } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useTheme } from "@/lib/theme-context";
-import { themeStyles } from "@/lib/themeStyles";
 import { GlassCard } from "./GlassCard";
 import { BadgeGlass } from "./BadgeGlass";
 import { RepositoryCardGlass, type RepositoryFlagType } from "./RepositoryCardGlass";
@@ -45,8 +43,6 @@ export const ProjectsListGlass = forwardRef<HTMLDivElement, ProjectsListGlassPro
     },
     ref
   ) => {
-    const { theme } = useTheme();
-    const t = themeStyles[theme];
     const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
     // Filter repositories
@@ -66,7 +62,7 @@ export const ProjectsListGlass = forwardRef<HTMLDivElement, ProjectsListGlassPro
     ) + " Projects";
 
     const emptyContainerStyles: CSSProperties = {
-      background: t.cardBg,
+      background: "var(--card-bg)",
     };
 
     return (
@@ -80,13 +76,13 @@ export const ProjectsListGlass = forwardRef<HTMLDivElement, ProjectsListGlassPro
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             {showFlaggedOnly ? (
-              <AlertTriangle className="w-4 h-4" style={{ color: t.statusYellow }} />
+              <AlertTriangle className="w-4 h-4" style={{ color: "var(--status-yellow)" }} />
             ) : (
-              <FolderGit2 className="w-4 h-4" style={{ color: t.textAccent }} />
+              <FolderGit2 className="w-4 h-4" style={{ color: "var(--text-accent)" }} />
             )}
             <h3
               className="font-semibold"
-              style={{ color: t.textPrimary }}
+              style={{ color: "var(--text-primary)" }}
             >
               {displayTitle}
             </h3>
@@ -102,11 +98,11 @@ export const ProjectsListGlass = forwardRef<HTMLDivElement, ProjectsListGlassPro
               className="w-16 h-16 mx-auto mb-3 rounded-2xl flex items-center justify-center"
               style={emptyContainerStyles}
             >
-              <FolderGit2 className="w-8 h-8" style={{ color: t.textMuted }} />
+              <FolderGit2 className="w-8 h-8" style={{ color: "var(--text-muted)" }} />
             </div>
             <p
               className="text-sm"
-              style={{ color: t.textMuted }}
+              style={{ color: "var(--text-muted)" }}
             >
               No repositories found
             </p>
@@ -114,7 +110,7 @@ export const ProjectsListGlass = forwardRef<HTMLDivElement, ProjectsListGlassPro
               <button
                 onClick={onClearFilters}
                 className="mt-2 text-sm underline transition-colors hover:opacity-80"
-                style={{ color: t.textAccent }}
+                style={{ color: "var(--text-accent)" }}
               >
                 Clear filters
               </button>

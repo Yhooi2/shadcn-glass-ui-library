@@ -11,8 +11,6 @@
 import { forwardRef, type CSSProperties } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
-import { useTheme } from '@/lib/theme-context';
-import { themeStyles } from '@/lib/themeStyles';
 import { useHover } from '@/lib/hooks/use-hover';
 import '@/glass-theme.css';
 
@@ -87,51 +85,27 @@ const getInitials = (name: string): string => {
 // COMPONENT
 // ========================================
 
+// Status colors mapping to CSS variables
+const getStatusVars = (statusType: AvatarStatus): { bg: string; glow: string } => {
+  const statusVars: Record<AvatarStatus, { bg: string; glow: string }> = {
+    online: { bg: 'var(--status-online)', glow: 'var(--status-online-glow)' },
+    offline: { bg: 'var(--status-offline)', glow: 'none' },
+    busy: { bg: 'var(--status-busy)', glow: 'var(--status-busy-glow)' },
+    away: { bg: 'var(--status-away)', glow: 'var(--status-away-glow)' },
+  };
+  return statusVars[statusType];
+};
+
 export const AvatarGlass = forwardRef<HTMLDivElement, AvatarGlassProps>(
   ({ name, size = 'md', status, className, ...props }, ref) => {
-    const { theme } = useTheme();
-    const t = themeStyles[theme];
     const { isHovered, hoverProps } = useHover();
 
-    const isGlass = theme === 'glass';
-
-    // Status colors with glow for glass theme
-    const getStatusStyle = (statusType: AvatarStatus): { bg: string; glow: string } => {
-      const colors: Record<AvatarStatus, { bg: string; glow: string }> = {
-        online: {
-          bg: t.statusGreen,
-          glow: `0 0 8px ${t.statusGreen}99, 0 0 16px ${t.statusGreen}4d`,
-        },
-        offline: { bg: t.textMuted, glow: 'none' },
-        busy: {
-          bg: t.statusRed,
-          glow: `0 0 8px ${t.statusRed}99, 0 0 16px ${t.statusRed}4d`,
-        },
-        away: {
-          bg: t.statusYellow,
-          glow: `0 0 8px ${t.statusYellow}99, 0 0 16px ${t.statusYellow}4d`,
-        },
-      };
-      return colors[statusType];
+    const avatarStyles: CSSProperties = {
+      background: 'var(--avatar-bg)',
+      border: '2px solid var(--avatar-border)',
+      boxShadow: isHovered ? 'var(--avatar-hover-glow)' : 'var(--avatar-shadow)',
+      color: '#ffffff',
     };
-
-    // Avatar styles for glass theme
-    const avatarStyles: CSSProperties = isGlass
-      ? {
-          background:
-            'linear-gradient(135deg, rgba(168,85,247,0.80), rgba(139,92,246,0.80))',
-          border: '2px solid rgba(255,255,255,0.20)',
-          boxShadow: isHovered
-            ? '0 0 30px rgba(168,85,247,0.50), inset 0 1px 0 rgba(255,255,255,0.20)'
-            : '0 4px 20px rgba(168,85,247,0.30)',
-          color: '#ffffff',
-        }
-      : {
-          background: 'linear-gradient(135deg, #8b5cf6, #7c3aed)',
-          border: `2px solid ${t.avatarBorder}`,
-          boxShadow: isHovered ? t.avatarGlow : 'none',
-          color: '#ffffff',
-        };
 
     const initials = getInitials(name);
 
@@ -158,8 +132,8 @@ export const AvatarGlass = forwardRef<HTMLDivElement, AvatarGlassProps>(
           <span
             className={cn(statusSizes({ size }))}
             style={{
-              background: getStatusStyle(status).bg,
-              boxShadow: isGlass ? getStatusStyle(status).glow : 'none',
+              background: getStatusVars(status).bg,
+              boxShadow: getStatusVars(status).glow,
             }}
             role="status"
             aria-label={`Status: ${status}`}

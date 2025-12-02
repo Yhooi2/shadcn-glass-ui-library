@@ -5,8 +5,6 @@
 
 import { forwardRef, useState, type CSSProperties } from "react";
 import { cn } from "@/lib/utils";
-import { useTheme } from "@/lib/theme-context";
-import { themeStyles } from "@/lib/themeStyles";
 import { ProgressGlass } from "./ProgressGlass";
 import "@/glass-theme.css";
 
@@ -28,59 +26,50 @@ const colorToGradient: Record<MetricColor, ProgressGradient> = {
   red: "rose",
 };
 
-const colorGlows: Record<MetricColor, string> = {
-  emerald: "0 0 12px rgba(52,211,153,0.4)",
-  amber: "0 0 12px rgba(251,191,36,0.4)",
-  blue: "0 0 12px rgba(96,165,250,0.4)",
-  red: "0 0 12px rgba(251,113,133,0.4)",
+// CSS variable maps for metric colors
+const metricVarMap: Record<MetricColor, { bg: string; text: string; border: string; glow: string }> = {
+  emerald: {
+    bg: "var(--metric-emerald-bg)",
+    text: "var(--metric-emerald-text)",
+    border: "var(--metric-emerald-border)",
+    glow: "var(--metric-emerald-glow)",
+  },
+  amber: {
+    bg: "var(--metric-amber-bg)",
+    text: "var(--metric-amber-text)",
+    border: "var(--metric-amber-border)",
+    glow: "var(--metric-amber-glow)",
+  },
+  blue: {
+    bg: "var(--metric-blue-bg)",
+    text: "var(--metric-blue-text)",
+    border: "var(--metric-blue-border)",
+    glow: "var(--metric-blue-glow)",
+  },
+  red: {
+    bg: "var(--metric-red-bg)",
+    text: "var(--metric-red-text)",
+    border: "var(--metric-red-border)",
+    glow: "var(--metric-red-glow)",
+  },
 };
 
 export const MetricCardGlass = forwardRef<HTMLDivElement, MetricCardGlassProps>(
   ({ label, value, color = "blue", className, ...props }, ref) => {
-    const { theme } = useTheme();
-    const t = themeStyles[theme];
-    const isGlass = theme === "glass";
     const [isHovered, setIsHovered] = useState(false);
-
-    const getColorStyles = (c: MetricColor): { bg: string; text: string; border: string } => {
-      const colorMap: Record<MetricColor, { bg: string; text: string; border: string }> = {
-        emerald: {
-          bg: isGlass ? "transparent" : t.metricEmeraldBg,
-          text: t.metricEmeraldText,
-          border: isGlass ? "transparent" : t.metricEmeraldBorder,
-        },
-        amber: {
-          bg: isGlass ? "transparent" : t.metricAmberBg,
-          text: t.metricAmberText,
-          border: isGlass ? "transparent" : t.metricAmberBorder,
-        },
-        blue: {
-          bg: isGlass ? "transparent" : t.metricBlueBg,
-          text: t.metricBlueText,
-          border: isGlass ? "transparent" : t.metricBlueBorder,
-        },
-        red: {
-          bg: isGlass ? "transparent" : t.metricRedBg,
-          text: t.metricRedText,
-          border: isGlass ? "transparent" : t.metricRedBorder,
-        },
-      };
-      return colorMap[c];
-    };
-
-    const colorStyles = getColorStyles(color);
+    const colorVars = metricVarMap[color];
 
     const cardStyles: CSSProperties = {
-      backgroundColor: colorStyles.bg,
-      borderColor: colorStyles.border || "transparent",
-      boxShadow: isGlass && isHovered ? colorGlows[color] : "none",
+      backgroundColor: colorVars.bg,
+      borderColor: colorVars.border,
+      boxShadow: isHovered ? colorVars.glow : "none",
       transform: isHovered ? "translateY(-2px)" : "translateY(0)",
       backdropFilter: "blur(8px)",
     };
 
     const valueStyles: CSSProperties = {
-      color: colorStyles.text,
-      textShadow: isGlass ? colorGlows[color] : "none",
+      color: colorVars.text,
+      textShadow: colorVars.glow,
     };
 
     return (
@@ -98,7 +87,7 @@ export const MetricCardGlass = forwardRef<HTMLDivElement, MetricCardGlassProps>(
         <div className="flex justify-between items-center mb-3">
           <span
             className="text-sm font-medium"
-            style={{ color: t.textSecondary }}
+            style={{ color: "var(--text-secondary)" }}
           >
             {label}
           </span>

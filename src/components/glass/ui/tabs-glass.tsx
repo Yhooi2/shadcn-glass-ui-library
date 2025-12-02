@@ -9,8 +9,6 @@
 
 import { forwardRef, type CSSProperties } from 'react';
 import { cn } from '@/lib/utils';
-import { useTheme } from '@/lib/theme-context';
-import { themeStyles } from '@/lib/themeStyles';
 import '@/glass-theme.css';
 
 // ========================================
@@ -39,17 +37,14 @@ export interface TabsGlassProps
 
 export const TabsGlass = forwardRef<HTMLDivElement, TabsGlassProps>(
   ({ className, tabs, activeTab, onChange, ...props }, ref) => {
-    const { theme } = useTheme();
-    const t = themeStyles[theme];
-
     const containerStyles: CSSProperties = {
-      background: t.glassSubtleBg,
-      border: `1px solid ${t.glassSubtleBorder}`,
+      background: 'var(--tab-container-bg)',
+      border: '1px solid var(--tab-container-border)',
     };
 
     const getTabStyles = (isActive: boolean): CSSProperties => ({
-      background: isActive ? t.tabActiveBg : t.tabBg,
-      color: isActive ? t.tabActiveText : t.textSecondary,
+      background: isActive ? 'var(--tab-active-bg)' : 'var(--tab-bg)',
+      color: isActive ? 'var(--tab-active-text)' : 'var(--text-secondary)',
     });
 
     return (
@@ -76,7 +71,7 @@ export const TabsGlass = forwardRef<HTMLDivElement, TabsGlassProps>(
               {isActive && (
                 <div
                   className="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-0.5 rounded-full"
-                  style={{ background: t.tabIndicator }}
+                  style={{ background: 'var(--tab-indicator)' }}
                 />
               )}
             </button>

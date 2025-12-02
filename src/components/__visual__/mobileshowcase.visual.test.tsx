@@ -11,7 +11,7 @@ import { page } from 'vitest/browser';
 
 import { MobileShowcase } from '../MobileShowcase';
 import { ThemeProvider } from '@/lib/theme-context';
-import type { Theme } from '@/lib/themeStyles';
+import type { Theme } from '@/lib/theme-context';
 
 const THEMES: Theme[] = ['glass', 'light', 'aurora'];
 

@@ -5,8 +5,6 @@
 
 import { forwardRef, type CSSProperties } from "react";
 import { cn } from "@/lib/utils";
-import { useTheme } from "@/lib/theme-context";
-import { themeStyles } from "@/lib/themeStyles";
 import "@/glass-theme.css";
 
 export type StatusType = "green" | "yellow" | "red";
@@ -28,35 +26,20 @@ const statusSymbols: Record<StatusType, string> = {
   red: "✕",
 };
 
+// CSS variable maps for status colors
+const statusVarMap: Record<StatusType, { bg: string; glow: string }> = {
+  green: { bg: "var(--status-green)", glow: "var(--status-green-glow)" },
+  yellow: { bg: "var(--status-yellow)", glow: "var(--status-yellow-glow)" },
+  red: { bg: "var(--status-red)", glow: "var(--status-red-glow)" },
+};
+
 export const StatusIndicatorGlass = forwardRef<HTMLDivElement, StatusIndicatorGlassProps>(
   ({ type = "green", size = "normal", className, ...props }, ref) => {
-    const { theme } = useTheme();
-    const t = themeStyles[theme];
-    const isGlass = theme === "glass";
-
-    const getStatusColors = (statusType: StatusType): { bg: string; glow: string } => {
-      const colors: Record<StatusType, { bg: string; glow: string }> = {
-        green: {
-          bg: t.statusGreen,
-          glow: `0 0 8px ${t.statusGreen}99`,
-        },
-        yellow: {
-          bg: t.statusYellow,
-          glow: `0 0 8px ${t.statusYellow}99`,
-        },
-        red: {
-          bg: t.statusRed,
-          glow: `0 0 8px ${t.statusRed}99`,
-        },
-      };
-      return colors[statusType];
-    };
-
-    const colors = getStatusColors(type);
+    const colors = statusVarMap[type];
 
     const indicatorStyles: CSSProperties = {
       backgroundColor: colors.bg,
-      boxShadow: isGlass ? colors.glow : "none",
+      boxShadow: colors.glow,
     };
 
     return (
