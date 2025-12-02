@@ -1,0 +1,49 @@
+# <type>: <subject>
+#
+# <body>
+#
+# <footer>
+#
+# Type should be one of:
+# - feat:     New feature
+# - fix:      Bug fix
+# - docs:     Documentation only changes
+# - style:    Changes that don't affect code meaning (white-space, formatting)
+# - refactor: Code change that neither fixes a bug nor adds a feature
+# - perf:     Performance improvement
+# - test:     Adding missing tests or correcting existing tests
+# - build:    Changes to build system or dependencies
+# - ci:       Changes to CI configuration files and scripts
+# - chore:    Other changes that don't modify src or test files
+#
+# Subject line should:
+# - Use imperative mood ("add feature" not "added feature")
+# - Not end with a period
+# - Be limited to 50 characters
+#
+# Body should:
+# - Explain what and why vs. how
+# - Wrap at 72 characters
+# - Separate from subject with a blank line
+#
+# Footer should:
+# - Reference issues: "Fixes #123" or "Closes #456"
+# - Include breaking changes: "BREAKING CHANGE: description"
+# - Add co-authors if needed
+#
+# Example:
+# feat: add CircularProgressGlass component
+#
+# Add SVG-based circular progress indicator with:
+# - Determinate and indeterminate variants
+# - 4 sizes (sm, md, lg, xl)
+# - 6 color gradients
+# - Configurable glow effect
+#
+# Visual tests: 30 tests × 3 themes = 90 tests
+#
+# Closes #123
+#
+# 🤖 Generated with [Claude Code](https://claude.com/claude-code)
+#
+# Co-Authored-By: Claude <noreply@anthropic.com>
