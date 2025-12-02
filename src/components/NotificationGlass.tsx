@@ -4,7 +4,5 @@
  */
 export {
   NotificationGlass,
-  notificationGlassVariants,
   type NotificationGlassProps,
-  type NotificationType,
 } from './glass/ui/notification-glass';

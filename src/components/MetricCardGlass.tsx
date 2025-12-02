@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { ProgressGlass } from "./ProgressGlass";
 import "@/glass-theme.css";
 
-import type { ProgressGradient } from "./ProgressGlass";
+import type { ProgressGradient } from "@/lib/variants/progress-glass-variants";
 
 export type MetricColor = "emerald" | "amber" | "blue" | "red";
 

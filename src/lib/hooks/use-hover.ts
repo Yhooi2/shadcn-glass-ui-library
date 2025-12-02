@@ -92,7 +92,7 @@ export function useHover(options: UseHoverOptions = {}): UseHoverReturn {
   );
 
   const handleMouseEnter = useCallback(
-    (_e: MouseEvent) => {
+    () => {
       // Clear any pending leave timeout
       if (leaveTimeout) {
         clearTimeout(leaveTimeout);
@@ -112,7 +112,7 @@ export function useHover(options: UseHoverOptions = {}): UseHoverReturn {
   );
 
   const handleMouseLeave = useCallback(
-    (_e: MouseEvent) => {
+    () => {
       // Clear any pending enter timeout
       if (enterTimeout) {
         clearTimeout(enterTimeout);
@@ -132,7 +132,7 @@ export function useHover(options: UseHoverOptions = {}): UseHoverReturn {
   );
 
   const handleFocus = useCallback(
-    (_e: FocusEvent) => {
+    () => {
       if (includeFocus) {
         setIsHovered(true);
       }
@@ -141,7 +141,7 @@ export function useHover(options: UseHoverOptions = {}): UseHoverReturn {
   );
 
   const handleBlur = useCallback(
-    (_e: FocusEvent) => {
+    () => {
       if (includeFocus) {
         setIsHovered(false);
       }

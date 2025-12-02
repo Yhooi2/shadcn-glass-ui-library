@@ -4,8 +4,5 @@
  */
 export {
   GlassCard,
-  glassCardVariants,
   type GlassCardProps,
-  type GlowType,
-  type IntensityType,
 } from './glass/ui/glass-card';

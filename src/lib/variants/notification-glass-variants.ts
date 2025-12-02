@@ -1,0 +1,25 @@
+/**
+ * NotificationGlass CVA Variants
+ * Extracted for Fast Refresh compatibility
+ */
+
+import { cva } from 'class-variance-authority';
+
+export type NotificationType = 'info' | 'success' | 'warning' | 'error';
+
+export const notificationVariants = cva(
+  'flex items-start gap-4 p-5 rounded-2xl min-w-[320px] max-w-[420px] transition-all duration-300',
+  {
+    variants: {
+      type: {
+        info: '',
+        success: '',
+        warning: '',
+        error: '',
+      },
+    },
+    defaultVariants: {
+      type: 'info',
+    },
+  }
+);

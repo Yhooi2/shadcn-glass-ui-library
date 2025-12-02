@@ -4,7 +4,5 @@
  */
 export {
   TooltipGlass,
-  tooltipGlassVariants,
   type TooltipGlassProps,
-  type TooltipPosition,
 } from './glass/ui/tooltip-glass';

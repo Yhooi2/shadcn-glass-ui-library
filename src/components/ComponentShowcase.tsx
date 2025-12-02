@@ -3,21 +3,21 @@
 // Demo page showcasing all glass components
 // ========================================
 
-import { useState, type CSSProperties } from "react";
+import { useState } from "react";
 import {
-  Sparkles,
-  Settings,
-  Eye,
-  Trash2,
-  Check,
   Mail,
   Lock,
   User,
+  Settings,
   LogOut,
   ChevronDown,
 } from "lucide-react";
 
 import { useTheme, THEMES, THEME_CONFIG } from "@/lib/theme-context";
+import { AnimatedBackground } from "@/components/AnimatedBackground";
+import { ButtonsSection } from "@/components/showcase/ButtonsSection";
+import { AlertsSection } from "@/components/showcase/AlertsSection";
+import { SkeletonsSection } from "@/components/showcase/SkeletonsSection";
 
 // Glass Components
 import { GlassCard } from "./GlassCard";
@@ -25,7 +25,6 @@ import { ButtonGlass } from "./ButtonGlass";
 import { InputGlass } from "./InputGlass";
 import { ProgressGlass } from "./ProgressGlass";
 import { BadgeGlass } from "./BadgeGlass";
-import { AlertGlass } from "./AlertGlass";
 import { ToggleGlass } from "./ToggleGlass";
 import { CheckboxGlass } from "./CheckboxGlass";
 import { TabsGlass, type TabItem } from "./TabsGlass";
@@ -33,62 +32,10 @@ import { TooltipGlass } from "./TooltipGlass";
 import { ModalGlass } from "./ModalGlass";
 import { DropdownGlass, type DropdownItem } from "./DropdownGlass";
 import { AvatarGlass } from "./AvatarGlass";
-import { SkeletonGlass } from "./SkeletonGlass";
 import { NotificationGlass } from "./NotificationGlass";
 import { SliderGlass } from "./SliderGlass";
 
 import "@/glass-theme.css";
-
-// ========================================
-// ANIMATED BACKGROUND
-// ========================================
-const AnimatedBackground = () => {
-  const { theme } = useTheme();
-  const isGlass = theme === "glass";
-
-  const bgStyles: CSSProperties = {
-    background: "linear-gradient(135deg, var(--bg-from), var(--bg-via), var(--bg-to))",
-  };
-
-  return (
-    <div
-      className="fixed inset-0 transition-all duration-500 overflow-hidden"
-      style={bgStyles}
-    >
-      {/* Orb 1 */}
-      <div
-        className="absolute top-20 -left-20 w-80 h-80 rounded-full blur-3xl animate-orb-float"
-        style={{ background: "var(--orb-1)" }}
-      />
-      {/* Orb 2 */}
-      <div
-        className="absolute top-1/3 -right-20 w-96 h-96 rounded-full blur-3xl animate-orb-float"
-        style={{ background: "var(--orb-2)", animationDelay: "2s" }}
-      />
-      {/* Orb 3 */}
-      <div
-        className="absolute bottom-20 left-1/4 w-72 h-72 rounded-full blur-3xl animate-orb-float"
-        style={{ background: "var(--orb-3)", animationDelay: "4s" }}
-      />
-      {/* Orb 4 */}
-      <div
-        className="absolute top-1/2 right-1/4 w-64 h-64 rounded-full blur-3xl animate-orb-float"
-        style={{ background: "var(--orb-4)", animationDelay: "6s" }}
-      />
-      {/* Orb 5 (glass theme only) */}
-      {isGlass && (
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full blur-3xl"
-          style={{ background: "var(--orb-5)" }}
-        />
-      )}
-    </div>
-  );
-};
-
-// ========================================
-// MAIN SHOWCASE
-// ========================================
 export const ComponentShowcase = () => {
   const { theme, cycleTheme } = useTheme();
 
@@ -151,40 +98,7 @@ export const ComponentShowcase = () => {
           </div>
 
           {/* Buttons Section */}
-          <GlassCard className="p-6" intensity="strong" hover={false} data-testid="section-buttons">
-            <h2
-              className="text-lg font-semibold mb-4"
-              style={{ color: "var(--text-primary)" }}
-            >
-              Buttons with Glow & Pulse
-            </h2>
-            <div className="space-y-4">
-              <div className="flex flex-wrap gap-3">
-                <ButtonGlass variant="primary" icon={Sparkles}>
-                  Primary
-                </ButtonGlass>
-                <ButtonGlass variant="secondary" icon={Settings}>
-                  Secondary
-                </ButtonGlass>
-                <ButtonGlass variant="ghost" icon={Eye}>
-                  Ghost
-                </ButtonGlass>
-                <ButtonGlass variant="danger" icon={Trash2}>
-                  Danger
-                </ButtonGlass>
-                <ButtonGlass variant="success" icon={Check}>
-                  Success
-                </ButtonGlass>
-              </div>
-              <div className="flex flex-wrap gap-3">
-                <ButtonGlass size="sm">Small</ButtonGlass>
-                <ButtonGlass size="md">Medium</ButtonGlass>
-                <ButtonGlass size="lg">Large</ButtonGlass>
-                <ButtonGlass loading>Loading</ButtonGlass>
-                <ButtonGlass disabled>Disabled</ButtonGlass>
-              </div>
-            </div>
-          </GlassCard>
+          <ButtonsSection />
 
           {/* Inputs & Forms Section */}
           <GlassCard className="p-6" intensity="strong" hover={false} data-testid="section-inputs">
@@ -429,28 +343,7 @@ export const ComponentShowcase = () => {
           </GlassCard>
 
           {/* Alerts Section */}
-          <GlassCard className="p-6" intensity="strong" hover={false} data-testid="section-alerts">
-            <h2
-              className="text-lg font-semibold mb-4"
-              style={{ color: "var(--text-primary)" }}
-            >
-              Alerts
-            </h2>
-            <div className="space-y-3">
-              <AlertGlass type="info" title="Information">
-                This is an informational message.
-              </AlertGlass>
-              <AlertGlass type="success" title="Success!" dismissible>
-                Your changes have been saved.
-              </AlertGlass>
-              <AlertGlass type="warning" title="Warning">
-                Please review your settings.
-              </AlertGlass>
-              <AlertGlass type="error" title="Error" dismissible>
-                Something went wrong.
-              </AlertGlass>
-            </div>
-          </GlassCard>
+          <AlertsSection />
 
           {/* Notifications Section */}
           <GlassCard className="p-6" intensity="strong" hover={false} data-testid="section-notifications">
@@ -477,24 +370,7 @@ export const ComponentShowcase = () => {
           </GlassCard>
 
           {/* Skeletons Section */}
-          <GlassCard className="p-6" intensity="strong" hover={false} data-testid="section-skeletons">
-            <h2
-              className="text-lg font-semibold mb-4"
-              style={{ color: "var(--text-primary)" }}
-            >
-              Skeletons
-            </h2>
-            <div className="space-y-4">
-              <div className="flex items-center gap-4">
-                <SkeletonGlass variant="avatar" />
-                <div className="flex-1 space-y-2">
-                  <SkeletonGlass variant="title" width="60%" />
-                  <SkeletonGlass variant="text" width="80%" />
-                </div>
-              </div>
-              <SkeletonGlass variant="thumbnail" />
-            </div>
-          </GlassCard>
+          <SkeletonsSection />
 
           {/* Footer */}
           <div

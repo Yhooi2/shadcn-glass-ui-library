@@ -4,7 +4,5 @@
  */
 export {
   AlertGlass,
-  alertGlassVariants,
   type AlertGlassProps,
-  type AlertType,
 } from './glass/ui/alert-glass';

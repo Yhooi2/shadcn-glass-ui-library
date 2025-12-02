@@ -3,7 +3,7 @@
 // Complete GitHub Analytics UI showcase
 // ========================================
 
-import { useState, type CSSProperties } from "react";
+import { useState } from "react";
 import {
   Sun,
   Moon,
@@ -13,21 +13,19 @@ import {
   Settings,
   Folder,
   LogOut,
-  Sparkles,
-  Eye,
-  Trash2,
-  Check,
   Mail,
   Lock,
 } from "lucide-react";
 import { useTheme, type ThemeName } from "@/lib/theme-context";
+import { AnimatedBackground } from "@/components/AnimatedBackground";
+import { ButtonsSection } from "@/components/showcase/ButtonsSection";
+import { AlertsSection } from "@/components/showcase/AlertsSection";
 
 // Import all glass components
 import { GlassCard } from "./GlassCard";
 import { ButtonGlass } from "./ButtonGlass";
 import { InputGlass } from "./InputGlass";
 import { BadgeGlass } from "./BadgeGlass";
-import { AlertGlass } from "./AlertGlass";
 import { ProgressGlass } from "./ProgressGlass";
 import { ToggleGlass } from "./ToggleGlass";
 import { CheckboxGlass } from "./CheckboxGlass";
@@ -135,7 +133,6 @@ const navTabs = [
 
 export function DesktopShowcase() {
   const { theme, cycleTheme } = useTheme();
-  const isGlass = theme === "glass";
 
   // State
   const [flagsExpanded, setFlagsExpanded] = useState(true);
@@ -159,39 +156,9 @@ export function DesktopShowcase() {
     { icon: LogOut, label: "Sign out", danger: true, onClick: () => {} },
   ];
 
-  const bgStyles: CSSProperties = {
-    background: "linear-gradient(135deg, var(--bg-from), var(--bg-via), var(--bg-to))",
-  };
-
-  const orbStyles = {
-    orb1: { background: "var(--orb-1)", animation: "orb-float 8s ease-in-out infinite" },
-    orb2: { background: "var(--orb-2)", animation: "orb-float 8s ease-in-out infinite 2s" },
-    orb3: { background: "var(--orb-3)", animation: "orb-float 8s ease-in-out infinite 4s" },
-  };
-
   return (
     <div className="min-h-screen font-sans" data-testid="desktop-showcase">
-      {/* Background */}
-      <div className="fixed inset-0 transition-all duration-500" style={bgStyles}>
-        <div
-          className="absolute top-20 -left-20 w-80 h-80 rounded-full blur-3xl"
-          style={orbStyles.orb1}
-        />
-        <div
-          className="absolute top-1/3 -right-20 w-96 h-96 rounded-full blur-3xl"
-          style={orbStyles.orb2}
-        />
-        <div
-          className="absolute bottom-20 left-1/4 w-72 h-72 rounded-full blur-3xl"
-          style={orbStyles.orb3}
-        />
-        {isGlass && (
-          <div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full blur-3xl"
-            style={{ background: "var(--orb-5)" }}
-          />
-        )}
-      </div>
+      <AnimatedBackground />
 
       {/* Content */}
       <div className="relative z-10 p-4 md:p-6">
@@ -346,40 +313,7 @@ export function DesktopShowcase() {
           </GlassCard>
 
           {/* Buttons */}
-          <GlassCard
-            className="p-6"
-            intensity="strong"
-            hover={false}
-            data-testid="section-buttons"
-          >
-            <h2 className="text-lg font-semibold mb-4" style={{ color: "var(--text-primary)" }}>
-              Buttons
-            </h2>
-            <div className="flex flex-wrap gap-3 mb-4">
-              <ButtonGlass variant="primary" icon={Sparkles}>
-                Primary
-              </ButtonGlass>
-              <ButtonGlass variant="secondary" icon={Settings}>
-                Secondary
-              </ButtonGlass>
-              <ButtonGlass variant="ghost" icon={Eye}>
-                Ghost
-              </ButtonGlass>
-              <ButtonGlass variant="danger" icon={Trash2}>
-                Danger
-              </ButtonGlass>
-              <ButtonGlass variant="success" icon={Check}>
-                Success
-              </ButtonGlass>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              <ButtonGlass size="sm">Small</ButtonGlass>
-              <ButtonGlass size="md">Medium</ButtonGlass>
-              <ButtonGlass size="lg">Large</ButtonGlass>
-              <ButtonGlass loading>Loading</ButtonGlass>
-              <ButtonGlass disabled>Disabled</ButtonGlass>
-            </div>
-          </GlassCard>
+          <ButtonsSection />
 
           {/* Form Elements */}
           <GlassCard
@@ -431,30 +365,19 @@ export function DesktopShowcase() {
             </div>
           </GlassCard>
 
-          {/* Alerts & Notifications */}
+          {/* Alerts */}
+          <AlertsSection />
+
+          {/* Notifications */}
           <GlassCard
             className="p-6"
             intensity="strong"
             hover={false}
-            data-testid="section-alerts"
+            data-testid="section-notifications"
           >
             <h2 className="text-lg font-semibold mb-4" style={{ color: "var(--text-primary)" }}>
-              Alerts & Notifications
+              Notifications
             </h2>
-            <div className="space-y-3 mb-6">
-              <AlertGlass type="info" title="Information">
-                This is an informational message.
-              </AlertGlass>
-              <AlertGlass type="success" title="Success!" dismissible>
-                Your changes have been saved.
-              </AlertGlass>
-              <AlertGlass type="warning" title="Warning">
-                Please review your settings.
-              </AlertGlass>
-              <AlertGlass type="error" title="Error">
-                Something went wrong.
-              </AlertGlass>
-            </div>
             <div className="space-y-3">
               <NotificationGlass
                 type="info"

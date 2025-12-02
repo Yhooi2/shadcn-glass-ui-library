@@ -7,7 +7,8 @@ import { forwardRef, useState, type CSSProperties } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BadgeGlass } from "./BadgeGlass";
-import { ProgressGlass, type ProgressGradient } from "./ProgressGlass";
+import { ProgressGlass } from "./ProgressGlass";
+import type { ProgressGradient } from "@/lib/variants/progress-glass-variants";
 import "@/glass-theme.css";
 
 export interface YearCardGlassProps extends React.HTMLAttributes<HTMLDivElement> {

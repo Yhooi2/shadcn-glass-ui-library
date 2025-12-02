@@ -9,15 +9,10 @@
  */
 
 import { forwardRef, type CSSProperties } from 'react';
-import { cva, type VariantProps } from 'class-variance-authority';
+import { type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
+import { toggleSizes } from '@/lib/variants/toggle-glass-variants';
 import '@/glass-theme.css';
-
-// ========================================
-// TYPES
-// ========================================
-
-export type ToggleGlassSize = 'sm' | 'md' | 'lg';
 
 // ========================================
 // SIZE CONFIG
@@ -28,23 +23,6 @@ const sizesConfig = {
   md: { track: 'w-11 h-6', knob: 'w-5 h-5', translate: 'translate-x-5' },
   lg: { track: 'w-14 h-7', knob: 'w-6 h-6', translate: 'translate-x-7' },
 } as const;
-
-// ========================================
-// SIZE VARIANTS (using CVA)
-// ========================================
-
-const toggleSizes = cva('relative rounded-full transition-all duration-300', {
-  variants: {
-    size: {
-      sm: 'w-8 h-4',
-      md: 'w-11 h-6',
-      lg: 'w-14 h-7',
-    },
-  },
-  defaultVariants: {
-    size: 'md',
-  },
-});
 
 // ========================================
 // PROPS INTERFACE
@@ -135,5 +113,3 @@ export const ToggleGlass = forwardRef<HTMLButtonElement, ToggleGlassProps>(
 );
 
 ToggleGlass.displayName = 'ToggleGlass';
-
-export { toggleSizes as toggleGlassVariants };

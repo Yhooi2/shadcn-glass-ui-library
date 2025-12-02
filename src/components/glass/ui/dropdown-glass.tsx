@@ -19,16 +19,15 @@ import {
   useMemo,
   type CSSProperties,
 } from 'react';
-import { cva, type VariantProps } from 'class-variance-authority';
+import { type VariantProps } from 'class-variance-authority';
 import type { LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { dropdownAlign } from '@/lib/variants/dropdown-glass-variants';
 import '@/glass-theme.css';
 
 // ========================================
 // TYPES
 // ========================================
-
-export type DropdownAlign = 'left' | 'right';
 
 export interface DropdownItem {
   readonly label?: string;
@@ -37,22 +36,6 @@ export interface DropdownItem {
   readonly danger?: boolean;
   readonly divider?: boolean;
 }
-
-// ========================================
-// ALIGN VARIANTS (using CVA)
-// ========================================
-
-const dropdownAlign = cva('absolute mt-2 min-w-[200px] rounded-2xl py-2', {
-  variants: {
-    align: {
-      left: 'left-0',
-      right: 'right-0',
-    },
-  },
-  defaultVariants: {
-    align: 'left',
-  },
-});
 
 // ========================================
 // PROPS INTERFACE
@@ -223,5 +206,3 @@ export const DropdownGlass = forwardRef<HTMLDivElement, DropdownGlassProps>(
 );
 
 DropdownGlass.displayName = 'DropdownGlass';
-
-export { dropdownAlign as dropdownGlassVariants };

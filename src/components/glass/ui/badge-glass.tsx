@@ -9,42 +9,10 @@
  */
 
 import { forwardRef, type ReactNode, type CSSProperties } from 'react';
-import { cva, type VariantProps } from 'class-variance-authority';
+import { type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
+import { badgeVariants, type BadgeVariant } from '@/lib/variants/badge-glass-variants';
 import '@/glass-theme.css';
-
-// ========================================
-// TYPES
-// ========================================
-
-export type BadgeVariant =
-  | 'default'
-  | 'success'
-  | 'warning'
-  | 'danger'
-  | 'info'
-  | 'violet';
-export type BadgeSize = 'sm' | 'md' | 'lg';
-
-// ========================================
-// CVA VARIANTS
-// ========================================
-
-const badgeVariants = cva(
-  'inline-flex items-center gap-1.5 rounded-full font-medium',
-  {
-    variants: {
-      size: {
-        sm: 'px-1.5 py-0.5 text-[10px]',
-        md: 'px-2.5 py-0.5 text-xs',
-        lg: 'px-3 py-1 text-sm',
-      },
-    },
-    defaultVariants: {
-      size: 'md',
-    },
-  }
-);
 
 // ========================================
 // CSS VARIABLE HELPERS
@@ -137,5 +105,3 @@ export const BadgeGlass = forwardRef<HTMLSpanElement, BadgeGlassProps>(
 );
 
 BadgeGlass.displayName = 'BadgeGlass';
-
-export { badgeVariants as badgeGlassVariants };

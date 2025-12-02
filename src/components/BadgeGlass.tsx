@@ -4,8 +4,5 @@
  */
 export {
   BadgeGlass,
-  badgeGlassVariants,
   type BadgeGlassProps,
-  type BadgeVariant,
-  type BadgeSize,
 } from './glass/ui/badge-glass';

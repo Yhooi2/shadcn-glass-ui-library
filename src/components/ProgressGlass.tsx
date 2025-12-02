@@ -4,8 +4,5 @@
  */
 export {
   ProgressGlass,
-  progressGlassVariants,
   type ProgressGlassProps,
-  type ProgressSize,
-  type ProgressGradient,
 } from './glass/ui/progress-glass';

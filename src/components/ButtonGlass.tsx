@@ -4,8 +4,5 @@
  */
 export {
   ButtonGlass,
-  buttonGlassVariants,
   type ButtonGlassProps,
-  type ButtonGlassVariant,
-  type ButtonGlassSize,
 } from './glass/ui/button-glass';

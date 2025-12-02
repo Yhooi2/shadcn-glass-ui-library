@@ -17,56 +17,12 @@ import {
   type MouseEvent,
   type CSSProperties,
 } from 'react';
-import { cva, type VariantProps } from 'class-variance-authority';
+import { type VariantProps } from 'class-variance-authority';
 import { RefreshCw, type LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useHover } from '@/lib/hooks/use-hover';
+import { buttonGlassVariants, type ButtonGlassVariant } from '@/lib/variants/button-glass-variants';
 import '@/glass-theme.css';
-
-// ========================================
-// TYPES
-// ========================================
-
-export type ButtonGlassVariant =
-  | 'primary'
-  | 'secondary'
-  | 'ghost'
-  | 'danger'
-  | 'success'
-  | 'text';
-
-export type ButtonGlassSize = 'sm' | 'md' | 'lg' | 'xl' | 'icon';
-
-// ========================================
-// CVA VARIANTS
-// ========================================
-
-const buttonVariants = cva(
-  'relative overflow-hidden rounded-xl font-medium inline-flex items-center justify-center transition-all duration-300 ease-out cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed',
-  {
-    variants: {
-      variant: {
-        primary: '',
-        secondary: '',
-        ghost: '',
-        danger: '',
-        success: '',
-        text: '',
-      },
-      size: {
-        sm: 'px-3 py-1.5 text-xs gap-1.5',
-        md: 'px-4 py-2 text-sm gap-2',
-        lg: 'px-6 py-3 text-base gap-2.5',
-        xl: 'px-8 py-4 text-lg gap-3',
-        icon: 'p-2.5',
-      },
-    },
-    defaultVariants: {
-      variant: 'primary',
-      size: 'md',
-    },
-  }
-);
 
 // ========================================
 // CSS VARIABLE STYLE MAPS
@@ -136,7 +92,7 @@ const getVariantStyles = (
 
 export interface ButtonGlassProps
   extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'style'>,
-    VariantProps<typeof buttonVariants> {
+    VariantProps<typeof buttonGlassVariants> {
   readonly variant?: ButtonGlassVariant;
   readonly loading?: boolean;
   readonly icon?: LucideIcon;
@@ -189,7 +145,7 @@ export const ButtonGlass = forwardRef<HTMLButtonElement, ButtonGlassProps>(
       <button
         ref={ref}
         className={cn(
-          buttonVariants({ variant, size }),
+          buttonGlassVariants({ variant, size }),
           isHovered && !isDisabled && 'scale-[1.02]',
           className
         )}
@@ -261,5 +217,3 @@ export const ButtonGlass = forwardRef<HTMLButtonElement, ButtonGlassProps>(
 );
 
 ButtonGlass.displayName = 'ButtonGlass';
-
-export { buttonVariants as buttonGlassVariants };

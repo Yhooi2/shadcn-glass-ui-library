@@ -13,39 +13,13 @@ import {
   type ReactNode,
   type CSSProperties,
 } from 'react';
-import { cva, type VariantProps } from 'class-variance-authority';
+import { type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 import { useHover } from '@/lib/hooks/use-hover';
+import { cardIntensity } from '@/lib/variants/glass-card-variants';
 import '@/glass-theme.css';
 
-// ========================================
-// TYPES
-// ========================================
-
-export type GlowType = 'blue' | 'violet' | 'cyan' | null;
-export type IntensityType = 'subtle' | 'medium' | 'strong';
-
-// ========================================
-// INTENSITY VARIANTS (using CVA)
-// ========================================
-
-const cardIntensity = cva('border rounded-2xl transition-all duration-300', {
-  variants: {
-    intensity: {
-      subtle: '',
-      medium: '',
-      strong: '',
-    },
-    hover: {
-      true: 'hover-glow cursor-pointer',
-      false: '',
-    },
-  },
-  defaultVariants: {
-    intensity: 'medium',
-    hover: true,
-  },
-});
+import type { GlowType, IntensityType } from '@/lib/variants/glass-card-variants';
 
 // ========================================
 // BLUR MAP
@@ -135,5 +109,3 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
 );
 
 GlassCard.displayName = 'GlassCard';
-
-export { cardIntensity as glassCardVariants };

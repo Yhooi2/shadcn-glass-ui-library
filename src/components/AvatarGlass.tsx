@@ -4,8 +4,6 @@
  */
 export {
   AvatarGlass,
-  avatarGlassVariants,
   type AvatarGlassProps,
-  type AvatarSize,
   type AvatarStatus,
 } from './glass/ui/avatar-glass';

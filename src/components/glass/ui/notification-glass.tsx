@@ -9,38 +9,14 @@
  */
 
 import { forwardRef, type CSSProperties } from 'react';
-import { cva, type VariantProps } from 'class-variance-authority';
+import { type VariantProps } from 'class-variance-authority';
 import { Info, CheckCircle, AlertTriangle, AlertCircle, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useHover } from '@/lib/hooks/use-hover';
+import { notificationVariants } from '@/lib/variants/notification-glass-variants';
 import '@/glass-theme.css';
 
-// ========================================
-// TYPES
-// ========================================
-
-export type NotificationType = 'info' | 'success' | 'warning' | 'error';
-
-// ========================================
-// TYPE VARIANTS (using CVA)
-// ========================================
-
-const notificationVariants = cva(
-  'flex items-start gap-4 p-5 rounded-2xl min-w-[320px] max-w-[420px] transition-all duration-300',
-  {
-    variants: {
-      type: {
-        info: '',
-        success: '',
-        warning: '',
-        error: '',
-      },
-    },
-    defaultVariants: {
-      type: 'info',
-    },
-  }
-);
+import type { NotificationType } from '@/lib/variants/notification-glass-variants';
 
 // ========================================
 // CONSTANTS
@@ -144,5 +120,3 @@ export const NotificationGlass = forwardRef<HTMLDivElement, NotificationGlassPro
 );
 
 NotificationGlass.displayName = 'NotificationGlass';
-
-export { notificationVariants as notificationGlassVariants };

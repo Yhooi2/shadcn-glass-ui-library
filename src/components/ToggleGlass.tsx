@@ -4,7 +4,5 @@
  */
 export {
   ToggleGlass,
-  toggleGlassVariants,
   type ToggleGlassProps,
-  type ToggleGlassSize,
 } from './glass/ui/toggle-glass';

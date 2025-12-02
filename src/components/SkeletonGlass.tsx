@@ -4,7 +4,5 @@
  */
 export {
   SkeletonGlass,
-  skeletonGlassVariants,
   type SkeletonGlassProps,
-  type SkeletonVariant,
 } from './glass/ui/skeleton-glass';

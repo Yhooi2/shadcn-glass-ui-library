@@ -4,7 +4,5 @@
  */
 export {
   InputGlass,
-  inputGlassVariants,
   type InputGlassProps,
-  type InputGlassSize,
 } from './glass/ui/input-glass';

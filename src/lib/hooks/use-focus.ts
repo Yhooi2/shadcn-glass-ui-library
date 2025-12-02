@@ -87,7 +87,7 @@ export function useFocus(options: UseFocusOptions = {}): UseFocusReturn {
   );
 
   const handleFocus = useCallback(
-    (_e: FocusEvent) => {
+    () => {
       setIsFocused(true);
 
       if (focusVisible) {
@@ -100,7 +100,7 @@ export function useFocus(options: UseFocusOptions = {}): UseFocusReturn {
   );
 
   const handleBlur = useCallback(
-    (_e: FocusEvent) => {
+    () => {
       setIsFocused(false);
       setIsFocusVisible(false);
     },

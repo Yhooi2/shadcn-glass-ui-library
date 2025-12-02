@@ -4,8 +4,6 @@
  */
 export {
   DropdownGlass,
-  dropdownGlassVariants,
   type DropdownGlassProps,
   type DropdownItem,
-  type DropdownAlign,
 } from './glass/ui/dropdown-glass';

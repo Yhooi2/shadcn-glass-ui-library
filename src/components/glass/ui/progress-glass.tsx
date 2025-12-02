@@ -9,34 +9,10 @@
  */
 
 import { forwardRef, type CSSProperties } from 'react';
-import { cva, type VariantProps } from 'class-variance-authority';
+import { type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
+import { progressSizes, type ProgressGradient } from '@/lib/variants/progress-glass-variants';
 import '@/glass-theme.css';
-
-// ========================================
-// TYPES
-// ========================================
-
-export type ProgressSize = 'sm' | 'md' | 'lg' | 'xl';
-export type ProgressGradient = 'violet' | 'blue' | 'cyan' | 'amber' | 'emerald' | 'rose';
-
-// ========================================
-// SIZE VARIANTS (using CVA)
-// ========================================
-
-const progressSizes = cva('rounded-full overflow-hidden', {
-  variants: {
-    size: {
-      sm: 'h-1',
-      md: 'h-2',
-      lg: 'h-3',
-      xl: 'h-4',
-    },
-  },
-  defaultVariants: {
-    size: 'md',
-  },
-});
 
 // ========================================
 // PROPS INTERFACE
@@ -120,5 +96,3 @@ export const ProgressGlass = forwardRef<HTMLDivElement, ProgressGlassProps>(
 );
 
 ProgressGlass.displayName = 'ProgressGlass';
-
-export { progressSizes as progressGlassVariants };

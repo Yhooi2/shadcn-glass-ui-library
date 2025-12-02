@@ -18,9 +18,10 @@ import {
   forwardRef,
   type CSSProperties,
 } from 'react';
-import { cva, type VariantProps } from 'class-variance-authority';
+import { type VariantProps } from 'class-variance-authority';
 import { X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { modalSizes } from '@/lib/variants/modal-glass-variants';
 import '@/glass-theme.css';
 
 // ========================================
@@ -28,27 +29,6 @@ import '@/glass-theme.css';
 // ========================================
 
 const MODAL_ANIMATION_DURATION = 200;
-
-export type ModalSize = 'sm' | 'md' | 'lg' | 'xl' | 'full';
-
-// ========================================
-// SIZE VARIANTS (using CVA)
-// ========================================
-
-const modalSizes = cva('relative w-full rounded-3xl p-6 transition-all duration-300', {
-  variants: {
-    size: {
-      sm: 'max-w-sm',
-      md: 'max-w-md',
-      lg: 'max-w-lg',
-      xl: 'max-w-xl',
-      full: 'max-w-4xl',
-    },
-  },
-  defaultVariants: {
-    size: 'md',
-  },
-});
 
 // ========================================
 // HELPERS
@@ -212,5 +192,3 @@ export const ModalGlass = forwardRef<HTMLDivElement, ModalGlassProps>(
 );
 
 ModalGlass.displayName = 'ModalGlass';
-
-export { modalSizes as modalGlassVariants };

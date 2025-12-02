@@ -16,37 +16,12 @@ import {
   type CSSProperties,
   type FocusEvent,
 } from 'react';
-import { cva, type VariantProps } from 'class-variance-authority';
+import { type VariantProps } from 'class-variance-authority';
 import { type LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useFocus } from '@/lib/hooks/use-focus';
+import { inputVariants } from '@/lib/variants/input-glass-variants';
 import '@/glass-theme.css';
-
-// ========================================
-// TYPES
-// ========================================
-
-export type InputGlassSize = 'sm' | 'md' | 'lg';
-
-// ========================================
-// CVA VARIANTS
-// ========================================
-
-const inputVariants = cva(
-  'w-full transition-all duration-300 outline-none backdrop-blur-sm disabled:opacity-50 disabled:cursor-not-allowed',
-  {
-    variants: {
-      inputSize: {
-        sm: 'px-3 py-2 text-xs rounded-lg',
-        md: 'px-4 py-2.5 text-sm rounded-xl',
-        lg: 'px-5 py-3 text-base rounded-xl',
-      },
-    },
-    defaultVariants: {
-      inputSize: 'md',
-    },
-  }
-);
 
 // ========================================
 // CSS VARIABLE HELPERS
@@ -196,5 +171,3 @@ export const InputGlass = forwardRef<HTMLInputElement, InputGlassProps>(
 );
 
 InputGlass.displayName = 'InputGlass';
-
-export { inputVariants as inputGlassVariants };

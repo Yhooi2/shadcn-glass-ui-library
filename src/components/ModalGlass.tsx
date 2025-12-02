@@ -4,7 +4,5 @@
  */
 export {
   ModalGlass,
-  modalGlassVariants,
   type ModalGlassProps,
-  type ModalSize,
 } from './glass/ui/modal-glass';

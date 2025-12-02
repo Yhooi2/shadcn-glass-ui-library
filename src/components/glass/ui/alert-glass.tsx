@@ -10,7 +10,7 @@
  */
 
 import { forwardRef, type ReactNode, type CSSProperties } from 'react';
-import { cva, type VariantProps } from 'class-variance-authority';
+import { type VariantProps } from 'class-variance-authority';
 import {
   Info,
   CheckCircle,
@@ -19,34 +19,10 @@ import {
   X,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { alertVariants } from '@/lib/variants/alert-glass-variants';
 import '@/glass-theme.css';
 
-// ========================================
-// TYPES
-// ========================================
-
-export type AlertType = 'info' | 'success' | 'warning' | 'error';
-
-// ========================================
-// CVA VARIANTS
-// ========================================
-
-const alertVariants = cva(
-  'flex items-start gap-3 p-4 rounded-xl transition-all duration-300 backdrop-blur-sm',
-  {
-    variants: {
-      type: {
-        info: '',
-        success: '',
-        warning: '',
-        error: '',
-      },
-    },
-    defaultVariants: {
-      type: 'info',
-    },
-  }
-);
+import type { AlertType } from '@/lib/variants/alert-glass-variants';
 
 // ========================================
 // ICON MAP
@@ -169,5 +145,3 @@ export const AlertGlass = forwardRef<HTMLDivElement, AlertGlassProps>(
 );
 
 AlertGlass.displayName = 'AlertGlass';
-
-export { alertVariants as alertGlassVariants };
