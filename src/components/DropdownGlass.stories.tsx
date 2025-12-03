@@ -110,6 +110,8 @@ export const Default: Story = {
     align: "left",
   },
   async play({ canvasElement }) {
+    const canvas = within(canvasElement);
+    const body = within(document.body);
     // Visual snapshot test - Closed dropdown trigger
     await expect(canvasElement).toBeInTheDocument();
   },
@@ -127,6 +129,8 @@ export const AlignRight: Story = {
     align: "right",
   },
   async play({ canvasElement }) {
+    const canvas = within(canvasElement);
+    const body = within(document.body);
     await expect(canvasElement).toBeInTheDocument();
   },
 };
@@ -143,6 +147,8 @@ export const PrimaryTrigger: Story = {
     align: "left",
   },
   async play({ canvasElement }) {
+    const canvas = within(canvasElement);
+    const body = within(document.body);
     await expect(canvasElement).toBeInTheDocument();
   },
 };
@@ -162,8 +168,18 @@ export const OpenedDefault: Story = {
     items: defaultItems,
     align: "left",
   },
+  parameters: {
+    a11y: {
+      config: {
+        // Radix Portal adds aria-hidden to parent containers, which is normal
+        rules: [{ id: 'aria-hidden-focus', enabled: false }],
+      },
+    },
+  },
   async play({ canvasElement }) {
     const canvas = within(canvasElement);
+    const body = within(document.body);
+
     // Use getByText to find the button by its text content
     const trigger = canvas.getByText("Menu");
 
@@ -177,7 +193,8 @@ export const OpenedDefault: Story = {
     // Background: rgba(255,255,255,0.08)
     // Border: 1px solid rgba(255,255,255,0.15)
     // Box-shadow: 0 15px 50px rgba(168,85,247,0.25)
-    await expect(canvas.getByRole("menu")).toBeInTheDocument();
+    // Menu is rendered in a Portal, so search in body
+    await expect(body.getByRole("menu")).toBeInTheDocument();
   },
 };
 
@@ -192,14 +209,23 @@ export const OpenedAlignRight: Story = {
     items: defaultItems,
     align: "right",
   },
+  parameters: {
+    a11y: {
+      config: {
+        // Radix Portal adds aria-hidden to parent containers, which is normal
+        rules: [{ id: 'aria-hidden-focus', enabled: false }],
+      },
+    },
+  },
   async play({ canvasElement }) {
     const canvas = within(canvasElement);
+    const body = within(document.body);
     const trigger = canvas.getByText("Menu");
 
     await userEvent.click(trigger);
     await new Promise((resolve) => setTimeout(resolve, 300));
 
-    await expect(canvas.getByRole("menu")).toBeInTheDocument();
+    await expect(body.getByRole("menu")).toBeInTheDocument();
   },
 };
 
@@ -214,15 +240,24 @@ export const OpenedWithEditActions: Story = {
     items: editItems,
     align: "left",
   },
+  parameters: {
+    a11y: {
+      config: {
+        // Radix Portal adds aria-hidden to parent containers, which is normal
+        rules: [{ id: 'aria-hidden-focus', enabled: false }],
+      },
+    },
+  },
   async play({ canvasElement }) {
     const canvas = within(canvasElement);
+    const body = within(document.body);
     const trigger = canvas.getByText("Actions");
 
     await userEvent.click(trigger);
     await new Promise((resolve) => setTimeout(resolve, 300));
 
     // Visual snapshot test - Edit actions with danger item (Delete)
-    await expect(canvas.getByRole("menu")).toBeInTheDocument();
+    await expect(body.getByRole("menu")).toBeInTheDocument();
   },
 };
 
@@ -246,13 +281,14 @@ export const OpenedWithManyItems: Story = {
   ],
   async play({ canvasElement }) {
     const canvas = within(canvasElement);
+    const body = within(document.body);
     const trigger = canvas.getByText("Full Menu");
 
     await userEvent.click(trigger);
     await new Promise((resolve) => setTimeout(resolve, 300));
 
     // Visual snapshot test - Long menu with multiple dividers
-    await expect(canvas.getByRole("menu")).toBeInTheDocument();
+    await expect(body.getByRole("menu")).toBeInTheDocument();
   },
 };
 
@@ -273,13 +309,14 @@ export const OpenedTextOnly: Story = {
   },
   async play({ canvasElement }) {
     const canvas = within(canvasElement);
+    const body = within(document.body);
     const trigger = canvas.getByText("Simple Menu");
 
     await userEvent.click(trigger);
     await new Promise((resolve) => setTimeout(resolve, 300));
 
     // Visual snapshot test - Text-only items without icons
-    await expect(canvas.getByRole("menu")).toBeInTheDocument();
+    await expect(body.getByRole("menu")).toBeInTheDocument();
   },
 };
 
@@ -299,6 +336,8 @@ export const WithEditActions: Story = {
     align: "left",
   },
   async play({ canvasElement }) {
+    const canvas = within(canvasElement);
+    const body = within(document.body);
     await expect(canvasElement).toBeInTheDocument();
   },
 };
@@ -319,6 +358,8 @@ export const TextOnly: Story = {
     align: "left",
   },
   async play({ canvasElement }) {
+    const canvas = within(canvasElement);
+    const body = within(document.body);
     await expect(canvasElement).toBeInTheDocument();
   },
 };
@@ -362,6 +403,8 @@ export const BothAlignments: Story = {
     </div>
   ),
   async play({ canvasElement }) {
+    const canvas = within(canvasElement);
+    const body = within(document.body);
     // Visual snapshot test - Both alignments side by side
     await expect(canvasElement).toBeInTheDocument();
   },
@@ -401,13 +444,14 @@ export const LeftAlignOpened: Story = {
   ],
   async play({ canvasElement }) {
     const canvas = within(canvasElement);
+    const body = within(document.body);
     const trigger = canvas.getByText("Left Align");
 
     await userEvent.click(trigger);
     await new Promise((resolve) => setTimeout(resolve, 300));
 
     // Visual snapshot test - Left aligned dropdown open
-    await expect(canvas.getByRole("menu")).toBeInTheDocument();
+    await expect(body.getByRole("menu")).toBeInTheDocument();
   },
 };
 
@@ -445,13 +489,14 @@ export const RightAlignOpened: Story = {
   ],
   async play({ canvasElement }) {
     const canvas = within(canvasElement);
+    const body = within(document.body);
     const trigger = canvas.getByText("Right Align");
 
     await userEvent.click(trigger);
     await new Promise((resolve) => setTimeout(resolve, 300));
 
     // Visual snapshot test - Right aligned dropdown open
-    await expect(canvas.getByRole("menu")).toBeInTheDocument();
+    await expect(body.getByRole("menu")).toBeInTheDocument();
   },
 };
 
@@ -470,8 +515,18 @@ export const GlassMenuStyling: Story = {
     items: defaultItems,
     align: "left",
   },
+  parameters: {
+    a11y: {
+      config: {
+        // Radix Portal adds aria-hidden to parent containers, which is normal
+        rules: [{ id: 'aria-hidden-focus', enabled: false }],
+      },
+    },
+  },
+
   async play({ canvasElement }) {
     const canvas = within(canvasElement);
+    const body = within(document.body);
     const trigger = canvas.getByText("Glass Menu");
 
     await userEvent.click(trigger);
@@ -484,7 +539,7 @@ export const GlassMenuStyling: Story = {
     // Backdrop-filter: blur(20px)
     // Item hover: rgba(255,255,255,0.12)
     // Divider: rgba(255,255,255,0.08)
-    await expect(canvas.getByRole("menu")).toBeInTheDocument();
+    await expect(body.getByRole("menu")).toBeInTheDocument();
   },
 };
 
@@ -506,13 +561,14 @@ export const DangerItemStyling: Story = {
   },
   async play({ canvasElement }) {
     const canvas = within(canvasElement);
+    const body = within(document.body);
     const trigger = canvas.getByText("Danger Menu");
 
     await userEvent.click(trigger);
     await new Promise((resolve) => setTimeout(resolve, 300));
 
     // Visual snapshot test - Danger items color: #fb7185
-    await expect(canvas.getByRole("menu")).toBeInTheDocument();
+    await expect(body.getByRole("menu")).toBeInTheDocument();
   },
 };
 
@@ -527,8 +583,18 @@ export const AnimationTest: Story = {
     items: defaultItems,
     align: "left",
   },
+  parameters: {
+    a11y: {
+      config: {
+        // Radix Portal adds aria-hidden to parent containers, which is normal
+        rules: [{ id: 'aria-hidden-focus', enabled: false }],
+      },
+    },
+  },
+
   async play({ canvasElement }) {
     const canvas = within(canvasElement);
+    const body = within(document.body);
     const trigger = canvas.getByText("Animated Menu");
 
     await userEvent.click(trigger);
@@ -538,6 +604,6 @@ export const AnimationTest: Story = {
     // Visual snapshot test - Animation: dropdownFadeIn 0.2s ease-out
     // from: opacity 0, translateY(-8px) scale(0.96)
     // to: opacity 1, translateY(0) scale(1)
-    await expect(canvas.getByRole("menu")).toBeInTheDocument();
+    await expect(body.getByRole("menu")).toBeInTheDocument();
   },
 };

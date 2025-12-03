@@ -1,28 +1,17 @@
 /**
  * DropdownGlass Component
  *
- * Glass-themed dropdown menu with:
+ * Glass-themed dropdown menu based on Radix UI with:
  * - Theme-aware styling (glass/light/aurora)
  * - Smooth animations
- * - Click outside to close
- * - Escape key to close
+ * - Proper positioning and accessibility
  * - Optional item icons and dividers
  */
 
-import {
-  useState,
-  useRef,
-  useEffect,
-  forwardRef,
-  useImperativeHandle,
-  useCallback,
-  useMemo,
-  type CSSProperties,
-} from 'react';
-import { type VariantProps } from 'class-variance-authority';
+import * as React from 'react';
+import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 import type { LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { dropdownAlign } from '@/lib/variants/dropdown-glass-variants';
 import '@/glass-theme.css';
 
 // ========================================
@@ -41,168 +30,89 @@ export interface DropdownItem {
 // PROPS INTERFACE
 // ========================================
 
-export interface DropdownGlassProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof dropdownAlign> {
+export interface DropdownGlassProps {
   readonly trigger: React.ReactNode;
   readonly items: readonly DropdownItem[];
+  readonly align?: 'left' | 'right';
+  readonly className?: string;
 }
 
 // ========================================
 // COMPONENT
 // ========================================
 
-export const DropdownGlass = forwardRef<HTMLDivElement, DropdownGlassProps>(
-  ({ trigger, items, align = 'left', className, ...props }, ref) => {
-    const [isOpen, setIsOpen] = useState<boolean>(false);
-    const [hoveredItem, setHoveredItem] = useState<number | null>(null);
-    const internalRef = useRef<HTMLDivElement>(null);
+export const DropdownGlass = React.forwardRef<
+  HTMLDivElement,
+  DropdownGlassProps
+>(({ trigger, items, align = 'left', className }, ref) => {
+  const dropdownStyles: React.CSSProperties = {
+    background: 'var(--dropdown-bg)',
+    border: '1px solid var(--dropdown-border)',
+    boxShadow: 'var(--dropdown-glow)',
+    backdropFilter: 'blur(20px)',
+    WebkitBackdropFilter: 'blur(20px)',
+  };
 
-    useImperativeHandle(ref, () => internalRef.current as HTMLDivElement);
-
-    const handleClose = useCallback(() => {
-      setIsOpen(false);
-    }, []);
-
-    const handleToggle = useCallback(() => {
-      setIsOpen((prev) => !prev);
-    }, []);
-
-    // Combined effect for click outside and escape key
-    useEffect(() => {
-      if (!isOpen) return;
-
-      const handleClickOutside = (event: MouseEvent): void => {
-        if (
-          internalRef.current &&
-          !internalRef.current.contains(event.target as Node)
-        ) {
-          handleClose();
-        }
-      };
-
-      const handleEscape = (event: KeyboardEvent): void => {
-        if (event.key === 'Escape') {
-          handleClose();
-        }
-      };
-
-      document.addEventListener('mousedown', handleClickOutside);
-      document.addEventListener('keydown', handleEscape);
-
-      return () => {
-        document.removeEventListener('mousedown', handleClickOutside);
-        document.removeEventListener('keydown', handleEscape);
-      };
-    }, [isOpen, handleClose]);
-
-    const handleItemClick = (onClick?: () => void): void => {
-      onClick?.();
-      handleClose();
-    };
-
-    const handleKeyDown = (e: React.KeyboardEvent): void => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        handleToggle();
-      }
-    };
-
-    const dropdownStyles: CSSProperties = useMemo(() => ({
-      background: 'var(--dropdown-bg)',
-      border: '1px solid var(--dropdown-border)',
-      boxShadow: 'var(--dropdown-glow)',
-      backdropFilter: 'blur(20px)',
-      WebkitBackdropFilter: 'blur(20px)',
-      animation: 'dropdownFadeIn 0.2s ease-out',
-    }), []);
-
-    const getItemStyles = (idx: number, danger?: boolean): CSSProperties => ({
-      color: danger ? 'var(--alert-danger-text)' : 'var(--dropdown-item-text)',
-      background:
-        hoveredItem === idx ? 'var(--dropdown-item-hover)' : 'transparent',
-      transition: 'all 0.2s',
-    });
-
-    const getIconStyles = (idx: number, danger?: boolean): CSSProperties => ({
-      color: danger
-        ? 'var(--alert-danger-text)'
-        : hoveredItem === idx
-          ? 'var(--dropdown-icon-hover)'
-          : 'var(--dropdown-icon)',
-      transition: 'all 0.2s',
-    });
-
-    return (
-      <div
-        ref={internalRef}
-        className={cn('relative inline-block', className)}
-        style={{ zIndex: isOpen ? 50000 : 'auto' }}
-        {...props}
-      >
-        {/* Trigger */}
-        <div
-          onClick={handleToggle}
-          role="button"
-          tabIndex={0}
-          onKeyDown={handleKeyDown}
-          aria-expanded={isOpen}
-          aria-haspopup="true"
-        >
+  return (
+    <div ref={ref} className={cn('relative inline-block', className)}>
+      <DropdownMenuPrimitive.Root>
+        <DropdownMenuPrimitive.Trigger asChild>
           {trigger}
-        </div>
+        </DropdownMenuPrimitive.Trigger>
 
-        {/* Dropdown menu */}
-        {isOpen && (
-          <>
-            <div
-              className="fixed inset-0"
-              style={{ zIndex: 50001 }}
-              onClick={handleClose}
-            />
-            <div
-              className={cn(dropdownAlign({ align }))}
-              style={{ ...dropdownStyles, zIndex: 50002 }}
-              role="menu"
-              aria-orientation="vertical"
-            >
-              {items.map((item, idx) =>
-                item.divider ? (
-                  <div
-                    key={`divider-${idx}`}
-                    className="my-2 mx-3"
-                    style={{
-                      borderTop: '1px solid var(--dropdown-divider)',
-                    }}
-                    role="separator"
-                  />
-                ) : (
-                  <button
-                    key={`item-${idx}`}
-                    onClick={() => handleItemClick(item.onClick)}
-                    className="w-full px-3 py-2 md:px-4 md:py-2.5 text-xs md:text-sm text-left flex items-center gap-2 md:gap-3"
-                    style={getItemStyles(idx, item.danger)}
-                    onMouseEnter={() => setHoveredItem(idx)}
-                    onMouseLeave={() => setHoveredItem(null)}
-                    type="button"
-                    role="menuitem"
-                  >
-                    {item.icon && (
-                      <item.icon
-                        className="w-3.5 h-3.5 md:w-4 md:h-4 transition-all duration-200"
-                        style={getIconStyles(idx, item.danger)}
-                      />
+      <DropdownMenuPrimitive.Portal>
+        <DropdownMenuPrimitive.Content
+          align={align === 'left' ? 'start' : 'end'}
+          sideOffset={8}
+          className="min-w-40 md:min-w-[200px] rounded-2xl py-1.5 md:py-2 z-[50002] animate-in fade-in-0 zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2"
+          style={dropdownStyles}
+          role="menu"
+          aria-orientation="vertical"
+        >
+          {items.map((item, idx) =>
+            item.divider ? (
+              <DropdownMenuPrimitive.Separator
+                key={`divider-${idx}`}
+                className="my-2 mx-3 h-px"
+                style={{
+                  borderTop: '1px solid var(--dropdown-divider)',
+                }}
+                role="separator"
+              />
+            ) : (
+              <DropdownMenuPrimitive.Item
+                key={`item-${idx}`}
+                onClick={item.onClick}
+                className={cn(
+                  'w-full px-3 py-2 md:px-4 md:py-2.5 text-xs md:text-sm text-left flex items-center gap-2 md:gap-3',
+                  'outline-hidden cursor-default select-none rounded-lg',
+                  'transition-colors duration-200 ease-out',
+                  'data-[highlighted]:bg-[var(--dropdown-item-hover)]',
+                  item.danger
+                    ? 'text-[var(--alert-danger-text)] data-[highlighted]:text-[var(--alert-danger-text)]'
+                    : 'text-[var(--dropdown-item-text)] data-[highlighted]:text-[var(--dropdown-icon-hover)]'
+                )}
+                role="menuitem"
+              >
+                {item.icon && (
+                  <item.icon
+                    className={cn(
+                      'w-3.5 h-3.5 md:w-4 md:h-4 transition-colors duration-200 ease-out shrink-0',
+                      item.danger
+                        ? 'text-[var(--alert-danger-text)]'
+                        : 'text-[var(--dropdown-icon)] group-data-[highlighted]:text-[var(--dropdown-icon-hover)]'
                     )}
-                    <span className="font-medium">{item.label}</span>
-                  </button>
-                )
-              )}
-            </div>
-          </>
-        )}
-      </div>
-    );
-  }
-);
+                  />
+                )}
+                <span className="font-medium">{item.label}</span>
+              </DropdownMenuPrimitive.Item>
+            )
+          )}
+        </DropdownMenuPrimitive.Content>
+      </DropdownMenuPrimitive.Portal>
+      </DropdownMenuPrimitive.Root>
+    </div>
+  );
+});
 
 DropdownGlass.displayName = 'DropdownGlass';
