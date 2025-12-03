@@ -1105,6 +1105,21 @@ Level 6: Pages (3)
 - [ ] P2: CareerStatsGlass (lg:/xl: классы) - опционально
 - [ ] P2: DesktopShowcase (оптимизация) - опционально
 
+**Этап 2.6: Visual Tests для Phase 2** ✅ ЗАВЕРШЕНО
+- [x] Создать src/components/__visual__/phase2-components.visual.test.tsx
+- [x] Atomic: IconButtonGlass, StatItemGlass, SearchBoxGlass, ThemeToggleGlass, ExpandableHeaderGlass (12 тестов)
+- [x] Composite: UserInfoGlass, UserStatsLineGlass, TrustScoreDisplayGlass, MetricsGridGlass, CareerStatsHeaderGlass, RepositoryHeaderGlass, RepositoryMetadataGlass, ContributionMetricsGlass (14 тестов)
+- [x] Blocks: FormElementsBlock, ProgressBlock, AvatarGalleryBlock, BadgesBlock, NotificationsBlock (10 тестов)
+- [ ] Запустить npm run test:visual:update для генерации baselines
+- [ ] Все visual тесты проходят
+
+**Этап 2.7: Финализация (Опционально)** ⏳ В ОЖИДАНИИ
+- [ ] P2 адаптивность CareerStatsGlass (md:/lg: padding, gap, text размеры)
+- [ ] P2 адаптивность DesktopShowcase (lg:/xl: padding, space-y, grid-cols-3)
+- [ ] ArgTypes для Demo Pages (3 файла: Desktop, Mobile, Component Showcase)
+- [ ] ArgTypes для Glass UI components (14 файлов: table.type, table.defaultValue)
+- [ ] use-wallpaper-tint.ts хук (canvas sampling, ThemeContext интеграция)
+
 ---
 
 ## 9. CSS Optimization (Фаза 1) - Итоги
@@ -1238,6 +1253,33 @@ src/
 - [x] P1: TrustScoreCardGlass, RepositoryCardGlass
 - [ ] P2: CareerStatsGlass, DesktopShowcase (опционально)
 
+Этап 2.6: Visual Tests для Phase 2 ✅ **ЗАВЕРШЕНО**
+- [x] phase2-components.visual.test.tsx (39 тестов × 3 темы = 117 тестов)
+- [x] 234 baseline скриншота созданы
+- [x] Все 601 visual тест проходят (484 старых + 117 новых)
+
+**Этап 2.7: Финализация (Опционально)** ⏳ В ОЖИДАНИИ
+
+| Задача | Приоритет | Статус | Оценка |
+|--------|-----------|--------|--------|
+| P2 адаптивность (CareerStats, Desktop) | P2 | ⏳ | ~2ч |
+| ArgTypes для Storybook | P2 | ⏳ | ~3ч |
+| use-wallpaper-tint.ts | P3 | ⏳ | ~4ч |
+
+**P2 Адаптивность:**
+- [ ] CareerStatsGlass: p-4 md:p-5 lg:p-6, gap-2 md:gap-3 lg:gap-4, text-base md:text-lg lg:text-xl
+- [ ] DesktopShowcase: p-4 md:p-6 lg:p-8, space-y-6 md:space-y-8 lg:space-y-10, grid lg:grid-cols-3
+
+**ArgTypes для Storybook:**
+- [ ] Demo Pages (3): DesktopShowcase, MobileShowcase, ComponentShowcase - добавить theme control
+- [ ] Glass UI components (14): расширить argTypes с table.type, table.defaultValue
+
+**use-wallpaper-tint:**
+- [ ] Canvas sampling для извлечения доминантного цвета
+- [ ] Интеграция с useTheme() для корректировки tint по теме
+- [ ] CSS переменные: --wallpaper-tint-color, --wallpaper-tint-opacity
+- [ ] Storybook demo
+
 **Фаза 3: Registry & Publish** ⏳ **0% - В ОЖИДАНИИ**
 - [ ] registry.json
 - [ ] npm publish
@@ -1247,14 +1289,20 @@ src/
 ### Общий прогресс рефакторинга:
 
 ```
-Фаза -1: ████████████████████ 100% ✅ (Исследование конкурентов)
-Фаза 0:  ████████████████████ 100% ✅ (Новые компоненты)
-Фаза 1:  ████████████████████ 100% ✅ (CSS Optimization)
-Фаза 2:  ████████████████████ 100% ✅ (Декомпозиция)
-Фаза 3:  ░░░░░░░░░░░░░░░░░░░░   0% ⏳ (Registry & Publish)
+Фаза -1:  ████████████████████ 100% ✅ (Исследование конкурентов)
+Фаза 0:   ████████████████████ 100% ✅ (Новые компоненты)
+Фаза 1:   ████████████████████ 100% ✅ (CSS Optimization)
+Фаза 2:   ████████████████████ 100% ✅ (Декомпозиция)
+Фаза 2.7: ░░░░░░░░░░░░░░░░░░░░   0% ⏳ (Финализация - опционально)
+Фаза 3:   ░░░░░░░░░░░░░░░░░░░░   0% ⏳ (Registry & Publish)
 
-Всего: ████████████████████░  80% (4 из 5 фаз завершено)
+Всего: ████████████████████░  80% (4 из 5 основных фаз завершено)
 ```
+
+**Фаза 2.7 включает:**
+- P2 адаптивность: CareerStatsGlass, DesktopShowcase (lg:/xl: классы)
+- ArgTypes: Demo Pages + Glass UI components (улучшение Storybook DX)
+- use-wallpaper-tint.ts: хук для адаптации к фону (canvas sampling)
 
 **Ключевые достижения Фазы 2:**
 - ✅ **14 новых компонентов** (5 atomic + 8 composite + 1 section)
@@ -1263,5 +1311,7 @@ src/
 - ✅ **4 компонента** получили responsive классы (P0+P1)
 - ✅ **Barrel exports** для всех уровней (atomic, composite, sections, blocks)
 - ✅ **registry.ts** с метаданными блоков
+- ✅ **Visual tests** для Phase 2: 39 тестов × 3 темы = 117 тестов (234 скриншота)
 - ✅ TypeScript strict mode без ошибок
 - ✅ Компонентов: 40 → **54** (+14)
+- ✅ Visual тестов: 484 → **601** (+117)
