@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from "storybook/test";
 import { fn } from "storybook/test";
-import { AICardGlass } from "./AICardGlass";
+import { AICardGlass } from "./glass/composite/ai-card-glass";
 
 const meta = {
   title: "Glass/Composite/AICardGlass",

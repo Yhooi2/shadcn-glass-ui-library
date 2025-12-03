@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from "storybook/test";
 import { fn } from "storybook/test";
-import { HeaderNavGlass } from "./HeaderNavGlass";
+import { HeaderNavGlass } from "./glass/sections/header-nav-glass";
 
 const meta = {
   title: "Glass/Composite/HeaderNavGlass",

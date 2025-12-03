@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, fn } from "storybook/test";
 import { useState } from "react";
-import { ToggleGlass } from "./ToggleGlass";
+import { ToggleGlass } from "./glass/ui/toggle-glass";
 
 const meta = {
   title: "Components/ToggleGlass",

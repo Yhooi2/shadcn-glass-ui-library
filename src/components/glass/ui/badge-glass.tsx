@@ -62,7 +62,7 @@ const variantStyles: Record<BadgeVariant, BadgeStyleVars> = {
 };
 
 const getBadgeStyles = (variant: BadgeVariant): CSSProperties => {
-  const v = variantStyles[variant];
+  const v = variantStyles[variant] || variantStyles.default;
   return {
     background: v.bg,
     color: v.text,

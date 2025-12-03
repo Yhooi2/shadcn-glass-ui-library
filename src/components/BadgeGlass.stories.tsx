@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from "storybook/test";
-import { BadgeGlass } from "./BadgeGlass";
+import { BadgeGlass } from "./glass/ui/badge-glass";
 
 const meta = {
   title: "Components/BadgeGlass",

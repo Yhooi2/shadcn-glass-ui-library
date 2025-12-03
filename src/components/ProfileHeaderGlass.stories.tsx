@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from "storybook/test";
 import { fn } from "storybook/test";
-import { ProfileHeaderGlass } from "./ProfileHeaderGlass";
+import { ProfileHeaderGlass } from "./glass/sections/profile-header-glass";
 
 const meta = {
   title: "Glass/Composite/ProfileHeaderGlass",

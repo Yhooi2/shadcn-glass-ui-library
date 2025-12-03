@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from "storybook/test";
-import { StatusIndicatorGlass } from "./StatusIndicatorGlass";
+import { StatusIndicatorGlass } from "./glass/specialized/status-indicator-glass";
 
 const meta = {
   title: "Glass/Composite/StatusIndicatorGlass",

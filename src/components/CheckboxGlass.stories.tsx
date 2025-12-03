@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, fn } from "storybook/test";
 import { useState } from "react";
-import { CheckboxGlass } from "./CheckboxGlass";
+import { CheckboxGlass } from "./glass/ui/checkbox-glass";
 
 const meta = {
   title: "Components/CheckboxGlass",

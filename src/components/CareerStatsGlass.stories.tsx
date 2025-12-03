@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from "storybook/test";
-import { CareerStatsGlass } from "./CareerStatsGlass";
+import { CareerStatsGlass } from "./glass/sections/career-stats-glass";
 
 const meta = {
   title: "Glass/Composite/CareerStatsGlass",

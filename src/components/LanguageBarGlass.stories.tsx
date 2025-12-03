@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from "storybook/test";
-import { LanguageBarGlass } from "./LanguageBarGlass";
+import { LanguageBarGlass } from "./glass/specialized/language-bar-glass";
 
 const meta = {
   title: "Glass/Composite/LanguageBarGlass",

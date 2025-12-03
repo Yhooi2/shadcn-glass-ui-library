@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, fn } from "storybook/test";
 import { useState } from "react";
-import { SliderGlass } from "./SliderGlass";
+import { SliderGlass } from "./glass/ui/slider-glass";
 
 const meta = {
   title: "Components/SliderGlass",

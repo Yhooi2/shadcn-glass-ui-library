@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from "storybook/test";
-import { TooltipGlass } from "./TooltipGlass";
-import { ButtonGlass } from "./ButtonGlass";
+import { TooltipGlass } from "./glass/ui/tooltip-glass";
+import { ButtonGlass } from "./glass/ui/button-glass";
 import { Info, HelpCircle, Settings } from "lucide-react";
 
 const meta = {

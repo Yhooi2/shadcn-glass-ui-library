@@ -13,8 +13,8 @@ import {
   Star,
   Share,
 } from "lucide-react";
-import { DropdownGlass, type DropdownItem } from "./DropdownGlass";
-import { ButtonGlass } from "./ButtonGlass";
+import { DropdownGlass, type DropdownItem } from "./glass/ui/dropdown-glass";
+import { ButtonGlass } from "./glass/ui/button-glass";
 
 const meta = {
   title: "Components/DropdownGlass",

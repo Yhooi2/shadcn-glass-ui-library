@@ -1,8 +1,8 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { fn, expect, userEvent, within } from "storybook/test";
-import { ModalGlass } from "./ModalGlass";
-import { ButtonGlass } from "./ButtonGlass";
+import { ModalGlass } from "./glass/ui/modal-glass";
+import { ButtonGlass } from "./glass/ui/button-glass";
 
 const meta = {
   title: "Components/ModalGlass",

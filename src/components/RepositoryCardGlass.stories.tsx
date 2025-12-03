@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from "storybook/test";
-import { RepositoryCardGlass } from "./RepositoryCardGlass";
+import { RepositoryCardGlass } from "./glass/composite/repository-card-glass";
 
 const meta = {
   title: "Glass/Composite/RepositoryCardGlass",

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { fn, expect } from "storybook/test";
-import { NotificationGlass } from "./NotificationGlass";
+import { NotificationGlass } from "./glass/ui/notification-glass";
 
 const meta = {
   title: "Components/NotificationGlass",

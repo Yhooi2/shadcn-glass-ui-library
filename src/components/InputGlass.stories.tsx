@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, fn } from "storybook/test";
-import { InputGlass } from "./InputGlass";
+import { InputGlass } from "./glass/ui/input-glass";
 import { Search, Mail, Lock, User, Eye } from "lucide-react";
 
 const meta = {

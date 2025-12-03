@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from "storybook/test";
-import { ProfileAvatarGlass } from "./ProfileAvatarGlass";
+import { ProfileAvatarGlass } from "./glass/specialized/profile-avatar-glass";
 
 const meta = {
   title: "Glass/Composite/ProfileAvatarGlass",
