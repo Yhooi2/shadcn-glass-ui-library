@@ -69,6 +69,7 @@ export const YearCardGlass = forwardRef<HTMLDivElement, YearCardGlassProps>(
           }
         }}
         aria-expanded={isExpanded}
+        aria-label={`${year} year: ${label}, ${commits} commits. ${isExpanded ? 'Collapse' : 'Expand'} details`}
         {...props}
       >
         <div className="flex items-center justify-between mb-1.5 md:mb-2">

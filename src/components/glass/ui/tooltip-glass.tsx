@@ -7,7 +7,7 @@
  * - Smooth animation
  */
 
-import { forwardRef, type ReactNode, type CSSProperties } from 'react';
+import { forwardRef, useId, type ReactNode, type CSSProperties } from 'react';
 import { type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 import { useHover } from '@/lib/hooks/use-hover';
@@ -32,6 +32,7 @@ export interface TooltipGlassProps extends VariantProps<typeof tooltipPositions>
 export const TooltipGlass = forwardRef<HTMLDivElement, TooltipGlassProps>(
   ({ children, content, position = 'top', className }, ref) => {
     const { isHovered, hoverProps } = useHover();
+    const tooltipId = useId();
 
     // Glass tooltip design with backdrop blur
     const tooltipStyles: CSSProperties = {
@@ -49,10 +50,12 @@ export const TooltipGlass = forwardRef<HTMLDivElement, TooltipGlassProps>(
         className={cn('relative inline-flex', className)}
         onMouseEnter={hoverProps.onMouseEnter}
         onMouseLeave={hoverProps.onMouseLeave}
+        aria-describedby={isHovered ? tooltipId : undefined}
       >
         {children}
         {isHovered && (
           <div
+            id={tooltipId}
             className={cn(tooltipPositions({ position }))}
             style={tooltipStyles}
             role="tooltip"

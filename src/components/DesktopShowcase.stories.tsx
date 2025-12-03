@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { ThemeProvider, type ThemeName } from "@/lib/theme-context";
+import { ThemeProvider } from "@/lib/theme-context";
 import { DesktopShowcase } from "./DesktopShowcase";
 
 const meta: Meta<typeof DesktopShowcase> = {

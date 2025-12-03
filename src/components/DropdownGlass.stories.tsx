@@ -110,8 +110,6 @@ export const Default: Story = {
     align: "left",
   },
   async play({ canvasElement }) {
-    const canvas = within(canvasElement);
-    const body = within(document.body);
     // Visual snapshot test - Closed dropdown trigger
     await expect(canvasElement).toBeInTheDocument();
   },
@@ -129,8 +127,6 @@ export const AlignRight: Story = {
     align: "right",
   },
   async play({ canvasElement }) {
-    const canvas = within(canvasElement);
-    const body = within(document.body);
     await expect(canvasElement).toBeInTheDocument();
   },
 };
@@ -147,8 +143,6 @@ export const PrimaryTrigger: Story = {
     align: "left",
   },
   async play({ canvasElement }) {
-    const canvas = within(canvasElement);
-    const body = within(document.body);
     await expect(canvasElement).toBeInTheDocument();
   },
 };
@@ -350,8 +344,6 @@ export const WithEditActions: Story = {
     align: "left",
   },
   async play({ canvasElement }) {
-    const canvas = within(canvasElement);
-    const body = within(document.body);
     await expect(canvasElement).toBeInTheDocument();
   },
 };
@@ -372,8 +364,6 @@ export const TextOnly: Story = {
     align: "left",
   },
   async play({ canvasElement }) {
-    const canvas = within(canvasElement);
-    const body = within(document.body);
     await expect(canvasElement).toBeInTheDocument();
   },
 };
@@ -417,8 +407,6 @@ export const BothAlignments: Story = {
     </div>
   ),
   async play({ canvasElement }) {
-    const canvas = within(canvasElement);
-    const body = within(document.body);
     // Visual snapshot test - Both alignments side by side
     await expect(canvasElement).toBeInTheDocument();
   },

@@ -74,6 +74,14 @@ export const CheckboxGlass = forwardRef<HTMLInputElement, CheckboxGlassProps>(
           style={checkboxStyles}
           role="checkbox"
           aria-checked={checked}
+          aria-label={label || 'Checkbox'}
+          tabIndex={disabled ? -1 : 0}
+          onKeyDown={(e) => {
+            if (!disabled && (e.key === 'Enter' || e.key === ' ')) {
+              e.preventDefault();
+              onChange?.(!checked);
+            }
+          }}
         >
           {checked && (
             <Check className="w-3.5 h-3.5 md:w-3 md:h-3" style={{ color: 'var(--text-inverse)' }} />

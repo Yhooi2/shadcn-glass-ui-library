@@ -70,6 +70,7 @@ export const ToggleGlass = forwardRef<HTMLButtonElement, ToggleGlassProps>(
         type="button"
         role="switch"
         aria-checked={checked}
+        aria-label={label || 'Toggle switch'}
         disabled={disabled}
         className={cn(
           toggleSizes({ size }),

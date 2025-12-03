@@ -142,6 +142,7 @@ function ComboBoxGlassInner<T = string>(
           role="combobox"
           aria-expanded={open}
           aria-haspopup="listbox"
+          aria-label={selectedOption?.label || placeholder}
           disabled={disabled}
           className={cn(
             'w-full justify-between',

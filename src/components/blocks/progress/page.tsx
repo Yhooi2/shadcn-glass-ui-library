@@ -48,7 +48,7 @@ export const ProgressBlock = forwardRef<HTMLDivElement, ProgressBlockProps>(
                 75%
               </span>
             </label>
-            <ProgressGlass value={75} color="violet" showGlow />
+            <ProgressGlass value={75} gradient="violet" />
           </div>
 
           {/* Rainbow Progress */}
@@ -62,7 +62,7 @@ export const ProgressBlock = forwardRef<HTMLDivElement, ProgressBlockProps>(
                 85%
               </span>
             </label>
-            <RainbowProgressGlass value={85} size="md" showGlow />
+            <RainbowProgressGlass value={85} size="md" />
           </div>
 
           {/* Loading Skeleton */}

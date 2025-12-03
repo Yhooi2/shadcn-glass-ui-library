@@ -47,6 +47,7 @@ export const RainbowProgressGlass = forwardRef<HTMLDivElement, RainbowProgressGl
         aria-valuenow={clampedValue}
         aria-valuemin={0}
         aria-valuemax={100}
+        aria-label={`Rainbow progress: ${clampedValue}%`}
         {...props}
       >
         <div

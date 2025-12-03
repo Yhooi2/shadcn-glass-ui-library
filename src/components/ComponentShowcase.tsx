@@ -5,8 +5,6 @@
 
 import { useState } from "react";
 import {
-  Mail,
-  Lock,
   User,
   Settings,
   LogOut,

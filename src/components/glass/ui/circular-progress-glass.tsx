@@ -213,6 +213,7 @@ export const CircularProgressGlass = forwardRef<HTMLDivElement, CircularProgress
           aria-valuenow={variant === 'determinate' ? clampedValue : undefined}
           aria-valuemin={0}
           aria-valuemax={100}
+          aria-label={label || (variant === 'determinate' ? `Progress: ${clampedValue}%` : 'Loading progress')}
           aria-valuetext={label || (variant === 'determinate' ? `${clampedValue}%` : 'Loading...')}
           className="sr-only"
         >

@@ -13,8 +13,6 @@ import {
   Settings,
   Folder,
   LogOut,
-  Mail,
-  Lock,
 } from "lucide-react";
 import { useTheme, type ThemeName } from "@/lib/theme-context";
 import { AnimatedBackground } from "@/components/AnimatedBackground";

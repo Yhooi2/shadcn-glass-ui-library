@@ -132,6 +132,11 @@ export const SliderGlass = forwardRef<HTMLInputElement, SliderGlassProps>(
             max={max}
             step={step}
             disabled={disabled}
+            aria-label={label || `Slider: ${value} (${min}-${max})`}
+            aria-valuemin={min}
+            aria-valuemax={max}
+            aria-valuenow={value}
+            aria-valuetext={`${value}`}
             className="absolute w-full h-8 md:h-6 opacity-0 cursor-pointer disabled:cursor-not-allowed z-10"
             {...props}
           />

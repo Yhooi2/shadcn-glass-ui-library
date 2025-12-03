@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useWallpaperTint } from "./use-wallpaper-tint";
-import { GlassCard } from "@/components/GlassCard";
-import { ButtonGlass } from "@/components/ButtonGlass";
-import { BadgeGlass } from "@/components/BadgeGlass";
-import { ProgressGlass } from "@/components/ProgressGlass";
+import { GlassCard } from "@/components/glass/composite/glass-card";
+import { ButtonGlass } from "@/components/glass/ui/button-glass";
+import { BadgeGlass } from "@/components/glass/ui/badge-glass";
+import { ProgressGlass } from "@/components/glass/specialized/progress-glass";
 import { ThemeProvider } from "@/lib/theme-context";
 import "@/glass-theme.css";
 

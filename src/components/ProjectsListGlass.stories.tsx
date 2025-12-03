@@ -179,26 +179,28 @@ export const WithOwnershipFilter: Story = {
 /**
  * Sorted by stars instead of commits
  */
-export const SortedByStars: Story = {
-  render: () => {
-    const [ownershipFilter, setOwnershipFilter] = useState<OwnershipFilter>('your');
-    const [sortBy, setSortBy] = useState<SortField>('stars');
-    const [sortOrder, setSortOrder] = useState<SortOrder>('desc');
+const SortedByStarsComponent = () => {
+  const [ownershipFilter, setOwnershipFilter] = useState<OwnershipFilter>('your');
+  const [sortBy, setSortBy] = useState<SortField>('stars');
+  const [sortOrder, setSortOrder] = useState<SortOrder>('desc');
 
-    return (
-      <ProjectsListGlass
-        repositories={demoRepos}
-        ownershipFilter={ownershipFilter}
-        onOwnershipChange={setOwnershipFilter}
-        sortBy={sortBy}
-        sortOrder={sortOrder}
-        onSortChange={(field, order) => {
-          setSortBy(field);
-          setSortOrder(order);
-        }}
-      />
-    );
-  },
+  return (
+    <ProjectsListGlass
+      repositories={demoRepos}
+      ownershipFilter={ownershipFilter}
+      onOwnershipChange={setOwnershipFilter}
+      sortBy={sortBy}
+      sortOrder={sortOrder}
+      onSortChange={(field, order) => {
+        setSortBy(field);
+        setSortOrder(order);
+      }}
+    />
+  );
+};
+
+export const SortedByStars: Story = {
+  render: () => <SortedByStarsComponent />,
 };
 
 /**
@@ -214,20 +216,22 @@ export const FlaggedOnly: Story = {
 /**
  * Empty state when no repositories match filters
  */
-export const EmptyState: Story = {
-  render: () => {
-    const [ownershipFilter, setOwnershipFilter] = useState<OwnershipFilter>('contrib');
-    const emptyRepos: Repository[] = demoRepos.filter(r => r.ownership === 'your');
+const EmptyStateComponent = () => {
+  const [ownershipFilter, setOwnershipFilter] = useState<OwnershipFilter>('contrib');
+  const emptyRepos: Repository[] = demoRepos.filter(r => r.ownership === 'your');
 
-    return (
-      <ProjectsListGlass
-        repositories={emptyRepos}
-        ownershipFilter={ownershipFilter}
-        onOwnershipChange={setOwnershipFilter}
-        onClearFilters={() => setOwnershipFilter('your')}
-      />
-    );
-  },
+  return (
+    <ProjectsListGlass
+      repositories={emptyRepos}
+      ownershipFilter={ownershipFilter}
+      onOwnershipChange={setOwnershipFilter}
+      onClearFilters={() => setOwnershipFilter('your')}
+    />
+  );
+};
+
+export const EmptyState: Story = {
+  render: () => <EmptyStateComponent />,
   parameters: {
     docs: {
       description: {

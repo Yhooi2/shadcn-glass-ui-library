@@ -66,6 +66,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    label: "Text Input",
     placeholder: "Enter text...",
   },
   async play({ canvasElement }) {

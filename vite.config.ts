@@ -48,6 +48,7 @@ export default defineConfig({
           exclude: ['src/**/*.visual.test.{ts,tsx}'],
           environment: 'jsdom',
           globals: true,
+          setupFiles: ['./src/test/setup.ts'],
         },
       },
       // Storybook component tests

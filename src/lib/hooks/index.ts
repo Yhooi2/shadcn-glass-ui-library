@@ -8,3 +8,8 @@
 export { useHover, type UseHoverOptions, type UseHoverReturn } from './use-hover';
 export { useFocus, type UseFocusOptions, type UseFocusReturn } from './use-focus';
 export { useResponsive, type UseResponsiveReturn, type Breakpoint } from './use-responsive';
+export {
+  useWallpaperTint,
+  type WallpaperTintOptions,
+  type WallpaperTintResult,
+} from './use-wallpaper-tint';

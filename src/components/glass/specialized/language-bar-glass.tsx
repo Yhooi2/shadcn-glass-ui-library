@@ -45,6 +45,8 @@ export const LanguageBarGlass = forwardRef<HTMLDivElement, LanguageBarGlassProps
         <div
           className="flex h-2 md:h-2.5 rounded-full overflow-hidden"
           style={barStyles}
+          role="group"
+          aria-label="Language distribution"
         >
           {languages.map((lang, i) => {
             const colorClass = lang.color ?? defaultLangColors[lang.name] ?? "bg-slate-400";
@@ -59,6 +61,11 @@ export const LanguageBarGlass = forwardRef<HTMLDivElement, LanguageBarGlassProps
                 key={`bar-${lang.name}-${i}`}
                 className={cn(colorClass)}
                 style={segmentStyles}
+                role="progressbar"
+                aria-label={`${lang.name}: ${lang.percent}%`}
+                aria-valuenow={lang.percent}
+                aria-valuemin={0}
+                aria-valuemax={100}
                 onMouseEnter={() => setHoveredLang(i)}
                 onMouseLeave={() => setHoveredLang(null)}
               />
