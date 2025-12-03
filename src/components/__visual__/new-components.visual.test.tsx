@@ -9,6 +9,7 @@
 import { describe, test, expect, afterEach } from 'vitest';
 import { render, cleanup } from '@testing-library/react';
 import { page } from 'vitest/browser';
+import type { ReactNode } from 'react';
 
 // New components
 import { CircularProgressGlass } from '../glass/ui/circular-progress-glass';
@@ -29,7 +30,7 @@ const frameworks: ComboBoxOption[] = [
 ];
 
 // Helper to render component with theme
-function renderWithTheme(component: React.ReactNode, theme: Theme) {
+function renderWithTheme(component: ReactNode, theme: Theme) {
   return render(
     <ThemeProvider defaultTheme={theme}>
       <div data-testid="visual-test-container" data-theme={theme}>

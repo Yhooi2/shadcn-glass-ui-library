@@ -10,7 +10,7 @@
  * - Gradient colors support
  */
 
-import { forwardRef, useMemo } from 'react';
+import { forwardRef, useMemo, useId } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 import '@/glass-theme.css';
@@ -131,7 +131,7 @@ export const CircularProgressGlass = forwardRef<HTMLDivElement, CircularProgress
     }, [variant, clampedValue, circumference]);
 
     // Generate unique IDs for SVG elements (using useId for stable IDs)
-    const uniqueId = React.useId();
+    const uniqueId = useId();
     const gradientId = `circular-gradient-${uniqueId}`;
     const glowId = `circular-glow-${uniqueId}`;
 
