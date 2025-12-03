@@ -7,7 +7,7 @@
 import { forwardRef, type HTMLAttributes, type CSSProperties } from 'react';
 import { Star, ChevronDown, ChevronUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { StatusIndicatorGlass } from '@/components/StatusIndicatorGlass';
+import { StatusIndicatorGlass } from '../specialized/status-indicator-glass';
 import '@/glass-theme.css';
 
 export type RepositoryFlagType = 'green' | 'yellow' | 'red';

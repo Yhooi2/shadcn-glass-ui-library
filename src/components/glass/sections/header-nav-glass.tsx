@@ -7,7 +7,7 @@ import { forwardRef, useState, type CSSProperties } from "react";
 import { Github, Search, Sun, Moon, Palette } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme, type ThemeName } from "@/lib/theme-context";
-import { ButtonGlass } from "./ButtonGlass";
+import { ButtonGlass } from "../ui/button-glass";
 import "@/glass-theme.css";
 
 const themes: ThemeName[] = ["light", "aurora", "glass"];

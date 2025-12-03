@@ -5,7 +5,7 @@
 
 import { forwardRef, useState, type CSSProperties } from "react";
 import { cn } from "@/lib/utils";
-import { ProgressGlass } from "./ProgressGlass";
+import { ProgressGlass } from "../specialized/progress-glass";
 import "@/glass-theme.css";
 
 import type { ProgressGradient } from "@/lib/variants/progress-glass-variants";

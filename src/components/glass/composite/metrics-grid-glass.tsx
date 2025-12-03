@@ -6,7 +6,7 @@
 
 import { forwardRef, type HTMLAttributes } from 'react';
 import { cn } from '@/lib/utils';
-import { MetricCardGlass, type MetricColor } from '@/components/MetricCardGlass';
+import { MetricCardGlass, type MetricColor } from './metric-card-glass';
 import '@/glass-theme.css';
 
 export interface MetricData {

@@ -25,11 +25,11 @@ import {
 } from "@/components/blocks";
 
 // Glass Components (only for modal, dropdown, tabs demo)
-import { GlassCard } from "./GlassCard";
-import { ButtonGlass } from "./ButtonGlass";
-import { TabsGlass, type TabItem } from "./TabsGlass";
-import { ModalGlass } from "./ModalGlass";
-import { DropdownGlass, type DropdownItem } from "./DropdownGlass";
+import { GlassCard } from "./glass/composite/glass-card";
+import { ButtonGlass } from "./glass/ui/button-glass";
+import { TabsGlass, type TabItem } from "./glass/ui/tabs-glass";
+import { ModalGlass } from "./glass/ui/modal-glass";
+import { DropdownGlass, type DropdownItem } from "./glass/ui/dropdown-glass";
 
 import "@/glass-theme.css";
 export const ComponentShowcase = () => {

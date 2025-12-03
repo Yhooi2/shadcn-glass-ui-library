@@ -28,21 +28,21 @@ import {
 } from "@/components/blocks";
 
 // Import glass components (only for demos not covered by blocks)
-import { GlassCard } from "./GlassCard";
-import { ButtonGlass } from "./ButtonGlass";
-import { TabsGlass } from "./TabsGlass";
-import { TooltipGlass } from "./TooltipGlass";
-import { ModalGlass } from "./ModalGlass";
-import { DropdownGlass } from "./DropdownGlass";
+import { GlassCard } from "./glass/composite/glass-card";
+import { ButtonGlass } from "./glass/ui/button-glass";
+import { TabsGlass } from "./glass/ui/tabs-glass";
+import { TooltipGlass } from "./glass/ui/tooltip-glass";
+import { ModalGlass } from "./glass/ui/modal-glass";
+import { DropdownGlass } from "./glass/ui/dropdown-glass";
 
 // Import section components
-import { LanguageBarGlass, type LanguageData } from "./LanguageBarGlass";
-import { HeaderNavGlass } from "./HeaderNavGlass";
-import { TrustScoreCardGlass, type MetricData } from "./TrustScoreCardGlass";
-import { ProfileHeaderGlass } from "./ProfileHeaderGlass";
-import { CareerStatsGlass, type YearData } from "./CareerStatsGlass";
-import { FlagsSectionGlass, type FlagData } from "./FlagsSectionGlass";
-import { ProjectsListGlass, type Repository, type OwnershipFilter, type SortField, type SortOrder } from "./ProjectsListGlass";
+import { LanguageBarGlass, type LanguageData } from "./glass/specialized/language-bar-glass";
+import { HeaderNavGlass } from "./glass/sections/header-nav-glass";
+import { TrustScoreCardGlass, type MetricData } from "./glass/sections/trust-score-card-glass";
+import { ProfileHeaderGlass } from "./glass/sections/profile-header-glass";
+import { CareerStatsGlass, type YearData } from "./glass/sections/career-stats-glass";
+import { FlagsSectionGlass, type FlagData } from "./glass/sections/flags-section-glass";
+import { ProjectsListGlass, type Repository, type OwnershipFilter, type SortField, type SortOrder } from "./glass/sections/projects-list-glass";
 
 import "@/glass-theme.css";
 

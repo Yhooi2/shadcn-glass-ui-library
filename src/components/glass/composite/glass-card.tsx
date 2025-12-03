@@ -5,4 +5,4 @@
 export {
   GlassCard,
   type GlassCardProps,
-} from './glass/ui/glass-card';
+} from '../ui/glass-card';

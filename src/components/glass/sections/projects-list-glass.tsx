@@ -6,11 +6,11 @@
 import { forwardRef, useState, useMemo, type CSSProperties } from "react";
 import { FolderGit2, AlertTriangle } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { GlassCard } from "./GlassCard";
-import { BadgeGlass } from "./BadgeGlass";
-import { RepositoryCardGlass, type RepositoryFlagType } from "./RepositoryCardGlass";
-import { SegmentedControlGlass } from "./SegmentedControlGlass";
-import { SortDropdownGlass, type SortField, type SortOrder } from "./glass/atomic";
+import { GlassCard } from "../composite/glass-card";
+import { BadgeGlass } from "../ui/badge-glass";
+import { RepositoryCardGlass, type RepositoryFlagType } from "../composite/repository-card-glass";
+import { SegmentedControlGlass } from "../specialized/segmented-control-glass";
+import { SortDropdownGlass, type SortField, type SortOrder } from "../atomic";
 import "@/glass-theme.css";
 
 // ========================================
@@ -20,7 +20,7 @@ import "@/glass-theme.css";
 export type OwnershipFilter = 'your' | 'contrib' | 'all';
 
 // Re-export for convenience
-export type { SortField, SortOrder } from "./glass/atomic";
+export type { SortField, SortOrder } from "../atomic";
 
 export interface Repository {
   readonly name: string;

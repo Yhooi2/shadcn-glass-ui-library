@@ -20,15 +20,15 @@ import {
 import { useTheme, type ThemeName } from "@/lib/theme-context";
 
 // Import glass components
-import { GlassCard } from "./GlassCard";
-import { ButtonGlass } from "./ButtonGlass";
-import { BadgeGlass } from "./BadgeGlass";
-import { ProfileAvatarGlass } from "./ProfileAvatarGlass";
-import { LanguageBarGlass, type LanguageData } from "./LanguageBarGlass";
-import { TrustScoreCardGlass, type MetricData } from "./TrustScoreCardGlass";
-import { FlagsSectionGlass, type FlagData } from "./FlagsSectionGlass";
-import { CareerStatsGlass, type YearData } from "./CareerStatsGlass";
-import { ProjectsListGlass, type Repository } from "./ProjectsListGlass";
+import { GlassCard } from "./glass/composite/glass-card";
+import { ButtonGlass } from "./glass/ui/button-glass";
+import { BadgeGlass } from "./glass/ui/badge-glass";
+import { ProfileAvatarGlass } from "./glass/specialized/profile-avatar-glass";
+import { LanguageBarGlass, type LanguageData } from "./glass/specialized/language-bar-glass";
+import { TrustScoreCardGlass, type MetricData } from "./glass/sections/trust-score-card-glass";
+import { FlagsSectionGlass, type FlagData } from "./glass/sections/flags-section-glass";
+import { CareerStatsGlass, type YearData } from "./glass/sections/career-stats-glass";
+import { ProjectsListGlass, type Repository } from "./glass/sections/projects-list-glass";
 
 import "@/glass-theme.css";
 

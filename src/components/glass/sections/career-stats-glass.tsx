@@ -6,8 +6,8 @@
 import { forwardRef, useState } from "react";
 import { TrendingUp, Code, GitPullRequest, FolderGit2 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { GlassCard } from "./GlassCard";
-import { YearCardGlass } from "./YearCardGlass";
+import { GlassCard } from "../composite/glass-card";
+import { YearCardGlass } from "../composite/year-card-glass";
 import "@/glass-theme.css";
 
 export interface YearData {

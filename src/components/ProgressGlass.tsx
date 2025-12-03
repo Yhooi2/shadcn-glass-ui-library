@@ -1,8 +1,8 @@
 /**
  * ProgressGlass - Re-export for backward compatibility
- * @deprecated Import from '@/components/glass/ui/progress-glass' instead
+ * @deprecated Import from '@/components/glass/specialized/progress-glass' instead
  */
 export {
   ProgressGlass,
   type ProgressGlassProps,
-} from './glass/ui/progress-glass';
+} from './glass/specialized/progress-glass';

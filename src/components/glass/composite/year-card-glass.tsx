@@ -6,9 +6,9 @@
 import { forwardRef, useState, type CSSProperties } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { BadgeGlass } from "./BadgeGlass";
-import { ProgressGlass } from "./ProgressGlass";
-import { ButtonGlass } from "./ButtonGlass";
+import { BadgeGlass } from "../ui/badge-glass";
+import { ProgressGlass } from "../specialized/progress-glass";
+import { ButtonGlass } from "../ui/button-glass";
 import type { ProgressGradient } from "@/lib/variants/progress-glass-variants";
 import "@/glass-theme.css";
 

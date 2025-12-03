@@ -5,7 +5,7 @@
 
 import { forwardRef, useState, type CSSProperties } from "react";
 import { cn } from "@/lib/utils";
-import { StatusIndicatorGlass, type StatusType } from "./StatusIndicatorGlass";
+import { StatusIndicatorGlass, type StatusType } from "./status-indicator-glass";
 import "@/glass-theme.css";
 
 export type FlagType = "warning" | "danger";

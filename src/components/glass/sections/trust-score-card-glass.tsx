@@ -6,9 +6,9 @@
 import { forwardRef } from "react";
 import { Target } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { GlassCard } from "./GlassCard";
-import { RainbowProgressGlass } from "./RainbowProgressGlass";
-import { MetricCardGlass, type MetricColor } from "./MetricCardGlass";
+import { GlassCard } from "../composite/glass-card";
+import { RainbowProgressGlass } from "../specialized/rainbow-progress-glass";
+import { MetricCardGlass, type MetricColor } from "../composite/metric-card-glass";
 import "@/glass-theme.css";
 
 export interface MetricData {

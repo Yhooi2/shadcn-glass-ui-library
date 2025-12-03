@@ -13,8 +13,8 @@ import {
   AlertTriangle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { StatusIndicatorGlass } from "./StatusIndicatorGlass";
-import { ButtonGlass } from "./ButtonGlass";
+import { StatusIndicatorGlass } from "../specialized/status-indicator-glass";
+import { ButtonGlass } from "../ui/button-glass";
 import "@/glass-theme.css";
 
 export type RepositoryFlagType = "green" | "yellow" | "red";

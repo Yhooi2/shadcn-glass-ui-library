@@ -11,22 +11,22 @@ import { render, cleanup } from '@testing-library/react';
 import { page } from 'vitest/browser';
 
 // Components
-import { ButtonGlass } from '../ButtonGlass';
-import { InputGlass } from '../InputGlass';
-import { GlassCard } from '../GlassCard';
-import { BadgeGlass } from '../BadgeGlass';
-import { AlertGlass } from '../AlertGlass';
-import { ToggleGlass } from '../ToggleGlass';
-import { CheckboxGlass } from '../CheckboxGlass';
-import { TooltipGlass } from '../TooltipGlass';
-import { ModalGlass } from '../ModalGlass';
-import { DropdownGlass } from '../DropdownGlass';
-import { TabsGlass } from '../TabsGlass';
-import { AvatarGlass } from '../AvatarGlass';
-import { SkeletonGlass } from '../SkeletonGlass';
-import { ProgressGlass } from '../ProgressGlass';
-import { SliderGlass } from '../SliderGlass';
-import { NotificationGlass } from '../NotificationGlass';
+import { ButtonGlass } from '../glass/ui/button-glass';
+import { InputGlass } from '../glass/ui/input-glass';
+import { GlassCard } from '../glass/composite/glass-card';
+import { BadgeGlass } from '../glass/ui/badge-glass';
+import { AlertGlass } from '../glass/ui/alert-glass';
+import { ToggleGlass } from '../glass/ui/toggle-glass';
+import { CheckboxGlass } from '../glass/ui/checkbox-glass';
+import { TooltipGlass } from '../glass/ui/tooltip-glass';
+import { ModalGlass } from '../glass/ui/modal-glass';
+import { DropdownGlass } from '../glass/ui/dropdown-glass';
+import { TabsGlass } from '../glass/ui/tabs-glass';
+import { AvatarGlass } from '../glass/ui/avatar-glass';
+import { SkeletonGlass } from '../glass/ui/skeleton-glass';
+import { ProgressGlass } from '../glass/specialized/progress-glass';
+import { SliderGlass } from '../glass/ui/slider-glass';
+import { NotificationGlass } from '../glass/ui/notification-glass';
 
 // Theme context
 import { ThemeProvider } from '@/lib/theme-context';

@@ -6,7 +6,7 @@
 import { forwardRef, useState, type CSSProperties } from "react";
 import { Sparkles, Check, Zap, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { ButtonGlass } from "./ButtonGlass";
+import { ButtonGlass } from "../ui/button-glass";
 import "@/glass-theme.css";
 
 export interface AICardGlassProps extends React.HTMLAttributes<HTMLDivElement> {

@@ -17,7 +17,7 @@ import {
   ProjectsListGlass,
   type Repository,
   type OwnershipFilter,
-} from '../ProjectsListGlass';
+} from '../glass/sections/projects-list-glass';
 
 // Theme context
 import { ThemeProvider } from '@/lib/theme-context';
