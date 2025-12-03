@@ -6,7 +6,7 @@ import {
   type OwnershipFilter,
   type SortField,
   type SortOrder,
-} from './ProjectsListGlass';
+} from './glass/sections/projects-list-glass';
 import { ThemeProvider } from '@/lib/theme-context';
 import '@/glass-theme.css';
 
