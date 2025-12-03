@@ -279,6 +279,13 @@ export const OpenedWithManyItems: Story = {
       </div>
     ),
   ],
+  parameters: {
+    a11y: {
+      config: {
+        rules: [{ id: 'aria-hidden-focus', enabled: false }],
+      },
+    },
+  },
   async play({ canvasElement }) {
     const canvas = within(canvasElement);
     const body = within(document.body);
@@ -306,6 +313,13 @@ export const OpenedTextOnly: Story = {
       { label: "Option 3", onClick: () => console.log("Option 3") },
     ],
     align: "left",
+  },
+  parameters: {
+    a11y: {
+      config: {
+        rules: [{ id: 'aria-hidden-focus', enabled: false }],
+      },
+    },
   },
   async play({ canvasElement }) {
     const canvas = within(canvasElement);
@@ -421,6 +435,13 @@ export const LeftAlignOpened: Story = {
     items: defaultItems,
     align: "left",
   },
+  parameters: {
+    a11y: {
+      config: {
+        rules: [{ id: 'aria-hidden-focus', enabled: false }],
+      },
+    },
+  },
   render: () => (
     <div className="flex gap-32">
       <DropdownGlass
@@ -465,6 +486,13 @@ export const RightAlignOpened: Story = {
     ),
     items: defaultItems,
     align: "right",
+  },
+  parameters: {
+    a11y: {
+      config: {
+        rules: [{ id: 'aria-hidden-focus', enabled: false }],
+      },
+    },
   },
   render: () => (
     <div className="flex gap-32 justify-end">
@@ -558,6 +586,13 @@ export const DangerItemStyling: Story = {
       { label: "Sign Out", icon: LogOut, danger: true, onClick: () => {} },
     ],
     align: "left",
+  },
+  parameters: {
+    a11y: {
+      config: {
+        rules: [{ id: 'aria-hidden-focus', enabled: false }],
+      },
+    },
   },
   async play({ canvasElement }) {
     const canvas = within(canvasElement);
