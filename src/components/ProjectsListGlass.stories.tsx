@@ -22,7 +22,7 @@ const meta: Meta<typeof ProjectsListGlass> = {
             className="p-4 min-h-[400px]"
             style={{ background: 'var(--bg-gradient)' }}
           >
-            <div className="max-w-2xl mx-auto">
+            <div className="max-w-2xl ml-4">
               <Story />
             </div>
           </div>
