@@ -46,8 +46,8 @@ export const BadgesBlock = forwardRef<HTMLDivElement, BadgesBlockProps>(
             </label>
             <div className="flex items-center gap-2 flex-wrap">
               <BadgeGlass variant="default">Default</BadgeGlass>
-              <BadgeGlass variant="primary">Primary</BadgeGlass>
-              <BadgeGlass variant="secondary">Secondary</BadgeGlass>
+              <BadgeGlass variant="info">Info</BadgeGlass>
+              <BadgeGlass variant="violet">Violet</BadgeGlass>
               <BadgeGlass variant="success">Success</BadgeGlass>
               <BadgeGlass variant="warning">Warning</BadgeGlass>
               <BadgeGlass variant="danger">Danger</BadgeGlass>
@@ -82,7 +82,7 @@ export const BadgesBlock = forwardRef<HTMLDivElement, BadgesBlockProps>(
                 <BadgeGlass>Hover me</BadgeGlass>
               </TooltipGlass>
               <TooltipGlass content="Another tooltip example" position="top">
-                <BadgeGlass variant="primary">Top tooltip</BadgeGlass>
+                <BadgeGlass variant="info">Top tooltip</BadgeGlass>
               </TooltipGlass>
               <TooltipGlass content="Bottom tooltip" position="bottom">
                 <BadgeGlass variant="success">Bottom tooltip</BadgeGlass>

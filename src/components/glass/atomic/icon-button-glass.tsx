@@ -6,7 +6,7 @@
 
 import { forwardRef, type ButtonHTMLAttributes, type CSSProperties } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { LucideIcon } from 'lucide-react';
+import { type LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import '@/glass-theme.css';
 

@@ -88,7 +88,7 @@ export const NotificationsBlock = forwardRef<HTMLDivElement, NotificationsBlockP
                 description="Please review the following issues"
               />
               <AlertGlass
-                type="danger"
+                type="error"
                 title="Error"
                 description="An error occurred while processing your request"
               />

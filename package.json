@@ -11,11 +11,14 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test": "vitest",
+    "test:unit": "vitest --project=unit",
     "test:storybook": "vitest --project=storybook",
     "test:visual": "vitest --project=visual",
     "test:visual:update": "vitest --project=visual --update",
     "test:visual:ci": "vitest --project=visual --run",
-    "test:all": "vitest --run"
+    "test:all": "vitest --run",
+    "test:coverage": "vitest --run --coverage --project=unit",
+    "test:coverage:open": "vitest --run --coverage --project=unit && open coverage/index.html"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.11",
@@ -36,6 +39,7 @@
     "@tailwindcss/vite": "^4.1.17",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "cmdk": "^1.1.1",
     "lucide-react": "^0.555.0",
     "next-themes": "^0.4.6",
     "postcss": "^8.5.6",
@@ -66,6 +70,7 @@
     "eslint-plugin-react-refresh": "^0.4.24",
     "eslint-plugin-storybook": "^10.1.0",
     "globals": "^16.5.0",
+    "jsdom": "^27.2.0",
     "playwright": "^1.57.0",
     "prettier": "3.7.1",
     "sass": "^1.94.2",
