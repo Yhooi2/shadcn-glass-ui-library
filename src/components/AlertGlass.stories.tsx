@@ -10,13 +10,21 @@ const meta = {
   },
   tags: ["autodocs"],
   argTypes: {
+    variant: {
+      control: "select",
+      options: ["default", "destructive", "success", "warning", "info", "error"],
+      description: "Alert variant (shadcn/ui compatible + Glass UI extended). Note: 'info' and 'error' are aliases.",
+      table: {
+        type: { summary: "'default' | 'destructive' | 'success' | 'warning' | 'info' | 'error'" },
+        defaultValue: { summary: "default" },
+      },
+    },
     type: {
       control: "select",
       options: ["info", "success", "warning", "error"],
-      description: "Alert type",
+      description: "⚠️ Deprecated: Use 'variant' instead",
       table: {
-        type: { summary: "'info' | 'success' | 'warning' | 'error'" },
-        defaultValue: { summary: "info" },
+        type: { summary: "'info' | 'success' | 'warning' | 'error' (deprecated)" },
       },
     },
     dismissible: {
@@ -50,9 +58,9 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Info: Story = {
+export const Default: Story = {
   args: {
-    type: "info",
+    variant: "default",
     title: "Information",
     children: "This is an informational alert message.",
   },
@@ -61,9 +69,20 @@ export const Info: Story = {
   },
 };
 
+export const Destructive: Story = {
+  args: {
+    variant: "destructive",
+    title: "Error",
+    children: "An error occurred. Please try again.",
+  },
+  async play({ canvasElement }) {
+    await expect(canvasElement).toBeInTheDocument();
+  },
+};
+
 export const Success: Story = {
   args: {
-    type: "success",
+    variant: "success",
     title: "Success",
     children: "Your action was completed successfully.",
   },
@@ -74,7 +93,7 @@ export const Success: Story = {
 
 export const Warning: Story = {
   args: {
-    type: "warning",
+    variant: "warning",
     title: "Warning",
     children: "Please review your input before proceeding.",
   },
@@ -83,20 +102,9 @@ export const Warning: Story = {
   },
 };
 
-export const Error: Story = {
-  args: {
-    type: "error",
-    title: "Error",
-    children: "An error occurred. Please try again.",
-  },
-  async play({ canvasElement }) {
-    await expect(canvasElement).toBeInTheDocument();
-  },
-};
-
 export const Dismissible: Story = {
   args: {
-    type: "info",
+    variant: "default",
     title: "Dismissible Alert",
     children: "Click the X button to dismiss this alert.",
     dismissible: true,
@@ -109,7 +117,7 @@ export const Dismissible: Story = {
 
 export const WithoutTitle: Story = {
   args: {
-    type: "info",
+    variant: "default",
     children: "This alert has no title, just a message.",
   },
   async play({ canvasElement }) {
@@ -117,23 +125,23 @@ export const WithoutTitle: Story = {
   },
 };
 
-export const AllTypes: Story = {
+export const AllVariants: Story = {
   args: {
     children: "Alert message",
   },
   render: () => (
     <div className="flex flex-col gap-4 w-96">
-      <AlertGlass type="info" title="Information">
+      <AlertGlass variant="default" title="Default">
         This is an informational message.
       </AlertGlass>
-      <AlertGlass type="success" title="Success">
+      <AlertGlass variant="destructive" title="Destructive">
+        Something went wrong.
+      </AlertGlass>
+      <AlertGlass variant="success" title="Success">
         Operation completed successfully.
       </AlertGlass>
-      <AlertGlass type="warning" title="Warning">
+      <AlertGlass variant="warning" title="Warning">
         Please proceed with caution.
-      </AlertGlass>
-      <AlertGlass type="error" title="Error">
-        Something went wrong.
       </AlertGlass>
     </div>
   ),
@@ -148,17 +156,17 @@ export const AllDismissible: Story = {
   },
   render: () => (
     <div className="flex flex-col gap-4 w-96">
-      <AlertGlass type="info" title="Info" dismissible>
+      <AlertGlass variant="default" title="Info" dismissible>
         Dismissible info alert.
       </AlertGlass>
-      <AlertGlass type="success" title="Success" dismissible>
+      <AlertGlass variant="destructive" title="Error" dismissible>
+        Dismissible error alert.
+      </AlertGlass>
+      <AlertGlass variant="success" title="Success" dismissible>
         Dismissible success alert.
       </AlertGlass>
-      <AlertGlass type="warning" title="Warning" dismissible>
+      <AlertGlass variant="warning" title="Warning" dismissible>
         Dismissible warning alert.
-      </AlertGlass>
-      <AlertGlass type="error" title="Error" dismissible>
-        Dismissible error alert.
       </AlertGlass>
     </div>
   ),

@@ -3,7 +3,8 @@
  *
  * Glass-themed badge with:
  * - Theme-aware styling via CSS variables (glass/light/aurora)
- * - Multiple variants (default, success, warning, danger, info, violet)
+ * - shadcn/ui compatible variants (default, secondary, destructive, outline)
+ * - Extended Glass UI variants (success, warning, info)
  * - Size options
  * - Optional animated dot
  */
@@ -21,11 +22,28 @@ import '@/glass-theme.css';
 type BadgeStyleVars = { bg: string; text: string; border: string };
 
 const variantStyles: Record<BadgeVariant, BadgeStyleVars> = {
+  // shadcn/ui compatible variants
   default: {
     bg: 'var(--badge-default-bg)',
     text: 'var(--badge-default-text)',
     border: 'var(--badge-default-border)',
   },
+  secondary: {
+    bg: 'var(--badge-secondary-bg)',
+    text: 'var(--badge-secondary-text)',
+    border: 'var(--badge-secondary-border)',
+  },
+  destructive: {
+    bg: 'var(--badge-destructive-bg)',
+    text: 'var(--badge-destructive-text)',
+    border: 'var(--badge-destructive-border)',
+  },
+  outline: {
+    bg: 'var(--badge-outline-bg)',
+    text: 'var(--badge-outline-text)',
+    border: 'var(--badge-outline-border)',
+  },
+  // Glass UI extended variants
   success: {
     bg: 'var(--badge-success-bg)',
     text: 'var(--badge-success-text)',
@@ -36,20 +54,10 @@ const variantStyles: Record<BadgeVariant, BadgeStyleVars> = {
     text: 'var(--badge-warning-text)',
     border: 'var(--badge-warning-border)',
   },
-  danger: {
-    bg: 'var(--badge-danger-bg)',
-    text: 'var(--badge-danger-text)',
-    border: 'var(--badge-danger-border)',
-  },
   info: {
-    bg: 'var(--badge-primary-bg)',
-    text: 'var(--badge-primary-text)',
-    border: 'var(--badge-primary-border)',
-  },
-  violet: {
-    bg: 'var(--badge-violet-bg)',
-    text: 'var(--badge-violet-text)',
-    border: 'var(--badge-violet-border)',
+    bg: 'var(--badge-info-bg)',
+    text: 'var(--badge-info-text)',
+    border: 'var(--badge-info-border)',
   },
 };
 

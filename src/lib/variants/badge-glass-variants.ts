@@ -6,12 +6,15 @@
 import { cva } from 'class-variance-authority';
 
 export type BadgeVariant =
+  // shadcn/ui compatible variants
   | 'default'
+  | 'secondary'
+  | 'destructive'
+  | 'outline'
+  // Glass UI extended variants
   | 'success'
   | 'warning'
-  | 'danger'
-  | 'info'
-  | 'violet';
+  | 'info';
 export type BadgeSize = 'sm' | 'md' | 'lg';
 
 export const badgeVariants = cva(

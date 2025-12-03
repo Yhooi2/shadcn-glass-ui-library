@@ -3,7 +3,9 @@
  *
  * Glass-themed alert with:
  * - Theme-aware styling via CSS variables (glass/light/aurora)
- * - Multiple types (info, success, warning, error)
+ * - shadcn/ui compatible variants (default, destructive)
+ * - Extended Glass UI variants (success, warning)
+ * - Backward compatible aliases (info→default, error→destructive)
  * - Optional title
  * - Dismissible option
  * - Backdrop blur effect
@@ -22,16 +24,19 @@ import { cn } from '@/lib/utils';
 import { alertVariants } from '@/lib/variants/alert-glass-variants';
 import '@/glass-theme.css';
 
-import type { AlertType } from '@/lib/variants/alert-glass-variants';
+import type { AlertVariant } from '@/lib/variants/alert-glass-variants';
 
 // ========================================
 // ICON MAP
 // ========================================
 
-const iconMap = {
-  info: Info,
+const iconMap: Record<AlertVariant, typeof Info> = {
+  default: Info,
+  destructive: AlertCircle,
   success: CheckCircle,
   warning: AlertTriangle,
+  // Aliases
+  info: Info,
   error: AlertCircle,
 };
 
@@ -41,12 +46,19 @@ const iconMap = {
 
 type AlertStyleVars = { bg: string; border: string; text: string };
 
-const typeStyles: Record<AlertType, AlertStyleVars> = {
-  info: {
-    bg: 'var(--alert-info-bg)',
-    border: 'var(--alert-info-border)',
-    text: 'var(--alert-info-text)',
+const variantStyles: Record<AlertVariant, AlertStyleVars> = {
+  // shadcn/ui compatible variants
+  default: {
+    bg: 'var(--alert-default-bg)',
+    border: 'var(--alert-default-border)',
+    text: 'var(--alert-default-text)',
   },
+  destructive: {
+    bg: 'var(--alert-destructive-bg)',
+    border: 'var(--alert-destructive-border)',
+    text: 'var(--alert-destructive-text)',
+  },
+  // Glass UI extended variants
   success: {
     bg: 'var(--alert-success-bg)',
     border: 'var(--alert-success-border)',
@@ -57,15 +69,21 @@ const typeStyles: Record<AlertType, AlertStyleVars> = {
     border: 'var(--alert-warning-border)',
     text: 'var(--alert-warning-text)',
   },
+  // Backward compatibility aliases
+  info: {
+    bg: 'var(--alert-default-bg)',
+    border: 'var(--alert-default-border)',
+    text: 'var(--alert-default-text)',
+  },
   error: {
-    bg: 'var(--alert-danger-bg)',
-    border: 'var(--alert-danger-border)',
-    text: 'var(--alert-danger-text)',
+    bg: 'var(--alert-destructive-bg)',
+    border: 'var(--alert-destructive-border)',
+    text: 'var(--alert-destructive-text)',
   },
 };
 
-const getAlertStyles = (type: AlertType): CSSProperties => {
-  const config = typeStyles[type];
+const getAlertStyles = (variant: AlertVariant): CSSProperties => {
+  const config = variantStyles[variant];
   return {
     background: config.bg,
     border: `1px solid ${config.border}`,
@@ -83,6 +101,8 @@ export interface AlertGlassProps
   readonly children: ReactNode;
   readonly dismissible?: boolean;
   readonly onDismiss?: () => void;
+  /** @deprecated Use variant prop instead. Will be removed in next major version. */
+  readonly type?: AlertVariant;
 }
 
 // ========================================
@@ -93,7 +113,8 @@ export const AlertGlass = forwardRef<HTMLDivElement, AlertGlassProps>(
   (
     {
       className,
-      type = 'info',
+      variant: variantProp,
+      type: typeProp,
       title,
       children,
       dismissible,
@@ -102,14 +123,24 @@ export const AlertGlass = forwardRef<HTMLDivElement, AlertGlassProps>(
     },
     ref
   ) => {
-    const config = typeStyles[type ?? 'info'];
-    const Icon = iconMap[type ?? 'info'];
+    // Backward compatibility: support deprecated 'type' prop
+    const variant = variantProp ?? typeProp ?? 'default';
+
+    // Show deprecation warning in development
+    if (process.env.NODE_ENV === 'development' && typeProp) {
+      console.warn(
+        'AlertGlass: The "type" prop is deprecated. Use "variant" instead. Example: <AlertGlass variant="destructive" />'
+      );
+    }
+
+    const config = variantStyles[variant];
+    const Icon = iconMap[variant];
 
     return (
       <div
         ref={ref}
-        className={cn(alertVariants({ type }), className)}
-        style={getAlertStyles(type ?? 'info')}
+        className={cn(alertVariants({ variant }), className)}
+        style={getAlertStyles(variant)}
         role="alert"
         {...props}
       >

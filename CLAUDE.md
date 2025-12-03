@@ -160,3 +160,38 @@ Thanks to the modern stack:
 - **Testing:** Minimum 90% coverage target
 - **Linting:** ESLint with React hooks, TypeScript, and Storybook rules
 - **Formatting:** Prettier 3.7.1
+
+## shadcn/ui API Compatibility
+
+The library maintains full compatibility with shadcn/ui component APIs while providing extended Glass UI variants:
+
+### BadgeGlass
+- **shadcn/ui variants:** `default`, `secondary`, `destructive`, `outline`
+- **Extended variants:** `success`, `warning`, `info`
+- **Migration:** `danger` → `destructive` (breaking change in v2.8+)
+
+```tsx
+// shadcn/ui compatible
+<BadgeGlass variant="destructive">Error</BadgeGlass>
+<BadgeGlass variant="outline">Outlined</BadgeGlass>
+
+// Glass UI extended
+<BadgeGlass variant="success">Success</BadgeGlass>
+```
+
+### AlertGlass
+- **shadcn/ui variants:** `default`, `destructive`
+- **Extended variants:** `success`, `warning`
+- **Aliases (backward compat):** `info` (→ `default`), `error` (→ `destructive`)
+- **Migration:** `type` prop → `variant` prop (deprecated warning in dev mode)
+
+```tsx
+// shadcn/ui compatible
+<AlertGlass variant="destructive" title="Error">Something went wrong</AlertGlass>
+
+// Glass UI extended
+<AlertGlass variant="success" title="Success">Operation completed</AlertGlass>
+
+// Backward compatible (deprecated)
+<AlertGlass type="error" title="Error">Still works with warning</AlertGlass>
+```

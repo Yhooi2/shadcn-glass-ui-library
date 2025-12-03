@@ -33,14 +33,14 @@ export const TooltipGlass = forwardRef<HTMLDivElement, TooltipGlassProps>(
   ({ children, content, position = 'top', className }, ref) => {
     const { isHovered, hoverProps } = useHover();
 
-    // Unified dark tooltip design for all themes (consistent UX)
+    // Glass tooltip design with backdrop blur
     const tooltipStyles: CSSProperties = {
       background: 'var(--tooltip-bg)',
       color: 'var(--tooltip-text)',
-      border: 'none',
+      border: '1px solid rgba(255, 255, 255, 0.15)',
       boxShadow: 'var(--tooltip-shadow)',
-      backdropFilter: 'none',
-      WebkitBackdropFilter: 'none',
+      backdropFilter: 'blur(12px)',
+      WebkitBackdropFilter: 'blur(12px)',
     };
 
     return (

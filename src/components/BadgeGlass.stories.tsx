@@ -12,10 +12,10 @@ const meta = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["default", "success", "warning", "danger", "info", "violet"],
-      description: "Badge color variant",
+      options: ["default", "secondary", "destructive", "outline", "success", "warning", "info"],
+      description: "Badge color variant (shadcn/ui compatible + Glass UI extended)",
       table: {
-        type: { summary: "'default' | 'success' | 'warning' | 'danger' | 'info' | 'violet'" },
+        type: { summary: "'default' | 'secondary' | 'destructive' | 'outline' | 'success' | 'warning' | 'info'" },
         defaultValue: { summary: "default" },
       },
     },
@@ -80,10 +80,30 @@ export const Warning: Story = {
   },
 };
 
-export const Danger: Story = {
+export const Secondary: Story = {
   args: {
-    variant: "danger",
-    children: "Danger",
+    variant: "secondary",
+    children: "Secondary",
+  },
+  async play({ canvasElement }) {
+    await expect(canvasElement).toBeInTheDocument();
+  },
+};
+
+export const Destructive: Story = {
+  args: {
+    variant: "destructive",
+    children: "Destructive",
+  },
+  async play({ canvasElement }) {
+    await expect(canvasElement).toBeInTheDocument();
+  },
+};
+
+export const Outline: Story = {
+  args: {
+    variant: "outline",
+    children: "Outline",
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -100,19 +120,9 @@ export const Info: Story = {
   },
 };
 
-export const Violet: Story = {
-  args: {
-    variant: "violet",
-    children: "Violet",
-  },
-  async play({ canvasElement }) {
-    await expect(canvasElement).toBeInTheDocument();
-  },
-};
-
 export const WithDot: Story = {
   args: {
-    variant: "violet",
+    variant: "info",
     dot: true,
     children: "Active",
   },
@@ -128,11 +138,12 @@ export const AllVariants: Story = {
   render: () => (
     <div className="flex flex-wrap gap-3">
       <BadgeGlass variant="default">Default</BadgeGlass>
+      <BadgeGlass variant="secondary">Secondary</BadgeGlass>
+      <BadgeGlass variant="destructive">Destructive</BadgeGlass>
+      <BadgeGlass variant="outline">Outline</BadgeGlass>
       <BadgeGlass variant="success">Success</BadgeGlass>
       <BadgeGlass variant="warning">Warning</BadgeGlass>
-      <BadgeGlass variant="danger">Danger</BadgeGlass>
       <BadgeGlass variant="info">Info</BadgeGlass>
-      <BadgeGlass variant="violet">Violet</BadgeGlass>
     </div>
   ),
   async play({ canvasElement }) {
@@ -147,11 +158,12 @@ export const AllWithDot: Story = {
   render: () => (
     <div className="flex flex-wrap gap-3">
       <BadgeGlass variant="default" dot>Default</BadgeGlass>
+      <BadgeGlass variant="secondary" dot>Secondary</BadgeGlass>
+      <BadgeGlass variant="destructive" dot>Destructive</BadgeGlass>
+      <BadgeGlass variant="outline" dot>Outline</BadgeGlass>
       <BadgeGlass variant="success" dot>Success</BadgeGlass>
       <BadgeGlass variant="warning" dot>Warning</BadgeGlass>
-      <BadgeGlass variant="danger" dot>Danger</BadgeGlass>
       <BadgeGlass variant="info" dot>Info</BadgeGlass>
-      <BadgeGlass variant="violet" dot>Violet</BadgeGlass>
     </div>
   ),
   async play({ canvasElement }) {
@@ -165,9 +177,9 @@ export const AllSizes: Story = {
   },
   render: () => (
     <div className="flex items-center gap-3">
-      <BadgeGlass size="sm" variant="violet">Small</BadgeGlass>
-      <BadgeGlass size="md" variant="violet">Medium</BadgeGlass>
-      <BadgeGlass size="lg" variant="violet">Large</BadgeGlass>
+      <BadgeGlass size="sm" variant="info">Small</BadgeGlass>
+      <BadgeGlass size="md" variant="info">Medium</BadgeGlass>
+      <BadgeGlass size="lg" variant="info">Large</BadgeGlass>
     </div>
   ),
   async play({ canvasElement }) {

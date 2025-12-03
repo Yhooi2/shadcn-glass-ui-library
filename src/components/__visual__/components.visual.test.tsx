@@ -321,14 +321,14 @@ describe('Visual Regression Tests', () => {
       await expect(badge).toMatchScreenshot(`badge-warning-${theme}`);
     });
 
-    test(`BadgeGlass danger - ${theme}`, async () => {
+    test(`BadgeGlass destructive - ${theme}`, async () => {
       renderWithTheme(
-        <BadgeGlass variant="danger" data-testid="badge">Danger</BadgeGlass>,
+        <BadgeGlass variant="destructive" data-testid="badge">Destructive</BadgeGlass>,
         theme
       );
       await waitForStability();
       const badge = page.getByTestId('badge');
-      await expect(badge).toMatchScreenshot(`badge-danger-${theme}`);
+      await expect(badge).toMatchScreenshot(`badge-destructive-${theme}`);
     });
 
     test(`BadgeGlass info - ${theme}`, async () => {

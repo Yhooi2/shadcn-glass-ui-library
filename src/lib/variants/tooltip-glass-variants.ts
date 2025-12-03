@@ -8,7 +8,7 @@ import { cva } from 'class-variance-authority';
 export type TooltipPosition = 'top' | 'bottom' | 'left' | 'right';
 
 export const tooltipPositions = cva(
-  'absolute z-50 px-2 py-1 md:px-3 md:py-1.5 rounded-lg text-[10px] md:text-xs font-medium whitespace-nowrap transition-all duration-200 animate-float',
+  'absolute z-50 px-2 py-1 md:px-3 md:py-1.5 rounded-lg text-[10px] md:text-xs font-medium whitespace-nowrap transition-opacity duration-200',
   {
     variants: {
       position: {

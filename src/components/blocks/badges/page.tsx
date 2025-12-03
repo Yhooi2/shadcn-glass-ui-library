@@ -46,11 +46,12 @@ export const BadgesBlock = forwardRef<HTMLDivElement, BadgesBlockProps>(
             </label>
             <div className="flex items-center gap-2 flex-wrap">
               <BadgeGlass variant="default">Default</BadgeGlass>
-              <BadgeGlass variant="info">Info</BadgeGlass>
-              <BadgeGlass variant="violet">Violet</BadgeGlass>
+              <BadgeGlass variant="secondary">Secondary</BadgeGlass>
+              <BadgeGlass variant="destructive">Destructive</BadgeGlass>
+              <BadgeGlass variant="outline">Outline</BadgeGlass>
               <BadgeGlass variant="success">Success</BadgeGlass>
               <BadgeGlass variant="warning">Warning</BadgeGlass>
-              <BadgeGlass variant="danger">Danger</BadgeGlass>
+              <BadgeGlass variant="info">Info</BadgeGlass>
             </div>
           </div>
 

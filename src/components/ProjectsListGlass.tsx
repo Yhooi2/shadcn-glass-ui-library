@@ -180,7 +180,7 @@ export const ProjectsListGlass = forwardRef<HTMLDivElement, ProjectsListGlassPro
             >
               {displayTitle}
             </h3>
-            <BadgeGlass variant="violet">{sortedRepos.length} repos</BadgeGlass>
+            <BadgeGlass variant="info">{sortedRepos.length} repos</BadgeGlass>
           </div>
 
           {/* Right: Controls */}

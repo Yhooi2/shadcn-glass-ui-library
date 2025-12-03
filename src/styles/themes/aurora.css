@@ -119,24 +119,29 @@
   /* ========================================
      BADGE VARIABLES
      ======================================== */
+  /* shadcn/ui compatible variants */
   --badge-default-bg: rgba(71, 85, 105, 0.30);
   --badge-default-text: #cbd5e1;
   --badge-default-border: rgba(71, 85, 105, 0.50);
+  --badge-secondary-bg: rgba(100, 116, 139, 0.30);
+  --badge-secondary-text: #94a3b8;
+  --badge-secondary-border: rgba(100, 116, 139, 0.50);
+  --badge-destructive-bg: rgba(239, 68, 68, 0.20);
+  --badge-destructive-text: #f87171;
+  --badge-destructive-border: rgba(239, 68, 68, 0.30);
+  --badge-outline-bg: transparent;
+  --badge-outline-text: #cbd5e1;
+  --badge-outline-border: rgba(148, 163, 184, 0.50);
+  /* Glass UI extended variants */
   --badge-success-bg: rgba(16, 185, 129, 0.20);
   --badge-success-text: #34d399;
   --badge-success-border: rgba(16, 185, 129, 0.30);
   --badge-warning-bg: rgba(245, 158, 11, 0.20);
   --badge-warning-text: #fbbf24;
   --badge-warning-border: rgba(245, 158, 11, 0.30);
-  --badge-danger-bg: rgba(239, 68, 68, 0.20);
-  --badge-danger-text: #f87171;
-  --badge-danger-border: rgba(239, 68, 68, 0.30);
-  --badge-primary-bg: rgba(59, 130, 246, 0.20);
-  --badge-primary-text: #60a5fa;
-  --badge-primary-border: rgba(59, 130, 246, 0.30);
-  --badge-violet-bg: rgba(139, 92, 246, 0.20);
-  --badge-violet-text: #a78bfa;
-  --badge-violet-border: rgba(139, 92, 246, 0.30);
+  --badge-info-bg: rgba(59, 130, 246, 0.20);
+  --badge-info-text: #60a5fa;
+  --badge-info-border: rgba(59, 130, 246, 0.30);
 
   /* ========================================
      INPUT VARIABLES
@@ -151,18 +156,20 @@
   /* ========================================
      ALERT VARIABLES
      ======================================== */
-  --alert-danger-bg: rgba(239, 68, 68, 0.10);
-  --alert-danger-border: rgba(239, 68, 68, 0.20);
-  --alert-danger-text: #f87171;
-  --alert-warning-bg: rgba(245, 158, 11, 0.10);
-  --alert-warning-border: rgba(245, 158, 11, 0.20);
-  --alert-warning-text: #fbbf24;
-  --alert-info-bg: rgba(96, 165, 250, 0.10);
-  --alert-info-border: rgba(96, 165, 250, 0.20);
-  --alert-info-text: #60a5fa;
+  /* shadcn/ui compatible variants */
+  --alert-default-bg: rgba(96, 165, 250, 0.10);
+  --alert-default-border: rgba(96, 165, 250, 0.20);
+  --alert-default-text: #60a5fa;
+  --alert-destructive-bg: rgba(239, 68, 68, 0.10);
+  --alert-destructive-border: rgba(239, 68, 68, 0.20);
+  --alert-destructive-text: #f87171;
+  /* Glass UI extended variants */
   --alert-success-bg: rgba(52, 211, 153, 0.10);
   --alert-success-border: rgba(52, 211, 153, 0.20);
   --alert-success-text: #34d399;
+  --alert-warning-bg: rgba(245, 158, 11, 0.10);
+  --alert-warning-border: rgba(245, 158, 11, 0.20);
+  --alert-warning-text: #fbbf24;
 
   /* ========================================
      TOGGLE/CHECKBOX VARIABLES
