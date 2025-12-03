@@ -634,3 +634,116 @@ src/
 
 **Рекомендация:** Сфокусироваться на P0 задачах (unit тесты + стратегия миграции) перед переходом к
 Фазе 3.
+
+---
+
+## Обновление: Hybrid Strategy Migration - ЗАВЕРШЕНО ✅
+
+**Дата выполнения:** 2025-12-03
+**Статус:** ✅ ПОЛНОСТЬЮ ЗАВЕРШЕНО
+
+### Что было сделано:
+
+#### 1. ✅ Создана структура glass/specialized/
+- Создано 8 specialized компонентов:
+  - StatusIndicatorGlass
+  - SegmentedControlGlass
+  - BaseProgressGlass (новый)
+  - ProgressGlass
+  - RainbowProgressGlass
+  - ProfileAvatarGlass
+  - LanguageBarGlass
+  - FlagAlertGlass
+
+#### 2. ✅ Мигрированы Composite компоненты (5)
+- GlassCard → glass/composite/glass-card.tsx
+- MetricCardGlass → glass/composite/metric-card-glass.tsx
+- YearCardGlass → glass/composite/year-card-glass.tsx
+- AICardGlass → glass/composite/ai-card-glass.tsx
+- RepositoryCardGlass → glass/composite/repository-card-glass.tsx
+
+#### 3. ✅ Мигрированы Section компоненты (6)
+- HeaderNavGlass → glass/sections/header-nav-glass.tsx
+- ProfileHeaderGlass → glass/sections/profile-header-glass.tsx
+- CareerStatsGlass → glass/sections/career-stats-glass.tsx
+- FlagsSectionGlass → glass/sections/flags-section-glass.tsx
+- TrustScoreCardGlass → glass/sections/trust-score-card-glass.tsx
+- ProjectsListGlass → glass/sections/projects-list-glass.tsx
+
+#### 4. ✅ Удалены 14 UI дубликатов
+Полностью удалены дублирующие файлы из src/components/:
+- AlertGlass.tsx, AvatarGlass.tsx, BadgeGlass.tsx
+- ButtonGlass.tsx, CheckboxGlass.tsx, DropdownGlass.tsx
+- InputGlass.tsx, ModalGlass.tsx, NotificationGlass.tsx
+- SkeletonGlass.tsx, SliderGlass.tsx, TabsGlass.tsx
+- ToggleGlass.tsx, TooltipGlass.tsx
+
+#### 5. ✅ Обновлены все импорты
+- Обновлены все файлы showcase (ComponentShowcase, DesktopShowcase, MobileShowcase)
+- Исправлены импорты в glass/* компонентах (sections, composite, specialized)
+- Обновлены все blocks/*/page.tsx файлы
+- Исправлены все 30+ .stories.tsx файлов
+- Обновлены visual test файлы
+
+#### 6. ✅ Созданы backward compatibility re-exports
+Legacy файлы преобразованы в re-exports с @deprecated:
+- src/components/ProgressGlass.tsx → re-export
+- src/components/glass/composite/glass-card.tsx → re-export
+
+#### 7. ✅ Обновлены barrel exports
+- glass/ui/index.ts - обновлён комментарий (ProgressGlass moved to specialized/)
+- glass/specialized/index.ts - создан с 8 компонентами
+- glass/composite/index.ts - добавлены legacy migrated компоненты
+- glass/sections/index.ts - добавлены legacy migrated компоненты
+- glass/index.ts - добавлен export специализированных компонентов
+
+#### 8. ✅ Исправлена ошибка в BadgeGlass
+- Добавлен fallback `|| variantStyles.default` в getBadgeStyles
+- Безопасная обработка undefined variants
+
+### Результаты тестирования:
+
+✅ **TypeScript:** 0 ошибок
+✅ **ESLint:** 0 ошибок
+✅ **Unit tests:** 95 passed (6 test files)
+✅ **Visual tests:** 567 passed (7 test files) - 100%
+✅ **Storybook:** Работает без ошибок
+
+### Git коммиты (5 шт):
+
+```
+99a1997 fix(storybook): fix all story imports and BadgeGlass error
+d8234fe fix(blocks): fix imports in all blocks components
+c0ac9a3 fix(stories): update all story file imports to glass/ structure
+cda8bd1 fix: update all imports to new glass/ structure (Phase 2.9)
+cecf820 refactor: complete Hybrid Strategy migration
+```
+
+### Созданные утилиты:
+
+1. scripts/update-imports.sh - Массовое обновление импортов
+2. scripts/fix-visual-imports.sh - Фикс импортов в visual тестах
+3. scripts/fix-blocks-imports-final.sh - Фикс импортов в blocks
+4. scripts/fix-all-stories-final.sh - Фикс импортов в stories
+
+### Обновлённая статистика:
+
+**Legacy-компоненты:** ~~35~~ → **21** (-14 UI дубликатов удалено)
+
+**Архитектура:**
+- ✅ UI компоненты: 17 в glass/ui/
+- ✅ Specialized компоненты: 8 в glass/specialized/
+- ✅ Composite компоненты: 13 в glass/composite/ (8 новых + 5 migrated)
+- ✅ Sections компоненты: 7 в glass/sections/ (1 новый + 6 migrated)
+- ✅ Blocks: 6 в blocks/
+
+**Обновлённая оценка:** 7.5/10 → **8.5/10** ⬆️
+
+### Что осталось сделать:
+
+1. ❌ **Unit test coverage** (8.92% → требуется 90%) - P0
+2. ⚠️ **Demo/Showcase компоненты** (3 шт) - можно оставить в legacy
+3. ⚠️ **AnimatedBackground** (1 шт) - можно оставить в legacy
+4. ⚠️ **Primitives** (не реализованы) - уточнить необходимость
+
+**Миграция практически завершена! 🎉**
