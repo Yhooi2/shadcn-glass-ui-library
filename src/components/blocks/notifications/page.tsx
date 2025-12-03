@@ -6,9 +6,9 @@
 
 import { forwardRef, type HTMLAttributes } from 'react';
 import { cn } from '@/lib/utils';
-import { GlassCard } from '@/components/GlassCard';
-import { NotificationGlass } from '@/components/NotificationGlass';
-import { AlertGlass } from '@/components/AlertGlass';
+import { GlassCard } from '@/components/glass/composite/glass-card';
+import { NotificationGlass } from '@/components/glass/ui/notification-glass';
+import { AlertGlass } from '@/components/glass/ui/alert-glass';
 import '@/glass-theme.css';
 
 export interface NotificationsBlockProps extends HTMLAttributes<HTMLDivElement> {

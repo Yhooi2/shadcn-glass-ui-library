@@ -7,8 +7,8 @@
 import { forwardRef, type HTMLAttributes } from 'react';
 import { Sparkles, Settings, Eye, Trash2, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { GlassCard } from '@/components/GlassCard';
-import { ButtonGlass } from '@/components/ButtonGlass';
+import { GlassCard } from '@/components/glass/composite/glass-card';
+import { ButtonGlass } from '@/components/glass/ui/button-glass';
 import '@/glass-theme.css';
 
 export interface ButtonsBlockProps extends HTMLAttributes<HTMLDivElement> {
