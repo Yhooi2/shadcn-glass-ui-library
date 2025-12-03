@@ -66,10 +66,13 @@ export const Expanded: Story = {
     year: "2024",
     emoji: "🚀",
     label: "Peak Year",
-    commits: "1,234 commits",
+    commits: "1,234",
     progress: 85,
     isExpanded: true,
     gradient: "blue",
+    prs: 43,
+    repos: 8,
+    onShowYear: () => console.log("Filter repos for 2024"),
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -138,11 +141,14 @@ export const Interactive: Story = {
           year="2024"
           emoji="🚀"
           label="Peak Year"
-          commits="1,234 commits"
+          commits="1,234"
           progress={85}
           gradient="blue"
+          prs={43}
+          repos={8}
           isExpanded={isExpanded}
           onClick={() => setIsExpanded(!isExpanded)}
+          onShowYear={() => console.log("Filter repos for 2024")}
         />
         <span style={{ color: "var(--text-muted)", fontSize: "12px" }}>
           Click to {isExpanded ? "collapse" : "expand"}

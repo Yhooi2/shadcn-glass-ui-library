@@ -18,14 +18,24 @@ const meta = {
       control: "select",
       options: ["info", "success", "warning", "error"],
       description: "The type of notification",
+      table: {
+        type: { summary: "'info' | 'success' | 'warning' | 'error'" },
+        defaultValue: { summary: "info" },
+      },
     },
     title: {
       control: "text",
       description: "The notification title",
+      table: {
+        type: { summary: "string" },
+      },
     },
     message: {
       control: "text",
       description: "The notification message",
+      table: {
+        type: { summary: "string" },
+      },
     },
   },
   args: {

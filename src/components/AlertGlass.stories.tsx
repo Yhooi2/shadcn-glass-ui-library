@@ -14,18 +14,32 @@ const meta = {
       control: "select",
       options: ["info", "success", "warning", "error"],
       description: "Alert type",
+      table: {
+        type: { summary: "'info' | 'success' | 'warning' | 'error'" },
+        defaultValue: { summary: "info" },
+      },
     },
     dismissible: {
       control: "boolean",
       description: "Show dismiss button",
+      table: {
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
+      },
     },
     title: {
       control: "text",
       description: "Alert title",
+      table: {
+        type: { summary: "string" },
+      },
     },
     children: {
       control: "text",
       description: "Alert message",
+      table: {
+        type: { summary: "ReactNode" },
+      },
     },
   },
   args: {

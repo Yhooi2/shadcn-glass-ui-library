@@ -14,30 +14,57 @@ const meta = {
     value: {
       control: { type: "range", min: 0, max: 100 },
       description: "Slider value",
+      table: {
+        type: { summary: "number" },
+        defaultValue: { summary: "0" },
+      },
     },
     min: {
       control: "number",
       description: "Minimum value",
+      table: {
+        type: { summary: "number" },
+        defaultValue: { summary: "0" },
+      },
     },
     max: {
       control: "number",
       description: "Maximum value",
+      table: {
+        type: { summary: "number" },
+        defaultValue: { summary: "100" },
+      },
     },
     step: {
       control: "number",
       description: "Step increment",
+      table: {
+        type: { summary: "number" },
+        defaultValue: { summary: "1" },
+      },
     },
     disabled: {
       control: "boolean",
       description: "Disabled state",
+      table: {
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
+      },
     },
     label: {
       control: "text",
       description: "Label text",
+      table: {
+        type: { summary: "string" },
+      },
     },
     showValue: {
       control: "boolean",
       description: "Show current value",
+      table: {
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
+      },
     },
   },
   args: {

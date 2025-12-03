@@ -94,7 +94,7 @@ export const BadgeGlass = forwardRef<HTMLSpanElement, BadgeGlassProps>(
       >
         {dot && (
           <span
-            className="w-1.5 h-1.5 rounded-full animate-pulse"
+            className="w-1 h-1 md:w-1.5 md:h-1.5 rounded-full animate-pulse"
             style={{ background: v.text }}
           />
         )}

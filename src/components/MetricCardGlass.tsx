@@ -76,7 +76,7 @@ export const MetricCardGlass = forwardRef<HTMLDivElement, MetricCardGlassProps>(
       <div
         ref={ref}
         className={cn(
-          "p-4 rounded-xl border transition-all duration-300",
+          "p-3 md:p-4 rounded-xl border transition-all duration-300",
           className
         )}
         style={cardStyles}
@@ -84,14 +84,14 @@ export const MetricCardGlass = forwardRef<HTMLDivElement, MetricCardGlassProps>(
         onMouseLeave={() => setIsHovered(false)}
         {...props}
       >
-        <div className="flex justify-between items-center mb-3">
+        <div className="flex justify-between items-center mb-2 md:mb-3">
           <span
-            className="text-sm font-medium"
+            className="text-xs md:text-sm font-medium"
             style={{ color: "var(--text-secondary)" }}
           >
             {label}
           </span>
-          <span className="font-bold text-xl" style={valueStyles}>
+          <span className="font-bold text-lg md:text-xl" style={valueStyles}>
             {value}%
           </span>
         </div>

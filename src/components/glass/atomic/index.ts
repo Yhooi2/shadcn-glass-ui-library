@@ -29,3 +29,10 @@ export {
   ExpandableHeaderGlass,
   type ExpandableHeaderGlassProps,
 } from './expandable-header-glass';
+
+export {
+  SortDropdownGlass,
+  type SortDropdownGlassProps,
+  type SortField,
+  type SortOrder,
+} from './sort-dropdown-glass';

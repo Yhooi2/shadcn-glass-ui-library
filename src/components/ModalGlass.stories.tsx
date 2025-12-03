@@ -20,14 +20,30 @@ const meta = {
       control: "select",
       options: ["sm", "md", "lg", "xl", "full"],
       description: "The size of the modal",
+      table: {
+        type: { summary: "'sm' | 'md' | 'lg' | 'xl' | 'full'" },
+        defaultValue: { summary: "md" },
+      },
     },
     isOpen: {
       control: "boolean",
       description: "Whether the modal is open",
+      table: {
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
+      },
     },
     title: {
       control: "text",
       description: "The modal title",
+      table: {
+        type: { summary: "string" },
+      },
+    },
+    children: {
+      table: {
+        type: { summary: "ReactNode" },
+      },
     },
   },
   args: {

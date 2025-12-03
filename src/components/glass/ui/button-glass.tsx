@@ -197,11 +197,11 @@ export const ButtonGlass = forwardRef<HTMLButtonElement, ButtonGlassProps>(
         )}
 
         {/* Loading spinner */}
-        {loading && <RefreshCw className="w-4 h-4 animate-spin" />}
+        {loading && <RefreshCw className="w-3.5 h-3.5 md:w-4 md:h-4 animate-spin" />}
 
         {/* Icon left */}
         {!loading && Icon && iconPosition === 'left' && (
-          <Icon className="w-4 h-4" />
+          <Icon className="w-3.5 h-3.5 md:w-4 md:h-4" />
         )}
 
         {/* Content */}
@@ -209,7 +209,7 @@ export const ButtonGlass = forwardRef<HTMLButtonElement, ButtonGlassProps>(
 
         {/* Icon right */}
         {!loading && Icon && iconPosition === 'right' && (
-          <Icon className="w-4 h-4" />
+          <Icon className="w-3.5 h-3.5 md:w-4 md:h-4" />
         )}
       </button>
     );

@@ -18,19 +18,34 @@ const meta = {
       control: "select",
       options: ["primary", "ghost", "text"],
       description: "The visual style variant of the button",
+      table: {
+        type: { summary: "'primary' | 'ghost' | 'text'" },
+        defaultValue: { summary: "primary" },
+      },
     },
     size: {
       control: "select",
       options: ["sm", "md", "lg", "icon"],
       description: "The size of the button",
+      table: {
+        type: { summary: "'sm' | 'md' | 'lg' | 'icon'" },
+        defaultValue: { summary: "md" },
+      },
     },
     disabled: {
       control: "boolean",
       description: "Whether the button is disabled",
+      table: {
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
+      },
     },
     children: {
       control: "text",
       description: "The button content",
+      table: {
+        type: { summary: "ReactNode" },
+      },
     },
   },
   args: {

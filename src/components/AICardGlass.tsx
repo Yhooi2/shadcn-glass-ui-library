@@ -46,30 +46,39 @@ export const AICardGlass = forwardRef<HTMLDivElement, AICardGlassProps>(
     return (
       <div
         ref={ref}
-        className={cn("w-64 p-4 rounded-xl transition-all duration-300", className)}
+        className={cn(
+          "w-full sm:w-56 md:w-64 p-3 md:p-4 rounded-xl transition-all duration-300",
+          className
+        )}
         style={cardStyles}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         {...props}
       >
         <div
-          className="flex items-center gap-2 font-semibold text-sm mb-2"
+          className="flex items-center gap-1.5 md:gap-2 font-semibold text-xs md:text-sm mb-1.5 md:mb-2"
           style={{ color: "var(--text-accent)" }}
         >
-          <Sparkles className="w-4 h-4" />
+          <Sparkles className="w-3.5 h-3.5 md:w-4 md:h-4" />
           AI Summary
         </div>
-        <p className="text-xs mb-2" style={{ color: "var(--text-secondary)" }}>
+        <p
+          className="text-[10px] md:text-xs mb-1.5 md:mb-2"
+          style={{ color: "var(--text-secondary)" }}
+        >
           Get comprehensive analysis:
         </p>
-        <ul className="text-xs space-y-1 mb-3">
+        <ul className="text-[10px] md:text-xs space-y-0.5 md:space-y-1 mb-2 md:mb-3">
           {features.map((feature, i) => (
             <li
               key={`feature-${i}`}
               className="flex items-center gap-1"
               style={{ color: "var(--text-muted)" }}
             >
-              <Check className="w-3 h-3" style={{ color: "var(--status-green)" }} />
+              <Check
+                className="w-2.5 h-2.5 md:w-3 md:h-3"
+                style={{ color: "var(--status-green)" }}
+              />
               {feature}
             </li>
           ))}
@@ -84,10 +93,10 @@ export const AICardGlass = forwardRef<HTMLDivElement, AICardGlassProps>(
           Generate Report
         </ButtonGlass>
         <p
-          className="text-xs mt-2 text-center flex items-center justify-center gap-1"
+          className="text-[10px] md:text-xs mt-1.5 md:mt-2 text-center flex items-center justify-center gap-1"
           style={{ color: "var(--text-muted)" }}
         >
-          <Clock className="w-3 h-3" />
+          <Clock className="w-2.5 h-2.5 md:w-3 md:h-3" />
           {estimatedTime}
         </p>
       </div>

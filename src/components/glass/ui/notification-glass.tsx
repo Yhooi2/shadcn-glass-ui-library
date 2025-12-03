@@ -88,18 +88,18 @@ export const NotificationGlass = forwardRef<HTMLDivElement, NotificationGlassPro
       >
         {/* Icon with glow */}
         <div
-          className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+          className="w-8 h-8 md:w-10 md:h-10 rounded-xl flex items-center justify-center shrink-0"
           style={iconContainerStyles}
         >
-          <Icon className="w-5 h-5" style={{ color: config.color }} />
+          <Icon className="w-4 h-4 md:w-5 md:h-5" style={{ color: config.color }} />
         </div>
 
         {/* Content */}
         <div className="flex-1 min-w-0">
-          <p className="font-semibold text-sm mb-1" style={{ color: 'var(--text-primary)' }}>
+          <p className="font-semibold text-xs md:text-sm mb-0.5 md:mb-1" style={{ color: 'var(--text-primary)' }}>
             {title}
           </p>
-          <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+          <p className="text-xs md:text-sm" style={{ color: 'var(--text-secondary)' }}>
             {message}
           </p>
         </div>
@@ -107,12 +107,12 @@ export const NotificationGlass = forwardRef<HTMLDivElement, NotificationGlassPro
         {/* Close button */}
         <button
           onClick={onClose}
-          className="p-1.5 rounded-lg shrink-0"
+          className="p-1 md:p-1.5 rounded-lg shrink-0"
           style={{ color: 'var(--text-muted)' }}
           type="button"
           aria-label="Close notification"
         >
-          <X className="w-4 h-4" />
+          <X className="w-3.5 h-3.5 md:w-4 md:h-4" />
         </button>
       </div>
     );

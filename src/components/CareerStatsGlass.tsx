@@ -16,6 +16,8 @@ export interface YearData {
   readonly label: string;
   readonly commits: string;
   readonly progress: number;
+  readonly prs?: number;
+  readonly repos?: number;
 }
 
 export interface CareerStatsGlassProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -46,38 +48,38 @@ export const CareerStatsGlass = forwardRef<HTMLDivElement, CareerStatsGlassProps
     return (
       <GlassCard
         ref={ref}
-        className={cn("p-4", className)}
+        className={cn("p-4 md:p-5 lg:p-6", className)}
         intensity="medium"
         hover={false}
         {...props}
       >
         <h3
-          className="font-semibold flex items-center gap-2 mb-1"
+          className="font-semibold flex items-center gap-2 md:gap-2.5 lg:gap-3 mb-1 text-base md:text-lg lg:text-xl"
           style={{ color: "var(--text-primary)" }}
         >
-          <TrendingUp className="w-5 h-5" style={{ color: "var(--text-accent)" }} />
+          <TrendingUp className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6" style={{ color: "var(--text-accent)" }} />
           Career Stats
         </h3>
         <p
-          className="text-sm mb-4 flex items-center gap-2 flex-wrap"
+          className="text-xs md:text-sm lg:text-base mb-3 md:mb-4 flex items-center gap-2 md:gap-2.5 lg:gap-3 flex-wrap"
           style={{ color: "var(--text-secondary)" }}
         >
-          <span className="flex items-center gap-1">
-            <Code className="w-4 h-4" />
+          <span className="flex items-center gap-1 md:gap-1.5">
+            <Code className="w-3.5 h-3.5 md:w-4 md:h-4 lg:w-5 lg:h-5" />
             {totalCommits.toLocaleString()} commits
           </span>
           <span>·</span>
-          <span className="flex items-center gap-1">
-            <GitPullRequest className="w-4 h-4" />
+          <span className="flex items-center gap-1 md:gap-1.5">
+            <GitPullRequest className="w-3.5 h-3.5 md:w-4 md:h-4 lg:w-5 lg:h-5" />
             {totalPRs} PRs
           </span>
           <span>·</span>
-          <span className="flex items-center gap-1">
-            <FolderGit2 className="w-4 h-4" />
+          <span className="flex items-center gap-1 md:gap-1.5">
+            <FolderGit2 className="w-3.5 h-3.5 md:w-4 md:h-4 lg:w-5 lg:h-5" />
             {totalRepos} repos
           </span>
         </p>
-        <div className="space-y-2">
+        <div className="space-y-2 md:space-y-2.5 lg:space-y-3">
           {years.map((y) => (
             <YearCardGlass
               key={y.year}
@@ -86,8 +88,14 @@ export const CareerStatsGlass = forwardRef<HTMLDivElement, CareerStatsGlassProps
               label={y.label}
               commits={y.commits}
               progress={y.progress}
+              prs={y.prs}
+              repos={y.repos}
               isExpanded={expandedYear === y.year}
               onClick={() => handleYearClick(y.year)}
+              onShowYear={() => {
+                // This can be used to filter repos by year
+                console.log(`Filter repos for year ${y.year}`);
+              }}
             />
           ))}
         </div>

@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { ThemeProvider } from "@/lib/theme-context";
+import { ThemeProvider, type ThemeName } from "@/lib/theme-context";
 import { ComponentShowcase } from "./ComponentShowcase";
 
 const meta: Meta<typeof ComponentShowcase> = {
   title: "Demo/ComponentShowcase",
   component: ComponentShowcase,
   decorators: [
-    (Story) => (
-      <ThemeProvider defaultTheme="glass">
+    (Story, context) => (
+      <ThemeProvider defaultTheme={context.args.theme || "glass"}>
         <Story />
       </ThemeProvider>
     ),
@@ -17,9 +17,36 @@ const meta: Meta<typeof ComponentShowcase> = {
     a11y: { test: "todo" },
     chromatic: { viewports: [1280] },
   },
+  argTypes: {
+    theme: {
+      control: { type: "select" },
+      options: ["glass", "light", "aurora"],
+      description: "Theme variant for the showcase",
+      table: {
+        type: { summary: "ThemeName" },
+        defaultValue: { summary: "glass" },
+      },
+    },
+  },
 };
 
 export default meta;
 type Story = StoryObj<typeof ComponentShowcase>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  args: {
+    theme: "glass",
+  },
+};
+
+export const LightTheme: Story = {
+  args: {
+    theme: "light",
+  },
+};
+
+export const AuroraTheme: Story = {
+  args: {
+    theme: "aurora",
+  },
+};

@@ -8,7 +8,7 @@ import { cva } from 'class-variance-authority';
 export type AlertType = 'info' | 'success' | 'warning' | 'error';
 
 export const alertVariants = cva(
-  'flex items-start gap-3 p-4 rounded-xl transition-all duration-300 backdrop-blur-sm',
+  'flex items-start gap-2 md:gap-3 p-3 md:p-4 rounded-xl transition-all duration-300 backdrop-blur-sm',
   {
     variants: {
       type: {

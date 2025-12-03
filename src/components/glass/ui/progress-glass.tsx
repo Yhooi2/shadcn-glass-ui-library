@@ -71,11 +71,11 @@ export const ProgressGlass = forwardRef<HTMLDivElement, ProgressGlassProps>(
     return (
       <div ref={ref} className={cn('w-full', className)} {...props}>
         {showLabel && (
-          <div className="flex justify-between mb-1">
-            <span className="text-xs" style={{ color: 'var(--text-muted)' }}>
+          <div className="flex justify-between mb-1 md:mb-1.5">
+            <span className="text-[10px] md:text-xs" style={{ color: 'var(--text-muted)' }}>
               Progress
             </span>
-            <span className="text-xs font-medium" style={{ color: 'var(--text-secondary)' }}>
+            <span className="text-[10px] md:text-xs font-medium" style={{ color: 'var(--text-secondary)' }}>
               {clampedValue}%
             </span>
           </div>

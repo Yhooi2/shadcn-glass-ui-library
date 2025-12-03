@@ -114,29 +114,29 @@ export const AlertGlass = forwardRef<HTMLDivElement, AlertGlassProps>(
         {...props}
       >
         <Icon
-          className="w-5 h-5 flex-shrink-0 mt-0.5"
+          className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0 mt-0.5"
           style={{ color: config.text }}
         />
         <div className="flex-1">
           {title && (
             <p
-              className="font-medium text-sm mb-1"
+              className="font-medium text-xs md:text-sm mb-0.5 md:mb-1"
               style={{ color: config.text }}
             >
               {title}
             </p>
           )}
-          <p className="text-sm opacity-80" style={{ color: config.text }}>
+          <p className="text-xs md:text-sm opacity-80" style={{ color: config.text }}>
             {children}
           </p>
         </div>
         {dismissible && (
           <button
             onClick={onDismiss}
-            className="p-1 rounded transition-colors duration-200 hover:bg-black/5 flex-shrink-0"
+            className="p-0.5 md:p-1 rounded transition-colors duration-200 hover:bg-black/5 flex-shrink-0"
             aria-label="Dismiss alert"
           >
-            <X className="w-4 h-4" style={{ color: config.text }} />
+            <X className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: config.text }} />
           </button>
         )}
       </div>

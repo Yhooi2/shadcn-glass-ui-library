@@ -50,7 +50,7 @@ export const TabsGlass = forwardRef<HTMLDivElement, TabsGlassProps>(
     return (
       <div
         ref={ref}
-        className={cn('flex gap-1 p-1 rounded-xl', className)}
+        className={cn('flex gap-0.5 md:gap-1 p-0.5 md:p-1 rounded-xl', className)}
         style={containerStyles}
         role="tablist"
         {...props}
@@ -63,14 +63,14 @@ export const TabsGlass = forwardRef<HTMLDivElement, TabsGlassProps>(
               type="button"
               role="tab"
               aria-selected={isActive}
-              className="relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300"
+              className="relative px-2.5 py-1.5 md:px-4 md:py-2 rounded-lg text-xs md:text-sm font-medium transition-all duration-300"
               style={getTabStyles(isActive)}
               onClick={() => onChange(tab.id)}
             >
               {tab.label}
               {isActive && (
                 <div
-                  className="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-0.5 rounded-full"
+                  className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 md:w-8 h-0.5 rounded-full"
                   style={{ background: 'var(--tab-indicator)' }}
                 />
               )}

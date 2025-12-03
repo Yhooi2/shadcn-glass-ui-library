@@ -14,15 +14,32 @@ const meta = {
       control: "select",
       options: ["default", "success", "warning", "danger", "info", "violet"],
       description: "Badge color variant",
+      table: {
+        type: { summary: "'default' | 'success' | 'warning' | 'danger' | 'info' | 'violet'" },
+        defaultValue: { summary: "default" },
+      },
     },
     dot: {
       control: "boolean",
       description: "Show animated dot indicator",
+      table: {
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
+      },
     },
     size: {
       control: "select",
       options: ["sm", "md", "lg"],
       description: "Badge size",
+      table: {
+        type: { summary: "'sm' | 'md' | 'lg'" },
+        defaultValue: { summary: "md" },
+      },
+    },
+    children: {
+      table: {
+        type: { summary: "ReactNode" },
+      },
     },
   },
   args: {

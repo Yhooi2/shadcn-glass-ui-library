@@ -109,10 +109,10 @@ export const InputGlass = forwardRef<HTMLInputElement, InputGlassProps>(
     const paddingRight = hasIcon && iconPosition === 'right' ? 'pr-10' : '';
 
     return (
-      <div className={cn('flex flex-col gap-1.5', className)}>
+      <div className={cn('flex flex-col gap-1 md:gap-1.5', className)}>
         {label && (
           <label
-            className="text-sm font-medium"
+            className="text-xs md:text-sm font-medium"
             style={{ color: 'var(--text-secondary)' }}
           >
             {label}
@@ -121,7 +121,7 @@ export const InputGlass = forwardRef<HTMLInputElement, InputGlassProps>(
         <div className="relative">
           {Icon && iconPosition === 'left' && (
             <Icon
-              className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 transition-colors duration-300"
+              className="absolute left-2.5 md:left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 md:w-4 md:h-4 transition-colors duration-300"
               style={{
                 color: isFocused ? 'var(--text-accent)' : 'var(--text-muted)',
               }}
@@ -142,7 +142,7 @@ export const InputGlass = forwardRef<HTMLInputElement, InputGlassProps>(
           />
           {Icon && iconPosition === 'right' && (
             <Icon
-              className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 transition-colors duration-300"
+              className="absolute right-2.5 md:right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 md:w-4 md:h-4 transition-colors duration-300"
               style={{
                 color: isFocused ? 'var(--text-accent)' : 'var(--text-muted)',
               }}

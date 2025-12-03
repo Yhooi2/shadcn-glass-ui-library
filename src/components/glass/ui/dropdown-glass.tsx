@@ -180,7 +180,7 @@ export const DropdownGlass = forwardRef<HTMLDivElement, DropdownGlassProps>(
                   <button
                     key={`item-${idx}`}
                     onClick={() => handleItemClick(item.onClick)}
-                    className="w-full px-4 py-2.5 text-sm text-left flex items-center gap-3"
+                    className="w-full px-3 py-2 md:px-4 md:py-2.5 text-xs md:text-sm text-left flex items-center gap-2 md:gap-3"
                     style={getItemStyles(idx, item.danger)}
                     onMouseEnter={() => setHoveredItem(idx)}
                     onMouseLeave={() => setHoveredItem(null)}
@@ -189,7 +189,7 @@ export const DropdownGlass = forwardRef<HTMLDivElement, DropdownGlassProps>(
                   >
                     {item.icon && (
                       <item.icon
-                        className="w-4 h-4 transition-all duration-200"
+                        className="w-3.5 h-3.5 md:w-4 md:h-4 transition-all duration-200"
                         style={getIconStyles(idx, item.danger)}
                       />
                     )}

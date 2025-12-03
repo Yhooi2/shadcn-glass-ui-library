@@ -17,8 +17,6 @@ import {
   Flag,
   FolderGit2,
   Users,
-  GitBranch,
-  Code,
 } from 'lucide-react';
 
 // Atomic components

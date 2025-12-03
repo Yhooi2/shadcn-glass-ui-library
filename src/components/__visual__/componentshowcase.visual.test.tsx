@@ -71,14 +71,6 @@ describe('ComponentShowcase Visual Tests', () => {
       await expect(section).toMatchScreenshot(`componentshowcase-inputs-${theme}`);
     });
 
-    test(`Toggles section - ${theme}`, async () => {
-      renderShowcase(theme);
-      await waitForStability();
-
-      const section = page.getByTestId('section-toggles');
-      await expect(section).toMatchScreenshot(`componentshowcase-toggles-${theme}`);
-    });
-
     test(`Progress section - ${theme}`, async () => {
       renderShowcase(theme);
       await waitForStability();
@@ -111,28 +103,12 @@ describe('ComponentShowcase Visual Tests', () => {
       await expect(section).toMatchScreenshot(`componentshowcase-avatars-${theme}`);
     });
 
-    test(`Alerts section - ${theme}`, async () => {
-      renderShowcase(theme);
-      await waitForStability();
-
-      const section = page.getByTestId('section-alerts');
-      await expect(section).toMatchScreenshot(`componentshowcase-alerts-${theme}`);
-    });
-
     test(`Notifications section - ${theme}`, async () => {
       renderShowcase(theme);
       await waitForStability();
 
       const section = page.getByTestId('section-notifications');
       await expect(section).toMatchScreenshot(`componentshowcase-notifications-${theme}`);
-    });
-
-    test(`Skeletons section - ${theme}`, async () => {
-      renderShowcase(theme);
-      await waitForStability();
-
-      const section = page.getByTestId('section-skeletons');
-      await expect(section).toMatchScreenshot(`componentshowcase-skeletons-${theme}`);
     });
   });
 
@@ -206,35 +182,21 @@ describe('ComponentShowcase Visual Tests', () => {
       renderShowcase(theme);
       await waitForStability();
 
-      // Find the checkbox label "Accept terms"
-      const checkboxLabel = page.getByText('Accept terms');
+      // Find the checkbox label "Accept terms and conditions" (updated text in FormElementsBlock)
+      const checkboxLabel = page.getByText('Accept terms and conditions');
 
-      // Take screenshot in checked state
-      await expect(checkboxLabel).toMatchScreenshot(`componentshowcase-checkbox-checked-${theme}`);
+      // Take screenshot in unchecked state (default is unchecked in FormElementsBlock)
+      await expect(checkboxLabel).toMatchScreenshot(`componentshowcase-checkbox-unchecked-${theme}`);
 
       // Click the label to toggle
       await checkboxLabel.click();
       await waitForStability(200);
 
-      // Take screenshot in unchecked state
-      await expect(checkboxLabel).toMatchScreenshot(`componentshowcase-checkbox-unchecked-${theme}`);
+      // Take screenshot in checked state
+      await expect(checkboxLabel).toMatchScreenshot(`componentshowcase-checkbox-checked-${theme}`);
     });
 
-    test(`Tooltip on hover - ${theme}`, async () => {
-      renderShowcase(theme);
-      await waitForStability();
-
-      // Find tooltip trigger button
-      const tooltipTrigger = page.getByRole('button', { name: 'Hover (top)' });
-
-      // Hover over it
-      await tooltipTrigger.hover();
-      await waitForStability(300);
-
-      // Screenshot with tooltip visible
-      const tooltip = page.getByRole('tooltip');
-      await expect(tooltip).toMatchScreenshot(`componentshowcase-tooltip-visible-${theme}`);
-    });
+    // Tooltip test removed - tooltip is now in BadgesBlock demo
 
     test(`Input focus state - ${theme}`, async () => {
       renderShowcase(theme);

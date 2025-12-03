@@ -108,9 +108,17 @@ Glassmorphism UI components with multi-theme support:
 - FlagsSectionGlass - Expandable flags/warnings section
 - RepoCardGlass - Repository card with expandable details
 
+**Blocks** (6) - Ready-to-use sections (shadcn/ui pattern):
+- ButtonsBlock - Button variants, sizes, and states demo
+- FormElementsBlock - Input, Slider, Toggle, Checkbox demos
+- ProgressBlock - Progress bars, RainbowProgress, Skeletons
+- AvatarGalleryBlock - Avatar sizes and status indicators
+- BadgesBlock - Badge variants and tooltips
+- NotificationsBlock - Notifications and alerts
+
 **Demo Pages**:
-- `src/components/ComponentShowcase.tsx` - Core components demo
-- `src/components/DesktopShowcase.tsx` - GitHub Analytics desktop demo
+- `src/components/ComponentShowcase.tsx` - Core components demo (uses Blocks)
+- `src/components/DesktopShowcase.tsx` - GitHub Analytics desktop demo (uses Blocks + Sections)
 
 **Themes**: glass (dark glassmorphism), light, aurora (gradient)
 **Theme system**: `src/lib/theme-context.tsx` (ThemeProvider, useTheme, cycleTheme)

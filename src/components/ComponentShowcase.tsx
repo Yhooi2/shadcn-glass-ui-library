@@ -15,25 +15,23 @@ import {
 
 import { useTheme, THEMES, THEME_CONFIG } from "@/lib/theme-context";
 import { AnimatedBackground } from "@/components/AnimatedBackground";
-import { ButtonsSection } from "@/components/showcase/ButtonsSection";
-import { AlertsSection } from "@/components/showcase/AlertsSection";
-import { SkeletonsSection } from "@/components/showcase/SkeletonsSection";
 
-// Glass Components
+// Blocks
+import {
+  ButtonsBlock,
+  FormElementsBlock,
+  ProgressBlock,
+  AvatarGalleryBlock,
+  BadgesBlock,
+  NotificationsBlock,
+} from "@/components/blocks";
+
+// Glass Components (only for modal, dropdown, tabs demo)
 import { GlassCard } from "./GlassCard";
 import { ButtonGlass } from "./ButtonGlass";
-import { InputGlass } from "./InputGlass";
-import { ProgressGlass } from "./ProgressGlass";
-import { BadgeGlass } from "./BadgeGlass";
-import { ToggleGlass } from "./ToggleGlass";
-import { CheckboxGlass } from "./CheckboxGlass";
 import { TabsGlass, type TabItem } from "./TabsGlass";
-import { TooltipGlass } from "./TooltipGlass";
 import { ModalGlass } from "./ModalGlass";
 import { DropdownGlass, type DropdownItem } from "./DropdownGlass";
-import { AvatarGlass } from "./AvatarGlass";
-import { NotificationGlass } from "./NotificationGlass";
-import { SliderGlass } from "./SliderGlass";
 
 import "@/glass-theme.css";
 export const ComponentShowcase = () => {
@@ -41,13 +39,7 @@ export const ComponentShowcase = () => {
 
   // State
   const [modalOpen, setModalOpen] = useState(false);
-  const [toggle1, setToggle1] = useState(true);
-  const [toggle2, setToggle2] = useState(false);
-  const [checkbox1, setCheckbox1] = useState(true);
-  const [checkbox2, setCheckbox2] = useState(false);
   const [activeTab, setActiveTab] = useState("tab1");
-  const [inputValue, setInputValue] = useState("");
-  const [sliderValue, setSliderValue] = useState(50);
 
   // Get next theme info
   const nextTheme = THEMES[(THEMES.indexOf(theme) + 1) % THEMES.length];
@@ -74,7 +66,7 @@ export const ComponentShowcase = () => {
 
       {/* Content */}
       <div className="relative z-10 p-4 md:p-8">
-        <div className="max-w-5xl mx-auto space-y-6">
+        <div className="max-w-5xl lg:max-w-6xl mx-auto space-y-4 md:space-y-6">
           {/* Header */}
           <div className="flex items-center justify-between">
             <div>
@@ -98,147 +90,29 @@ export const ComponentShowcase = () => {
           </div>
 
           {/* Buttons Section */}
-          <ButtonsSection />
+          <ButtonsBlock data-testid="section-buttons" />
 
           {/* Inputs & Forms Section */}
-          <GlassCard className="p-6" intensity="strong" hover={false} data-testid="section-inputs">
-            <h2
-              className="text-lg font-semibold mb-4"
-              style={{ color: "var(--text-primary)" }}
-            >
-              Inputs & Forms
-            </h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              <InputGlass
-                label="Email"
-                placeholder="Enter your email"
-                icon={Mail}
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-              />
-              <InputGlass
-                label="Password"
-                type="password"
-                placeholder="Enter password"
-                icon={Lock}
-                iconPosition="right"
-              />
-              <InputGlass
-                label="With Error"
-                placeholder="Invalid input"
-                error="This field is required"
-              />
-              <InputGlass
-                label="With Success"
-                placeholder="Valid input"
-                success="Looks good!"
-              />
-              <div>
-                <SliderGlass
-                  label="Slider"
-                  value={sliderValue}
-                  onChange={setSliderValue}
-                  showValue
-                />
-              </div>
-            </div>
-          </GlassCard>
-
-          {/* Toggles & Selection Section */}
-          <GlassCard className="p-6" intensity="strong" hover={false} data-testid="section-toggles">
-            <h2
-              className="text-lg font-semibold mb-4"
-              style={{ color: "var(--text-primary)" }}
-            >
-              Toggles & Selection
-            </h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <h3
-                  className="text-sm font-medium"
-                  style={{ color: "var(--text-secondary)" }}
-                >
-                  Toggles with Glow
-                </h3>
-                <div className="flex items-center gap-3">
-                  <ToggleGlass
-                    checked={toggle1}
-                    onChange={setToggle1}
-                    size="sm"
-                  />
-                  <span className="text-sm" style={{ color: "var(--text-secondary)" }}>
-                    Small
-                  </span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <ToggleGlass
-                    checked={toggle2}
-                    onChange={setToggle2}
-                    size="md"
-                  />
-                  <span className="text-sm" style={{ color: "var(--text-secondary)" }}>
-                    Medium
-                  </span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <ToggleGlass checked={true} onChange={() => {}} size="lg" />
-                  <span className="text-sm" style={{ color: "var(--text-secondary)" }}>
-                    Large
-                  </span>
-                </div>
-              </div>
-              <div className="space-y-4">
-                <h3
-                  className="text-sm font-medium"
-                  style={{ color: "var(--text-secondary)" }}
-                >
-                  Checkboxes
-                </h3>
-                <CheckboxGlass
-                  checked={checkbox1}
-                  onChange={setCheckbox1}
-                  label="Accept terms"
-                />
-                <CheckboxGlass
-                  checked={checkbox2}
-                  onChange={setCheckbox2}
-                  label="Subscribe to newsletter"
-                />
-              </div>
-            </div>
-          </GlassCard>
+          <FormElementsBlock data-testid="section-inputs" />
 
           {/* Progress Section */}
-          <GlassCard className="p-6" intensity="strong" hover={false} data-testid="section-progress">
-            <h2
-              className="text-lg font-semibold mb-4"
-              style={{ color: "var(--text-primary)" }}
-            >
-              Progress Bars
-            </h2>
-            <div className="space-y-4">
-              <ProgressGlass value={75} gradient="violet" showLabel />
-              <ProgressGlass value={60} gradient="blue" size="lg" />
-              <ProgressGlass value={45} gradient="emerald" size="md" />
-              <ProgressGlass value={30} gradient="amber" size="sm" />
-            </div>
-          </GlassCard>
+          <ProgressBlock data-testid="section-progress" />
 
           {/* Tabs & Navigation Section */}
-          <GlassCard className="p-6" intensity="strong" hover={false} data-testid="section-tabs">
+          <GlassCard className="p-4 md:p-6" intensity="strong" hover={false} data-testid="section-tabs">
             <h2
-              className="text-lg font-semibold mb-4"
+              className="text-base md:text-lg font-semibold mb-3 md:mb-4"
               style={{ color: "var(--text-primary)" }}
             >
               Tabs & Navigation
             </h2>
-            <div className="space-y-4">
+            <div className="space-y-3 md:space-y-4">
               <TabsGlass
                 tabs={tabs}
                 activeTab={activeTab}
                 onChange={setActiveTab}
               />
-              <div className="flex items-center gap-4">
+              <div className="flex flex-wrap items-center gap-3 md:gap-4">
                 <DropdownGlass
                   trigger={
                     <ButtonGlass
@@ -261,123 +135,21 @@ export const ComponentShowcase = () => {
             </div>
           </GlassCard>
 
-          {/* Badges & Status Section */}
-          <GlassCard className="p-6" intensity="strong" hover={false} data-testid="section-badges">
-            <h2
-              className="text-lg font-semibold mb-4"
-              style={{ color: "var(--text-primary)" }}
-            >
-              Badges & Status
-            </h2>
-            <div className="flex flex-wrap gap-3 mb-6">
-              <BadgeGlass>Default</BadgeGlass>
-              <BadgeGlass variant="success">Success</BadgeGlass>
-              <BadgeGlass variant="warning">Warning</BadgeGlass>
-              <BadgeGlass variant="danger">Danger</BadgeGlass>
-              <BadgeGlass variant="info">Info</BadgeGlass>
-              <BadgeGlass variant="violet">Violet</BadgeGlass>
-              <BadgeGlass variant="success" dot>
-                With Dot
-              </BadgeGlass>
-            </div>
-            <div className="flex items-center gap-6">
-              <TooltipGlass content="This is a tooltip" position="top">
-                <ButtonGlass variant="ghost" size="sm">
-                  Hover (top)
-                </ButtonGlass>
-              </TooltipGlass>
-              <TooltipGlass content="Bottom tooltip" position="bottom">
-                <ButtonGlass variant="ghost" size="sm">
-                  Hover (bottom)
-                </ButtonGlass>
-              </TooltipGlass>
-            </div>
-          </GlassCard>
+          {/* Badges & Tooltips Section */}
+          <BadgesBlock data-testid="section-badges" />
 
           {/* Avatars Section */}
-          <GlassCard className="p-6" intensity="strong" hover={false} data-testid="section-avatars">
-            <h2
-              className="text-lg font-semibold mb-4"
-              style={{ color: "var(--text-primary)" }}
-            >
-              Avatars
-            </h2>
-            <div className="flex items-center gap-6">
-              <div className="text-center">
-                <AvatarGlass name="John Doe" size="sm" status="online" />
-                <p
-                  className="text-xs mt-2"
-                  style={{ color: "var(--text-muted)" }}
-                >
-                  Small
-                </p>
-              </div>
-              <div className="text-center">
-                <AvatarGlass name="Jane Smith" size="md" status="online" />
-                <p
-                  className="text-xs mt-2"
-                  style={{ color: "var(--text-muted)" }}
-                >
-                  Medium
-                </p>
-              </div>
-              <div className="text-center">
-                <AvatarGlass name="Bob Johnson" size="lg" status="busy" />
-                <p
-                  className="text-xs mt-2"
-                  style={{ color: "var(--text-muted)" }}
-                >
-                  Large
-                </p>
-              </div>
-              <div className="text-center">
-                <AvatarGlass name="Alice Brown" size="xl" status="away" />
-                <p
-                  className="text-xs mt-2"
-                  style={{ color: "var(--text-muted)" }}
-                >
-                  X-Large
-                </p>
-              </div>
-            </div>
-          </GlassCard>
+          <AvatarGalleryBlock data-testid="section-avatars" />
 
-          {/* Alerts Section */}
-          <AlertsSection />
-
-          {/* Notifications Section */}
-          <GlassCard className="p-6" intensity="strong" hover={false} data-testid="section-notifications">
-            <h2
-              className="text-lg font-semibold mb-4"
-              style={{ color: "var(--text-primary)" }}
-            >
-              Notifications
-            </h2>
-            <div className="space-y-3">
-              <NotificationGlass
-                type="info"
-                title="New update available"
-                message="Version 2.0 is ready to install"
-                onClose={() => console.log("Closed")}
-              />
-              <NotificationGlass
-                type="success"
-                title="Payment successful"
-                message="Your payment has been processed"
-                onClose={() => console.log("Closed")}
-              />
-            </div>
-          </GlassCard>
-
-          {/* Skeletons Section */}
-          <SkeletonsSection />
+          {/* Notifications & Alerts Section */}
+          <NotificationsBlock data-testid="section-notifications" />
 
           {/* Footer */}
           <div
-            className="text-center py-8"
+            className="text-center py-6 md:py-8"
             style={{ color: "var(--footer-text)" }}
           >
-            <p className="text-sm">
+            <p className="text-xs md:text-sm">
               Glass UI Components · Built with React + Tailwind CSS
             </p>
           </div>

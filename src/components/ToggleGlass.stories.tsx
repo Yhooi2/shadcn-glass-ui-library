@@ -15,18 +15,33 @@ const meta = {
       control: "select",
       options: ["sm", "md", "lg"],
       description: "Toggle size",
+      table: {
+        type: { summary: "'sm' | 'md' | 'lg'" },
+        defaultValue: { summary: "md" },
+      },
     },
     checked: {
       control: "boolean",
       description: "Toggle state",
+      table: {
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
+      },
     },
     disabled: {
       control: "boolean",
       description: "Disabled state",
+      table: {
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
+      },
     },
     label: {
       control: "text",
       description: "Label text",
+      table: {
+        type: { summary: "string" },
+      },
     },
   },
   args: {

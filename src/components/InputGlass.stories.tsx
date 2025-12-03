@@ -14,18 +14,45 @@ const meta = {
     label: {
       control: "text",
       description: "Input label",
+      table: {
+        type: { summary: "string" },
+      },
     },
     error: {
       control: "text",
       description: "Error message",
+      table: {
+        type: { summary: "string" },
+      },
     },
     success: {
       control: "text",
       description: "Success message",
+      table: {
+        type: { summary: "string" },
+      },
     },
     disabled: {
       control: "boolean",
       description: "Disabled state",
+      table: {
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
+      },
+    },
+    placeholder: {
+      control: "text",
+      table: {
+        type: { summary: "string" },
+      },
+    },
+    type: {
+      control: "select",
+      options: ["text", "password", "email", "number", "tel", "url"],
+      table: {
+        type: { summary: "string" },
+        defaultValue: { summary: "text" },
+      },
     },
   },
   args: {

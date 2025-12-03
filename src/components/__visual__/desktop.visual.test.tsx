@@ -127,12 +127,12 @@ describe('DesktopShowcase Visual Tests', () => {
       await expect(section).toMatchScreenshot(`desktop-forms-${theme}`);
     });
 
-    test(`Alerts section - ${theme}`, async () => {
+    test(`Notifications section - ${theme}`, async () => {
       renderShowcase(theme);
       await waitForStability();
 
-      const section = page.getByTestId('section-alerts');
-      await expect(section).toMatchScreenshot(`desktop-alerts-${theme}`);
+      const section = page.getByTestId('section-notifications');
+      await expect(section).toMatchScreenshot(`desktop-notifications-${theme}`);
     });
 
     test(`Badges section - ${theme}`, async () => {

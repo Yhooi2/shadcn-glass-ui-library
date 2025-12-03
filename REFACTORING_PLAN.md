@@ -1071,8 +1071,8 @@ Level 6: Pages (3)
 - [x] SearchBoxGlass
 - [x] ThemeToggleGlass
 - [x] ExpandableHeaderGlass
-- [ ] Storybook stories для atomic (5)
-- [ ] Visual tests для atomic (15)
+- [x] Storybook stories для atomic (5)
+- [x] Visual tests для atomic (13 тестов × 3 темы = 39)
 
 **Этап 2.2: Composite компоненты (+8)** ✅ ЗАВЕРШЕНО
 - [x] UserInfoGlass
@@ -1083,7 +1083,8 @@ Level 6: Pages (3)
 - [x] RepositoryHeaderGlass
 - [x] RepositoryMetadataGlass
 - [x] ContributionMetricsGlass
-- [ ] Storybook + Visual tests для composite
+- [x] Storybook stories для composite (8 stories)
+- [x] Visual tests для composite (16 тестов × 3 темы = 48)
 
 **Этап 2.3: Section компоненты (+1)** ✅ ЗАВЕРШЕНО
 - [x] HeaderBrandingGlass
@@ -1095,30 +1096,53 @@ Level 6: Pages (3)
 - [x] BadgesBlock
 - [x] NotificationsBlock
 - [x] registry.ts
-- [ ] Storybook stories для blocks (5)
+- [x] Storybook stories для blocks (13 stories)
+- [x] Visual tests для blocks (10 тестов × 3 темы = 30)
 
-**Этап 2.5: Адаптивность существующих** ✅ ЗАВЕРШЕНО (P0-P1)
+**Этап 2.5: Адаптивность существующих** ✅ ЗАВЕРШЕНО (P0-P2)
 - [x] P0: HeaderNavGlass (responsive) - w-32 sm:w-40 md:w-48, hidden sm:inline для Search, hidden md:inline-flex для Sign in
 - [x] P0: ProfileHeaderGlass (responsive) - flex-col md:flex-row, text-lg md:text-xl, flex-wrap stats
 - [x] P1: TrustScoreCardGlass (responsive) - grid-cols-2 sm:grid-cols-3 md:grid-cols-4
 - [x] P1: RepositoryCardGlass (responsive) - p-3 md:p-3.5, flex-col sm:flex-row для кнопок
-- [ ] P2: CareerStatsGlass (lg:/xl: классы) - опционально
-- [ ] P2: DesktopShowcase (оптимизация) - опционально
+- [x] P2: CareerStatsGlass (lg:/xl: классы) - p-4 md:p-5 lg:p-6, text-base md:text-lg lg:text-xl
+- [x] P2: DesktopShowcase (оптимизация) - p-4 md:p-6 lg:p-8, space-y-6 md:space-y-8 lg:space-y-10
 
 **Этап 2.6: Visual Tests для Phase 2** ✅ ЗАВЕРШЕНО
 - [x] Создать src/components/__visual__/phase2-components.visual.test.tsx
-- [x] Atomic: IconButtonGlass, StatItemGlass, SearchBoxGlass, ThemeToggleGlass, ExpandableHeaderGlass (12 тестов)
-- [x] Composite: UserInfoGlass, UserStatsLineGlass, TrustScoreDisplayGlass, MetricsGridGlass, CareerStatsHeaderGlass, RepositoryHeaderGlass, RepositoryMetadataGlass, ContributionMetricsGlass (14 тестов)
-- [x] Blocks: FormElementsBlock, ProgressBlock, AvatarGalleryBlock, BadgesBlock, NotificationsBlock (10 тестов)
-- [ ] Запустить npm run test:visual:update для генерации baselines
-- [ ] Все visual тесты проходят
+- [x] Atomic: IconButtonGlass, StatItemGlass, SearchBoxGlass, ThemeToggleGlass, ExpandableHeaderGlass (13 тестов × 3 темы = 39)
+- [x] Composite: UserInfoGlass, UserStatsLineGlass, TrustScoreDisplayGlass, MetricsGridGlass, CareerStatsHeaderGlass, RepositoryHeaderGlass, RepositoryMetadataGlass, ContributionMetricsGlass (16 тестов × 3 темы = 48)
+- [x] Blocks: FormElementsBlock, ProgressBlock, AvatarGalleryBlock, BadgesBlock, NotificationsBlock (10 тестов × 3 темы = 30)
+- [x] Запустить npm run test:visual:update для генерации baselines
+- [x] Все visual тесты проходят - **601/601 passed** ✅
 
-**Этап 2.7: Финализация (Опционально)** ⏳ В ОЖИДАНИИ
-- [ ] P2 адаптивность CareerStatsGlass (md:/lg: padding, gap, text размеры)
-- [ ] P2 адаптивность DesktopShowcase (lg:/xl: padding, space-y, grid-cols-3)
-- [ ] ArgTypes для Demo Pages (3 файла: Desktop, Mobile, Component Showcase)
-- [ ] ArgTypes для Glass UI components (14 файлов: table.type, table.defaultValue)
-- [ ] use-wallpaper-tint.ts хук (canvas sampling, ThemeContext интеграция)
+**Этап 2.7: Финализация (Опционально)** ✅ **ЗАВЕРШЕНО**
+- [x] P2 адаптивность CareerStatsGlass (md:/lg: padding, gap, text размеры)
+- [x] P2 адаптивность DesktopShowcase (lg:/xl: padding, space-y, grid-cols-3)
+- [x] ArgTypes для Demo Pages (3 файла: Desktop, Mobile, Component Showcase)
+- [x] ArgTypes для Glass UI components (12 файлов: table.type, table.defaultValue)
+- [x] use-wallpaper-tint.ts хук (canvas sampling, 246 строк, полностью рабочий)
+- [x] Storybook demo для wallpaper tinting (5 stories с разными фонами)
+
+**Этап 2.9: ProjectsListGlass Enhancement** ✅ **ЗАВЕРШЕНО**
+- [x] **2.9.1** SortDropdownGlass (atomic component)
+  - [x] Компонент с glass стилизацией
+  - [x] Адаптивный (compact/full mode)
+  - [x] Использует DropdownGlass внутри
+- [x] **2.9.2** ProjectsListGlass API extension
+  - [x] Добавить ownership filter (your/contrib/all)
+  - [x] Добавить sorting (commits/stars/name/contribution)
+  - [x] Добавить controls в header
+  - [x] Адаптивный layout
+- [x] **2.9.3** DesktopShowcase integration
+  - [x] Заменить секцию Repository Cards на ProjectsListGlass
+  - [x] Добавить state management
+  - [x] Расширить demo data с полем ownership
+- [x] **2.9.4** MobileShowcase update (опционально) — N/A
+- [x] **2.9.5** Storybook stories (10 stories)
+  - [x] SortDropdownGlass (6 stories)
+  - [x] ProjectsListGlass (10 stories)
+- [x] **2.9.6** Visual tests (33 тестов × 3 темы = 99 скриншотов)
+- [x] **2.9.7** Run all tests and update baselines
 
 ---
 
@@ -1232,6 +1256,14 @@ src/
 
 **Фаза 2: Декомпозиция** ✅ **100% ЗАВЕРШЕНО (40 → 54 компонентов)**
 
+**Статистика:**
+- ✅ 14 новых компонентов (5 atomic + 8 composite + 1 section)
+- ✅ 5 блоков с полной функциональностью
+- ✅ 26 новых Storybook stories (5 atomic + 8 composite + 13 blocks)
+- ✅ 117 новых visual тестов (39 atomic + 48 composite + 30 blocks)
+- ✅ **601 visual tests passed** (484 старых + 117 новых)
+- ✅ P2 адаптивность реализована (CareerStatsGlass, DesktopShowcase)
+
 Этап 2.0: useResponsive hook ✅
 - [x] src/lib/hooks/use-responsive.ts (86 строк)
 
@@ -1280,6 +1312,206 @@ src/
 - [ ] CSS переменные: --wallpaper-tint-color, --wallpaper-tint-opacity
 - [ ] Storybook demo
 
+**Этап 2.8: API Alignment (shadcn/ui совместимость)** ⏳ **0% - В ОЖИДАНИИ**
+
+Цель: Привести API компонентов к совместимости с shadcn/ui + добавить расширенные варианты.
+
+#### Анализ текущего состояния
+
+| Компонент | shadcn/ui API | Наш текущий API | Проблема |
+|-----------|---------------|-----------------|----------|
+| **Badge** | `variant: default\|secondary\|destructive\|outline` | `variant: default\|success\|warning\|danger\|info\|violet` | Нет secondary, outline; danger≠destructive |
+| **Alert** | `variant: default\|destructive` | `type: info\|success\|warning\|error` | Проп `type` вместо `variant`; error≠destructive |
+
+#### Решение: Расширенный API с унификацией naming
+
+**Принцип:** shadcn варианты ВСЕГДА работают + добавляем семантические расширения.
+
+##### BadgeGlass — Финальный API
+
+```typescript
+// src/lib/variants/badge-glass-variants.ts
+export type BadgeVariant =
+  // shadcn-совместимые (ОБЯЗАТЕЛЬНО)
+  | 'default'       // нейтральный
+  | 'secondary'     // + ДОБАВИТЬ
+  | 'destructive'   // ПЕРЕИМЕНОВАТЬ danger → destructive
+  | 'outline'       // + ДОБАВИТЬ
+  // расширения Glass UI
+  | 'success'       // сохранить
+  | 'warning'       // сохранить
+  | 'info';         // сохранить
+  // УДАЛИТЬ: violet (слишком специфичен)
+```
+
+##### AlertGlass — Финальный API
+
+```typescript
+// src/lib/variants/alert-glass-variants.ts
+// ПЕРЕИМЕНОВАТЬ: type → variant
+export type AlertVariant =
+  // shadcn-совместимые (ОБЯЗАТЕЛЬНО)
+  | 'default'       // = текущий info (ПЕРЕИМЕНОВАТЬ)
+  | 'destructive'   // = текущий error (ПЕРЕИМЕНОВАТЬ)
+  // расширения Glass UI
+  | 'success'       // сохранить
+  | 'warning'       // сохранить
+  | 'info';         // alias для default (backward compat)
+```
+
+#### Файлы для изменения
+
+**1. CVA Variants (2 файла):**
+
+```
+src/lib/variants/badge-glass-variants.ts
+├─ BadgeVariant: добавить secondary, outline, destructive
+├─ Удалить: violet
+├─ Переименовать: danger → destructive
+└─ Добавить CVA классы для новых вариантов
+
+src/lib/variants/alert-glass-variants.ts
+├─ AlertType → AlertVariant (переименовать тип)
+├─ Добавить: default, destructive
+├─ Переименовать: error → destructive, info → default
+└─ Сохранить info как alias (backward compat)
+```
+
+**2. Компоненты (2 файла):**
+
+```
+src/components/glass/ui/badge-glass.tsx
+├─ Обновить variantStyles маппинг
+├─ Добавить стили для secondary, outline
+├─ Удалить violet из variantStyles
+└─ Обновить Props interface
+
+src/components/glass/ui/alert-glass.tsx
+├─ Переименовать prop: type → variant
+├─ Обновить typeStyles → variantStyles
+├─ Добавить default, destructive стили
+├─ Сохранить type prop как deprecated (console.warn)
+└─ Обновить Props interface
+```
+
+**3. CSS Variables (3 файла):**
+
+```
+src/styles/themes/glass.css
+├─ --badge-secondary-* (добавить)
+├─ --badge-outline-* (добавить)
+├─ --badge-destructive-* (добавить, = текущий danger)
+├─ --alert-default-* (добавить, = текущий info)
+└─ --alert-destructive-* (добавить, = текущий danger)
+
+src/styles/themes/light.css
+└─ (аналогичные изменения)
+
+src/styles/themes/aurora.css
+└─ (аналогичные изменения)
+```
+
+**4. Storybook Stories (2 файла):**
+
+```
+src/components/glass/ui/BadgeGlass.stories.tsx
+├─ Добавить stories: Secondary, Outline, Destructive
+├─ Удалить story: Violet
+└─ Обновить Default story
+
+src/components/glass/ui/AlertGlass.stories.tsx
+├─ Переименовать: type → variant в controls
+├─ Добавить stories: Default, Destructive
+└─ Обновить все существующие stories
+```
+
+**5. Visual Tests (1 файл):**
+
+```
+src/components/__visual__/components.visual.test.tsx
+├─ Обновить тесты для Badge: danger → destructive
+├─ Добавить тесты: secondary, outline
+├─ Обновить тесты для Alert: error → destructive
+└─ Добавить тесты: default variant
+```
+
+**6. Документация (1 файл):**
+
+```
+CLAUDE.md
+└─ Обновить секцию "Glass Components" с новыми вариантами
+```
+
+#### Миграция для пользователей
+
+```typescript
+// Badge: danger → destructive
+<BadgeGlass variant="danger" />      // ❌ deprecated
+<BadgeGlass variant="destructive" /> // ✅ new
+
+// Badge: violet → className
+<BadgeGlass variant="violet" />      // ❌ removed
+<BadgeGlass variant="default" className="bg-violet-500/20 text-violet-300" /> // ✅ new
+
+// Alert: type → variant
+<AlertGlass type="error" />          // ⚠️ deprecated (works with warning)
+<AlertGlass variant="destructive" /> // ✅ new
+
+// Alert: info → default
+<AlertGlass type="info" />           // ⚠️ deprecated (works with warning)
+<AlertGlass variant="default" />     // ✅ new (или variant="info" как alias)
+```
+
+#### Backward Compatibility Strategy
+
+1. **Badge `danger`** — удалить сразу (minor version bump)
+2. **Badge `violet`** — удалить сразу (minor version bump)
+3. **Alert `type` prop** — deprecated warning на 1 версию, удалить в следующей
+4. **Alert `error`/`info`** — сохранить как aliases навсегда
+
+#### Чеклист выполнения
+
+- [ ] **2.8.1** Обновить `badge-glass-variants.ts`
+  - [ ] Добавить secondary, outline, destructive
+  - [ ] Удалить violet
+  - [ ] Обновить CVA классы
+- [ ] **2.8.2** Обновить `alert-glass-variants.ts`
+  - [ ] Переименовать AlertType → AlertVariant
+  - [ ] Добавить default, destructive
+  - [ ] Добавить info/error как aliases
+- [ ] **2.8.3** Обновить `badge-glass.tsx`
+  - [ ] Обновить variantStyles
+  - [ ] Обновить Props interface
+- [ ] **2.8.4** Обновить `alert-glass.tsx`
+  - [ ] type → variant с backward compat
+  - [ ] Добавить deprecation warning
+  - [ ] Обновить variantStyles
+- [ ] **2.8.5** Добавить CSS переменные в 3 темах
+  - [ ] glass.css
+  - [ ] light.css
+  - [ ] aurora.css
+- [ ] **2.8.6** Обновить Storybook stories
+  - [ ] BadgeGlass.stories.tsx
+  - [ ] AlertGlass.stories.tsx
+- [ ] **2.8.7** Обновить Visual tests
+- [ ] **2.8.8** Обновить CLAUDE.md
+- [ ] **2.8.9** Запустить все тесты
+- [ ] **2.8.10** Обновить baselines если нужно
+
+#### Оценка трудозатрат
+
+| Задача | Файлов | Оценка |
+|--------|--------|--------|
+| CVA Variants | 2 | ~30 мин |
+| Компоненты | 2 | ~45 мин |
+| CSS Variables | 3 | ~30 мин |
+| Stories | 2 | ~30 мин |
+| Visual Tests | 1 | ~20 мин |
+| Документация | 1 | ~10 мин |
+| **Итого** | **11** | **~2.5-3 часа** |
+
+---
+
 **Фаза 3: Registry & Publish** ⏳ **0% - В ОЖИДАНИИ**
 - [ ] registry.json
 - [ ] npm publish
@@ -1293,16 +1525,33 @@ src/
 Фаза 0:   ████████████████████ 100% ✅ (Новые компоненты)
 Фаза 1:   ████████████████████ 100% ✅ (CSS Optimization)
 Фаза 2:   ████████████████████ 100% ✅ (Декомпозиция)
-Фаза 2.7: ░░░░░░░░░░░░░░░░░░░░   0% ⏳ (Финализация - опционально)
+Фаза 2.7: ████████████████████ 100% ✅ (Финализация)
+Фаза 2.8: ░░░░░░░░░░░░░░░░░░░░   0% ⏳ (API Alignment - shadcn совместимость)
+Фаза 2.9: ████████████████████ 100% ✅ (ProjectsListGlass Enhancement)
 Фаза 3:   ░░░░░░░░░░░░░░░░░░░░   0% ⏳ (Registry & Publish)
 
-Всего: ████████████████████░  80% (4 из 5 основных фаз завершено)
+Всего: ██████████████████░░  90% (5 из 6 фаз завершено)
 ```
 
-**Фаза 2.7 включает:**
-- P2 адаптивность: CareerStatsGlass, DesktopShowcase (lg:/xl: классы)
-- ArgTypes: Demo Pages + Glass UI components (улучшение Storybook DX)
-- use-wallpaper-tint.ts: хук для адаптации к фону (canvas sampling)
+**Фаза 2.7 завершена (100%):**
+- ✅ P2 адаптивность: CareerStatsGlass, DesktopShowcase (lg:/xl: классы)
+- ✅ ArgTypes: 3 Demo Pages + 12 Glass UI components (table.type, table.defaultValue)
+- ✅ use-wallpaper-tint.ts: хук для адаптации к фону (246 строк, canvas sampling)
+- ✅ Storybook demo: 5 stories с разными фонами (Forest, Ocean, Sunset, Mountain, NightCity)
+
+**Фаза 2.8 включает:**
+- API Alignment: приведение Badge/Alert к shadcn/ui совместимости
+- Унификация naming: danger→destructive, error→destructive, type→variant
+- Расширенные варианты: secondary, outline + сохранение success/warning/info
+- 11 файлов, ~2.5-3 часа работы
+
+**Фаза 2.9 завершена (100%):**
+- ✅ SortDropdownGlass: atomic компонент сортировки с адаптивным UI (230 строк)
+- ✅ ProjectsListGlass API: ownership filter (your/contrib/all) + sorting (commits/stars/name/contribution)
+- ✅ DesktopShowcase: интеграция полного UI "All Projects" как на скриншоте
+- ✅ Storybook stories: 16 stories (6 SortDropdown + 10 ProjectsList)
+- ✅ Visual tests: 33 тестов × 3 темы = 99 скриншотов
+- ✅ Все тесты проходят (visual + desktop)
 
 **Ключевые достижения Фазы 2:**
 - ✅ **14 новых компонентов** (5 atomic + 8 composite + 1 section)

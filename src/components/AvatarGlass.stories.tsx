@@ -17,16 +17,27 @@ const meta = {
     name: {
       control: "text",
       description: "The name to display initials from",
+      table: {
+        type: { summary: "string" },
+      },
     },
     size: {
       control: "select",
       options: ["sm", "md", "lg", "xl"],
       description: "The size of the avatar",
+      table: {
+        type: { summary: "'sm' | 'md' | 'lg' | 'xl'" },
+        defaultValue: { summary: "md" },
+      },
     },
     status: {
       control: "select",
       options: [undefined, "online", "offline", "busy", "away"],
       description: "The status indicator",
+      table: {
+        type: { summary: "'online' | 'offline' | 'busy' | 'away' | undefined" },
+        defaultValue: { summary: "undefined" },
+      },
     },
   },
 } satisfies Meta<typeof AvatarGlass>;

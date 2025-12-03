@@ -47,7 +47,7 @@ export const FlagAlertGlass = forwardRef<HTMLDivElement, FlagAlertGlassProps>(
       <div
         ref={ref}
         className={cn(
-          "p-3 rounded-xl border transition-all duration-300",
+          "p-2.5 md:p-3 rounded-xl border transition-all duration-300",
           className
         )}
         style={alertStyles}
@@ -57,7 +57,7 @@ export const FlagAlertGlass = forwardRef<HTMLDivElement, FlagAlertGlassProps>(
         {...props}
       >
         <div
-          className="flex items-center gap-2 font-medium text-sm"
+          className="flex items-center gap-1.5 md:gap-2 font-medium text-xs md:text-sm"
           style={{ color: config.text }}
         >
           <StatusIndicatorGlass type={config.statusType} />
@@ -65,7 +65,7 @@ export const FlagAlertGlass = forwardRef<HTMLDivElement, FlagAlertGlassProps>(
         </div>
         {description && (
           <p
-            className="text-xs mt-1 ml-5"
+            className="text-[10px] md:text-xs mt-0.5 md:mt-1 ml-4 md:ml-5"
             style={{ color: "var(--text-muted)" }}
           >
             {description}

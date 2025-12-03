@@ -51,7 +51,7 @@ export const CheckboxGlass = forwardRef<HTMLInputElement, CheckboxGlassProps>(
     return (
       <label
         className={cn(
-          'inline-flex items-center gap-2',
+          'inline-flex items-center gap-2 md:gap-2.5',
           disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
           className
         )}
@@ -67,19 +67,20 @@ export const CheckboxGlass = forwardRef<HTMLInputElement, CheckboxGlassProps>(
           className="sr-only"
           {...props}
         />
+        {/* Checkbox - larger on mobile for touch */}
         <div
           onClick={() => !disabled && onChange?.(!checked)}
-          className="relative w-5 h-5 rounded-md flex items-center justify-center transition-all duration-300"
+          className="relative w-6 h-6 md:w-5 md:h-5 rounded-md flex items-center justify-center transition-all duration-300"
           style={checkboxStyles}
           role="checkbox"
           aria-checked={checked}
         >
           {checked && (
-            <Check className="w-3 h-3" style={{ color: 'var(--text-inverse)' }} />
+            <Check className="w-3.5 h-3.5 md:w-3 md:h-3" style={{ color: 'var(--text-inverse)' }} />
           )}
         </div>
         {label && (
-          <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+          <span className="text-xs md:text-sm" style={{ color: 'var(--text-secondary)' }}>
             {label}
           </span>
         )}

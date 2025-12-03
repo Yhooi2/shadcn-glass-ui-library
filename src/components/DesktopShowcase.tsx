@@ -18,37 +18,33 @@ import {
 } from "lucide-react";
 import { useTheme, type ThemeName } from "@/lib/theme-context";
 import { AnimatedBackground } from "@/components/AnimatedBackground";
-import { ButtonsSection } from "@/components/showcase/ButtonsSection";
-import { AlertsSection } from "@/components/showcase/AlertsSection";
 
-// Import all glass components
+// Blocks
+import {
+  ButtonsBlock,
+  FormElementsBlock,
+  ProgressBlock,
+  AvatarGalleryBlock,
+  BadgesBlock,
+  NotificationsBlock,
+} from "@/components/blocks";
+
+// Import glass components (only for demos not covered by blocks)
 import { GlassCard } from "./GlassCard";
 import { ButtonGlass } from "./ButtonGlass";
-import { InputGlass } from "./InputGlass";
-import { BadgeGlass } from "./BadgeGlass";
-import { ProgressGlass } from "./ProgressGlass";
-import { ToggleGlass } from "./ToggleGlass";
-import { CheckboxGlass } from "./CheckboxGlass";
 import { TabsGlass } from "./TabsGlass";
 import { TooltipGlass } from "./TooltipGlass";
-import { SliderGlass } from "./SliderGlass";
-import { SkeletonGlass } from "./SkeletonGlass";
 import { ModalGlass } from "./ModalGlass";
 import { DropdownGlass } from "./DropdownGlass";
-import { AvatarGlass } from "./AvatarGlass";
-import { NotificationGlass } from "./NotificationGlass";
 
-// Import new components
-import { StatusIndicatorGlass } from "./StatusIndicatorGlass";
-import { SegmentedControlGlass } from "./SegmentedControlGlass";
-import { RainbowProgressGlass } from "./RainbowProgressGlass";
+// Import section components
 import { LanguageBarGlass, type LanguageData } from "./LanguageBarGlass";
 import { HeaderNavGlass } from "./HeaderNavGlass";
 import { TrustScoreCardGlass, type MetricData } from "./TrustScoreCardGlass";
 import { ProfileHeaderGlass } from "./ProfileHeaderGlass";
 import { CareerStatsGlass, type YearData } from "./CareerStatsGlass";
 import { FlagsSectionGlass, type FlagData } from "./FlagsSectionGlass";
-import { RepositoryCardGlass, type RepositoryFlagType } from "./RepositoryCardGlass";
+import { ProjectsListGlass, type Repository, type OwnershipFilter, type SortField, type SortOrder } from "./ProjectsListGlass";
 
 import "@/glass-theme.css";
 
@@ -76,9 +72,9 @@ const metrics: MetricData[] = [
 ];
 
 const years: YearData[] = [
-  { year: 2025, emoji: "🔥", label: "Peak", commits: "629", progress: 70 },
-  { year: 2024, emoji: "📈", label: "Growth", commits: "901", progress: 100 },
-  { year: 2023, emoji: "🌱", label: "Start", commits: "712", progress: 79 },
+  { year: 2025, emoji: "🔥", label: "Peak", commits: "629", progress: 70, prs: 43, repos: 5 },
+  { year: 2024, emoji: "📈", label: "Growth", commits: "901", progress: 100, prs: 0, repos: 3 },
+  { year: 2023, emoji: "🌱", label: "Start", commits: "712", progress: 79, prs: 4, repos: 5 },
 ];
 
 const flags: FlagData[] = [
@@ -94,17 +90,27 @@ const flags: FlagData[] = [
   },
 ];
 
-interface RepoData {
-  name: string;
-  flagType: RepositoryFlagType;
-  stars: number;
-  commits: number;
-  contribution: number;
-  languages: string;
-  issues: string[];
-}
-
-const repos: RepoData[] = [
+const repos: Repository[] = [
+  {
+    name: "Wildhaven-website",
+    flagType: "green",
+    stars: 1,
+    commits: 240,
+    contribution: 75,
+    languages: "JS 88% · Shell 11%",
+    issues: [],
+    ownership: "your",
+  },
+  {
+    name: "study",
+    flagType: "yellow",
+    stars: 2,
+    commits: 177,
+    contribution: 100,
+    languages: "Python 92% · C 5%",
+    issues: ["Uneven activity pattern"],
+    ownership: "your",
+  },
   {
     name: "bot-scripts",
     flagType: "red",
@@ -113,6 +119,7 @@ const repos: RepoData[] = [
     contribution: 100,
     languages: "Python 100%",
     issues: ["Empty commits (avg 3 lines/commit)", "Burst: 67 commits on Oct 15"],
+    ownership: "your",
   },
   {
     name: "portfolio",
@@ -122,6 +129,17 @@ const repos: RepoData[] = [
     contribution: 100,
     languages: "TypeScript 78% · CSS 22%",
     issues: [],
+    ownership: "your",
+  },
+  {
+    name: "git-course",
+    flagType: "green",
+    stars: 2,
+    commits: 150,
+    contribution: 100,
+    languages: "C++ 100%",
+    issues: [],
+    ownership: "contrib",
   },
 ];
 
@@ -136,13 +154,12 @@ export function DesktopShowcase() {
 
   // State
   const [flagsExpanded, setFlagsExpanded] = useState(true);
-  const [expandedRepo, setExpandedRepo] = useState<number | null>(0);
-  const [activeTab, setActiveTab] = useState("your");
   const [activeNavTab, setActiveNavTab] = useState("overview");
-  const [toggle1, setToggle1] = useState(true);
-  const [checkbox1, setCheckbox1] = useState(true);
-  const [sliderValue, setSliderValue] = useState(50);
-  const [inputValue, setInputValue] = useState("");
+
+  // ProjectsList state
+  const [ownershipFilter, setOwnershipFilter] = useState<OwnershipFilter>("your");
+  const [sortBy, setSortBy] = useState<SortField>("commits");
+  const [sortOrder, setSortOrder] = useState<SortOrder>("desc");
   const [modalOpen, setModalOpen] = useState(false);
 
   const nextTheme = themes[(themes.indexOf(theme) + 1) % themes.length];
@@ -161,18 +178,18 @@ export function DesktopShowcase() {
       <AnimatedBackground />
 
       {/* Content */}
-      <div className="relative z-10 p-4 md:p-6">
-        <div className="max-w-6xl mx-auto space-y-6">
+      <div className="relative z-10 p-4 md:p-6 lg:p-8">
+        <div className="max-w-6xl mx-auto space-y-6 md:space-y-8 lg:space-y-10">
           {/* Page Header */}
           <div className="flex items-center justify-between">
             <div>
               <h1
-                className="text-2xl md:text-3xl font-bold mb-1"
+                className="text-2xl md:text-3xl lg:text-4xl font-bold mb-1"
                 style={{ color: "var(--text-primary)" }}
               >
                 Desktop Demo
               </h1>
-              <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
+              <p className="text-sm md:text-base" style={{ color: "var(--text-secondary)" }}>
                 GitHub Analytics UI · {themeConfig[theme].label} theme
               </p>
             </div>
@@ -183,7 +200,7 @@ export function DesktopShowcase() {
 
           {/* Header Navigation */}
           <div data-testid="section-header-nav">
-            <h2 className="text-lg font-semibold mb-3" style={{ color: "var(--text-primary)" }}>
+            <h2 className="text-lg md:text-xl lg:text-2xl font-semibold mb-3 md:mb-4" style={{ color: "var(--text-primary)" }}>
               Header Navigation
             </h2>
             <HeaderNavGlass username="Yhooi2" onThemeToggle={cycleTheme} />
@@ -191,7 +208,7 @@ export function DesktopShowcase() {
 
           {/* Trust Score */}
           <div data-testid="section-trust-score">
-            <h2 className="text-lg font-semibold mb-3" style={{ color: "var(--text-primary)" }}>
+            <h2 className="text-lg md:text-xl lg:text-2xl font-semibold mb-3 md:mb-4" style={{ color: "var(--text-primary)" }}>
               Trust Score
             </h2>
             <TrustScoreCardGlass score={72} metrics={metrics} />
@@ -199,7 +216,7 @@ export function DesktopShowcase() {
 
           {/* Profile Header */}
           <div data-testid="section-profile-header">
-            <h2 className="text-lg font-semibold mb-3" style={{ color: "var(--text-primary)" }}>
+            <h2 className="text-lg md:text-xl lg:text-2xl font-semibold mb-3 md:mb-4" style={{ color: "var(--text-primary)" }}>
               Profile Header
             </h2>
             <ProfileHeaderGlass
@@ -212,9 +229,9 @@ export function DesktopShowcase() {
           </div>
 
           {/* Two Column: Flags + Career Stats */}
-          <div className="grid md:grid-cols-2 gap-6">
-            <div data-testid="section-flags">
-              <h2 className="text-lg font-semibold mb-3" style={{ color: "var(--text-primary)" }}>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            <div data-testid="section-flags" className="lg:col-span-1">
+              <h2 className="text-lg md:text-xl lg:text-2xl font-semibold mb-3 md:mb-4" style={{ color: "var(--text-primary)" }}>
                 Flags Section
               </h2>
               <FlagsSectionGlass
@@ -223,8 +240,8 @@ export function DesktopShowcase() {
                 onToggle={() => setFlagsExpanded(!flagsExpanded)}
               />
             </div>
-            <div data-testid="section-career-stats">
-              <h2 className="text-lg font-semibold mb-3" style={{ color: "var(--text-primary)" }}>
+            <div data-testid="section-career-stats" className="lg:col-span-2">
+              <h2 className="text-lg md:text-xl lg:text-2xl font-semibold mb-3 md:mb-4" style={{ color: "var(--text-primary)" }}>
                 Career Stats
               </h2>
               <CareerStatsGlass
@@ -236,48 +253,28 @@ export function DesktopShowcase() {
             </div>
           </div>
 
-          {/* Repository Cards */}
-          <div data-testid="section-repos">
-            <h2 className="text-lg font-semibold mb-3" style={{ color: "var(--text-primary)" }}>
-              Repository Cards
-            </h2>
-            <div className="flex items-center gap-3 mb-4">
-              <SegmentedControlGlass
-                options={[
-                  { value: "your", label: "Your" },
-                  { value: "contrib", label: "Contrib" },
-                ]}
-                value={activeTab}
-                onChange={setActiveTab}
-              />
-              <BadgeGlass variant="violet">{repos.length} repos</BadgeGlass>
-            </div>
-            <div className="space-y-3">
-              {repos.map((repo, idx) => (
-                <RepositoryCardGlass
-                  key={repo.name}
-                  name={repo.name}
-                  flagType={repo.flagType}
-                  stars={repo.stars}
-                  commits={repo.commits}
-                  contribution={repo.contribution}
-                  languages={repo.languages}
-                  issues={repo.issues}
-                  expanded={expandedRepo === idx}
-                  onToggle={() => setExpandedRepo(expandedRepo === idx ? null : idx)}
-                />
-              ))}
-            </div>
-          </div>
+          {/* Repository Cards - Using ProjectsListGlass */}
+          <ProjectsListGlass
+            data-testid="section-repos"
+            repositories={repos}
+            ownershipFilter={ownershipFilter}
+            onOwnershipChange={setOwnershipFilter}
+            sortBy={sortBy}
+            sortOrder={sortOrder}
+            onSortChange={(field, order) => {
+              setSortBy(field);
+              setSortOrder(order);
+            }}
+          />
 
           {/* Tabs, Dropdown & Modal */}
           <GlassCard
-            className="p-6"
+            className="p-6 md:p-8"
             intensity="strong"
             hover={false}
             data-testid="section-tabs-dropdown"
           >
-            <h2 className="text-lg font-semibold mb-4" style={{ color: "var(--text-primary)" }}>
+            <h2 className="text-lg md:text-xl lg:text-2xl font-semibold mb-4 md:mb-6" style={{ color: "var(--text-primary)" }}>
               Tabs, Dropdown & Modal
             </h2>
             <div className="space-y-4">
@@ -313,190 +310,31 @@ export function DesktopShowcase() {
           </GlassCard>
 
           {/* Buttons */}
-          <ButtonsSection />
+          <ButtonsBlock data-testid="section-buttons" />
 
           {/* Form Elements */}
-          <GlassCard
-            className="p-6"
-            intensity="strong"
-            hover={false}
-            data-testid="section-forms"
-          >
-            <h2 className="text-lg font-semibold mb-4" style={{ color: "var(--text-primary)" }}>
-              Form Elements
-            </h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              <InputGlass
-                label="Email"
-                placeholder="Enter your email"
-                icon={Mail}
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-              />
-              <InputGlass
-                label="Password"
-                type="password"
-                placeholder="Enter password"
-                icon={Lock}
-                iconPosition="right"
-              />
-              <div>
-                <label
-                  className="text-sm font-medium mb-2 block"
-                  style={{ color: "var(--text-secondary)" }}
-                >
-                  Slider: {sliderValue}
-                </label>
-                <SliderGlass value={sliderValue} onChange={setSliderValue} />
-              </div>
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <ToggleGlass checked={toggle1} onChange={setToggle1} />
-                  <span className="text-sm" style={{ color: "var(--text-secondary)" }}>
-                    Toggle
-                  </span>
-                </div>
-                <CheckboxGlass
-                  checked={checkbox1}
-                  onChange={setCheckbox1}
-                  label="Checkbox"
-                />
-              </div>
-            </div>
-          </GlassCard>
+          <FormElementsBlock data-testid="section-forms" />
 
-          {/* Alerts */}
-          <AlertsSection />
-
-          {/* Notifications */}
-          <GlassCard
-            className="p-6"
-            intensity="strong"
-            hover={false}
-            data-testid="section-notifications"
-          >
-            <h2 className="text-lg font-semibold mb-4" style={{ color: "var(--text-primary)" }}>
-              Notifications
-            </h2>
-            <div className="space-y-3">
-              <NotificationGlass
-                type="info"
-                title="New update available"
-                message="Version 2.0 is ready"
-                onClose={() => {}}
-              />
-              <NotificationGlass
-                type="success"
-                title="Payment successful"
-                message="Your payment has been processed"
-                onClose={() => {}}
-              />
-            </div>
-          </GlassCard>
+          {/* Notifications & Alerts */}
+          <NotificationsBlock data-testid="section-notifications" />
 
           {/* Badges & Status */}
-          <GlassCard
-            className="p-6"
-            intensity="strong"
-            hover={false}
-            data-testid="section-badges"
-          >
-            <h2 className="text-lg font-semibold mb-4" style={{ color: "var(--text-primary)" }}>
-              Badges & Status
-            </h2>
-            <div className="flex flex-wrap gap-3 mb-6">
-              <BadgeGlass>Default</BadgeGlass>
-              <BadgeGlass variant="success">Success</BadgeGlass>
-              <BadgeGlass variant="warning">Warning</BadgeGlass>
-              <BadgeGlass variant="danger">Danger</BadgeGlass>
-              <BadgeGlass variant="info">Info</BadgeGlass>
-              <BadgeGlass variant="violet">Violet</BadgeGlass>
-              <BadgeGlass variant="success" dot>
-                With Dot
-              </BadgeGlass>
-            </div>
-            <div className="flex items-center gap-6">
-              <div className="flex items-center gap-2">
-                <StatusIndicatorGlass type="green" size="large" />
-                <span className="text-sm" style={{ color: "var(--text-secondary)" }}>
-                  Good
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <StatusIndicatorGlass type="yellow" size="large" />
-                <span className="text-sm" style={{ color: "var(--text-secondary)" }}>
-                  Warning
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <StatusIndicatorGlass type="red" size="large" />
-                <span className="text-sm" style={{ color: "var(--text-secondary)" }}>
-                  Critical
-                </span>
-              </div>
-            </div>
-          </GlassCard>
+          <BadgesBlock data-testid="section-badges" />
 
           {/* Progress & Loading */}
-          <GlassCard
-            className="p-6"
-            intensity="strong"
-            hover={false}
-            data-testid="section-progress"
-          >
-            <h2 className="text-lg font-semibold mb-4" style={{ color: "var(--text-primary)" }}>
-              Progress & Loading
-            </h2>
-            <div className="space-y-4 mb-6">
-              <ProgressGlass value={25} size="sm" gradient="cyan" />
-              <ProgressGlass value={50} size="md" gradient="violet" />
-              <ProgressGlass
-                value={75}
-                size="lg"
-                gradient="amber"
-                showLabel
-              />
-              <RainbowProgressGlass value={72} size="lg" />
-            </div>
-            <h3 className="text-sm font-medium mb-3" style={{ color: "var(--text-secondary)" }}>
-              Skeleton Loading
-            </h3>
-            <div className="flex items-start gap-4">
-              <SkeletonGlass variant="avatar" />
-              <div className="flex-1 space-y-2">
-                <SkeletonGlass variant="title" width="60%" />
-                <SkeletonGlass variant="text" />
-                <SkeletonGlass variant="text" width="80%" />
-              </div>
-            </div>
-          </GlassCard>
+          <ProgressBlock data-testid="section-progress" />
 
           {/* Avatars with Status */}
-          <GlassCard
-            className="p-6"
-            intensity="strong"
-            hover={false}
-            data-testid="section-avatars"
-          >
-            <h2 className="text-lg font-semibold mb-4" style={{ color: "var(--text-primary)" }}>
-              Avatars with Status
-            </h2>
-            <div className="flex items-center gap-4">
-              <AvatarGlass name="John Doe" size="sm" />
-              <AvatarGlass name="Jane Smith" size="md" status="online" />
-              <AvatarGlass name="Bob Johnson" size="lg" status="busy" />
-              <AvatarGlass name="Alice Brown" size="xl" status="away" />
-            </div>
-          </GlassCard>
+          <AvatarGalleryBlock data-testid="section-avatars" />
 
           {/* Language Bar */}
           <GlassCard
-            className="p-6"
+            className="p-6 md:p-8"
             intensity="strong"
             hover={false}
             data-testid="section-language-bar"
           >
-            <h2 className="text-lg font-semibold mb-4" style={{ color: "var(--text-primary)" }}>
+            <h2 className="text-lg md:text-xl lg:text-2xl font-semibold mb-4 md:mb-6" style={{ color: "var(--text-primary)" }}>
               Language Bar
             </h2>
             <LanguageBarGlass languages={languages} />

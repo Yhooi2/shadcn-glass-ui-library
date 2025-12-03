@@ -20,7 +20,36 @@ export default defineConfig({
     },
   },
   test: {
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'json', 'html', 'lcov'],
+      include: ['src/**/*.{ts,tsx}'],
+      exclude: [
+        'src/**/*.stories.{ts,tsx}',
+        'src/**/*.test.{ts,tsx}',
+        'src/**/*.visual.test.{ts,tsx}',
+        'src/**/__visual__/**',
+        'src/main.tsx',
+        'src/vite-env.d.ts',
+      ],
+      all: true,
+      lines: 90,
+      functions: 90,
+      branches: 90,
+      statements: 90,
+    },
     projects: [
+      // Unit tests (with coverage support)
+      {
+        extends: true,
+        test: {
+          name: 'unit',
+          include: ['src/**/*.test.{ts,tsx}'],
+          exclude: ['src/**/*.visual.test.{ts,tsx}'],
+          environment: 'jsdom',
+          globals: true,
+        },
+      },
       // Storybook component tests
       {
         extends: true,

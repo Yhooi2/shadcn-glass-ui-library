@@ -16,10 +16,10 @@ export interface RainbowProgressGlassProps extends React.HTMLAttributes<HTMLDivE
 }
 
 const sizeClasses: Record<RainbowProgressSize, string> = {
-  sm: "h-2",
-  md: "h-3",
-  lg: "h-4",
-  xl: "h-5",
+  sm: "h-2.5 md:h-2",
+  md: "h-3.5 md:h-3",
+  lg: "h-[1.125rem] md:h-4",
+  xl: "h-6 md:h-5",
 };
 
 export const RainbowProgressGlass = forwardRef<HTMLDivElement, RainbowProgressGlassProps>(

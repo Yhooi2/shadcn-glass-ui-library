@@ -84,10 +84,10 @@ export const SliderGlass = forwardRef<HTMLInputElement, SliderGlassProps>(
     return (
       <div className={cn('w-full', className)}>
         {(label || showValue) && (
-          <div className="flex justify-between mb-2">
+          <div className="flex justify-between mb-1.5 md:mb-2">
             {label && (
               <label
-                className="text-sm font-medium"
+                className="text-xs md:text-sm font-medium"
                 style={{ color: 'var(--text-secondary)' }}
               >
                 {label}
@@ -95,7 +95,7 @@ export const SliderGlass = forwardRef<HTMLInputElement, SliderGlassProps>(
             )}
             {showValue && (
               <span
-                className="text-sm font-medium tabular-nums"
+                className="text-xs md:text-sm font-medium tabular-nums"
                 style={{ color: 'var(--text-secondary)' }}
               >
                 {value}
@@ -104,18 +104,18 @@ export const SliderGlass = forwardRef<HTMLInputElement, SliderGlassProps>(
           </div>
         )}
         <div
-          className="relative w-full h-6 flex items-center"
+          className="relative w-full h-8 md:h-6 flex items-center"
           onMouseEnter={hoverProps.onMouseEnter}
           onMouseLeave={hoverProps.onMouseLeave}
         >
           {/* Track */}
           <div
-            className="absolute w-full h-2 rounded-full"
+            className="absolute w-full h-2.5 md:h-2 rounded-full"
             style={trackStyles}
           />
           {/* Fill */}
           <div
-            className="absolute h-2 rounded-full transition-all duration-150"
+            className="absolute h-2.5 md:h-2 rounded-full transition-all duration-150"
             style={fillStyles}
           />
           {/* Hidden input for accessibility */}
@@ -132,12 +132,12 @@ export const SliderGlass = forwardRef<HTMLInputElement, SliderGlassProps>(
             max={max}
             step={step}
             disabled={disabled}
-            className="absolute w-full h-6 opacity-0 cursor-pointer disabled:cursor-not-allowed z-10"
+            className="absolute w-full h-8 md:h-6 opacity-0 cursor-pointer disabled:cursor-not-allowed z-10"
             {...props}
           />
-          {/* Thumb */}
+          {/* Thumb - larger on mobile for touch */}
           <div
-            className="absolute w-5 h-5 rounded-full transition-all duration-150 pointer-events-none"
+            className="absolute w-6 h-6 md:w-5 md:h-5 rounded-full transition-all duration-150 pointer-events-none"
             style={thumbStyles}
           />
         </div>

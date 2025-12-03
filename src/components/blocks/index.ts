@@ -5,6 +5,8 @@
  * Follows shadcn/ui blocks pattern for easy integration.
  */
 
+export { ButtonsBlock, type ButtonsBlockProps } from './buttons';
+
 export { FormElementsBlock, type FormElementsBlockProps } from './form-elements';
 export { ProgressBlock, type ProgressBlockProps } from './progress';
 export { AvatarGalleryBlock, type AvatarGalleryBlockProps } from './avatar-gallery';

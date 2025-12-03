@@ -133,7 +133,7 @@ export const ModalGlass = forwardRef<HTMLDivElement, ModalGlassProps>(
 
     return (
       <div
-        className="fixed inset-0 z-50 flex items-center justify-center p-4"
+        className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4"
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"
@@ -162,22 +162,22 @@ export const ModalGlass = forwardRef<HTMLDivElement, ModalGlassProps>(
           />
 
           {/* Header */}
-          <div className="relative flex items-center justify-between mb-5">
+          <div className="relative flex items-center justify-between mb-4 md:mb-5">
             <h3
               id="modal-title"
-              className="text-xl font-semibold"
+              className="text-lg md:text-xl font-semibold"
               style={{ color: 'var(--text-primary)' }}
             >
               {title}
             </h3>
             <button
               onClick={handleClose}
-              className="p-2 rounded-xl transition-all duration-300 hover:shadow-(--modal-close-btn-hover-glow)"
+              className="p-1.5 md:p-2 rounded-xl transition-all duration-300 hover:shadow-(--modal-close-btn-hover-glow)"
               style={closeButtonStyles}
               type="button"
               aria-label="Close modal"
             >
-              <X className="w-4 h-4" />
+              <X className="w-3.5 h-3.5 md:w-4 md:h-4" />
             </button>
           </div>
 

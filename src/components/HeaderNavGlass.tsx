@@ -83,32 +83,32 @@ export const HeaderNavGlass = forwardRef<HTMLElement, HeaderNavGlassProps>(
     return (
       <header
         ref={ref}
-        className={cn("border rounded-xl py-3 px-4 transition-all duration-300", className)}
+        className={cn("border rounded-xl py-2 px-3 md:py-3 md:px-4 transition-all duration-300", className)}
         style={headerStyles}
         {...props}
       >
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 md:gap-4">
             <button
-              className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-105"
+              className="w-8 h-8 md:w-10 md:h-10 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-105"
               style={iconBtnStyles}
               type="button"
               aria-label="GitHub"
             >
-              <Github className="w-5 h-5" style={{ color: "var(--icon-btn-text)" }} />
+              <Github className="w-4 h-4 md:w-5 md:h-5" style={{ color: "var(--icon-btn-text)" }} />
             </button>
-            <span className="font-semibold text-lg" style={{ color: "var(--text-primary)" }}>
+            <span className="font-semibold text-base md:text-lg" style={{ color: "var(--text-primary)" }}>
               User Analytics
             </span>
             <div
-              className="ml-4 flex rounded-xl overflow-hidden"
+              className="ml-2 md:ml-4 flex rounded-xl overflow-hidden"
               style={searchBoxStyles}
             >
               <input
                 type="text"
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
-                className="px-4 py-2 w-32 sm:w-40 md:w-48 text-sm outline-none"
+                className="px-3 py-1.5 md:px-4 md:py-2 w-28 sm:w-36 md:w-48 text-xs md:text-sm outline-none"
                 style={inputStyles}
                 onFocus={() => setIsSearchFocused(true)}
                 onBlur={() => setIsSearchFocused(false)}
@@ -118,24 +118,24 @@ export const HeaderNavGlass = forwardRef<HTMLElement, HeaderNavGlassProps>(
               />
               <button
                 onClick={handleSearch}
-                className="px-3 sm:px-5 py-2 text-sm font-medium flex items-center gap-2 hover:scale-[1.02] transition-transform"
+                className="px-2.5 sm:px-4 md:px-5 py-1.5 md:py-2 text-xs md:text-sm font-medium flex items-center gap-1.5 md:gap-2 hover:scale-[1.02] transition-transform"
                 style={searchBtnStyles}
                 type="button"
               >
-                <Search className="w-4 h-4" />
+                <Search className="w-3.5 h-3.5 md:w-4 md:h-4" />
                 <span className="hidden sm:inline">Search</span>
               </button>
             </div>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 md:gap-3">
             <button
               onClick={onThemeToggle ?? cycleTheme}
-              className="p-2.5 rounded-xl transition-all duration-300 hover:scale-105"
+              className="p-2 md:p-2.5 rounded-xl transition-all duration-300 hover:scale-105"
               style={themeBtnStyles}
               type="button"
               aria-label={`Switch to ${themeConfig[nextTheme].label} theme`}
             >
-              <NextIcon className="w-5 h-5" style={{ color: "var(--text-secondary)" }} />
+              <NextIcon className="w-4 h-4 md:w-5 md:h-5" style={{ color: "var(--text-secondary)" }} />
             </button>
             <ButtonGlass variant="secondary" icon={Github} className="hidden md:inline-flex">
               Sign in with GitHub

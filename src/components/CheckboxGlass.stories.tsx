@@ -14,14 +14,25 @@ const meta = {
     checked: {
       control: "boolean",
       description: "Checkbox state",
+      table: {
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
+      },
     },
     disabled: {
       control: "boolean",
       description: "Disabled state",
+      table: {
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
+      },
     },
     label: {
       control: "text",
       description: "Label text",
+      table: {
+        type: { summary: "string" },
+      },
     },
   },
   args: {

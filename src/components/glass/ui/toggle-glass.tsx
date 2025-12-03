@@ -95,13 +95,13 @@ export const ToggleGlass = forwardRef<HTMLButtonElement, ToggleGlassProps>(
       return (
         <label
           className={cn(
-            'inline-flex items-center gap-2',
+            'inline-flex items-center gap-2 md:gap-2.5',
             disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
             className
           )}
         >
           {toggle}
-          <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+          <span className="text-xs md:text-sm" style={{ color: 'var(--text-secondary)' }}>
             {label}
           </span>
         </label>

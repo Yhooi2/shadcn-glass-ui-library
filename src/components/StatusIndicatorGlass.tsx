@@ -16,8 +16,8 @@ export interface StatusIndicatorGlassProps extends React.HTMLAttributes<HTMLDivE
 }
 
 const sizeClasses: Record<StatusSize, string> = {
-  normal: "w-2.5 h-2.5",
-  large: "w-4 h-4",
+  normal: "w-2 h-2 md:w-2.5 md:h-2.5",
+  large: "w-3.5 h-3.5 md:w-4 md:h-4",
 };
 
 const statusSymbols: Record<StatusType, string> = {
@@ -56,7 +56,7 @@ export const StatusIndicatorGlass = forwardRef<HTMLDivElement, StatusIndicatorGl
         {...props}
       >
         {size === "large" && (
-          <span className="text-white text-[10px] font-bold">
+          <span className="text-white text-[8px] md:text-[10px] font-bold">
             {statusSymbols[type]}
           </span>
         )}

@@ -13,20 +13,36 @@ const meta = {
     value: {
       control: { type: "range", min: 0, max: 100 },
       description: "Progress value (0-100)",
+      table: {
+        type: { summary: "number" },
+        defaultValue: { summary: "0" },
+      },
     },
     gradient: {
       control: "select",
       options: ["violet", "blue", "cyan", "amber", "emerald", "rose"],
       description: "Gradient color",
+      table: {
+        type: { summary: "'violet' | 'blue' | 'cyan' | 'amber' | 'emerald' | 'rose'" },
+        defaultValue: { summary: "violet" },
+      },
     },
     showLabel: {
       control: "boolean",
       description: "Show percentage label",
+      table: {
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
+      },
     },
     size: {
       control: "select",
       options: ["sm", "md", "lg", "xl"],
       description: "Progress bar height",
+      table: {
+        type: { summary: "'sm' | 'md' | 'lg' | 'xl'" },
+        defaultValue: { summary: "md" },
+      },
     },
   },
   args: {
