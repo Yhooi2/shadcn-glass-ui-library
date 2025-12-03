@@ -1471,32 +1471,32 @@ CLAUDE.md
 
 #### Чеклист выполнения
 
-- [ ] **2.8.1** Обновить `badge-glass-variants.ts`
-  - [ ] Добавить secondary, outline, destructive
-  - [ ] Удалить violet
-  - [ ] Обновить CVA классы
-- [ ] **2.8.2** Обновить `alert-glass-variants.ts`
-  - [ ] Переименовать AlertType → AlertVariant
-  - [ ] Добавить default, destructive
-  - [ ] Добавить info/error как aliases
-- [ ] **2.8.3** Обновить `badge-glass.tsx`
-  - [ ] Обновить variantStyles
-  - [ ] Обновить Props interface
-- [ ] **2.8.4** Обновить `alert-glass.tsx`
-  - [ ] type → variant с backward compat
-  - [ ] Добавить deprecation warning
-  - [ ] Обновить variantStyles
-- [ ] **2.8.5** Добавить CSS переменные в 3 темах
-  - [ ] glass.css
-  - [ ] light.css
-  - [ ] aurora.css
-- [ ] **2.8.6** Обновить Storybook stories
-  - [ ] BadgeGlass.stories.tsx
-  - [ ] AlertGlass.stories.tsx
-- [ ] **2.8.7** Обновить Visual tests
-- [ ] **2.8.8** Обновить CLAUDE.md
-- [ ] **2.8.9** Запустить все тесты
-- [ ] **2.8.10** Обновить baselines если нужно
+- [x] **2.8.1** Обновить `badge-glass-variants.ts`
+  - [x] Добавить secondary, outline, destructive
+  - [x] Удалить violet
+  - [x] Обновить CVA классы
+- [x] **2.8.2** Обновить `alert-glass-variants.ts`
+  - [x] Переименовать AlertType → AlertVariant
+  - [x] Добавить default, destructive
+  - [x] Добавить info/error как aliases
+- [x] **2.8.3** Обновить `badge-glass.tsx`
+  - [x] Обновить variantStyles
+  - [x] Обновить Props interface
+- [x] **2.8.4** Обновить `alert-glass.tsx`
+  - [x] type → variant с backward compat
+  - [x] Добавить deprecation warning
+  - [x] Обновить variantStyles
+- [x] **2.8.5** Добавить CSS переменные в 3 темах
+  - [x] glass.css
+  - [x] light.css
+  - [x] aurora.css
+- [x] **2.8.6** Обновить Storybook stories
+  - [x] BadgeGlass.stories.tsx
+  - [x] AlertGlass.stories.tsx
+- [x] **2.8.7** Обновить Visual tests
+- [x] **2.8.8** Обновить CLAUDE.md
+- [x] **2.8.9** Запустить все тесты
+- [x] **2.8.10** Обновить baselines если нужно
 
 #### Оценка трудозатрат
 
@@ -1526,11 +1526,11 @@ CLAUDE.md
 Фаза 1:   ████████████████████ 100% ✅ (CSS Optimization)
 Фаза 2:   ████████████████████ 100% ✅ (Декомпозиция)
 Фаза 2.7: ████████████████████ 100% ✅ (Финализация)
-Фаза 2.8: ░░░░░░░░░░░░░░░░░░░░   0% ⏳ (API Alignment - shadcn совместимость)
+Фаза 2.8: ████████████████████ 100% ✅ (API Alignment - shadcn совместимость)
 Фаза 2.9: ████████████████████ 100% ✅ (ProjectsListGlass Enhancement)
 Фаза 3:   ░░░░░░░░░░░░░░░░░░░░   0% ⏳ (Registry & Publish)
 
-Всего: ██████████████████░░  90% (5 из 6 фаз завершено)
+Всего: ███████████████████░  95% (5.5 из 6 фаз завершено)
 ```
 
 **Фаза 2.7 завершена (100%):**
@@ -1539,11 +1539,17 @@ CLAUDE.md
 - ✅ use-wallpaper-tint.ts: хук для адаптации к фону (246 строк, canvas sampling)
 - ✅ Storybook demo: 5 stories с разными фонами (Forest, Ocean, Sunset, Mountain, NightCity)
 
-**Фаза 2.8 включает:**
-- API Alignment: приведение Badge/Alert к shadcn/ui совместимости
-- Унификация naming: danger→destructive, error→destructive, type→variant
-- Расширенные варианты: secondary, outline + сохранение success/warning/info
-- 11 файлов, ~2.5-3 часа работы
+**Фаза 2.8 завершена (100%):**
+- ✅ BadgeGlass API: добавлены shadcn/ui варианты (secondary, outline, destructive)
+- ✅ BadgeGlass breaking: удалены danger/violet, обновлены все зависимости
+- ✅ AlertGlass API: variant prop + backward compat для type (deprecation warning)
+- ✅ AlertGlass aliases: info→default, error→destructive (постоянные)
+- ✅ CSS variables: все варианты в 3 темах (glass/light/aurora)
+- ✅ Storybook: обновлены 2 stories файла с новыми вариантами
+- ✅ Visual tests: 567/567 тестов проходят, обновлены baselines
+- ✅ Документация: CLAUDE.md с примерами API совместимости
+- ✅ TypeScript: полная типобезопасность, zero errors
+- ✅ 11 файлов обновлено, полная shadcn/ui совместимость достигнута
 
 **Фаза 2.9 завершена (100%):**
 - ✅ SortDropdownGlass: atomic компонент сортировки с адаптивным UI (230 строк)
