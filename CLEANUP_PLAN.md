@@ -131,41 +131,37 @@ npm run test:visual:update
 
 ---
 
-## Фаза 3: NotificationGlass Strategy (Решение)
+## Фаза 3: NotificationGlass Migration ✅
 
-### ⚠️ Задача 3.1: Принять решение по NotificationGlass
+### ✅ Задача 3.1: NotificationGlass `type` → `variant` (COMPLETE)
 
-**Приоритет:** 🔶 Средний **Требуется:** Обсуждение с командой
+**Приоритет:** 🔥 Критичный (Breaking Change) **Статус:** ✅ Complete
 
-#### Варианты:
+**Решение принято:** Вариант B - Полная миграция с УДАЛЕНИЕМ `type` prop
 
-**Вариант A: Оставить `type` как есть**
+**Выполнено:**
+- ✅ Мигрировали NotificationGlass `type` → `variant` (8 файлов)
+- ✅ Удалили `type` prop из NotificationGlassProps interface
+- ✅ Обновили все тесты (32 unit tests)
+- ✅ TypeScript компиляция успешна
+- ✅ Visual tests: 582/582 passed
 
-- ✅ Не ломает существующий код (50+ использований)
-- ✅ `type` логичен для NotificationGlass (не Alert)
-- ❌ Несогласованность с AlertGlass API
+**Файлы изменены:**
+1. `src/components/glass/ui/notification-glass.tsx` - компонент (удалён `type` prop)
+2. `src/components/glass/ui/__tests__/notification-glass.test.tsx` - тесты
+3. `src/components/GlassFixesDemo.tsx`
+4. `src/components/blocks/notifications/page.tsx`
+5. `src/components/NotificationGlass.stories.tsx`
+6. `src/components/FlagAlertGlass.stories.tsx`
 
-**Вариант B: Мигрировать `type` → `variant`**
+**Mapping:**
+- `type="info"` → `variant="default"`
+- `type="error"` → `variant="destructive"`
+- `type="success"` → `variant="success"`
+- `type="warning"` → `variant="warning"`
 
-- ✅ Согласованность с AlertGlass
-- ✅ Соответствие shadcn/ui паттернам
-- ❌ 50+ использований требуют миграции
-- ❌ Potential breaking change
-
-**Вариант C: Добавить alias**
-
-- ✅ Поддержка обоих API
-- ✅ Плавная миграция
-- ❌ Дублирование API
-
-#### Рекомендация:
-
-**Вариант B: Мигрировать `type` → `variant`**
-
-- ✅ Согласованность с AlertGlass
-- ✅ Соответствие shadcn/ui паттернам
-- ❌ 50+ использований требуют миграции
-- ❌ Potential breaking change
+**Rationale:**
+User requirement: "мы же от деприкейта и легаси очищаем" - complete removal, not backward compatibility
 
 ---
 
@@ -412,19 +408,58 @@ echo "Verification complete."
 
 ## Notes & Lessons Learned
 
-_To be filled after each phase completion_
+### Phase 1: ✅ Complete (2025-12-05)
 
-### Phase 1:
+**What went well:**
+- ✅ Automated find/replace worked perfectly for ButtonGlass
+- ✅ All tests passed on first try (32/32)
+- ✅ Empty directory cleanup was straightforward
+- ✅ Breaking change well documented
 
--
+**Challenges:**
+- None - smooth execution
 
-### Phase 2:
+**Time:** ~15 minutes
 
-- ***
+### Phase 2: ✅ Complete (2025-12-05)
+
+**What went well:**
+- ✅ AlertGlass migration completed (57 uses across 14 files)
+- ✅ NotificationGlass migration completed (8 files) with FULL removal (not deprecation)
+- ✅ All visual tests passed (582/582)
+- ✅ All unit tests passed (64/64)
+- ✅ TypeScript compilation successful
+- ✅ Decision made: Complete removal of `type` prop (not backward compatibility)
+
+**Challenges:**
+- Initial approach tried backward compatibility, but corrected to full removal per user requirement
+- Had to update tests to use new `variant` API (32 NotificationGlass tests)
+
+**Key Decision:**
+User feedback: "Оставил type как deprecated с backward compatibility - мы же от деприкейта и легаси очищаем" - clarified that we need COMPLETE removal, not deprecation warnings.
+
+**Time:** ~20 minutes
+
+### Phase 3: ✅ Complete (2025-12-05)
+
+**Console.log cleanup:**
+- ✅ Removed from production code (career-stats-glass.tsx)
+- ✅ Verified compliance tests (intentional diagnostic logging - correct)
+- ✅ Stories/demos console usage is intentional (demonstration)
+
+**Documentation:**
+- ✅ Created comprehensive CHANGELOG.md (170 lines)
+- ✅ Migration guides for all breaking changes
+- ✅ Pushed 8 commits to remote
+
+**Time:** ~10 minutes
+
+---
 
 ## Questions & Decisions Log
 
-| Date       | Question                                                | Decision | Rationale            |
-| ---------- | ------------------------------------------------------- | -------- | -------------------- |
-| 2025-12-04 | NotificationGlass: keep `type` or migrate to `variant`? | Pending  | Need team discussion |
-|            |                                                         |          |                      |
+| Date       | Question                                                | Decision                     | Rationale                                                    |
+| ---------- | ------------------------------------------------------- | ---------------------------- | ------------------------------------------------------------ |
+| 2025-12-04 | NotificationGlass: keep `type` or migrate to `variant`? | ✅ Migrate (complete removal) | User requirement: "мы же от деприкейта и легаси очищаем" - full cleanup, not backward compat |
+| 2025-12-05 | Console.log in compliance tests?                        | ✅ Keep                       | Intentional test diagnostics for violation reporting         |
+| 2025-12-05 | Console.log in stories/demos?                          | ✅ Keep                       | Intentional demonstration of onClick handlers                |
