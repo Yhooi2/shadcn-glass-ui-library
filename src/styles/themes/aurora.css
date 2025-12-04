@@ -170,6 +170,10 @@
   --alert-warning-bg: rgba(245, 158, 11, 0.10);
   --alert-warning-border: rgba(245, 158, 11, 0.20);
   --alert-warning-text: #fbbf24;
+  /* Alias for FlagAlertGlass danger type */
+  --alert-danger-bg: var(--alert-destructive-bg);
+  --alert-danger-border: var(--alert-destructive-border);
+  --alert-danger-text: var(--alert-destructive-text);
 
   /* ========================================
      TOGGLE/CHECKBOX VARIABLES
