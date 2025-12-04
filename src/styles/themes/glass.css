@@ -65,7 +65,7 @@
      BLUR LEVELS (theme-specific overrides)
      ======================================== */
   --blur-sm: 8px;
-  --blur-md: 20px;
+  --blur-md: 16px;  /* Fixed: was 20px, must match primitives.css */
   --blur-lg: 24px;
 
   /* ========================================
@@ -310,12 +310,13 @@
   --card-hover-bg: rgba(255, 255, 255, 0.07);
   --card-hover-border: rgba(255, 255, 255, 0.15);
   --card-hover-glow: 0 0 20px rgba(168, 85, 247, 0.25);
-  --card-subtle-bg: rgba(255, 255, 255, 0.03);
-  --card-subtle-border: rgba(255, 255, 255, 0.08);
-  --card-medium-bg: rgba(255, 255, 255, 0.05);
-  --card-medium-border: rgba(255, 255, 255, 0.10);
-  --card-strong-bg: rgba(255, 255, 255, 0.08);
-  --card-strong-border: rgba(255, 255, 255, 0.15);
+  /* Card opacity per UI_DIZINE.md STANDARD_CARDS range (15-25%) */
+  --card-subtle-bg: rgba(255, 255, 255, 0.08);
+  --card-subtle-border: rgba(255, 255, 255, 0.10);
+  --card-medium-bg: rgba(255, 255, 255, 0.15);
+  --card-medium-border: rgba(255, 255, 255, 0.15);
+  --card-strong-bg: rgba(255, 255, 255, 0.20);
+  --card-strong-border: rgba(255, 255, 255, 0.20);
   --expanded-bg: rgba(255, 255, 255, 0.05);
   --expanded-border: rgba(167, 139, 250, 0.50);
 

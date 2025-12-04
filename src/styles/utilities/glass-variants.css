@@ -2,10 +2,10 @@
  * Glass Variants Utilities
  *
  * Four glassmorphism style variants inspired by @crenspire/glass-ui:
- * - glass: Standard glassmorphism (20px blur, 180% saturation)
- * - frosted: Matte finish with maximum blur (30px blur, 100% saturation)
- * - fluted: Ribbed effect with vertical stripes (16px blur, 120% saturation)
- * - crystal: Crystal-clear with minimal blur (8px blur, 200% saturation, brightness)
+ * - glass: Standard glassmorphism (var(--blur-md) = 16px, 180% saturation)
+ * - frosted: Matte finish with maximum blur (var(--blur-xl) = 32px, 100% saturation)
+ * - fluted: Ribbed effect with vertical stripes (var(--blur-md) = 16px, 120% saturation)
+ * - crystal: Crystal-clear with minimal blur (var(--blur-sm) = 8px, 200% saturation, brightness)
  *
  * Usage:
  * <div className="glass">...</div>
@@ -20,8 +20,8 @@
 
 .glass {
   background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(var(--blur-md)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur-md)) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
@@ -44,8 +44,8 @@
 
 .frosted {
   background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(30px) saturate(100%);
-  -webkit-backdrop-filter: blur(30px) saturate(100%);
+  backdrop-filter: blur(var(--blur-xl)) saturate(100%);
+  -webkit-backdrop-filter: blur(var(--blur-xl)) saturate(100%);
   border: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
 }
@@ -68,8 +68,8 @@
 
 .fluted {
   background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(16px) saturate(120%);
-  -webkit-backdrop-filter: blur(16px) saturate(120%);
+  backdrop-filter: blur(var(--blur-md)) saturate(120%);
+  -webkit-backdrop-filter: blur(var(--blur-md)) saturate(120%);
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
   mask-image: repeating-linear-gradient(
@@ -102,8 +102,8 @@
 
 .crystal {
   background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(8px) saturate(200%) brightness(1.1);
-  -webkit-backdrop-filter: blur(8px) saturate(200%) brightness(1.1);
+  backdrop-filter: blur(var(--blur-sm)) saturate(200%) brightness(1.1);
+  -webkit-backdrop-filter: blur(var(--blur-sm)) saturate(200%) brightness(1.1);
   border: 1px solid rgba(255, 255, 255, 0.25);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.3);
@@ -166,8 +166,8 @@
 .fluted-strong,
 .crystal-strong {
   opacity: 1;
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(var(--blur-lg)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(180%);
 }
 
 /* Color tints for glass variants */

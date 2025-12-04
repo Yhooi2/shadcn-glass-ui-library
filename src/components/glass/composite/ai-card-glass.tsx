@@ -37,8 +37,8 @@ export const AICardGlass = forwardRef<HTMLDivElement, AICardGlassProps>(
     const cardStyles: CSSProperties = {
       background: "var(--ai-card-bg)",
       border: "1px solid var(--ai-card-border)",
-      backdropFilter: "blur(12px)",
-      WebkitBackdropFilter: "blur(12px)",
+      backdropFilter: "blur(var(--blur-sm))",  // 8px - subtle blur for small card
+      WebkitBackdropFilter: "blur(var(--blur-sm))",
       transform: isHovered ? "translateY(-2px)" : "translateY(0)",
       boxShadow: isHovered ? "var(--ai-card-hover-glow)" : "none",
     };

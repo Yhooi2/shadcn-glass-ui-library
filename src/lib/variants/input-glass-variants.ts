@@ -12,9 +12,10 @@ export const inputVariants = cva(
   {
     variants: {
       inputSize: {
-        sm: 'px-2.5 py-1.5 md:px-3 md:py-2 text-[10px] md:text-xs rounded-lg',
-        md: 'px-3 py-2 md:px-4 md:py-2.5 text-xs md:text-sm rounded-xl',
-        lg: 'px-4 py-2.5 md:px-5 md:py-3 text-sm md:text-base rounded-xl',
+        // All sizes use text-base (16px) minimum to prevent iOS auto-zoom on focus
+        sm: 'px-3 py-2 text-base rounded-lg min-h-[40px]',
+        md: 'px-4 py-2.5 text-base rounded-xl min-h-[44px]',
+        lg: 'px-5 py-3 text-base md:text-lg rounded-xl min-h-[48px]',
       },
     },
     defaultVariants: {

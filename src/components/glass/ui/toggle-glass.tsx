@@ -64,32 +64,35 @@ export const ToggleGlass = forwardRef<HTMLButtonElement, ToggleGlassProps>(
       background: 'var(--toggle-knob)',
     };
 
+    // Touch area wrapper ensures 44px minimum touch target (Apple HIG)
     const toggle = (
-      <button
-        ref={ref}
-        type="button"
-        role="switch"
-        aria-checked={checked}
-        aria-label={label || 'Toggle switch'}
-        disabled={disabled}
-        className={cn(
-          toggleSizes({ size }),
-          disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
-          !label && className
-        )}
-        style={trackStyles}
-        onClick={() => !disabled && onChange?.(!checked)}
-        {...props}
-      >
-        <div
+      <span className="inline-flex items-center justify-center min-h-11">
+        <button
+          ref={ref}
+          type="button"
+          role="switch"
+          aria-checked={checked}
+          aria-label={label || 'Toggle switch'}
+          disabled={disabled}
           className={cn(
-            'absolute top-0.5 left-0.5 rounded-full shadow-md transition-all duration-300',
-            s.knob,
-            checked && s.translate
+            toggleSizes({ size }),
+            disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
+            !label && className
           )}
-          style={knobStyles}
-        />
-      </button>
+          style={trackStyles}
+          onClick={() => !disabled && onChange?.(!checked)}
+          {...props}
+        >
+          <div
+            className={cn(
+              'absolute top-0.5 left-0.5 rounded-full shadow-md transition-all duration-300',
+              s.knob,
+              checked && s.translate
+            )}
+            style={knobStyles}
+          />
+        </button>
+      </span>
     );
 
     if (label) {

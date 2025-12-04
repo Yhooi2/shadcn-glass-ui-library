@@ -19,16 +19,20 @@ import { useHover } from '@/lib/hooks/use-hover';
 import { cardIntensity } from '@/lib/variants/glass-card-variants';
 import '@/glass-theme.css';
 
-import type { GlowType, IntensityType } from '@/lib/variants/glass-card-variants';
+import type { GlowType, IntensityType, PaddingType } from '@/lib/variants/glass-card-variants';
 
 // ========================================
 // BLUR MAP
 // ========================================
+// Per UI_DIZINE.md design tokens:
+// - subtle: 8px (sm token) - light glass effect
+// - medium: 16px (md token) - standard cards (was 12px - breaking change)
+// - strong: 24px (lg token) - featured cards (was 16px - breaking change)
 
 const blurMap: Record<IntensityType, string> = {
-  subtle: '8px',
-  medium: '12px',
-  strong: '16px',
+  subtle: 'var(--blur-sm)',   // 8px
+  medium: 'var(--blur-md)',   // 16px (BREAKING: was 12px)
+  strong: 'var(--blur-lg)',   // 24px (BREAKING: was 16px)
 };
 
 // ========================================
@@ -40,6 +44,7 @@ export interface GlassCardProps
     VariantProps<typeof cardIntensity> {
   readonly children: ReactNode;
   readonly glow?: GlowType;
+  readonly padding?: PaddingType;
 }
 
 // ========================================
@@ -74,6 +79,7 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
       intensity = 'medium',
       glow = null,
       hover = true,
+      padding = 'default',
       ...props
     },
     ref
@@ -96,7 +102,7 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
     return (
       <div
         ref={ref}
-        className={cn(cardIntensity({ intensity, hover }), className)}
+        className={cn(cardIntensity({ intensity, hover, padding }), className)}
         style={cardStyles}
         onMouseEnter={hoverProps.onMouseEnter}
         onMouseLeave={hoverProps.onMouseLeave}

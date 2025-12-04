@@ -49,8 +49,8 @@ export const DropdownGlass = React.forwardRef<
     background: 'var(--dropdown-bg)',
     border: '1px solid var(--dropdown-border)',
     boxShadow: 'var(--dropdown-glow)',
-    backdropFilter: 'blur(20px)',
-    WebkitBackdropFilter: 'blur(20px)',
+    backdropFilter: 'blur(var(--blur-md))',  // 16px - standard dropdown blur
+    WebkitBackdropFilter: 'blur(var(--blur-md))',
   };
 
   return (

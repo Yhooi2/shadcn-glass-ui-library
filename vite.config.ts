@@ -32,11 +32,12 @@ export default defineConfig({
         'src/main.tsx',
         'src/vite-env.d.ts',
       ],
-      all: true,
-      lines: 90,
-      functions: 90,
-      branches: 90,
-      statements: 90,
+      thresholds: {
+        lines: 90,
+        functions: 90,
+        branches: 90,
+        statements: 90,
+      },
     },
     projects: [
       // Unit tests (with coverage support)
@@ -101,6 +102,40 @@ export default defineConfig({
               },
             },
           },
+        },
+      },
+      // Design System Compliance tests (jsdom)
+      {
+        extends: true,
+        test: {
+          name: 'compliance',
+          include: ['src/test/compliance/**/*.compliance.test.{ts,tsx}'],
+          exclude: ['src/test/compliance/**/*.browser.test.{ts,tsx}'],
+          environment: 'jsdom',
+          globals: true,
+          setupFiles: [
+            './src/test/setup.ts',
+            './src/test/compliance/__setup__/compliance-setup.ts',
+          ],
+        },
+      },
+      // Design System Compliance tests (browser)
+      {
+        extends: true,
+        test: {
+          name: 'compliance-browser',
+          include: ['src/test/compliance/**/*.browser.test.{ts,tsx}'],
+          browser: {
+            enabled: true,
+            headless: true,
+            provider: playwright({}),
+            instances: [
+              {
+                browser: 'chromium',
+              },
+            ],
+          },
+          setupFiles: ['./src/test/setup.ts'],
         },
       },
     ],

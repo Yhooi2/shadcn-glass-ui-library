@@ -19,7 +19,7 @@ const meta = {
 export default meta;
 
 const sampleMetrics: MetricData[] = [
-  { label: 'Security', value: 85, color: 'violet' },
+  { label: 'Security', value: 85, color: 'red' },
   { label: 'Quality', value: 92, color: 'blue' },
   { label: 'Activity', value: 78, color: 'emerald' },
   { label: 'Community', value: 88, color: 'amber' },

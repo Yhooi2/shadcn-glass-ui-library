@@ -77,7 +77,7 @@ export const AvatarGlass = forwardRef<HTMLDivElement, AvatarGlassProps>(
     return (
       <div
         ref={ref}
-        className={cn('relative inline-flex', className)}
+        className={cn('relative inline-flex rounded-full overflow-hidden', className)}
         onMouseEnter={hoverProps.onMouseEnter}
         onMouseLeave={hoverProps.onMouseLeave}
         {...props}

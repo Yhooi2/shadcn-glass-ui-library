@@ -7,7 +7,8 @@ import { cva } from 'class-variance-authority';
 
 export type ModalSize = 'sm' | 'md' | 'lg' | 'xl' | 'full';
 
-export const modalSizes = cva('relative w-full rounded-3xl p-4 md:p-6 transition-all duration-300', {
+// Modal body padding: 24px per UI_DIZINE.md
+export const modalSizes = cva('relative w-full rounded-3xl p-6 transition-all duration-300', {
   variants: {
     size: {
       sm: 'max-w-sm',

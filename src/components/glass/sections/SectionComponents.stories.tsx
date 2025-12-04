@@ -4,6 +4,7 @@ import { HeaderBrandingGlass } from './header-branding-glass';
 
 const meta = {
   title: 'Glass/Section Components',
+  component: HeaderBrandingGlass,
   parameters: {
     layout: 'centered',
   },

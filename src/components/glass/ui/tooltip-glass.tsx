@@ -34,14 +34,14 @@ export const TooltipGlass = forwardRef<HTMLDivElement, TooltipGlassProps>(
     const { isHovered, hoverProps } = useHover();
     const tooltipId = useId();
 
-    // Glass tooltip design with backdrop blur
+    // Solid tooltip design per UI_DIZINE.md - tooltips should NOT use glass effect
+    // for maximum readability (line 380: "Tooltips should use solid backgrounds")
     const tooltipStyles: CSSProperties = {
       background: 'var(--tooltip-bg)',
       color: 'var(--tooltip-text)',
       border: '1px solid rgba(255, 255, 255, 0.15)',
       boxShadow: 'var(--tooltip-shadow)',
-      backdropFilter: 'blur(12px)',
-      WebkitBackdropFilter: 'blur(12px)',
+      // No backdrop-filter - solid background required for tooltip readability
     };
 
     return (

@@ -74,7 +74,7 @@ const preview: Preview = {
       },
     },
     a11y: {
-      test: 'warn', // Changed from 'todo' - shows violations in addon panel
+      test: 'todo', // Shows violations in addon panel but doesn't fail tests
     },
     // Visual regression testing - disable animations for stable screenshots
     testingLibrary: {

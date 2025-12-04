@@ -67,26 +67,29 @@ export const CheckboxGlass = forwardRef<HTMLInputElement, CheckboxGlassProps>(
           className="sr-only"
           {...props}
         />
-        {/* Checkbox - larger on mobile for touch */}
-        <div
-          onClick={() => !disabled && onChange?.(!checked)}
-          className="relative w-6 h-6 md:w-5 md:h-5 rounded-md flex items-center justify-center transition-all duration-300"
-          style={checkboxStyles}
-          role="checkbox"
-          aria-checked={checked}
-          aria-label={label || 'Checkbox'}
-          tabIndex={disabled ? -1 : 0}
-          onKeyDown={(e) => {
-            if (!disabled && (e.key === 'Enter' || e.key === ' ')) {
-              e.preventDefault();
-              onChange?.(!checked);
-            }
-          }}
-        >
-          {checked && (
-            <Check className="w-3.5 h-3.5 md:w-3 md:h-3" style={{ color: 'var(--text-inverse)' }} />
-          )}
-        </div>
+        {/* Touch area wrapper - 44px minimum for Apple HIG compliance */}
+        <span className="inline-flex items-center justify-center min-w-11 min-h-11">
+          {/* Visual checkbox - smaller but within 44px touch area */}
+          <div
+            onClick={() => !disabled && onChange?.(!checked)}
+            className="relative w-6 h-6 md:w-5 md:h-5 rounded-md flex items-center justify-center transition-all duration-300"
+            style={checkboxStyles}
+            role="checkbox"
+            aria-checked={checked}
+            aria-label={label || 'Checkbox'}
+            tabIndex={disabled ? -1 : 0}
+            onKeyDown={(e) => {
+              if (!disabled && (e.key === 'Enter' || e.key === ' ')) {
+                e.preventDefault();
+                onChange?.(!checked);
+              }
+            }}
+          >
+            {checked && (
+              <Check className="w-3.5 h-3.5 md:w-3 md:h-3" style={{ color: 'var(--text-inverse)' }} />
+            )}
+          </div>
+        </span>
         {label && (
           <span className="text-xs md:text-sm" style={{ color: 'var(--text-secondary)' }}>
             {label}
