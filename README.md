@@ -9,7 +9,7 @@
 
 ## ✨ Highlights
 
-- 🎨 **57 Components** - Core UI (17) + Atomic (6) + Composites (13) + Sections (7) + Blocks (6) + Demo Pages (8)
+- 🎨 **57 Components** - Core UI (17) + Atomic (9) + Composites (13) + Sections (7) + Blocks (6) + Demo Pages (2)
 - 🌈 **3 Themes** - Glass (dark glassmorphism), Light (clean minimal), Aurora (gradient glow)
 - 🔮 **4 Glass Variants** - glass, frosted, fluted, crystal effects
 - ♿ **WCAG 2.1 AA** - Full accessibility compliance with automated testing
@@ -144,27 +144,53 @@ Essential building blocks for any application:
 
 [View all Core UI components →](src/components/glass/ui/)
 
-### Level 2: Atomic (6 components)
+### Level 2: Atomic (9 components)
 
-Small, specialized components:
+Small, specialized components for specific use cases:
 
-- StatusIndicatorGlass, SegmentedControlGlass, RainbowProgressGlass, LanguageBarGlass, StatItemGlass, SearchBoxGlass, ThemeToggleGlass, ExpandableHeaderGlass, SortDropdownGlass
+- **StatusIndicatorGlass** - Status dots with glow effect
+- **SegmentedControlGlass** - Segmented button group
+- **RainbowProgressGlass** - Rainbow gradient progress bar
+- **LanguageBarGlass** - Language proficiency bar with legend
+- **StatItemGlass** - Individual stat display
+- **SearchBoxGlass** - Search input with icon
+- **ThemeToggleGlass** - Theme switcher button
+- **ExpandableHeaderGlass** - Collapsible header section
+- **SortDropdownGlass** - Sorting dropdown menu
 
 [View all Atomic components →](src/components/glass/atomic/)
 
 ### Level 3: Composite (13 components)
 
-Pre-built complex components:
+Pre-built complex components combining multiple elements:
 
-- MetricCardGlass, YearCardGlass, AICardGlass, RepositoryCardGlass, TrustScoreDisplayGlass, ProfileAvatarGlass, FlagAlertGlass, UserStatsLineGlass, and more
+- **MetricCardGlass** - Metric display card with progress indicator
+- **YearCardGlass** - Year card for career timeline
+- **AICardGlass** - AI summary card with feature list
+- **RepositoryCardGlass** - Repository card with expandable details
+- **TrustScoreDisplayGlass** - Trust score with visual indicator
+- **ProfileAvatarGlass** - Large avatar with glow animation
+- **FlagAlertGlass** - Warning/danger flag alert with icon
+- **UserStatsLineGlass** - User statistics horizontal display
+- **ProjectCardGlass** - Project card with status and metadata
+- **TeamMemberCardGlass** - Team member profile card
+- **NotificationCardGlass** - Notification card with actions
+- **TimelineItemGlass** - Timeline entry with connector
+- **PricingCardGlass** - Pricing tier card with features
 
 [View all Composite components →](src/components/glass/composite/)
 
 ### Level 4: Sections (7 components)
 
-Full-page sections ready to use:
+Full-page sections ready to use in your application:
 
-- HeaderNavGlass, ProfileHeaderGlass, CareerStatsGlass, FlagsSectionGlass, TrustScoreCardGlass, ProjectsListGlass, HeaderBrandingGlass
+- **HeaderNavGlass** - Navigation header with search and theme toggle
+- **ProfileHeaderGlass** - User profile header with avatar, stats, and languages
+- **CareerStatsGlass** - Career statistics with expandable year cards
+- **FlagsSectionGlass** - Expandable flags/warnings section
+- **TrustScoreCardGlass** - Trust score display with detailed metrics
+- **ProjectsListGlass** - Projects list with filtering and sorting
+- **HeaderBrandingGlass** - Branded header with logo and navigation
 
 [View all Section components →](src/components/glass/sections/)
 
