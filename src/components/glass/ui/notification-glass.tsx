@@ -39,7 +39,13 @@ export interface NotificationGlassProps
     VariantProps<typeof notificationVariants> {
   readonly title: string;
   readonly message: string;
+  /**
+   * @deprecated Use `variant` prop instead. Will be removed in v4.0.
+   * Maps to: info → default, error → destructive, success/warning unchanged
+   */
   readonly type?: NotificationType;
+  /** Notification variant (shadcn/ui compatible). Takes precedence over deprecated `type` prop. */
+  readonly variant?: 'default' | 'destructive' | 'success' | 'warning';
   readonly onClose: () => void;
 }
 
@@ -59,10 +65,23 @@ const getTypeVars = (notifType: NotificationType): { color: string; glow: string
 };
 
 export const NotificationGlass = forwardRef<HTMLDivElement, NotificationGlassProps>(
-  ({ type = 'info', title, message, onClose, className, ...props }, ref) => {
+  ({ type, variant, title, message, onClose, className, ...props }, ref) => {
+    // Map variant to type for backward compatibility
+    // variant takes precedence over type
+    const variantToType: Record<string, NotificationType> = {
+      default: 'info',
+      destructive: 'error',
+      success: 'success',
+      warning: 'warning',
+    };
+
+    const effectiveType: NotificationType = variant
+      ? variantToType[variant] || 'info'
+      : (type || 'info');
+
     const { isHovered, hoverProps } = useHover();
-    const Icon = NOTIFICATION_ICONS[type];
-    const config = getTypeVars(type);
+    const Icon = NOTIFICATION_ICONS[effectiveType];
+    const config = getTypeVars(effectiveType);
 
     const containerStyles: CSSProperties = {
       background: 'var(--notification-bg)',
@@ -79,7 +98,7 @@ export const NotificationGlass = forwardRef<HTMLDivElement, NotificationGlassPro
     return (
       <div
         ref={ref}
-        className={cn(notificationVariants({ type }), className)}
+        className={cn(notificationVariants({ type: effectiveType }), className)}
         style={containerStyles}
         role="alert"
         aria-live="polite"
