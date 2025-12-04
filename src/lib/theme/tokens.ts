@@ -12,7 +12,7 @@
 export const blur = {
   xs: '4px',
   sm: '8px',
-  md: '20px',
+  md: '16px',  // per UI_DIZINE.md (was 20px)
   lg: '24px',
   xl: '32px',
 } as const;
@@ -63,6 +63,8 @@ export const spacing = {
   12: '48px',
   14: '56px',
   16: '64px',
+  20: '80px',  // per UI_DIZINE.md
+  24: '96px',  // per UI_DIZINE.md
 } as const;
 
 // ========================================
@@ -92,6 +94,7 @@ export const fontSize = {
   '2xl': '1.5rem', // 24px
   '3xl': '1.875rem', // 30px
   '4xl': '2.25rem',  // 36px
+  '5xl': '3rem',     // 48px - per UI_DIZINE.md
 } as const;
 
 // ========================================
