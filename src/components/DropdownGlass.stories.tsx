@@ -101,7 +101,7 @@ const manyItems: DropdownItem[] = [
 export const Default: Story = {
   args: {
     trigger: (
-      <ButtonGlass variant="ghost" className="flex items-center gap-2">
+      <ButtonGlass variant="secondary" className="flex items-center gap-2">
         Menu
         <ChevronDown className="w-4 h-4" />
       </ButtonGlass>
@@ -110,7 +110,7 @@ export const Default: Story = {
     align: "left",
   },
   async play({ canvasElement }) {
-    // Visual snapshot test - Closed dropdown trigger
+    // Visual snapshot test - Closed dropdown trigger with glass effect
     await expect(canvasElement).toBeInTheDocument();
   },
 };
@@ -154,7 +154,7 @@ export const PrimaryTrigger: Story = {
 export const OpenedDefault: Story = {
   args: {
     trigger: (
-      <ButtonGlass variant="ghost" className="flex items-center gap-2">
+      <ButtonGlass variant="secondary" className="flex items-center gap-2">
         Menu
         <ChevronDown className="w-4 h-4" />
       </ButtonGlass>
@@ -637,6 +637,59 @@ export const AnimationTest: Story = {
     // Visual snapshot test - Animation: dropdownFadeIn 0.2s ease-out
     // from: opacity 0, translateY(-8px) scale(0.96)
     // to: opacity 1, translateY(0) scale(1)
+    await expect(body.getByRole("menu")).toBeInTheDocument();
+  },
+};
+
+// ========================================
+// SECONDARY BUTTON VARIANT - Glass effect on trigger
+// ========================================
+
+export const SecondaryTrigger: Story = {
+  args: {
+    trigger: (
+      <ButtonGlass variant="secondary" className="flex items-center gap-2">
+        Glass Menu
+        <ChevronDown className="w-4 h-4" />
+      </ButtonGlass>
+    ),
+    items: defaultItems,
+    align: "left",
+  },
+  async play({ canvasElement }) {
+    // Visual snapshot test - Secondary (glass) trigger button
+    await expect(canvasElement).toBeInTheDocument();
+  },
+};
+
+export const SecondaryTriggerOpened: Story = {
+  args: {
+    trigger: (
+      <ButtonGlass variant="secondary" className="flex items-center gap-2">
+        Glass Menu
+        <ChevronDown className="w-4 h-4" />
+      </ButtonGlass>
+    ),
+    items: defaultItems,
+    align: "left",
+  },
+  parameters: {
+    a11y: {
+      config: {
+        rules: [{ id: 'aria-hidden-focus', enabled: false }],
+      },
+      tags: ["autodocs"],
+    },
+  },
+  async play({ canvasElement }) {
+    const canvas = within(canvasElement);
+    const body = within(document.body);
+    const trigger = canvas.getByText("Glass Menu");
+
+    await userEvent.click(trigger);
+    await new Promise((resolve) => setTimeout(resolve, 300));
+
+    // Visual snapshot test - Glass button with opened dropdown
     await expect(body.getByRole("menu")).toBeInTheDocument();
   },
 };

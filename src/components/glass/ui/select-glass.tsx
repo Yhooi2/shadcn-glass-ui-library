@@ -69,6 +69,7 @@ import type { LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useFocus } from '@/lib/hooks/use-focus';
 import { selectGlassVariants, type SelectGlassSize } from '@/lib/variants/select-glass-variants';
+import { getDropdownContentStyles, getDropdownItemClasses } from '@/lib/variants/dropdown-content-styles';
 import { PopoverGlass } from './popover-glass';
 import '@/glass-theme.css';
 
@@ -291,20 +292,14 @@ export const SelectGlass = React.forwardRef<HTMLDivElement, SelectGlassProps>(
       };
     };
 
-    // Content (dropdown) styles
-    const contentStyles: React.CSSProperties = {
-      background: 'var(--select-content-bg)',
-      border: '1px solid var(--select-content-border)',
-      boxShadow: 'var(--dropdown-glow)',
-      backdropFilter: 'blur(var(--blur-md))',
-      WebkitBackdropFilter: 'blur(var(--blur-md))',
-    };
+    // Content (dropdown) styles - use unified dropdown content styles
+    const contentStyles: React.CSSProperties = getDropdownContentStyles();
 
     return (
       <div ref={ref} className={cn('w-full', className)}>
         {/* Label */}
         {label && (
-          <label className="block text-sm font-medium mb-2 text-white/90">
+          <label className="block text-sm font-medium mb-2 text-(--text-primary)">
             {label}
           </label>
         )}
@@ -327,14 +322,14 @@ export const SelectGlass = React.forwardRef<HTMLDivElement, SelectGlassProps>(
             >
               <span className="flex-1 text-left truncate">
                 {selectedOption ? (
-                  <span className="flex items-center gap-2">
+                  <span className="flex items-center gap-2 text-(--text-primary)">
                     {selectedOption.icon && (
                       <selectedOption.icon className="w-4 h-4 shrink-0" />
                     )}
                     {selectedOption.label}
                   </span>
                 ) : (
-                  <span className="text-white/50">{placeholder}</span>
+                  <span className="text-(--text-muted)">{placeholder}</span>
                 )}
               </span>
               <div className="flex items-center gap-1 shrink-0">
@@ -365,18 +360,18 @@ export const SelectGlass = React.forwardRef<HTMLDivElement, SelectGlassProps>(
           showArrow={false}
         >
           <div
-            className="w-full min-w-[200px] max-h-[300px] rounded-xl p-1"
+            className="w-full min-w-[200px] max-h-[300px] rounded-2xl p-1.5 overflow-hidden"
             style={contentStyles}
           >
             {/* Search Input */}
             {searchable && (
-              <div className="p-2 border-b border-white/10 mb-1">
+              <div className="p-2 border-b border-(--dropdown-divider) mb-1">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-(--text-muted)" />
                   <input
                     ref={searchInputRef}
                     type="text"
-                    className="w-full pl-10 pr-3 py-2 rounded-lg text-sm bg-white/5 border border-white/10 focus:border-purple-400 focus:outline-none text-white placeholder:text-white/40"
+                    className="w-full pl-10 pr-3 py-2 rounded-lg text-sm bg-(--glass-bg) border border-(--glass-border) focus:border-(--input-focus-border) focus:outline-none text-(--text-primary) placeholder:text-(--text-muted)"
                     placeholder="Search..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
@@ -394,7 +389,7 @@ export const SelectGlass = React.forwardRef<HTMLDivElement, SelectGlassProps>(
               role="listbox"
             >
               {filteredOptions.length === 0 ? (
-                <div className="px-3 py-6 text-center text-sm text-white/50">
+                <div className="px-3 py-6 text-center text-sm text-(--text-muted)">
                   No options found
                 </div>
               ) : (
@@ -404,12 +399,12 @@ export const SelectGlass = React.forwardRef<HTMLDivElement, SelectGlassProps>(
                     type="button"
                     data-index={index}
                     className={cn(
-                      'w-full px-3 py-2.5 text-sm text-left flex items-center gap-2 rounded-lg transition-colors duration-150',
-                      'disabled:opacity-50 disabled:cursor-not-allowed',
-                      option.value === value &&
-                        'bg-[var(--select-item-selected-bg)] text-[var(--select-item-selected-text)]',
-                      highlightedIndex === index && 'bg-[var(--select-item-hover-bg)]',
-                      option.value !== value && 'text-white/80 hover:text-white'
+                      getDropdownItemClasses({
+                        selected: option.value === value,
+                        highlighted: highlightedIndex === index,
+                      }),
+                      'rounded-lg',
+                      'disabled:opacity-50 disabled:cursor-not-allowed'
                     )}
                     onClick={() => handleSelectOption(option)}
                     disabled={option.disabled}

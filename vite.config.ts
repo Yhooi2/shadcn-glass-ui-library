@@ -86,7 +86,11 @@ export default defineConfig({
           browser: {
             enabled: true,
             headless: true,
-            provider: playwright({}),
+            provider: playwright({
+              launch: {
+                args: ['--force-prefers-reduced-motion'],
+              },
+            }),
             instances: [
               {
                 browser: 'chromium',

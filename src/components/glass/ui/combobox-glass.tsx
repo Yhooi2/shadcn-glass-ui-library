@@ -180,7 +180,7 @@ function ComboBoxGlassInner<T = string>(
       <PopoverTrigger asChild>
         <ButtonGlass
           ref={ref}
-          variant="ghost"
+          variant="secondary"
           role="combobox"
           aria-expanded={open}
           aria-haspopup="listbox"
@@ -206,23 +206,34 @@ function ComboBoxGlassInner<T = string>(
         side={side}
         align={align}
         className={cn(
-          'w-[--radix-popover-trigger-width] p-0',
+          'w-[--radix-popover-trigger-width] p-0 rounded-2xl overflow-hidden border-0',
           getGlassClass(),
           popoverClassName
         )}
         style={getDropdownContentStyles()}
       >
-        <Command shouldFilter={false}>
+        <Command
+          shouldFilter={false}
+          className={cn(
+            'bg-transparent',
+            // Hide default border, use subtle divider instead
+            '[&_[data-slot=command-input-wrapper]]:border-b-0',
+            // Fix search icon - use glass theme color with better visibility
+            '[&_[data-slot=command-input-wrapper]_svg]:text-[var(--text-muted)]',
+            '[&_[data-slot=command-input-wrapper]_svg]:opacity-80'
+          )}
+        >
           {searchable && (
             <CommandInput
               placeholder={searchPlaceholder}
               value={search}
               onValueChange={setSearch}
+              className="text-[var(--text-primary)] placeholder:text-[var(--text-muted)] h-10 font-medium"
             />
           )}
-          <CommandList>
-            <CommandEmpty>{emptyText}</CommandEmpty>
-            <CommandGroup>
+          <CommandList className="p-1.5">
+            <CommandEmpty className="text-[var(--text-muted)] py-4">{emptyText}</CommandEmpty>
+            <CommandGroup className="text-[var(--text-primary)] p-0">
               {filteredOptions.map((option) => {
                 const OptionIcon = option.icon;
                 const isSelected = value === option.value;
@@ -234,19 +245,22 @@ function ComboBoxGlassInner<T = string>(
                     disabled={option.disabled}
                     onSelect={() => handleSelect(option.value)}
                     className={cn(
-                      getDropdownItemClasses({ selected: isSelected }),
-                      'cursor-pointer',
+                      'w-full px-3 py-2.5 text-sm flex items-center gap-2 rounded-none',
+                      'cursor-pointer transition-colors duration-150',
+                      'text-[var(--dropdown-item-text)]',
+                      'data-[selected=true]:bg-[var(--dropdown-item-hover)]',
+                      isSelected && 'bg-[var(--select-item-selected-bg)] text-[var(--select-item-selected-text)]',
                       option.disabled && 'cursor-not-allowed opacity-50'
                     )}
                   >
                     <CheckIcon
                       className={cn(
                         ICON_SIZES.md,
-                        'mr-2',
-                        isSelected ? 'opacity-100' : 'opacity-0'
+                        'shrink-0',
+                        isSelected ? 'opacity-100 text-[var(--text-accent)]' : 'opacity-0'
                       )}
                     />
-                    {OptionIcon && <OptionIcon className={cn(ICON_SIZES.md, 'mr-2 shrink-0')} />}
+                    {OptionIcon && <OptionIcon className={cn(ICON_SIZES.md, 'shrink-0 text-[var(--dropdown-icon)]')} />}
                     <span className="truncate">{option.label}</span>
                   </CommandItem>
                 );

@@ -1,7 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, within } from "storybook/test";
-import { User, Mail, Phone, MapPin, Globe, Calendar } from "lucide-react";
+import { expect } from "storybook/test";
+import { User, Mail, Phone, MapPin, Globe } from "lucide-react";
 import { SelectGlass, type SelectOption } from "./select-glass";
+import { ThemeProvider } from "@/lib/theme-context";
+import "@/glass-theme.css";
 
 const meta = {
   title: "Components/SelectGlass",
@@ -9,8 +11,9 @@ const meta = {
   parameters: {
     layout: "centered",
     snapshot: { disable: false },
-    tags: ["autodocs"],
+    backgrounds: { disable: true },
   },
+  tags: ["autodocs"],
   argTypes: {
     size: {
       control: "select",
@@ -23,11 +26,19 @@ const meta = {
     },
   },
   decorators: [
-    (Story) => (
-      <div className="min-h-[400px] w-[320px] flex items-start justify-center pt-4">
-        <Story />
-      </div>
-    ),
+    (Story, context) => {
+      const theme = context.globals.theme || "glass";
+      return (
+        <ThemeProvider initialTheme={theme}>
+          <div
+            className="min-h-[400px] w-[320px] flex items-start justify-center pt-4 p-8"
+            style={{ background: "var(--bg-gradient)" }}
+          >
+            <Story />
+          </div>
+        </ThemeProvider>
+      );
+    },
   ],
 } satisfies Meta<typeof SelectGlass>;
 
@@ -185,11 +196,19 @@ export const Sizes: Story = {
     </div>
   ),
   decorators: [
-    (Story) => (
-      <div className="min-h-[500px] w-[320px] pt-4">
-        <Story />
-      </div>
-    ),
+    (Story, context) => {
+      const theme = context.globals.theme || "glass";
+      return (
+        <ThemeProvider initialTheme={theme}>
+          <div
+            className="min-h-[500px] w-[320px] pt-4 p-8"
+            style={{ background: "var(--bg-gradient)" }}
+          >
+            <Story />
+          </div>
+        </ThemeProvider>
+      );
+    },
   ],
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -209,7 +228,7 @@ export const Controlled: Story = {
           label="Controlled Select"
           placeholder="Choose an option"
         />
-        <p className="text-sm text-white/50">
+        <p className="text-sm text-(--text-muted)">
           Selected: {value || "none"}
         </p>
       </div>

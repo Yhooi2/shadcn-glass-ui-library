@@ -181,7 +181,7 @@ export const InputGlass = forwardRef<HTMLInputElement, InputGlassProps>(
           {Icon && iconPosition === 'left' && (
             <Icon
               className={cn(
-                'absolute left-2.5 md:left-3 top-1/2 -translate-y-1/2 transition-colors duration-300',
+                'absolute left-2.5 md:left-3 top-1/2 -translate-y-1/2 transition-colors duration-300 z-10',
                 ICON_SIZES.md
               )}
               style={{
@@ -205,7 +205,7 @@ export const InputGlass = forwardRef<HTMLInputElement, InputGlassProps>(
           {Icon && iconPosition === 'right' && (
             <Icon
               className={cn(
-                'absolute right-2.5 md:right-3 top-1/2 -translate-y-1/2 transition-colors duration-300',
+                'absolute right-2.5 md:right-3 top-1/2 -translate-y-1/2 transition-colors duration-300 z-10',
                 ICON_SIZES.md
               )}
               style={{

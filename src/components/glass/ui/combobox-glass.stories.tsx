@@ -1,13 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { ComboBoxGlass } from './combobox-glass';
-import { User, Mail, MapPin, Building, Search } from 'lucide-react';
+import { User, MapPin, Building } from 'lucide-react';
+import { ThemeProvider } from '@/lib/theme-context';
+import '@/glass-theme.css';
 
 const meta = {
-  title: 'Glass UI/Forms/ComboBoxGlass',
+  title: 'Glass UI/ComboBoxGlass',
   component: ComboBoxGlass,
   parameters: {
     layout: 'centered',
+    backgrounds: { disable: true },
   },
   tags: ['autodocs'],
   argTypes: {
@@ -46,6 +49,21 @@ const meta = {
       options: ['glass', 'frosted', 'fluted', 'crystal'],
     },
   },
+  decorators: [
+    (Story, context) => {
+      const theme = context.globals.theme || 'glass';
+      return (
+        <ThemeProvider initialTheme={theme}>
+          <div
+            className="min-h-[400px] w-[320px] flex items-start justify-center pt-4 p-8"
+            style={{ background: 'var(--bg-gradient)' }}
+          >
+            <Story />
+          </div>
+        </ThemeProvider>
+      );
+    },
+  ],
 } satisfies Meta<typeof ComboBoxGlass>;
 
 export default meta;

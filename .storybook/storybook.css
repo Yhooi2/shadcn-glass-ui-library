@@ -79,14 +79,143 @@
   background: var(--story-orb-2, rgba(59, 130, 246, 0.2));
 }
 
-/* Docs page - neutral background */
+/* Docs page - dark background with light text */
 .sbdocs-wrapper {
   background: #1a1a2e !important;
+  color: #e2e8f0 !important;
 }
 
-/* Docs content area */
+/* Docs content area - light text */
 .sbdocs-content {
   background: transparent !important;
+  color: #e2e8f0 !important;
+}
+
+/* Headings in Docs - brighter white */
+.sbdocs .sbdocs-h1,
+.sbdocs .sbdocs-h2,
+.sbdocs .sbdocs-h3,
+.sbdocs .sbdocs-h4,
+.sbdocs .sbdocs-h5,
+.sbdocs .sbdocs-h6 {
+  color: #ffffff !important;
+}
+
+/* Paragraphs and general text in Docs - light text */
+.sbdocs .sbdocs-p,
+.sbdocs .sbdocs-li {
+  color: #e2e8f0 !important;
+}
+
+/* MDX content - all text elements */
+.sbdocs-wrapper p,
+.sbdocs-wrapper li,
+.sbdocs-wrapper h1,
+.sbdocs-wrapper h2,
+.sbdocs-wrapper h3,
+.sbdocs-wrapper h4,
+.sbdocs-wrapper h5,
+.sbdocs-wrapper h6,
+.sbdocs-wrapper span,
+.sbdocs-wrapper a {
+  color: #e2e8f0 !important;
+}
+
+/* MDX headings - brighter */
+.sbdocs-wrapper h1,
+.sbdocs-wrapper h2,
+.sbdocs-wrapper h3 {
+  color: #ffffff !important;
+}
+
+/* MDX links */
+.sbdocs-wrapper a {
+  color: #a5b4fc !important;
+}
+
+.sbdocs-wrapper a:hover {
+  color: #c4b5fd !important;
+}
+
+/* MDX code blocks */
+.sbdocs-wrapper code {
+  background: #334155 !important;
+  color: #a5b4fc !important;
+}
+
+.sbdocs-wrapper pre {
+  background: #0f172a !important;
+  border: 1px solid #334155 !important;
+}
+
+.sbdocs-wrapper pre code {
+  background: transparent !important;
+  color: #e2e8f0 !important;
+}
+
+/* MDX lists */
+.sbdocs-wrapper ul,
+.sbdocs-wrapper ol {
+  color: #e2e8f0 !important;
+}
+
+/* MDX strong/bold */
+.sbdocs-wrapper strong {
+  color: #ffffff !important;
+}
+
+/* ArgTypes table - dark theme */
+.docblock-argstable {
+  background: #1e293b !important;
+}
+
+.docblock-argstable thead tr {
+  background: #0f172a !important;
+}
+
+.docblock-argstable thead th {
+  color: #e2e8f0 !important;
+  border-color: #334155 !important;
+}
+
+.docblock-argstable tbody tr {
+  background: #1e293b !important;
+  border-color: #334155 !important;
+}
+
+.docblock-argstable tbody td {
+  color: #e2e8f0 !important;
+  border-color: #334155 !important;
+  background: #1e293b !important;
+}
+
+/* ArgTypes table text elements */
+.docblock-argstable td span,
+.docblock-argstable td p,
+.docblock-argstable td div {
+  color: #e2e8f0 !important;
+}
+
+/* Code/type badges in table */
+.docblock-argstable code {
+  background: #334155 !important;
+  color: #a5b4fc !important;
+}
+
+/* Controls in table - keep them readable */
+.docblock-argstable input,
+.docblock-argstable select,
+.docblock-argstable textarea {
+  background: #0f172a !important;
+  color: #e2e8f0 !important;
+  border-color: #475569 !important;
+}
+
+/* Control labels and values */
+.docblock-argstable button {
+  background: #334155 !important;
+  color: #e2e8f0 !important;
+  border-color: #475569 !important;
 }
 
 /* Story preview container in Docs */
@@ -94,6 +223,12 @@
   background: transparent !important;
   padding: 1rem !important;
   min-height: auto !important;
+}
+
+/* Docs story iframe - ensure it inherits the theme */
+#storybook-preview-iframe,
+iframe[id^="storybook-preview"] {
+  background: transparent !important;
 }
 
 /* Canvas background - neutral */
