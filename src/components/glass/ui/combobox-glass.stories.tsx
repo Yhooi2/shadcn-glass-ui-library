@@ -54,7 +54,7 @@ const meta = {
     (Story, context) => {
       const theme = context.globals.theme || 'glass';
       return (
-        <ThemeProvider initialTheme={theme}>
+        <ThemeProvider defaultTheme={theme}>
           <div
             className="min-h-[400px] w-[320px] flex items-start justify-center pt-4 p-8"
             style={{ background: 'var(--bg-gradient)' }}

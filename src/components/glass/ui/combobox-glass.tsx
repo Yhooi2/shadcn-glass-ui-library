@@ -293,4 +293,4 @@ export const ComboBoxGlass = forwardRef(ComboBoxGlassInner) as <T = string>(
 ) => ReturnType<typeof ComboBoxGlassInner>;
 
 // Add display name for debugging
-(ComboBoxGlass as typeof ComboBoxGlassInner).displayName = 'ComboBoxGlass';
+ComboBoxGlassInner.displayName = 'ComboBoxGlass';

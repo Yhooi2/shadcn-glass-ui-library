@@ -4,11 +4,11 @@
 
 import { useState } from "react";
 import { User, Settings, LogOut, ChevronDown } from "lucide-react";
-import { NotificationGlass } from "./NotificationGlass";
-import { AvatarGlass } from "./AvatarGlass";
-import { DropdownGlass, type DropdownItem } from "./DropdownGlass";
-import { ModalGlass } from "./ModalGlass";
-import { ButtonGlass } from "./ButtonGlass";
+import { NotificationGlass } from "@/components/glass/ui/notification-glass";
+import { AvatarGlass } from "@/components/glass/ui/avatar-glass";
+import { DropdownGlass, type DropdownItem } from "@/components/glass/ui/dropdown-glass";
+import { ModalGlass } from "@/components/glass/ui/modal-glass";
+import { ButtonGlass } from "@/components/glass/ui/button-glass";
 import "@/glass-theme.css";
 
 export const GlassFixesDemo = () => {

@@ -309,6 +309,12 @@ export const WithLongContent: Story = {
 // ========================================
 
 export const AllSizes: Story = {
+  args: {
+    isOpen: true,
+    onClose: fn(),
+    title: "Modal Title",
+    children: "Modal content",
+  },
   render: () => (
     <div className="min-h-screen grid grid-cols-2 gap-4 p-8">
       <div className="relative h-[300px] bg-slate-900/50 rounded-xl overflow-hidden">
@@ -338,11 +344,6 @@ export const AllSizes: Story = {
       </div>
     </div>
   ),
-  args: {
-    isOpen: true,
-    title: "",
-    children: null,
-  },
   async play({ canvasElement }) {
     // Visual snapshot test - All sizes for comparison
     await expect(canvasElement).toBeInTheDocument();
@@ -480,12 +481,13 @@ const InteractiveModalExample = () => {
 };
 
 export const Interactive: Story = {
-  render: () => <InteractiveModalExample />,
   args: {
-    isOpen: false,
-    title: "",
-    children: null,
+    isOpen: true,
+    onClose: fn(),
+    title: "Modal Title",
+    children: "Modal content",
   },
+  render: () => <InteractiveModalExample />,
   async play({ canvasElement }) {
     // Interactive test - Opens modal on button click
     const canvas = within(canvasElement);
@@ -503,12 +505,13 @@ export const Interactive: Story = {
 };
 
 export const InteractiveOpened: Story = {
-  render: () => <InteractiveModalExample />,
   args: {
-    isOpen: false,
-    title: "",
-    children: null,
+    isOpen: true,
+    onClose: fn(),
+    title: "Modal Title",
+    children: "Modal content",
   },
+  render: () => <InteractiveModalExample />,
   async play({ canvasElement }) {
     const canvas = within(canvasElement);
     const button = canvas.getByRole("button", { name: "Open Modal" });
@@ -553,6 +556,7 @@ export const AnimationTest: Story = {
 
 export const CompoundBasic: Story = {
   name: "Compound API - Basic",
+  args: {},
   render: () => {
     const [open, setOpen] = useState(false);
 
@@ -584,6 +588,7 @@ export const CompoundBasic: Story = {
 
 export const CompoundWithFooter: Story = {
   name: "Compound API - With Footer",
+  args: {},
   render: () => {
     const [open, setOpen] = useState(false);
 
@@ -633,6 +638,7 @@ export const CompoundWithFooter: Story = {
 
 export const CompoundCustomStyling: Story = {
   name: "Compound API - Custom Styling",
+  args: {},
   render: () => {
     const [open, setOpen] = useState(false);
 
@@ -675,6 +681,7 @@ export const CompoundCustomStyling: Story = {
 
 export const CompoundMultiStep: Story = {
   name: "Compound API - Multi-Step Form",
+  args: {},
   render: () => {
     const [open, setOpen] = useState(false);
     const [step, setStep] = useState(1);

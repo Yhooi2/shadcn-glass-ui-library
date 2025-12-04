@@ -15,7 +15,7 @@ import { cn } from '@/lib/utils';
 import '@/glass-theme.css';
 
 export interface ExpandableHeaderGlassProps
-  extends ButtonHTMLAttributes<HTMLButtonElement> {
+  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'title'> {
   /** Header title */
   readonly title: ReactNode;
   /** Leading icon component */

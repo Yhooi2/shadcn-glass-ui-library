@@ -44,6 +44,10 @@ export const Default: Story = {
 
 // All colors
 export const AllColors: Story = {
+  args: {
+    label: "Metric",
+    value: 84,
+  },
   render: () => (
     <div className="flex gap-6">
       <CircularMetricGlass label="Reg" value={84} color="emerald" />
@@ -56,6 +60,10 @@ export const AllColors: Story = {
 
 // Mobile Grid (2x2 layout at 390px)
 export const MobileGrid: Story = {
+  args: {
+    label: "Metric",
+    value: 84,
+  },
   parameters: {
     viewport: {
       defaultViewport: 'mobile1',
@@ -73,6 +81,10 @@ export const MobileGrid: Story = {
 
 // Size comparison
 export const Sizes: Story = {
+  args: {
+    label: "Metric",
+    value: 75,
+  },
   render: () => (
     <div className="flex gap-8 items-end">
       <div className="text-center">
@@ -89,6 +101,10 @@ export const Sizes: Story = {
 
 // Progress values
 export const ProgressValues: Story = {
+  args: {
+    label: "Metric",
+    value: 15,
+  },
   render: () => (
     <div className="flex gap-6">
       <CircularMetricGlass label="Low" value={15} color="red" />

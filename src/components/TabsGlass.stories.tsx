@@ -110,8 +110,12 @@ const InteractiveTabsDemo = () => {
 
 export const Interactive: Story = {
   args: {
-    tabs: defaultTabs,
-    activeTab: "tab1",
+    tabs: [
+      { id: 'tab1', label: 'Tab 1' },
+      { id: 'tab2', label: 'Tab 2' },
+    ],
+    activeTab: 'tab1',
+    onChange: fn(),
   },
   render: () => <InteractiveTabsDemo />,
   async play({ canvasElement }) {
@@ -169,8 +173,12 @@ const TabsWithContentDemo = () => {
 
 export const WithContent: Story = {
   args: {
-    tabs: defaultTabs,
-    activeTab: "tab1",
+    tabs: [
+      { id: 'tab1', label: 'Tab 1' },
+      { id: 'tab2', label: 'Tab 2' },
+    ],
+    activeTab: 'tab1',
+    onChange: fn(),
   },
   render: () => <TabsWithContentDemo />,
   async play({ canvasElement }) {
@@ -185,6 +193,7 @@ export const WithContent: Story = {
 
 export const CompoundBasic: Story = {
   name: "Compound API - Basic",
+  args: {},
   render: () => {
     const [activeTab, setActiveTab] = useState("overview");
 
@@ -232,6 +241,7 @@ export const CompoundBasic: Story = {
 
 export const CompoundVerticalLayout: Story = {
   name: "Compound API - Vertical Layout",
+  args: {},
   render: () => {
     const [activeTab, setActiveTab] = useState("profile");
 
@@ -302,6 +312,7 @@ export const CompoundVerticalLayout: Story = {
 
 export const CompoundWithIcons: Story = {
   name: "Compound API - With Icons",
+  args: {},
   render: () => {
     const [activeTab, setActiveTab] = useState("home");
 
@@ -360,6 +371,7 @@ export const CompoundWithIcons: Story = {
 
 export const CompoundDisabledTabs: Story = {
   name: "Compound API - Disabled Tabs",
+  args: {},
   render: () => {
     const [activeTab, setActiveTab] = useState("overview");
 

@@ -15,7 +15,7 @@ import { cn } from '@/lib/utils';
 import '@/glass-theme.css';
 
 export interface SearchBoxGlassProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onSubmit'> {
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onSubmit' | 'onChange'> {
   /** Callback when search is submitted (Enter key or button click) */
   readonly onSubmit?: (value: string) => void;
   /** Initial search value */

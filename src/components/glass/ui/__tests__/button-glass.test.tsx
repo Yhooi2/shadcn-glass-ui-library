@@ -35,7 +35,7 @@ describe('ButtonGlass', () => {
     });
 
     it('renders with different sizes without errors', () => {
-      const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+      const sizes = ['sm', 'md', 'lg', 'icon'] as const;
 
       sizes.forEach((size) => {
         const { unmount } = render(<ButtonGlass size={size}>{size}</ButtonGlass>);

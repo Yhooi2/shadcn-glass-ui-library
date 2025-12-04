@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { SegmentedControlGlass, SegmentOption } from '../segmented-control-glass';
+import { SegmentedControlGlass, type SegmentOption } from '../segmented-control-glass';
 
 const mockOptions: SegmentOption[] = [
   { value: 'overview', label: 'Overview' },

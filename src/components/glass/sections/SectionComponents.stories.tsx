@@ -48,6 +48,10 @@ export const CustomAriaLabel: Story = {
 
 // Interactive demo
 export const Interactive: Story = {
+  args: {
+    logoIcon: Github,
+    title: "GitHub Analytics",
+  },
   render: () => (
     <div className="space-y-6 p-6">
       <h3 className="text-sm font-medium text-white/80">Header Branding Examples</h3>

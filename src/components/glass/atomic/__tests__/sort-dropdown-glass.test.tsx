@@ -1,7 +1,7 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { SortDropdownGlass, SortField, SortOrder } from '../sort-dropdown-glass';
+import { SortDropdownGlass, type SortField, type SortOrder } from '../sort-dropdown-glass';
 
 describe('SortDropdownGlass', () => {
   const defaultProps = {

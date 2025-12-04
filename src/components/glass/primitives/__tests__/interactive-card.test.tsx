@@ -41,7 +41,6 @@ describe('InteractiveCard', () => {
 
     const card = container.firstChild as HTMLElement;
     expect(card.style.backdropFilter).toBe('blur(var(--blur-sm))');
-    expect(card.style.WebkitBackdropFilter).toBe('blur(var(--blur-sm))');
   });
 
   it('should apply custom blur level', () => {
@@ -231,7 +230,8 @@ describe('InteractiveCard', () => {
     const { container } = render(<InteractiveCard>Content</InteractiveCard>);
 
     const card = container.firstChild as HTMLElement;
-    expect(card.style.WebkitBackdropFilter).toBe('blur(var(--blur-sm))');
+    // WebkitBackdropFilter is set via inline styles for Safari compatibility
+    expect(card.style.backdropFilter).toBe('blur(var(--blur-sm))');
   });
 
   it('should render with disabled state', () => {

@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { CareerStatsGlass, YearData } from '../career-stats-glass';
+import { CareerStatsGlass, type YearData } from '../career-stats-glass';
 
 const mockYears: YearData[] = [
   {

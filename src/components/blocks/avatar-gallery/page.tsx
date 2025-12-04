@@ -46,9 +46,9 @@ export const AvatarGalleryBlock = forwardRef<HTMLDivElement, AvatarGalleryBlockP
               Avatar Sizes
             </label>
             <div className="flex items-center gap-4">
-              <AvatarGlass initials="AS" size="sm" />
-              <AvatarGlass initials="AS" size="md" />
-              <AvatarGlass initials="AS" size="lg" />
+              <AvatarGlass name="AS" size="sm" />
+              <AvatarGlass name="AS" size="md" />
+              <AvatarGlass name="AS" size="lg" />
             </div>
           </div>
 

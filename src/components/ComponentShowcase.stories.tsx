@@ -1,8 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { ThemeProvider } from "@/lib/theme-context";
+import { ThemeProvider, type Theme } from "@/lib/theme-context";
 import { ComponentShowcase } from "./ComponentShowcase";
 
-const meta: Meta<typeof ComponentShowcase> = {
+// Extend story args to include theme
+type StoryArgs = {
+  theme: Theme;
+};
+
+const meta: Meta<StoryArgs> = {
   title: "Demo/ComponentShowcase",
   component: ComponentShowcase,
   decorators: [
@@ -31,7 +36,7 @@ const meta: Meta<typeof ComponentShowcase> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof ComponentShowcase>;
+type Story = StoryObj<StoryArgs>;
 
 export const Default: Story = {
   args: {

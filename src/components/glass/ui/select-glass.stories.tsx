@@ -30,7 +30,7 @@ const meta = {
     (Story, context) => {
       const theme = context.globals.theme || "glass";
       return (
-        <ThemeProvider initialTheme={theme}>
+        <ThemeProvider defaultTheme={theme}>
           <div
             className="min-h-[400px] w-[320px] flex items-start justify-center pt-4 p-8"
             style={{ background: "var(--bg-gradient)" }}
@@ -174,6 +174,12 @@ export const DisabledOptions: Story = {
 };
 
 export const Sizes: Story = {
+  args: {
+    options: [
+      { value: '1', label: 'Option 1' },
+      { value: '2', label: 'Option 2' },
+    ],
+  },
   render: () => (
     <div className="space-y-4 w-full">
       <SelectGlass
@@ -200,7 +206,7 @@ export const Sizes: Story = {
     (Story, context) => {
       const theme = context.globals.theme || "glass";
       return (
-        <ThemeProvider initialTheme={theme}>
+        <ThemeProvider defaultTheme={theme}>
           <div
             className="min-h-[500px] w-[320px] pt-4 p-8"
             style={{ background: "var(--bg-gradient)" }}
@@ -217,6 +223,12 @@ export const Sizes: Story = {
 };
 
 export const Controlled: Story = {
+  args: {
+    options: [
+      { value: '1', label: 'Option 1' },
+      { value: '2', label: 'Option 2' },
+    ],
+  },
   render: function ControlledSelect() {
     const [value, setValue] = React.useState("");
 

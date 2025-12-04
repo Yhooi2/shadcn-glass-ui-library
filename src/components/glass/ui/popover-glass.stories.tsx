@@ -116,6 +116,10 @@ export const WithForm: Story = {
 // ========================================
 
 export const Positions: Story = {
+  args: {
+    trigger: <div>Trigger</div>,
+    children: <div>Content</div>,
+  },
   render: () => (
     <div className="grid grid-cols-2 gap-16">
       <PopoverGlass
@@ -172,6 +176,10 @@ export const Positions: Story = {
 // ========================================
 
 export const Alignments: Story = {
+  args: {
+    trigger: <div>Trigger</div>,
+    children: <div>Content</div>,
+  },
   render: () => (
     <div className="flex flex-col gap-8">
       <PopoverGlass
@@ -215,6 +223,10 @@ export const Alignments: Story = {
 // ========================================
 
 export const Controlled: Story = {
+  args: {
+    trigger: <div>Trigger</div>,
+    children: <div>Content</div>,
+  },
   render: function ControlledPopover() {
     const [open, setOpen] = React.useState(false);
 

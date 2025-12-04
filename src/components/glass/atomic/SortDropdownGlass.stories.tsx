@@ -11,7 +11,7 @@ const meta: Meta<typeof SortDropdownGlass> = {
     (Story, context) => {
       const theme = context.globals.theme || 'glass';
       return (
-        <ThemeProvider initialTheme={theme}>
+        <ThemeProvider defaultTheme={theme}>
           <div
             className="p-8 min-h-[200px]"
             style={{ background: 'var(--bg-gradient)' }}

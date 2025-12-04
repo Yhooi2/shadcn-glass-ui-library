@@ -103,6 +103,22 @@ export default defineConfig({
                   threshold: 0.02,
                   allowedMismatchedPixelRatio: 0.005,
                 },
+                // Cross-platform screenshot naming (no -darwin/-linux suffix)
+                resolveScreenshotPath: ({
+                  arg,
+                  browserName,
+                  ext,
+                  testFileDirectory,
+                  testFileName,
+                }: {
+                  arg: string;
+                  browserName: string;
+                  ext: string;
+                  testFileDirectory: string;
+                  testFileName: string;
+                  platform?: string; // ignored to remove platform suffix
+                }) =>
+                  `${testFileDirectory}/__screenshots__/${testFileName}/${arg}-${browserName}${ext}`,
               },
             },
           },

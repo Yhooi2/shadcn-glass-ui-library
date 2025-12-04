@@ -17,7 +17,7 @@ const meta: Meta<typeof ProjectsListGlass> = {
     (Story, context) => {
       const theme = context.globals.theme || 'glass';
       return (
-        <ThemeProvider initialTheme={theme}>
+        <ThemeProvider defaultTheme={theme}>
           <div
             className="p-4 min-h-[400px]"
             style={{ background: 'var(--bg-gradient)' }}

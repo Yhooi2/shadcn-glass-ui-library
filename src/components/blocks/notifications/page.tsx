@@ -49,16 +49,19 @@ export const NotificationsBlock = forwardRef<HTMLDivElement, NotificationsBlockP
                 type="info"
                 title="New message"
                 message="You have received a new message from John Doe"
+                onClose={() => {}}
               />
               <NotificationGlass
                 type="success"
                 title="Success"
                 message="Your changes have been saved successfully"
+                onClose={() => {}}
               />
               <NotificationGlass
                 type="warning"
                 title="Warning"
                 message="Your session will expire in 5 minutes"
+                onClose={() => {}}
               />
             </div>
           </div>
@@ -75,23 +78,27 @@ export const NotificationsBlock = forwardRef<HTMLDivElement, NotificationsBlockP
               <AlertGlass
                 type="info"
                 title="Information"
-                description="This is an informational alert message"
-              />
+              >
+                This is an informational alert message
+              </AlertGlass>
               <AlertGlass
                 type="success"
                 title="Success"
-                description="Your operation completed successfully"
-              />
+              >
+                Your operation completed successfully
+              </AlertGlass>
               <AlertGlass
                 type="warning"
                 title="Warning"
-                description="Please review the following issues"
-              />
+              >
+                Please review the following issues
+              </AlertGlass>
               <AlertGlass
                 type="error"
                 title="Error"
-                description="An error occurred while processing your request"
-              />
+              >
+                An error occurred while processing your request
+              </AlertGlass>
             </div>
           </div>
         </div>

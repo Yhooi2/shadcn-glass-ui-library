@@ -50,7 +50,7 @@ function WallpaperTintDemo({ imageUrl }: { imageUrl: string }) {
               {isLoading && (
                 <BadgeGlass variant="info">Extracting color...</BadgeGlass>
               )}
-              {error && <BadgeGlass variant="danger">{error}</BadgeGlass>}
+              {error && <BadgeGlass variant="destructive">{error}</BadgeGlass>}
               {tintColor && !isLoading && (
                 <div className="flex items-center gap-3">
                   <BadgeGlass variant="success">Tint extracted</BadgeGlass>
@@ -105,7 +105,7 @@ function WallpaperTintDemo({ imageUrl }: { imageUrl: string }) {
                 <BadgeGlass variant="default">Default</BadgeGlass>
                 <BadgeGlass variant="success">Success</BadgeGlass>
                 <BadgeGlass variant="warning">Warning</BadgeGlass>
-                <BadgeGlass variant="danger">Danger</BadgeGlass>
+                <BadgeGlass variant="destructive">Danger</BadgeGlass>
               </div>
             </GlassCard>
           </div>

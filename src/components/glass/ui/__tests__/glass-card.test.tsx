@@ -99,9 +99,9 @@ describe('GlassCard', () => {
       });
     });
 
-    it('renders with purple glow (maps to violet)', () => {
+    it('renders with violet glow', () => {
       const { container } = render(
-        <GlassCard glow="purple">Content</GlassCard>
+        <GlassCard glow="violet">Content</GlassCard>
       );
       const card = container.firstChild as HTMLElement;
       expect(card).toHaveStyle({
