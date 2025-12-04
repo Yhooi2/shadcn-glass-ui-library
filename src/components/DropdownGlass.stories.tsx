@@ -25,6 +25,7 @@ const meta = {
       // Enable visual snapshot testing
       disable: false,
     },
+  tags: ["autodocs"],
   },
   argTypes: {
     align: {
@@ -167,6 +168,7 @@ export const OpenedDefault: Story = {
         // Radix Portal adds aria-hidden to parent containers, which is normal
         rules: [{ id: 'aria-hidden-focus', enabled: false }],
       },
+  tags: ["autodocs"],
     },
   },
   async play({ canvasElement }) {
@@ -208,6 +210,7 @@ export const OpenedAlignRight: Story = {
         // Radix Portal adds aria-hidden to parent containers, which is normal
         rules: [{ id: 'aria-hidden-focus', enabled: false }],
       },
+  tags: ["autodocs"],
     },
   },
   async play({ canvasElement }) {
@@ -239,6 +242,7 @@ export const OpenedWithEditActions: Story = {
         // Radix Portal adds aria-hidden to parent containers, which is normal
         rules: [{ id: 'aria-hidden-focus', enabled: false }],
       },
+  tags: ["autodocs"],
     },
   },
   async play({ canvasElement }) {
@@ -277,6 +281,7 @@ export const OpenedWithManyItems: Story = {
       config: {
         rules: [{ id: 'aria-hidden-focus', enabled: false }],
       },
+  tags: ["autodocs"],
     },
   },
   async play({ canvasElement }) {
@@ -312,6 +317,7 @@ export const OpenedTextOnly: Story = {
       config: {
         rules: [{ id: 'aria-hidden-focus', enabled: false }],
       },
+  tags: ["autodocs"],
     },
   },
   async play({ canvasElement }) {
@@ -427,6 +433,7 @@ export const LeftAlignOpened: Story = {
       config: {
         rules: [{ id: 'aria-hidden-focus', enabled: false }],
       },
+  tags: ["autodocs"],
     },
   },
   render: () => (
@@ -479,6 +486,7 @@ export const RightAlignOpened: Story = {
       config: {
         rules: [{ id: 'aria-hidden-focus', enabled: false }],
       },
+  tags: ["autodocs"],
     },
   },
   render: () => (
@@ -536,6 +544,7 @@ export const GlassMenuStyling: Story = {
         // Radix Portal adds aria-hidden to parent containers, which is normal
         rules: [{ id: 'aria-hidden-focus', enabled: false }],
       },
+  tags: ["autodocs"],
     },
   },
 
@@ -579,6 +588,7 @@ export const DangerItemStyling: Story = {
       config: {
         rules: [{ id: 'aria-hidden-focus', enabled: false }],
       },
+  tags: ["autodocs"],
     },
   },
   async play({ canvasElement }) {
@@ -611,6 +621,7 @@ export const AnimationTest: Story = {
         // Radix Portal adds aria-hidden to parent containers, which is normal
         rules: [{ id: 'aria-hidden-focus', enabled: false }],
       },
+  tags: ["autodocs"],
     },
   },
 

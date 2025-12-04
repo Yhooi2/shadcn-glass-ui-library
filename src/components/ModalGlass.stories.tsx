@@ -13,6 +13,7 @@ const meta = {
       // Enable visual snapshot testing
       disable: false,
     },
+  tags: ["autodocs"],
   },
   argTypes: {
     size: {
