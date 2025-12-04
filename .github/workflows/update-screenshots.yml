@@ -32,18 +32,23 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install chromium --with-deps
 
+      - name: Remove existing screenshots
+        run: find src/components/__visual__/__screenshots__/ -name "*.png" -delete || true
+
       - name: Generate visual test screenshots
         run: npm run test:visual:update
 
       - name: Check for changes
         id: check_changes
         run: |
-          if git diff --quiet src/components/__visual__/__screenshots__/; then
+          git add src/components/__visual__/__screenshots__/
+          if git diff --cached --quiet; then
             echo "has_changes=false" >> $GITHUB_OUTPUT
             echo "No screenshot changes detected"
           else
             echo "has_changes=true" >> $GITHUB_OUTPUT
-            echo "Screenshot changes detected"
+            ADDED=$(git diff --cached --numstat | wc -l)
+            echo "Screenshot changes detected: $ADDED files"
           fi
 
       - name: Commit and push screenshots
