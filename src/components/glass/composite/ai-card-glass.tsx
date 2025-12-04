@@ -3,7 +3,7 @@
 // AI summary card with feature list
 // ========================================
 
-import { forwardRef, type CSSProperties } from "react";
+import { forwardRef } from "react";
 import { Sparkles, Check, Zap, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ButtonGlass } from "../ui/button-glass";

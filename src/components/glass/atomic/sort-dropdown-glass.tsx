@@ -11,7 +11,7 @@
 import { forwardRef, useState, useRef, useEffect, useCallback, useMemo, type CSSProperties } from 'react';
 import { ChevronDown, ArrowUp, ArrowDown, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { getDropdownContentStyles, getDropdownItemClasses } from '@/lib/variants/dropdown-content-styles';
+import { getDropdownContentStyles } from '@/lib/variants/dropdown-content-styles';
 import { ICON_SIZES } from '../primitives/style-utils';
 import '@/glass-theme.css';
 

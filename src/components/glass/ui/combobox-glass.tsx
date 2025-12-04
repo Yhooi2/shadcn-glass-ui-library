@@ -31,10 +31,7 @@ import {
 } from '@/components/ui/command';
 import { FormFieldWrapper } from '../primitives/form-field-wrapper';
 import { inputVariants, type InputGlassSize } from '@/lib/variants/input-glass-variants';
-import {
-  getDropdownContentStyles,
-  getDropdownItemClasses,
-} from '@/lib/variants/dropdown-content-styles';
+import { getDropdownContentStyles } from '@/lib/variants/dropdown-content-styles';
 import { ICON_SIZES } from '../primitives/style-utils';
 import '@/glass-theme.css';
 
