@@ -14,6 +14,8 @@ import {
   forwardRef,
   useState,
   useCallback,
+  useEffect,
+  useRef,
   type MouseEvent,
   type CSSProperties,
 } from 'react';
@@ -142,6 +144,11 @@ export interface ButtonGlassProps
   /**
    * Render as child element instead of button (polymorphic rendering).
    * Useful for rendering buttons as links or other interactive elements.
+   *
+   * **Note:** When using `asChild`, decorative effects (ripple, shine, glow)
+   * are disabled to maintain compatibility with Radix UI Slot.
+   * Only styles and event handlers are passed to the child element.
+   *
    * @default false
    * @example
    * ```tsx
@@ -209,6 +216,16 @@ export const ButtonGlass = forwardRef<HTMLButtonElement, ButtonGlassProps>(
     const [ripple, setRipple] = useState<{ x: number; y: number } | null>(null);
 
     const isDisabled = disabled || loading;
+    const rippleTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+    // Cleanup ripple timeout on unmount
+    useEffect(() => {
+      return () => {
+        if (rippleTimeoutRef.current) {
+          clearTimeout(rippleTimeoutRef.current);
+        }
+      };
+    }, []);
 
     // Ripple effect handler
     const handleClick = useCallback(
@@ -220,7 +237,16 @@ export const ButtonGlass = forwardRef<HTMLButtonElement, ButtonGlassProps>(
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
         setRipple({ x, y });
-        setTimeout(() => setRipple(null), 600);
+
+        // Clear previous timeout if exists
+        if (rippleTimeoutRef.current) {
+          clearTimeout(rippleTimeoutRef.current);
+        }
+
+        rippleTimeoutRef.current = setTimeout(() => {
+          setRipple(null);
+          rippleTimeoutRef.current = null;
+        }, 600);
 
         onClick?.(e);
       },
@@ -251,59 +277,66 @@ export const ButtonGlass = forwardRef<HTMLButtonElement, ButtonGlassProps>(
         onBlur={focusProps.onBlur}
         {...props}
       >
-        {/* Shine effect on hover for primary */}
-        {isHovered && variant === 'primary' && !isDisabled && (
-          <div
-            className="absolute inset-0 overflow-hidden pointer-events-none"
-            style={{ borderRadius: 'inherit' }}
-          >
-            <div
-              className="absolute top-0 h-full w-1/3 bg-linear-to-r from-transparent via-white/20 to-transparent"
-              style={{ animation: 'btn-shine 1.5s ease-in-out infinite' }}
-            />
-          </div>
-        )}
+        {/* When asChild is true, only render children (Slot expects a single child) */}
+        {asChild ? (
+          children
+        ) : (
+          <>
+            {/* Shine effect on hover for primary */}
+            {isHovered && variant === 'primary' && !isDisabled && (
+              <div
+                className="absolute inset-0 overflow-hidden pointer-events-none"
+                style={{ borderRadius: 'inherit' }}
+              >
+                <div
+                  className="absolute top-0 h-full w-1/3 bg-linear-to-r from-transparent via-white/20 to-transparent"
+                  style={{ animation: 'btn-shine 1.5s ease-in-out infinite' }}
+                />
+              </div>
+            )}
 
-        {/* Ripple effect */}
-        {ripple && (
-          <span
-            className="absolute rounded-full bg-white/30 pointer-events-none"
-            style={{
-              left: ripple.x,
-              top: ripple.y,
-              width: 10,
-              height: 10,
-              transform: 'translate(-50%, -50%)',
-              animation: 'ripple 0.6s ease-out',
-            }}
-          />
-        )}
+            {/* Ripple effect */}
+            {ripple && (
+              <span
+                className="absolute rounded-full bg-white/30 pointer-events-none"
+                style={{
+                  left: ripple.x,
+                  top: ripple.y,
+                  width: 10,
+                  height: 10,
+                  transform: 'translate(-50%, -50%)',
+                  animation: 'ripple 0.6s ease-out',
+                }}
+              />
+            )}
 
-        {/* Pulsing glow on hover */}
-        {isHovered && variant === 'primary' && !isDisabled && (
-          <div
-            className="absolute inset-0 rounded-xl animate-glow-pulse pointer-events-none"
-            style={{
-              background:
-                'radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%)',
-            }}
-          />
-        )}
+            {/* Pulsing glow on hover */}
+            {isHovered && variant === 'primary' && !isDisabled && (
+              <div
+                className="absolute inset-0 rounded-xl animate-glow-pulse pointer-events-none"
+                style={{
+                  background:
+                    'radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%)',
+                }}
+              />
+            )}
 
-        {/* Loading spinner */}
-        {loading && <RefreshCw className={cn(ICON_SIZES.md, 'animate-spin')} />}
+            {/* Loading spinner */}
+            {loading && <RefreshCw className={cn(ICON_SIZES.md, 'animate-spin')} />}
 
-        {/* Icon left */}
-        {!loading && Icon && iconPosition === 'left' && (
-          <Icon className={ICON_SIZES.md} />
-        )}
+            {/* Icon left */}
+            {!loading && Icon && iconPosition === 'left' && (
+              <Icon className={ICON_SIZES.md} />
+            )}
 
-        {/* Content */}
-        {!loading && children}
+            {/* Content */}
+            {!loading && children}
 
-        {/* Icon right */}
-        {!loading && Icon && iconPosition === 'right' && (
-          <Icon className={ICON_SIZES.md} />
+            {/* Icon right */}
+            {!loading && Icon && iconPosition === 'right' && (
+              <Icon className={ICON_SIZES.md} />
+            )}
+          </>
         )}
       </Comp>
     );

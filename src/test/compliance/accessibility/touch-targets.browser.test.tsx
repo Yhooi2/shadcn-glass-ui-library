@@ -9,7 +9,7 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 
 import { SPACING_TOKENS, ACCESSIBILITY_TOKENS } from '../../utils/design-tokens';
 import { validateTouchTarget } from '../../utils/spacing-validator';
@@ -20,6 +20,21 @@ import { CheckboxGlass } from '@/components/glass/ui/checkbox-glass';
 import { ToggleGlass } from '@/components/glass/ui/toggle-glass';
 import { InputGlass } from '@/components/glass/ui/input-glass';
 import { SliderGlass } from '@/components/glass/ui/slider-glass';
+
+/**
+ * Helper to get element dimensions from computed styles + bounding rect
+ * In browser mode, computed styles are more reliable than getBoundingClientRect alone
+ */
+async function getElementDimensions(element: HTMLElement): Promise<{ width: number; height: number }> {
+  await waitFor(() => {
+    const rect = element.getBoundingClientRect();
+    expect(rect.width).toBeGreaterThan(0);
+    expect(rect.height).toBeGreaterThan(0);
+  }, { timeout: 3000 });
+
+  const rect = element.getBoundingClientRect();
+  return { width: rect.width, height: rect.height };
+}
 
 describe('Touch Target Compliance Tests', () => {
   describe('Touch Target Constants', () => {
@@ -38,7 +53,7 @@ describe('Touch Target Compliance Tests', () => {
 
   describe('Button Touch Targets', () => {
     describe.each(THEMES)('Theme: %s', (theme) => {
-      it('default button meets touch target', () => {
+      it('default button meets touch target', async () => {
         render(
           <ThemeTestWrapper theme={theme}>
             <ButtonGlass data-testid="test-button">Click</ButtonGlass>
@@ -46,12 +61,13 @@ describe('Touch Target Compliance Tests', () => {
         );
 
         const button = screen.getByTestId('test-button');
+        await getElementDimensions(button); // Wait for render
         const result = validateTouchTarget(button);
 
         expect(result.valid).toBe(true);
       });
 
-      it('large button exceeds touch target', () => {
+      it('large button exceeds touch target', async () => {
         render(
           <ThemeTestWrapper theme={theme}>
             <ButtonGlass size="lg" data-testid="test-button">
@@ -61,12 +77,12 @@ describe('Touch Target Compliance Tests', () => {
         );
 
         const button = screen.getByTestId('test-button');
-        const rect = button.getBoundingClientRect();
+        const { height } = await getElementDimensions(button);
 
-        expect(rect.height).toBeGreaterThanOrEqual(SPACING_TOKENS.TOUCH_TARGET_APPLE);
+        expect(height).toBeGreaterThanOrEqual(SPACING_TOKENS.TOUCH_TARGET_APPLE);
       });
 
-      it('small button has reasonable touch area', () => {
+      it('small button has reasonable touch area', async () => {
         render(
           <ThemeTestWrapper theme={theme}>
             <ButtonGlass size="sm" data-testid="test-button">
@@ -76,18 +92,18 @@ describe('Touch Target Compliance Tests', () => {
         );
 
         const button = screen.getByTestId('test-button');
-        const rect = button.getBoundingClientRect();
+        const { width, height } = await getElementDimensions(button);
 
         // Small buttons may be under 44px but should still be usable
-        expect(rect.height).toBeGreaterThanOrEqual(28);
-        expect(rect.width).toBeGreaterThanOrEqual(40);
+        expect(height).toBeGreaterThanOrEqual(28);
+        expect(width).toBeGreaterThanOrEqual(40);
       });
     });
   });
 
   describe('Checkbox Touch Targets', () => {
     describe.each(THEMES)('Theme: %s', (theme) => {
-      it('checkbox has adequate touch area via wrapper', () => {
+      it('checkbox has adequate touch area via wrapper', async () => {
         render(
           <ThemeTestWrapper theme={theme}>
             <CheckboxGlass id="test-checkbox" data-testid="test-checkbox" checked={false} />
@@ -99,14 +115,14 @@ describe('Touch Target Compliance Tests', () => {
         const wrapper = checkboxInput.closest('label');
 
         expect(wrapper).not.toBeNull();
-        const rect = wrapper!.getBoundingClientRect();
+        const { width, height } = await getElementDimensions(wrapper as HTMLElement);
 
         // Touch area wrapper should be at least 44px (Apple HIG)
-        expect(rect.width).toBeGreaterThanOrEqual(44);
-        expect(rect.height).toBeGreaterThanOrEqual(44);
+        expect(width).toBeGreaterThanOrEqual(44);
+        expect(height).toBeGreaterThanOrEqual(44);
       });
 
-      it('checkbox with label has better touch area', () => {
+      it('checkbox with label has better touch area', async () => {
         render(
           <ThemeTestWrapper theme={theme}>
             <CheckboxGlass id="test-checkbox" checked={false} label="Label text" />
@@ -116,18 +132,18 @@ describe('Touch Target Compliance Tests', () => {
         // Find the label element which contains the checkbox
         const label = screen.getByText('Label text').closest('label');
         expect(label).not.toBeNull();
-        const rect = label!.getBoundingClientRect();
+        const { width, height } = await getElementDimensions(label as HTMLElement);
 
         // With label, the touch area should be larger than 44px
-        expect(rect.width).toBeGreaterThan(44);
-        expect(rect.height).toBeGreaterThanOrEqual(44);
+        expect(width).toBeGreaterThan(44);
+        expect(height).toBeGreaterThanOrEqual(44);
       });
     });
   });
 
   describe('Toggle Touch Targets', () => {
     describe.each(THEMES)('Theme: %s', (theme) => {
-      it('toggle switch meets touch target via wrapper', () => {
+      it('toggle switch meets touch target via wrapper', async () => {
         render(
           <ThemeTestWrapper theme={theme}>
             <ToggleGlass data-testid="test-toggle" checked={false} />
@@ -139,6 +155,7 @@ describe('Touch Target Compliance Tests', () => {
         const wrapper = toggleButton.closest('span');
 
         expect(wrapper).not.toBeNull();
+        await getElementDimensions(wrapper as HTMLElement); // Wait for render
         const result = validateTouchTarget(wrapper as HTMLElement);
 
         // Toggle wrapper should have adequate touch area (min 44px height)
@@ -153,7 +170,7 @@ describe('Touch Target Compliance Tests', () => {
 
   describe('Input Touch Targets', () => {
     describe.each(THEMES)('Theme: %s', (theme) => {
-      it('input meets minimum height', () => {
+      it('input meets minimum height', async () => {
         render(
           <ThemeTestWrapper theme={theme}>
             <InputGlass data-testid="test-input" />
@@ -161,13 +178,13 @@ describe('Touch Target Compliance Tests', () => {
         );
 
         const input = screen.getByTestId('test-input');
-        const rect = input.getBoundingClientRect();
+        const { height } = await getElementDimensions(input);
 
         // Input should be at least 40px tall
-        expect(rect.height).toBeGreaterThanOrEqual(40);
+        expect(height).toBeGreaterThanOrEqual(40);
       });
 
-      it('input has full width touch area', () => {
+      it('input has full width touch area', async () => {
         render(
           <ThemeTestWrapper theme={theme}>
             <div style={{ width: '200px' }}>
@@ -177,17 +194,17 @@ describe('Touch Target Compliance Tests', () => {
         );
 
         const input = screen.getByTestId('test-input');
-        const rect = input.getBoundingClientRect();
+        const { width } = await getElementDimensions(input);
 
         // Input should fill available width
-        expect(rect.width).toBeGreaterThanOrEqual(100);
+        expect(width).toBeGreaterThanOrEqual(100);
       });
     });
   });
 
   describe('Slider Touch Targets', () => {
     describe.each(THEMES)('Theme: %s', (theme) => {
-      it('slider thumb has adequate touch area', () => {
+      it('slider thumb has adequate touch area', async () => {
         render(
           <ThemeTestWrapper theme={theme}>
             <SliderGlass value={50} onChange={() => {}} data-testid="test-slider" />
@@ -199,8 +216,8 @@ describe('Touch Target Compliance Tests', () => {
         expect(slider).toBeInTheDocument();
 
         // The slider track should be tall enough to touch
-        const rect = slider.getBoundingClientRect();
-        expect(rect.height).toBeGreaterThanOrEqual(20);
+        const { height } = await getElementDimensions(slider);
+        expect(height).toBeGreaterThanOrEqual(20);
       });
     });
   });

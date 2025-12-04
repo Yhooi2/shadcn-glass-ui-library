@@ -11,7 +11,7 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 
 import { RADIUS_TOKENS, COMPONENT_SPECS } from '../../utils/design-tokens';
 import { getComputedStyleSnapshot } from '../../utils/computed-style-reader';
@@ -216,15 +216,26 @@ describe('Border Radius Compliance Tests', () => {
 
   describe('Avatar Radius Compliance', () => {
     describe.each(THEMES)('Theme: %s', (theme) => {
-      it('Avatar has full radius (9999px)', () => {
+      it('Avatar has full radius (9999px)', async () => {
         render(
           <ThemeTestWrapper theme={theme}>
-            <AvatarGlass data-testid="test-avatar" name="AB" />
+            <AvatarGlass name="AB" />
           </ThemeTestWrapper>
         );
 
-        const avatar = screen.getByTestId('test-avatar');
-        const snapshot = getComputedStyleSnapshot(avatar);
+        // Get the actual avatar circle element (role="img"), not the wrapper
+        const avatarCircle = screen.getByRole('img', { name: /avatar for ab/i });
+
+        // Wait for CSS to be applied in browser mode
+        await waitFor(
+          () => {
+            const snapshot = getComputedStyleSnapshot(avatarCircle);
+            expect(snapshot.borderRadius.topLeft).toBeGreaterThan(0);
+          },
+          { timeout: 3000 }
+        );
+
+        const snapshot = getComputedStyleSnapshot(avatarCircle);
 
         // Avatar should have full radius
         expect(snapshot.borderRadius.topLeft).toBe(RADIUS_TOKENS.SCALE.full);

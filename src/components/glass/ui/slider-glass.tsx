@@ -89,15 +89,18 @@ export const SliderGlass = forwardRef<HTMLInputElement, SliderGlassProps>(
           : 'scale(1)',
     };
 
-    // Custom label with value display (not using FormFieldWrapper's label)
-    const customLabel = label && showValue ? (
+    // Custom label with value display - only used when showValue is true
+    // Otherwise, let FormFieldWrapper handle the label
+    const customLabel = (label && showValue) || (!label && showValue) ? (
       <div className="flex justify-between mb-1.5 md:mb-2">
-        <label
-          className="text-xs md:text-sm font-medium"
-          style={{ color: 'var(--text-secondary)' }}
-        >
-          {label}
-        </label>
+        {label && (
+          <label
+            className="text-xs md:text-sm font-medium"
+            style={{ color: 'var(--text-secondary)' }}
+          >
+            {label}
+          </label>
+        )}
         <span
           className="text-xs md:text-sm font-medium tabular-nums"
           style={{ color: 'var(--text-secondary)' }}
@@ -109,7 +112,7 @@ export const SliderGlass = forwardRef<HTMLInputElement, SliderGlassProps>(
 
     return (
       <FormFieldWrapper
-        label={!showValue ? label : undefined}
+        label={showValue ? undefined : label}
         error={error}
         success={success}
         className={cn('w-full', className)}

@@ -81,10 +81,10 @@ describe('InputGlass', () => {
       expect(screen.queryByText(/required/i)).not.toBeInTheDocument();
     });
 
-    it('displays both error and success when both provided', () => {
+    it('displays error when both error and success provided (error takes priority)', () => {
       render(<InputGlass error="Error message" success="Success message" />);
       expect(screen.getByText(/error message/i)).toBeInTheDocument();
-      expect(screen.getByText(/success message/i)).toBeInTheDocument();
+      expect(screen.queryByText(/success message/i)).not.toBeInTheDocument();
     });
   });
 

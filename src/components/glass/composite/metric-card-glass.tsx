@@ -76,15 +76,15 @@ export const MetricCardGlass = forwardRef<HTMLDivElement, MetricCardGlassProps>(
         className={cn("p-3 md:p-4", className)}
         {...props}
       >
-        <div className="flex justify-between items-center mb-2 md:mb-3">
+        <div className="flex flex-col items-center mb-2 md:mb-3 gap-1">
+          <span className="font-bold text-sm sm:text-base md:text-lg whitespace-nowrap" style={valueStyles}>
+            {value}%
+          </span>
           <span
-            className="text-xs md:text-sm font-medium"
+            className="text-[10px] sm:text-xs md:text-sm font-medium truncate"
             style={{ color: "var(--text-secondary)" }}
           >
             {label}
-          </span>
-          <span className="font-bold text-lg md:text-xl" style={valueStyles}>
-            {value}%
           </span>
         </div>
         <ProgressGlass

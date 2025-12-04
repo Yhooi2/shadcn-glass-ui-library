@@ -114,7 +114,7 @@ const useModalContext = () => {
 // COMPOUND COMPONENT: ROOT
 // ========================================
 
-interface ModalRootProps {
+interface ModalRootProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Open state */
   open: boolean;
   /** Callback when open state changes */
@@ -125,7 +125,13 @@ interface ModalRootProps {
   children: ReactNode;
 }
 
-const ModalRoot: FC<ModalRootProps> = ({ open, onOpenChange, size = 'md', children }) => {
+const ModalRoot: FC<ModalRootProps> = ({
+  open,
+  onOpenChange,
+  size = 'md',
+  children,
+  ...props
+}) => {
   const [isClosing, setIsClosing] = useState(false);
 
   const handleClose = useCallback(async () => {
@@ -169,6 +175,8 @@ const ModalRoot: FC<ModalRootProps> = ({ open, onOpenChange, size = 'md', childr
         className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4"
         role="dialog"
         aria-modal="true"
+        aria-labelledby="modal-title"
+        {...props}
       >
         {children}
       </div>
@@ -413,11 +421,17 @@ export interface ModalGlassProps
 }
 
 const LegacyModalGlass = forwardRef<HTMLDivElement, ModalGlassProps>(
-  ({ isOpen, onClose, title, children, size = 'md', className, ...props }, ref) => {
+  ({ isOpen, onClose, title, children, size = 'md', className, id, ...props }, ref) => {
     return (
-      <ModalRoot open={isOpen} onOpenChange={(open) => !open && onClose()} size={size}>
+      <ModalRoot
+        open={isOpen}
+        onOpenChange={(open) => !open && onClose()}
+        size={size}
+        id={id}
+        {...(props as React.HTMLAttributes<HTMLDivElement>)}
+      >
         <ModalOverlay />
-        <ModalContent ref={ref} className={className} {...props}>
+        <ModalContent ref={ref} className={className}>
           <ModalHeader>
             <ModalTitle>{title}</ModalTitle>
             <ModalClose />

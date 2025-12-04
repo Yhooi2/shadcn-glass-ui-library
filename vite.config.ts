@@ -46,7 +46,7 @@ export default defineConfig({
         test: {
           name: 'unit',
           include: ['src/**/*.test.{ts,tsx}'],
-          exclude: ['src/**/*.visual.test.{ts,tsx}'],
+          exclude: ['src/**/*.visual.test.{ts,tsx}', 'src/**/*.browser.test.{ts,tsx}'],
           environment: 'jsdom',
           globals: true,
           setupFiles: ['./src/test/setup.ts'],

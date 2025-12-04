@@ -211,17 +211,17 @@ describe('Focus States Compliance Tests', () => {
 
         render(
           <ThemeTestWrapper theme={theme}>
-            <TabsGlass
-              tabs={tabs}
-              activeTab="tab1"
-              onChange={() => {}}
-              data-testid="test-tabs"
-            />
+            <TabsGlass tabs={tabs} activeTab="tab1" onChange={() => {}} />
           </ThemeTestWrapper>
         );
 
-        // Tabs should be rendered
-        expect(screen.getByTestId('test-tabs')).toBeInTheDocument();
+        // Tabs should be rendered - find by role (semantic query)
+        const tablist = screen.getByRole('tablist');
+        expect(tablist).toBeInTheDocument();
+
+        // Verify both tabs are present
+        expect(screen.getByText('Tab 1')).toBeInTheDocument();
+        expect(screen.getByText('Tab 2')).toBeInTheDocument();
       });
 
       it('tabs respond to onChange', () => {
@@ -233,12 +233,7 @@ describe('Focus States Compliance Tests', () => {
 
         render(
           <ThemeTestWrapper theme={theme}>
-            <TabsGlass
-              tabs={tabs}
-              activeTab="tab1"
-              onChange={onChange}
-              data-testid="test-tabs"
-            />
+            <TabsGlass tabs={tabs} activeTab="tab1" onChange={onChange} />
           </ThemeTestWrapper>
         );
 

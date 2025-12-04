@@ -151,8 +151,9 @@ export const AsLink: Story = {
             Visit GitHub
           </a>
         </ButtonGlass>
-        <ButtonGlass asChild variant="secondary" icon={ExternalLink} iconPosition="right">
+        <ButtonGlass asChild variant="secondary">
           <a href="https://storybook.js.org" target="_blank" rel="noopener noreferrer">
+            <ExternalLink className="mr-2 h-4 w-4 inline-block" />
             Storybook Docs
           </a>
         </ButtonGlass>
@@ -226,8 +227,11 @@ export const CompleteShowcase: Story = {
               GitHub Link
             </a>
           </ButtonGlass>
-          <ButtonGlass asChild variant="ghost" icon={ExternalLink} iconPosition="right">
-            <a href="/docs">Documentation</a>
+          <ButtonGlass asChild variant="ghost">
+            <a href="/docs">
+              Documentation
+              <ExternalLink className="ml-2 h-4 w-4 inline-block" />
+            </a>
           </ButtonGlass>
         </div>
       </div>

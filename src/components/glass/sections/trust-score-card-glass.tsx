@@ -9,7 +9,6 @@ import { cn } from "@/lib/utils";
 import { GlassCard } from "../composite/glass-card";
 import { RainbowProgressGlass } from "../specialized/rainbow-progress-glass";
 import { MetricCardGlass, type MetricColor } from "../composite/metric-card-glass";
-import { CircularMetricGlass } from "../composite/circular-metric-glass";
 import "@/glass-theme.css";
 
 export interface MetricData {
@@ -53,30 +52,16 @@ export const TrustScoreCardGlass = forwardRef<HTMLDivElement, TrustScoreCardGlas
         </div>
         <RainbowProgressGlass value={score} size="lg" showGlow />
         {metrics.length > 0 && (
-          <>
-            {/* Mobile: Circular metrics (more compact) */}
-            <div className="grid grid-cols-2 gap-4 mt-4 sm:hidden">
-              {metrics.map((m) => (
-                <CircularMetricGlass
-                  key={`${m.label}-circular`}
-                  label={m.label}
-                  value={m.value}
-                  color={m.color}
-                />
-              ))}
-            </div>
-            {/* Desktop: Card metrics */}
-            <div className="hidden sm:grid sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-4 mt-4 md:mt-5">
-              {metrics.map((m) => (
-                <MetricCardGlass
-                  key={m.label}
-                  label={m.label}
-                  value={m.value}
-                  color={m.color}
-                />
-              ))}
-            </div>
-          </>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-4 mt-4 md:mt-5">
+            {metrics.map((m) => (
+              <MetricCardGlass
+                key={m.label}
+                label={m.label}
+                value={m.value}
+                color={m.color}
+              />
+            ))}
+          </div>
         )}
       </GlassCard>
     );

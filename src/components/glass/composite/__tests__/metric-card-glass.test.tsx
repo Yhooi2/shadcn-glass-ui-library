@@ -180,7 +180,7 @@ describe('MetricCardGlass', () => {
         <MetricCardGlass label="Test" value={50} color="emerald" />
       );
       const card = container.firstChild as HTMLElement;
-      expect(card.style.backgroundColor).toContain('var(--metric-emerald-bg)');
+      expect(card.style.background).toContain('var(--metric-emerald-bg)');
     });
 
     it('applies color-specific CSS variables for amber', () => {
@@ -188,7 +188,7 @@ describe('MetricCardGlass', () => {
         <MetricCardGlass label="Test" value={50} color="amber" />
       );
       const card = container.firstChild as HTMLElement;
-      expect(card.style.backgroundColor).toContain('var(--metric-amber-bg)');
+      expect(card.style.background).toContain('var(--metric-amber-bg)');
     });
 
     it('applies color-specific CSS variables for blue', () => {
@@ -196,7 +196,7 @@ describe('MetricCardGlass', () => {
         <MetricCardGlass label="Test" value={50} color="blue" />
       );
       const card = container.firstChild as HTMLElement;
-      expect(card.style.backgroundColor).toContain('var(--metric-blue-bg)');
+      expect(card.style.background).toContain('var(--metric-blue-bg)');
     });
 
     it('applies color-specific CSS variables for red', () => {
@@ -204,7 +204,7 @@ describe('MetricCardGlass', () => {
         <MetricCardGlass label="Test" value={50} color="red" />
       );
       const card = container.firstChild as HTMLElement;
-      expect(card.style.backgroundColor).toContain('var(--metric-red-bg)');
+      expect(card.style.background).toContain('var(--metric-red-bg)');
     });
   });
 });

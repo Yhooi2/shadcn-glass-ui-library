@@ -109,28 +109,31 @@ const TabsRoot: FC<TabsRootProps> = ({ value, onValueChange, children, className
 // COMPOUND COMPONENT: LIST
 // ========================================
 
-interface TabsListProps {
+interface TabsListProps extends React.HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
   className?: string;
 }
 
-const TabsList = forwardRef<HTMLDivElement, TabsListProps>(({ children, className }, ref) => {
-  const containerStyles: CSSProperties = {
-    background: 'var(--tab-container-bg)',
-    border: '1px solid var(--tab-container-border)',
-  };
+const TabsList = forwardRef<HTMLDivElement, TabsListProps>(
+  ({ children, className, ...props }, ref) => {
+    const containerStyles: CSSProperties = {
+      background: 'var(--tab-container-bg)',
+      border: '1px solid var(--tab-container-border)',
+    };
 
-  return (
-    <div
-      ref={ref}
-      className={cn('flex gap-0.5 md:gap-1 p-0.5 md:p-1 rounded-xl', className)}
-      style={containerStyles}
-      role="tablist"
-    >
-      {children}
-    </div>
-  );
-});
+    return (
+      <div
+        ref={ref}
+        className={cn('flex gap-0.5 md:gap-1 p-0.5 md:p-1 rounded-xl', className)}
+        style={containerStyles}
+        role="tablist"
+        {...props}
+      >
+        {children}
+      </div>
+    );
+  }
+);
 
 TabsList.displayName = 'TabsList';
 

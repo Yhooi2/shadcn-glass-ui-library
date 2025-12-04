@@ -71,9 +71,10 @@ describe('useFocus', () => {
       const onKeyDown = vi.fn();
       const { result } = renderHook(() => useFocus({ focusVisible: true, onKeyDown }));
 
-      // Simulate keyboard event first
+      // Simulate global keyboard event (Tab key) to set hadKeyboardEvent flag
       act(() => {
-        result.current.focusProps.onKeyDown?.({} as React.KeyboardEvent);
+        const keyEvent = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true });
+        document.dispatchEvent(keyEvent);
       });
 
       // Then focus
@@ -88,6 +89,12 @@ describe('useFocus', () => {
     it('should not set focus-visible without keyboard event', () => {
       const { result } = renderHook(() => useFocus({ focusVisible: true }));
 
+      // Simulate mouse event to clear keyboard flag
+      act(() => {
+        const mouseEvent = new MouseEvent('mousedown', { bubbles: true });
+        document.dispatchEvent(mouseEvent);
+      });
+
       act(() => {
         result.current.focusProps.onFocus({} as React.FocusEvent);
       });
@@ -101,7 +108,9 @@ describe('useFocus', () => {
       const { result } = renderHook(() => useFocus({ focusVisible: true, onKeyDown }));
 
       act(() => {
-        result.current.focusProps.onKeyDown?.({} as React.KeyboardEvent);
+        // Simulate global keyboard event first
+        const keyEvent = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true });
+        document.dispatchEvent(keyEvent);
         result.current.focusProps.onFocus({} as React.FocusEvent);
       });
 

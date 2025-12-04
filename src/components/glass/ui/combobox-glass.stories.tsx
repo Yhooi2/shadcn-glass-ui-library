@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { ComboBoxGlass } from './combobox-glass';

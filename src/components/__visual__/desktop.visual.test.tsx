@@ -217,12 +217,12 @@ describe('DesktopShowcase Visual Tests', () => {
 
     test(`Segmented control interaction - ${theme}`, async () => {
       renderShowcase(theme);
-      await waitForStability();
+      await waitForStability(1000); // Extra wait for initial render
 
       // Click on "Contrib" segment (uses role="tab" in SegmentedControlGlass)
       const contribTab = page.getByRole('tab', { name: 'Contrib' });
       await contribTab.click();
-      await waitForStability(200);
+      await waitForStability(1000); // Extra wait for animations and state updates
 
       // Screenshot the repo section with Contrib selected
       const section = page.getByTestId('section-repos');
@@ -231,7 +231,7 @@ describe('DesktopShowcase Visual Tests', () => {
 
     test(`Repo card expanded - ${theme}`, async () => {
       renderShowcase(theme);
-      await waitForStability();
+      await waitForStability(1000); // Extra wait for initial animations and auto-expand
 
       // The first repo should already be expanded, get its content
       const section = page.getByTestId('section-repos');
