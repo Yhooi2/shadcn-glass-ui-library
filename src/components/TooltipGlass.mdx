@@ -1,0 +1,219 @@
+import { Meta, Canvas, ArgTypes, Controls } from '@storybook/blocks';
+import * as TooltipGlassStories from './TooltipGlass.stories';
+
+<Meta of={TooltipGlassStories} />
+
+# TooltipGlass
+
+Glassmorphism tooltip component for contextual hints with smart positioning and smooth animations.
+
+## Features
+
+- ✨ **Glass Effect** - Backdrop blur with subtle opacity
+- 🎯 **Smart Positioning** - Auto-placement with collision detection
+- ⏱️ **Delay Control** - Configurable show/hide delays
+- ♿ **WCAG 2.1 AA** - Proper ARIA attributes
+- 🎨 **4 Positions** - top, right, bottom, left
+- 📱 **Touch Support** - Works on mobile devices
+
+## Installation
+
+```bash
+npx shadcn@latest add @shadcn-glass-ui/tooltip
+```
+
+## Usage
+
+<Canvas of={TooltipGlassStories.Default} />
+
+```tsx
+import { TooltipGlass } from '@/components/glass/ui/tooltip-glass';
+import { ButtonGlass } from '@/components/glass/ui/button-glass';
+
+function Demo() {
+  return (
+    <TooltipGlass content="Click to save changes">
+      <ButtonGlass>Save</ButtonGlass>
+    </TooltipGlass>
+  );
+}
+```
+
+## API Reference
+
+<ArgTypes of={TooltipGlassStories} />
+
+## Positioning
+
+### Top (Default)
+
+```tsx
+<TooltipGlass content="Top tooltip" side="top">
+  <ButtonGlass>Hover me</ButtonGlass>
+</TooltipGlass>
+```
+
+### Right
+
+```tsx
+<TooltipGlass content="Right tooltip" side="right">
+  <ButtonGlass>Hover me</ButtonGlass>
+</TooltipGlass>
+```
+
+### Bottom
+
+```tsx
+<TooltipGlass content="Bottom tooltip" side="bottom">
+  <ButtonGlass>Hover me</ButtonGlass>
+</TooltipGlass>
+```
+
+### Left
+
+```tsx
+<TooltipGlass content="Left tooltip" side="left">
+  <ButtonGlass>Hover me</ButtonGlass>
+</TooltipGlass>
+```
+
+## Examples
+
+### Icon Button Hint
+
+```tsx
+import { HelpCircle } from 'lucide-react';
+
+<TooltipGlass content="Get help and documentation">
+  <ButtonGlass variant="ghost" size="icon">
+    <HelpCircle className="w-5 h-5" />
+  </ButtonGlass>
+</TooltipGlass>
+```
+
+### Disabled Action
+
+```tsx
+<TooltipGlass content="You don't have permission to delete this item">
+  <ButtonGlass disabled variant="danger">
+    Delete
+  </ButtonGlass>
+</TooltipGlass>
+```
+
+### Keyboard Shortcut
+
+```tsx
+<TooltipGlass content="Save changes (⌘S)">
+  <ButtonGlass onClick={handleSave}>
+    Save
+  </ButtonGlass>
+</TooltipGlass>
+```
+
+### Rich Content
+
+```tsx
+<TooltipGlass
+  content={
+    <div className="space-y-1">
+      <p className="font-semibold">Pro Feature</p>
+      <p className="text-xs opacity-80">
+        Upgrade to Pro to unlock this feature
+      </p>
+    </div>
+  }
+>
+  <ButtonGlass disabled>Advanced Analytics</ButtonGlass>
+</TooltipGlass>
+```
+
+## Delay Configuration
+
+### Default Delay (300ms)
+
+```tsx
+<TooltipGlass content="Default delay">
+  <ButtonGlass>Hover me</ButtonGlass>
+</TooltipGlass>
+```
+
+### Instant Tooltip
+
+```tsx
+<TooltipGlass content="Instant tooltip" delayDuration={0}>
+  <ButtonGlass>Hover me</ButtonGlass>
+</TooltipGlass>
+```
+
+### Long Delay
+
+```tsx
+<TooltipGlass content="Long delay" delayDuration={1000}>
+  <ButtonGlass>Hover me</ButtonGlass>
+</TooltipGlass>
+```
+
+## Accessibility
+
+- **ARIA**: `role="tooltip"`, `aria-describedby`
+- **Keyboard**: ESC to dismiss
+- **Focus**: Shows on focus for keyboard users
+
+```tsx
+<TooltipGlass content="Important information">
+  <button aria-label="More information">
+    <Info className="w-4 h-4" />
+  </button>
+</TooltipGlass>
+```
+
+## Best Practices
+
+### ✅ Do
+
+- Keep tooltips concise (1-2 lines)
+- Use for supplementary information
+- Provide keyboard shortcuts in tooltips
+- Explain disabled states
+- Use for icon-only buttons
+
+### ❌ Don't
+
+- Don't use for critical information
+- Don't make tooltips too long
+- Don't use tooltips on mobile-only interfaces
+- Don't hide important actions in tooltips
+- Don't nest interactive elements in tooltips
+
+## Common Patterns
+
+### Form Field Help
+
+```tsx
+<div className="flex items-center gap-2">
+  <label htmlFor="email">Email</label>
+  <TooltipGlass content="We'll never share your email">
+    <HelpCircle className="w-4 h-4 opacity-60" />
+  </TooltipGlass>
+</div>
+<InputGlass id="email" type="email" />
+```
+
+### Status Indicator
+
+```tsx
+<div className="flex items-center gap-2">
+  <div className="w-2 h-2 rounded-full bg-green-500" />
+  <TooltipGlass content="All systems operational">
+    <span>Online</span>
+  </TooltipGlass>
+</div>
+```
+
+## Related Components
+
+- [ModalGlass](/?path=/docs/components-modalglass--docs) - For detailed information
+- [DropdownGlass](/?path=/docs/components-dropdownglass--docs) - For interactive menus
+
+View source: [tooltip-glass.tsx](https://github.com/yourusername/shadcn-glass-ui/blob/main/src/components/glass/ui/tooltip-glass.tsx)

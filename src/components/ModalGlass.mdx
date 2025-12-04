@@ -1,0 +1,430 @@
+import { Meta, Canvas, ArgTypes, Source, Controls } from '@storybook/blocks';
+import * as ModalGlassStories from './ModalGlass.stories';
+
+<Meta of={ModalGlassStories} />
+
+# ModalGlass
+
+Glassmorphism modal dialog component with backdrop blur, keyboard navigation, and accessibility support.
+
+## Features
+
+- ✨ **Glass Effect** - Backdrop blur with glassmorphism styling
+- 🎯 **Focus Management** - Auto-focus and focus trap
+- ⌨️ **Keyboard Support** - ESC to close, Tab navigation
+- 🔒 **Scroll Lock** - Prevents background scrolling
+- ♿ **WCAG 2.1 AA** - Full ARIA dialog pattern
+- 📐 **Multiple Sizes** - sm (400px), md (600px), lg (800px)
+
+## Installation
+
+```bash
+npx shadcn@latest add @shadcn-glass-ui/modal
+```
+
+Or manually copy:
+```tsx
+import { ModalGlass } from '@/components/glass/ui/modal-glass';
+```
+
+## Usage
+
+### Basic Example
+
+<Canvas of={ModalGlassStories.Default} />
+
+```tsx
+import { useState } from 'react';
+import { ModalGlass } from '@/components/glass/ui/modal-glass';
+import { ButtonGlass } from '@/components/glass/ui/button-glass';
+
+export default function Demo() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <>
+      <ButtonGlass onClick={() => setIsOpen(true)}>
+        Open Modal
+      </ButtonGlass>
+
+      <ModalGlass
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        title="Confirmation"
+      >
+        <p>Are you sure you want to continue?</p>
+
+        <div className="flex gap-3 mt-6">
+          <ButtonGlass onClick={() => setIsOpen(false)}>
+            Confirm
+          </ButtonGlass>
+          <ButtonGlass variant="ghost" onClick={() => setIsOpen(false)}>
+            Cancel
+          </ButtonGlass>
+        </div>
+      </ModalGlass>
+    </>
+  );
+}
+```
+
+## API Reference
+
+<ArgTypes of={ModalGlassStories} />
+
+<Controls of={ModalGlassStories.Default} />
+
+## Design Tokens
+
+| Token | Value | Notes |
+|-------|-------|-------|
+| **Backdrop Blur** | 16px (md) | Glass effect |
+| **Backdrop Opacity** | 40% | Overlay darkness |
+| **Border Radius** | 24px (3xl) | Large rounded corners |
+| **Padding** | 24px (p-6) | Content spacing |
+| **Shadow** | Multi-layer | Elevation effect |
+| **Animation** | 200ms ease-in-out | Open/close transition |
+
+### Size Specifications
+
+| Size | Width | Max Height | Use Case |
+|------|-------|------------|----------|
+| `sm` | 400px | 90vh | Confirmations, alerts |
+| `md` | 600px | 90vh | Forms, content (default) |
+| `lg` | 800px | 90vh | Rich content, galleries |
+
+## Sizes
+
+### Small Modal
+
+<Canvas of={ModalGlassStories.SmallSize} />
+
+```tsx
+<ModalGlass
+  isOpen={isOpen}
+  onClose={handleClose}
+  title="Delete Confirmation"
+  size="sm"
+>
+  <p>This action cannot be undone.</p>
+</ModalGlass>
+```
+
+### Medium Modal (Default)
+
+```tsx
+<ModalGlass
+  isOpen={isOpen}
+  onClose={handleClose}
+  title="Edit Profile"
+  size="md"
+>
+  {/* Form content */}
+</ModalGlass>
+```
+
+### Large Modal
+
+<Canvas of={ModalGlassStories.LargeSize} />
+
+```tsx
+<ModalGlass
+  isOpen={isOpen}
+  onClose={handleClose}
+  title="Image Gallery"
+  size="lg"
+>
+  {/* Gallery grid */}
+</ModalGlass>
+```
+
+## Features
+
+### Close Button
+
+The modal includes a built-in close button (X) in the top-right corner:
+
+```tsx
+<ModalGlass
+  isOpen={isOpen}
+  onClose={handleClose}
+  title="Settings"
+>
+  {/* Content - close button is automatic */}
+</ModalGlass>
+```
+
+### No Title
+
+You can omit the title for custom header layouts:
+
+```tsx
+<ModalGlass
+  isOpen={isOpen}
+  onClose={handleClose}
+>
+  <div className="space-y-4">
+    <h2 className="text-2xl font-semibold">Custom Header</h2>
+    <p>Content goes here...</p>
+  </div>
+</ModalGlass>
+```
+
+### Disable Outside Click
+
+By default, clicking the backdrop closes the modal. Disable this:
+
+```tsx
+<ModalGlass
+  isOpen={isOpen}
+  onClose={handleClose}
+  closeOnBackdropClick={false}
+>
+  <p>You must use the close button or ESC key</p>
+</ModalGlass>
+```
+
+## Accessibility
+
+### ARIA Dialog Pattern
+
+ModalGlass implements the full ARIA dialog pattern:
+
+- `role="dialog"` on modal container
+- `aria-modal="true"` to indicate modal state
+- `aria-labelledby` pointing to title
+- Focus trap within modal
+- Returns focus to trigger on close
+
+### Keyboard Navigation
+
+| Key | Action |
+|-----|--------|
+| **ESC** | Close modal |
+| **Tab** | Focus next interactive element |
+| **Shift+Tab** | Focus previous element |
+| **Enter** | Activate focused button |
+
+### Screen Reader Support
+
+```tsx
+<ModalGlass
+  isOpen={isOpen}
+  onClose={handleClose}
+  title="Delete Account"
+  aria-describedby="modal-description"
+>
+  <p id="modal-description">
+    This will permanently delete your account and all associated data.
+  </p>
+</ModalGlass>
+```
+
+## Examples
+
+### Confirmation Dialog
+
+```tsx
+function DeleteConfirmation({ isOpen, onClose, onConfirm }) {
+  return (
+    <ModalGlass
+      isOpen={isOpen}
+      onClose={onClose}
+      title="Confirm Deletion"
+      size="sm"
+    >
+      <p className="text-sm opacity-80">
+        Are you sure you want to delete this item? This action cannot be undone.
+      </p>
+
+      <div className="flex gap-3 mt-6 justify-end">
+        <ButtonGlass variant="ghost" onClick={onClose}>
+          Cancel
+        </ButtonGlass>
+        <ButtonGlass
+          variant="primary"
+          onClick={() => {
+            onConfirm();
+            onClose();
+          }}
+        >
+          Delete
+        </ButtonGlass>
+      </div>
+    </ModalGlass>
+  );
+}
+```
+
+### Form Modal
+
+```tsx
+function EditProfileModal({ isOpen, onClose }) {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Save profile...
+    onClose();
+  };
+
+  return (
+    <ModalGlass
+      isOpen={isOpen}
+      onClose={onClose}
+      title="Edit Profile"
+      size="md"
+    >
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <InputGlass
+          label="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+
+        <InputGlass
+          label="Email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+
+        <div className="flex gap-3 justify-end pt-4">
+          <ButtonGlass variant="ghost" onClick={onClose}>
+            Cancel
+          </ButtonGlass>
+          <ButtonGlass type="submit">
+            Save Changes
+          </ButtonGlass>
+        </div>
+      </form>
+    </ModalGlass>
+  );
+}
+```
+
+### Image Preview Modal
+
+```tsx
+function ImagePreviewModal({ isOpen, onClose, imageUrl }) {
+  return (
+    <ModalGlass
+      isOpen={isOpen}
+      onClose={onClose}
+      size="lg"
+    >
+      <img
+        src={imageUrl}
+        alt="Preview"
+        className="w-full h-auto rounded-lg"
+      />
+    </ModalGlass>
+  );
+}
+```
+
+## Theme Support
+
+ModalGlass adapts to all three themes:
+
+```tsx
+// Glass theme (dark glassmorphism)
+<div className="theme-glass">
+  <ModalGlass isOpen={true} onClose={handleClose}>
+    Dark glass modal
+  </ModalGlass>
+</div>
+
+// Light theme
+<div className="theme-light">
+  <ModalGlass isOpen={true} onClose={handleClose}>
+    Light theme modal
+  </ModalGlass>
+</div>
+
+// Aurora theme (gradient)
+<div className="theme-aurora">
+  <ModalGlass isOpen={true} onClose={handleClose}>
+    Aurora gradient modal
+  </ModalGlass>
+</div>
+```
+
+## Best Practices
+
+### ✅ Do
+
+- Always provide a way to close (X button, ESC, backdrop click)
+- Use `size="sm"` for simple confirmations
+- Return focus to trigger element on close
+- Provide clear title or `aria-label`
+- Use for critical information or actions
+- Limit content to avoid scrolling when possible
+
+### ❌ Don't
+
+- Don't nest modals (use sequential modals instead)
+- Don't use for non-critical information (use tooltips/popovers)
+- Don't make modals too small on mobile
+- Don't disable all close methods (always allow ESC)
+- Don't auto-open modals on page load (UX anti-pattern)
+
+## Common Patterns
+
+### Multi-Step Wizard
+
+```tsx
+function WizardModal() {
+  const [step, setStep] = useState(1);
+
+  return (
+    <ModalGlass
+      isOpen={isOpen}
+      onClose={handleClose}
+      title={`Step ${step} of 3`}
+    >
+      {step === 1 && <Step1 onNext={() => setStep(2)} />}
+      {step === 2 && <Step2 onNext={() => setStep(3)} onBack={() => setStep(1)} />}
+      {step === 3 && <Step3 onBack={() => setStep(2)} />}
+    </ModalGlass>
+  );
+}
+```
+
+### Loading State
+
+```tsx
+function LoadingModal({ isOpen }) {
+  return (
+    <ModalGlass
+      isOpen={isOpen}
+      onClose={() => {}} // Prevent closing during load
+      closeOnBackdropClick={false}
+      size="sm"
+    >
+      <div className="flex flex-col items-center gap-4 py-8">
+        <Loader2 className="w-8 h-8 animate-spin" />
+        <p>Processing...</p>
+      </div>
+    </ModalGlass>
+  );
+}
+```
+
+## Related Components
+
+- [ButtonGlass](/?path=/docs/components-buttonglass--docs) - Trigger buttons
+- [DropdownGlass](/?path=/docs/components-dropdownglass--docs) - Alternative for menus
+- [TooltipGlass](/?path=/docs/components-tooltipglass--docs) - For hints
+
+## Technical Implementation
+
+Built with:
+- **Portal Rendering** - Renders outside DOM hierarchy
+- **Focus Trap** - Keeps focus within modal
+- **Scroll Lock** - Prevents background scrolling
+- **Radix UI** - Dialog primitive (optional)
+- **Tailwind CSS** - Styling and animations
+
+View source: [modal-glass.tsx](https://github.com/yourusername/shadcn-glass-ui/blob/main/src/components/glass/ui/modal-glass.tsx)

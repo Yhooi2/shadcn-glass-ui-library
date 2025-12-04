@@ -1,0 +1,395 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Introduction" />
+
+<style>
+  {`
+  .hero {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(16px);
+    border-radius: 16px;
+    padding: 3rem 2rem;
+    margin: 2rem 0;
+    text-align: center;
+  }
+
+  .hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #818cf8, #c084fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .feature-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .feature-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .feature-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-desc {
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+
+  .links-section {
+    margin: 2rem 0;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .link-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: rgba(99, 102, 241, 0.2);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    border-radius: 8px;
+    color: #c7d2fe;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+
+  .link-button:hover {
+    background: rgba(99, 102, 241, 0.3);
+    border-color: rgba(99, 102, 241, 0.5);
+    transform: translateY(-1px);
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+
+  .stat-card {
+    text-align: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+  }
+
+  .stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #a78bfa;
+    margin-bottom: 0.25rem;
+  }
+
+  .stat-label {
+    font-size: 0.9rem;
+    opacity: 0.7;
+  }
+  `}
+</style>
+
+<div className="hero">
+  <h1>shadcn-glass-ui</h1>
+  <p style={{ fontSize: '1.25rem', opacity: 0.9 }}>
+    Modern glassmorphism component library for React with full shadcn/ui compatibility
+  </p>
+</div>
+
+## ✨ What is shadcn-glass-ui?
+
+A comprehensive UI component library featuring **57 glassmorphism components** built with React 19, TypeScript 5.9, and Tailwind CSS v4. Fully compatible with shadcn/ui and designed for modern web applications.
+
+<div className="stats-grid">
+  <div className="stat-card">
+    <div className="stat-number">57</div>
+    <div className="stat-label">Components</div>
+  </div>
+  <div className="stat-card">
+    <div className="stat-number">3</div>
+    <div className="stat-label">Themes</div>
+  </div>
+  <div className="stat-card">
+    <div className="stat-number">2,127</div>
+    <div className="stat-label">Tests</div>
+  </div>
+  <div className="stat-card">
+    <div className="stat-number">100%</div>
+    <div className="stat-label">Compliance</div>
+  </div>
+</div>
+
+## 🎨 Features
+
+<div className="features-grid">
+  <div className="feature-card">
+    <div className="feature-icon">🔮</div>
+    <div className="feature-title">4 Glass Variants</div>
+    <div className="feature-desc">
+      Standard glass, frosted, fluted, and crystal effects for maximum visual flexibility
+    </div>
+  </div>
+
+  <div className="feature-card">
+    <div className="feature-icon">🌈</div>
+    <div className="feature-title">3 Built-in Themes</div>
+    <div className="feature-desc">
+      Glass (dark), Light (minimal), and Aurora (gradient) with seamless switching
+    </div>
+  </div>
+
+  <div className="feature-card">
+    <div className="feature-icon">♿</div>
+    <div className="feature-title">WCAG 2.1 AA</div>
+    <div className="feature-desc">
+      Full accessibility compliance with keyboard navigation and screen reader support
+    </div>
+  </div>
+
+  <div className="feature-card">
+    <div className="feature-icon">📱</div>
+    <div className="feature-title">Touch Optimized</div>
+    <div className="feature-desc">
+      44×44px minimum touch targets following Apple HIG guidelines
+    </div>
+  </div>
+
+  <div className="feature-card">
+    <div className="feature-icon">⚡</div>
+    <div className="feature-title">High Performance</div>
+    <div className="feature-desc">
+      3-16x faster builds with Rolldown, 100x memory reduction
+    </div>
+  </div>
+
+  <div className="feature-card">
+    <div className="feature-icon">🧪</div>
+    <div className="feature-title">Fully Tested</div>
+    <div className="feature-desc">
+      647 compliance + 1,480 visual regression tests ensuring quality
+    </div>
+  </div>
+</div>
+
+## 📦 Component Categories
+
+### Core UI Components (17)
+
+Essential building blocks for any application:
+
+- **Buttons & Actions**: ButtonGlass, IconButtonGlass
+- **Inputs**: InputGlass, CheckboxGlass, ToggleGlass, SliderGlass, ComboBoxGlass
+- **Containers**: GlassCard, ModalGlass
+- **Navigation**: TabsGlass, DropdownGlass
+- **Feedback**: BadgeGlass, AlertGlass, NotificationGlass, TooltipGlass, SkeletonGlass, ProgressGlass, CircularProgressGlass
+- **Media**: AvatarGlass
+
+### Atomic Components (6)
+
+Small, specialized components for specific use cases.
+
+### Composite Components (13)
+
+Pre-built complex components combining multiple elements.
+
+### Section Components (7)
+
+Full-page sections ready to use in your application.
+
+### Blocks (6)
+
+Ready-to-use component showcases following shadcn/ui pattern.
+
+### Demo Pages (2)
+
+- **ComponentShowcase** - All core components in action
+- **DesktopShowcase** - GitHub Analytics desktop mockup
+
+## 🚀 Quick Start
+
+### Installation
+
+```bash
+# Via shadcn CLI (recommended)
+npx shadcn@latest add @shadcn-glass-ui/button
+
+# Via npm
+npm install shadcn-glass-ui
+```
+
+### Basic Usage
+
+```tsx
+import { ButtonGlass, InputGlass, GlassCard } from 'shadcn-glass-ui';
+
+export default function App() {
+  return (
+    <div className="theme-glass p-8">
+      <GlassCard variant="glass" intensity="medium">
+        <h2>Welcome</h2>
+        <InputGlass placeholder="Enter text..." />
+        <ButtonGlass variant="primary">Submit</ButtonGlass>
+      </GlassCard>
+    </div>
+  );
+}
+```
+
+## 🎯 How to Use This Storybook
+
+### Explore Components
+
+Browse the sidebar to find components organized by category. Each component has:
+
+- **Interactive demos** with live controls
+- **API documentation** with all props
+- **Code examples** you can copy
+- **Accessibility information**
+- **Visual examples** in all themes
+
+### Switch Themes
+
+Use the **toolbar theme switcher** to view components in:
+
+- 🌑 **Glass** - Dark glassmorphism
+- ☀️ **Light** - Clean minimal
+- 🌈 **Aurora** - Gradient glow
+
+### Try Interactivity
+
+Use the **Controls** panel at the bottom to:
+
+- Change component props in real-time
+- Test different variants and sizes
+- Experiment with states
+- Copy code examples
+
+### Check Accessibility
+
+Use the **a11y addon** to:
+
+- View accessibility violations
+- Check ARIA attributes
+- Test keyboard navigation
+- Verify color contrast
+
+## 📚 Documentation
+
+<div className="links-section">
+  <a href="https://github.com/yourusername/shadcn-glass-ui" className="link-button" target="_blank">
+    📖 GitHub Repository
+  </a>
+  <a href="https://github.com/yourusername/shadcn-glass-ui/blob/main/README.md" className="link-button" target="_blank">
+    📝 README
+  </a>
+  <a href="https://github.com/yourusername/shadcn-glass-ui/blob/main/docs/GETTING_STARTED.md" className="link-button" target="_blank">
+    🚀 Getting Started
+  </a>
+  <a href="https://github.com/yourusername/shadcn-glass-ui/blob/main/UI_DIZINE.md" className="link-button" target="_blank">
+    🎨 Design System
+  </a>
+  <a href="https://github.com/yourusername/shadcn-glass-ui/blob/main/CONTRIBUTING.md" className="link-button" target="_blank">
+    🤝 Contributing
+  </a>
+  <a href="https://www.npmjs.com/package/shadcn-glass-ui" className="link-button" target="_blank">
+    📦 NPM Package
+  </a>
+</div>
+
+## 🛠️ Tech Stack
+
+- **React 19.2** - Latest with Server Components
+- **TypeScript 5.9** - Strict type checking
+- **Tailwind CSS 4.1** - 5x faster builds, CSS-first
+- **Vite 7** (Rolldown) - 3-16x faster bundler
+- **Storybook 10.1** - Component workshop
+- **Vitest 4.0** - Browser mode testing
+
+## 🌟 Key Features
+
+### Design System Compliance
+
+All components follow strict design specifications from [UI_DIZINE.md](https://github.com/yourusername/shadcn-glass-ui/blob/main/UI_DIZINE.md):
+
+- **Spacing**: 8px base grid
+- **Typography**: 16px minimum for inputs (iOS safe)
+- **Touch Targets**: 44×44px minimum (Apple HIG)
+- **Blur Values**: 8px, 16px, 24px, 32px only
+- **Opacity Ranges**: STANDARD_CARDS 15-25%
+
+### Accessibility First
+
+- ✅ Full keyboard navigation
+- ✅ Screen reader support
+- ✅ Focus indicators
+- ✅ Color contrast compliance
+- ✅ Reduced motion support
+
+### Performance Optimized
+
+- ⚡ Tree-shakeable ESM exports
+- ⚡ Automatic code splitting
+- ⚡ Optimized CSS (~10KB gzipped)
+- ⚡ 32% fewer renders (React 19)
+
+## 💡 Example Use Cases
+
+### Dashboard Applications
+
+Perfect for analytics dashboards, admin panels, and data visualization with its modern glassmorphic aesthetic.
+
+### Landing Pages
+
+Create stunning hero sections and feature showcases with gradient glass effects.
+
+### SaaS Products
+
+Build professional application UIs with consistent design language and accessibility.
+
+### Portfolio Sites
+
+Showcase your work with modern, eye-catching glassmorphism design.
+
+## 🤝 Contributing
+
+We welcome contributions! Check out:
+
+- [Contributing Guide](https://github.com/yourusername/shadcn-glass-ui/blob/main/CONTRIBUTING.md)
+- [GitHub Discussions](https://github.com/yourusername/shadcn-glass-ui/discussions)
+- [Report Issues](https://github.com/yourusername/shadcn-glass-ui/issues)
+
+## 📄 License
+
+MIT © [Your Name]
+
+---
+
+<div style={{ textAlign: 'center', padding: '2rem 0', opacity: 0.8 }}>
+  <p>Built with ❤️ and glassmorphism</p>
+  <p>Start exploring components in the sidebar →</p>
+</div>

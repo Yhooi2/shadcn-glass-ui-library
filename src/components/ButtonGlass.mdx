@@ -1,0 +1,246 @@
+import { Meta, Canvas, ArgTypes, Source, Controls } from '@storybook/blocks';
+import * as ButtonGlassStories from './ButtonGlass.stories';
+
+<Meta of={ButtonGlassStories} />
+
+# ButtonGlass
+
+Modern glassmorphism button component with multiple variants and full accessibility support.
+
+## Features
+
+- ✨ **3 Visual Variants** - primary (gradient glow), ghost (subtle border), text (minimal)
+- 📐 **4 Sizes** - sm (32px), md (44px), lg (56px), icon (40x40px)
+- 🎨 **3 Themes** - glass (dark), light, aurora (gradient)
+- ♿ **WCAG 2.1 AA** - Full keyboard navigation and screen reader support
+- 📱 **Touch Optimized** - Minimum 44×44px touch targets (Apple HIG compliance)
+- 🎯 **Focus Management** - Visible focus rings (2px inner + 4px outer)
+
+## Installation
+
+```bash
+npx shadcn@latest add @shadcn-glass-ui/button
+```
+
+Or manually copy:
+```tsx
+import { ButtonGlass } from '@/components/glass/ui/button-glass';
+```
+
+## Usage
+
+### Basic Example
+
+<Canvas of={ButtonGlassStories.Primary} />
+
+```tsx
+import { ButtonGlass } from '@/components/glass/ui/button-glass';
+
+export default function Demo() {
+  return (
+    <ButtonGlass onClick={() => alert('Clicked!')}>
+      Click me
+    </ButtonGlass>
+  );
+}
+```
+
+### All Variants
+
+<Canvas of={ButtonGlassStories.AllVariants} />
+
+## API Reference
+
+<ArgTypes of={ButtonGlassStories} />
+
+<Controls of={ButtonGlassStories.Primary} />
+
+## Design Tokens
+
+| Token | Value | Notes |
+|-------|-------|-------|
+| **Touch Target** | 44×44px | Apple HIG minimum (md/lg sizes) |
+| **Border Radius** | 8px (sm), 12px (md), 16px (lg) | Matches size scale |
+| **Font Weight** | 500 | Medium for readability |
+| **Transition** | 200ms | Smooth hover/focus states |
+| **Focus Ring** | 2px inner + 4px outer | WCAG 2.1 AA compliant |
+
+### Size Specifications
+
+| Size | Height | Padding | Font Size | Use Case |
+|------|--------|---------|-----------|----------|
+| `sm` | 32px | 12px / 8px | 14px | Compact UIs, toolbars |
+| `md` | 44px | 20px / 10px | 16px | Default, forms |
+| `lg` | 56px | 28px / 14px | 18px | Hero sections, CTAs |
+| `icon` | 40×40px | 10px | - | Icon-only buttons |
+
+## Accessibility
+
+### Keyboard Navigation
+
+- **Tab** - Focus button
+- **Enter/Space** - Activate button
+- **Shift+Tab** - Focus previous element
+
+### Screen Reader Support
+
+```tsx
+<ButtonGlass aria-label="Delete item">
+  <TrashIcon />
+</ButtonGlass>
+```
+
+### Disabled State
+
+<Canvas of={ButtonGlassStories.Disabled} />
+
+```tsx
+<ButtonGlass disabled>
+  Disabled Button
+</ButtonGlass>
+```
+
+**Behavior:**
+- `aria-disabled="true"` attribute
+- Reduced opacity (50%)
+- Pointer events disabled
+- Not focusable via keyboard
+
+## Variants
+
+### Primary (Default)
+
+Gradient background with glow effect. Use for primary actions.
+
+<Canvas of={ButtonGlassStories.Primary} />
+
+```tsx
+<ButtonGlass variant="primary">
+  Save Changes
+</ButtonGlass>
+```
+
+### Ghost
+
+Subtle border with transparent background. Use for secondary actions.
+
+<Canvas of={ButtonGlassStories.Ghost} />
+
+```tsx
+<ButtonGlass variant="ghost">
+  Cancel
+</ButtonGlass>
+```
+
+### Text
+
+Minimal styling with hover glow. Use for tertiary actions or links.
+
+<Canvas of={ButtonGlassStories.Text} />
+
+```tsx
+<ButtonGlass variant="text">
+  Learn More
+</ButtonGlass>
+```
+
+## Sizes
+
+<Canvas of={ButtonGlassStories.AllPrimarySizes} />
+
+```tsx
+<ButtonGlass size="sm">Small</ButtonGlass>
+<ButtonGlass size="md">Medium</ButtonGlass>
+<ButtonGlass size="lg">Large</ButtonGlass>
+<ButtonGlass size="icon">+</ButtonGlass>
+```
+
+## Theme Support
+
+ButtonGlass automatically adapts to the current theme context:
+
+```tsx
+import { ThemeProvider } from '@/lib/theme-context';
+
+// Glass theme (dark glassmorphism)
+<div className="theme-glass">
+  <ButtonGlass>Glass Theme</ButtonGlass>
+</div>
+
+// Light theme
+<div className="theme-light">
+  <ButtonGlass>Light Theme</ButtonGlass>
+</div>
+
+// Aurora theme (gradient)
+<div className="theme-aurora">
+  <ButtonGlass>Aurora Theme</ButtonGlass>
+</div>
+```
+
+## Best Practices
+
+### ✅ Do
+
+- Use `primary` for main actions (Submit, Save, Confirm)
+- Use `ghost` for secondary actions (Cancel, Back)
+- Use `text` for tertiary actions (Learn More, Skip)
+- Provide `aria-label` for icon-only buttons
+- Use `md` size by default for 44px touch targets
+
+### ❌ Don't
+
+- Don't use multiple primary buttons in the same context
+- Don't use buttons for navigation (use links instead)
+- Don't override minimum touch target sizes
+- Don't use vague labels like "Click here"
+
+## Examples
+
+### With Icon
+
+```tsx
+import { Download } from 'lucide-react';
+
+<ButtonGlass>
+  <Download className="w-4 h-4 mr-2" />
+  Download
+</ButtonGlass>
+```
+
+### Loading State
+
+```tsx
+import { Loader2 } from 'lucide-react';
+
+<ButtonGlass disabled>
+  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+  Loading...
+</ButtonGlass>
+```
+
+### Form Submit
+
+```tsx
+<form onSubmit={handleSubmit}>
+  <ButtonGlass type="submit" size="lg">
+    Create Account
+  </ButtonGlass>
+</form>
+```
+
+## Related Components
+
+- [InputGlass](/?path=/docs/components-inputglass--docs) - Text input with glass effect
+- [ModalGlass](/?path=/docs/components-modalglass--docs) - Modal dialog
+- [DropdownGlass](/?path=/docs/components-dropdownglass--docs) - Dropdown menu
+
+## Technical Implementation
+
+Built with:
+- **Radix UI Primitives** - Accessible button foundation
+- **CVA** - Class variance authority for variant management
+- **Tailwind CSS** - Utility-first styling
+- **TypeScript** - Full type safety
+
+View source: [button-glass.tsx](https://github.com/yourusername/shadcn-glass-ui/blob/main/src/components/glass/ui/button-glass.tsx)

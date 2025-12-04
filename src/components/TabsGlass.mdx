@@ -1,0 +1,169 @@
+import { Meta, Canvas, ArgTypes, Controls } from '@storybook/blocks';
+import * as TabsGlassStories from './TabsGlass.stories';
+
+<Meta of={TabsGlassStories} />
+
+# TabsGlass
+
+Glassmorphism tabs component for organizing content into switchable panels with smooth animations.
+
+## Features
+
+- ✨ **Glass Effect** - Glassmorphism styling with smooth transitions
+- 🎯 **Active Indicator** - Animated underline/background
+- ⌨️ **Keyboard Navigation** - Arrow keys support
+- ♿ **WCAG 2.1 AA** - Full ARIA tabs pattern
+- 📱 **Responsive** - Scrollable on mobile
+- 🎨 **2 Variants** - underline, pill
+
+## Installation
+
+```bash
+npx shadcn@latest add @shadcn-glass-ui/tabs
+```
+
+## Usage
+
+<Canvas of={TabsGlassStories.Default} />
+
+```tsx
+import { TabsGlass } from '@/components/glass/ui/tabs-glass';
+
+function Demo() {
+  return (
+    <TabsGlass defaultValue="overview">
+      <TabsGlass.List>
+        <TabsGlass.Trigger value="overview">Overview</TabsGlass.Trigger>
+        <TabsGlass.Trigger value="analytics">Analytics</TabsGlass.Trigger>
+        <TabsGlass.Trigger value="settings">Settings</TabsGlass.Trigger>
+      </TabsGlass.List>
+
+      <TabsGlass.Content value="overview">
+        <h3>Overview</h3>
+        <p>Overview content goes here...</p>
+      </TabsGlass.Content>
+
+      <TabsGlass.Content value="analytics">
+        <h3>Analytics</h3>
+        <p>Analytics content goes here...</p>
+      </TabsGlass.Content>
+
+      <TabsGlass.Content value="settings">
+        <h3>Settings</h3>
+        <p>Settings content goes here...</p>
+      </TabsGlass.Content>
+    </TabsGlass>
+  );
+}
+```
+
+## API Reference
+
+<ArgTypes of={TabsGlassStories} />
+
+## Variants
+
+### Underline (Default)
+
+Active tab with bottom border indicator.
+
+```tsx
+<TabsGlass variant="underline" defaultValue="tab1">
+  {/* tabs */}
+</TabsGlass>
+```
+
+### Pill
+
+Active tab with full background highlight.
+
+```tsx
+<TabsGlass variant="pill" defaultValue="tab1">
+  {/* tabs */}
+</TabsGlass>
+```
+
+## Examples
+
+### Dashboard Tabs
+
+```tsx
+import { BarChart3, Users, Settings } from 'lucide-react';
+
+<TabsGlass defaultValue="analytics">
+  <TabsGlass.List>
+    <TabsGlass.Trigger value="analytics">
+      <BarChart3 className="w-4 h-4 mr-2" />
+      Analytics
+    </TabsGlass.Trigger>
+    <TabsGlass.Trigger value="users">
+      <Users className="w-4 h-4 mr-2" />
+      Users
+    </TabsGlass.Trigger>
+    <TabsGlass.Trigger value="settings">
+      <Settings className="w-4 h-4 mr-2" />
+      Settings
+    </TabsGlass.Trigger>
+  </TabsGlass.List>
+
+  <TabsGlass.Content value="analytics">
+    <StatsGrid />
+  </TabsGlass.Content>
+
+  <TabsGlass.Content value="users">
+    <UserTable />
+  </TabsGlass.Content>
+
+  <TabsGlass.Content value="settings">
+    <SettingsForm />
+  </TabsGlass.Content>
+</TabsGlass>
+```
+
+### Controlled Tabs
+
+```tsx
+function ControlledTabs() {
+  const [activeTab, setActiveTab] = useState('profile');
+
+  return (
+    <TabsGlass value={activeTab} onValueChange={setActiveTab}>
+      <TabsGlass.List>
+        <TabsGlass.Trigger value="profile">Profile</TabsGlass.Trigger>
+        <TabsGlass.Trigger value="account">Account</TabsGlass.Trigger>
+      </TabsGlass.List>
+
+      <TabsGlass.Content value="profile">
+        <ProfileForm />
+      </TabsGlass.Content>
+
+      <TabsGlass.Content value="account">
+        <AccountSettings />
+      </TabsGlass.Content>
+    </TabsGlass>
+  );
+}
+```
+
+## Keyboard Navigation
+
+| Key | Action |
+|-----|--------|
+| **←** | Previous tab |
+| **→** | Next tab |
+| **Home** | First tab |
+| **End** | Last tab |
+| **Tab** | Move to content |
+
+## Accessibility
+
+- **ARIA**: `role="tablist"`, `role="tab"`, `role="tabpanel"`
+- **Keyboard**: Full arrow key navigation
+- **Focus Management**: Proper tab/content association
+
+## Related Components
+
+- [SegmentedControlGlass](/?path=/docs/components-segmentedcontrolglass--docs) - Alternative tab style
+- [ModalGlass](/?path=/docs/components-modalglass--docs) - Modal dialogs
+
+View source: [tabs-glass.tsx](https://github.com/yourusername/shadcn-glass-ui/blob/main/src/components/glass/ui/tabs-glass.tsx)
