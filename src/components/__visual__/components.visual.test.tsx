@@ -107,7 +107,7 @@ describe('Visual Regression Tests', () => {
 
     test(`AlertGlass info - ${theme}`, async () => {
       renderWithTheme(
-        <AlertGlass type="info" title="Info" data-testid="alert">
+        <AlertGlass variant="default" title="Info" data-testid="alert">
           This is an info alert
         </AlertGlass>,
         theme
@@ -269,7 +269,7 @@ describe('Visual Regression Tests', () => {
     // AlertGlass variants
     test(`AlertGlass success - ${theme}`, async () => {
       renderWithTheme(
-        <AlertGlass type="success" title="Success" data-testid="alert">
+        <AlertGlass variant="success" title="Success" data-testid="alert">
           Operation completed successfully
         </AlertGlass>,
         theme
@@ -281,7 +281,7 @@ describe('Visual Regression Tests', () => {
 
     test(`AlertGlass warning - ${theme}`, async () => {
       renderWithTheme(
-        <AlertGlass type="warning" title="Warning" data-testid="alert">
+        <AlertGlass variant="warning" title="Warning" data-testid="alert">
           Please review before continuing
         </AlertGlass>,
         theme
@@ -293,7 +293,7 @@ describe('Visual Regression Tests', () => {
 
     test(`AlertGlass error - ${theme}`, async () => {
       renderWithTheme(
-        <AlertGlass type="error" title="Error" data-testid="alert">
+        <AlertGlass variant="destructive" title="Error" data-testid="alert">
           Something went wrong
         </AlertGlass>,
         theme
