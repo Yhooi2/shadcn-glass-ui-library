@@ -292,5 +292,5 @@ export const ComboBoxGlass = forwardRef(ComboBoxGlassInner) as <T = string>(
   props: ComboBoxGlassProps<T> & { ref?: React.ForwardedRef<HTMLButtonElement> }
 ) => ReturnType<typeof ComboBoxGlassInner>;
 
-// Add display name for debugging
-ComboBoxGlassInner.displayName = 'ComboBoxGlass';
+// Add display name for debugging on the forwarded component
+ComboBoxGlass.displayName = 'ComboBoxGlass';

@@ -88,9 +88,7 @@ export default defineConfig({
             enabled: true,
             headless: true,
             provider: playwright({
-              launch: {
-                args: ['--force-prefers-reduced-motion'],
-              },
+              args: ['--force-prefers-reduced-motion'],
             }),
             instances: [
               {
