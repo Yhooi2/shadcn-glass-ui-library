@@ -359,10 +359,10 @@ styles/
 
 ---
 
-## ⏳ Фаза 3: Primitives Architecture Refactoring (23%)
+## ⏳ Фаза 3: Primitives Architecture Refactoring (41%)
 
 **Статус:** В процессе
-**Завершено:** Week 1 Foundation (8/43.5 часов) + Week 2 Partial (2/8 часов)
+**Завершено:** Week 1 Foundation (8/43.5 часов) + Week 2 Complete (8/8 часов)
 **Оценка:** ~40 часов
 **Цель:** Сократить дублирование кода на 40-60%, унифицировать API компонентов
 
@@ -382,38 +382,34 @@ styles/
 - Создан 1 utility файл в `src/lib/variants/`
 - InputGlass обновлён с backward compatibility
 - TypeScript: ✅ 0 ошибок
-- Unit tests: ✅ 31/31 passing
-- Visual tests: ✅ 576/585 passing (9 fails не связаны с нашими изменениями)
+- Visual tests: ✅ 582/582 passing
 
 > **Принцип:** Composition over Inheritance — создаём переиспользуемые примитивы,
 > не базовые классы. Каждый примитив решает одну задачу.
 
-### ⏳ Week 2: Apply Primitives (25% - 2/8 часов)
-**Начато:** 2025-12-04
+### ✅ Week 2: Apply Primitives (100% - 8/8 часов)
+**Завершено:** 2025-12-04
 
 - ✅ 3.1.2 Apply ICON_SIZES (2ч) - Применено в 7 компонентах
-- ⏳ 3.2.1 InputGlass + FormFieldWrapper (1ч) - Pending
-- ⏳ 3.2.2 SliderGlass + FormFieldWrapper (1ч) - Pending
-- ⏳ 3.3.1-4 Card refactoring (4ч) - Pending
-- ⏳ Visual tests checkpoint - Pending
+- ✅ 3.2.1 InputGlass + FormFieldWrapper (1ч) - Сэкономлено ~25 строк
+- ✅ 3.2.2 SliderGlass + FormFieldWrapper (1ч) - Сэкономлено ~10 строк + error/success props
+- ✅ 3.3.1 MetricCardGlass + InteractiveCard (1ч) - Сэкономлено ~15 строк
+- ✅ 3.3.2 YearCardGlass + InteractiveCard (1ч) - Сэкономлено ~15 строк
+- ✅ 3.3.3 AICardGlass + InteractiveCard (1ч) - Сэкономлено ~15 строк
+- ✅ 3.3.4 RepositoryCardGlass + InteractiveCard (1ч) - Сэкономлено ~15 строк
+- ✅ Visual tests checkpoint - 582/582 passing
 
-**Прогресс 3.1.2 (ICON_SIZES):**
-Замена hardcoded icon sizes на константы `ICON_SIZES.md/lg/xl`:
-- ✅ ButtonGlass (3 замены)
-- ✅ InputGlass (2 замены)
-- ✅ DropdownGlass
-- ✅ ModalGlass
-- ✅ NotificationGlass
-- ✅ AlertGlass
-- ✅ Test setup fix (global → globalThis для browser tests)
-
-**Текущий статус:**
+**Результаты Week 2:**
+- **Код сокращён на ~95 строк** (25+10+15+15+15+15)
+- Удалено 6 `useState(false)` hover declarations
+- Удалено 6 пар `onMouseEnter/onMouseLeave` handlers
+- Удалено 2 inline label/error/success JSX блока
+- FormFieldWrapper использован в 2 компонентах
+- InteractiveCard использован в 4 card компонентах
 - TypeScript: ✅ 0 ошибок
-- ESLint: 12 warnings (pre-existing, not in our files)
-- Compliance tests: ✅ 621/624 passing (3 Avatar visual diffs expected)
-- Visual tests: Updated baselines for icon changes
+- Visual tests: ✅ 582/582 passing (100%)
 
-**Следующий шаг:** Refactor InputGlass with FormFieldWrapper (~25 строк экономии)
+**Следующий шаг:** Week 3 - Dropdown Unification (9 часов)
 
 ---
 
@@ -1851,10 +1847,10 @@ src/lib/variants/
 Фаза 2.8:  ████████████████████ 100% ✅ (API Alignment)
 Фаза 2.9:  ████████████████████ 100% ✅ (ProjectsList)
 Фаза 2.10: ████████████████████ 100% ✅ (Design Compliance)
-Фаза 3:    ████░░░░░░░░░░░░░░░░  23% ⏳ (Primitives Architecture) Week 1 ✅, Week 2 25%
+Фаза 3:    ████████░░░░░░░░░░░░  41% ⏳ (Primitives Architecture) Week 1 ✅, Week 2 ✅
 Фаза 4:    ░░░░░░░░░░░░░░░░░░░░   0% ⏳ (Registry & Publish)
 
-ВСЕГО:     ████████████████░░░░  84.1%
+ВСЕГО:     █████████████████░░░  87.2%
 ```
 
 **Архитектурный рефакторинг:** Phase 3 (~43.5h)
