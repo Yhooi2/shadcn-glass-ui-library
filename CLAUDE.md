@@ -125,6 +125,47 @@ Glassmorphism UI components with multi-theme support:
 **Theme styles**: `src/lib/themeStyles.ts`
 **CSS variables**: `src/glass-theme.css`
 
+### Phase 3 Refactoring (Weeks 1-5, Complete)
+
+**Primitives & Reusable Components:**
+- `src/components/glass/primitives/` - Foundation components:
+  - `style-utils.ts` - Centralized style constants (ICON_SIZES, BLUR_VALUES, TRANSITIONS)
+  - `touch-target.tsx` - Touch-friendly wrapper (44/48px minimum, Apple HIG compliance)
+  - `form-field-wrapper.tsx` - Unified form field structure (label, error, success states)
+  - `interactive-card.tsx` - Hover animations + glass effects for card components
+- `src/lib/variants/dropdown-content-styles.ts` - Unified dropdown styling utilities
+- Unit tests: `__tests__/` directories (125 tests, 100% pass rate)
+
+**asChild Pattern (Week 4):**
+- ButtonGlass, AvatarGlass, GlassCard - Support polymorphic rendering via Radix UI Slot
+- Usage: `<ButtonGlass asChild><Link href="/">Home</Link></ButtonGlass>`
+
+**Compound Components (Week 4):**
+- **ModalGlass** - 9 sub-components:
+  - `ModalGlass.Root` - Context provider with open/close state
+  - `ModalGlass.Overlay` - Backdrop with blur and click-to-close
+  - `ModalGlass.Content` - Main content container
+  - `ModalGlass.Header`, `Body`, `Footer` - Layout components
+  - `ModalGlass.Title`, `Description`, `Close` - Content components
+  - Legacy API preserved via Object.assign for backward compatibility
+
+- **TabsGlass** - 4 sub-components:
+  - `TabsGlass.Root` - Context provider with value/onValueChange
+  - `TabsGlass.List` - Visual container for tab triggers
+  - `TabsGlass.Trigger` - Individual tab button with active state
+  - `TabsGlass.Content` - Content panel that shows when tab is active
+  - Legacy API preserved for backward compatibility
+
+**Testing (Week 5):**
+- Visual regression: 579/582 passing (99.5%) - See `docs/visual-tests-audit.md`
+- Unit tests: 125 tests across primitives and utilities
+- Storybook: 8 new compound component stories demonstrating advanced usage
+
+**API Compatibility:**
+- 100% backward compatibility maintained
+- Both legacy and compound APIs available simultaneously
+- Migration path documented in component JSDoc
+
 ### Key Files
 
 - `src/lib/utils.ts` - Utility functions (`cn` for className merging with clsx + tailwind-merge)
