@@ -359,10 +359,10 @@ styles/
 
 ---
 
-## ⏳ Фаза 3: Primitives Architecture Refactoring (41%)
+## ⏳ Фаза 3: Primitives Architecture Refactoring (60%)
 
 **Статус:** В процессе
-**Завершено:** Week 1 Foundation (8/43.5 часов) + Week 2 Complete (8/8 часов)
+**Завершено:** Week 1 Foundation (8/43.5 часов) + Week 2 Complete (8/8 часов) + Week 3 Complete (9.5/9.5 часов)
 **Оценка:** ~40 часов
 **Цель:** Сократить дублирование кода на 40-60%, унифицировать API компонентов
 
@@ -409,7 +409,26 @@ styles/
 - TypeScript: ✅ 0 ошибок
 - Visual tests: ✅ 582/582 passing (100%)
 
-**Следующий шаг:** Week 3 - Dropdown Unification (9 часов)
+### ✅ Week 3: Dropdown Unification (100% - 9.5/9.5 часов)
+**Завершено:** 2025-12-04
+
+- ✅ 3.4.3 ComboBoxGlass Enhancement (6ч) - Добавлены label/error/success/size/searchable/icon props
+- ✅ 3.4.4 SelectGlass Deprecation (1.5ч) - @deprecated с migration guide, backward compatible до v4.0
+- ✅ 3.4.5 SortDropdownGlass Refactor (1ч) - Применены unified dropdown styles
+- ✅ 3.4.6 DropdownGlass Polish + Icon Fix (1ч) - Применены styles, fixed icon sizes
+
+**Результаты Week 3:**
+- **Dropdown style дублирование:** ~50 строк → ~10 строк (-80%)
+- **ComboBoxGlass API completeness:** 60% → 100% (+40%)
+- **Icon size hardcoding:** 3 компонента → 0 компонентов (-100%)
+- ComboBoxGlass теперь полноценная замена SelectGlass
+- SelectGlass deprecated с migration guide (removal в v4.0)
+- Унифицированы стили: getDropdownContentStyles, dropdownContentClasses, getDropdownItemClasses
+- ICON_SIZES.md применён во всех dropdown компонентах
+- TypeScript: ✅ 0 ошибок
+- Visual tests: ✅ 582/582 passing (100%)
+
+**Следующий шаг:** Week 4 - asChild + Compounds (11.5 часов)
 
 ---
 
@@ -1847,10 +1866,10 @@ src/lib/variants/
 Фаза 2.8:  ████████████████████ 100% ✅ (API Alignment)
 Фаза 2.9:  ████████████████████ 100% ✅ (ProjectsList)
 Фаза 2.10: ████████████████████ 100% ✅ (Design Compliance)
-Фаза 3:    ████████░░░░░░░░░░░░  41% ⏳ (Primitives Architecture) Week 1 ✅, Week 2 ✅
+Фаза 3:    ████████████░░░░░░░░  60% ⏳ (Primitives Architecture) Week 1 ✅, Week 2 ✅, Week 3 ✅
 Фаза 4:    ░░░░░░░░░░░░░░░░░░░░   0% ⏳ (Registry & Publish)
 
-ВСЕГО:     █████████████████░░░  87.2%
+ВСЕГО:     █████████████████░░░  88.5%
 ```
 
 **Архитектурный рефакторинг:** Phase 3 (~43.5h)
