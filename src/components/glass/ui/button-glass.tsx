@@ -90,13 +90,60 @@ const getVariantStyles = (
 // PROPS INTERFACE
 // ========================================
 
+/**
+ * Props for the ButtonGlass component
+ *
+ * A glass-themed button with ripple effects, loading states, and icon support.
+ * Features theme-aware styling and hover animations.
+ *
+ * @example
+ * ```tsx
+ * // Basic button
+ * <ButtonGlass variant="primary">Click me</ButtonGlass>
+ *
+ * // With icon
+ * <ButtonGlass icon={Check} iconPosition="left">Save</ButtonGlass>
+ *
+ * // Loading state
+ * <ButtonGlass loading>Processing...</ButtonGlass>
+ *
+ * // Different variants
+ * <ButtonGlass variant="ghost">Cancel</ButtonGlass>
+ * <ButtonGlass variant="success">Confirm</ButtonGlass>
+ * ```
+ */
 export interface ButtonGlassProps
   extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'style'>,
     VariantProps<typeof buttonGlassVariants> {
+  /**
+   * Visual style variant of the button
+   * @default "primary"
+   */
   readonly variant?: ButtonGlassVariant;
+
+  /**
+   * Show loading spinner and disable interactions
+   * @default false
+   */
   readonly loading?: boolean;
+
+  /**
+   * Icon component from lucide-react to display
+   * @example icon={Check}
+   */
   readonly icon?: LucideIcon;
+
+  /**
+   * Position of the icon relative to button text
+   * @default "left"
+   */
   readonly iconPosition?: 'left' | 'right';
+
+  /**
+   * Size variant of the button
+   * @default "md"
+   */
+  readonly size?: 'sm' | 'md' | 'lg' | 'icon';
 }
 
 // ========================================

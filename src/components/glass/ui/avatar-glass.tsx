@@ -19,17 +19,54 @@ import '@/glass-theme.css';
 // TYPES
 // ========================================
 
+/**
+ * Avatar status indicator type
+ */
 export type AvatarStatus = 'online' | 'offline' | 'busy' | 'away';
 
 // ========================================
 // PROPS INTERFACE
 // ========================================
 
+/**
+ * Props for the AvatarGlass component
+ *
+ * A glass-themed avatar component with status indicators and size variants.
+ * Displays user initials with theme-aware styling and optional status badge.
+ *
+ * @example
+ * ```tsx
+ * // Basic avatar
+ * <AvatarGlass name="John Doe" />
+ *
+ * // With status indicator
+ * <AvatarGlass name="Jane Smith" status="online" size="lg" />
+ *
+ * // Different sizes
+ * <AvatarGlass name="Alex" size="sm" />
+ * <AvatarGlass name="Sam" size="xl" />
+ * ```
+ */
 export interface AvatarGlassProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'style'>,
     VariantProps<typeof avatarSizes> {
+  /**
+   * Full name of the user. Automatically generates initials (first 2 letters).
+   * @example "John Doe" → "JD"
+   */
   readonly name: string;
+
+  /**
+   * Optional status indicator with glow effect
+   * @default undefined
+   */
   readonly status?: AvatarStatus;
+
+  /**
+   * Size variant of the avatar
+   * @default "md"
+   */
+  readonly size?: 'sm' | 'md' | 'lg' | 'xl';
 }
 
 // ========================================

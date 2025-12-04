@@ -52,6 +52,29 @@ const delay = (ms: number): Promise<void> => {
 // PROPS INTERFACE
 // ========================================
 
+/**
+ * Props for the ModalGlass component
+ *
+ * A glass-themed modal dialog with backdrop blur and animations.
+ * Features size variants, ESC key support, and click-outside-to-close.
+ *
+ * @example
+ * ```tsx
+ * // Basic modal
+ * <ModalGlass
+ *   isOpen={isOpen}
+ *   onClose={() => setIsOpen(false)}
+ *   title="Confirm Action"
+ * >
+ *   <p>Are you sure?</p>
+ * </ModalGlass>
+ *
+ * // Different sizes
+ * <ModalGlass isOpen={true} onClose={close} title="Small" size="sm">
+ *   Content
+ * </ModalGlass>
+ * ```
+ */
 export interface ModalGlassProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'>,
     VariantProps<typeof modalSizes> {

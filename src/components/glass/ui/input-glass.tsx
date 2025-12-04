@@ -54,14 +54,61 @@ const getInputStyles = (
 // PROPS INTERFACE
 // ========================================
 
+/**
+ * Props for the InputGlass component
+ *
+ * A glass-themed input field with labels, validation states, and icon support.
+ * Features focus glow effects and theme-aware styling.
+ *
+ * @example
+ * ```tsx
+ * // Basic input with label
+ * <InputGlass label="Email" placeholder="you@example.com" />
+ *
+ * // With validation states
+ * <InputGlass label="Username" error="Username is required" />
+ * <InputGlass label="Password" success="Strong password" type="password" />
+ *
+ * // With icon
+ * <InputGlass icon={Search} placeholder="Search..." />
+ * <InputGlass icon={Mail} iconPosition="right" />
+ * ```
+ */
 export interface InputGlassProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>,
     VariantProps<typeof inputVariants> {
+  /**
+   * Label text displayed above the input field
+   */
   readonly label?: string;
+
+  /**
+   * Error message to display below the input (red styling)
+   */
   readonly error?: string;
+
+  /**
+   * Success message to display below the input (green styling)
+   */
   readonly success?: string;
+
+  /**
+   * Icon component from lucide-react to display
+   * @example icon={Search}
+   */
   readonly icon?: LucideIcon;
+
+  /**
+   * Position of the icon relative to input text
+   * @default "left"
+   */
   readonly iconPosition?: 'left' | 'right';
+
+  /**
+   * Size variant of the input
+   * @default "md"
+   */
+  readonly size?: 'sm' | 'md' | 'lg';
 }
 
 // ========================================
