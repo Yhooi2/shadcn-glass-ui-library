@@ -11,6 +11,7 @@
 import { forwardRef, useState, type CSSProperties } from 'react';
 import { cn } from '@/lib/utils';
 import { useHover } from '@/lib/hooks/use-hover';
+import { useFocus } from '@/lib/hooks/use-focus';
 import { FormFieldWrapper } from '@/components/glass/primitives';
 import '@/glass-theme.css';
 
@@ -54,6 +55,7 @@ export const SliderGlass = forwardRef<HTMLInputElement, SliderGlassProps>(
     ref
   ) => {
     const { isHovered, hoverProps } = useHover();
+    const { isFocusVisible, focusProps } = useFocus({ focusVisible: true });
     const [isDragging, setIsDragging] = useState(false);
 
     const percentage = ((value - min) / (max - min)) * 100;
@@ -75,8 +77,9 @@ export const SliderGlass = forwardRef<HTMLInputElement, SliderGlassProps>(
       left: `calc(${percentage}% - 10px)`,
       background: 'var(--slider-thumb)',
       border: '2px solid var(--slider-thumb-border)',
-      boxShadow:
-        isHovered || isDragging
+      boxShadow: isFocusVisible
+        ? 'var(--slider-focus-glow)'
+        : isHovered || isDragging
           ? 'var(--slider-thumb-glow)'
           : 'var(--slider-thumb-shadow)',
       transform: isDragging
@@ -137,6 +140,8 @@ export const SliderGlass = forwardRef<HTMLInputElement, SliderGlassProps>(
             onMouseUp={() => setIsDragging(false)}
             onTouchStart={() => setIsDragging(true)}
             onTouchEnd={() => setIsDragging(false)}
+            onFocus={focusProps.onFocus}
+            onBlur={focusProps.onBlur}
             min={min}
             max={max}
             step={step}
@@ -147,6 +152,7 @@ export const SliderGlass = forwardRef<HTMLInputElement, SliderGlassProps>(
             aria-valuenow={value}
             aria-valuetext={`${value}`}
             className="absolute w-full h-8 md:h-6 opacity-0 cursor-pointer disabled:cursor-not-allowed z-10"
+            style={{ outline: 'none' }}
             {...props}
           />
           {/* Thumb - larger on mobile for touch */}

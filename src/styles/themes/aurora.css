@@ -154,6 +154,21 @@
   --input-focus-glow: 0 0 0 3px rgba(167, 139, 250, 0.20);
 
   /* ========================================
+     FOCUS RING VARIABLES (keyboard-only focus indicators)
+     ======================================== */
+  /* Generic focus glow (fallback) - gradient-aware aurora theme */
+  --focus-glow: 0 0 0 3px rgba(167, 139, 250, 0.20);
+
+  /* Component-specific focus glows - softer for aurora theme */
+  --btn-focus-glow: 0 0 0 3px rgba(167, 139, 250, 0.20);
+  --checkbox-focus-glow: 0 0 0 3px rgba(139, 92, 246, 0.20);
+  --toggle-focus-glow: 0 0 0 3px rgba(139, 92, 246, 0.20);
+  --tab-focus-glow: 0 0 0 3px rgba(167, 139, 250, 0.20);
+  --slider-focus-glow: 0 0 0 3px rgba(139, 92, 246, 0.20);
+  --dropdown-item-focus-glow: 0 0 0 3px rgba(167, 139, 250, 0.20);
+  --modal-close-focus-glow: 0 0 0 3px rgba(139, 92, 246, 0.20);
+
+  /* ========================================
      ALERT VARIABLES
      ======================================== */
   /* shadcn/ui compatible variants */

@@ -11,6 +11,7 @@
 import { forwardRef, type CSSProperties } from 'react';
 import { type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
+import { useFocus } from '@/lib/hooks/use-focus';
 import { toggleSizes } from '@/lib/variants/toggle-glass-variants';
 import '@/glass-theme.css';
 
@@ -53,11 +54,16 @@ export const ToggleGlass = forwardRef<HTMLButtonElement, ToggleGlassProps>(
     },
     ref
   ) => {
+    const { isFocusVisible, focusProps } = useFocus({ focusVisible: true });
     const s = sizesConfig[size ?? 'md'];
 
     const trackStyles: CSSProperties = {
       background: checked ? 'var(--toggle-active-bg)' : 'var(--toggle-bg)',
-      boxShadow: checked ? 'var(--toggle-glow)' : 'none',
+      boxShadow: isFocusVisible && !disabled
+        ? 'var(--toggle-focus-glow)'
+        : checked
+        ? 'var(--toggle-glow)'
+        : 'none',
     };
 
     const knobStyles: CSSProperties = {
@@ -81,6 +87,8 @@ export const ToggleGlass = forwardRef<HTMLButtonElement, ToggleGlassProps>(
           )}
           style={trackStyles}
           onClick={() => !disabled && onChange?.(!checked)}
+          onFocus={focusProps.onFocus}
+          onBlur={focusProps.onBlur}
           {...props}
         >
           <div

@@ -11,6 +11,7 @@ import { forwardRef, type CSSProperties } from 'react';
 import { Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useHover } from '@/lib/hooks/use-hover';
+import { useFocus } from '@/lib/hooks/use-focus';
 import '@/glass-theme.css';
 
 // ========================================
@@ -41,11 +42,16 @@ export const CheckboxGlass = forwardRef<HTMLInputElement, CheckboxGlassProps>(
     ref
   ) => {
     const { isHovered, hoverProps } = useHover();
+    const { isFocusVisible, focusProps } = useFocus({ focusVisible: true });
 
     const checkboxStyles: CSSProperties = {
       background: checked ? 'var(--checkbox-checked-bg)' : 'var(--checkbox-bg)',
       border: `2px solid ${checked ? 'var(--checkbox-checked-bg)' : 'var(--checkbox-border)'}`,
-      boxShadow: isHovered && !disabled ? 'var(--checkbox-glow)' : 'none',
+      boxShadow: isFocusVisible && !disabled
+        ? 'var(--checkbox-focus-glow)'
+        : isHovered && !disabled
+        ? 'var(--checkbox-glow)'
+        : 'none',
     };
 
     return (
@@ -72,6 +78,8 @@ export const CheckboxGlass = forwardRef<HTMLInputElement, CheckboxGlassProps>(
           {/* Visual checkbox - smaller but within 44px touch area */}
           <div
             onClick={() => !disabled && onChange?.(!checked)}
+            onFocus={focusProps.onFocus}
+            onBlur={focusProps.onBlur}
             className="relative w-6 h-6 md:w-5 md:h-5 rounded-md flex items-center justify-center transition-all duration-300"
             style={checkboxStyles}
             role="checkbox"

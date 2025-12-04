@@ -22,6 +22,7 @@ import { type VariantProps } from 'class-variance-authority';
 import { RefreshCw, type LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useHover } from '@/lib/hooks/use-hover';
+import { useFocus } from '@/lib/hooks/use-focus';
 import { buttonGlassVariants, type ButtonGlassVariant } from '@/lib/variants/button-glass-variants';
 import { ICON_SIZES } from '@/components/glass/primitives';
 import '@/glass-theme.css';
@@ -32,7 +33,8 @@ import '@/glass-theme.css';
 
 const getVariantStyles = (
   variant: ButtonGlassVariant,
-  isHovered: boolean
+  isHovered: boolean,
+  isFocusVisible: boolean
 ): CSSProperties => {
   const baseStyles: Record<ButtonGlassVariant, CSSProperties> = {
     primary: {
@@ -41,7 +43,9 @@ const getVariantStyles = (
         : 'var(--btn-primary-bg)',
       color: 'var(--btn-primary-text)',
       border: 'none',
-      boxShadow: isHovered
+      boxShadow: isFocusVisible
+        ? 'var(--btn-focus-glow)'
+        : isHovered
         ? 'var(--btn-primary-glow)'
         : '0 4px 15px rgba(124,58,237,0.25)',
     },
@@ -51,7 +55,11 @@ const getVariantStyles = (
         : 'var(--btn-secondary-bg)',
       color: 'var(--btn-secondary-text)',
       border: '1px solid var(--btn-secondary-border)',
-      boxShadow: isHovered ? 'var(--btn-secondary-glow)' : 'none',
+      boxShadow: isFocusVisible
+        ? 'var(--btn-focus-glow)'
+        : isHovered
+        ? 'var(--btn-secondary-glow)'
+        : 'none',
     },
     ghost: {
       background: isHovered
@@ -59,13 +67,15 @@ const getVariantStyles = (
         : 'var(--btn-ghost-bg)',
       color: 'var(--btn-ghost-text)',
       border: 'none',
-      boxShadow: 'none',
+      boxShadow: isFocusVisible ? 'var(--btn-focus-glow)' : 'none',
     },
     danger: {
       background: 'var(--btn-danger-bg)',
       color: 'var(--btn-danger-text)',
       border: 'none',
-      boxShadow: isHovered
+      boxShadow: isFocusVisible
+        ? 'var(--btn-focus-glow)'
+        : isHovered
         ? 'var(--btn-danger-glow)'
         : '0 4px 15px rgba(239,68,68,0.25)',
     },
@@ -73,7 +83,9 @@ const getVariantStyles = (
       background: 'var(--btn-success-bg)',
       color: 'var(--btn-success-text)',
       border: 'none',
-      boxShadow: isHovered
+      boxShadow: isFocusVisible
+        ? 'var(--btn-focus-glow)'
+        : isHovered
         ? 'var(--btn-success-glow)'
         : '0 4px 15px rgba(16,185,129,0.25)',
     },
@@ -81,7 +93,7 @@ const getVariantStyles = (
       background: 'transparent',
       color: 'var(--text-secondary)',
       border: 'none',
-      boxShadow: 'none',
+      boxShadow: isFocusVisible ? 'var(--btn-focus-glow)' : 'none',
     },
   };
 
@@ -193,6 +205,7 @@ export const ButtonGlass = forwardRef<HTMLButtonElement, ButtonGlassProps>(
     ref
   ) => {
     const { isHovered, hoverProps } = useHover();
+    const { isFocusVisible, focusProps } = useFocus({ focusVisible: true });
     const [ripple, setRipple] = useState<{ x: number; y: number } | null>(null);
 
     const isDisabled = disabled || loading;
@@ -225,12 +238,17 @@ export const ButtonGlass = forwardRef<HTMLButtonElement, ButtonGlassProps>(
           isHovered && !isDisabled && 'scale-[1.02]',
           className
         )}
-        style={getVariantStyles(variant, isHovered && !isDisabled)}
+        style={{
+          ...getVariantStyles(variant, isHovered && !isDisabled, isFocusVisible && !isDisabled),
+          outline: 'none',
+        }}
         type={asChild ? undefined : 'button'}
         disabled={isDisabled}
         onClick={handleClick}
         onMouseEnter={hoverProps.onMouseEnter}
         onMouseLeave={hoverProps.onMouseLeave}
+        onFocus={focusProps.onFocus}
+        onBlur={focusProps.onBlur}
         {...props}
       >
         {/* Shine effect on hover for primary */}

@@ -171,8 +171,9 @@ export const DropdownGlass = React.forwardRef<
                 onClick={item.onClick}
                 className={cn(
                   'group w-full px-3 py-2 md:px-4 md:py-2.5 text-xs md:text-sm text-left flex items-center gap-2 md:gap-3',
-                  'outline-hidden cursor-default select-none',
+                  'cursor-default select-none',
                   'transition-colors duration-200 ease-out',
+                  'focus-visible:outline-none focus-visible:shadow-(--dropdown-item-focus-glow)',
                   'data-[highlighted]:bg-[var(--dropdown-item-hover)]',
                   item.danger
                     ? 'text-[var(--alert-danger-text)] data-[highlighted]:text-[var(--alert-danger-text)]'

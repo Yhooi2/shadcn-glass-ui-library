@@ -3,9 +3,55 @@
  *
  * Manages focus state for form elements with keyboard navigation support.
  * Similar to useHover but for focus events.
+ *
+ * Implements proper :focus-visible behavior by tracking keyboard vs mouse interaction
+ * at the document level, ensuring focus rings only appear for keyboard navigation.
  */
 
-import { useState, useCallback, useRef, type FocusEvent, type KeyboardEvent } from 'react';
+import {
+  useState,
+  useCallback,
+  useRef,
+  useEffect,
+  type FocusEvent,
+  type KeyboardEvent,
+} from 'react';
+
+// Global state to track whether the last user interaction was via keyboard
+let hadKeyboardEvent = false;
+let isInitialized = false;
+
+/**
+ * Initialize global keyboard/mouse tracking for focus-visible behavior.
+ * This ensures focus rings only appear when navigating via keyboard (Tab key),
+ * not when clicking with a mouse.
+ */
+function initializeKeyboardTracking() {
+  if (isInitialized || typeof window === 'undefined') return;
+
+  isInitialized = true;
+
+  // Track keyboard events (Tab, Shift, Arrow keys, etc.)
+  const handleKeyDown = (e: globalThis.KeyboardEvent) => {
+    // Only consider keyboard navigation keys
+    if (e.key === 'Tab' || e.key.startsWith('Arrow') || e.key === 'Enter' || e.key === ' ') {
+      hadKeyboardEvent = true;
+    }
+  };
+
+  // Track mouse/pointer events - clear keyboard flag
+  const handlePointerDown = () => {
+    hadKeyboardEvent = false;
+  };
+
+  // Use capture phase to detect events before they reach components
+  document.addEventListener('keydown', handleKeyDown, true);
+  document.addEventListener('mousedown', handlePointerDown, true);
+  document.addEventListener('pointerdown', handlePointerDown, true);
+  document.addEventListener('touchstart', handlePointerDown, true);
+
+  // Cleanup not needed - these are global listeners that persist for the app lifecycle
+}
 
 export interface UseFocusOptions {
   /** Callback when focus state changes */
@@ -74,8 +120,12 @@ export function useFocus(options: UseFocusOptions = {}): UseFocusReturn {
   const hadKeyboardEventRef = useRef(false);
   const focusRef = useRef(false);
 
-  // TODO: Implement global event listeners in useEffect for full focus-visible support
-  // Currently focusVisible works via handleKeyDown which updates hadKeyboardEventRef
+  // Initialize global keyboard tracking on mount (runs once per app)
+  useEffect(() => {
+    if (focusVisible) {
+      initializeKeyboardTracking();
+    }
+  }, [focusVisible]);
 
   const setIsFocused = useCallback(
     (value: boolean) => {
@@ -91,9 +141,10 @@ export function useFocus(options: UseFocusOptions = {}): UseFocusReturn {
       setIsFocused(true);
 
       if (focusVisible) {
-        // Determine if this focus was from keyboard
-        const isKeyboardFocus = hadKeyboardEventRef.current;
+        // Use global keyboard tracking state for accurate focus-visible detection
+        const isKeyboardFocus = hadKeyboardEvent;
         setIsFocusVisible(isKeyboardFocus);
+        hadKeyboardEventRef.current = isKeyboardFocus;
       }
     },
     [setIsFocused, focusVisible]

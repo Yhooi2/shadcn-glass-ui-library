@@ -72,18 +72,6 @@
 }
 
 /* ========================================
-   FOCUS GLOW EFFECTS
-   ======================================== */
-
-.focus\:glow-primary:focus {
-  box-shadow: var(--glow-primary);
-}
-
-.focus\:glow-secondary:focus {
-  box-shadow: var(--glow-secondary);
-}
-
-/* ========================================
    GLOW TRANSITION
    ======================================== */
 

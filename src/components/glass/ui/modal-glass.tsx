@@ -59,6 +59,8 @@ import {
 import { type VariantProps } from 'class-variance-authority';
 import { X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useHover } from '@/lib/hooks/use-hover';
+import { useFocus } from '@/lib/hooks/use-focus';
 import { modalSizes, type ModalSize } from '@/lib/variants/modal-glass-variants';
 import { ICON_SIZES } from '@/components/glass/primitives';
 import '@/glass-theme.css';
@@ -353,21 +355,33 @@ interface ModalCloseProps {
 
 const ModalClose: FC<ModalCloseProps> = ({ className }) => {
   const { onClose } = useModalContext();
+  const { isHovered, hoverProps } = useHover();
+  const { isFocusVisible, focusProps } = useFocus({ focusVisible: true });
 
   const closeButtonStyles: CSSProperties = useMemo(
     () => ({
       background: 'var(--modal-close-btn-bg)',
       border: 'var(--modal-close-btn-border)',
       color: 'var(--text-muted)',
+      boxShadow: isFocusVisible
+        ? 'var(--modal-close-focus-glow)'
+        : isHovered
+          ? 'var(--modal-close-btn-hover-glow)'
+          : 'none',
+      outline: 'none',
     }),
-    []
+    [isHovered, isFocusVisible]
   );
 
   return (
     <button
       onClick={onClose}
+      onMouseEnter={hoverProps.onMouseEnter}
+      onMouseLeave={hoverProps.onMouseLeave}
+      onFocus={focusProps.onFocus}
+      onBlur={focusProps.onBlur}
       className={cn(
-        'p-1.5 md:p-2 rounded-xl transition-all duration-300 hover:shadow-(--modal-close-btn-hover-glow)',
+        'p-1.5 md:p-2 rounded-xl transition-all duration-300',
         className
       )}
       style={closeButtonStyles}

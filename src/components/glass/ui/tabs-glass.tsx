@@ -51,6 +51,7 @@ import {
   type ReactNode,
 } from 'react';
 import { cn } from '@/lib/utils';
+import { useFocus } from '@/lib/hooks/use-focus';
 import '@/glass-theme.css';
 
 // ========================================
@@ -151,11 +152,13 @@ interface TabsTriggerProps {
 const TabsTrigger = forwardRef<HTMLButtonElement, TabsTriggerProps>(
   ({ value, children, className, disabled }, ref) => {
     const { value: activeValue, onValueChange } = useTabsContext();
+    const { isFocusVisible, focusProps } = useFocus({ focusVisible: true });
     const isActive = activeValue === value;
 
     const tabStyles: CSSProperties = {
       background: isActive ? 'var(--tab-active-bg)' : 'var(--tab-bg)',
       color: isActive ? 'var(--tab-active-text)' : 'var(--text-secondary)',
+      boxShadow: isFocusVisible && !disabled ? 'var(--tab-focus-glow)' : 'none',
     };
 
     return (
@@ -166,12 +169,14 @@ const TabsTrigger = forwardRef<HTMLButtonElement, TabsTriggerProps>(
         aria-selected={isActive}
         disabled={disabled}
         className={cn(
-          'relative px-2.5 py-1.5 md:px-4 md:py-2 rounded-lg text-xs md:text-sm font-medium transition-all duration-300',
+          'relative px-2.5 py-1.5 md:px-4 md:py-2 rounded-lg text-xs md:text-sm font-medium transition-[background-color,color,opacity] duration-300',
           disabled && 'opacity-50 cursor-not-allowed',
           className
         )}
         style={tabStyles}
         onClick={() => !disabled && onValueChange?.(value)}
+        onFocus={focusProps.onFocus}
+        onBlur={focusProps.onBlur}
       >
         {children}
         {isActive && (
