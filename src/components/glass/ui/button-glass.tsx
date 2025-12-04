@@ -17,6 +17,7 @@ import {
   type MouseEvent,
   type CSSProperties,
 } from 'react';
+import { Slot } from '@radix-ui/react-slot';
 import { type VariantProps } from 'class-variance-authority';
 import { RefreshCw, type LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -111,11 +112,34 @@ const getVariantStyles = (
  * // Different variants
  * <ButtonGlass variant="ghost">Cancel</ButtonGlass>
  * <ButtonGlass variant="success">Confirm</ButtonGlass>
+ *
+ * // As a link (asChild pattern)
+ * <ButtonGlass asChild variant="primary">
+ *   <a href="/dashboard">Go to Dashboard</a>
+ * </ButtonGlass>
+ *
+ * // With Next.js Link
+ * <ButtonGlass asChild variant="ghost">
+ *   <Link href="/settings">Settings</Link>
+ * </ButtonGlass>
  * ```
  */
 export interface ButtonGlassProps
   extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'style'>,
     VariantProps<typeof buttonGlassVariants> {
+  /**
+   * Render as child element instead of button (polymorphic rendering).
+   * Useful for rendering buttons as links or other interactive elements.
+   * @default false
+   * @example
+   * ```tsx
+   * <ButtonGlass asChild>
+   *   <a href="/about">About Us</a>
+   * </ButtonGlass>
+   * ```
+   */
+  readonly asChild?: boolean;
+
   /**
    * Visual style variant of the button
    * @default "primary"
@@ -154,6 +178,7 @@ export interface ButtonGlassProps
 export const ButtonGlass = forwardRef<HTMLButtonElement, ButtonGlassProps>(
   (
     {
+      asChild = false,
       className,
       variant = 'primary',
       size = 'md',
@@ -189,8 +214,11 @@ export const ButtonGlass = forwardRef<HTMLButtonElement, ButtonGlassProps>(
       [isDisabled, onClick]
     );
 
+    // Polymorphic component - render as Slot when asChild is true
+    const Comp = asChild ? Slot : 'button';
+
     return (
-      <button
+      <Comp
         ref={ref}
         className={cn(
           buttonGlassVariants({ variant, size }),
@@ -198,7 +226,7 @@ export const ButtonGlass = forwardRef<HTMLButtonElement, ButtonGlassProps>(
           className
         )}
         style={getVariantStyles(variant, isHovered && !isDisabled)}
-        type="button"
+        type={asChild ? undefined : 'button'}
         disabled={isDisabled}
         onClick={handleClick}
         onMouseEnter={hoverProps.onMouseEnter}
@@ -259,7 +287,7 @@ export const ButtonGlass = forwardRef<HTMLButtonElement, ButtonGlassProps>(
         {!loading && Icon && iconPosition === 'right' && (
           <Icon className={ICON_SIZES.md} />
         )}
-      </button>
+      </Comp>
     );
   }
 );

@@ -8,6 +8,40 @@
  * - Click outside to close
  * - Body scroll lock
  * - Size variants
+ * - **NEW**: Compound component API for advanced composition
+ *
+ * @example
+ * Legacy API (still supported):
+ * ```tsx
+ * <ModalGlass
+ *   isOpen={open}
+ *   onClose={() => setOpen(false)}
+ *   title="Confirm"
+ * >
+ *   <p>Content</p>
+ * </ModalGlass>
+ * ```
+ *
+ * @example
+ * New Compound API:
+ * ```tsx
+ * <ModalGlass.Root open={open} onOpenChange={setOpen}>
+ *   <ModalGlass.Overlay />
+ *   <ModalGlass.Content>
+ *     <ModalGlass.Header>
+ *       <ModalGlass.Title>Confirm</ModalGlass.Title>
+ *       <ModalGlass.Description>Are you sure?</ModalGlass.Description>
+ *       <ModalGlass.Close />
+ *     </ModalGlass.Header>
+ *     <ModalGlass.Body>
+ *       <p>Body content</p>
+ *     </ModalGlass.Body>
+ *     <ModalGlass.Footer>
+ *       <ButtonGlass onClick={() => setOpen(false)}>Cancel</ButtonGlass>
+ *     </ModalGlass.Footer>
+ *   </ModalGlass.Content>
+ * </ModalGlass.Root>
+ * ```
  */
 
 import {
@@ -16,12 +50,16 @@ import {
   useCallback,
   useMemo,
   forwardRef,
+  createContext,
+  useContext,
   type CSSProperties,
+  type FC,
+  type ReactNode,
 } from 'react';
 import { type VariantProps } from 'class-variance-authority';
 import { X } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { modalSizes } from '@/lib/variants/modal-glass-variants';
+import { modalSizes, type ModalSize } from '@/lib/variants/modal-glass-variants';
 import { ICON_SIZES } from '@/components/glass/primitives';
 import '@/glass-theme.css';
 
@@ -50,31 +88,306 @@ const delay = (ms: number): Promise<void> => {
 };
 
 // ========================================
-// PROPS INTERFACE
+// CONTEXT FOR COMPOUND COMPONENTS
+// ========================================
+
+interface ModalContextValue {
+  isOpen: boolean;
+  onClose: () => void;
+  size: ModalSize;
+  isClosing: boolean;
+}
+
+const ModalContext = createContext<ModalContextValue | null>(null);
+
+const useModalContext = () => {
+  const context = useContext(ModalContext);
+  if (!context) {
+    throw new Error('Modal compound components must be used within ModalGlass.Root');
+  }
+  return context;
+};
+
+// ========================================
+// COMPOUND COMPONENT: ROOT
+// ========================================
+
+interface ModalRootProps {
+  /** Open state */
+  open: boolean;
+  /** Callback when open state changes */
+  onOpenChange?: (open: boolean) => void;
+  /** Size variant */
+  size?: ModalSize;
+  /** Child components */
+  children: ReactNode;
+}
+
+const ModalRoot: FC<ModalRootProps> = ({ open, onOpenChange, size = 'md', children }) => {
+  const [isClosing, setIsClosing] = useState(false);
+
+  const handleClose = useCallback(async () => {
+    setIsClosing(true);
+    await delay(MODAL_ANIMATION_DURATION);
+    setIsClosing(false);
+    onOpenChange?.(false);
+  }, [onOpenChange]);
+
+  useEffect(() => {
+    if (open) {
+      lockBodyScroll();
+    } else {
+      unlockBodyScroll();
+    }
+    return () => {
+      unlockBodyScroll();
+    };
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const handleEscape = (event: KeyboardEvent): void => {
+      if (event.key === 'Escape') {
+        handleClose();
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [open, handleClose]);
+
+  if (!open) return null;
+
+  return (
+    <ModalContext.Provider value={{ isOpen: open, onClose: handleClose, size, isClosing }}>
+      <div
+        className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4"
+        role="dialog"
+        aria-modal="true"
+      >
+        {children}
+      </div>
+    </ModalContext.Provider>
+  );
+};
+
+// ========================================
+// COMPOUND COMPONENT: OVERLAY
+// ========================================
+
+interface ModalOverlayProps {
+  className?: string;
+}
+
+const ModalOverlay: FC<ModalOverlayProps> = ({ className }) => {
+  const { onClose, isClosing } = useModalContext();
+
+  const overlayStyles: CSSProperties = useMemo(
+    () => ({
+      background: 'var(--modal-overlay)',
+      backdropFilter: 'blur(8px)',
+      WebkitBackdropFilter: 'blur(8px)',
+      opacity: isClosing ? 0 : 1,
+      transition: 'all 0.3s',
+    }),
+    [isClosing]
+  );
+
+  return (
+    <div
+      className={cn('absolute inset-0 transition-all duration-300', className)}
+      style={overlayStyles}
+      onClick={onClose}
+      aria-hidden="true"
+    />
+  );
+};
+
+// ========================================
+// COMPOUND COMPONENT: CONTENT
+// ========================================
+
+interface ModalContentProps {
+  children: ReactNode;
+  className?: string;
+}
+
+const ModalContent = forwardRef<HTMLDivElement, ModalContentProps>(
+  ({ children, className }, ref) => {
+    const { size, isClosing } = useModalContext();
+
+    const modalStyles: CSSProperties = useMemo(
+      () => ({
+        background: 'var(--modal-bg)',
+        border: '1px solid var(--modal-border)',
+        boxShadow: 'var(--modal-glow)',
+        backdropFilter: 'blur(24px)',
+        WebkitBackdropFilter: 'blur(24px)',
+        transform: isClosing ? 'scale(0.95) translateY(10px)' : 'scale(1) translateY(0)',
+        opacity: isClosing ? 0 : 1,
+        animation: !isClosing ? 'modalFadeIn 0.3s ease-out' : 'none',
+      }),
+      [isClosing]
+    );
+
+    return (
+      <div ref={ref} className={cn(modalSizes({ size }), className)} style={modalStyles}>
+        {/* Glow effect */}
+        <div
+          className="absolute inset-0 rounded-3xl pointer-events-none"
+          style={{
+            background: 'var(--modal-glow-effect)',
+          }}
+        />
+        {children}
+      </div>
+    );
+  }
+);
+
+ModalContent.displayName = 'ModalContent';
+
+// ========================================
+// COMPOUND COMPONENT: HEADER
+// ========================================
+
+interface ModalHeaderProps {
+  children: ReactNode;
+  className?: string;
+}
+
+const ModalHeader: FC<ModalHeaderProps> = ({ children, className }) => {
+  return (
+    <div className={cn('relative flex items-start justify-between mb-4 md:mb-5', className)}>
+      {children}
+    </div>
+  );
+};
+
+// ========================================
+// COMPOUND COMPONENT: BODY
+// ========================================
+
+interface ModalBodyProps {
+  children: ReactNode;
+  className?: string;
+}
+
+const ModalBody: FC<ModalBodyProps> = ({ children, className }) => {
+  return (
+    <div className={cn('relative', className)} style={{ color: 'var(--text-secondary)' }}>
+      {children}
+    </div>
+  );
+};
+
+// ========================================
+// COMPOUND COMPONENT: FOOTER
+// ========================================
+
+interface ModalFooterProps {
+  children: ReactNode;
+  className?: string;
+}
+
+const ModalFooter: FC<ModalFooterProps> = ({ children, className }) => {
+  return (
+    <div className={cn('relative flex gap-3 mt-4 md:mt-5 justify-end', className)}>
+      {children}
+    </div>
+  );
+};
+
+// ========================================
+// COMPOUND COMPONENT: TITLE
+// ========================================
+
+interface ModalTitleProps {
+  children: ReactNode;
+  className?: string;
+}
+
+const ModalTitle: FC<ModalTitleProps> = ({ children, className }) => {
+  return (
+    <h3
+      id="modal-title"
+      className={cn('text-lg md:text-xl font-semibold', className)}
+      style={{ color: 'var(--text-primary)' }}
+    >
+      {children}
+    </h3>
+  );
+};
+
+// ========================================
+// COMPOUND COMPONENT: DESCRIPTION
+// ========================================
+
+interface ModalDescriptionProps {
+  children: ReactNode;
+  className?: string;
+}
+
+const ModalDescription: FC<ModalDescriptionProps> = ({ children, className }) => {
+  return (
+    <p
+      id="modal-description"
+      className={cn('text-sm md:text-base mt-1', className)}
+      style={{ color: 'var(--text-muted)' }}
+    >
+      {children}
+    </p>
+  );
+};
+
+// ========================================
+// COMPOUND COMPONENT: CLOSE
+// ========================================
+
+interface ModalCloseProps {
+  className?: string;
+}
+
+const ModalClose: FC<ModalCloseProps> = ({ className }) => {
+  const { onClose } = useModalContext();
+
+  const closeButtonStyles: CSSProperties = useMemo(
+    () => ({
+      background: 'var(--modal-close-btn-bg)',
+      border: 'var(--modal-close-btn-border)',
+      color: 'var(--text-muted)',
+    }),
+    []
+  );
+
+  return (
+    <button
+      onClick={onClose}
+      className={cn(
+        'p-1.5 md:p-2 rounded-xl transition-all duration-300 hover:shadow-(--modal-close-btn-hover-glow)',
+        className
+      )}
+      style={closeButtonStyles}
+      type="button"
+      aria-label="Close modal"
+    >
+      <X className={ICON_SIZES.md} />
+    </button>
+  );
+};
+
+// ========================================
+// LEGACY COMPONENT (BACKWARD COMPATIBLE)
 // ========================================
 
 /**
- * Props for the ModalGlass component
+ * Props for the legacy ModalGlass API
  *
- * A glass-themed modal dialog with backdrop blur and animations.
- * Features size variants, ESC key support, and click-outside-to-close.
- *
- * @example
- * ```tsx
- * // Basic modal
- * <ModalGlass
- *   isOpen={isOpen}
- *   onClose={() => setIsOpen(false)}
- *   title="Confirm Action"
- * >
- *   <p>Are you sure?</p>
- * </ModalGlass>
- *
- * // Different sizes
- * <ModalGlass isOpen={true} onClose={close} title="Small" size="sm">
- *   Content
- * </ModalGlass>
- * ```
+ * @deprecated Use the compound component API (ModalGlass.Root, ModalGlass.Content, etc.) for better composition.
+ * Legacy API is still supported but compound API is recommended for new code.
  */
 export interface ModalGlassProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'>,
@@ -85,134 +398,37 @@ export interface ModalGlassProps
   readonly children: React.ReactNode;
 }
 
-// ========================================
-// COMPONENT
-// ========================================
-
-export const ModalGlass = forwardRef<HTMLDivElement, ModalGlassProps>(
+const LegacyModalGlass = forwardRef<HTMLDivElement, ModalGlassProps>(
   ({ isOpen, onClose, title, children, size = 'md', className, ...props }, ref) => {
-    const [isClosing, setIsClosing] = useState<boolean>(false);
-
-    const handleClose = useCallback(async (): Promise<void> => {
-      setIsClosing(true);
-      await delay(MODAL_ANIMATION_DURATION);
-      setIsClosing(false);
-      onClose();
-    }, [onClose]);
-
-    useEffect(() => {
-      if (isOpen) {
-        lockBodyScroll();
-      } else {
-        unlockBodyScroll();
-      }
-      return () => {
-        unlockBodyScroll();
-      };
-    }, [isOpen]);
-
-    useEffect(() => {
-      if (!isOpen) return;
-
-      const handleEscape = (event: KeyboardEvent): void => {
-        if (event.key === 'Escape') {
-          handleClose();
-        }
-      };
-
-      document.addEventListener('keydown', handleEscape);
-      return () => {
-        document.removeEventListener('keydown', handleEscape);
-      };
-    }, [isOpen, handleClose]);
-
-    const modalStyles: CSSProperties = useMemo(() => ({
-      background: 'var(--modal-bg)',
-      border: '1px solid var(--modal-border)',
-      boxShadow: 'var(--modal-glow)',
-      backdropFilter: 'blur(24px)',
-      WebkitBackdropFilter: 'blur(24px)',
-      transform: isClosing
-        ? 'scale(0.95) translateY(10px)'
-        : 'scale(1) translateY(0)',
-      opacity: isClosing ? 0 : 1,
-      animation: !isClosing ? 'modalFadeIn 0.3s ease-out' : 'none',
-    }), [isClosing]);
-
-    const overlayStyles: CSSProperties = useMemo(() => ({
-      background: 'var(--modal-overlay)',
-      backdropFilter: 'blur(8px)',
-      WebkitBackdropFilter: 'blur(8px)',
-      opacity: isClosing ? 0 : 1,
-      transition: 'all 0.3s',
-    }), [isClosing]);
-
-    const closeButtonStyles: CSSProperties = useMemo(() => ({
-      background: 'var(--modal-close-btn-bg)',
-      border: 'var(--modal-close-btn-border)',
-      color: 'var(--text-muted)',
-    }), []);
-
-    if (!isOpen) return null;
-
     return (
-      <div
-        className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="modal-title"
-        {...props}
-      >
-        {/* Overlay */}
-        <div
-          className="absolute inset-0 transition-all duration-300"
-          style={overlayStyles}
-          onClick={handleClose}
-          aria-hidden="true"
-        />
-
-        {/* Modal content */}
-        <div
-          ref={ref}
-          className={cn(modalSizes({ size }), className)}
-          style={modalStyles}
-        >
-          {/* Glow effect */}
-          <div
-            className="absolute inset-0 rounded-3xl pointer-events-none"
-            style={{
-              background: 'var(--modal-glow-effect)',
-            }}
-          />
-
-          {/* Header */}
-          <div className="relative flex items-center justify-between mb-4 md:mb-5">
-            <h3
-              id="modal-title"
-              className="text-lg md:text-xl font-semibold"
-              style={{ color: 'var(--text-primary)' }}
-            >
-              {title}
-            </h3>
-            <button
-              onClick={handleClose}
-              className="p-1.5 md:p-2 rounded-xl transition-all duration-300 hover:shadow-(--modal-close-btn-hover-glow)"
-              style={closeButtonStyles}
-              type="button"
-              aria-label="Close modal"
-            >
-              <X className={ICON_SIZES.md} />
-            </button>
-          </div>
-
-          {/* Content */}
-          <div className="relative" style={{ color: 'var(--text-secondary)' }}>
-            {children}
-          </div>
-        </div>
-      </div>
+      <ModalRoot open={isOpen} onOpenChange={(open) => !open && onClose()} size={size}>
+        <ModalOverlay />
+        <ModalContent ref={ref} className={className} {...props}>
+          <ModalHeader>
+            <ModalTitle>{title}</ModalTitle>
+            <ModalClose />
+          </ModalHeader>
+          <ModalBody>{children}</ModalBody>
+        </ModalContent>
+      </ModalRoot>
     );
   }
 );
 
-ModalGlass.displayName = 'ModalGlass';
+LegacyModalGlass.displayName = 'ModalGlass';
+
+// ========================================
+// EXPORT COMPOUND COMPONENT
+// ========================================
+
+export const ModalGlass = Object.assign(LegacyModalGlass, {
+  Root: ModalRoot,
+  Overlay: ModalOverlay,
+  Content: ModalContent,
+  Header: ModalHeader,
+  Body: ModalBody,
+  Footer: ModalFooter,
+  Title: ModalTitle,
+  Description: ModalDescription,
+  Close: ModalClose,
+});

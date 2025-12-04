@@ -13,6 +13,7 @@ import {
   type ReactNode,
   type CSSProperties,
 } from 'react';
+import { Slot } from '@radix-ui/react-slot';
 import { type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 import { useHover } from '@/lib/hooks/use-hover';
@@ -39,9 +40,36 @@ const blurMap: Record<IntensityType, string> = {
 // PROPS INTERFACE
 // ========================================
 
+/**
+ * Props for the GlassCard component
+ *
+ * @example
+ * ```tsx
+ * // Basic card
+ * <GlassCard intensity="medium">Content</GlassCard>
+ *
+ * // As a clickable link
+ * <GlassCard asChild intensity="medium">
+ *   <a href="/details">View Details</a>
+ * </GlassCard>
+ * ```
+ */
 export interface GlassCardProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'style'>,
     VariantProps<typeof cardIntensity> {
+  /**
+   * Render as child element instead of div (polymorphic rendering).
+   * Useful for making cards clickable links or custom interactive elements.
+   * @default false
+   * @example
+   * ```tsx
+   * <GlassCard asChild>
+   *   <a href="/article">Article Content</a>
+   * </GlassCard>
+   * ```
+   */
+  readonly asChild?: boolean;
+
   readonly children: ReactNode;
   readonly glow?: GlowType;
   readonly padding?: PaddingType;
@@ -74,6 +102,7 @@ const glowVarMap: Record<string, string> = {
 export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
   (
     {
+      asChild = false,
       children,
       className,
       intensity = 'medium',
@@ -99,8 +128,11 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
           : 'var(--glow-neutral)',
     };
 
+    // Polymorphic component - render as Slot when asChild is true
+    const Comp = asChild ? Slot : 'div';
+
     return (
-      <div
+      <Comp
         ref={ref}
         className={cn(cardIntensity({ intensity, hover, padding }), className)}
         style={cardStyles}
@@ -109,7 +141,7 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
         {...props}
       >
         {children}
-      </div>
+      </Comp>
     );
   }
 );

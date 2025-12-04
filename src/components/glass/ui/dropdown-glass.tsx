@@ -6,6 +6,98 @@
  * - Smooth animations
  * - Proper positioning and accessibility
  * - Optional item icons and dividers
+ *
+ * @example
+ * Simple API (recommended for basic dropdowns):
+ * ```tsx
+ * import { DropdownGlass } from '@/components/glass/ui/dropdown-glass';
+ * import { MoreVertical, Edit, Trash } from 'lucide-react';
+ *
+ * <DropdownGlass
+ *   trigger={
+ *     <button>
+ *       <MoreVertical />
+ *     </button>
+ *   }
+ *   items={[
+ *     { label: 'Edit', icon: Edit, onClick: () => handleEdit() },
+ *     { divider: true },
+ *     { label: 'Delete', icon: Trash, onClick: () => handleDelete(), danger: true }
+ *   ]}
+ * />
+ * ```
+ *
+ * @example
+ * Advanced: Using Radix UI primitives directly (for complex dropdowns):
+ * ```tsx
+ * import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
+ * import { getDropdownContentStyles, dropdownContentClasses } from '@/lib/variants/dropdown-content-styles';
+ *
+ * <DropdownMenuPrimitive.Root>
+ *   <DropdownMenuPrimitive.Trigger asChild>
+ *     <button>Open Menu</button>
+ *   </DropdownMenuPrimitive.Trigger>
+ *
+ *   <DropdownMenuPrimitive.Portal>
+ *     <DropdownMenuPrimitive.Content
+ *       className={dropdownContentClasses}
+ *       style={getDropdownContentStyles()}
+ *       align="start"
+ *       sideOffset={8}
+ *     >
+ *       <DropdownMenuPrimitive.Label className="px-3 py-1.5 text-xs font-medium">
+ *         Actions
+ *       </DropdownMenuPrimitive.Label>
+ *
+ *       <DropdownMenuPrimitive.Item
+ *         className="px-3 py-2 cursor-pointer hover:bg-[var(--dropdown-item-hover)]"
+ *         onSelect={() => handleAction()}
+ *       >
+ *         Action Item
+ *       </DropdownMenuPrimitive.Item>
+ *
+ *       <DropdownMenuPrimitive.Separator className="h-px my-1 bg-[var(--dropdown-border)]" />
+ *
+ *       <DropdownMenuPrimitive.CheckboxItem
+ *         checked={isChecked}
+ *         onCheckedChange={setIsChecked}
+ *       >
+ *         <DropdownMenuPrimitive.ItemIndicator>
+ *           <Check className="w-4 h-4" />
+ *         </DropdownMenuPrimitive.ItemIndicator>
+ *         Checkbox Item
+ *       </DropdownMenuPrimitive.CheckboxItem>
+ *
+ *       <DropdownMenuPrimitive.Sub>
+ *         <DropdownMenuPrimitive.SubTrigger>
+ *           More Options
+ *         </DropdownMenuPrimitive.SubTrigger>
+ *         <DropdownMenuPrimitive.SubContent>
+ *           <DropdownMenuPrimitive.Item>Sub Item 1</DropdownMenuPrimitive.Item>
+ *           <DropdownMenuPrimitive.Item>Sub Item 2</DropdownMenuPrimitive.Item>
+ *         </DropdownMenuPrimitive.SubContent>
+ *       </DropdownMenuPrimitive.Sub>
+ *     </DropdownMenuPrimitive.Content>
+ *   </DropdownMenuPrimitive.Portal>
+ * </DropdownMenuPrimitive.Root>
+ * ```
+ *
+ * @see {@link https://www.radix-ui.com/primitives/docs/components/dropdown-menu Radix UI Dropdown Menu Documentation}
+ *
+ * Available Radix primitives:
+ * - `DropdownMenuPrimitive.Root` - Root component
+ * - `DropdownMenuPrimitive.Trigger` - Trigger button (use `asChild` for custom triggers)
+ * - `DropdownMenuPrimitive.Content` - Dropdown content container
+ * - `DropdownMenuPrimitive.Item` - Menu item
+ * - `DropdownMenuPrimitive.CheckboxItem` - Checkbox menu item
+ * - `DropdownMenuPrimitive.RadioGroup` + `RadioItem` - Radio group
+ * - `DropdownMenuPrimitive.Label` - Section label
+ * - `DropdownMenuPrimitive.Separator` - Visual separator
+ * - `DropdownMenuPrimitive.Sub` + `SubTrigger` + `SubContent` - Nested menus
+ * - `DropdownMenuPrimitive.Portal` - Portal for dropdown content
+ *
+ * Use `getDropdownContentStyles()` and `dropdownContentClasses` from
+ * `@/lib/variants/dropdown-content-styles` for consistent glass styling.
  */
 
 import * as React from 'react';
