@@ -9,15 +9,16 @@
 
 ## ✨ Highlights
 
-- 🎨 **57 Components** - Core UI (17) + Atomic (9) + Composites (13) + Sections (7) + Blocks (6) + Demo Pages (2)
+- 🎨 **48 Components** - Core UI (16) + Atomic (4) + Composites (5) + Sections (6) + Blocks (6) + New (11)
 - 🌈 **3 Themes** - Glass (dark glassmorphism), Light (clean minimal), Aurora (gradient glow)
-- 🔮 **4 Glass Variants** - glass, frosted, fluted, crystal effects
+- 🔮 **Advanced Patterns** - asChild polymorphic rendering, Compound components (Modal, Tabs)
 - ♿ **WCAG 2.1 AA** - Full accessibility compliance with automated testing
 - 📱 **Touch Optimized** - 44×44px minimum touch targets (Apple HIG)
 - ⚡ **Modern Stack** - React 19, Tailwind v4, Vitest 4, Storybook 10, Vite 7
-- 🧪 **2,127 Tests** - 647 compliance + 1,480 visual regression + unit tests
+- 🧪 **704 Tests** - 125 unit tests + 579 visual regression (99.5% passing)
 - 📦 **shadcn Compatible** - Works seamlessly with existing shadcn/ui projects
 - 🎯 **Design System** - Comprehensive [UI_DIZINE.md](UI_DIZINE.md) specifications
+- 📦 **Bundle Size** - ~110KB gzipped (production build)
 
 ## Tech Stack
 
@@ -119,6 +120,76 @@ Apply theme class to your app:
 </div>
 ```
 
+## 🆕 Advanced Features (Phase 3)
+
+### asChild Pattern
+
+Polymorphic rendering with Radix UI Slot - render components as any element:
+
+```tsx
+import { ButtonGlass } from 'shadcn-glass-ui';
+import { Link } from 'react-router-dom';
+
+// Render button as Link
+<ButtonGlass asChild>
+  <Link to="/profile">View Profile</Link>
+</ButtonGlass>
+
+// Render button as anchor
+<ButtonGlass asChild variant="primary">
+  <a href="https://example.com" target="_blank">
+    External Link
+  </a>
+</ButtonGlass>
+```
+
+**Supported components:** `ButtonGlass`, `AvatarGlass`, `GlassCard`
+
+### Compound Components
+
+Fine-grained composition for complex components:
+
+```tsx
+import { ModalGlass, TabsGlass } from 'shadcn-glass-ui';
+
+// ModalGlass Compound API
+<ModalGlass.Root open={open} onOpenChange={setOpen}>
+  <ModalGlass.Overlay />
+  <ModalGlass.Content>
+    <ModalGlass.Header>
+      <ModalGlass.Title>Confirm Action</ModalGlass.Title>
+      <ModalGlass.Description>
+        This action cannot be undone
+      </ModalGlass.Description>
+      <ModalGlass.Close />
+    </ModalGlass.Header>
+    <ModalGlass.Body>
+      <p>Content here...</p>
+    </ModalGlass.Body>
+    <ModalGlass.Footer>
+      <ButtonGlass onClick={() => setOpen(false)}>Cancel</ButtonGlass>
+      <ButtonGlass variant="primary">Confirm</ButtonGlass>
+    </ModalGlass.Footer>
+  </ModalGlass.Content>
+</ModalGlass.Root>
+
+// TabsGlass Compound API
+<TabsGlass.Root value={activeTab} onValueChange={setActiveTab}>
+  <TabsGlass.List>
+    <TabsGlass.Trigger value="tab1">Overview</TabsGlass.Trigger>
+    <TabsGlass.Trigger value="tab2">Analytics</TabsGlass.Trigger>
+  </TabsGlass.List>
+  <TabsGlass.Content value="tab1">
+    <p>Overview content</p>
+  </TabsGlass.Content>
+  <TabsGlass.Content value="tab2">
+    <p>Analytics content</p>
+  </TabsGlass.Content>
+</TabsGlass.Root>
+```
+
+**Legacy API still supported** - 100% backward compatible!
+
 ## 📚 Documentation
 
 - **[Getting Started Guide](docs/GETTING_STARTED.md)** - Comprehensive setup tutorial
@@ -139,7 +210,8 @@ Essential building blocks for any application:
 - **Inputs**: InputGlass, CheckboxGlass, ToggleGlass, SliderGlass, ComboBoxGlass
 - **Containers**: GlassCard, ModalGlass
 - **Navigation**: TabsGlass, DropdownGlass
-- **Feedback**: BadgeGlass, AlertGlass, NotificationGlass, TooltipGlass, SkeletonGlass, ProgressGlass, CircularProgressGlass
+- **Feedback**: BadgeGlass, AlertGlass, NotificationGlass, TooltipGlass, SkeletonGlass,
+  ProgressGlass, CircularProgressGlass
 - **Media**: AvatarGlass
 
 [View all Core UI components →](src/components/glass/ui/)
@@ -231,6 +303,7 @@ Default dark theme with frosted glass effects:
 ```
 
 **Features:**
+
 - Backdrop blur: 16px (md)
 - Dark background with glass overlays
 - Purple gradient accents
@@ -247,6 +320,7 @@ Clean, minimal light theme:
 ```
 
 **Features:**
+
 - Subtle shadows instead of blur
 - White/gray color palette
 - Reduced opacity overlays
@@ -263,6 +337,7 @@ Vibrant gradient theme with glow effects:
 ```
 
 **Features:**
+
 - Multi-color gradients
 - Enhanced glow effects
 - Dynamic backgrounds
@@ -356,6 +431,7 @@ npm run benchmark  # Run performance benchmarks
 ```
 
 Example results:
+
 - ButtonGlass initial render: < 1ms
 - 100 component renders: < 50ms
 - Theme switching: < 100ms
@@ -387,12 +463,12 @@ npm run test:coverage
 
 ### Test Categories
 
-| Category | Tests | Coverage |
-|----------|-------|----------|
-| **Design System Compliance** | 647 | 100% |
-| **Visual Regression** | 1,480 | All components |
-| **Unit Tests** | 110 | 13.87% (growing) |
-| **Total** | **2,127** | **Comprehensive** |
+| Category                     | Tests     | Coverage          |
+| ---------------------------- | --------- | ----------------- |
+| **Design System Compliance** | 647       | 100%              |
+| **Visual Regression**        | 1,480     | All components    |
+| **Unit Tests**               | 110       | 13.87% (growing)  |
+| **Total**                    | **2,127** | **Comprehensive** |
 
 ## 🛠️ Development
 
