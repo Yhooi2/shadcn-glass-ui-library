@@ -544,3 +544,218 @@ export const AnimationTest: Story = {
     await expect(canvasElement).toBeInTheDocument();
   },
 };
+
+// ========================================
+// COMPOUND COMPONENT API (Week 4)
+// New composition pattern for advanced use cases
+// ========================================
+
+export const CompoundBasic: Story = {
+  name: "Compound API - Basic",
+  render: () => {
+    const [open, setOpen] = useState(false);
+
+    return (
+      <>
+        <ButtonGlass onClick={() => setOpen(true)}>
+          Open Compound Modal
+        </ButtonGlass>
+
+        <ModalGlass.Root open={open} onOpenChange={setOpen}>
+          <ModalGlass.Overlay />
+          <ModalGlass.Content>
+            <ModalGlass.Header>
+              <ModalGlass.Title>Compound Component API</ModalGlass.Title>
+              <ModalGlass.Close />
+            </ModalGlass.Header>
+            <ModalGlass.Body>
+              <p className="leading-relaxed">
+                The new compound component API provides granular control over modal structure.
+                Each part can be customized independently.
+              </p>
+            </ModalGlass.Body>
+          </ModalGlass.Content>
+        </ModalGlass.Root>
+      </>
+    );
+  },
+};
+
+export const CompoundWithFooter: Story = {
+  name: "Compound API - With Footer",
+  render: () => {
+    const [open, setOpen] = useState(false);
+
+    return (
+      <>
+        <ButtonGlass onClick={() => setOpen(true)}>
+          Open Modal with Footer
+        </ButtonGlass>
+
+        <ModalGlass.Root open={open} onOpenChange={setOpen} size="lg">
+          <ModalGlass.Overlay />
+          <ModalGlass.Content>
+            <ModalGlass.Header>
+              <ModalGlass.Title>Confirm Action</ModalGlass.Title>
+              <ModalGlass.Description>
+                This modal demonstrates the footer component with action buttons.
+              </ModalGlass.Description>
+              <ModalGlass.Close />
+            </ModalGlass.Header>
+            <ModalGlass.Body>
+              <p className="leading-relaxed">
+                Are you sure you want to proceed with this action? This operation cannot be undone.
+              </p>
+              <div className="mt-4 p-4 rounded-xl bg-yellow-500/10 border border-yellow-500/20">
+                <p className="text-sm text-yellow-200">
+                  <strong>Warning:</strong> This will permanently delete your data.
+                </p>
+              </div>
+            </ModalGlass.Body>
+            <ModalGlass.Footer>
+              <ButtonGlass variant="ghost" onClick={() => setOpen(false)}>
+                Cancel
+              </ButtonGlass>
+              <ButtonGlass variant="primary" onClick={() => {
+                console.log("Confirmed");
+                setOpen(false);
+              }}>
+                Confirm
+              </ButtonGlass>
+            </ModalGlass.Footer>
+          </ModalGlass.Content>
+        </ModalGlass.Root>
+      </>
+    );
+  },
+};
+
+export const CompoundCustomStyling: Story = {
+  name: "Compound API - Custom Styling",
+  render: () => {
+    const [open, setOpen] = useState(false);
+
+    return (
+      <>
+        <ButtonGlass onClick={() => setOpen(true)}>
+          Open Custom Styled Modal
+        </ButtonGlass>
+
+        <ModalGlass.Root open={open} onOpenChange={setOpen} size="md">
+          <ModalGlass.Overlay className="bg-purple-900/40" />
+          <ModalGlass.Content className="border-2 border-purple-500/30">
+            <ModalGlass.Header className="border-b border-purple-500/20 pb-4">
+              <ModalGlass.Title className="text-purple-200">
+                Custom Styled Modal
+              </ModalGlass.Title>
+              <ModalGlass.Description className="text-purple-300/70">
+                Each compound component accepts custom className for styling
+              </ModalGlass.Description>
+              <ModalGlass.Close />
+            </ModalGlass.Header>
+            <ModalGlass.Body className="py-6">
+              <p className="leading-relaxed text-purple-100/90">
+                The compound API gives you full control over styling while maintaining
+                the glassmorphism aesthetic. You can customize colors, spacing, borders,
+                and animations.
+              </p>
+            </ModalGlass.Body>
+            <ModalGlass.Footer className="border-t border-purple-500/20 pt-4">
+              <ButtonGlass variant="primary" onClick={() => setOpen(false)}>
+                Got it
+              </ButtonGlass>
+            </ModalGlass.Footer>
+          </ModalGlass.Content>
+        </ModalGlass.Root>
+      </>
+    );
+  },
+};
+
+export const CompoundMultiStep: Story = {
+  name: "Compound API - Multi-Step Form",
+  render: () => {
+    const [open, setOpen] = useState(false);
+    const [step, setStep] = useState(1);
+    const totalSteps = 3;
+
+    return (
+      <>
+        <ButtonGlass onClick={() => {
+          setOpen(true);
+          setStep(1);
+        }}>
+          Open Multi-Step Modal
+        </ButtonGlass>
+
+        <ModalGlass.Root open={open} onOpenChange={setOpen} size="lg">
+          <ModalGlass.Overlay />
+          <ModalGlass.Content>
+            <ModalGlass.Header>
+              <ModalGlass.Title>Multi-Step Form</ModalGlass.Title>
+              <ModalGlass.Description>
+                Step {step} of {totalSteps}
+              </ModalGlass.Description>
+              <ModalGlass.Close />
+            </ModalGlass.Header>
+            <ModalGlass.Body>
+              {step === 1 && (
+                <div className="space-y-4">
+                  <h3 className="font-semibold">Personal Information</h3>
+                  <p className="text-sm text-white/60">
+                    Enter your basic details to get started.
+                  </p>
+                </div>
+              )}
+              {step === 2 && (
+                <div className="space-y-4">
+                  <h3 className="font-semibold">Account Setup</h3>
+                  <p className="text-sm text-white/60">
+                    Configure your account preferences and settings.
+                  </p>
+                </div>
+              )}
+              {step === 3 && (
+                <div className="space-y-4">
+                  <h3 className="font-semibold">Confirmation</h3>
+                  <p className="text-sm text-white/60">
+                    Review your information and confirm to proceed.
+                  </p>
+                </div>
+              )}
+
+              {/* Progress indicator */}
+              <div className="mt-6 flex gap-2">
+                {Array.from({ length: totalSteps }).map((_, i) => (
+                  <div
+                    key={i}
+                    className={`h-1 flex-1 rounded-full transition-all ${
+                      i < step ? "bg-purple-500" : "bg-white/10"
+                    }`}
+                  />
+                ))}
+              </div>
+            </ModalGlass.Body>
+            <ModalGlass.Footer>
+              {step > 1 && (
+                <ButtonGlass variant="ghost" onClick={() => setStep(step - 1)}>
+                  Previous
+                </ButtonGlass>
+              )}
+              <div className="flex-1" />
+              {step < totalSteps ? (
+                <ButtonGlass variant="primary" onClick={() => setStep(step + 1)}>
+                  Next
+                </ButtonGlass>
+              ) : (
+                <ButtonGlass variant="primary" onClick={() => setOpen(false)}>
+                  Finish
+                </ButtonGlass>
+              )}
+            </ModalGlass.Footer>
+          </ModalGlass.Content>
+        </ModalGlass.Root>
+      </>
+    );
+  },
+};
