@@ -22,6 +22,7 @@ import { RefreshCw, type LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useHover } from '@/lib/hooks/use-hover';
 import { buttonGlassVariants, type ButtonGlassVariant } from '@/lib/variants/button-glass-variants';
+import { ICON_SIZES } from '@/components/glass/primitives';
 import '@/glass-theme.css';
 
 // ========================================
@@ -244,11 +245,11 @@ export const ButtonGlass = forwardRef<HTMLButtonElement, ButtonGlassProps>(
         )}
 
         {/* Loading spinner */}
-        {loading && <RefreshCw className="w-3.5 h-3.5 md:w-4 md:h-4 animate-spin" />}
+        {loading && <RefreshCw className={cn(ICON_SIZES.md, 'animate-spin')} />}
 
         {/* Icon left */}
         {!loading && Icon && iconPosition === 'left' && (
-          <Icon className="w-3.5 h-3.5 md:w-4 md:h-4" />
+          <Icon className={ICON_SIZES.md} />
         )}
 
         {/* Content */}
@@ -256,7 +257,7 @@ export const ButtonGlass = forwardRef<HTMLButtonElement, ButtonGlassProps>(
 
         {/* Icon right */}
         {!loading && Icon && iconPosition === 'right' && (
-          <Icon className="w-3.5 h-3.5 md:w-4 md:h-4" />
+          <Icon className={ICON_SIZES.md} />
         )}
       </button>
     );

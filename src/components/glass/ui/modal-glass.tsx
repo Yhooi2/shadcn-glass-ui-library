@@ -22,6 +22,7 @@ import { type VariantProps } from 'class-variance-authority';
 import { X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { modalSizes } from '@/lib/variants/modal-glass-variants';
+import { ICON_SIZES } from '@/components/glass/primitives';
 import '@/glass-theme.css';
 
 // ========================================
@@ -200,7 +201,7 @@ export const ModalGlass = forwardRef<HTMLDivElement, ModalGlassProps>(
               type="button"
               aria-label="Close modal"
             >
-              <X className="w-3.5 h-3.5 md:w-4 md:h-4" />
+              <X className={ICON_SIZES.md} />
             </button>
           </div>
 

@@ -202,7 +202,7 @@
   --tab-container-border: rgba(255, 255, 255, 0.10);
 
   /* ========================================
-     MODAL/DROPDOWN VARIABLES
+     MODAL/DROPDOWN/POPOVER VARIABLES
      ======================================== */
   --modal-bg: rgba(255, 255, 255, 0.06);
   --modal-border: rgba(255, 255, 255, 0.12);
@@ -220,6 +220,23 @@
   --dropdown-icon-hover: #c4b5fd;
   --dropdown-divider: rgba(255, 255, 255, 0.08);
   --dropdown-glow: 0 15px 50px rgba(168, 85, 247, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.10);
+
+  /* Popover Variables */
+  --popover-bg: rgba(255, 255, 255, 0.08);
+  --popover-border: rgba(255, 255, 255, 0.15);
+  --popover-shadow: 0 15px 50px rgba(168, 85, 247, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.10);
+  --popover-arrow-bg: rgba(255, 255, 255, 0.08);
+
+  /* Select Variables */
+  --select-trigger-bg: rgba(255, 255, 255, 0.08);
+  --select-trigger-border: rgba(255, 255, 255, 0.15);
+  --select-trigger-text: rgba(255, 255, 255, 0.90);
+  --select-trigger-focus-glow: 0 0 0 3px rgba(196, 181, 253, 0.25);
+  --select-content-bg: rgba(255, 255, 255, 0.08);
+  --select-content-border: rgba(255, 255, 255, 0.15);
+  --select-item-hover-bg: rgba(255, 255, 255, 0.10);
+  --select-item-selected-bg: rgba(168, 85, 247, 0.20);
+  --select-item-selected-text: #c4b5fd;
 
   /* ========================================
      SLIDER VARIABLES

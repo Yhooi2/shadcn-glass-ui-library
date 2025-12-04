@@ -12,6 +12,7 @@ import * as React from 'react';
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 import type { LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { ICON_SIZES } from '@/components/glass/primitives';
 import '@/glass-theme.css';
 
 // ========================================
@@ -64,7 +65,7 @@ export const DropdownGlass = React.forwardRef<
         <DropdownMenuPrimitive.Content
           align={align === 'left' ? 'start' : 'end'}
           sideOffset={8}
-          className="min-w-40 md:min-w-[200px] rounded-2xl py-1.5 md:py-2 z-[50002] animate-in fade-in-0 zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2"
+          className="min-w-40 md:min-w-[200px] rounded-2xl overflow-hidden z-[50002] animate-in fade-in-0 zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2"
           style={dropdownStyles}
           role="menu"
           aria-orientation="vertical"
@@ -84,20 +85,21 @@ export const DropdownGlass = React.forwardRef<
                 key={`item-${idx}`}
                 onClick={item.onClick}
                 className={cn(
-                  'w-full px-3 py-2 md:px-4 md:py-2.5 text-xs md:text-sm text-left flex items-center gap-2 md:gap-3',
-                  'outline-hidden cursor-default select-none rounded-lg',
+                  'group w-full px-3 py-2 md:px-4 md:py-2.5 text-xs md:text-sm text-left flex items-center gap-2 md:gap-3',
+                  'outline-hidden cursor-default select-none',
                   'transition-colors duration-200 ease-out',
                   'data-[highlighted]:bg-[var(--dropdown-item-hover)]',
                   item.danger
                     ? 'text-[var(--alert-danger-text)] data-[highlighted]:text-[var(--alert-danger-text)]'
-                    : 'text-[var(--dropdown-item-text)] data-[highlighted]:text-[var(--dropdown-icon-hover)]'
+                    : 'text-[var(--dropdown-item-text)]'
                 )}
                 role="menuitem"
               >
                 {item.icon && (
                   <item.icon
                     className={cn(
-                      'w-3.5 h-3.5 md:w-4 md:h-4 transition-colors duration-200 ease-out shrink-0',
+                      ICON_SIZES.md,
+                      'transition-colors duration-200 ease-out shrink-0',
                       item.danger
                         ? 'text-[var(--alert-danger-text)]'
                         : 'text-[var(--dropdown-icon)] group-data-[highlighted]:text-[var(--dropdown-icon-hover)]'

@@ -59,6 +59,12 @@ export {
 } from './metric-card-glass';
 
 export {
+  CircularMetricGlass,
+  type CircularMetricGlassProps,
+  type CircularMetricColor,
+} from './circular-metric-glass';
+
+export {
   YearCardGlass,
   type YearCardGlassProps,
 } from './year-card-glass';

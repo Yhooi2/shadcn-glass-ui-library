@@ -58,6 +58,8 @@ export interface CircularProgressGlassProps
   readonly showLabel?: boolean;
   /** Custom label text (overrides percentage) */
   readonly label?: string;
+  /** Custom color for the center label text */
+  readonly labelColor?: string;
   /** Show glow effect */
   readonly showGlow?: boolean;
   /** Glow intensity */
@@ -106,6 +108,7 @@ export const CircularProgressGlass = forwardRef<HTMLDivElement, CircularProgress
       trackColor = 'rgba(255, 255, 255, 0.1)',
       showLabel = true,
       label,
+      labelColor,
       showGlow = true,
       glowIntensity = 'medium',
       strokeLinecap = 'round',
@@ -197,11 +200,11 @@ export const CircularProgressGlass = forwardRef<HTMLDivElement, CircularProgress
 
         {/* Center label */}
         {showLabel && (
-          <div
-            className="absolute inset-0 flex items-center justify-center"
-            style={{ color: 'var(--text-primary)' }}
-          >
-            <span className="text-sm font-semibold tabular-nums">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span
+              className="text-sm font-semibold tabular-nums"
+              style={{ color: labelColor || 'var(--text-primary)' }}
+            >
               {label || (variant === 'determinate' ? `${clampedValue}%` : '')}
             </span>
           </div>

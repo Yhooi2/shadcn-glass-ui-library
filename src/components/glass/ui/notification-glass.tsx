@@ -14,6 +14,7 @@ import { Info, CheckCircle, AlertTriangle, AlertCircle, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useHover } from '@/lib/hooks/use-hover';
 import { notificationVariants } from '@/lib/variants/notification-glass-variants';
+import { ICON_SIZES } from '@/components/glass/primitives';
 import '@/glass-theme.css';
 
 import type { NotificationType } from '@/lib/variants/notification-glass-variants';
@@ -112,7 +113,7 @@ export const NotificationGlass = forwardRef<HTMLDivElement, NotificationGlassPro
           type="button"
           aria-label="Close notification"
         >
-          <X className="w-3.5 h-3.5 md:w-4 md:h-4" />
+          <X className={ICON_SIZES.md} />
         </button>
       </div>
     );

@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { alertVariants } from '@/lib/variants/alert-glass-variants';
+import { ICON_SIZES } from '@/components/glass/primitives';
 import '@/glass-theme.css';
 
 import type { AlertVariant } from '@/lib/variants/alert-glass-variants';
@@ -167,7 +168,7 @@ export const AlertGlass = forwardRef<HTMLDivElement, AlertGlassProps>(
             className="p-0.5 md:p-1 rounded transition-colors duration-200 hover:bg-black/5 flex-shrink-0"
             aria-label="Dismiss alert"
           >
-            <X className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: config.text }} />
+            <X className={ICON_SIZES.md} style={{ color: config.text }} />
           </button>
         )}
       </div>

@@ -27,6 +27,9 @@ import { SkeletonGlass } from '../glass/ui/skeleton-glass';
 import { ProgressGlass } from '../glass/specialized/progress-glass';
 import { SliderGlass } from '../glass/ui/slider-glass';
 import { NotificationGlass } from '../glass/ui/notification-glass';
+import { PopoverGlass } from '../glass/ui/popover-glass';
+import { SelectGlass } from '../glass/ui/select-glass';
+import type { SelectOption } from '../glass/ui/select-glass';
 
 // Theme context
 import { ThemeProvider } from '@/lib/theme-context';
@@ -764,6 +767,118 @@ describe('Visual Regression Tests', () => {
       await waitForStability();
       const container = page.getByTestId('skeleton-container');
       await expect(container).toMatchScreenshot(`skeleton-card-${theme}`);
+    });
+
+    test(`PopoverGlass default - ${theme}`, async () => {
+      renderWithTheme(
+        <div data-testid="popover-container">
+          <PopoverGlass
+            trigger={<ButtonGlass variant="ghost">Open Popover</ButtonGlass>}
+            open={true}
+          >
+            <div className="w-64">
+              <h3 className="font-semibold text-white mb-2">Popover Title</h3>
+              <p className="text-sm text-white/70">
+                Glass-themed popover with backdrop blur effect.
+              </p>
+            </div>
+          </PopoverGlass>
+        </div>,
+        theme
+      );
+      await waitForStability(300); // Wait for popover animation
+      const container = page.getByTestId('popover-container');
+      await expect(container).toMatchScreenshot(`popover-default-${theme}`);
+    });
+
+    test(`PopoverGlass with form - ${theme}`, async () => {
+      renderWithTheme(
+        <div data-testid="popover-form-container">
+          <PopoverGlass
+            trigger={<ButtonGlass variant="primary">Settings</ButtonGlass>}
+            open={true}
+          >
+            <div className="w-72 space-y-4">
+              <h3 className="font-semibold text-white mb-2">Quick Settings</h3>
+              <InputGlass label="Username" placeholder="Enter username" size="sm" />
+              <InputGlass label="Email" type="email" placeholder="Enter email" size="sm" />
+            </div>
+          </PopoverGlass>
+        </div>,
+        theme
+      );
+      await waitForStability(300);
+      const container = page.getByTestId('popover-form-container');
+      await expect(container).toMatchScreenshot(`popover-form-${theme}`);
+    });
+
+    test(`PopoverGlass no arrow - ${theme}`, async () => {
+      renderWithTheme(
+        <div data-testid="popover-no-arrow-container">
+          <PopoverGlass
+            trigger={<ButtonGlass variant="ghost">No Arrow</ButtonGlass>}
+            open={true}
+            showArrow={false}
+          >
+            <div className="w-64">
+              <h3 className="font-semibold text-white mb-2">No Arrow</h3>
+              <p className="text-sm text-white/70">
+                Popover without arrow pointer.
+              </p>
+            </div>
+          </PopoverGlass>
+        </div>,
+        theme
+      );
+      await waitForStability(300);
+      const container = page.getByTestId('popover-no-arrow-container');
+      await expect(container).toMatchScreenshot(`popover-no-arrow-${theme}`);
+    });
+  });
+});
+
+// SelectGlass Visual Tests
+describe('SelectGlass', () => {
+  afterEach(cleanup);
+
+  const selectOptions: SelectOption[] = [
+    { value: '1', label: 'Option 1' },
+    { value: '2', label: 'Option 2' },
+    { value: '3', label: 'Option 3' },
+  ];
+
+  THEMES.forEach((theme) => {
+    test(`SelectGlass default - ${theme}`, async () => {
+      renderWithTheme(
+        <div data-testid={`select-default-${theme}`} style={{ padding: '20px' }}>
+          <SelectGlass
+            options={selectOptions}
+            value="1"
+            placeholder="Select an option"
+          />
+        </div>,
+        theme
+      );
+      await waitForStability(300);
+      const container = page.getByTestId(`select-default-${theme}`);
+      await expect(container).toMatchScreenshot(`select-default-${theme}`);
+    });
+
+    test(`SelectGlass searchable - ${theme}`, async () => {
+      renderWithTheme(
+        <div data-testid={`select-searchable-${theme}`} style={{ padding: '20px' }}>
+          <SelectGlass
+            options={selectOptions}
+            value="2"
+            placeholder="Search options..."
+            searchable
+          />
+        </div>,
+        theme
+      );
+      await waitForStability(300);
+      const container = page.getByTestId(`select-searchable-${theme}`);
+      await expect(container).toMatchScreenshot(`select-searchable-${theme}`);
     });
   });
 });

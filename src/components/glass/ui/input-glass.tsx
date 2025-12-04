@@ -21,6 +21,7 @@ import { type LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useFocus } from '@/lib/hooks/use-focus';
 import { inputVariants } from '@/lib/variants/input-glass-variants';
+import { ICON_SIZES } from '@/components/glass/primitives';
 import '@/glass-theme.css';
 
 // ========================================
@@ -105,10 +106,12 @@ export interface InputGlassProps
   readonly iconPosition?: 'left' | 'right';
 
   /**
-   * Size variant of the input
+   * @deprecated Use `size` prop instead. Will be removed in v4.0
    * @default "md"
    */
-  readonly size?: 'sm' | 'md' | 'lg';
+  readonly inputSize?: 'sm' | 'md' | 'lg';
+
+  // Note: size prop comes from VariantProps<typeof inputVariants>
 }
 
 // ========================================
@@ -119,7 +122,8 @@ export const InputGlass = forwardRef<HTMLInputElement, InputGlassProps>(
   (
     {
       className,
-      inputSize = 'md',
+      size,
+      inputSize,
       label,
       error,
       success,
@@ -132,6 +136,16 @@ export const InputGlass = forwardRef<HTMLInputElement, InputGlassProps>(
     },
     ref
   ) => {
+    // Determine size value with fallback to deprecated inputSize prop
+    const sizeValue = size ?? inputSize ?? 'md';
+
+    // Deprecation warning in development mode
+    if (process.env.NODE_ENV !== 'production' && inputSize !== undefined) {
+      console.warn(
+        '[InputGlass] The `inputSize` prop is deprecated and will be removed in v4.0. Use `size` instead.'
+      );
+    }
+
     const { isFocused, focusProps } = useFocus();
 
     // Wrap focus handlers to call both internal and external callbacks
@@ -168,7 +182,10 @@ export const InputGlass = forwardRef<HTMLInputElement, InputGlassProps>(
         <div className="relative">
           {Icon && iconPosition === 'left' && (
             <Icon
-              className="absolute left-2.5 md:left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 md:w-4 md:h-4 transition-colors duration-300"
+              className={cn(
+                'absolute left-2.5 md:left-3 top-1/2 -translate-y-1/2 transition-colors duration-300',
+                ICON_SIZES.md
+              )}
               style={{
                 color: isFocused ? 'var(--text-accent)' : 'var(--text-muted)',
               }}
@@ -177,7 +194,7 @@ export const InputGlass = forwardRef<HTMLInputElement, InputGlassProps>(
           <input
             ref={ref}
             className={cn(
-              inputVariants({ inputSize }),
+              inputVariants({ size: sizeValue }),
               paddingLeft,
               paddingRight
             )}
@@ -189,7 +206,10 @@ export const InputGlass = forwardRef<HTMLInputElement, InputGlassProps>(
           />
           {Icon && iconPosition === 'right' && (
             <Icon
-              className="absolute right-2.5 md:right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 md:w-4 md:h-4 transition-colors duration-300"
+              className={cn(
+                'absolute right-2.5 md:right-3 top-1/2 -translate-y-1/2 transition-colors duration-300',
+                ICON_SIZES.md
+              )}
               style={{
                 color: isFocused ? 'var(--text-accent)' : 'var(--text-muted)',
               }}

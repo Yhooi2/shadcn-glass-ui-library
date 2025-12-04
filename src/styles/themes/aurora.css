@@ -209,10 +209,36 @@
   --dropdown-border: rgba(51, 65, 85, 0.60);
   --dropdown-item-hover: rgba(51, 65, 85, 0.70);
   --dropdown-item-text: #cbd5e1;
-  --dropdown-icon: #64748b;
+  --dropdown-icon: #94a3b8;
   --dropdown-icon-hover: #a78bfa;
   --dropdown-divider: rgba(51, 65, 85, 0.50);
   --dropdown-glow: 0 10px 40px rgba(0, 0, 0, 0.40);
+
+  /* Popover Variables */
+  --popover-bg: rgba(30, 41, 59, 0.98);
+  --popover-border: rgba(51, 65, 85, 0.60);
+  --popover-shadow: 0 10px 40px rgba(0, 0, 0, 0.40);
+  --popover-arrow-bg: rgba(30, 41, 59, 0.98);
+
+  /* Select Variables */
+  --select-trigger-bg: rgba(30, 41, 59, 0.98);
+  --select-trigger-border: rgba(51, 65, 85, 0.60);
+  --select-trigger-text: #cbd5e1;
+  --select-trigger-focus-glow: 0 0 0 3px rgba(139, 92, 246, 0.20);
+  --select-content-bg: rgba(30, 41, 59, 0.98);
+  --select-content-border: rgba(51, 65, 85, 0.60);
+  --select-item-hover-bg: rgba(51, 65, 85, 0.70);
+  --select-item-selected-bg: rgba(139, 92, 246, 0.20);
+  --select-item-selected-text: #a78bfa;
+
+  /* ========================================
+     TEXT VARIABLES
+     ======================================== */
+  --text-primary: rgba(241, 245, 249, 0.95);    /* slate-100 */
+  --text-secondary: rgba(203, 213, 225, 0.80);  /* slate-300 */
+  --text-muted: rgba(148, 163, 184, 0.70);      /* slate-400 */
+  --text-accent: #a78bfa;                       /* violet-400 */
+  --text-inverse: #ffffff;
 
   /* ========================================
      SLIDER VARIABLES
@@ -323,15 +349,6 @@
   --progress-glow-amber: 0 0 12px rgba(245, 158, 11, 0.4);
   --progress-glow-emerald: 0 0 12px rgba(16, 185, 129, 0.4);
   --progress-glow-rose: 0 0 12px rgba(244, 63, 94, 0.4);
-
-  /* ========================================
-     TEXT VARIABLES
-     ======================================== */
-  --text-primary: #e2e8f0;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
-  --text-accent: #a78bfa;
-  --text-inverse: #ffffff;
 
   /* ========================================
      METRIC CARD VARIABLES

@@ -11,7 +11,7 @@ export const inputVariants = cva(
   'w-full transition-all duration-300 outline-none backdrop-blur-sm disabled:opacity-50 disabled:cursor-not-allowed',
   {
     variants: {
-      inputSize: {
+      size: {
         // All sizes use text-base (16px) minimum to prevent iOS auto-zoom on focus
         sm: 'px-3 py-2 text-base rounded-lg min-h-[40px]',
         md: 'px-4 py-2.5 text-base rounded-xl min-h-[44px]',
@@ -19,7 +19,7 @@ export const inputVariants = cva(
       },
     },
     defaultVariants: {
-      inputSize: 'md',
+      size: 'md',
     },
   }
 );
