@@ -426,7 +426,7 @@ const LegacyModalGlass = forwardRef<HTMLDivElement, ModalGlassProps>(
       <ModalRoot
         open={isOpen}
         onOpenChange={(open) => !open && onClose()}
-        size={size}
+        size={size || 'md'}
         id={id}
         {...(props as React.HTMLAttributes<HTMLDivElement>)}
       >
