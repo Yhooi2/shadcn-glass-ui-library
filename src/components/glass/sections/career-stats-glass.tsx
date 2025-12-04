@@ -94,7 +94,7 @@ export const CareerStatsGlass = forwardRef<HTMLDivElement, CareerStatsGlassProps
               onClick={() => handleYearClick(y.year)}
               onShowYear={() => {
                 // This can be used to filter repos by year
-                console.log(`Filter repos for year ${y.year}`);
+                // Example: onYearFilter?.(y.year)
               }}
             />
           ))}
