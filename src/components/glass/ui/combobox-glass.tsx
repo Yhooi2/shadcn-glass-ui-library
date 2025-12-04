@@ -8,12 +8,16 @@
  * - Async data loading support
  * - Glass styling with theme support
  * - Accessibility features
+ * - Form field wrapper support (label, error, success)
+ * - Size variants (sm, md, lg, xl)
+ * - Optional searchable mode
+ * - Icon support for trigger and options
  */
 
 'use client';
 
-import { useState, useMemo, useCallback, forwardRef } from 'react';
-import { CheckIcon, ChevronsUpDownIcon } from 'lucide-react';
+import { useState, useMemo, useCallback, forwardRef, useId } from 'react';
+import { CheckIcon, ChevronsUpDownIcon, type LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ButtonGlass } from './button-glass';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
@@ -25,6 +29,13 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/ui/command';
+import { FormFieldWrapper } from '../primitives/form-field-wrapper';
+import { inputVariants, type InputGlassSize } from '@/lib/variants/input-glass-variants';
+import {
+  getDropdownContentStyles,
+  getDropdownItemClasses,
+} from '@/lib/variants/dropdown-content-styles';
+import { ICON_SIZES } from '../primitives/style-utils';
 import '@/glass-theme.css';
 
 // ========================================
@@ -37,6 +48,8 @@ export interface ComboBoxOption<T = string> {
   readonly value: T;
   readonly label: string;
   readonly disabled?: boolean;
+  /** Optional icon component for the option */
+  readonly icon?: LucideIcon;
 }
 
 export interface ComboBoxGlassProps<T = string> {
@@ -66,6 +79,25 @@ export interface ComboBoxGlassProps<T = string> {
   readonly side?: 'top' | 'right' | 'bottom' | 'left';
   /** Popover alignment */
   readonly align?: 'start' | 'center' | 'end';
+
+  // ========================================
+  // NEW PROPS (Week 3 Enhancement)
+  // ========================================
+
+  /** Label text displayed above the field */
+  readonly label?: string;
+  /** Error message - displays in red below the field */
+  readonly error?: string;
+  /** Success message - displays in green if no error */
+  readonly success?: string;
+  /** Shows required asterisk (*) next to label */
+  readonly required?: boolean;
+  /** Size variant (affects trigger button height and padding) */
+  readonly size?: InputGlassSize;
+  /** Enable/disable search functionality */
+  readonly searchable?: boolean;
+  /** Optional icon for trigger button (displayed before text) */
+  readonly icon?: LucideIcon;
 }
 
 // ========================================
@@ -87,11 +119,20 @@ function ComboBoxGlassInner<T = string>(
     clearable = false,
     side = 'bottom',
     align = 'start',
+    // NEW PROPS
+    label,
+    error,
+    success,
+    required = false,
+    size = 'md',
+    searchable = true,
+    icon: TriggerIcon,
   }: ComboBoxGlassProps<T>,
   ref: React.ForwardedRef<HTMLButtonElement>
 ) {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState('');
+  const fieldId = useId();
 
   // Find selected option
   const selectedOption = useMemo(
@@ -133,7 +174,8 @@ function ComboBoxGlassInner<T = string>(
     return variants[glassVariant];
   };
 
-  return (
+  // Render content
+  const comboboxContent = (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <ButtonGlass
@@ -143,17 +185,21 @@ function ComboBoxGlassInner<T = string>(
           aria-expanded={open}
           aria-haspopup="listbox"
           aria-label={selectedOption?.label || placeholder}
+          aria-describedby={error ? `${fieldId}-error` : success ? `${fieldId}-success` : undefined}
           disabled={disabled}
           className={cn(
             'w-full justify-between',
+            // Apply size variant via inputVariants
+            inputVariants({ size }),
             !selectedOption && 'text-muted-foreground',
             className
           )}
         >
-          <span className="truncate">
+          <span className="flex items-center gap-2 truncate">
+            {TriggerIcon && <TriggerIcon className={ICON_SIZES.md} />}
             {selectedOption ? selectedOption.label : placeholder}
           </span>
-          <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          <ChevronsUpDownIcon className={cn(ICON_SIZES.md, 'shrink-0 opacity-50')} />
         </ButtonGlass>
       </PopoverTrigger>
       <PopoverContent
@@ -164,47 +210,70 @@ function ComboBoxGlassInner<T = string>(
           getGlassClass(),
           popoverClassName
         )}
-        style={{
-          background: 'var(--glass-bg)',
-          backdropFilter: 'var(--glass-blur)',
-          borderColor: 'var(--glass-border)',
-        }}
+        style={getDropdownContentStyles()}
       >
         <Command shouldFilter={false}>
-          <CommandInput
-            placeholder={searchPlaceholder}
-            value={search}
-            onValueChange={setSearch}
-          />
+          {searchable && (
+            <CommandInput
+              placeholder={searchPlaceholder}
+              value={search}
+              onValueChange={setSearch}
+            />
+          )}
           <CommandList>
             <CommandEmpty>{emptyText}</CommandEmpty>
             <CommandGroup>
-              {filteredOptions.map((option) => (
-                <CommandItem
-                  key={String(option.value)}
-                  value={String(option.value)}
-                  disabled={option.disabled}
-                  onSelect={() => handleSelect(option.value)}
-                  className={cn(
-                    'cursor-pointer',
-                    option.disabled && 'cursor-not-allowed opacity-50'
-                  )}
-                >
-                  <CheckIcon
+              {filteredOptions.map((option) => {
+                const OptionIcon = option.icon;
+                const isSelected = value === option.value;
+
+                return (
+                  <CommandItem
+                    key={String(option.value)}
+                    value={String(option.value)}
+                    disabled={option.disabled}
+                    onSelect={() => handleSelect(option.value)}
                     className={cn(
-                      'mr-2 h-4 w-4',
-                      value === option.value ? 'opacity-100' : 'opacity-0'
+                      getDropdownItemClasses({ selected: isSelected }),
+                      'cursor-pointer',
+                      option.disabled && 'cursor-not-allowed opacity-50'
                     )}
-                  />
-                  <span className="truncate">{option.label}</span>
-                </CommandItem>
-              ))}
+                  >
+                    <CheckIcon
+                      className={cn(
+                        ICON_SIZES.md,
+                        'mr-2',
+                        isSelected ? 'opacity-100' : 'opacity-0'
+                      )}
+                    />
+                    {OptionIcon && <OptionIcon className={cn(ICON_SIZES.md, 'mr-2 shrink-0')} />}
+                    <span className="truncate">{option.label}</span>
+                  </CommandItem>
+                );
+              })}
             </CommandGroup>
           </CommandList>
         </Command>
       </PopoverContent>
     </Popover>
   );
+
+  // Wrap with FormFieldWrapper if label/error/success provided
+  if (label || error || success) {
+    return (
+      <FormFieldWrapper
+        label={label}
+        error={error}
+        success={success}
+        required={required}
+        htmlFor={fieldId}
+      >
+        {comboboxContent}
+      </FormFieldWrapper>
+    );
+  }
+
+  return comboboxContent;
 }
 
 // Export with generic type support

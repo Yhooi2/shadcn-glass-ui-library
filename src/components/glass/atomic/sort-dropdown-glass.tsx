@@ -11,6 +11,8 @@
 import { forwardRef, useState, useRef, useEffect, useCallback, useMemo, type CSSProperties } from 'react';
 import { ChevronDown, ArrowUp, ArrowDown, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { getDropdownContentStyles, getDropdownItemClasses } from '@/lib/variants/dropdown-content-styles';
+import { ICON_SIZES } from '../primitives/style-utils';
 import '@/glass-theme.css';
 
 // ========================================
@@ -123,11 +125,7 @@ export const SortDropdownGlass = forwardRef<HTMLDivElement, SortDropdownGlassPro
     }), []);
 
     const dropdownStyles: CSSProperties = useMemo(() => ({
-      background: 'var(--dropdown-bg)',
-      border: '1px solid var(--dropdown-border)',
-      boxShadow: 'var(--dropdown-glow)',
-      backdropFilter: 'blur(var(--blur-md))',  // 16px - standard dropdown blur
-      WebkitBackdropFilter: 'blur(var(--blur-md))',
+      ...getDropdownContentStyles(),
       animation: 'dropdownFadeIn 0.2s ease-out',
     }), []);
 
@@ -165,16 +163,17 @@ export const SortDropdownGlass = forwardRef<HTMLDivElement, SortDropdownGlassPro
           {compact ? (
             <>
               <span>Sort</span>
-              <SortIcon className="w-3 h-3 sm:w-3.5 sm:h-3.5" style={{ color: 'var(--text-accent)' }} />
+              <SortIcon className={ICON_SIZES.sm} style={{ color: 'var(--text-accent)' }} />
             </>
           ) : (
             <>
               <span className="hidden sm:inline" style={{ color: 'var(--text-muted)' }}>Sort:</span>
               <span>{fieldLabels[sortBy]}</span>
-              <SortIcon className="w-3 h-3 sm:w-3.5 sm:h-3.5" style={{ color: 'var(--text-accent)' }} />
+              <SortIcon className={ICON_SIZES.sm} style={{ color: 'var(--text-accent)' }} />
               <ChevronDown
                 className={cn(
-                  'w-3 h-3 sm:w-3.5 sm:h-3.5 transition-transform duration-200',
+                  ICON_SIZES.sm,
+                  'transition-transform duration-200',
                   isOpen && 'rotate-180'
                 )}
                 style={{ color: 'var(--text-muted)' }}
@@ -221,11 +220,11 @@ export const SortDropdownGlass = forwardRef<HTMLDivElement, SortDropdownGlassPro
                     {isSelected && (
                       <div className="flex items-center gap-1">
                         {sortOrder === 'asc' ? (
-                          <ArrowUp className="w-3 h-3" />
+                          <ArrowUp className={ICON_SIZES.sm} />
                         ) : (
-                          <ArrowDown className="w-3 h-3" />
+                          <ArrowDown className={ICON_SIZES.sm} />
                         )}
-                        <Check className="w-3 h-3" />
+                        <Check className={ICON_SIZES.sm} />
                       </div>
                     )}
                   </button>

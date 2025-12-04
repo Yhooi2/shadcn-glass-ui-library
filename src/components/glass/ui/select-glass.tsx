@@ -1,6 +1,41 @@
 /**
  * SelectGlass Component
  *
+ * @deprecated Use ComboBoxGlass instead. SelectGlass will be removed in v4.0.
+ *
+ * **Migration Guide:**
+ * ```tsx
+ * // Before (SelectGlass)
+ * <SelectGlass
+ *   options={options}
+ *   value={value}
+ *   onChange={setValue}
+ *   label="Country"
+ *   error="Required"
+ *   size="md"
+ *   searchable
+ * />
+ *
+ * // After (ComboBoxGlass)
+ * <ComboBoxGlass
+ *   options={options}
+ *   value={value}
+ *   onChange={setValue}
+ *   label="Country"
+ *   error="Required"
+ *   size="md"
+ *   searchable={true} // Opcion al: default true
+ * />
+ * ```
+ *
+ * **Why migrate:**
+ * - ComboBoxGlass has better performance (uses shadcn Command)
+ * - More features: trigger icons, option icons, better styling
+ * - Active maintenance and updates
+ * - SelectGlass will be removed in v4.0 (6+ months)
+ *
+ * ---
+ *
  * Searchable glass-themed dropdown select with:
  * - Theme-aware styling (glass/light/aurora)
  * - Keyboard navigation (↑↓, Home, End, Enter, ESC)
@@ -104,6 +139,17 @@ export const SelectGlass = React.forwardRef<HTMLDivElement, SelectGlassProps>(
     const { isFocused, focusProps } = useFocus();
     const searchInputRef = React.useRef<HTMLInputElement>(null);
     const listRef = React.useRef<HTMLDivElement>(null);
+
+    // Deprecation warning in development
+    React.useEffect(() => {
+      if (process.env.NODE_ENV === 'development') {
+        console.warn(
+          '[SelectGlass] This component is deprecated and will be removed in v4.0. ' +
+          'Please migrate to ComboBoxGlass for better performance and features. ' +
+          'See JSDoc for migration guide.'
+        );
+      }
+    }, []);
 
     // Find selected option
     const selectedOption = React.useMemo(

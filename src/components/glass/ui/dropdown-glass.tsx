@@ -13,6 +13,7 @@ import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 import type { LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ICON_SIZES } from '@/components/glass/primitives';
+import { getDropdownContentStyles, dropdownContentClasses } from '@/lib/variants/dropdown-content-styles';
 import '@/glass-theme.css';
 
 // ========================================
@@ -46,14 +47,6 @@ export const DropdownGlass = React.forwardRef<
   HTMLDivElement,
   DropdownGlassProps
 >(({ trigger, items, align = 'left', className }, ref) => {
-  const dropdownStyles: React.CSSProperties = {
-    background: 'var(--dropdown-bg)',
-    border: '1px solid var(--dropdown-border)',
-    boxShadow: 'var(--dropdown-glow)',
-    backdropFilter: 'blur(var(--blur-md))',  // 16px - standard dropdown blur
-    WebkitBackdropFilter: 'blur(var(--blur-md))',
-  };
-
   return (
     <div ref={ref} className={cn('relative inline-block', className)}>
       <DropdownMenuPrimitive.Root>
@@ -65,8 +58,8 @@ export const DropdownGlass = React.forwardRef<
         <DropdownMenuPrimitive.Content
           align={align === 'left' ? 'start' : 'end'}
           sideOffset={8}
-          className="min-w-40 md:min-w-[200px] rounded-2xl overflow-hidden z-[50002] animate-in fade-in-0 zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2"
-          style={dropdownStyles}
+          className={dropdownContentClasses}
+          style={getDropdownContentStyles()}
           role="menu"
           aria-orientation="vertical"
         >

@@ -12,6 +12,7 @@
 
 import type { CSSProperties } from 'react';
 import { cn } from '@/lib/utils';
+import { ICON_SIZES } from '@/components/glass/primitives/style-utils';
 
 // ============================================
 // DROPDOWN CONTENT STYLES
@@ -168,7 +169,7 @@ export function getDropdownIconClasses(
 ): string {
   return cn(
     // Size
-    'w-3.5 h-3.5 md:w-4 md:h-4',
+    ICON_SIZES.md,
 
     // Behavior
     'transition-colors duration-200 ease-out shrink-0',
