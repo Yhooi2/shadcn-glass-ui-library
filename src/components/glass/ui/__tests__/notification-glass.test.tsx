@@ -8,7 +8,7 @@ describe('NotificationGlass', () => {
     it('renders notification with title and message', () => {
       render(
         <NotificationGlass
-          type="info"
+          variant="default"
           title="Notification Title"
           message="Notification message"
           onClose={vi.fn()}
@@ -21,7 +21,7 @@ describe('NotificationGlass', () => {
     it('renders with correct ARIA attributes', () => {
       render(
         <NotificationGlass
-          type="info"
+          variant="default"
           title="Test"
           message="Message"
           onClose={vi.fn()}
@@ -34,7 +34,7 @@ describe('NotificationGlass', () => {
     it('applies custom className', () => {
       const { container } = render(
         <NotificationGlass
-          type="info"
+          variant="default"
           title="Test"
           message="Message"
           onClose={vi.fn()}
@@ -48,7 +48,7 @@ describe('NotificationGlass', () => {
     it('renders close button with correct aria-label', () => {
       render(
         <NotificationGlass
-          type="info"
+          variant="default"
           title="Test"
           message="Message"
           onClose={vi.fn()}
@@ -74,7 +74,7 @@ describe('NotificationGlass', () => {
     it('renders info type explicitly', () => {
       render(
         <NotificationGlass
-          type="info"
+          variant="default"
           title="Test"
           message="Message"
           onClose={vi.fn()}
@@ -86,7 +86,7 @@ describe('NotificationGlass', () => {
     it('renders success type', () => {
       render(
         <NotificationGlass
-          type="success"
+          variant="success"
           title="Success"
           message="Operation successful"
           onClose={vi.fn()}
@@ -98,7 +98,7 @@ describe('NotificationGlass', () => {
     it('renders warning type', () => {
       render(
         <NotificationGlass
-          type="warning"
+          variant="warning"
           title="Warning"
           message="Warning message"
           onClose={vi.fn()}
@@ -110,7 +110,7 @@ describe('NotificationGlass', () => {
     it('renders error type', () => {
       render(
         <NotificationGlass
-          type="error"
+          variant="destructive"
           title="Error"
           message="Error message"
           onClose={vi.fn()}
@@ -124,7 +124,7 @@ describe('NotificationGlass', () => {
     it('renders info icon for info type', () => {
       const { container } = render(
         <NotificationGlass
-          type="info"
+          variant="default"
           title="Test"
           message="Message"
           onClose={vi.fn()}
@@ -137,7 +137,7 @@ describe('NotificationGlass', () => {
     it('renders success icon for success type', () => {
       const { container } = render(
         <NotificationGlass
-          type="success"
+          variant="success"
           title="Test"
           message="Message"
           onClose={vi.fn()}
@@ -150,7 +150,7 @@ describe('NotificationGlass', () => {
     it('renders warning icon for warning type', () => {
       const { container } = render(
         <NotificationGlass
-          type="warning"
+          variant="warning"
           title="Test"
           message="Message"
           onClose={vi.fn()}
@@ -163,7 +163,7 @@ describe('NotificationGlass', () => {
     it('renders error icon for error type', () => {
       const { container } = render(
         <NotificationGlass
-          type="error"
+          variant="destructive"
           title="Test"
           message="Message"
           onClose={vi.fn()}
@@ -180,7 +180,7 @@ describe('NotificationGlass', () => {
       const handleClose = vi.fn();
       render(
         <NotificationGlass
-          type="info"
+          variant="default"
           title="Test"
           message="Message"
           onClose={handleClose}
@@ -196,7 +196,7 @@ describe('NotificationGlass', () => {
     it('displays X icon in close button', () => {
       render(
         <NotificationGlass
-          type="info"
+          variant="default"
           title="Test"
           message="Message"
           onClose={vi.fn()}
@@ -213,7 +213,7 @@ describe('NotificationGlass', () => {
       const user = userEvent.setup();
       render(
         <NotificationGlass
-          type="info"
+          variant="default"
           title="Test"
           message="Message"
           onClose={vi.fn()}
@@ -231,7 +231,7 @@ describe('NotificationGlass', () => {
       const user = userEvent.setup();
       render(
         <NotificationGlass
-          type="info"
+          variant="default"
           title="Test"
           message="Message"
           onClose={vi.fn()}
@@ -252,7 +252,7 @@ describe('NotificationGlass', () => {
       render(
         <NotificationGlass
           ref={ref}
-          type="info"
+          variant="default"
           title="Test"
           message="Message"
           onClose={vi.fn()}
@@ -267,7 +267,7 @@ describe('NotificationGlass', () => {
       render(
         <NotificationGlass
           ref={ref}
-          type="info"
+          variant="default"
           title="Test"
           message="Message"
           onClose={vi.fn()}
@@ -285,7 +285,7 @@ describe('NotificationGlass', () => {
     it('passes additional HTML attributes to notification div', () => {
       render(
         <NotificationGlass
-          type="info"
+          variant="default"
           title="Test"
           message="Message"
           onClose={vi.fn()}
@@ -300,7 +300,7 @@ describe('NotificationGlass', () => {
     it('applies id attribute correctly', () => {
       render(
         <NotificationGlass
-          type="info"
+          variant="default"
           title="Test"
           message="Message"
           onClose={vi.fn()}
@@ -316,7 +316,7 @@ describe('NotificationGlass', () => {
     it('applies notification CSS variables', () => {
       render(
         <NotificationGlass
-          type="info"
+          variant="default"
           title="Test"
           message="Message"
           onClose={vi.fn()}
@@ -331,7 +331,7 @@ describe('NotificationGlass', () => {
     it('applies type-specific color variables', () => {
       const { container } = render(
         <NotificationGlass
-          type="success"
+          variant="success"
           title="Test"
           message="Message"
           onClose={vi.fn()}
@@ -348,7 +348,7 @@ describe('NotificationGlass', () => {
     it('renders title with correct styling', () => {
       render(
         <NotificationGlass
-          type="info"
+          variant="default"
           title="Test Title"
           message="Message"
           onClose={vi.fn()}
@@ -363,7 +363,7 @@ describe('NotificationGlass', () => {
     it('renders message with correct styling', () => {
       render(
         <NotificationGlass
-          type="info"
+          variant="default"
           title="Title"
           message="Test Message"
           onClose={vi.fn()}
@@ -379,7 +379,7 @@ describe('NotificationGlass', () => {
       const longTitle = 'This is a very long notification title that should still render correctly';
       render(
         <NotificationGlass
-          type="info"
+          variant="default"
           title={longTitle}
           message="Message"
           onClose={vi.fn()}
@@ -392,7 +392,7 @@ describe('NotificationGlass', () => {
       const longMessage = 'This is a very long notification message that provides detailed information about the event or action that occurred';
       render(
         <NotificationGlass
-          type="info"
+          variant="default"
           title="Title"
           message={longMessage}
           onClose={vi.fn()}
@@ -407,19 +407,19 @@ describe('NotificationGlass', () => {
       const { container } = render(
         <>
           <NotificationGlass
-            type="info"
+            variant="default"
             title="Info"
             message="Info message"
             onClose={vi.fn()}
           />
           <NotificationGlass
-            type="success"
+            variant="success"
             title="Success"
             message="Success message"
             onClose={vi.fn()}
           />
           <NotificationGlass
-            type="error"
+            variant="destructive"
             title="Error"
             message="Error message"
             onClose={vi.fn()}
@@ -439,13 +439,13 @@ describe('NotificationGlass', () => {
       render(
         <>
           <NotificationGlass
-            type="info"
+            variant="default"
             title="Notification 1"
             message="Message 1"
             onClose={handleClose1}
           />
           <NotificationGlass
-            type="success"
+            variant="success"
             title="Notification 2"
             message="Message 2"
             onClose={handleClose2}
@@ -465,7 +465,7 @@ describe('NotificationGlass', () => {
     it('applies info colors correctly', () => {
       const { container } = render(
         <NotificationGlass
-          type="info"
+          variant="default"
           title="Test"
           message="Message"
           onClose={vi.fn()}
@@ -480,7 +480,7 @@ describe('NotificationGlass', () => {
     it('applies warning colors correctly', () => {
       const { container } = render(
         <NotificationGlass
-          type="warning"
+          variant="warning"
           title="Test"
           message="Message"
           onClose={vi.fn()}
@@ -495,7 +495,7 @@ describe('NotificationGlass', () => {
     it('applies error colors correctly', () => {
       const { container } = render(
         <NotificationGlass
-          type="error"
+          variant="destructive"
           title="Test"
           message="Message"
           onClose={vi.fn()}
