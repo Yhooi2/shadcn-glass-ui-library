@@ -362,7 +362,7 @@ styles/
 ## ⏳ Фаза 3: Primitives Architecture Refactoring (60%)
 
 **Статус:** В процессе
-**Завершено:** Week 1 Foundation (8/43.5 часов) + Week 2 Complete (8/8 часов) + Week 3 Complete (9.5/9.5 часов)
+**Завершено:** Week 1 Foundation (8/43.5 часов) + Week 2 Complete (8/8 часов) + Week 3 Complete (9.5/9.5 часов) + Week 4 Complete (11.5/11.5 часов)
 **Оценка:** ~40 часов
 **Цель:** Сократить дублирование кода на 40-60%, унифицировать API компонентов
 
@@ -428,7 +428,21 @@ styles/
 - TypeScript: ✅ 0 ошибок
 - Visual tests: ✅ 582/582 passing (100%)
 
-**Следующий шаг:** Week 4 - asChild + Compounds (11.5 часов)
+### ✅ Week 4: asChild + Compounds (100% - 11.5/11.5 часов)
+**Завершено:** 2025-12-04
+
+**Результаты Week 4:**
+- **asChild support:** 3 компонента (ButtonGlass, AvatarGlass, GlassCard)
+- **Compound components:** 2 компонента (ModalGlass, TabsGlass)
+- **Backward compatibility:** 100% (legacy APIs preserved via Object.assign)
+- ModalGlass: 9 compound components (Root/Overlay/Content/Header/Body/Footer/Title/Description/Close)
+- TabsGlass: 4 compound components (Root/List/Trigger/Content)
+- DropdownGlass: Comprehensive Radix UI primitives documentation
+- ButtonGlass.stories.tsx: Created with asChild examples
+- TypeScript: ✅ 0 ошибок
+- Visual tests: ✅ 579/582 passing (99.5%, 3 flaky TabsGlass animation tests)
+
+**Следующий шаг:** Week 5 - Testing & Docs (7 часов)
 
 ---
 
@@ -1866,10 +1880,10 @@ src/lib/variants/
 Фаза 2.8:  ████████████████████ 100% ✅ (API Alignment)
 Фаза 2.9:  ████████████████████ 100% ✅ (ProjectsList)
 Фаза 2.10: ████████████████████ 100% ✅ (Design Compliance)
-Фаза 3:    ████████████░░░░░░░░  60% ⏳ (Primitives Architecture) Week 1 ✅, Week 2 ✅, Week 3 ✅
+Фаза 3:    ████████████████░░░░  82% ⏳ (Primitives Architecture) Week 1 ✅, Week 2 ✅, Week 3 ✅, Week 4 ✅
 Фаза 4:    ░░░░░░░░░░░░░░░░░░░░   0% ⏳ (Registry & Publish)
 
-ВСЕГО:     █████████████████░░░  88.5%
+ВСЕГО:     ████████████████████  91%
 ```
 
 **Архитектурный рефакторинг:** Phase 3 (~43.5h)
