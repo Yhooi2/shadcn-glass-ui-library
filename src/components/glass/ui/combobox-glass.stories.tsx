@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { ComboBoxGlass, type ComboBoxOption } from './combobox-glass';
+import { ComboBoxGlass } from './combobox-glass';
 import { User, MapPin, Building } from 'lucide-react';
 import { ThemeProvider } from '@/lib/theme-context';
 import '@/glass-theme.css';
@@ -71,7 +71,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // Sample data
-const countries: ComboBoxOption<string>[] = [
+const countries = [
   { value: 'us', label: 'United States' },
   { value: 'uk', label: 'United Kingdom' },
   { value: 'ca', label: 'Canada' },
@@ -82,7 +82,7 @@ const countries: ComboBoxOption<string>[] = [
   { value: 'cn', label: 'China' },
 ];
 
-const countriesWithIcons: ComboBoxOption<string>[] = [
+const countriesWithIcons = [
   { value: 'us', label: 'United States', icon: MapPin },
   { value: 'uk', label: 'United Kingdom', icon: MapPin },
   { value: 'ca', label: 'Canada', icon: MapPin },
@@ -275,14 +275,14 @@ export const CompleteForm: Story = {
     const [department, setDepartment] = useState<string>();
     const [role, setRole] = useState<string>();
 
-    const departments: ComboBoxOption<string>[] = [
+    const departments = [
       { value: 'eng', label: 'Engineering', icon: Building },
       { value: 'des', label: 'Design', icon: Building },
       { value: 'mkt', label: 'Marketing', icon: Building },
       { value: 'sales', label: 'Sales', icon: Building },
     ];
 
-    const roles: ComboBoxOption<string>[] = [
+    const roles = [
       { value: 'dev', label: 'Developer', icon: User },
       { value: 'pm', label: 'Product Manager', icon: User },
       { value: 'des', label: 'Designer', icon: User },

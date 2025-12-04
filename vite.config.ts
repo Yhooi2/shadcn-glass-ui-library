@@ -1,5 +1,4 @@
 /// <reference types="vitest/config" />
-// @ts-nocheck
 import path from 'path';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
@@ -87,9 +86,7 @@ export default defineConfig({
           browser: {
             enabled: true,
             headless: true,
-            provider: playwright({
-              args: ['--force-prefers-reduced-motion'],
-            }),
+            provider: playwright(),
             instances: [
               {
                 browser: 'chromium',

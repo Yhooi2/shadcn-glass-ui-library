@@ -227,7 +227,7 @@ describe('TooltipGlass', () => {
 
   describe('Forward Ref', () => {
     it('forwards ref to wrapper div', () => {
-      const ref = React.createRef<HTMLDivElement>();
+      const ref = { current: null } as React.RefObject<HTMLDivElement>;
       render(
         <TooltipGlass ref={ref} content="Tooltip text">
           <button>Hover me</button>
@@ -238,7 +238,7 @@ describe('TooltipGlass', () => {
     });
 
     it('allows ref to access element', () => {
-      const ref = React.createRef<HTMLDivElement>();
+      const ref = { current: null } as React.RefObject<HTMLDivElement>;
       render(
         <TooltipGlass ref={ref} content="Tooltip text">
           <button>Hover me</button>
@@ -247,7 +247,7 @@ describe('TooltipGlass', () => {
 
       expect(ref.current).not.toBeNull();
       if (ref.current) {
-        expect(ref.current.tagName).toBe('DIV');
+        expect((ref.current as HTMLElement).tagName).toBe('DIV');
       }
     });
   });

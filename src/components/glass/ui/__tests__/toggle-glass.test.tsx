@@ -201,19 +201,19 @@ describe('ToggleGlass', () => {
 
   describe('Forward Ref', () => {
     it('forwards ref to button element', () => {
-      const ref = React.createRef<HTMLButtonElement>();
+      const ref = { current: null } as React.RefObject<HTMLDivElement>;
       render(<ToggleGlass ref={ref} checked={false} onChange={vi.fn()} />);
 
       expect(ref.current).toBeInstanceOf(HTMLButtonElement);
     });
 
     it('allows ref methods to be called', () => {
-      const ref = React.createRef<HTMLButtonElement>();
+      const ref = { current: null } as React.RefObject<HTMLDivElement>;
       render(<ToggleGlass ref={ref} checked={false} onChange={vi.fn()} />);
 
       expect(ref.current).not.toBeNull();
       if (ref.current) {
-        ref.current.focus();
+        (ref.current as HTMLButtonElement).focus();
         expect(document.activeElement).toBe(ref.current);
       }
     });
