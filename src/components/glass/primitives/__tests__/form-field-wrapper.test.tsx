@@ -274,7 +274,7 @@ describe('FormFieldWrapper', () => {
   });
 
   it('should apply CSS custom properties for colors', () => {
-    const { container } = render(
+    render(
       <FormFieldWrapper label="Test" error="Error" success="Success">
         <input type="text" />
       </FormFieldWrapper>

@@ -101,7 +101,7 @@ expect.extend({
 
 // Extend Vitest's expect types
 declare module 'vitest' {
-  interface Assertion<T> {
+  interface Assertion {
     toBeOnGrid(gridSize?: number): void;
     toMeetContrastAA(isLargeText?: boolean): void;
     toMeetTouchTarget(minSize?: number): void;

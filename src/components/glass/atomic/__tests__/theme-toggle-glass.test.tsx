@@ -110,7 +110,7 @@ describe('ThemeToggleGlass', () => {
       const handleToggle = vi.fn();
       renderWithTheme(<ThemeToggleGlass onToggle={handleToggle} />);
 
-      const initialLabel = screen.getByRole('button').getAttribute('aria-label');
+      // const initialLabel = screen.getByRole('button').getAttribute('aria-label');
       await user.click(screen.getByRole('button'));
 
       // Theme should not change because custom handler is used

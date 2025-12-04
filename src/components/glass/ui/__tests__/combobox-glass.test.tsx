@@ -333,7 +333,7 @@ describe('ComboBoxGlass', () => {
     });
 
     it('works with object values', async () => {
-      const user = userEvent.setup();
+      // const user = userEvent.setup();
       type ObjectValue = { id: string; name: string };
       const objectOptions: ComboBoxOption<ObjectValue>[] = [
         { value: { id: '1', name: 'First' }, label: 'Option 1' },

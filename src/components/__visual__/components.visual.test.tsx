@@ -6,7 +6,7 @@
  * Update baselines: npm run test:visual:update
  */
 
-import { describe, test, expect, afterEach, beforeEach } from 'vitest';
+import { describe, test, expect, afterEach } from 'vitest';
 import { render, cleanup } from '@testing-library/react';
 import { page } from 'vitest/browser';
 

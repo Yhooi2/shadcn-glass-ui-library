@@ -236,7 +236,7 @@ describe('ExpandableHeaderGlass', () => {
     });
 
     it('is keyboard accessible', async () => {
-      const user = userEvent.setup();
+      // const user = userEvent.setup();
       const handleToggle = vi.fn();
       render(
         <ExpandableHeaderGlass

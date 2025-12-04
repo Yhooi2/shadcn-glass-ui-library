@@ -94,7 +94,7 @@ describe('CircularMetricGlass', () => {
 
   describe('Label Display', () => {
     it('renders label below the circle', () => {
-      const { container } = render(
+      render(
         <CircularMetricGlass label="Reg" value={84} />
       );
       const label = screen.getByText('Reg');

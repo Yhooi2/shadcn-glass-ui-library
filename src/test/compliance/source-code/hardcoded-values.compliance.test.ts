@@ -196,7 +196,7 @@ function suggestSpacingToken(value: number): string {
 
 describe('Source Code Hardcoded Value Detection', () => {
   const componentsDir = path.join(__dirname, '../../../components/glass');
-  let allViolations: Violation[] = [];
+  const allViolations: Violation[] = [];
 
   it('scans all component files for hardcoded values', async () => {
     const files = await glob('**/*.tsx', {

@@ -192,7 +192,7 @@ describe('CSS File Hardcoded Value Detection', () => {
       const blurMdLines = lines.filter(line => line.includes('--blur-md'));
 
       if (blurMdLines.length > 0) {
-        blurMdLines.forEach((line, idx) => {
+        blurMdLines.forEach((line) => {
           const match = line.match(/--blur-md:\s*(\d+)px/);
           if (match) {
             const value = parseInt(match[1], 10);
