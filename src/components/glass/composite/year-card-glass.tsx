@@ -3,12 +3,13 @@
 // Year card for career timeline
 // ========================================
 
-import { forwardRef, useState, type CSSProperties } from "react";
+import { forwardRef, type CSSProperties } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BadgeGlass } from "../ui/badge-glass";
 import { ProgressGlass } from "../specialized/progress-glass";
 import { ButtonGlass } from "../ui/button-glass";
+import { InteractiveCard } from "../primitives";
 import type { ProgressGradient } from "@/lib/variants/progress-glass-variants";
 import "@/glass-theme.css";
 
@@ -30,15 +31,6 @@ export const YearCardGlass = forwardRef<HTMLDivElement, YearCardGlassProps>(
     { year, emoji, label, commits, progress, isExpanded = false, gradient = "blue", prs = 0, repos = 0, onShowYear, className, onClick, ...props },
     ref
   ) => {
-    const [isHovered, setIsHovered] = useState(false);
-
-    const cardStyles: CSSProperties = {
-      background: isHovered ? "var(--card-hover-bg)" : "var(--year-card-bg)",
-      borderColor: "var(--year-card-border)",
-      transform: isHovered ? "translateY(-2px)" : "translateY(0)",
-      boxShadow: isHovered ? "var(--year-card-hover-glow)" : "none",
-    };
-
     const expandedStyles: CSSProperties = {
       background: "var(--expanded-bg)",
       borderColor: "var(--expanded-border)",
@@ -50,16 +42,16 @@ export const YearCardGlass = forwardRef<HTMLDivElement, YearCardGlassProps>(
     };
 
     return (
-      <div
+      <InteractiveCard
         ref={ref}
-        className={cn(
-          "p-2.5 md:p-3 rounded-xl border transition-all duration-300 cursor-pointer",
-          className
-        )}
-        style={cardStyles}
+        baseBg="var(--year-card-bg)"
+        hoverBg="var(--card-hover-bg)"
+        borderColor="var(--year-card-border)"
+        hoverGlow="var(--year-card-hover-glow)"
+        hoverLift
+        rounded="rounded-xl"
+        className={cn("p-2.5 md:p-3 cursor-pointer", className)}
         onClick={onClick}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
         role="button"
         tabIndex={0}
         onKeyDown={(e) => {
@@ -176,7 +168,7 @@ export const YearCardGlass = forwardRef<HTMLDivElement, YearCardGlassProps>(
             )}
           </div>
         )}
-      </div>
+      </InteractiveCard>
     );
   }
 );

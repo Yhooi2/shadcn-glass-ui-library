@@ -3,10 +3,11 @@
 // AI summary card with feature list
 // ========================================
 
-import { forwardRef, useState, type CSSProperties } from "react";
+import { forwardRef, type CSSProperties } from "react";
 import { Sparkles, Check, Zap, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ButtonGlass } from "../ui/button-glass";
+import { InteractiveCard } from "../primitives";
 import "@/glass-theme.css";
 
 export interface AICardGlassProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -32,27 +33,16 @@ export const AICardGlass = forwardRef<HTMLDivElement, AICardGlassProps>(
     },
     ref
   ) => {
-    const [isHovered, setIsHovered] = useState(false);
-
-    const cardStyles: CSSProperties = {
-      background: "var(--ai-card-bg)",
-      border: "1px solid var(--ai-card-border)",
-      backdropFilter: "blur(var(--blur-sm))",  // 8px - subtle blur for small card
-      WebkitBackdropFilter: "blur(var(--blur-sm))",
-      transform: isHovered ? "translateY(-2px)" : "translateY(0)",
-      boxShadow: isHovered ? "var(--ai-card-hover-glow)" : "none",
-    };
-
     return (
-      <div
+      <InteractiveCard
         ref={ref}
-        className={cn(
-          "w-full sm:w-56 md:w-64 p-3 md:p-4 rounded-xl transition-all duration-300",
-          className
-        )}
-        style={cardStyles}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        baseBg="var(--ai-card-bg)"
+        borderColor="var(--ai-card-border)"
+        hoverGlow="var(--ai-card-hover-glow)"
+        hoverLift
+        blur="sm"
+        rounded="rounded-xl"
+        className={cn("w-full sm:w-56 md:w-64 p-3 md:p-4", className)}
         {...props}
       >
         <div
@@ -99,7 +89,7 @@ export const AICardGlass = forwardRef<HTMLDivElement, AICardGlassProps>(
           <Clock className="w-2.5 h-2.5 md:w-3 md:h-3" />
           {estimatedTime}
         </p>
-      </div>
+      </InteractiveCard>
     );
   }
 );

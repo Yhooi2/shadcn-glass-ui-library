@@ -11,6 +11,7 @@
 import { forwardRef, useState, type CSSProperties } from 'react';
 import { cn } from '@/lib/utils';
 import { useHover } from '@/lib/hooks/use-hover';
+import { FormFieldWrapper } from '@/components/glass/primitives';
 import '@/glass-theme.css';
 
 // ========================================
@@ -26,6 +27,8 @@ export interface SliderGlassProps
   readonly step?: number;
   readonly showValue?: boolean;
   readonly label?: string;
+  readonly error?: string;
+  readonly success?: string;
 }
 
 // ========================================
@@ -43,6 +46,8 @@ export const SliderGlass = forwardRef<HTMLInputElement, SliderGlassProps>(
       step = 1,
       showValue,
       label,
+      error,
+      success,
       disabled,
       ...props
     },
@@ -81,28 +86,32 @@ export const SliderGlass = forwardRef<HTMLInputElement, SliderGlassProps>(
           : 'scale(1)',
     };
 
+    // Custom label with value display (not using FormFieldWrapper's label)
+    const customLabel = label && showValue ? (
+      <div className="flex justify-between mb-1.5 md:mb-2">
+        <label
+          className="text-xs md:text-sm font-medium"
+          style={{ color: 'var(--text-secondary)' }}
+        >
+          {label}
+        </label>
+        <span
+          className="text-xs md:text-sm font-medium tabular-nums"
+          style={{ color: 'var(--text-secondary)' }}
+        >
+          {value}
+        </span>
+      </div>
+    ) : undefined;
+
     return (
-      <div className={cn('w-full', className)}>
-        {(label || showValue) && (
-          <div className="flex justify-between mb-1.5 md:mb-2">
-            {label && (
-              <label
-                className="text-xs md:text-sm font-medium"
-                style={{ color: 'var(--text-secondary)' }}
-              >
-                {label}
-              </label>
-            )}
-            {showValue && (
-              <span
-                className="text-xs md:text-sm font-medium tabular-nums"
-                style={{ color: 'var(--text-secondary)' }}
-              >
-                {value}
-              </span>
-            )}
-          </div>
-        )}
+      <FormFieldWrapper
+        label={!showValue ? label : undefined}
+        error={error}
+        success={success}
+        className={cn('w-full', className)}
+      >
+        {customLabel}
         <div
           className="relative w-full h-8 md:h-6 flex items-center"
           onMouseEnter={hoverProps.onMouseEnter}
@@ -146,7 +155,7 @@ export const SliderGlass = forwardRef<HTMLInputElement, SliderGlassProps>(
             style={thumbStyles}
           />
         </div>
-      </div>
+      </FormFieldWrapper>
     );
   }
 );

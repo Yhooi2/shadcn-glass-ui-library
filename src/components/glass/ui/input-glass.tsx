@@ -21,7 +21,7 @@ import { type LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useFocus } from '@/lib/hooks/use-focus';
 import { inputVariants } from '@/lib/variants/input-glass-variants';
-import { ICON_SIZES } from '@/components/glass/primitives';
+import { ICON_SIZES, FormFieldWrapper } from '@/components/glass/primitives';
 import '@/glass-theme.css';
 
 // ========================================
@@ -170,15 +170,13 @@ export const InputGlass = forwardRef<HTMLInputElement, InputGlassProps>(
     const paddingRight = hasIcon && iconPosition === 'right' ? 'pr-10' : '';
 
     return (
-      <div className={cn('flex flex-col gap-1 md:gap-1.5', className)}>
-        {label && (
-          <label
-            className="text-xs md:text-sm font-medium"
-            style={{ color: 'var(--text-secondary)' }}
-          >
-            {label}
-          </label>
-        )}
+      <FormFieldWrapper
+        label={label}
+        error={error}
+        success={success}
+        htmlFor={props.id}
+        className={className}
+      >
         <div className="relative">
           {Icon && iconPosition === 'left' && (
             <Icon
@@ -216,23 +214,7 @@ export const InputGlass = forwardRef<HTMLInputElement, InputGlassProps>(
             />
           )}
         </div>
-        {error && (
-          <span
-            className="text-xs"
-            style={{ color: 'var(--alert-danger-text)' }}
-          >
-            {error}
-          </span>
-        )}
-        {success && (
-          <span
-            className="text-xs"
-            style={{ color: 'var(--alert-success-text)' }}
-          >
-            {success}
-          </span>
-        )}
-      </div>
+      </FormFieldWrapper>
     );
   }
 );

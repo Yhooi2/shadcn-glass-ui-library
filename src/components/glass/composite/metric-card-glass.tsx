@@ -3,9 +3,10 @@
 // Metric display card with progress
 // ========================================
 
-import { forwardRef, useState, type CSSProperties } from "react";
+import { forwardRef, type CSSProperties } from "react";
 import { cn } from "@/lib/utils";
 import { ProgressGlass } from "../specialized/progress-glass";
+import { InteractiveCard } from "../primitives";
 import "@/glass-theme.css";
 
 import type { ProgressGradient } from "@/lib/variants/progress-glass-variants";
@@ -56,16 +57,7 @@ const metricVarMap: Record<MetricColor, { bg: string; text: string; border: stri
 
 export const MetricCardGlass = forwardRef<HTMLDivElement, MetricCardGlassProps>(
   ({ label, value, color = "blue", className, ...props }, ref) => {
-    const [isHovered, setIsHovered] = useState(false);
     const colorVars = metricVarMap[color];
-
-    const cardStyles: CSSProperties = {
-      backgroundColor: colorVars.bg,
-      borderColor: colorVars.border,
-      boxShadow: isHovered ? colorVars.glow : "none",
-      transform: isHovered ? "translateY(-2px)" : "translateY(0)",
-      backdropFilter: "blur(8px)",
-    };
 
     const valueStyles: CSSProperties = {
       color: colorVars.text,
@@ -73,15 +65,15 @@ export const MetricCardGlass = forwardRef<HTMLDivElement, MetricCardGlassProps>(
     };
 
     return (
-      <div
+      <InteractiveCard
         ref={ref}
-        className={cn(
-          "p-3 md:p-4 rounded-xl border transition-all duration-300",
-          className
-        )}
-        style={cardStyles}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        baseBg={colorVars.bg}
+        borderColor={colorVars.border}
+        hoverGlow={colorVars.glow}
+        hoverLift
+        blur="sm"
+        rounded="rounded-xl"
+        className={cn("p-3 md:p-4", className)}
         {...props}
       >
         <div className="flex justify-between items-center mb-2 md:mb-3">
@@ -100,7 +92,7 @@ export const MetricCardGlass = forwardRef<HTMLDivElement, MetricCardGlassProps>(
           gradient={colorToGradient[color]}
           size="sm"
         />
-      </div>
+      </InteractiveCard>
     );
   }
 );

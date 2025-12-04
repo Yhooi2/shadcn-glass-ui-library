@@ -3,7 +3,7 @@
 // Expandable repository card with metrics
 // ========================================
 
-import { forwardRef, useState, type CSSProperties } from "react";
+import { forwardRef, type CSSProperties } from "react";
 import {
   ChevronDown,
   ChevronUp,
@@ -15,6 +15,7 @@ import {
 import { cn } from "@/lib/utils";
 import { StatusIndicatorGlass } from "../specialized/status-indicator-glass";
 import { ButtonGlass } from "../ui/button-glass";
+import { InteractiveCard } from "../primitives";
 import "@/glass-theme.css";
 
 export type RepositoryFlagType = "green" | "yellow" | "red";
@@ -52,18 +53,11 @@ export const RepositoryCardGlass = forwardRef<HTMLDivElement, RepositoryCardGlas
     },
     ref
   ) => {
-    const [isHovered, setIsHovered] = useState(false);
-
     // Calculate total project commits from contribution percentage
     const totalProjectCommits = contribution > 0
       ? Math.round(commits / (contribution / 100))
       : commits;
     const estimatedLines = Math.round(commits * 12);
-
-    const cardStyles: CSSProperties = {
-      background: isHovered ? "var(--card-hover-bg)" : "var(--card-bg)",
-      borderColor: "var(--card-border)",
-    };
 
     const expandedStyles: CSSProperties = {
       background: "var(--expanded-bg)",
@@ -76,15 +70,15 @@ export const RepositoryCardGlass = forwardRef<HTMLDivElement, RepositoryCardGlas
     };
 
     return (
-      <div
+      <InteractiveCard
         ref={ref}
-        className={cn(
-          "rounded-xl border transition-all duration-300 overflow-hidden",
-          className
-        )}
-        style={cardStyles}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        baseBg="var(--card-bg)"
+        hoverBg="var(--card-hover-bg)"
+        borderColor="var(--card-border)"
+        hoverLift={false}
+        blur="sm"
+        rounded="rounded-xl"
+        className={cn("overflow-hidden", className)}
         {...props}
       >
         {/* Main Card Content */}
@@ -255,7 +249,7 @@ export const RepositoryCardGlass = forwardRef<HTMLDivElement, RepositoryCardGlas
             </div>
           </div>
         )}
-      </div>
+      </InteractiveCard>
     );
   }
 );
