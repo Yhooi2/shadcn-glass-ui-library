@@ -54,8 +54,8 @@ export const ButtonsBlock = forwardRef<HTMLDivElement, ButtonsBlockProps>(
               <ButtonGlass variant="ghost" icon={Eye}>
                 Ghost
               </ButtonGlass>
-              <ButtonGlass variant="danger" icon={Trash2}>
-                Danger
+              <ButtonGlass variant="destructive" icon={Trash2}>
+                Delete
               </ButtonGlass>
               <ButtonGlass variant="success" icon={Check}>
                 Success

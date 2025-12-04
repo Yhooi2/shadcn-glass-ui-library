@@ -58,7 +58,7 @@ export const Variants: Story = {
       <ButtonGlass variant="primary">Primary</ButtonGlass>
       <ButtonGlass variant="secondary">Secondary</ButtonGlass>
       <ButtonGlass variant="ghost">Ghost</ButtonGlass>
-      <ButtonGlass variant="danger">Danger</ButtonGlass>
+      <ButtonGlass variant="destructive">Destructive</ButtonGlass>
       <ButtonGlass variant="success">Success</ButtonGlass>
       <ButtonGlass variant="text">Text</ButtonGlass>
     </div>
@@ -179,7 +179,7 @@ export const CompleteShowcase: Story = {
           <ButtonGlass variant="primary">Primary</ButtonGlass>
           <ButtonGlass variant="secondary">Secondary</ButtonGlass>
           <ButtonGlass variant="ghost">Ghost</ButtonGlass>
-          <ButtonGlass variant="danger">Danger</ButtonGlass>
+          <ButtonGlass variant="destructive">Destructive</ButtonGlass>
           <ButtonGlass variant="success">Success</ButtonGlass>
           <ButtonGlass variant="text">Text</ButtonGlass>
         </div>
