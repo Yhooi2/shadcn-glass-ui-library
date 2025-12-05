@@ -5,6 +5,64 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0] - 2025-12-05
+
+### ⚠️ BREAKING CHANGES
+
+- **SelectGlass:** Component completely removed
+  - **Migration:** Use `ComboBoxGlass` instead
+  - **Rationale:** Better performance, more features, shadcn/ui compatibility
+
+- **ModalGlass:** Legacy props API completely removed
+  - **Old API:** `isOpen`, `onClose`, `title` props
+  - **New API:** Compound API only (`ModalGlass.Root`, `.Overlay`, `.Content`, `.Header`, `.Body`, `.Footer`, `.Title`, `.Description`, `.Close`)
+  - **Migration:** See [ModalGlass Compound API guide](docs/migration/modal-glass-compound-api.md)
+  - **Key Changes:**
+    - `isOpen` → `open` (on ModalGlass.Root)
+    - `onClose` → `onOpenChange` with new signature: `(open: boolean) => void`
+    - `title` prop removed → use `<ModalGlass.Title>` component
+  - **Rationale:** Better composition, more flexible, matches modern React patterns
+
+- **TabsGlass:** Legacy props API completely removed
+  - **Old API:** `tabs`, `activeTab`, `onChange` props
+  - **New API:** Compound API only (`TabsGlass.Root`, `.List`, `.Trigger`, `.Content`)
+  - **Migration:** See [TabsGlass Compound API guide](docs/migration/tabs-glass-compound-api.md)
+  - **Key Changes:**
+    - `tabs` array prop removed → use individual `<TabsGlass.Trigger>` components
+    - `activeTab` → `value` (on TabsGlass.Root)
+    - `onChange` → `onValueChange`
+  - **Rationale:** Better composition, explicit content control, type safety
+
+### ✨ Added
+
+- Compound Component APIs for ModalGlass and TabsGlass (introduced earlier, now mandatory)
+- Comprehensive migration guides in `docs/migration/` directory
+
+### 🗑️ Removed
+
+- SelectGlass component (replaced by ComboBoxGlass)
+- ModalGlass legacy props API (`isOpen`, `onClose`, `title`)
+- TabsGlass legacy props API (`tabs`, `activeTab`, `onChange`)
+- All backward compatibility layers for deprecated APIs
+
+### ✅ Tests
+
+- 1,783 tests passing (100%)
+  - 29 ModalGlass unit tests (migrated)
+  - 23 TabsGlass unit tests (migrated)
+  - 44 ModalGlass compliance tests (migrated)
+  - 6 additional compliance files (accessibility, glassmorphism, tokens)
+  - 582 visual regression tests (updated screenshots)
+
+### 📚 Documentation
+
+- Updated README.md with v1.0.0 breaking changes
+- Created migration guide for ModalGlass Compound API
+- Created migration guide for TabsGlass Compound API
+- Updated all examples to use new APIs
+
+---
+
 ## [Unreleased]
 
 ### ⚠️ BREAKING CHANGES

@@ -189,78 +189,18 @@ import { ModalGlass, TabsGlass } from 'shadcn-glass-ui';
 </TabsGlass.Root>
 ```
 
-**Legacy API still supported** - 100% backward compatible!
+## ⚠️ Breaking Changes (v1.0.0)
 
-## ⚠️ Breaking Changes (v3.x)
+**v1.0.0 removes all legacy/deprecated APIs.** This is a clean slate release with only Compound API support.
 
-Recent updates have introduced breaking changes to align with shadcn/ui design system standards. **Please review the migration guides before updating.**
+### Removed Components
 
-### Component API Changes
+#### SelectGlass (Removed in v1.0.0)
 
-#### 1. ButtonGlass: `danger` → `destructive`
-
-```tsx
-// ❌ Old API (removed in v3.x)
-<ButtonGlass variant="danger">Delete</ButtonGlass>
-
-// ✅ New API
-<ButtonGlass variant="destructive">Delete</ButtonGlass>
-```
-
-**Migration:** Replace all `variant="danger"` with `variant="destructive"`
-
-#### 2. AlertGlass: `type` → `variant`
+**SelectGlass has been removed.** Use **ComboBoxGlass** instead.
 
 ```tsx
-// ❌ Old API (removed in v3.x)
-<AlertGlass type="info" title="Info">Message</AlertGlass>
-<AlertGlass type="error" title="Error">Message</AlertGlass>
-<AlertGlass type="success" title="Success">Message</AlertGlass>
-<AlertGlass type="warning" title="Warning">Message</AlertGlass>
-
-// ✅ New API
-<AlertGlass variant="default" title="Info">Message</AlertGlass>
-<AlertGlass variant="destructive" title="Error">Message</AlertGlass>
-<AlertGlass variant="success" title="Success">Message</AlertGlass>
-<AlertGlass variant="warning" title="Warning">Message</AlertGlass>
-```
-
-**Mapping:**
-- `type="info"` → `variant="default"`
-- `type="error"` → `variant="destructive"`
-- `type="success"` → `variant="success"`
-- `type="warning"` → `variant="warning"`
-
-#### 3. NotificationGlass: `type` → `variant`
-
-```tsx
-// ❌ Old API (removed in v3.x)
-<NotificationGlass
-  type="info"
-  title="Update available"
-  message="Version 2.0 is ready"
-  onClose={() => {}}
-/>
-
-// ✅ New API
-<NotificationGlass
-  variant="default"
-  title="Update available"
-  message="Version 2.0 is ready"
-  onClose={() => {}}
-/>
-```
-
-**Same mapping as AlertGlass** (see above)
-
-### Deprecated Components
-
-#### SelectGlass (Deprecated in v3.x, Removed in v4.0)
-
-**SelectGlass will be removed in v4.0** (estimated 6+ months from v3.5 release). Please migrate to **ComboBoxGlass**.
-
-```tsx
-// ❌ Deprecated (works in v3.x, removed in v4.0)
+// ❌ Removed in v1.0.0
 <SelectGlass
   options={options}
   value={value}
@@ -268,7 +208,7 @@ Recent updates have introduced breaking changes to align with shadcn/ui design s
   placeholder="Select option"
 />
 
-// ✅ Recommended (95% compatible API)
+// ✅ Use ComboBoxGlass
 <ComboBoxGlass
   options={options}
   value={value}
@@ -277,19 +217,73 @@ Recent updates have introduced breaking changes to align with shadcn/ui design s
 />
 ```
 
-**Why migrate?**
-- Better performance (shadcn/ui Command component)
-- More features (custom icons, better search)
-- Active maintenance
-- shadcn/ui compatibility
+### Removed Legacy APIs
 
-**Migration Guide:** [SelectGlass → ComboBoxGlass](docs/migration/select-to-combobox.md)
+#### ModalGlass: Legacy Props API Removed
+
+**The old props-based API has been removed.** Use Compound API instead.
+
+```tsx
+// ❌ Removed in v1.0.0
+<ModalGlass isOpen={true} onClose={() => {}} title="Test">
+  Content
+</ModalGlass>
+
+// ✅ Use Compound API
+<ModalGlass.Root open={true} onOpenChange={() => {}}>
+  <ModalGlass.Overlay />
+  <ModalGlass.Content>
+    <ModalGlass.Header>
+      <ModalGlass.Title>Test</ModalGlass.Title>
+      <ModalGlass.Close />
+    </ModalGlass.Header>
+    <ModalGlass.Body>Content</ModalGlass.Body>
+  </ModalGlass.Content>
+</ModalGlass.Root>
+```
+
+**Key Changes:**
+- `isOpen` → `open` (on ModalGlass.Root)
+- `onClose` → `onOpenChange` (callback signature changed from `() => void` to `(open: boolean) => void`)
+- `title` prop removed → use `<ModalGlass.Title>` component
+- Manual structure required (Overlay, Content, Header, Body, Footer)
+
+#### TabsGlass: Legacy Props API Removed
+
+**The old props-based API has been removed.** Use Compound API instead.
+
+```tsx
+// ❌ Removed in v1.0.0
+<TabsGlass
+  tabs={[
+    { id: 'tab1', label: 'Tab 1' },
+    { id: 'tab2', label: 'Tab 2' }
+  ]}
+  activeTab="tab1"
+  onChange={setActiveTab}
+/>
+
+// ✅ Use Compound API
+<TabsGlass.Root value="tab1" onValueChange={setActiveTab}>
+  <TabsGlass.List>
+    <TabsGlass.Trigger value="tab1">Tab 1</TabsGlass.Trigger>
+    <TabsGlass.Trigger value="tab2">Tab 2</TabsGlass.Trigger>
+  </TabsGlass.List>
+  <TabsGlass.Content value="tab1">Content 1</TabsGlass.Content>
+  <TabsGlass.Content value="tab2">Content 2</TabsGlass.Content>
+</TabsGlass.Root>
+```
+
+**Key Changes:**
+- `tabs` array prop removed → use individual `<TabsGlass.Trigger>` components
+- `activeTab` → `value` (on TabsGlass.Root)
+- `onChange` → `onValueChange`
+- Content must be explicitly defined with `<TabsGlass.Content>` for each tab
 
 ### Migration Guides
 
 Detailed migration guides are available in the [docs/migration/](docs/migration/) directory:
 
-- **[SelectGlass → ComboBoxGlass](docs/migration/select-to-combobox.md)** - Component replacement guide
 - **[ModalGlass Compound API](docs/migration/modal-glass-compound-api.md)** - Legacy → Compound API
 - **[TabsGlass Compound API](docs/migration/tabs-glass-compound-api.md)** - Legacy → Compound API
 
