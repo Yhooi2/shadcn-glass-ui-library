@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, fn } from "storybook/test";
 import { useState } from "react";
 import { TabsGlass } from "./glass/ui/tabs-glass";
-import { GlassCard } from "./glass/composite/glass-card";
+import { GlassCard } from "./glass/ui/glass-card";
 
 const meta = {
   title: "Components/TabsGlass",

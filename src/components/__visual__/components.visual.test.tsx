@@ -13,7 +13,7 @@ import { page } from 'vitest/browser';
 // Components
 import { ButtonGlass } from '../glass/ui/button-glass';
 import { InputGlass } from '../glass/ui/input-glass';
-import { GlassCard } from '../glass/composite/glass-card';
+import { GlassCard } from '../glass/ui/glass-card';
 import { BadgeGlass } from '../glass/ui/badge-glass';
 import { AlertGlass } from '../glass/ui/alert-glass';
 import { ToggleGlass } from '../glass/ui/toggle-glass';

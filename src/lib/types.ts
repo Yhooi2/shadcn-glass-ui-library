@@ -36,10 +36,9 @@ export type {
   DropdownItem,
 } from "@/components/glass/ui/dropdown-glass";
 
-export type { ModalGlassProps } from "@/components/glass/ui/modal-glass";
 export type { ModalSize } from "@/lib/variants/modal-glass-variants";
 
-export type { GlassCardProps } from "@/components/glass/composite/glass-card";
+export type { GlassCardProps } from "@/components/glass/ui/glass-card";
 export type { GlowType, IntensityType } from "@/lib/variants/glass-card-variants";
 
 export type { InputGlassProps } from "@/components/glass/ui/input-glass";
@@ -61,7 +60,6 @@ export type { TooltipGlassProps } from "@/components/glass/ui/tooltip-glass";
 export type { TooltipPosition } from "@/lib/variants/tooltip-glass-variants";
 
 export type {
-  TabsGlassProps,
   TabItem,
 } from "@/components/glass/ui/tabs-glass";
 

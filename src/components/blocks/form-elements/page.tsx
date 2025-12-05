@@ -6,7 +6,7 @@
 
 import { forwardRef, useState, type HTMLAttributes } from 'react';
 import { cn } from '@/lib/utils';
-import { GlassCard } from '@/components/glass/composite/glass-card';
+import { GlassCard } from '@/components/glass/ui/glass-card';
 import { InputGlass } from '@/components/glass/ui/input-glass';
 import { SliderGlass } from '@/components/glass/ui/slider-glass';
 import { ToggleGlass } from '@/components/glass/ui/toggle-glass';

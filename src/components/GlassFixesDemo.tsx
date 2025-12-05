@@ -50,25 +50,25 @@ export const GlassFixesDemo = () => {
           </h2>
           <div className="space-y-3">
             <NotificationGlass
-              type="info"
+              variant="default"
               title="New update available"
               message="Version 2.0 is ready to install"
               onClose={() => console.log("Notification closed")}
             />
             <NotificationGlass
-              type="success"
+              variant="success"
               title="Payment successful"
               message="Your payment has been processed"
               onClose={() => console.log("Notification closed")}
             />
             <NotificationGlass
-              type="warning"
+              variant="warning"
               title="Storage almost full"
               message="You're using 90% of your available storage"
               onClose={() => console.log("Notification closed")}
             />
             <NotificationGlass
-              type="error"
+              variant="destructive"
               title="Connection failed"
               message="Unable to connect to the server"
               onClose={() => console.log("Notification closed")}
@@ -166,9 +166,9 @@ export const GlassFixesDemo = () => {
             Open Modal
           </ButtonGlass>
 
-          <ModalGlass.Root open={modalOpen} onOpenChange={setModalOpen}>
+          <ModalGlass.Root open={modalOpen} onOpenChange={setModalOpen} size="md">
             <ModalGlass.Overlay />
-            <ModalGlass.Content size="md">
+            <ModalGlass.Content>
               <ModalGlass.Header>
                 <ModalGlass.Title>Modal Title</ModalGlass.Title>
                 <ModalGlass.Close />

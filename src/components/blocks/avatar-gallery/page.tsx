@@ -6,7 +6,7 @@
 
 import { forwardRef, type HTMLAttributes } from 'react';
 import { cn } from '@/lib/utils';
-import { GlassCard } from '@/components/glass/composite/glass-card';
+import { GlassCard } from '@/components/glass/ui/glass-card';
 import { AvatarGlass } from '@/components/glass/ui/avatar-glass';
 import { ProfileAvatarGlass } from '@/components/glass/specialized/profile-avatar-glass';
 import { StatusIndicatorGlass } from '@/components/glass/specialized/status-indicator-glass';

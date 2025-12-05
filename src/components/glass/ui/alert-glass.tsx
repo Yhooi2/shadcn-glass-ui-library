@@ -120,15 +120,17 @@ export const AlertGlass = forwardRef<HTMLDivElement, AlertGlassProps>(
     },
     ref
   ) => {
+    // Ensure variant is never null/undefined for type safety
+    const effectiveVariant: AlertVariant = variant ?? 'default';
 
-    const config = variantStyles[variant];
-    const Icon = iconMap[variant];
+    const config = variantStyles[effectiveVariant];
+    const Icon = iconMap[effectiveVariant];
 
     return (
       <div
         ref={ref}
-        className={cn(alertVariants({ variant }), className)}
-        style={getAlertStyles(variant)}
+        className={cn(alertVariants({ variant: effectiveVariant }), className)}
+        style={getAlertStyles(effectiveVariant)}
         role="alert"
         {...props}
       >

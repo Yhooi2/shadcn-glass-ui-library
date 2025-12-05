@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useWallpaperTint } from "./use-wallpaper-tint";
-import { GlassCard } from "@/components/glass/composite/glass-card";
+import { GlassCard } from "@/components/glass/ui/glass-card";
 import { ButtonGlass } from "@/components/glass/ui/button-glass";
 import { BadgeGlass } from "@/components/glass/ui/badge-glass";
 import { ProgressGlass } from "@/components/glass/specialized/progress-glass";

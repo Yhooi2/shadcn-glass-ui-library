@@ -6,7 +6,7 @@
 
 import { forwardRef, type HTMLAttributes } from 'react';
 import { cn } from '@/lib/utils';
-import { GlassCard } from '@/components/glass/composite/glass-card';
+import { GlassCard } from '@/components/glass/ui/glass-card';
 import { NotificationGlass } from '@/components/glass/ui/notification-glass';
 import { AlertGlass } from '@/components/glass/ui/alert-glass';
 import '@/glass-theme.css';
@@ -46,19 +46,19 @@ export const NotificationsBlock = forwardRef<HTMLDivElement, NotificationsBlockP
             </label>
             <div className="space-y-2">
               <NotificationGlass
-                type="info"
+                variant="default"
                 title="New message"
                 message="You have received a new message from John Doe"
                 onClose={() => {}}
               />
               <NotificationGlass
-                type="success"
+                variant="success"
                 title="Success"
                 message="Your changes have been saved successfully"
                 onClose={() => {}}
               />
               <NotificationGlass
-                type="warning"
+                variant="warning"
                 title="Warning"
                 message="Your session will expire in 5 minutes"
                 onClose={() => {}}
@@ -76,25 +76,25 @@ export const NotificationsBlock = forwardRef<HTMLDivElement, NotificationsBlockP
             </label>
             <div className="space-y-2 flex flex-col items-start">
               <AlertGlass
-                type="info"
+                variant="default"
                 title="Information"
               >
                 This is an informational alert message
               </AlertGlass>
               <AlertGlass
-                type="success"
+                variant="success"
                 title="Success"
               >
                 Your operation completed successfully
               </AlertGlass>
               <AlertGlass
-                type="warning"
+                variant="warning"
                 title="Warning"
               >
                 Please review the following issues
               </AlertGlass>
               <AlertGlass
-                type="error"
+                variant="destructive"
                 title="Error"
               >
                 An error occurred while processing your request

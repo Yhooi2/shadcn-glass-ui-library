@@ -6,7 +6,7 @@
 import { forwardRef } from "react";
 import { AlertTriangle, ChevronUp, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { GlassCard } from "../composite/glass-card";
+import { GlassCard } from "../ui/glass-card";
 import { FlagAlertGlass, type FlagType } from "../specialized/flag-alert-glass";
 import "@/glass-theme.css";
 

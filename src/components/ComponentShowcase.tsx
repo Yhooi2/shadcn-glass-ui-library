@@ -25,7 +25,7 @@ import {
 } from "@/components/blocks";
 
 // Glass Components (only for modal, dropdown, tabs demo)
-import { GlassCard } from "./glass/composite/glass-card";
+import { GlassCard } from "./glass/ui/glass-card";
 import { ButtonGlass } from "./glass/ui/button-glass";
 import { TabsGlass } from "./glass/ui/tabs-glass";
 import { ModalGlass } from "./glass/ui/modal-glass";
@@ -150,9 +150,9 @@ export const ComponentShowcase = () => {
       </div>
 
       {/* Modal */}
-      <ModalGlass.Root open={modalOpen} onOpenChange={setModalOpen}>
+      <ModalGlass.Root open={modalOpen} onOpenChange={setModalOpen} size="md">
         <ModalGlass.Overlay />
-        <ModalGlass.Content size="md">
+        <ModalGlass.Content>
           <ModalGlass.Header>
             <ModalGlass.Title>Modal Title</ModalGlass.Title>
             <ModalGlass.Close />

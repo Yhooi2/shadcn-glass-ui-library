@@ -47,11 +47,7 @@ export {
   type ContributionMetricsGlassProps,
 } from './contribution-metrics-glass';
 
-// Legacy migrated composite components
-export {
-  GlassCard,
-  type GlassCardProps,
-} from './glass-card';
+// GlassCard moved to ui/ - import from '@/components/glass/ui/glass-card'
 
 export {
   MetricCardGlass,

@@ -6,7 +6,7 @@
 import { forwardRef, useState, useMemo, type CSSProperties } from "react";
 import { FolderGit2, AlertTriangle } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { GlassCard } from "../composite/glass-card";
+import { GlassCard } from "../ui/glass-card";
 import { BadgeGlass } from "../ui/badge-glass";
 import { RepositoryCardGlass, type RepositoryFlagType } from "../composite/repository-card-glass";
 import { SegmentedControlGlass } from "../specialized/segmented-control-glass";

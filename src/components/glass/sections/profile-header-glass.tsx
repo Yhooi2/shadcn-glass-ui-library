@@ -6,7 +6,7 @@
 import { forwardRef } from "react";
 import { Calendar, ExternalLink, FolderGit2, Users, User } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { GlassCard } from "../composite/glass-card";
+import { GlassCard } from "../ui/glass-card";
 import { ProfileAvatarGlass } from "../specialized/profile-avatar-glass";
 import { LanguageBarGlass, type LanguageData } from "../specialized/language-bar-glass";
 import { AICardGlass } from "../composite/ai-card-glass";

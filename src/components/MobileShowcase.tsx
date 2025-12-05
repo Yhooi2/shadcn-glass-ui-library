@@ -20,7 +20,7 @@ import {
 import { useTheme, type ThemeName } from "@/lib/theme-context";
 
 // Import glass components
-import { GlassCard } from "./glass/composite/glass-card";
+import { GlassCard } from "./glass/ui/glass-card";
 import { ButtonGlass } from "./glass/ui/button-glass";
 import { BadgeGlass } from "./glass/ui/badge-glass";
 import { ProfileAvatarGlass } from "./glass/specialized/profile-avatar-glass";

@@ -7,7 +7,7 @@
 import { forwardRef, type HTMLAttributes } from 'react';
 import { Sparkles, Settings, Eye, Trash2, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { GlassCard } from '@/components/glass/composite/glass-card';
+import { GlassCard } from '@/components/glass/ui/glass-card';
 import { ButtonGlass } from '@/components/glass/ui/button-glass';
 import '@/glass-theme.css';
 

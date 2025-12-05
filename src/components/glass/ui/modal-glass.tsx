@@ -45,7 +45,6 @@ import {
   type FC,
   type ReactNode,
 } from 'react';
-import { type VariantProps } from 'class-variance-authority';
 import { X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useHover } from '@/lib/hooks/use-hover';
