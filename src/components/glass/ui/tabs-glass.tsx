@@ -113,7 +113,7 @@ const TabsList = forwardRef<HTMLDivElement, TabsListProps>(
     return (
       <div
         ref={ref}
-        className={cn('flex gap-0.5 md:gap-1 p-0.5 md:p-1 rounded-xl', className)}
+        className={cn('inline-flex gap-0.5 md:gap-1 p-0.5 md:p-1 rounded-xl', className)}
         style={containerStyles}
         role="tablist"
         {...props}
