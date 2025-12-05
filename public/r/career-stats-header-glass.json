@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "career-stats-header-glass",
+  "type": "registry:block",
+  "title": "Career Stats Header Glass",
+  "description": "Career Stats Header Glass component with glass effects",
+  "dependencies": [
+    "lucide-react",
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "components/glass/composite/career-stats-header-glass.tsx",
+      "type": "registry:component",
+      "content": "// ========================================\n// CAREER STATS HEADER GLASS - COMPOSITE COMPONENT\n// Career statistics header with total counts\n// Level 3: Composite (extracted from CareerStatsGlass)\n// ========================================\n\nimport { forwardRef, type HTMLAttributes, type CSSProperties } from 'react';\nimport { TrendingUp, Code, GitPullRequest, FolderGit2 } from 'lucide-react';\nimport { cn } from '@/lib/utils';\nimport '@/glass-theme.css';\n\nexport interface CareerStatsHeaderGlassProps extends HTMLAttributes<HTMLDivElement> {\n  /** Total commits count */\n  readonly totalCommits: number;\n  /** Total pull requests count */\n  readonly totalPRs: number;\n  /** Total repositories count */\n  readonly totalRepos: number;\n  /** Header title */\n  readonly title?: string;\n  /** Stats wrap on mobile */\n  readonly wrapStats?: boolean;\n}\n\nexport const CareerStatsHeaderGlass = forwardRef<\n  HTMLDivElement,\n  CareerStatsHeaderGlassProps\n>(\n  (\n    {\n      totalCommits,\n      totalPRs,\n      totalRepos,\n      title = 'Career Stats',\n      wrapStats = true,\n      className,\n      ...props\n    },\n    ref\n  ) => {\n    const titleStyles: CSSProperties = {\n      color: 'var(--text-primary)',\n    };\n\n    const accentStyles: CSSProperties = {\n      color: 'var(--text-accent)',\n    };\n\n    const statsStyles: CSSProperties = {\n      color: 'var(--text-secondary)',\n    };\n\n    return (\n      <div ref={ref} className={cn('mb-4', className)} {...props}>\n        <h3\n          className=\"font-semibold flex items-center gap-2 mb-1\"\n          style={titleStyles}\n        >\n          <TrendingUp className=\"w-5 h-5\" style={accentStyles} />\n          {title}\n        </h3>\n        <p\n          className={cn(\n            'text-sm flex items-center gap-2',\n            wrapStats && 'flex-wrap'\n          )}\n          style={statsStyles}\n        >\n          <span className=\"flex items-center gap-1\">\n            <Code className=\"w-4 h-4\" />\n            {totalCommits.toLocaleString()} commits\n          </span>\n          <span>·</span>\n          <span className=\"flex items-center gap-1\">\n            <GitPullRequest className=\"w-4 h-4\" />\n            {totalPRs} PRs\n          </span>\n          <span>·</span>\n          <span className=\"flex items-center gap-1\">\n            <FolderGit2 className=\"w-4 h-4\" />\n            {totalRepos} repos\n          </span>\n        </p>\n      </div>\n    );\n  }\n);\n\nCareerStatsHeaderGlass.displayName = 'CareerStatsHeaderGlass';\n"
+    }
+  ],
+  "categories": [
+    "composite"
+  ]
+}

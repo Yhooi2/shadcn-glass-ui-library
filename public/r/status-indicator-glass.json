@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "status-indicator-glass",
+  "type": "registry:component",
+  "title": "Status Indicator Glass",
+  "description": "Status Indicator Glass component with glass effects",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "components/glass/specialized/status-indicator-glass.tsx",
+      "type": "registry:component",
+      "content": "// ========================================\n// STATUS INDICATOR GLASS COMPONENT\n// Status dots with glow effect\n// ========================================\n\nimport { forwardRef, type CSSProperties } from \"react\";\nimport { cn } from \"@/lib/utils\";\nimport \"@/glass-theme.css\";\n\nexport type StatusType = \"green\" | \"yellow\" | \"red\";\nexport type StatusSize = \"normal\" | \"large\";\n\nexport interface StatusIndicatorGlassProps extends React.HTMLAttributes<HTMLDivElement> {\n  readonly type?: StatusType;\n  readonly size?: StatusSize;\n}\n\nconst sizeClasses: Record<StatusSize, string> = {\n  normal: \"w-2 h-2 md:w-2.5 md:h-2.5\",\n  large: \"w-3.5 h-3.5 md:w-4 md:h-4\",\n};\n\nconst statusSymbols: Record<StatusType, string> = {\n  green: \"✓\",\n  yellow: \"!\",\n  red: \"✕\",\n};\n\n// CSS variable maps for status colors (using semantic naming)\nconst statusVarMap: Record<StatusType, { bg: string; glow: string }> = {\n  green: { bg: \"var(--status-online)\", glow: \"var(--status-online-glow)\" },\n  yellow: { bg: \"var(--status-away)\", glow: \"var(--status-away-glow)\" },\n  red: { bg: \"var(--status-busy)\", glow: \"var(--status-busy-glow)\" },\n};\n\nexport const StatusIndicatorGlass = forwardRef<HTMLDivElement, StatusIndicatorGlassProps>(\n  ({ type = \"green\", size = \"normal\", className, ...props }, ref) => {\n    const colors = statusVarMap[type];\n\n    const indicatorStyles: CSSProperties = {\n      backgroundColor: colors.bg,\n      boxShadow: colors.glow,\n    };\n\n    return (\n      <div\n        ref={ref}\n        className={cn(\n          \"rounded-full flex items-center justify-center\",\n          sizeClasses[size],\n          className\n        )}\n        style={indicatorStyles}\n        role=\"status\"\n        aria-label={`Status: ${type}`}\n        {...props}\n      >\n        {size === \"large\" && (\n          <span className=\"text-white text-[8px] md:text-[10px] font-bold\">\n            {statusSymbols[type]}\n          </span>\n        )}\n      </div>\n    );\n  }\n);\n\nStatusIndicatorGlass.displayName = \"StatusIndicatorGlass\";\n"
+    }
+  ],
+  "categories": [
+    "specialized"
+  ]
+}

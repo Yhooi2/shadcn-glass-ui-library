@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stat-item-glass",
+  "type": "registry:component",
+  "title": "Stat Item Glass",
+  "description": "Stat Item Glass component with glass effects",
+  "dependencies": [
+    "class-variance-authority",
+    "lucide-react",
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "components/glass/atomic/stat-item-glass.tsx",
+      "type": "registry:component",
+      "content": "// ========================================\n// STAT ITEM GLASS - ATOMIC COMPONENT\n// Compact stat display with icon and label\n// Level 2: Atomic (extracted from ProfileHeaderGlass)\n// ========================================\n\nimport { forwardRef, type HTMLAttributes, type CSSProperties } from 'react';\nimport { cva, type VariantProps } from 'class-variance-authority';\nimport { type LucideIcon } from 'lucide-react';\nimport { cn } from '@/lib/utils';\nimport '@/glass-theme.css';\n\nconst statItemVariants = cva('flex items-center gap-1', {\n  variants: {\n    size: {\n      sm: 'text-xs',\n      md: 'text-sm',\n      lg: 'text-base',\n    },\n    layout: {\n      horizontal: 'flex-row',\n      vertical: 'flex-col items-start gap-0.5',\n    },\n  },\n  defaultVariants: {\n    size: 'md',\n    layout: 'horizontal',\n  },\n});\n\nexport interface StatItemGlassProps\n  extends HTMLAttributes<HTMLSpanElement>,\n    VariantProps<typeof statItemVariants> {\n  /** Lucide icon component */\n  readonly icon: LucideIcon;\n  /** Stat value (number or formatted string) */\n  readonly value: number | string;\n  /** Stat label */\n  readonly label: string;\n  /** Icon size in pixels */\n  readonly iconSize?: number;\n  /** Abbreviated format for mobile (1.2k instead of 1234) */\n  readonly abbreviated?: boolean;\n}\n\nexport const StatItemGlass = forwardRef<HTMLSpanElement, StatItemGlassProps>(\n  (\n    {\n      icon: Icon,\n      value,\n      label,\n      iconSize = 16,\n      abbreviated = false,\n      size,\n      layout,\n      className,\n      ...props\n    },\n    ref\n  ) => {\n    const textStyles: CSSProperties = {\n      color: 'var(--text-secondary)',\n    };\n\n    const iconStyles: CSSProperties = {\n      color: 'var(--text-accent)',\n    };\n\n    const formatValue = (val: number | string): string => {\n      if (!abbreviated || typeof val !== 'number') return String(val);\n\n      if (val >= 1000000) return `${(val / 1000000).toFixed(1)}M`;\n      if (val >= 1000) return `${(val / 1000).toFixed(1)}k`;\n      return String(val);\n    };\n\n    return (\n      <span\n        ref={ref}\n        className={cn(statItemVariants({ size, layout }), className)}\n        style={textStyles}\n        {...props}\n      >\n        <Icon size={iconSize} style={iconStyles} />\n        <span className=\"font-medium\">\n          {formatValue(value)} {label}\n        </span>\n      </span>\n    );\n  }\n);\n\nStatItemGlass.displayName = 'StatItemGlass';\n"
+    }
+  ],
+  "categories": [
+    "atomic"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "form-field-wrapper",
+  "type": "registry:lib",
+  "title": "Form Field Wrapper",
+  "description": "Unified wrapper for form controls with label, validation states, and messages.\n * Eliminates code duplication across InputGlass, SliderGlass, ComboBoxGlass, etc.\n *\n * Handles:",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "components/glass/primitives/form-field-wrapper.tsx",
+      "type": "registry:lib",
+      "content": "/**\n * FormFieldWrapper Component\n *\n * Unified wrapper for form controls with label, validation states, and messages.\n * Eliminates code duplication across InputGlass, SliderGlass, ComboBoxGlass, etc.\n *\n * Handles:\n * - Label with optional required indicator\n * - Error messages (highest priority, red)\n * - Success messages (green, shown if no error)\n * - Consistent spacing and typography\n */\n\nimport { forwardRef, type ReactNode, type HTMLAttributes } from 'react';\nimport { cn } from '@/lib/utils';\n\n/**\n * Props for the FormFieldWrapper component\n */\nexport interface FormFieldWrapperProps extends HTMLAttributes<HTMLDivElement> {\n  /**\n   * Label text displayed above the field\n   */\n  label?: string;\n\n  /**\n   * Error message - takes priority over success\n   * Displays in red below the field\n   */\n  error?: string;\n\n  /**\n   * Success message - displays in green if no error\n   * Displays below the field\n   */\n  success?: string;\n\n  /**\n   * ID to link label with input via htmlFor\n   * Should match the input's id attribute\n   */\n  htmlFor?: string;\n\n  /**\n   * Shows red asterisk (*) next to label\n   * @default false\n   */\n  required?: boolean;\n\n  /**\n   * The form control element(s) to wrap\n   */\n  children: ReactNode;\n}\n\n/**\n * FormFieldWrapper component\n *\n * Provides consistent structure for form fields with labels and validation messages.\n * Used by InputGlass, SliderGlass, and other form components.\n *\n * @example\n * ```tsx\n * // Basic usage\n * <FormFieldWrapper label=\"Email\" htmlFor=\"email-input\">\n *   <input id=\"email-input\" type=\"email\" />\n * </FormFieldWrapper>\n *\n * // With validation\n * <FormFieldWrapper\n *   label=\"Username\"\n *   error=\"Username is required\"\n *   required\n *   htmlFor=\"username\"\n * >\n *   <input id=\"username\" />\n * </FormFieldWrapper>\n *\n * // Success state\n * <FormFieldWrapper\n *   label=\"Password\"\n *   success=\"Strong password\"\n *   htmlFor=\"password\"\n * >\n *   <input id=\"password\" type=\"password\" />\n * </FormFieldWrapper>\n * ```\n */\nexport const FormFieldWrapper = forwardRef<HTMLDivElement, FormFieldWrapperProps>(\n  (\n    {\n      label,\n      error,\n      success,\n      htmlFor,\n      required,\n      className,\n      children,\n      ...props\n    },\n    ref\n  ) => {\n    return (\n      <div\n        ref={ref}\n        className={cn('flex flex-col gap-1 md:gap-1.5', className)}\n        {...props}\n      >\n        {label && (\n          <label\n            htmlFor={htmlFor}\n            className=\"text-xs md:text-sm font-medium\"\n            style={{ color: 'var(--text-secondary)' }}\n          >\n            {label}\n            {required && (\n              <span className=\"text-[var(--alert-danger-text)] ml-1\" aria-label=\"required\">\n                *\n              </span>\n            )}\n          </label>\n        )}\n\n        {children}\n\n        {error && (\n          <p\n            className=\"text-xs\"\n            style={{ color: 'var(--alert-danger-text)' }}\n            role=\"alert\"\n            aria-live=\"polite\"\n          >\n            {error}\n          </p>\n        )}\n\n        {success && !error && (\n          <p\n            className=\"text-xs\"\n            style={{ color: 'var(--alert-success-text)' }}\n            aria-live=\"polite\"\n          >\n            {success}\n          </p>\n        )}\n      </div>\n    );\n  }\n);\n\nFormFieldWrapper.displayName = 'FormFieldWrapper';\n"
+    }
+  ],
+  "categories": [
+    "primitives"
+  ]
+}

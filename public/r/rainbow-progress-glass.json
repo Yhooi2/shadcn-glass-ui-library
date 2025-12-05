@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "rainbow-progress-glass",
+  "type": "registry:component",
+  "title": "Rainbow Progress Glass",
+  "description": "Rainbow Progress Glass component with glass effects",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "components/glass/specialized/rainbow-progress-glass.tsx",
+      "type": "registry:component",
+      "content": "// ========================================\n// RAINBOW PROGRESS GLASS COMPONENT\n// Animated rainbow gradient progress bar\n// ========================================\n\nimport { forwardRef, type CSSProperties } from \"react\";\nimport { cn } from \"@/lib/utils\";\nimport \"@/glass-theme.css\";\n\nexport type RainbowProgressSize = \"sm\" | \"md\" | \"lg\" | \"xl\";\n\nexport interface RainbowProgressGlassProps extends React.HTMLAttributes<HTMLDivElement> {\n  readonly value: number;\n  readonly size?: RainbowProgressSize;\n  readonly showGlow?: boolean;\n}\n\nconst sizeClasses: Record<RainbowProgressSize, string> = {\n  sm: \"h-2.5 md:h-2\",\n  md: \"h-3.5 md:h-3\",\n  lg: \"h-[1.125rem] md:h-4\",\n  xl: \"h-6 md:h-5\",\n};\n\nexport const RainbowProgressGlass = forwardRef<HTMLDivElement, RainbowProgressGlassProps>(\n  ({ value, size = \"lg\", showGlow = true, className, ...props }, ref) => {\n    const clampedValue = Math.min(100, Math.max(0, value));\n\n    const trackStyles: CSSProperties = {\n      background: \"var(--progress-bg)\",\n    };\n\n    const fillStyles: CSSProperties = {\n      width: `${clampedValue}%`,\n      background:\n        \"linear-gradient(90deg, #f59e0b, #fbbf24, #84cc16, #22c55e, #14b8a6, #06b6d4, #3b82f6)\",\n      boxShadow: showGlow ? \"var(--rainbow-glow)\" : \"none\",\n      animation: showGlow ? \"var(--rainbow-animation)\" : \"none\",\n    };\n\n    return (\n      <div\n        ref={ref}\n        className={cn(\"rounded-full overflow-hidden\", sizeClasses[size], className)}\n        style={trackStyles}\n        role=\"progressbar\"\n        aria-valuenow={clampedValue}\n        aria-valuemin={0}\n        aria-valuemax={100}\n        aria-label={`Rainbow progress: ${clampedValue}%`}\n        {...props}\n      >\n        <div\n          className=\"h-full rounded-full transition-all duration-1000\"\n          style={fillStyles}\n        />\n      </div>\n    );\n  }\n);\n\nRainbowProgressGlass.displayName = \"RainbowProgressGlass\";\n"
+    }
+  ],
+  "categories": [
+    "specialized"
+  ]
+}

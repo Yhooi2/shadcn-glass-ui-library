@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "user-info-glass",
+  "type": "registry:block",
+  "title": "User Info Glass",
+  "description": "User Info Glass component with glass effects",
+  "dependencies": [
+    "lucide-react",
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "components/glass/composite/user-info-glass.tsx",
+      "type": "registry:component",
+      "content": "// ========================================\n// USER INFO GLASS - COMPOSITE COMPONENT\n// User name, username, and join date display\n// Level 3: Composite (extracted from ProfileHeaderGlass)\n// ========================================\n\nimport { forwardRef, type HTMLAttributes, type CSSProperties } from 'react';\nimport { Calendar, ExternalLink } from 'lucide-react';\nimport { cn } from '@/lib/utils';\nimport '@/glass-theme.css';\n\nexport interface UserInfoGlassProps extends HTMLAttributes<HTMLDivElement> {\n  /** Full name */\n  readonly name: string;\n  /** Username (without @) */\n  readonly username: string;\n  /** Join date string (e.g., \"Jan 2023\") */\n  readonly joinDate: string;\n  /** Username link URL (default: #) */\n  readonly profileUrl?: string;\n  /** Layout orientation */\n  readonly layout?: 'vertical' | 'horizontal';\n}\n\nexport const UserInfoGlass = forwardRef<HTMLDivElement, UserInfoGlassProps>(\n  (\n    {\n      name,\n      username,\n      joinDate,\n      profileUrl = '#',\n      layout = 'vertical',\n      className,\n      ...props\n    },\n    ref\n  ) => {\n    const titleStyles: CSSProperties = {\n      color: 'var(--text-primary)',\n    };\n\n    const metaStyles: CSSProperties = {\n      color: 'var(--text-secondary)',\n    };\n\n    const linkStyles: CSSProperties = {\n      color: 'var(--text-accent)',\n    };\n\n    return (\n      <div\n        ref={ref}\n        className={cn(\n          layout === 'vertical' ? 'space-y-1' : 'flex items-center gap-4',\n          className\n        )}\n        {...props}\n      >\n        <h1\n          className={cn(\n            'font-bold',\n            layout === 'vertical' ? 'text-lg md:text-xl' : 'text-xl'\n          )}\n          style={titleStyles}\n        >\n          {name}\n        </h1>\n        <div\n          className={cn(\n            'flex items-center gap-2 text-sm flex-wrap',\n            layout === 'vertical' && 'mt-0.5'\n          )}\n          style={metaStyles}\n        >\n          <a\n            href={profileUrl}\n            className=\"flex items-center gap-1 hover:underline\"\n            style={linkStyles}\n            aria-label={`View ${username}'s profile`}\n          >\n            @{username} <ExternalLink className=\"w-3 h-3\" />\n          </a>\n          <span>·</span>\n          <span className=\"flex items-center gap-1\">\n            <Calendar className=\"w-3 h-3\" /> Joined {joinDate}\n          </span>\n        </div>\n      </div>\n    );\n  }\n);\n\nUserInfoGlass.displayName = 'UserInfoGlass';\n"
+    }
+  ],
+  "categories": [
+    "composite"
+  ]
+}

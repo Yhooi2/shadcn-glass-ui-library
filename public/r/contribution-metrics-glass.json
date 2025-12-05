@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "contribution-metrics-glass",
+  "type": "registry:block",
+  "title": "Contribution Metrics Glass",
+  "description": "Contribution Metrics Glass component with glass effects",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "components/glass/composite/contribution-metrics-glass.tsx",
+      "type": "registry:component",
+      "content": "// ========================================\n// CONTRIBUTION METRICS GLASS - COMPOSITE COMPONENT\n// Repository contribution metrics grid\n// Level 3: Composite (extracted from RepositoryCardGlass)\n// ========================================\n\nimport { forwardRef, type HTMLAttributes, type CSSProperties } from 'react';\nimport { cn } from '@/lib/utils';\nimport '@/glass-theme.css';\n\nexport interface ContributionMetricsGlassProps extends HTMLAttributes<HTMLDivElement> {\n  /** User's commit count */\n  readonly userCommits: number;\n  /** User's contribution percentage */\n  readonly userContribution: number;\n  /** Total project commits (calculated if not provided) */\n  readonly totalProjectCommits?: number;\n  /** Estimated lines of code */\n  readonly estimatedLines?: number;\n  /** Grid layout (1 or 2 columns) */\n  readonly columns?: 1 | 2;\n}\n\nexport const ContributionMetricsGlass = forwardRef<\n  HTMLDivElement,\n  ContributionMetricsGlassProps\n>(\n  (\n    {\n      userCommits,\n      userContribution,\n      totalProjectCommits: providedTotal,\n      estimatedLines: providedLines,\n      columns = 2,\n      className,\n      ...props\n    },\n    ref\n  ) => {\n    // Calculate total project commits from contribution percentage\n    const totalProjectCommits =\n      providedTotal ??\n      (userContribution > 0\n        ? Math.round(userCommits / (userContribution / 100))\n        : userCommits);\n\n    const estimatedLines = providedLines ?? Math.round(userCommits * 12);\n\n    const cardStyles: CSSProperties = {\n      background: 'var(--card-bg)',\n      borderColor: 'var(--card-border)',\n    };\n\n    const mutedStyles: CSSProperties = {\n      color: 'var(--text-muted)',\n    };\n\n    const primaryStyles: CSSProperties = {\n      color: 'var(--text-primary)',\n    };\n\n    const columnClasses = {\n      1: 'grid-cols-1',\n      2: 'grid-cols-1 sm:grid-cols-2',\n    };\n\n    return (\n      <div\n        ref={ref}\n        className={cn('grid gap-2', columnClasses[columns], className)}\n        {...props}\n      >\n        <div className=\"p-2.5 rounded-lg border\" style={cardStyles}>\n          <div className=\"text-xs\" style={mutedStyles}>\n            Your Contribution\n          </div>\n          <div className=\"font-semibold\" style={primaryStyles}>\n            {userCommits.toLocaleString()} commits\n          </div>\n          <div className=\"text-xs\" style={mutedStyles}>\n            {userContribution}%\n          </div>\n        </div>\n        <div className=\"p-2.5 rounded-lg border\" style={cardStyles}>\n          <div className=\"text-xs\" style={mutedStyles}>\n            Full Project\n          </div>\n          <div className=\"font-semibold\" style={primaryStyles}>\n            {totalProjectCommits.toLocaleString()} commits\n          </div>\n          <div className=\"text-xs\" style={mutedStyles}>\n            ~{estimatedLines.toLocaleString()} lines\n          </div>\n        </div>\n      </div>\n    );\n  }\n);\n\nContributionMetricsGlass.displayName = 'ContributionMetricsGlass';\n"
+    }
+  ],
+  "categories": [
+    "composite"
+  ]
+}

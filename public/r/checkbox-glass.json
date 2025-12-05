@@ -1,0 +1,42 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "checkbox-glass",
+  "type": "registry:ui",
+  "title": "Checkbox Glass",
+  "description": "Glass-themed checkbox with:",
+  "dependencies": [
+    "lucide-react",
+    "react"
+  ],
+  "registryDependencies": [
+    "cn",
+    "use-focus",
+    "use-hover"
+  ],
+  "files": [
+    {
+      "path": "components/glass/ui/checkbox-glass.tsx",
+      "type": "registry:component",
+      "content": "/**\n * CheckboxGlass Component\n *\n * Glass-themed checkbox with:\n * - Theme-aware styling (glass/light/aurora)\n * - Glow effect on hover\n * - Optional label\n */\n\nimport { forwardRef, type CSSProperties } from 'react';\nimport { Check } from 'lucide-react';\nimport { cn } from '@/lib/utils';\nimport { useHover } from '@/lib/hooks/use-hover';\nimport { useFocus } from '@/lib/hooks/use-focus';\nimport '@/glass-theme.css';\n\n// ========================================\n// PROPS INTERFACE\n// ========================================\n\nexport interface CheckboxGlassProps\n  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {\n  readonly checked: boolean;\n  readonly onChange?: (checked: boolean) => void;\n  readonly label?: string;\n}\n\n// ========================================\n// COMPONENT\n// ========================================\n\nexport const CheckboxGlass = forwardRef<HTMLInputElement, CheckboxGlassProps>(\n  (\n    {\n      className,\n      checked,\n      onChange,\n      label,\n      disabled,\n      ...props\n    },\n    ref\n  ) => {\n    const { isHovered, hoverProps } = useHover();\n    const { isFocusVisible, focusProps } = useFocus({ focusVisible: true });\n\n    const checkboxStyles: CSSProperties = {\n      background: checked ? 'var(--checkbox-checked-bg)' : 'var(--checkbox-bg)',\n      border: `2px solid ${checked ? 'var(--checkbox-checked-bg)' : 'var(--checkbox-border)'}`,\n      boxShadow: isFocusVisible && !disabled\n        ? 'var(--focus-glow)'\n        : isHovered && !disabled\n        ? 'var(--checkbox-glow)'\n        : 'none',\n    };\n\n    return (\n      <label\n        className={cn(\n          'inline-flex items-center gap-2 md:gap-2.5',\n          disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',\n          className\n        )}\n        onMouseEnter={hoverProps.onMouseEnter}\n        onMouseLeave={hoverProps.onMouseLeave}\n      >\n        <input\n          ref={ref}\n          type=\"checkbox\"\n          checked={checked}\n          onChange={(e) => !disabled && onChange?.(e.target.checked)}\n          disabled={disabled}\n          className=\"sr-only\"\n          {...props}\n        />\n        {/* Touch area wrapper - 44px minimum for Apple HIG compliance */}\n        <span className=\"inline-flex items-center justify-center min-w-11 min-h-11\">\n          {/* Visual checkbox - smaller but within 44px touch area */}\n          <div\n            onClick={() => !disabled && onChange?.(!checked)}\n            onFocus={focusProps.onFocus}\n            onBlur={focusProps.onBlur}\n            className=\"relative w-6 h-6 md:w-5 md:h-5 rounded-md flex items-center justify-center transition-all duration-300\"\n            style={checkboxStyles}\n            role=\"checkbox\"\n            aria-checked={checked}\n            aria-label={label || 'Checkbox'}\n            tabIndex={disabled ? -1 : 0}\n            onKeyDown={(e) => {\n              if (!disabled && (e.key === 'Enter' || e.key === ' ')) {\n                e.preventDefault();\n                onChange?.(!checked);\n              }\n            }}\n          >\n            {checked && (\n              <Check className=\"w-3.5 h-3.5 md:w-3 md:h-3\" style={{ color: 'var(--text-inverse)' }} />\n            )}\n          </div>\n        </span>\n        {label && (\n          <span className=\"text-xs md:text-sm\" style={{ color: 'var(--text-secondary)' }}>\n            {label}\n          </span>\n        )}\n      </label>\n    );\n  }\n);\n\nCheckboxGlass.displayName = 'CheckboxGlass';\n"
+    }
+  ],
+  "categories": [
+    "ui"
+  ],
+  "cssVars": {
+    "light": {
+      "--glass-bg": "rgba(255, 255, 255, 0.1)",
+      "--glass-border": "rgba(255, 255, 255, 0.2)",
+      "--blur-sm": "8px",
+      "--blur-md": "16px",
+      "--blur-lg": "24px"
+    },
+    "dark": {
+      "--glass-bg": "rgba(255, 255, 255, 0.05)",
+      "--glass-border": "rgba(255, 255, 255, 0.1)",
+      "--blur-sm": "8px",
+      "--blur-md": "16px",
+      "--blur-lg": "24px"
+    }
+  }
+}

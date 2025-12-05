@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "career-stats-glass",
+  "type": "registry:block",
+  "title": "Career Stats Glass",
+  "description": "Career Stats Glass component with glass effects",
+  "dependencies": [
+    "lucide-react",
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "components/glass/sections/career-stats-glass.tsx",
+      "type": "registry:component",
+      "content": "// ========================================\n// CAREER STATS GLASS COMPONENT\n// Career statistics with expandable year cards\n// ========================================\n\nimport { forwardRef, useState } from \"react\";\nimport { TrendingUp, Code, GitPullRequest, FolderGit2 } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\nimport { GlassCard } from \"../ui/glass-card\";\nimport { YearCardGlass } from \"../composite/year-card-glass\";\nimport \"@/glass-theme.css\";\n\nexport interface YearData {\n  readonly year: string | number;\n  readonly emoji: string;\n  readonly label: string;\n  readonly commits: string;\n  readonly progress: number;\n  readonly prs?: number;\n  readonly repos?: number;\n}\n\nexport interface CareerStatsGlassProps extends React.HTMLAttributes<HTMLDivElement> {\n  readonly totalCommits?: number;\n  readonly totalPRs?: number;\n  readonly totalRepos?: number;\n  readonly years?: readonly YearData[];\n}\n\nexport const CareerStatsGlass = forwardRef<HTMLDivElement, CareerStatsGlassProps>(\n  (\n    {\n      totalCommits = 2242,\n      totalPRs = 47,\n      totalRepos = 11,\n      years = [],\n      className,\n      ...props\n    },\n    ref\n  ) => {\n    const [expandedYear, setExpandedYear] = useState<string | number | null>(null);\n\n    const handleYearClick = (year: string | number): void => {\n      setExpandedYear(expandedYear === year ? null : year);\n    };\n\n    return (\n      <GlassCard\n        ref={ref}\n        className={cn(\"p-4 md:p-5 lg:p-6\", className)}\n        intensity=\"medium\"\n        hover={false}\n        {...props}\n      >\n        <h3\n          className=\"font-semibold flex items-center gap-2 md:gap-2.5 lg:gap-3 mb-1 text-base md:text-lg lg:text-xl\"\n          style={{ color: \"var(--text-primary)\" }}\n        >\n          <TrendingUp className=\"w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6\" style={{ color: \"var(--text-accent)\" }} />\n          Career Stats\n        </h3>\n        <p\n          className=\"text-xs md:text-sm lg:text-base mb-3 md:mb-4 flex items-center gap-2 md:gap-2.5 lg:gap-3 flex-wrap\"\n          style={{ color: \"var(--text-secondary)\" }}\n        >\n          <span className=\"flex items-center gap-1 md:gap-1.5\">\n            <Code className=\"w-3.5 h-3.5 md:w-4 md:h-4 lg:w-5 lg:h-5\" />\n            {totalCommits.toLocaleString()} commits\n          </span>\n          <span>·</span>\n          <span className=\"flex items-center gap-1 md:gap-1.5\">\n            <GitPullRequest className=\"w-3.5 h-3.5 md:w-4 md:h-4 lg:w-5 lg:h-5\" />\n            {totalPRs} PRs\n          </span>\n          <span>·</span>\n          <span className=\"flex items-center gap-1 md:gap-1.5\">\n            <FolderGit2 className=\"w-3.5 h-3.5 md:w-4 md:h-4 lg:w-5 lg:h-5\" />\n            {totalRepos} repos\n          </span>\n        </p>\n        <div className=\"space-y-2 md:space-y-2.5 lg:space-y-3\">\n          {years.map((y) => (\n            <YearCardGlass\n              key={y.year}\n              year={y.year}\n              emoji={y.emoji}\n              label={y.label}\n              commits={y.commits}\n              progress={y.progress}\n              prs={y.prs}\n              repos={y.repos}\n              isExpanded={expandedYear === y.year}\n              onClick={() => handleYearClick(y.year)}\n              onShowYear={() => {\n                // This can be used to filter repos by year\n                // Example: onYearFilter?.(y.year)\n              }}\n            />\n          ))}\n        </div>\n      </GlassCard>\n    );\n  }\n);\n\nCareerStatsGlass.displayName = \"CareerStatsGlass\";\n"
+    }
+  ],
+  "categories": [
+    "sections"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "expandable-header-glass",
+  "type": "registry:component",
+  "title": "Expandable Header Glass",
+  "description": "Expandable Header Glass component with glass effects",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "components/glass/atomic/expandable-header-glass.tsx",
+      "type": "registry:component",
+      "content": "// ========================================\n// EXPANDABLE HEADER GLASS - ATOMIC COMPONENT\n// Collapsible section header with icon and chevron\n// Level 2: Atomic (extracted from FlagsSectionGlass)\n// ========================================\n\nimport {\n  forwardRef,\n  type ButtonHTMLAttributes,\n  type ReactNode,\n  type CSSProperties,\n} from 'react';\nimport { ChevronUp, ChevronDown, type LucideIcon } from 'lucide-react';\nimport { cn } from '@/lib/utils';\nimport '@/glass-theme.css';\n\nexport interface ExpandableHeaderGlassProps\n  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'title'> {\n  /** Header title */\n  readonly title: ReactNode;\n  /** Leading icon component */\n  readonly icon?: LucideIcon;\n  /** Icon color (CSS variable or color value) */\n  readonly iconColor?: string;\n  /** Expanded state */\n  readonly expanded: boolean;\n  /** Toggle callback */\n  readonly onToggle?: () => void;\n}\n\nexport const ExpandableHeaderGlass = forwardRef<\n  HTMLButtonElement,\n  ExpandableHeaderGlassProps\n>(\n  (\n    {\n      title,\n      icon: Icon,\n      iconColor = 'var(--text-accent)',\n      expanded,\n      onToggle,\n      className,\n      ...props\n    },\n    ref\n  ) => {\n    const textStyles: CSSProperties = {\n      color: 'var(--text-primary)',\n    };\n\n    const chevronStyles: CSSProperties = {\n      color: 'var(--text-muted)',\n    };\n\n    const iconStyles: CSSProperties = {\n      color: iconColor,\n    };\n\n    return (\n      <button\n        ref={ref}\n        type=\"button\"\n        onClick={onToggle}\n        aria-expanded={expanded}\n        className={cn(\n          'w-full p-4 flex items-center justify-between rounded-2xl transition-colors hover:bg-white/5',\n          className\n        )}\n        style={textStyles}\n        {...props}\n      >\n        <div className=\"flex items-center gap-2\">\n          {Icon && <Icon className=\"w-5 h-5\" style={iconStyles} />}\n          <span className=\"font-medium\">{title}</span>\n        </div>\n        {expanded ? (\n          <ChevronUp className=\"w-5 h-5\" style={chevronStyles} />\n        ) : (\n          <ChevronDown className=\"w-5 h-5\" style={chevronStyles} />\n        )}\n      </button>\n    );\n  }\n);\n\nExpandableHeaderGlass.displayName = 'ExpandableHeaderGlass';\n"
+    }
+  ],
+  "categories": [
+    "atomic"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "repository-header-glass",
+  "type": "registry:block",
+  "title": "Repository Header Glass",
+  "description": "Repository Header Glass component with glass effects",
+  "dependencies": [
+    "lucide-react",
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "components/glass/composite/repository-header-glass.tsx",
+      "type": "registry:component",
+      "content": "// ========================================\n// REPOSITORY HEADER GLASS - COMPOSITE COMPONENT\n// Repository name with status indicator and stars\n// Level 3: Composite (extracted from RepositoryCardGlass)\n// ========================================\n\nimport { forwardRef, type HTMLAttributes, type CSSProperties } from 'react';\nimport { Star, ChevronDown, ChevronUp } from 'lucide-react';\nimport { cn } from '@/lib/utils';\nimport { StatusIndicatorGlass } from '../specialized/status-indicator-glass';\nimport '@/glass-theme.css';\n\nexport type RepositoryFlagType = 'green' | 'yellow' | 'red';\n\nexport interface RepositoryHeaderGlassProps extends HTMLAttributes<HTMLDivElement> {\n  /** Repository name */\n  readonly name: string;\n  /** Flag/status type */\n  readonly flagType?: RepositoryFlagType;\n  /** Star count */\n  readonly stars?: number;\n  /** Is expanded state */\n  readonly expanded?: boolean;\n  /** Abbreviated star count for mobile (1.2k instead of 1234) */\n  readonly abbreviatedStars?: boolean;\n}\n\nexport const RepositoryHeaderGlass = forwardRef<\n  HTMLDivElement,\n  RepositoryHeaderGlassProps\n>(\n  (\n    {\n      name,\n      flagType = 'green',\n      stars = 0,\n      expanded = false,\n      abbreviatedStars = false,\n      className,\n      ...props\n    },\n    ref\n  ) => {\n    const titleStyles: CSSProperties = {\n      color: 'var(--text-primary)',\n    };\n\n    const starStyles: CSSProperties = {\n      color: 'var(--status-away)',\n    };\n\n    const mutedStyles: CSSProperties = {\n      color: 'var(--text-muted)',\n    };\n\n    const formatStars = (count: number): string => {\n      if (!abbreviatedStars) return String(count);\n      if (count >= 1000000) return `${(count / 1000000).toFixed(1)}M`;\n      if (count >= 1000) return `${(count / 1000).toFixed(1)}k`;\n      return String(count);\n    };\n\n    return (\n      <div\n        ref={ref}\n        className={cn('flex items-center justify-between', className)}\n        {...props}\n      >\n        <div className=\"flex items-center gap-2.5\">\n          <span className=\"font-medium text-sm\" style={titleStyles}>\n            {name}\n          </span>\n          <StatusIndicatorGlass type={flagType} />\n        </div>\n        <div className=\"flex items-center gap-2\">\n          {stars > 0 && (\n            <span className=\"flex items-center gap-1 text-xs\" style={starStyles}>\n              <Star className=\"w-3 h-3\" />\n              {formatStars(stars)}\n            </span>\n          )}\n          {expanded ? (\n            <ChevronUp className=\"w-4 h-4\" style={mutedStyles} />\n          ) : (\n            <ChevronDown className=\"w-4 h-4\" style={mutedStyles} />\n          )}\n        </div>\n      </div>\n    );\n  }\n);\n\nRepositoryHeaderGlass.displayName = 'RepositoryHeaderGlass';\n"
+    }
+  ],
+  "categories": [
+    "composite"
+  ]
+}

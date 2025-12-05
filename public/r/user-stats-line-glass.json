@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "user-stats-line-glass",
+  "type": "registry:block",
+  "title": "User Stats Line Glass",
+  "description": "User Stats Line Glass component with glass effects",
+  "dependencies": [
+    "lucide-react",
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "components/glass/composite/user-stats-line-glass.tsx",
+      "type": "registry:component",
+      "content": "// ========================================\n// USER STATS LINE GLASS - COMPOSITE COMPONENT\n// User statistics line (repos, followers, following)\n// Level 3: Composite (extracted from ProfileHeaderGlass)\n// ========================================\n\nimport { forwardRef, type HTMLAttributes } from 'react';\nimport { FolderGit2, Users, User } from 'lucide-react';\nimport { cn } from '@/lib/utils';\nimport { StatItemGlass } from '../atomic/stat-item-glass';\nimport '@/glass-theme.css';\n\nexport interface UserStatsLineGlassProps extends HTMLAttributes<HTMLDivElement> {\n  /** Number of repositories */\n  readonly repos: number;\n  /** Number of followers */\n  readonly followers: number;\n  /** Number of following */\n  readonly following: number;\n  /** Wrap stats on mobile */\n  readonly wrap?: boolean;\n  /** Abbreviated numbers for mobile (1.2k instead of 1234) */\n  readonly abbreviated?: boolean;\n}\n\nexport const UserStatsLineGlass = forwardRef<HTMLDivElement, UserStatsLineGlassProps>(\n  (\n    {\n      repos,\n      followers,\n      following,\n      wrap = true,\n      abbreviated = false,\n      className,\n      ...props\n    },\n    ref\n  ) => {\n    return (\n      <div\n        ref={ref}\n        className={cn(\n          'flex items-center gap-4 text-sm',\n          wrap && 'flex-wrap',\n          className\n        )}\n        {...props}\n      >\n        <StatItemGlass\n          icon={FolderGit2}\n          value={repos}\n          label=\"repos\"\n          abbreviated={abbreviated}\n        />\n        <StatItemGlass\n          icon={Users}\n          value={followers}\n          label=\"followers\"\n          abbreviated={abbreviated}\n        />\n        <StatItemGlass\n          icon={User}\n          value={following}\n          label=\"following\"\n          abbreviated={abbreviated}\n        />\n      </div>\n    );\n  }\n);\n\nUserStatsLineGlass.displayName = 'UserStatsLineGlass';\n"
+    }
+  ],
+  "categories": [
+    "composite"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "repository-metadata-glass",
+  "type": "registry:block",
+  "title": "Repository Metadata Glass",
+  "description": "Repository Metadata Glass component with glass effects",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "components/glass/composite/repository-metadata-glass.tsx",
+      "type": "registry:component",
+      "content": "// ========================================\n// REPOSITORY METADATA GLASS - COMPOSITE COMPONENT\n// Repository languages, commits, and contribution info\n// Level 3: Composite (extracted from RepositoryCardGlass)\n// ========================================\n\nimport { forwardRef, type HTMLAttributes, type CSSProperties } from 'react';\nimport { cn } from '@/lib/utils';\nimport '@/glass-theme.css';\n\nexport interface RepositoryMetadataGlassProps extends HTMLAttributes<HTMLDivElement> {\n  /** Programming languages used */\n  readonly languages: string;\n  /** Number of commits */\n  readonly commits: number;\n  /** Contribution percentage */\n  readonly contribution: number;\n  /** Stacked layout for mobile */\n  readonly stacked?: boolean;\n}\n\nexport const RepositoryMetadataGlass = forwardRef<\n  HTMLDivElement,\n  RepositoryMetadataGlassProps\n>(\n  (\n    {\n      languages,\n      commits,\n      contribution,\n      stacked = false,\n      className,\n      ...props\n    },\n    ref\n  ) => {\n    const mutedStyles: CSSProperties = {\n      color: 'var(--text-muted)',\n    };\n\n    const secondaryStyles: CSSProperties = {\n      color: 'var(--text-secondary)',\n    };\n\n    return (\n      <div\n        ref={ref}\n        className={cn(stacked ? 'space-y-0.5' : 'space-y-1', className)}\n        {...props}\n      >\n        <div className=\"text-xs\" style={mutedStyles}>\n          {languages}\n        </div>\n        <div className=\"text-xs\" style={secondaryStyles}>\n          {commits.toLocaleString()} commits · {contribution}%\n        </div>\n      </div>\n    );\n  }\n);\n\nRepositoryMetadataGlass.displayName = 'RepositoryMetadataGlass';\n"
+    }
+  ],
+  "categories": [
+    "composite"
+  ]
+}

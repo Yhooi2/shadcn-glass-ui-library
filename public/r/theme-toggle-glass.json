@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "theme-toggle-glass",
+  "type": "registry:component",
+  "title": "Theme Toggle Glass",
+  "description": "Theme Toggle Glass component with glass effects",
+  "dependencies": [
+    "lucide-react",
+    "react"
+  ],
+  "registryDependencies": [
+    "cn",
+    "theme-provider"
+  ],
+  "files": [
+    {
+      "path": "components/glass/atomic/theme-toggle-glass.tsx",
+      "type": "registry:component",
+      "content": "// ========================================\n// THEME TOGGLE GLASS - ATOMIC COMPONENT\n// Theme switcher button with cycle animation\n// Level 2: Atomic (extracted from HeaderNavGlass)\n// ========================================\n\nimport { forwardRef, type ButtonHTMLAttributes, type CSSProperties } from 'react';\nimport { Sun, Moon, Palette } from 'lucide-react';\nimport { cn } from '@/lib/utils';\nimport { useTheme, type ThemeName } from '@/lib/theme-context';\nimport '@/glass-theme.css';\n\nconst themes: ThemeName[] = ['light', 'aurora', 'glass'];\n\nconst themeConfig: Record<ThemeName, { label: string; icon: typeof Sun }> = {\n  light: { label: 'Light', icon: Sun },\n  aurora: { label: 'Aurora', icon: Moon },\n  glass: { label: 'Glass', icon: Palette },\n};\n\nexport interface ThemeToggleGlassProps extends ButtonHTMLAttributes<HTMLButtonElement> {\n  /** Custom theme toggle handler (overrides default cycleTheme) */\n  readonly onToggle?: () => void;\n  /** Icon size in pixels (default: 20) */\n  readonly iconSize?: number;\n  /** Show icon only (hide label on mobile) */\n  readonly iconOnly?: boolean;\n}\n\nexport const ThemeToggleGlass = forwardRef<HTMLButtonElement, ThemeToggleGlassProps>(\n  ({ onToggle, iconSize = 20, iconOnly = false, className, ...props }, ref) => {\n    const { theme, cycleTheme } = useTheme();\n\n    const nextTheme = themes[(themes.indexOf(theme) + 1) % themes.length];\n    const NextIcon = themeConfig[nextTheme].icon;\n    const nextLabel = themeConfig[nextTheme].label;\n\n    const buttonStyles: CSSProperties = {\n      background: 'var(--card-subtle-bg)',\n      border: '1px solid var(--card-subtle-border)',\n    };\n\n    const iconStyles: CSSProperties = {\n      color: 'var(--text-secondary)',\n    };\n\n    return (\n      <button\n        ref={ref}\n        type=\"button\"\n        onClick={onToggle ?? cycleTheme}\n        aria-label={`Switch to ${nextLabel} theme`}\n        className={cn(\n          'p-2.5 rounded-xl transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2',\n          iconOnly && 'md:px-4 md:gap-2',\n          className\n        )}\n        style={buttonStyles}\n        {...props}\n      >\n        <div className=\"flex items-center gap-2\">\n          <NextIcon size={iconSize} style={iconStyles} />\n          {!iconOnly && (\n            <span className=\"hidden md:inline text-sm font-medium\" style={iconStyles}>\n              {nextLabel}\n            </span>\n          )}\n        </div>\n      </button>\n    );\n  }\n);\n\nThemeToggleGlass.displayName = 'ThemeToggleGlass';\n"
+    }
+  ],
+  "categories": [
+    "atomic"
+  ]
+}

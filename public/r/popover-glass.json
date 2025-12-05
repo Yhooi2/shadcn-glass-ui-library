@@ -1,0 +1,40 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "popover-glass",
+  "type": "registry:ui",
+  "title": "Popover Glass",
+  "description": "Floating glass-themed container for tooltips, dropdowns, and overlays with:",
+  "dependencies": [
+    "@radix-ui/react-popover",
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "components/glass/ui/popover-glass.tsx",
+      "type": "registry:component",
+      "content": "/**\n * PopoverGlass Component\n *\n * Floating glass-themed container for tooltips, dropdowns, and overlays with:\n * - Theme-aware styling (glass/light/aurora)\n * - Smooth animations with fade-in effect\n * - Arrow pointer with glass styling\n * - ESC key and click-outside to close\n * - Focus trap for accessibility\n * - All position/alignment options (top/right/bottom/left × start/center/end)\n *\n * @example\n * ```tsx\n * <PopoverGlass\n *   trigger={<ButtonGlass>Open</ButtonGlass>}\n *   side=\"top\"\n *   align=\"center\"\n * >\n *   <div className=\"p-4\">Popover content</div>\n * </PopoverGlass>\n * ```\n */\n\nimport * as React from 'react';\nimport * as PopoverPrimitive from '@radix-ui/react-popover';\nimport { cn } from '@/lib/utils';\nimport '@/glass-theme.css';\n\n// ========================================\n// PROPS INTERFACE\n// ========================================\n\nexport interface PopoverGlassProps {\n  /** The trigger element that opens the popover */\n  readonly trigger: React.ReactNode;\n  /** The content to display inside the popover */\n  readonly children: React.ReactNode;\n  /** The preferred side of the trigger to render against */\n  readonly side?: 'top' | 'right' | 'bottom' | 'left';\n  /** The preferred alignment against the trigger */\n  readonly align?: 'start' | 'center' | 'end';\n  /** The distance in pixels from the trigger */\n  readonly sideOffset?: number;\n  /** Controlled open state */\n  readonly open?: boolean;\n  /** Callback when open state changes */\n  readonly onOpenChange?: (open: boolean) => void;\n  /** Whether to show the arrow pointer */\n  readonly showArrow?: boolean;\n  /** Additional class name for the content wrapper */\n  readonly className?: string;\n}\n\n// ========================================\n// COMPONENT\n// ========================================\n\nexport const PopoverGlass = React.forwardRef<\n  HTMLDivElement,\n  PopoverGlassProps\n>(\n  (\n    {\n      trigger,\n      children,\n      side = 'bottom',\n      align = 'center',\n      sideOffset = 8,\n      open,\n      onOpenChange,\n      showArrow = true,\n      className,\n    },\n    ref\n  ) => {\n    // Popover content styles with CSS variables\n    const popoverStyles: React.CSSProperties = {\n      background: 'var(--popover-bg)',\n      border: '1px solid var(--popover-border)',\n      boxShadow: 'var(--popover-shadow)',\n      backdropFilter: 'blur(var(--blur-md))', // 16px - standard popover blur\n      WebkitBackdropFilter: 'blur(var(--blur-md))',\n    };\n\n    // Arrow styles\n    const arrowStyles: React.CSSProperties = {\n      fill: 'var(--popover-arrow-bg)',\n    };\n\n    return (\n      <PopoverPrimitive.Root open={open} onOpenChange={onOpenChange}>\n        <PopoverPrimitive.Trigger asChild>{trigger}</PopoverPrimitive.Trigger>\n\n        <PopoverPrimitive.Portal>\n          <PopoverPrimitive.Content\n            ref={ref}\n            side={side}\n            align={align}\n            sideOffset={sideOffset}\n            className={cn(\n              'z-[50003] rounded-2xl p-4',\n              'animate-in fade-in-0 zoom-in-95 duration-200',\n              'data-[side=bottom]:slide-in-from-top-2',\n              'data-[side=top]:slide-in-from-bottom-2',\n              'data-[side=right]:slide-in-from-left-2',\n              'data-[side=left]:slide-in-from-right-2',\n              'outline-none',\n              className\n            )}\n            style={popoverStyles}\n            role=\"dialog\"\n            aria-modal=\"false\"\n          >\n            {children}\n\n            {showArrow && (\n              <PopoverPrimitive.Arrow\n                className=\"fill-current\"\n                style={arrowStyles}\n                width={16}\n                height={8}\n              />\n            )}\n          </PopoverPrimitive.Content>\n        </PopoverPrimitive.Portal>\n      </PopoverPrimitive.Root>\n    );\n  }\n);\n\nPopoverGlass.displayName = 'PopoverGlass';\n"
+    }
+  ],
+  "categories": [
+    "ui"
+  ],
+  "cssVars": {
+    "light": {
+      "--glass-bg": "rgba(255, 255, 255, 0.1)",
+      "--glass-border": "rgba(255, 255, 255, 0.2)",
+      "--blur-sm": "8px",
+      "--blur-md": "16px",
+      "--blur-lg": "24px"
+    },
+    "dark": {
+      "--glass-bg": "rgba(255, 255, 255, 0.05)",
+      "--glass-border": "rgba(255, 255, 255, 0.1)",
+      "--blur-sm": "8px",
+      "--blur-md": "16px",
+      "--blur-lg": "24px"
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "glass-card",
+  "type": "registry:ui",
+  "title": "Glass Card",
+  "description": "Glass-themed container with:",
+  "dependencies": [
+    "@radix-ui/react-slot",
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "cn",
+    "use-hover",
+    "variants"
+  ],
+  "files": [
+    {
+      "path": "components/glass/ui/glass-card.tsx",
+      "type": "registry:component",
+      "content": "/**\n * GlassCard Component\n *\n * Glass-themed container with:\n * - Theme-aware styling (glass/light/aurora)\n * - Configurable blur intensity\n * - Optional glow effects\n * - Hover animations\n */\n\nimport {\n  forwardRef,\n  type ReactNode,\n  type CSSProperties,\n} from 'react';\nimport { Slot } from '@radix-ui/react-slot';\nimport { type VariantProps } from 'class-variance-authority';\nimport { cn } from '@/lib/utils';\nimport { useHover } from '@/lib/hooks/use-hover';\nimport { cardIntensity } from '@/lib/variants/glass-card-variants';\nimport '@/glass-theme.css';\n\nimport type { GlowType, IntensityType, PaddingType } from '@/lib/variants/glass-card-variants';\n\n// ========================================\n// BLUR MAP\n// ========================================\n// Per UI_DIZINE.md design tokens:\n// - subtle: 8px (sm token) - light glass effect\n// - medium: 16px (md token) - standard cards (was 12px - breaking change)\n// - strong: 24px (lg token) - featured cards (was 16px - breaking change)\n\nconst blurMap: Record<IntensityType, string> = {\n  subtle: 'var(--blur-sm)',   // 8px\n  medium: 'var(--blur-md)',   // 16px (BREAKING: was 12px)\n  strong: 'var(--blur-lg)',   // 24px (BREAKING: was 16px)\n};\n\n// ========================================\n// PROPS INTERFACE\n// ========================================\n\n/**\n * Props for the GlassCard component\n *\n * @example\n * ```tsx\n * // Basic card\n * <GlassCard intensity=\"medium\">Content</GlassCard>\n *\n * // As a clickable link\n * <GlassCard asChild intensity=\"medium\">\n *   <a href=\"/details\">View Details</a>\n * </GlassCard>\n * ```\n */\nexport interface GlassCardProps\n  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'style'>,\n    VariantProps<typeof cardIntensity> {\n  /**\n   * Render as child element instead of div (polymorphic rendering).\n   * Useful for making cards clickable links or custom interactive elements.\n   * @default false\n   * @example\n   * ```tsx\n   * <GlassCard asChild>\n   *   <a href=\"/article\">Article Content</a>\n   * </GlassCard>\n   * ```\n   */\n  readonly asChild?: boolean;\n\n  readonly children: ReactNode;\n  readonly glow?: GlowType;\n  readonly padding?: PaddingType;\n}\n\n// ========================================\n// COMPONENT\n// ========================================\n\n// CSS variable maps for intensity\nconst bgVarMap: Record<IntensityType, string> = {\n  subtle: 'var(--card-subtle-bg)',\n  medium: 'var(--card-medium-bg)',\n  strong: 'var(--card-strong-bg)',\n};\n\nconst borderVarMap: Record<IntensityType, string> = {\n  subtle: 'var(--card-subtle-border)',\n  medium: 'var(--card-medium-border)',\n  strong: 'var(--card-strong-border)',\n};\n\nconst glowVarMap: Record<string, string> = {\n  blue: 'var(--glow-blue)',\n  violet: 'var(--glow-violet)',\n  purple: 'var(--glow-violet)',\n  cyan: 'var(--glow-cyan)',\n};\n\nexport const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(\n  (\n    {\n      asChild = false,\n      children,\n      className,\n      intensity = 'medium',\n      glow = null,\n      hover = true,\n      padding = 'default',\n      ...props\n    },\n    ref\n  ) => {\n    const { isHovered, hoverProps } = useHover();\n    const intensityVal = intensity ?? 'medium';\n\n    const cardStyles: CSSProperties = {\n      background: isHovered && hover ? 'var(--card-hover-bg)' : bgVarMap[intensityVal],\n      borderColor: isHovered && hover ? 'var(--card-hover-border)' : borderVarMap[intensityVal],\n      backdropFilter: `blur(${blurMap[intensityVal]})`,\n      WebkitBackdropFilter: `blur(${blurMap[intensityVal]})`,\n      boxShadow: glow\n        ? glowVarMap[glow]\n        : isHovered && hover\n          ? 'var(--card-hover-glow)'\n          : 'var(--glow-neutral)',\n    };\n\n    // Polymorphic component - render as Slot when asChild is true\n    const Comp = asChild ? Slot : 'div';\n\n    return (\n      <Comp\n        ref={ref}\n        className={cn(cardIntensity({ intensity, hover, padding }), className)}\n        style={cardStyles}\n        onMouseEnter={hoverProps.onMouseEnter}\n        onMouseLeave={hoverProps.onMouseLeave}\n        {...props}\n      >\n        {children}\n      </Comp>\n    );\n  }\n);\n\nGlassCard.displayName = 'GlassCard';\n"
+    }
+  ],
+  "categories": [
+    "ui"
+  ],
+  "cssVars": {
+    "light": {
+      "--glass-bg": "rgba(255, 255, 255, 0.1)",
+      "--glass-border": "rgba(255, 255, 255, 0.2)",
+      "--blur-sm": "8px",
+      "--blur-md": "16px",
+      "--blur-lg": "24px"
+    },
+    "dark": {
+      "--glass-bg": "rgba(255, 255, 255, 0.05)",
+      "--glass-border": "rgba(255, 255, 255, 0.1)",
+      "--blur-sm": "8px",
+      "--blur-md": "16px",
+      "--blur-lg": "24px"
+    }
+  }
+}

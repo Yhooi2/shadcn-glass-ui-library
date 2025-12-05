@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "metrics-grid-glass",
+  "type": "registry:block",
+  "title": "Metrics Grid Glass",
+  "description": "Metrics Grid Glass component with glass effects",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "components/glass/composite/metrics-grid-glass.tsx",
+      "type": "registry:component",
+      "content": "// ========================================\n// METRICS GRID GLASS - COMPOSITE COMPONENT\n// Responsive grid of metric cards\n// Level 3: Composite (extracted from TrustScoreCardGlass)\n// ========================================\n\nimport { forwardRef, type HTMLAttributes } from 'react';\nimport { cn } from '@/lib/utils';\nimport { MetricCardGlass, type MetricColor } from './metric-card-glass';\nimport '@/glass-theme.css';\n\nexport interface MetricData {\n  readonly label: string;\n  readonly value: number;\n  readonly color: MetricColor;\n}\n\nexport interface MetricsGridGlassProps extends HTMLAttributes<HTMLDivElement> {\n  /** Array of metrics to display */\n  readonly metrics: readonly MetricData[];\n  /** Number of columns on desktop (1-6) */\n  readonly columns?: 1 | 2 | 3 | 4 | 5 | 6;\n  /** Gap size */\n  readonly gap?: 'sm' | 'md' | 'lg';\n}\n\nexport const MetricsGridGlass = forwardRef<HTMLDivElement, MetricsGridGlassProps>(\n  ({ metrics, columns = 4, gap = 'md', className, ...props }, ref) => {\n    const gapClasses = {\n      sm: 'gap-2',\n      md: 'gap-4',\n      lg: 'gap-6',\n    };\n\n    const columnClasses = {\n      1: 'grid-cols-1',\n      2: 'grid-cols-1 sm:grid-cols-2',\n      3: 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3',\n      4: 'grid-cols-2 sm:grid-cols-3 md:grid-cols-4',\n      5: 'grid-cols-2 sm:grid-cols-3 md:grid-cols-5',\n      6: 'grid-cols-2 sm:grid-cols-3 md:grid-cols-6',\n    };\n\n    if (metrics.length === 0) {\n      return null;\n    }\n\n    return (\n      <div\n        ref={ref}\n        className={cn('grid', columnClasses[columns], gapClasses[gap], className)}\n        {...props}\n      >\n        {metrics.map((metric) => (\n          <MetricCardGlass\n            key={metric.label}\n            label={metric.label}\n            value={metric.value}\n            color={metric.color}\n          />\n        ))}\n      </div>\n    );\n  }\n);\n\nMetricsGridGlass.displayName = 'MetricsGridGlass';\n"
+    }
+  ],
+  "categories": [
+    "composite"
+  ]
+}

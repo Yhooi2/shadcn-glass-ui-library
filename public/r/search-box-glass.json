@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "search-box-glass",
+  "type": "registry:component",
+  "title": "Search Box Glass",
+  "description": "Search Box Glass component with glass effects",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "components/glass/atomic/search-box-glass.tsx",
+      "type": "registry:component",
+      "content": "// ========================================\n// SEARCH BOX GLASS - ATOMIC COMPONENT\n// Search input with submit button\n// Level 2: Atomic (extracted from HeaderNavGlass)\n// ========================================\n\nimport {\n  forwardRef,\n  useState,\n  type InputHTMLAttributes,\n  type CSSProperties,\n} from 'react';\nimport { Search } from 'lucide-react';\nimport { cn } from '@/lib/utils';\nimport '@/glass-theme.css';\n\nexport interface SearchBoxGlassProps\n  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onSubmit' | 'onChange'> {\n  /** Callback when search is submitted (Enter key or button click) */\n  readonly onSubmit?: (value: string) => void;\n  /** Initial search value */\n  readonly defaultValue?: string;\n  /** Controlled value */\n  readonly value?: string;\n  /** Controlled change handler */\n  readonly onChange?: (value: string) => void;\n  /** Compact variant for mobile (icon only button) */\n  readonly variant?: 'default' | 'compact';\n  /** Input width class (default: w-48) */\n  readonly inputWidth?: string;\n}\n\nexport const SearchBoxGlass = forwardRef<HTMLInputElement, SearchBoxGlassProps>(\n  (\n    {\n      onSubmit,\n      defaultValue = '',\n      value: controlledValue,\n      onChange: controlledOnChange,\n      variant = 'default',\n      inputWidth = 'w-32 sm:w-40 md:w-48',\n      placeholder = 'Search username...',\n      className,\n      ...props\n    },\n    ref\n  ) => {\n    const [internalValue, setInternalValue] = useState(defaultValue);\n    const [isFocused, setIsFocused] = useState(false);\n\n    const isControlled = controlledValue !== undefined;\n    const value = isControlled ? controlledValue : internalValue;\n\n    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {\n      const newValue = e.target.value;\n      if (isControlled) {\n        controlledOnChange?.(newValue);\n      } else {\n        setInternalValue(newValue);\n      }\n    };\n\n    const handleSubmit = () => {\n      onSubmit?.(value);\n    };\n\n    const handleKeyDown = (e: React.KeyboardEvent) => {\n      if (e.key === 'Enter') {\n        handleSubmit();\n      }\n    };\n\n    const containerStyles: CSSProperties = {\n      boxShadow: isFocused ? 'var(--focus-glow)' : 'none',\n    };\n\n    const inputStyles: CSSProperties = {\n      background: 'var(--search-bg)',\n      color: 'var(--text-primary)',\n      border: '1px solid var(--search-border)',\n      borderRight: 'none',\n      borderTopLeftRadius: '0.75rem',\n      borderBottomLeftRadius: '0.75rem',\n    };\n\n    const buttonStyles: CSSProperties = {\n      background: 'var(--search-btn-bg)',\n      color: 'var(--search-btn-text)',\n      borderTopRightRadius: '0.75rem',\n      borderBottomRightRadius: '0.75rem',\n    };\n\n    return (\n      <div\n        className={cn('flex w-fit rounded-xl overflow-hidden', className)}\n        style={containerStyles}\n      >\n        <input\n          ref={ref}\n          type=\"text\"\n          value={value}\n          onChange={handleChange}\n          onFocus={() => setIsFocused(true)}\n          onBlur={() => setIsFocused(false)}\n          onKeyDown={handleKeyDown}\n          placeholder={placeholder}\n          aria-label={placeholder}\n          className={cn('px-4 py-2 text-sm outline-none transition-all', inputWidth)}\n          style={inputStyles}\n          {...props}\n        />\n        <button\n          onClick={handleSubmit}\n          type=\"button\"\n          className={cn(\n            'px-5 py-2 text-sm font-medium flex items-center gap-2 hover:scale-[1.02] transition-transform',\n            variant === 'compact' && 'px-3'\n          )}\n          style={buttonStyles}\n          aria-label=\"Search\"\n        >\n          <Search className=\"w-4 h-4\" />\n          {variant === 'default' && <span className=\"hidden sm:inline\">Search</span>}\n        </button>\n      </div>\n    );\n  }\n);\n\nSearchBoxGlass.displayName = 'SearchBoxGlass';\n"
+    }
+  ],
+  "categories": [
+    "atomic"
+  ]
+}

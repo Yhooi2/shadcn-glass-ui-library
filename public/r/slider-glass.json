@@ -1,0 +1,42 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "slider-glass",
+  "type": "registry:ui",
+  "title": "Slider Glass",
+  "description": "Glass-themed range slider with:",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn",
+    "primitives",
+    "use-focus",
+    "use-hover"
+  ],
+  "files": [
+    {
+      "path": "components/glass/ui/slider-glass.tsx",
+      "type": "registry:component",
+      "content": "/**\n * SliderGlass Component\n *\n * Glass-themed range slider with:\n * - Theme-aware styling (glass/light/aurora)\n * - Glow effect on hover/drag\n * - Gradient fill (glass theme)\n * - Optional label and value display\n */\n\nimport { forwardRef, useState, type CSSProperties } from 'react';\nimport { cn } from '@/lib/utils';\nimport { useHover } from '@/lib/hooks/use-hover';\nimport { useFocus } from '@/lib/hooks/use-focus';\nimport { FormFieldWrapper } from '@/components/glass/primitives';\nimport '@/glass-theme.css';\n\n// ========================================\n// PROPS INTERFACE\n// ========================================\n\nexport interface SliderGlassProps\n  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value'> {\n  readonly value: number;\n  readonly onChange: (value: number) => void;\n  readonly min?: number;\n  readonly max?: number;\n  readonly step?: number;\n  readonly showValue?: boolean;\n  readonly label?: string;\n  readonly error?: string;\n  readonly success?: string;\n}\n\n// ========================================\n// COMPONENT\n// ========================================\n\nexport const SliderGlass = forwardRef<HTMLInputElement, SliderGlassProps>(\n  (\n    {\n      className,\n      value,\n      onChange,\n      min = 0,\n      max = 100,\n      step = 1,\n      showValue,\n      label,\n      error,\n      success,\n      disabled,\n      ...props\n    },\n    ref\n  ) => {\n    const { isHovered, hoverProps } = useHover();\n    const { isFocusVisible, focusProps } = useFocus({ focusVisible: true });\n    const [isDragging, setIsDragging] = useState(false);\n\n    const percentage = ((value - min) / (max - min)) * 100;\n\n    const trackStyles: CSSProperties = {\n      background: 'var(--slider-track)',\n    };\n\n    const fillStyles: CSSProperties = {\n      width: `${percentage}%`,\n      background: 'var(--slider-fill)',\n      boxShadow:\n        isHovered || isDragging\n          ? 'var(--slider-fill-glow)'\n          : undefined,\n    };\n\n    const thumbStyles: CSSProperties = {\n      left: `calc(${percentage}% - 10px)`,\n      background: 'var(--slider-thumb)',\n      border: '2px solid var(--slider-thumb-border)',\n      boxShadow: isFocusVisible\n        ? 'var(--focus-glow)'\n        : isHovered || isDragging\n          ? 'var(--slider-thumb-glow)'\n          : 'var(--slider-thumb-shadow)',\n      transform: isDragging\n        ? 'scale(1.15)'\n        : isHovered\n          ? 'scale(1.05)'\n          : 'scale(1)',\n    };\n\n    // Custom label with value display - only used when showValue is true\n    // Otherwise, let FormFieldWrapper handle the label\n    const customLabel = (label && showValue) || (!label && showValue) ? (\n      <div className=\"flex justify-between mb-1.5 md:mb-2\">\n        {label && (\n          <label\n            className=\"text-xs md:text-sm font-medium\"\n            style={{ color: 'var(--text-secondary)' }}\n          >\n            {label}\n          </label>\n        )}\n        <span\n          className=\"text-xs md:text-sm font-medium tabular-nums\"\n          style={{ color: 'var(--text-secondary)' }}\n        >\n          {value}\n        </span>\n      </div>\n    ) : undefined;\n\n    return (\n      <FormFieldWrapper\n        label={showValue ? undefined : label}\n        error={error}\n        success={success}\n        className={cn('w-full', className)}\n      >\n        {customLabel}\n        <div\n          className=\"relative w-full h-8 md:h-6 flex items-center\"\n          onMouseEnter={hoverProps.onMouseEnter}\n          onMouseLeave={hoverProps.onMouseLeave}\n        >\n          {/* Track */}\n          <div\n            className=\"absolute w-full h-2.5 md:h-2 rounded-full\"\n            style={trackStyles}\n          />\n          {/* Fill */}\n          <div\n            className=\"absolute h-2.5 md:h-2 rounded-full transition-all duration-150\"\n            style={fillStyles}\n          />\n          {/* Hidden input for accessibility */}\n          <input\n            ref={ref}\n            type=\"range\"\n            value={value}\n            onChange={(e) => onChange(Number(e.target.value))}\n            onMouseDown={() => setIsDragging(true)}\n            onMouseUp={() => setIsDragging(false)}\n            onTouchStart={() => setIsDragging(true)}\n            onTouchEnd={() => setIsDragging(false)}\n            onFocus={focusProps.onFocus}\n            onBlur={focusProps.onBlur}\n            min={min}\n            max={max}\n            step={step}\n            disabled={disabled}\n            aria-label={label || `Slider: ${value} (${min}-${max})`}\n            aria-valuemin={min}\n            aria-valuemax={max}\n            aria-valuenow={value}\n            aria-valuetext={`${value}`}\n            className=\"absolute w-full h-8 md:h-6 opacity-0 cursor-pointer disabled:cursor-not-allowed z-10\"\n            style={{ outline: 'none' }}\n            {...props}\n          />\n          {/* Thumb - larger on mobile for touch */}\n          <div\n            className=\"absolute w-6 h-6 md:w-5 md:h-5 rounded-full transition-all duration-150 pointer-events-none\"\n            style={thumbStyles}\n          />\n        </div>\n      </FormFieldWrapper>\n    );\n  }\n);\n\nSliderGlass.displayName = 'SliderGlass';\n"
+    }
+  ],
+  "categories": [
+    "ui"
+  ],
+  "cssVars": {
+    "light": {
+      "--glass-bg": "rgba(255, 255, 255, 0.1)",
+      "--glass-border": "rgba(255, 255, 255, 0.2)",
+      "--blur-sm": "8px",
+      "--blur-md": "16px",
+      "--blur-lg": "24px"
+    },
+    "dark": {
+      "--glass-bg": "rgba(255, 255, 255, 0.05)",
+      "--glass-border": "rgba(255, 255, 255, 0.1)",
+      "--blur-sm": "8px",
+      "--blur-md": "16px",
+      "--blur-lg": "24px"
+    }
+  }
+}

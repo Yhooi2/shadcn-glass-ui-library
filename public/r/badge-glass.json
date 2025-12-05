@@ -1,0 +1,41 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "badge-glass",
+  "type": "registry:ui",
+  "title": "Badge Glass",
+  "description": "Glass-themed badge with:",
+  "dependencies": [
+    "class-variance-authority",
+    "react"
+  ],
+  "registryDependencies": [
+    "cn",
+    "variants"
+  ],
+  "files": [
+    {
+      "path": "components/glass/ui/badge-glass.tsx",
+      "type": "registry:component",
+      "content": "/**\n * BadgeGlass Component\n *\n * Glass-themed badge with:\n * - Theme-aware styling via CSS variables (glass/light/aurora)\n * - shadcn/ui compatible variants (default, secondary, destructive, outline)\n * - Extended Glass UI variants (success, warning, info)\n * - Size options\n * - Optional animated dot\n */\n\nimport { forwardRef, type ReactNode, type CSSProperties } from 'react';\nimport { type VariantProps } from 'class-variance-authority';\nimport { cn } from '@/lib/utils';\nimport { badgeVariants, type BadgeVariant } from '@/lib/variants/badge-glass-variants';\nimport '@/glass-theme.css';\n\n// ========================================\n// CSS VARIABLE HELPERS\n// ========================================\n\ntype BadgeStyleVars = { bg: string; text: string; border: string };\n\nconst variantStyles: Record<BadgeVariant, BadgeStyleVars> = {\n  // shadcn/ui compatible variants\n  default: {\n    bg: 'var(--badge-default-bg)',\n    text: 'var(--badge-default-text)',\n    border: 'var(--badge-default-border)',\n  },\n  secondary: {\n    bg: 'var(--badge-secondary-bg)',\n    text: 'var(--badge-secondary-text)',\n    border: 'var(--badge-secondary-border)',\n  },\n  destructive: {\n    bg: 'var(--badge-destructive-bg)',\n    text: 'var(--badge-destructive-text)',\n    border: 'var(--badge-destructive-border)',\n  },\n  outline: {\n    bg: 'var(--badge-outline-bg)',\n    text: 'var(--badge-outline-text)',\n    border: 'var(--badge-outline-border)',\n  },\n  // Glass UI extended variants\n  success: {\n    bg: 'var(--badge-success-bg)',\n    text: 'var(--badge-success-text)',\n    border: 'var(--badge-success-border)',\n  },\n  warning: {\n    bg: 'var(--badge-warning-bg)',\n    text: 'var(--badge-warning-text)',\n    border: 'var(--badge-warning-border)',\n  },\n  info: {\n    bg: 'var(--badge-info-bg)',\n    text: 'var(--badge-info-text)',\n    border: 'var(--badge-info-border)',\n  },\n};\n\nconst getBadgeStyles = (variant: BadgeVariant): CSSProperties => {\n  const v = variantStyles[variant] || variantStyles.default;\n  return {\n    background: v.bg,\n    color: v.text,\n    border: `1px solid ${v.border}`,\n  };\n};\n\n// ========================================\n// PROPS INTERFACE\n// ========================================\n\nexport interface BadgeGlassProps\n  extends Omit<React.HTMLAttributes<HTMLSpanElement>, 'style'>,\n    VariantProps<typeof badgeVariants> {\n  readonly children: ReactNode;\n  readonly variant?: BadgeVariant;\n  readonly dot?: boolean;\n}\n\n// ========================================\n// COMPONENT\n// ========================================\n\nexport const BadgeGlass = forwardRef<HTMLSpanElement, BadgeGlassProps>(\n  (\n    { children, className, variant = 'default', size = 'md', dot, ...props },\n    ref\n  ) => {\n    const v = variantStyles[variant];\n\n    return (\n      <span\n        ref={ref}\n        className={cn(badgeVariants({ size }), className)}\n        style={getBadgeStyles(variant)}\n        {...props}\n      >\n        {dot && (\n          <span\n            className=\"w-1 h-1 md:w-1.5 md:h-1.5 rounded-full animate-pulse\"\n            style={{ background: v.text }}\n          />\n        )}\n        {children}\n      </span>\n    );\n  }\n);\n\nBadgeGlass.displayName = 'BadgeGlass';\n"
+    }
+  ],
+  "categories": [
+    "ui"
+  ],
+  "cssVars": {
+    "light": {
+      "--glass-bg": "rgba(255, 255, 255, 0.1)",
+      "--glass-border": "rgba(255, 255, 255, 0.2)",
+      "--blur-sm": "8px",
+      "--blur-md": "16px",
+      "--blur-lg": "24px"
+    },
+    "dark": {
+      "--glass-bg": "rgba(255, 255, 255, 0.05)",
+      "--glass-border": "rgba(255, 255, 255, 0.1)",
+      "--blur-sm": "8px",
+      "--blur-md": "16px",
+      "--blur-lg": "24px"
+    }
+  }
+}

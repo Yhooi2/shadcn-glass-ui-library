@@ -1,0 +1,43 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "avatar-glass",
+  "type": "registry:ui",
+  "title": "Avatar Glass",
+  "description": "Glass-themed avatar with:",
+  "dependencies": [
+    "@radix-ui/react-slot",
+    "class-variance-authority",
+    "react"
+  ],
+  "registryDependencies": [
+    "cn",
+    "use-hover",
+    "variants"
+  ],
+  "files": [
+    {
+      "path": "components/glass/ui/avatar-glass.tsx",
+      "type": "registry:component",
+      "content": "/**\n * AvatarGlass Component\n *\n * Glass-themed avatar with:\n * - Theme-aware styling (glass/light/aurora)\n * - Glow effect on hover\n * - Status indicator with glow\n * - Size variants\n */\n\nimport { forwardRef, type CSSProperties } from 'react';\nimport { Slot } from '@radix-ui/react-slot';\nimport { type VariantProps } from 'class-variance-authority';\nimport { cn } from '@/lib/utils';\nimport { useHover } from '@/lib/hooks/use-hover';\nimport { avatarSizes, statusSizes } from '@/lib/variants/avatar-glass-variants';\nimport '@/glass-theme.css';\n\n// ========================================\n// TYPES\n// ========================================\n\n/**\n * Avatar status indicator type\n */\nexport type AvatarStatus = 'online' | 'offline' | 'busy' | 'away';\n\n// ========================================\n// PROPS INTERFACE\n// ========================================\n\n/**\n * Props for the AvatarGlass component\n *\n * A glass-themed avatar component with status indicators and size variants.\n * Displays user initials with theme-aware styling and optional status badge.\n *\n * @example\n * ```tsx\n * // Basic avatar\n * <AvatarGlass name=\"John Doe\" />\n *\n * // With status indicator\n * <AvatarGlass name=\"Jane Smith\" status=\"online\" size=\"lg\" />\n *\n * // Different sizes\n * <AvatarGlass name=\"Alex\" size=\"sm\" />\n * <AvatarGlass name=\"Sam\" size=\"xl\" />\n *\n * // As a link (asChild pattern)\n * <AvatarGlass asChild name=\"Sarah Connor\" status=\"online\">\n *   <a href=\"/profile/sarah\">View Profile</a>\n * </AvatarGlass>\n * ```\n */\nexport interface AvatarGlassProps\n  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'style'>,\n    VariantProps<typeof avatarSizes> {\n  /**\n   * Render as child element instead of div (polymorphic rendering).\n   * Useful for making avatars clickable links.\n   * @default false\n   * @example\n   * ```tsx\n   * <AvatarGlass asChild name=\"John\">\n   *   <a href=\"/profile\">View Profile</a>\n   * </AvatarGlass>\n   * ```\n   */\n  readonly asChild?: boolean;\n\n  /**\n   * Full name of the user. Automatically generates initials (first 2 letters).\n   * @example \"John Doe\" → \"JD\"\n   */\n  readonly name: string;\n\n  /**\n   * Optional status indicator with glow effect\n   * @default undefined\n   */\n  readonly status?: AvatarStatus;\n\n  /**\n   * Size variant of the avatar\n   * @default \"md\"\n   */\n  readonly size?: 'sm' | 'md' | 'lg' | 'xl';\n}\n\n// ========================================\n// HELPERS\n// ========================================\n\nconst getInitials = (name: string): string => {\n  if (!name || name.trim().length === 0) return '?';\n  return name\n    .split(' ')\n    .map((part) => part[0])\n    .join('')\n    .toUpperCase()\n    .slice(0, 2);\n};\n\n// ========================================\n// COMPONENT\n// ========================================\n\n// Status colors mapping to CSS variables\nconst getStatusVars = (statusType: AvatarStatus): { bg: string; glow: string } => {\n  const statusVars: Record<AvatarStatus, { bg: string; glow: string }> = {\n    online: { bg: 'var(--status-online)', glow: 'var(--status-online-glow)' },\n    offline: { bg: 'var(--status-offline)', glow: 'none' },\n    busy: { bg: 'var(--status-busy)', glow: 'var(--status-busy-glow)' },\n    away: { bg: 'var(--status-away)', glow: 'var(--status-away-glow)' },\n  };\n  return statusVars[statusType];\n};\n\nexport const AvatarGlass = forwardRef<HTMLDivElement, AvatarGlassProps>(\n  ({ asChild = false, name, size = 'md', status, className, ...props }, ref) => {\n    const { isHovered, hoverProps } = useHover();\n\n    const avatarStyles: CSSProperties = {\n      background: 'var(--avatar-bg)',\n      border: '2px solid var(--avatar-border)',\n      boxShadow: isHovered ? 'var(--avatar-hover-glow)' : 'var(--avatar-shadow)',\n      color: '#ffffff',\n    };\n\n    const initials = getInitials(name);\n\n    // Polymorphic component - render as Slot when asChild is true\n    const Comp = asChild ? Slot : 'div';\n\n    return (\n      <Comp\n        ref={ref}\n        className={cn('relative inline-flex', className)}\n        onMouseEnter={hoverProps.onMouseEnter}\n        onMouseLeave={hoverProps.onMouseLeave}\n        {...props}\n      >\n        {/* Avatar circle */}\n        <div\n          className={cn(avatarSizes({ size }))}\n          style={avatarStyles}\n          role=\"img\"\n          aria-label={`Avatar for ${name}`}\n        >\n          {initials}\n        </div>\n\n        {/* Status indicator */}\n        {status && (\n          <span\n            className={cn(statusSizes({ size }))}\n            style={{\n              background: getStatusVars(status).bg,\n              boxShadow: getStatusVars(status).glow,\n            }}\n            role=\"status\"\n            aria-label={`Status: ${status}`}\n          />\n        )}\n      </Comp>\n    );\n  }\n);\n\nAvatarGlass.displayName = 'AvatarGlass';\n"
+    }
+  ],
+  "categories": [
+    "ui"
+  ],
+  "cssVars": {
+    "light": {
+      "--glass-bg": "rgba(255, 255, 255, 0.1)",
+      "--glass-border": "rgba(255, 255, 255, 0.2)",
+      "--blur-sm": "8px",
+      "--blur-md": "16px",
+      "--blur-lg": "24px"
+    },
+    "dark": {
+      "--glass-bg": "rgba(255, 255, 255, 0.05)",
+      "--glass-border": "rgba(255, 255, 255, 0.1)",
+      "--blur-sm": "8px",
+      "--blur-md": "16px",
+      "--blur-lg": "24px"
+    }
+  }
+}

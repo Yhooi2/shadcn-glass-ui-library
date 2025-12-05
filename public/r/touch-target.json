@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "touch-target",
+  "type": "registry:lib",
+  "title": "Touch Target",
+  "description": "Ensures minimum touch target size compliance with Apple Human Interface Guidelines.\n * Wraps interactive elements to guarantee accessibility on touch devices.\n *\n * Apple HIG recommends minimum 44×44pt (44×44px) touch targets.\n * Material Design recommends 48×48dp for better accessibility.\n *\n * @see https://developer.apple.com/design/human-interface-guidelines/layout",
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "components/glass/primitives/touch-target.tsx",
+      "type": "registry:lib",
+      "content": "/**\n * TouchTarget Component\n *\n * Ensures minimum touch target size compliance with Apple Human Interface Guidelines.\n * Wraps interactive elements to guarantee accessibility on touch devices.\n *\n * Apple HIG recommends minimum 44×44pt (44×44px) touch targets.\n * Material Design recommends 48×48dp for better accessibility.\n *\n * @see https://developer.apple.com/design/human-interface-guidelines/layout\n */\n\nimport { forwardRef, type ReactNode, type HTMLAttributes } from 'react';\nimport { cn } from '@/lib/utils';\n\n/**\n * Props for the TouchTarget component\n */\nexport interface TouchTargetProps extends HTMLAttributes<HTMLDivElement> {\n  /**\n   * Child element(s) to wrap with touch target\n   */\n  children: ReactNode;\n\n  /**\n   * Minimum touch target size in pixels\n   * @default 44 - Apple HIG minimum\n   */\n  minSize?: 44 | 48;\n\n  /**\n   * Center content within touch target\n   * @default true\n   */\n  center?: boolean;\n}\n\n/**\n * TouchTarget wrapper component\n *\n * Ensures interactive elements meet accessibility standards for touch devices.\n * Automatically applies minimum dimensions and optional centering.\n *\n * @example\n * ```tsx\n * // Basic usage with default 44px minimum\n * <TouchTarget>\n *   <button className=\"w-8 h-8\">×</button>\n * </TouchTarget>\n *\n * // Material Design 48px minimum\n * <TouchTarget minSize={48}>\n *   <Checkbox />\n * </TouchTarget>\n *\n * // Custom alignment\n * <TouchTarget center={false} className=\"justify-start\">\n *   <IconButton />\n * </TouchTarget>\n * ```\n */\nexport const TouchTarget = forwardRef<HTMLDivElement, TouchTargetProps>(\n  ({ children, minSize = 44, center = true, className, ...props }, ref) => {\n    // Map minSize to Tailwind classes\n    // 44px = 11 × 4px (min-h-11, min-w-11)\n    // 48px = 12 × 4px (min-h-12, min-w-12)\n    const sizeClass = minSize === 44 ? 'min-h-11 min-w-11' : 'min-h-12 min-w-12';\n\n    return (\n      <div\n        ref={ref}\n        className={cn(\n          sizeClass,\n          center && 'flex items-center justify-center',\n          className\n        )}\n        {...props}\n      >\n        {children}\n      </div>\n    );\n  }\n);\n\nTouchTarget.displayName = 'TouchTarget';\n"
+    }
+  ],
+  "categories": [
+    "primitives"
+  ]
+}
