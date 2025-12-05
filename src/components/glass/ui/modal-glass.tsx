@@ -1,5 +1,5 @@
 /**
- * ModalGlass Component
+ * ModalGlass Component (Compound API only)
  *
  * Glass-themed modal with:
  * - Theme-aware styling (glass/light/aurora)
@@ -8,22 +8,9 @@
  * - Click outside to close
  * - Body scroll lock
  * - Size variants
- * - **NEW**: Compound component API for advanced composition
+ * - Compound component API for advanced composition
  *
  * @example
- * Legacy API (still supported):
- * ```tsx
- * <ModalGlass
- *   isOpen={open}
- *   onClose={() => setOpen(false)}
- *   title="Confirm"
- * >
- *   <p>Content</p>
- * </ModalGlass>
- * ```
- *
- * @example
- * New Compound API:
  * ```tsx
  * <ModalGlass.Root open={open} onOpenChange={setOpen}>
  *   <ModalGlass.Overlay />
@@ -42,6 +29,8 @@
  *   </ModalGlass.Content>
  * </ModalGlass.Root>
  * ```
+ *
+ * @since v1.0.0 - Legacy API removed (isOpen/onClose/title props)
  */
 
 import {
@@ -402,54 +391,33 @@ const ModalClose: FC<ModalCloseProps> = ({ className }) => {
 };
 
 // ========================================
-// LEGACY COMPONENT (BACKWARD COMPATIBLE)
+// EXPORT COMPOUND COMPONENT (v1.0.0+)
 // ========================================
 
 /**
- * Props for the legacy ModalGlass API
+ * ModalGlass - Compound Component API
  *
- * @deprecated Use the compound component API (ModalGlass.Root, ModalGlass.Content, etc.) for better composition.
- * Legacy API is still supported but compound API is recommended for new code.
+ * @example
+ * ```tsx
+ * <ModalGlass.Root open={open} onOpenChange={setOpen}>
+ *   <ModalGlass.Overlay />
+ *   <ModalGlass.Content>
+ *     <ModalGlass.Header>
+ *       <ModalGlass.Title>Confirm</ModalGlass.Title>
+ *       <ModalGlass.Description>Are you sure?</ModalGlass.Description>
+ *       <ModalGlass.Close />
+ *     </ModalGlass.Header>
+ *     <ModalGlass.Body>
+ *       <p>Body content</p>
+ *     </ModalGlass.Body>
+ *     <ModalGlass.Footer>
+ *       <ButtonGlass>Cancel</ButtonGlass>
+ *     </ModalGlass.Footer>
+ *   </ModalGlass.Content>
+ * </ModalGlass.Root>
+ * ```
  */
-export interface ModalGlassProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'>,
-    VariantProps<typeof modalSizes> {
-  readonly isOpen: boolean;
-  readonly onClose: () => void;
-  readonly title: string;
-  readonly children: React.ReactNode;
-}
-
-const LegacyModalGlass = forwardRef<HTMLDivElement, ModalGlassProps>(
-  ({ isOpen, onClose, title, children, size = 'md', className, id, ...props }, ref) => {
-    return (
-      <ModalRoot
-        open={isOpen}
-        onOpenChange={(open) => !open && onClose()}
-        size={size || 'md'}
-        id={id}
-        {...(props as React.HTMLAttributes<HTMLDivElement>)}
-      >
-        <ModalOverlay />
-        <ModalContent ref={ref} className={className}>
-          <ModalHeader>
-            <ModalTitle>{title}</ModalTitle>
-            <ModalClose />
-          </ModalHeader>
-          <ModalBody>{children}</ModalBody>
-        </ModalContent>
-      </ModalRoot>
-    );
-  }
-);
-
-LegacyModalGlass.displayName = 'ModalGlass';
-
-// ========================================
-// EXPORT COMPOUND COMPONENT
-// ========================================
-
-export const ModalGlass = Object.assign(LegacyModalGlass, {
+export const ModalGlass = {
   Root: ModalRoot,
   Overlay: ModalOverlay,
   Content: ModalContent,
@@ -459,4 +427,4 @@ export const ModalGlass = Object.assign(LegacyModalGlass, {
   Title: ModalTitle,
   Description: ModalDescription,
   Close: ModalClose,
-});
+};

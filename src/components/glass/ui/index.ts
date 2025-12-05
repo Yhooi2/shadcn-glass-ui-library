@@ -39,7 +39,6 @@ export { InputGlass } from './input-glass';
 export type { InputGlassProps } from './input-glass';
 
 export { ModalGlass } from './modal-glass';
-export type { ModalGlassProps } from './modal-glass';
 
 export { NotificationGlass } from './notification-glass';
 export type { NotificationGlassProps } from './notification-glass';
@@ -54,7 +53,6 @@ export { SliderGlass } from './slider-glass';
 export type { SliderGlassProps } from './slider-glass';
 
 export { TabsGlass } from './tabs-glass';
-export type { TabsGlassProps } from './tabs-glass';
 
 export { ToggleGlass } from './toggle-glass';
 export type { ToggleGlassProps } from './toggle-glass';

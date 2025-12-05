@@ -1,27 +1,13 @@
 /**
- * TabsGlass Component
+ * TabsGlass Component (Compound API only)
  *
  * Glass-themed tab navigation with:
  * - Theme-aware styling (glass/light/aurora)
  * - Active tab indicator
  * - Smooth transitions
- * - **NEW**: Compound component API for advanced composition
+ * - Compound component API for advanced composition
  *
  * @example
- * Legacy API (still supported):
- * ```tsx
- * <TabsGlass
- *   tabs={[
- *     { id: 'overview', label: 'Overview' },
- *     { id: 'analytics', label: 'Analytics' }
- *   ]}
- *   activeTab={activeTab}
- *   onChange={setActiveTab}
- * />
- * ```
- *
- * @example
- * New Compound API:
  * ```tsx
  * <TabsGlass.Root value={activeTab} onValueChange={setActiveTab}>
  *   <TabsGlass.List>
@@ -40,6 +26,8 @@
  *   </TabsGlass.Content>
  * </TabsGlass.Root>
  * ```
+ *
+ * @since v1.0.0 - Legacy API removed (tabs/activeTab/onChange props)
  */
 
 import {
@@ -226,47 +214,33 @@ const TabsContent: FC<TabsContentProps> = ({ value, children, className }) => {
 };
 
 // ========================================
-// LEGACY COMPONENT (BACKWARD COMPATIBLE)
+// EXPORT COMPOUND COMPONENT (v1.0.0+)
 // ========================================
 
 /**
- * Props for the legacy TabsGlass API
+ * TabsGlass - Compound Component API
  *
- * @deprecated Use the compound component API (TabsGlass.Root, TabsGlass.List, etc.) for better composition.
- * Legacy API is still supported but compound API is recommended for new code.
+ * @example
+ * ```tsx
+ * <TabsGlass.Root value={activeTab} onValueChange={setActiveTab}>
+ *   <TabsGlass.List>
+ *     <TabsGlass.Trigger value="tab1">Overview</TabsGlass.Trigger>
+ *     <TabsGlass.Trigger value="tab2">Analytics</TabsGlass.Trigger>
+ *   </TabsGlass.List>
+ *   <TabsGlass.Content value="tab1">
+ *     <p>Overview content</p>
+ *   </TabsGlass.Content>
+ *   <TabsGlass.Content value="tab2">
+ *     <p>Analytics content</p>
+ *   </TabsGlass.Content>
+ * </TabsGlass.Root>
+ * ```
+ *
+ * @since v1.0.0 - Legacy API removed (tabs/activeTab/onChange props)
  */
-export interface TabsGlassProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
-  readonly tabs: readonly TabItem[];
-  readonly activeTab: string;
-  readonly onChange: (tabId: string) => void;
-}
-
-const LegacyTabsGlass = forwardRef<HTMLDivElement, TabsGlassProps>(
-  ({ className, tabs, activeTab, onChange, ...props }, ref) => {
-    return (
-      <TabsRoot value={activeTab} onValueChange={onChange}>
-        <TabsList ref={ref} className={className} {...props}>
-          {tabs.map((tab) => (
-            <TabsTrigger key={tab.id} value={tab.id}>
-              {tab.label}
-            </TabsTrigger>
-          ))}
-        </TabsList>
-      </TabsRoot>
-    );
-  }
-);
-
-LegacyTabsGlass.displayName = 'TabsGlass';
-
-// ========================================
-// EXPORT COMPOUND COMPONENT
-// ========================================
-
-export const TabsGlass = Object.assign(LegacyTabsGlass, {
+export const TabsGlass = {
   Root: TabsRoot,
   List: TabsList,
   Trigger: TabsTrigger,
   Content: TabsContent,
-});
+};
