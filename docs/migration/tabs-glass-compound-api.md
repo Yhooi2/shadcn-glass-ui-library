@@ -1,8 +1,7 @@
 # TabsGlass Compound API Migration Guide
 
-**Version:** v3.x → v4.0
-**Status:** Both APIs supported (Legacy + Compound)
-**Timeline:** Legacy API will be deprecated in v4.0 (6+ months)
+**Version:** v1.0.0
+**Status:** ⚠️ Legacy API removed - Compound API only
 
 ---
 
@@ -21,7 +20,7 @@ The new **Compound Component API** provides:
 
 ## API Comparison
 
-### Legacy API (Still Supported)
+### Legacy API (Removed in v1.0.0)
 
 ```tsx
 <TabsGlass
@@ -451,11 +450,10 @@ const dynamicTabs = projects.map(p => ({
 
 | Version | Status | Notes |
 |---------|--------|-------|
-| **v3.x** | ✅ Both APIs supported | Legacy API fully functional |
-| **v4.0** | ⚠️ Legacy deprecated | Deprecation warnings in dev mode |
-| **v5.0** | 🔥 Legacy removed | Only Compound API available |
+| **v0.x** | ✅ Both APIs supported | Legacy API fully functional |
+| **v1.0.0** | 🔥 Legacy removed | Only Compound API available |
 
-**Recommended:** Migrate to Compound API for new code starting today.
+**Note:** Legacy API was removed in v1.0.0. Use the Compound API as shown above.
 
 ---
 

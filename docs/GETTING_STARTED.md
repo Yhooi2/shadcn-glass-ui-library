@@ -498,7 +498,7 @@ export default function Dashboard() {
 
 ### Learn the Design System
 
-Read [UI_DIZINE.md](../UI_DIZINE.md) to understand:
+Read [UI_DESIGN.md](design-system/UI_DESIGN.md) to understand:
 - Design tokens and spacing
 - Touch target requirements
 - Accessibility guidelines

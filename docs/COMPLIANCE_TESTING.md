@@ -73,7 +73,7 @@ src/test/
       touch-targets.compliance.test.tsx # 44x44px minimum
       focus-states.compliance.test.tsx  # Double-outline technique
   utils/
-    design-tokens.ts           # Token definitions from UI_DIZINE.md
+    design-tokens.ts           # Token definitions from UI_DESIGN.md
     spacing-validator.ts       # 8px grid checker
     contrast-checker.ts        # WCAG contrast calculator
     blur-validator.ts          # Glassmorphism property parser

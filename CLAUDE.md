@@ -206,9 +206,9 @@ Thanks to the modern stack:
 
 The library maintains full compatibility with shadcn/ui component APIs while providing extended Glass UI variants.
 
-### ⚠️ Breaking Changes (v3.x)
+### ⚠️ Breaking Changes (v1.0.0)
 
-**IMPORTANT:** The following legacy APIs have been removed in v3.x. Update your code before upgrading.
+**IMPORTANT:** The following legacy APIs have been removed in v1.0.0. Update your code before upgrading.
 
 #### 1. ButtonGlass
 - **Removed:** `variant="danger"`
@@ -216,7 +216,7 @@ The library maintains full compatibility with shadcn/ui component APIs while pro
 - **Migration:** Replace all `danger` → `destructive`
 
 ```tsx
-// ❌ Removed in v3.x
+// ❌ Removed in v1.0.0
 <ButtonGlass variant="danger">Delete</ButtonGlass>
 
 // ✅ Current API
@@ -233,7 +233,7 @@ The library maintains full compatibility with shadcn/ui component APIs while pro
   - `type="warning"` → `variant="warning"`
 
 ```tsx
-// ❌ Removed in v3.x
+// ❌ Removed in v1.0.0
 <AlertGlass type="error" title="Error">Message</AlertGlass>
 
 // ✅ Current API
@@ -246,23 +246,22 @@ The library maintains full compatibility with shadcn/ui component APIs while pro
 - **Same mapping as AlertGlass** (see above)
 
 ```tsx
-// ❌ Removed in v3.x
+// ❌ Removed in v1.0.0
 <NotificationGlass type="info" title="Info" message="..." onClose={() => {}} />
 
 // ✅ Current API
 <NotificationGlass variant="default" title="Info" message="..." onClose={() => {}} />
 ```
 
-#### 4. SelectGlass (Deprecated)
-- **Status:** Deprecated in v3.x, will be removed in v4.0
+#### 4. SelectGlass (Removed)
+- **Status:** Removed in v1.0.0
 - **Migration:** Use `ComboBoxGlass` instead
-- **Timeline:** 6+ months until removal
 
 ```tsx
-// ⚠️ Deprecated (works in v3.x)
+// ❌ Removed in v1.0.0
 <SelectGlass options={...} value={...} onChange={...} />
 
-// ✅ Recommended
+// ✅ Use ComboBoxGlass
 <ComboBoxGlass options={...} value={...} onChange={...} />
 ```
 
@@ -283,7 +282,7 @@ The library maintains full compatibility with shadcn/ui component APIs while pro
 <BadgeGlass variant="success">Success</BadgeGlass>
 ```
 
-#### AlertGlass (Updated in v3.x)
+#### AlertGlass (Updated in v1.0.0)
 - **shadcn/ui variants:** `default`, `destructive`
 - **Extended variants:** `success`, `warning`
 - **Prop name:** `variant` (not `type`)
@@ -296,7 +295,7 @@ The library maintains full compatibility with shadcn/ui component APIs while pro
 <AlertGlass variant="success" title="Success">Operation completed</AlertGlass>
 ```
 
-#### NotificationGlass (Updated in v3.x)
+#### NotificationGlass (Updated in v1.0.0)
 - **shadcn/ui variants:** `default`, `destructive`
 - **Extended variants:** `success`, `warning`
 - **Prop name:** `variant` (not `type`)

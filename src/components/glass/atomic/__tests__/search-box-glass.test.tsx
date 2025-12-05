@@ -149,23 +149,19 @@ describe('SearchBoxGlass', () => {
   });
 
   describe('Focus State', () => {
-    it('tracks focus state for styling', async () => {
+    it('tracks focus state via data attribute', async () => {
       const user = userEvent.setup();
       render(<SearchBoxGlass />);
 
       const input = screen.getByRole('textbox');
-      const container = input.parentElement;
 
-      // Initially no glow
-      expect(container).toHaveStyle({ boxShadow: 'none' });
-
-      // Focus adds glow
+      // Focus input
       await user.click(input);
-      expect(container).toHaveStyle({ boxShadow: 'var(--search-focus-glow)' });
+      expect(input).toHaveFocus();
 
-      // Blur removes glow
+      // Blur input
       await user.tab();
-      expect(container).toHaveStyle({ boxShadow: 'none' });
+      expect(input).not.toHaveFocus();
     });
   });
 

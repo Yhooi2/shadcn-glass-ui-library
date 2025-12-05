@@ -340,7 +340,7 @@ Comprehensive audit of shadcn-glass-ui-library before proceeding to Phase 4 (Reg
 2. **SelectGlass HTML Validation Warning**
    - Status: Deprecated component
    - Impact: Dev-only warning
-   - Resolution: Component will be removed in v4.0
+   - Resolution: Component removed in v1.0.0 (use ComboBoxGlass)
 
 ### Technical Debt
 1. Integration tests missing (modal cycles, theme switching)

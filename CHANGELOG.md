@@ -101,10 +101,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### 📚 Documentation
 
-- Added comprehensive legacy API audit ([LEGACY_AUDIT.md](LEGACY_AUDIT.md))
-- Created cleanup plan with automation scripts ([CLEANUP_PLAN.md](CLEANUP_PLAN.md))
+- Completed comprehensive legacy API audit and cleanup
 - Added Phase 1 and Phase 2 migration completion reports
-- Created legacy cleanup guide ([docs/LEGACY_CLEANUP_README.md](docs/LEGACY_CLEANUP_README.md))
+- Updated migration guides in [docs/migration/](docs/migration/)
 
 ### ✅ Tests
 

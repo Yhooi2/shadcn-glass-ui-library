@@ -2,7 +2,7 @@
 
 **Date:** 2025-12-04
 **Version:** TBD (pending release)
-**Reason:** Migration to design token system compliance per UI_DIZINE.md
+**Reason:** Migration to design token system compliance per UI_DESIGN.md
 
 ## Overview
 
@@ -43,7 +43,7 @@ All hardcoded blur values have been replaced with CSS design tokens to ensure co
 
 **Changes:**
 - **Removed** `backdropFilter` blur effect entirely
-- Now uses solid background per UI_DIZINE.md design rule
+- Now uses solid background per UI_DESIGN.md design rule
 
 **Impact:**
 - Tooltips now have solid backgrounds instead of glass effect
@@ -161,7 +161,7 @@ npm run test:compliance:source
 
 ## Design Rationale
 
-All changes align with UI_DIZINE.md design token system:
+All changes align with UI_DESIGN.md design token system:
 
 ```
 Blur Scale (primitives.css):

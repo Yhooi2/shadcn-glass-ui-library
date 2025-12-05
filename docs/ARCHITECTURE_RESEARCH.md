@@ -1,7 +1,7 @@
 # Architecture Research: shadcn/ui Design System
 
 > **Note:** This document is an architectural research study conducted during the initial design phase.
-> For the authoritative design specifications, see [UI_DIZINE.md](../UI_DIZINE.md).
+> For the authoritative design specifications, see [UI_DESIGN.md](design-system/UI_DESIGN.md).
 >
 > **Date:** December 2024
 

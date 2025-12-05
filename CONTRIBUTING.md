@@ -64,7 +64,7 @@ This project and everyone participating in it is governed by our Code of Conduct
 
 1. **Read the design system**
 
-   Familiarize yourself with [UI_DIZINE.md](UI_DIZINE.md) for design specifications:
+   Familiarize yourself with [UI_DESIGN.md](docs/design-system/UI_DESIGN.md) for design specifications:
    - Spacing: 8px base grid
    - Typography: 16px minimum for inputs (iOS)
    - Touch targets: 44×44px minimum (Apple HIG)
@@ -253,7 +253,7 @@ const ButtonGlass = (props) => {
 
 ### CSS/Tailwind
 
-- ✅ **Design Tokens**: Use tokens from UI_DIZINE.md
+- ✅ **Design Tokens**: Use tokens from UI_DESIGN.md
 - ✅ **Utility Classes**: Prefer Tailwind utilities over custom CSS
 - ✅ **CVA Variants**: Use `class-variance-authority` for variants
 - ✅ **cn() Utility**: Use `cn()` for className merging
@@ -473,7 +473,7 @@ Closes #123
 
 Before submitting a new component, ensure:
 
-- [ ] Follows UI_DIZINE.md specifications
+- [ ] Follows UI_DESIGN.md specifications
 - [ ] Supports all 3 themes (glass, light, aurora)
 - [ ] WCAG 2.1 AA compliant
 - [ ] Keyboard navigation works
@@ -491,7 +491,7 @@ Always use design tokens instead of hardcoded values:
 
 ```tsx
 // ✅ Good - Using tokens
-className="backdrop-blur-md"    // 16px per UI_DIZINE.md
+className="backdrop-blur-md"    // 16px per UI_DESIGN.md
 className="p-6"                 // 24px (STANDARD_CARDS)
 className="rounded-2xl"         // 16px border radius
 className="min-h-[44px]"        // Touch target

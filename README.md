@@ -17,7 +17,7 @@
 - ⚡ **Modern Stack** - React 19, Tailwind v4, Vitest 4, Storybook 10, Vite 7
 - 🧪 **704 Tests** - 125 unit tests + 579 visual regression (99.5% passing)
 - 📦 **shadcn Compatible** - Works seamlessly with existing shadcn/ui projects
-- 🎯 **Design System** - Comprehensive [UI_DIZINE.md](UI_DIZINE.md) specifications
+- 🎯 **Design System** - Comprehensive [UI_DESIGN.md](docs/design-system/UI_DESIGN.md) specifications
 - 📦 **Bundle Size** - ~110KB gzipped (production build)
 
 ## Tech Stack
@@ -295,7 +295,7 @@ See [CHANGELOG.md](CHANGELOG.md) for complete version history and breaking chang
 
 - **[Getting Started Guide](docs/GETTING_STARTED.md)** - Comprehensive setup tutorial
 - **[Storybook](https://yourusername.github.io/shadcn-glass-ui/)** - Live component demos
-- **[UI Design System](UI_DIZINE.md)** - Complete design specifications
+- **[UI Design System](docs/design-system/UI_DESIGN.md)** - Complete design specifications
 - **[Migration Guide](MIGRATION_GUIDE.md)** - Upgrading from v1
 - **[Breaking Changes](BREAKING_CHANGES.md)** - API changes log
 - **[Dependencies](DEPENDENCIES.md)** - Detailed dependency docs
@@ -635,7 +635,7 @@ shadcn-glass-ui/
 │       └── utils/            # Test utilities
 ├── .storybook/               # Storybook config
 ├── docs/                     # Documentation
-├── UI_DIZINE.md             # Design system spec
+├── docs/design-system/UI_DESIGN.md  # Design system spec
 └── package.json
 ```
 

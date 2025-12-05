@@ -1,14 +1,13 @@
 # SelectGlass → ComboBoxGlass Migration Guide
 
-**Version:** v3.x → v4.0
-**Status:** ⚠️ SelectGlass deprecated in v3.x, will be removed in v4.0
-**Timeline:** 6+ months until removal
+**Version:** v1.0.0
+**Status:** ⚠️ SelectGlass removed in v1.0.0
 
 ---
 
 ## ⚠️ Important Notice
 
-**SelectGlass is deprecated** and will be removed in v4.0 (estimated 6+ months from now).
+**SelectGlass has been removed** in v1.0.0.
 
 Please migrate to **ComboBoxGlass** which provides:
 - ✅ Better performance (uses shadcn/ui Command component)
@@ -332,13 +331,12 @@ rg "SelectGlass" --files-with-matches
 
 ## Timeline
 
-| Date | Event |
-|------|-------|
-| **v3.5** | SelectGlass deprecated (current) |
-| **v3.9** | Last version with SelectGlass |
-| **v4.0** | SelectGlass removed (6+ months) |
+| Version | Event |
+|---------|-------|
+| **v0.x** | SelectGlass available |
+| **v1.0.0** | SelectGlass removed |
 
-**Action Required:** Migrate before v4.0 release
+**Action Required:** Use ComboBoxGlass instead
 
 ---
 
@@ -359,8 +357,8 @@ If you encounter issues:
 git revert <commit-hash>
 ```
 
-### Option 2: Keep SelectGlass Temporarily
-SelectGlass still works in v3.x - you have time to migrate gradually.
+### Option 2: Pin to v0.x
+If you need more time to migrate, pin to version 0.x temporarily.
 
 ---
 
@@ -370,13 +368,13 @@ SelectGlass still works in v3.x - you have time to migrate gradually.
 **A:** ComboBoxGlass is a superior implementation using shadcn/ui Command. Maintaining both components is redundant and increases bundle size.
 
 ### Q: Will my code break immediately?
-**A:** No. SelectGlass works in v3.x. You have 6+ months to migrate before v4.0.
+**A:** Yes, in v1.0.0. SelectGlass has been removed. Migrate to ComboBoxGlass.
 
 ### Q: Is the API exactly the same?
 **A:** 95% identical. Main difference: `searchable` defaults to `true` in ComboBoxGlass.
 
 ### Q: Can I use both components during migration?
-**A:** Yes. Gradually migrate file-by-file. Both work in v3.x.
+**A:** No. In v1.0.0, only ComboBoxGlass is available. Pin to v0.x if you need gradual migration.
 
 ### Q: What if I find a bug in ComboBoxGlass?
 **A:** Report it! We'll fix it. ComboBoxGlass is actively maintained.
@@ -384,5 +382,5 @@ SelectGlass still works in v3.x - you have time to migrate gradually.
 ---
 
 **Last updated:** 2025-12-05
-**Status:** ⚠️ SelectGlass deprecated in v3.x
-**Removal:** v4.0 (estimated 6+ months)
+**Status:** SelectGlass removed in v1.0.0
+**Migration:** Use ComboBoxGlass

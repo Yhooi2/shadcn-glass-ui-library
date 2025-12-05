@@ -82,7 +82,7 @@ Could not capture a stable screenshot within 5000ms
 **Location:** `select-glass.tsx:337` (Clear button inside trigger button)
 
 **Resolution:**
-- SelectGlass is deprecated (v4.0 removal)
+- SelectGlass removed in v1.0.0 (use ComboBoxGlass)
 - No action required - component will be removed
 - Users should migrate to ComboBoxGlass
 - Visual tests pass despite warning
@@ -157,8 +157,8 @@ src/components/__visual__/
 3. Investigate Playwright screenshot stabilization options
 4. Add visual test coverage metrics to CI
 
-### Long-term (v4.0)
-1. Remove SelectGlass (deprecated)
+### Long-term (Future versions)
+1. SelectGlass removed in v1.0.0
 2. Migrate all dropdown components to unified API
 3. Add visual regression dashboard
 4. Implement visual diff reporting in PRs

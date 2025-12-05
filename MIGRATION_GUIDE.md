@@ -335,7 +335,7 @@ const styles = {
 
 **Symptom:** Tooltip text hard to read on busy backgrounds.
 
-**Reason:** Tooltips now use solid backgrounds per UI_DIZINE.md.
+**Reason:** Tooltips now use solid backgrounds per UI_DESIGN.md.
 
 **Solution:** This is correct behavior! Tooltips MUST be highly readable. If contrast is still low:
 
@@ -456,7 +456,7 @@ After successful migration:
 2. ✅ Visual tests updated
 3. ✅ Storybook renders correctly
 4. ✅ Cross-browser testing complete
-5. 🎉 You're compliant with UI_DIZINE.md design system!
+5. 🎉 You're compliant with UI_DESIGN.md design system!
 
 **Continuous Compliance:**
 
