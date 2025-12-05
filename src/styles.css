@@ -1,0 +1,10 @@
+/* ========================================
+   SHADCN GLASS UI - AGGREGATED STYLES
+   Main CSS entry point for npm package
+   ======================================== */
+
+/* Tailwind CSS */
+@import "./index.css";
+
+/* Glass UI Design System */
+@import "./glass-theme.css";

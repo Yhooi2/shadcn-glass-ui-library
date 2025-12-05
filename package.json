@@ -1,11 +1,108 @@
 {
-  "name": "shadcn-ui-library",
-  "private": true,
+  "name": "shadcn-glass-ui",
+  "private": false,
   "version": "1.0.0",
+  "description": "Modern glassmorphism UI component library for React with full shadcn/ui compatibility",
+  "author": "Yhooi2",
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "ui",
+    "glassmorphism",
+    "shadcn",
+    "tailwind",
+    "components",
+    "design-system",
+    "typescript"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yhooi2/shadcn-glass-ui-library.git"
+  },
+  "homepage": "https://yhooi2.github.io/shadcn-glass-ui-library/",
+  "bugs": "https://github.com/Yhooi2/shadcn-glass-ui-library/issues",
   "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./components": {
+      "import": {
+        "types": "./dist/components.d.ts",
+        "default": "./dist/components.js"
+      },
+      "require": {
+        "types": "./dist/components.d.ts",
+        "default": "./dist/components.cjs"
+      }
+    },
+    "./hooks": {
+      "import": {
+        "types": "./dist/hooks.d.ts",
+        "default": "./dist/hooks.js"
+      },
+      "require": {
+        "types": "./dist/hooks.d.ts",
+        "default": "./dist/hooks.cjs"
+      }
+    },
+    "./utils": {
+      "import": {
+        "types": "./dist/utils.d.ts",
+        "default": "./dist/utils.js"
+      },
+      "require": {
+        "types": "./dist/utils.d.ts",
+        "default": "./dist/utils.cjs"
+      }
+    },
+    "./themes": {
+      "import": {
+        "types": "./dist/themes.d.ts",
+        "default": "./dist/themes.js"
+      },
+      "require": {
+        "types": "./dist/themes.d.ts",
+        "default": "./dist/themes.cjs"
+      }
+    },
+    "./styles.css": "./dist/styles.css"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0",
+    "tailwindcss": "^4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "tailwindcss": {
+      "optional": false
+    }
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:lib": "vite build --config vite.config.lib.ts",
+    "build:types": "tsc --project tsconfig.build.json",
+    "prepublishOnly": "npm run build:lib",
     "lint": "eslint .",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
@@ -51,11 +148,9 @@
     "lucide-react": "^0.555.0",
     "next-themes": "^0.4.6",
     "postcss": "^8.5.6",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.4.0",
-    "tailwindcss": "^4.1.17"
+    "tailwindcss": "^4.0.0"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^4.1.3",
@@ -83,6 +178,8 @@
     "jsdom": "^27.2.0",
     "playwright": "^1.57.0",
     "prettier": "3.7.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "sass": "^1.94.2",
     "shadcn": "^3.5.0",
     "storybook": "^10.1.0",
@@ -90,6 +187,7 @@
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4",
     "vite": "npm:rolldown-vite@7.2.5",
+    "vite-plugin-dts": "^4.5.4",
     "vitest": "^4.0.14"
   },
   "overrides": {
