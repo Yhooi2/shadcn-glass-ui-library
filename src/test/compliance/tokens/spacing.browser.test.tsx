@@ -241,18 +241,20 @@ describe('Spacing Compliance Tests', () => {
   describe('Modal Spacing Compliance', () => {
     describe.each(THEMES)('Theme: %s', (theme) => {
       it('Modal has correct padding structure', () => {
-        const onClose = () => {};
-
         render(
           <ThemeTestWrapper theme={theme}>
-            <ModalGlass
-              isOpen={true}
-              onClose={onClose}
-              title="Test Modal"
-              data-testid="test-modal"
-            >
-              <div data-testid="modal-content">Content</div>
-            </ModalGlass>
+            <ModalGlass.Root open={true} onOpenChange={() => {}}>
+              <ModalGlass.Overlay />
+              <ModalGlass.Content data-testid="test-modal">
+                <ModalGlass.Header>
+                  <ModalGlass.Title>Test Modal</ModalGlass.Title>
+                  <ModalGlass.Close />
+                </ModalGlass.Header>
+                <ModalGlass.Body>
+                  <div data-testid="modal-content">Content</div>
+                </ModalGlass.Body>
+              </ModalGlass.Content>
+            </ModalGlass.Root>
           </ThemeTestWrapper>
         );
 

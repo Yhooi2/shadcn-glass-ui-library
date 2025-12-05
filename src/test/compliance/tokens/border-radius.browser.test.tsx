@@ -168,13 +168,18 @@ describe('Border Radius Compliance Tests', () => {
   describe('Modal Radius Compliance', () => {
     describe.each(THEMES)('Theme: %s', (theme) => {
       it('Modal has 20px radius', () => {
-        const onClose = () => {};
-
         render(
           <ThemeTestWrapper theme={theme}>
-            <ModalGlass isOpen={true} onClose={onClose} title="Test" data-testid="test-modal">
-              Content
-            </ModalGlass>
+            <ModalGlass.Root open={true} onOpenChange={() => {}}>
+              <ModalGlass.Overlay />
+              <ModalGlass.Content data-testid="test-modal">
+                <ModalGlass.Header>
+                  <ModalGlass.Title>Test</ModalGlass.Title>
+                  <ModalGlass.Close />
+                </ModalGlass.Header>
+                <ModalGlass.Body>Content</ModalGlass.Body>
+              </ModalGlass.Content>
+            </ModalGlass.Root>
           </ThemeTestWrapper>
         );
 

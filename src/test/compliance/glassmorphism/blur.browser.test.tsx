@@ -56,14 +56,18 @@ describe('Blur Compliance - Browser Tests', () => {
       it('has correct backdrop blur when open', () => {
         render(
           <ThemeTestWrapper theme={theme}>
-            <ModalGlass
-              isOpen={true}
-              onClose={() => {}}
-              title="Test Modal"
-              data-testid="modal"
-            >
-              <p>Modal content</p>
-            </ModalGlass>
+            <ModalGlass.Root open={true} onOpenChange={() => {}}>
+              <ModalGlass.Overlay />
+              <ModalGlass.Content data-testid="modal">
+                <ModalGlass.Header>
+                  <ModalGlass.Title>Test Modal</ModalGlass.Title>
+                  <ModalGlass.Close />
+                </ModalGlass.Header>
+                <ModalGlass.Body>
+                  <p>Modal content</p>
+                </ModalGlass.Body>
+              </ModalGlass.Content>
+            </ModalGlass.Root>
           </ThemeTestWrapper>
         );
 

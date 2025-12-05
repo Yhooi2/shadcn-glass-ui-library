@@ -19,6 +19,7 @@
 
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
+import type { ReactNode } from 'react';
 
 import { COMPONENT_SPECS, BLUR_TOKENS } from '../../utils/design-tokens';
 import { getComputedStyleSnapshot } from '../../utils/computed-style-reader';
@@ -26,6 +27,40 @@ import { getGlassProperties, validateModalBlur } from '../../utils/blur-validato
 import { ThemeTestWrapper, THEMES } from '../__setup__/theme-test-wrapper';
 
 import { ModalGlass } from '@/components/glass/ui/modal-glass';
+
+// Helper to render ModalGlass with Compound API
+const renderModal = ({
+  open = true,
+  onOpenChange = vi.fn(),
+  title = 'Test Modal',
+  children = 'Content' as ReactNode,
+  theme = 'glass',
+}: {
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  title?: string;
+  children?: ReactNode;
+  theme?: string;
+}) => {
+  return render(
+    <ThemeTestWrapper theme={theme}>
+      <ModalGlass.Root open={open} onOpenChange={onOpenChange}>
+        {open && (
+          <>
+            <ModalGlass.Overlay />
+            <ModalGlass.Content>
+              <ModalGlass.Header>
+                <ModalGlass.Title>{title}</ModalGlass.Title>
+                <ModalGlass.Close />
+              </ModalGlass.Header>
+              <ModalGlass.Body>{children}</ModalGlass.Body>
+            </ModalGlass.Content>
+          </>
+        )}
+      </ModalGlass.Root>
+    </ThemeTestWrapper>
+  );
+};
 
 describe('Modal Compliance Tests', () => {
   describe('Modal Specification Constants', () => {
@@ -68,29 +103,20 @@ describe('Modal Compliance Tests', () => {
   describe('Modal Open State Compliance', () => {
     describe.each(THEMES)('Theme: %s', (theme) => {
       it('renders when isOpen is true', () => {
-        const onClose = vi.fn();
-
-        render(
-          <ThemeTestWrapper theme={theme}>
-            <ModalGlass isOpen={true} onClose={onClose} title="Test Modal">
-              <div data-testid="modal-content">Modal content</div>
-            </ModalGlass>
-          </ThemeTestWrapper>
-        );
+        renderModal({
+          theme,
+          children: <div data-testid="modal-content">Modal content</div>,
+        });
 
         expect(screen.getByTestId('modal-content')).toBeInTheDocument();
       });
 
       it('does not render when isOpen is false', () => {
-        const onClose = vi.fn();
-
-        render(
-          <ThemeTestWrapper theme={theme}>
-            <ModalGlass isOpen={false} onClose={onClose} title="Test Modal">
-              <div data-testid="modal-content">Modal content</div>
-            </ModalGlass>
-          </ThemeTestWrapper>
-        );
+        renderModal({
+          open: false,
+          theme,
+          children: <div data-testid="modal-content">Modal content</div>,
+        });
 
         expect(screen.queryByTestId('modal-content')).not.toBeInTheDocument();
       });
@@ -100,15 +126,7 @@ describe('Modal Compliance Tests', () => {
   describe('Modal Glass Effect Compliance', () => {
     describe.each(THEMES)('Theme: %s', (theme) => {
       it('has glass effect with blur', () => {
-        const onClose = vi.fn();
-
-        render(
-          <ThemeTestWrapper theme={theme}>
-            <ModalGlass isOpen={true} onClose={onClose} title="Test Modal">
-              Content
-            </ModalGlass>
-          </ThemeTestWrapper>
-        );
+        renderModal({ theme });
 
         // Find modal content via title (blur is on the inner content, not the dialog wrapper)
         const modalTitle = screen.getByText('Test Modal');
@@ -120,15 +138,7 @@ describe('Modal Compliance Tests', () => {
       });
 
       it('has correct blur value (24px)', () => {
-        const onClose = vi.fn();
-
-        render(
-          <ThemeTestWrapper theme={theme}>
-            <ModalGlass isOpen={true} onClose={onClose} title="Test Modal">
-              Content
-            </ModalGlass>
-          </ThemeTestWrapper>
-        );
+        renderModal({ theme });
 
         // Find modal content via title (blur is on the inner content, not the dialog wrapper)
         const modalTitle = screen.getByText('Test Modal');
@@ -144,15 +154,7 @@ describe('Modal Compliance Tests', () => {
   describe('Modal Border Radius Compliance', () => {
     describe.each(THEMES)('Theme: %s', (theme) => {
       it('has correct border radius (20px)', () => {
-        const onClose = vi.fn();
-
-        render(
-          <ThemeTestWrapper theme={theme}>
-            <ModalGlass isOpen={true} onClose={onClose} title="Test Modal">
-              Content
-            </ModalGlass>
-          </ThemeTestWrapper>
-        );
+        renderModal({ theme });
 
         // Find modal content via title (border-radius is on the inner content)
         const modalTitle = screen.getByText('Test Modal');
@@ -171,30 +173,14 @@ describe('Modal Compliance Tests', () => {
   describe('Modal Accessibility Compliance', () => {
     describe.each(THEMES)('Theme: %s', (theme) => {
       it('has dialog role', () => {
-        const onClose = vi.fn();
-
-        render(
-          <ThemeTestWrapper theme={theme}>
-            <ModalGlass isOpen={true} onClose={onClose} title="Test Modal">
-              Content
-            </ModalGlass>
-          </ThemeTestWrapper>
-        );
+        renderModal({ theme });
 
         const modal = screen.queryByRole('dialog');
         expect(modal).toBeInTheDocument();
       });
 
       it('has accessible title', () => {
-        const onClose = vi.fn();
-
-        render(
-          <ThemeTestWrapper theme={theme}>
-            <ModalGlass isOpen={true} onClose={onClose} title="Accessible Title">
-              Content
-            </ModalGlass>
-          </ThemeTestWrapper>
-        );
+        renderModal({ theme, title: 'Accessible Title' });
 
         expect(screen.getByText('Accessible Title')).toBeInTheDocument();
       });
@@ -202,13 +188,7 @@ describe('Modal Compliance Tests', () => {
       it('calls onClose when close button is clicked', async () => {
         const onClose = vi.fn();
 
-        render(
-          <ThemeTestWrapper theme={theme}>
-            <ModalGlass isOpen={true} onClose={onClose} title="Test Modal">
-              Content
-            </ModalGlass>
-          </ThemeTestWrapper>
-        );
+        renderModal({ theme, onOpenChange: onClose });
 
         // Find and click close button
         const closeButton = screen.queryByRole('button', { name: /close/i });
@@ -216,7 +196,7 @@ describe('Modal Compliance Tests', () => {
           fireEvent.click(closeButton);
           // Modal has 200ms animation delay before calling onClose
           await vi.waitFor(() => {
-            expect(onClose).toHaveBeenCalled();
+            expect(onClose).toHaveBeenCalledWith(false);
           }, { timeout: 500 });
         }
       });
@@ -226,43 +206,25 @@ describe('Modal Compliance Tests', () => {
   describe('Modal Content Rendering', () => {
     describe.each(THEMES)('Theme: %s', (theme) => {
       it('renders title', () => {
-        const onClose = vi.fn();
-
-        render(
-          <ThemeTestWrapper theme={theme}>
-            <ModalGlass isOpen={true} onClose={onClose} title="Modal Title">
-              Content
-            </ModalGlass>
-          </ThemeTestWrapper>
-        );
+        renderModal({ theme, title: 'Modal Title' });
 
         expect(screen.getByText('Modal Title')).toBeInTheDocument();
       });
 
       it('renders children content', () => {
-        const onClose = vi.fn();
-
-        render(
-          <ThemeTestWrapper theme={theme}>
-            <ModalGlass isOpen={true} onClose={onClose} title="Test">
-              <p data-testid="custom-content">Custom content here</p>
-            </ModalGlass>
-          </ThemeTestWrapper>
-        );
+        renderModal({
+          theme,
+          children: <p data-testid="custom-content">Custom content here</p>,
+        });
 
         expect(screen.getByTestId('custom-content')).toBeInTheDocument();
       });
 
       it('content is visible', () => {
-        const onClose = vi.fn();
-
-        render(
-          <ThemeTestWrapper theme={theme}>
-            <ModalGlass isOpen={true} onClose={onClose} title="Test">
-              <div data-testid="visible-content">Visible</div>
-            </ModalGlass>
-          </ThemeTestWrapper>
-        );
+        renderModal({
+          theme,
+          children: <div data-testid="visible-content">Visible</div>,
+        });
 
         const content = screen.getByTestId('visible-content');
         const styles = window.getComputedStyle(content);
@@ -275,15 +237,7 @@ describe('Modal Compliance Tests', () => {
   describe('Modal Overlay/Scrim', () => {
     describe.each(THEMES)('Theme: %s', (theme) => {
       it('has overlay when open', () => {
-        const onClose = vi.fn();
-
-        render(
-          <ThemeTestWrapper theme={theme}>
-            <ModalGlass isOpen={true} onClose={onClose} title="Test">
-              Content
-            </ModalGlass>
-          </ThemeTestWrapper>
-        );
+        renderModal({ theme });
 
         // Modal should have an overlay backdrop
         const modal = screen.queryByRole('dialog');

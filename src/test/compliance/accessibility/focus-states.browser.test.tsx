@@ -204,14 +204,14 @@ describe('Focus States Compliance Tests', () => {
   describe('Tab Focus Navigation', () => {
     describe.each(THEMES)('Theme: %s', (theme) => {
       it('tabs component renders', () => {
-        const tabs = [
-          { id: 'tab1', label: 'Tab 1', content: 'Content 1' },
-          { id: 'tab2', label: 'Tab 2', content: 'Content 2' },
-        ];
-
         render(
           <ThemeTestWrapper theme={theme}>
-            <TabsGlass tabs={tabs} activeTab="tab1" onChange={() => {}} />
+            <TabsGlass.Root value="tab1" onValueChange={() => {}}>
+              <TabsGlass.List>
+                <TabsGlass.Trigger value="tab1">Tab 1</TabsGlass.Trigger>
+                <TabsGlass.Trigger value="tab2">Tab 2</TabsGlass.Trigger>
+              </TabsGlass.List>
+            </TabsGlass.Root>
           </ThemeTestWrapper>
         );
 
@@ -226,14 +226,15 @@ describe('Focus States Compliance Tests', () => {
 
       it('tabs respond to onChange', () => {
         const onChange = vi.fn();
-        const tabs = [
-          { id: 'tab1', label: 'Tab 1', content: 'Content 1' },
-          { id: 'tab2', label: 'Tab 2', content: 'Content 2' },
-        ];
 
         render(
           <ThemeTestWrapper theme={theme}>
-            <TabsGlass tabs={tabs} activeTab="tab1" onChange={onChange} />
+            <TabsGlass.Root value="tab1" onValueChange={onChange}>
+              <TabsGlass.List>
+                <TabsGlass.Trigger value="tab1">Tab 1</TabsGlass.Trigger>
+                <TabsGlass.Trigger value="tab2">Tab 2</TabsGlass.Trigger>
+              </TabsGlass.List>
+            </TabsGlass.Root>
           </ThemeTestWrapper>
         );
 
@@ -250,16 +251,25 @@ describe('Focus States Compliance Tests', () => {
     // Focus trap tests would be more appropriate in modal.compliance.test.tsx
     // but we include a basic check here
     it('modal buttons are focusable when open', async () => {
-      const onClose = vi.fn();
+      const onOpenChange = vi.fn();
 
       // Import here to avoid circular dependencies
       const { ModalGlass } = await import('@/components/glass/ui/modal-glass');
 
       render(
         <ThemeTestWrapper theme="glass">
-          <ModalGlass isOpen={true} onClose={onClose} title="Test Modal">
-            <button data-testid="modal-button">Modal Button</button>
-          </ModalGlass>
+          <ModalGlass.Root open={true} onOpenChange={onOpenChange}>
+            <ModalGlass.Overlay />
+            <ModalGlass.Content>
+              <ModalGlass.Header>
+                <ModalGlass.Title>Test Modal</ModalGlass.Title>
+                <ModalGlass.Close />
+              </ModalGlass.Header>
+              <ModalGlass.Body>
+                <button data-testid="modal-button">Modal Button</button>
+              </ModalGlass.Body>
+            </ModalGlass.Content>
+          </ModalGlass.Root>
         </ThemeTestWrapper>
       );
 
