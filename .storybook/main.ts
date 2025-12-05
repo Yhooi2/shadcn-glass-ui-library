@@ -13,6 +13,18 @@ const config: StorybookConfig = {
     "@storybook/addon-onboarding",
     "@storybook/addon-mcp"
   ],
-  "framework": "@storybook/react-vite"
+  "framework": "@storybook/react-vite",
+
+  async viteFinal(config) {
+    // Set base path for GitHub Pages deployment
+    const baseUrl = process.env.NODE_ENV === 'production'
+      ? '/shadcn-glass-ui-library/'
+      : '/';
+
+    return {
+      ...config,
+      base: baseUrl,
+    };
+  }
 };
 export default config;

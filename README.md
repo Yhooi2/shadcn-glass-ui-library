@@ -6,6 +6,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue)](https://www.typescriptlang.org/)
 [![Tests](https://img.shields.io/badge/tests-2,127%20passing-success)](https://github.com/yourusername/shadcn-glass-ui)
+[![Storybook](https://img.shields.io/badge/Storybook-Live%20Demo-ff69b4)](https://yhooi2.github.io/shadcn-glass-ui-library/)
 
 ## ✨ Highlights
 
@@ -30,6 +31,13 @@
 - **Vitest 4.0** - Browser mode testing with visual regression
 
 See [DEPENDENCIES.md](DEPENDENCIES.md) for detailed dependency documentation.
+
+## 📖 Documentation
+
+- **[Live Storybook Demo](https://yhooi2.github.io/shadcn-glass-ui-library/)** - Interactive component showcase
+- [Component Documentation](https://yhooi2.github.io/shadcn-glass-ui-library/?path=/docs) - Detailed API references
+- [Design System](docs/design-system/UI_DESIGN.md) - Comprehensive UI specifications
+- [Migration Guides](docs/migration/) - Upgrade and API changes
 
 ## 🚀 Quick Start
 
