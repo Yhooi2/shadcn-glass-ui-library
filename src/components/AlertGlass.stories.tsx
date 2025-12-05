@@ -19,14 +19,6 @@ const meta = {
         defaultValue: { summary: "default" },
       },
     },
-    type: {
-      control: "select",
-      options: ["info", "success", "warning", "error"],
-      description: "⚠️ Deprecated: Use 'variant' instead",
-      table: {
-        type: { summary: "'info' | 'success' | 'warning' | 'error' (deprecated)" },
-      },
-    },
     dismissible: {
       control: "boolean",
       description: "Show dismiss button",

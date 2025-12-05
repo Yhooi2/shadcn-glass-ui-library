@@ -1,0 +1,34 @@
+#!/bin/sh
+#
+# Pre-commit hook to prevent committing visual test screenshots from non-Linux platforms
+# Reference screenshots must be generated on Linux (ubuntu-latest) in CI only
+#
+# Installation:
+#   Run: ./scripts/setup-git-hooks.sh
+#   Or manually: cp .githooks/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
+#
+
+# Check if we're trying to commit any screenshot files
+screenshots=$(git diff --cached --name-only --diff-filter=A | grep '__screenshots__.*\.png$')
+
+if [ -n "$screenshots" ]; then
+  platform=$(uname -s)
+
+  # Only allow commits on Linux
+  if [ "$platform" != "Linux" ]; then
+    echo "❌ ERROR: Cannot commit visual test screenshots from $platform"
+    echo ""
+    echo "Reference screenshots must be generated on Linux (ubuntu-latest) in CI."
+    echo "Screenshots differ between platforms and will cause test failures."
+    echo ""
+    echo "To update screenshots, use:"
+    echo "  gh workflow run update-screenshots.yml"
+    echo ""
+    echo "Blocked files:"
+    echo "$screenshots" | sed 's/^/  - /'
+    echo ""
+    exit 1
+  fi
+fi
+
+exit 0

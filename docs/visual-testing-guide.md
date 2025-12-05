@@ -26,6 +26,18 @@ npm run test:visual:update
 
 **⚠️ IMPORTANT:** Do NOT commit screenshots generated on macOS. Always use the GitHub Actions workflow to generate production screenshots.
 
+**Cleaning local screenshots:**
+If you accidentally generated screenshots locally, use this script to remove them:
+```bash
+./scripts/clean-local-screenshots.sh
+```
+
+**Protection:** A pre-commit hook automatically blocks commits of new screenshots from non-Linux platforms. If you see this error:
+```
+❌ ERROR: Cannot commit visual test screenshots from Darwin
+```
+This is working as intended. Use the GitHub Actions workflow instead.
+
 ## Updating Reference Screenshots
 
 When you modify UI components and need to update screenshots:
@@ -110,6 +122,34 @@ src/components/__visual__/__screenshots__/
 ├── desktop.visual.test.tsx/
 └── ...
 ```
+
+## Git Pre-commit Hook
+
+The repository includes a pre-commit hook that prevents accidentally committing screenshots generated on non-Linux platforms.
+
+**Setup (Automatic):**
+
+The hook is located at `.git/hooks/pre-commit` and should work automatically. If you encounter issues:
+
+```bash
+# Ensure Git is using the correct hooks directory
+git config --unset core.hookspath
+
+# Verify hook is executable
+chmod +x .git/hooks/pre-commit
+```
+
+**How it works:**
+- Blocks commits of new `.png` files in `__screenshots__/` directories
+- Only allows commits from Linux (CI environment)
+- Shows helpful error message with instructions
+
+**Bypassing the hook (not recommended):**
+```bash
+git commit --no-verify  # Skip all git hooks
+```
+
+Only bypass if you're sure you're committing Linux-generated screenshots.
 
 ## CI/CD Integration
 

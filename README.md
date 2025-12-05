@@ -606,6 +606,9 @@ cd shadcn-glass-ui
 # Install dependencies
 npm install
 
+# Setup git hooks (prevents committing screenshots from non-Linux platforms)
+./scripts/setup-git-hooks.sh
+
 # Start development
 npm run dev          # Vite dev server (port 5173)
 npm run storybook    # Storybook (port 6006)
