@@ -296,6 +296,7 @@ See [CHANGELOG.md](CHANGELOG.md) for complete version history and breaking chang
 - **[Getting Started Guide](docs/GETTING_STARTED.md)** - Comprehensive setup tutorial
 - **[Storybook](https://yourusername.github.io/shadcn-glass-ui/)** - Live component demos
 - **[UI Design System](docs/design-system/UI_DESIGN.md)** - Complete design specifications
+- **[Visual Testing Guide](docs/visual-testing-guide.md)** - Screenshot update workflow
 - **[Migration Guide](MIGRATION_GUIDE.md)** - Upgrading from v1
 - **[Breaking Changes](BREAKING_CHANGES.md)** - API changes log
 - **[Dependencies](DEPENDENCIES.md)** - Detailed dependency docs

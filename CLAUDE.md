@@ -40,16 +40,32 @@ npm run test:visual:update       # Update visual test baselines
 
 Visual tests are located in `src/components/__visual__/`:
 - `components.visual.test.tsx` - Individual component visual tests
-- `showcase.visual.test.tsx` - ComponentShowcase demo page tests (55 tests)
+- `componentshowcase.visual.test.tsx` - ComponentShowcase demo page tests (55 tests)
 - `desktop.visual.test.tsx` - DesktopShowcase demo page tests (80+ tests)
+- `mobileshowcase.visual.test.tsx` - MobileShowcase demo page tests
+- `phase2-components.visual.test.tsx` - Phase 2 components
+- `projects-list.visual.test.tsx` - ProjectsList component
 
-Screenshots are stored in `__screenshots__/` directories. Tests run on:
+**Important:** Reference screenshots are generated on **Linux (ubuntu-latest)** in CI. Do NOT commit screenshots from macOS.
+
+**Updating Screenshots:**
+```bash
+# Update screenshots using GitHub Actions workflow
+gh workflow run update-screenshots.yml
+
+# Check workflow status
+gh run list --workflow=update-screenshots.yml --limit 1
+```
+
+Screenshots are stored in `__screenshots__/` directories (603 files). Tests run on:
 - Full page screenshots for glass/light/aurora themes
 - Section-by-section tests (Buttons, Inputs, Toggles, etc.)
 - Interactive component states (Modal, Dropdown, Tabs, Toggle, Checkbox, etc.)
 - Theme switching cycle
 
-GitHub Actions runs visual tests on every push/PR to main.
+**Statistics:** 582 visual tests, 99.5% pass rate in CI
+
+See [docs/visual-testing-guide.md](docs/visual-testing-guide.md) for complete guide.
 
 ## Architecture
 
