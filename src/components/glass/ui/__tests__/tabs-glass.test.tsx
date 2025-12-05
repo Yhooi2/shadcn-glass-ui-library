@@ -3,12 +3,6 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { TabsGlass } from '../tabs-glass';
 
-const mockTabs = [
-  { id: 'tab1', label: 'Tab 1' },
-  { id: 'tab2', label: 'Tab 2' },
-  { id: 'tab3', label: 'Tab 3' },
-];
-
 // Helper to render TabsGlass with Compound API
 const renderTabs = ({
   value = 'tab1',
