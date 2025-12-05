@@ -24,7 +24,7 @@ describe('ButtonGlass', () => {
     });
 
     it('renders all variant types without errors', () => {
-      const variants = ['primary', 'secondary', 'ghost', 'danger', 'success', 'text'] as const;
+      const variants = ['primary', 'secondary', 'ghost', 'destructive', 'success', 'text'] as const;
 
       variants.forEach((variant) => {
         const { unmount } = render(<ButtonGlass variant={variant}>{variant}</ButtonGlass>);

@@ -73,7 +73,7 @@ export const spacing = {
 
 export const radius = {
   none: '0',
-  sm: '0.375rem',  // 6px
+  sm: '0.25rem',   // 4px - UI_DIZINE.md spec (was 0.375rem/6px)
   md: '0.5rem',    // 8px
   lg: '0.75rem',   // 12px
   xl: '1rem',      // 16px
@@ -326,12 +326,12 @@ export const glass = {
 // ========================================
 
 export const shadow = {
-  // Standard shadows
+  // Standard shadows (layered per UI_DIZINE.md for realism)
   sm: '0 1px 2px 0 rgba(0,0,0,0.05)',
-  base: '0 4px 6px -1px rgba(0,0,0,0.1)',
-  md: '0 10px 15px -3px rgba(0,0,0,0.1)',
-  lg: '0 20px 25px -5px rgba(0,0,0,0.1)',
-  xl: '0 25px 50px -12px rgba(0,0,0,0.25)',
+  base: '0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1)',  // UI_DIZINE: layered
+  md: '0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1)',  // UI_DIZINE: layered
+  lg: '0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1)', // UI_DIZINE: layered
+  xl: '0 25px 50px -12px rgba(0,0,0,0.25)',  // Current (no 2nd layer in spec)
 
   // Glow shadows
   glow: {
@@ -509,7 +509,7 @@ export const component = {
       sm: '32px',
       md: '40px',
       lg: '56px',
-      xl: '72px',
+      xl: '80px',  // UI_DIZINE.md spec (was 72px)
       '2xl': '96px',
     },
     fontSize: {
@@ -552,7 +552,7 @@ export const component = {
   dropdown: {
     minWidth: '160px',
     maxWidth: '320px',
-    padding: spacing[1],
+    padding: spacing[2],  // UI_DIZINE.md: 8px container padding (was spacing[1]/4px)
     itemPadding: `${spacing[2]} ${spacing[3]}`,
     borderRadius: radius.lg,
   },

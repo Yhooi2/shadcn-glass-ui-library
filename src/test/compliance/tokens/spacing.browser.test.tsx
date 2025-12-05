@@ -258,9 +258,9 @@ describe('Spacing Compliance Tests', () => {
           </ThemeTestWrapper>
         );
 
-        // Find modal content via title (padding is on inner .rounded-3xl, not role="dialog")
+        // Find modal content via title (padding is on inner .rounded-2xl, not role="dialog")
         const modalTitle = screen.getByText('Test Modal');
-        const modalInner = modalTitle.closest('.rounded-3xl') as HTMLElement;
+        const modalInner = modalTitle.closest('.rounded-2xl') as HTMLElement;
 
         expect(modalInner).not.toBeNull();
         const styles = window.getComputedStyle(modalInner);

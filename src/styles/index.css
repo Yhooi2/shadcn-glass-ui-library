@@ -10,6 +10,7 @@
    Foundation scales and configurations
    ======================================== */
 @import "./tokens/primitives.css";
+@import "./tokens/oklch-primitives.css";
 @import "./tokens/colors.css";
 @import "./tokens/animations.css";
 

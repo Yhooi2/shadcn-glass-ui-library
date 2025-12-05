@@ -21,7 +21,7 @@ export type AlertVariant =
 export type AlertType = AlertVariant;
 
 export const alertVariants = cva(
-  'flex items-start gap-2 md:gap-3 p-3 md:p-4 rounded-xl transition-all duration-300 backdrop-blur-sm max-w-2xl',
+  'flex items-start gap-2 md:gap-3 p-3 md:p-4 rounded-xl transition-all duration-300 backdrop-blur-sm min-w-96 max-w-2xl',
   {
     variants: {
       variant: {

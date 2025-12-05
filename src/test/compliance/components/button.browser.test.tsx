@@ -117,7 +117,7 @@ describe('Button Compliance Tests', () => {
   });
 
   describe('Button Variant Compliance', () => {
-    const variants = ['primary', 'secondary', 'ghost', 'danger', 'success'] as const;
+    const variants = ['primary', 'secondary', 'ghost', 'destructive', 'success'] as const;
 
     describe.each(THEMES)('Theme: %s', (theme) => {
       describe.each(variants)('Variant: %s', (variant) => {

@@ -5,7 +5,6 @@
  * - Theme-aware styling via CSS variables (glass/light/aurora)
  * - shadcn/ui compatible variants (default, destructive)
  * - Extended Glass UI variants (success, warning)
- * - Backward compatible aliases (info→default, error→destructive)
  * - Optional title
  * - Dismissible option
  * - Backdrop blur effect
@@ -102,8 +101,6 @@ export interface AlertGlassProps
   readonly children: ReactNode;
   readonly dismissible?: boolean;
   readonly onDismiss?: () => void;
-  /** @deprecated Use variant prop instead. Will be removed in next major version. */
-  readonly type?: AlertVariant;
 }
 
 // ========================================
@@ -114,8 +111,7 @@ export const AlertGlass = forwardRef<HTMLDivElement, AlertGlassProps>(
   (
     {
       className,
-      variant: variantProp,
-      type: typeProp,
+      variant = 'default',
       title,
       children,
       dismissible,
@@ -124,15 +120,6 @@ export const AlertGlass = forwardRef<HTMLDivElement, AlertGlassProps>(
     },
     ref
   ) => {
-    // Backward compatibility: support deprecated 'type' prop
-    const variant = variantProp ?? typeProp ?? 'default';
-
-    // Show deprecation warning in development
-    if (process.env.NODE_ENV === 'development' && typeProp) {
-      console.warn(
-        'AlertGlass: The "type" prop is deprecated. Use "variant" instead. Example: <AlertGlass variant="destructive" />'
-      );
-    }
 
     const config = variantStyles[variant];
     const Icon = iconMap[variant];

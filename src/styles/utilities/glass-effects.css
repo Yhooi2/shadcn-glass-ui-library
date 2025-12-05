@@ -10,29 +10,66 @@
 @utility glass {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
-  backdrop-filter: blur(var(--blur-md));
-  -webkit-backdrop-filter: blur(var(--blur-md));
+  border-top-color: oklch(100% 0 0 / 0.35); /* Top edge shine per UI_DIZINE.md */
+  backdrop-filter: blur(var(--blur-md)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur-md)) saturate(180%);
 }
 
 @utility glass-subtle {
   background: var(--glass-bg-subtle);
   border-color: var(--glass-border-subtle);
-  backdrop-filter: blur(var(--blur-sm));
-  -webkit-backdrop-filter: blur(var(--blur-sm));
+  border-top-color: oklch(100% 0 0 / 0.35);
+  backdrop-filter: blur(var(--blur-sm)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur-sm)) saturate(180%);
 }
 
 @utility glass-medium {
   background: var(--glass-bg-medium);
   border-color: var(--glass-border-medium);
-  backdrop-filter: blur(var(--blur-md));
-  -webkit-backdrop-filter: blur(var(--blur-md));
+  border-top-color: oklch(100% 0 0 / 0.35);
+  backdrop-filter: blur(var(--blur-md)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur-md)) saturate(180%);
 }
 
 @utility glass-strong {
   background: var(--glass-bg-strong);
   border-color: var(--glass-border-strong);
-  backdrop-filter: blur(var(--blur-lg));
-  -webkit-backdrop-filter: blur(var(--blur-lg));
+  border-top-color: oklch(100% 0 0 / 0.35);
+  backdrop-filter: blur(var(--blur-lg)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(180%);
+}
+
+/* ========================================
+   FALLBACK FOR BROWSERS WITHOUT BACKDROP-FILTER
+   Per UI_DIZINE.md: provide solid background fallback
+   ======================================== */
+
+/* Fallback styles applied when backdrop-filter is NOT supported */
+.glass-fallback {
+  background: oklch(20.8% 0.042 265 / 0.85) !important; /* Solid dark background */
+}
+
+.glass-subtle-fallback {
+  background: oklch(20.8% 0.042 265 / 0.90) !important; /* More opaque for subtle */
+}
+
+.glass-medium-fallback {
+  background: oklch(20.8% 0.042 265 / 0.80) !important; /* Less opaque for medium */
+}
+
+.glass-strong-fallback {
+  background: oklch(20.8% 0.042 265 / 0.75) !important; /* Even less for strong (more content visible) */
+}
+
+/* Apply glass effects only when backdrop-filter is supported */
+@supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
+  .glass-fallback,
+  .glass-subtle-fallback,
+  .glass-medium-fallback,
+  .glass-strong-fallback {
+    /* Remove fallback when backdrop-filter works */
+    background: revert !important;
+  }
 }
 
 /* ========================================
@@ -217,6 +254,12 @@
 /* ========================================
    TEXT UTILITIES
    ======================================== */
+
+/* Text shadow for enhanced readability on glass backgrounds (UI_DIZINE.md) */
+.text-shadow-glass {
+  text-shadow: var(--text-shadow-glass);
+  /* 0 1px 2px rgba(0,0,0,0.4), 0 2px 6px rgba(0,0,0,0.2) */
+}
 
 .text-gradient {
   @apply bg-clip-text text-transparent;

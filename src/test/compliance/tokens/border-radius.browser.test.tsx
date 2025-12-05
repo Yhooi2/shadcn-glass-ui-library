@@ -183,14 +183,14 @@ describe('Border Radius Compliance Tests', () => {
           </ThemeTestWrapper>
         );
 
-        // Find modal content via title (radius is on inner .rounded-3xl, not role="dialog")
+        // Find modal content via title (radius is on inner .rounded-2xl, not role="dialog")
         const modalTitle = screen.getByText('Test');
-        const modalContent = modalTitle.closest('.rounded-3xl') as HTMLElement;
+        const modalContent = modalTitle.closest('.rounded-2xl') as HTMLElement;
 
         expect(modalContent).not.toBeNull();
         const snapshot = getComputedStyleSnapshot(modalContent);
 
-        // Modal should have ~20-24px radius (rounded-3xl = 24px)
+        // Modal should have ~20px radius (rounded-2xl = 16px, but with padding gives ~20px visually)
         expect(snapshot.borderRadius.topLeft).toBeGreaterThanOrEqual(
           RADIUS_TOKENS.COMPONENTS.modal - 4
         );

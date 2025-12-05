@@ -1,0 +1,162 @@
+/* ========================================
+   OKLCH PRIMITIVE COLOR TOKENS
+   Perceptually uniform color space (CSS Color Level 4)
+   Per UI_DESIGN.md: OKLCH is one of three mathematical foundations
+   ======================================== */
+
+:root {
+  /* ========================================
+     ACHROMATIC (White/Black)
+     L=Lightness, C=0 (no chroma), H=0 (hue irrelevant)
+     ======================================== */
+  --oklch-white: oklch(100% 0 0);           /* #ffffff */
+  --oklch-black: oklch(0% 0 0);             /* #000000 */
+
+  /* ========================================
+     PRIMARY: VIOLET FAMILY
+     Hue ~291-293 (purple-violet range)
+     ======================================== */
+  --oklch-violet-50: oklch(96.7% 0.014 293);    /* #f5f3ff */
+  --oklch-violet-100: oklch(94.3% 0.029 294);   /* #ede9fe */
+  --oklch-violet-200: oklch(88.4% 0.059 293);   /* #ddd6fe */
+  --oklch-violet-300: oklch(79.5% 0.103 293);   /* #c4b5fd */
+  --oklch-violet-400: oklch(71.4% 0.138 291);   /* #a78bfa */
+  --oklch-violet-500: oklch(62.7% 0.159 291);   /* #8b5cf6 */
+  --oklch-violet-600: oklch(54.1% 0.175 293);   /* #7c3aed */
+  --oklch-violet-700: oklch(47.5% 0.170 293);   /* #6d28d9 */
+  --oklch-violet-800: oklch(40.8% 0.149 293);   /* #5b21b6 */
+  --oklch-violet-900: oklch(36.3% 0.121 293);   /* #4c1d95 */
+
+  /* ========================================
+     ACCENT: PURPLE FAMILY
+     Hue ~303 (magenta-purple range)
+     ======================================== */
+  --oklch-purple-50: oklch(97.7% 0.014 308);    /* #faf5ff */
+  --oklch-purple-100: oklch(95.2% 0.028 307);   /* #f3e8ff */
+  --oklch-purple-200: oklch(90.0% 0.058 306);   /* #e9d5ff */
+  --oklch-purple-300: oklch(82.7% 0.104 306);   /* #d8b4fe */
+  --oklch-purple-400: oklch(71.0% 0.158 303);   /* #c084fc */
+  --oklch-purple-500: oklch(66.6% 0.159 303);   /* #a855f7 */
+  --oklch-purple-600: oklch(55.8% 0.182 303);   /* #9333ea */
+  --oklch-purple-700: oklch(49.6% 0.174 303);   /* #7e22ce */
+  --oklch-purple-800: oklch(43.8% 0.150 303);   /* #6b21a8 */
+  --oklch-purple-900: oklch(38.1% 0.118 303);   /* #581c87 */
+
+  /* ========================================
+     BLUE FAMILY
+     Hue ~250-255 (blue range)
+     ======================================== */
+  --oklch-blue-50: oklch(97.0% 0.014 254);      /* #eff6ff */
+  --oklch-blue-100: oklch(93.2% 0.032 254);     /* #dbeafe */
+  --oklch-blue-200: oklch(87.5% 0.065 254);     /* #bfdbfe */
+  --oklch-blue-300: oklch(79.2% 0.108 251);     /* #93c5fd */
+  --oklch-blue-400: oklch(70.7% 0.143 250);     /* #60a5fa */
+  --oklch-blue-500: oklch(62.3% 0.180 255);     /* #3b82f6 */
+  --oklch-blue-600: oklch(54.6% 0.215 262);     /* #2563eb */
+  --oklch-blue-700: oklch(48.8% 0.200 264);     /* #1d4ed8 */
+  --oklch-blue-800: oklch(42.4% 0.165 265);     /* #1e40af */
+  --oklch-blue-900: oklch(37.9% 0.127 266);     /* #1e3a8a */
+
+  /* ========================================
+     CYAN FAMILY
+     Hue ~195 (cyan-teal range)
+     ======================================== */
+  --oklch-cyan-50: oklch(98.4% 0.019 200);      /* #ecfeff */
+  --oklch-cyan-100: oklch(95.6% 0.044 203);     /* #cffafe */
+  --oklch-cyan-200: oklch(91.1% 0.079 201);     /* #a5f3fc */
+  --oklch-cyan-300: oklch(84.5% 0.108 198);     /* #67e8f9 */
+  --oklch-cyan-400: oklch(78.9% 0.118 195);     /* #22d3ee */
+  --oklch-cyan-500: oklch(71.5% 0.132 195);     /* #06b6d4 */
+  --oklch-cyan-600: oklch(60.9% 0.126 197);     /* #0891b2 */
+  --oklch-cyan-700: oklch(52.0% 0.105 199);     /* #0e7490 */
+  --oklch-cyan-800: oklch(45.0% 0.085 201);     /* #155e75 */
+  --oklch-cyan-900: oklch(39.8% 0.070 203);     /* #164e63 */
+
+  /* ========================================
+     PINK FAMILY
+     Hue ~350 (pink-magenta range)
+     ======================================== */
+  --oklch-pink-50: oklch(97.1% 0.014 343);      /* #fdf2f8 */
+  --oklch-pink-100: oklch(94.0% 0.030 343);     /* #fce7f3 */
+  --oklch-pink-200: oklch(88.2% 0.063 343);     /* #fbcfe8 */
+  --oklch-pink-300: oklch(79.4% 0.108 346);     /* #f9a8d4 */
+  --oklch-pink-400: oklch(70.3% 0.150 350);     /* #f472b6 */
+  --oklch-pink-500: oklch(64.5% 0.170 354);     /* #ec4899 */
+  --oklch-pink-600: oklch(55.4% 0.175 0);       /* #db2777 */
+  --oklch-pink-700: oklch(48.3% 0.160 3);       /* #be185d */
+  --oklch-pink-800: oklch(42.3% 0.134 5);       /* #9d174d */
+  --oklch-pink-900: oklch(37.5% 0.110 6);       /* #831843 */
+
+  /* ========================================
+     EMERALD FAMILY (Success)
+     Hue ~163 (green-teal range)
+     ======================================== */
+  --oklch-emerald-50: oklch(97.9% 0.021 166);   /* #ecfdf5 */
+  --oklch-emerald-100: oklch(95.0% 0.052 163);  /* #d1fae5 */
+  --oklch-emerald-200: oklch(90.5% 0.093 164);  /* #a7f3d0 */
+  --oklch-emerald-300: oklch(84.5% 0.127 163);  /* #6ee7b7 */
+  --oklch-emerald-400: oklch(76.5% 0.147 163);  /* #34d399 */
+  --oklch-emerald-500: oklch(69.6% 0.155 163);  /* #10b981 */
+  --oklch-emerald-600: oklch(59.6% 0.145 163);  /* #059669 */
+  --oklch-emerald-700: oklch(50.8% 0.123 165);  /* #047857 */
+  --oklch-emerald-800: oklch(43.2% 0.100 166);  /* #065f46 */
+  --oklch-emerald-900: oklch(37.8% 0.081 168);  /* #064e3b */
+
+  /* ========================================
+     AMBER FAMILY (Warning)
+     Hue ~75-84 (yellow-orange range)
+     ======================================== */
+  --oklch-amber-50: oklch(98.7% 0.022 95);      /* #fffbeb */
+  --oklch-amber-100: oklch(96.2% 0.059 95);     /* #fef3c7 */
+  --oklch-amber-200: oklch(92.4% 0.107 95);     /* #fde68a */
+  --oklch-amber-300: oklch(87.9% 0.150 91);     /* #fcd34d */
+  --oklch-amber-400: oklch(82.8% 0.157 84);     /* #fbbf24 */
+  --oklch-amber-500: oklch(76.9% 0.169 75);     /* #f59e0b */
+  --oklch-amber-600: oklch(66.6% 0.179 58);     /* #d97706 */
+  --oklch-amber-700: oklch(55.5% 0.163 48);     /* #b45309 */
+  --oklch-amber-800: oklch(47.3% 0.137 46);     /* #92400e */
+  --oklch-amber-900: oklch(41.4% 0.112 45);     /* #78350f */
+
+  /* ========================================
+     ROSE/RED FAMILY (Error/Destructive)
+     Hue ~12-29 (red-pink range)
+     ======================================== */
+  --oklch-rose-50: oklch(97.0% 0.013 17);       /* #fff1f2 */
+  --oklch-rose-100: oklch(94.1% 0.029 17);      /* #ffe4e6 */
+  --oklch-rose-200: oklch(89.2% 0.058 15);      /* #fecdd3 */
+  --oklch-rose-300: oklch(81.0% 0.105 11);      /* #fda4af */
+  --oklch-rose-400: oklch(71.2% 0.161 12);      /* #fb7185 */
+  --oklch-rose-500: oklch(64.5% 0.195 12);      /* #f43f5e */
+  --oklch-rose-600: oklch(54.6% 0.215 13);      /* #e11d48 */
+  --oklch-rose-700: oklch(48.5% 0.191 15);      /* #be123c */
+  --oklch-rose-800: oklch(43.0% 0.160 17);      /* #9f1239 */
+  --oklch-rose-900: oklch(38.5% 0.133 18);      /* #881337 */
+
+  --oklch-red-400: oklch(70.4% 0.191 31);       /* #f87171 */
+  --oklch-red-500: oklch(62.8% 0.225 29);       /* #ef4444 */
+  --oklch-red-600: oklch(55.4% 0.230 27);       /* #dc2626 */
+
+  /* ========================================
+     SLATE FAMILY (Neutral)
+     Hue ~247-265 (blue-gray range)
+     ======================================== */
+  --oklch-slate-50: oklch(98.4% 0.003 247);     /* #f8fafc */
+  --oklch-slate-100: oklch(96.8% 0.007 247);    /* #f1f5f9 */
+  --oklch-slate-200: oklch(92.9% 0.013 255);    /* #e2e8f0 */
+  --oklch-slate-300: oklch(86.9% 0.022 252);    /* #cbd5e1 */
+  --oklch-slate-400: oklch(70.4% 0.034 256);    /* #94a3b8 */
+  --oklch-slate-500: oklch(55.4% 0.046 257);    /* #64748b */
+  --oklch-slate-600: oklch(44.6% 0.043 257);    /* #475569 */
+  --oklch-slate-700: oklch(37.2% 0.044 257);    /* #334155 */
+  --oklch-slate-800: oklch(27.9% 0.041 260);    /* #1e293b */
+  --oklch-slate-900: oklch(20.8% 0.042 265);    /* #0f172a */
+  --oklch-slate-950: oklch(12.9% 0.042 264);    /* #020617 */
+
+  /* ========================================
+     SPECIAL: GLASS THEME BASE COLORS
+     Derived from UI_DESIGN.md glassmorphism specs
+     ======================================== */
+  --oklch-glass-dark-bg: oklch(12.9% 0.042 264);     /* #0a0a0f equivalent */
+  --oklch-aurora-bg: oklch(8% 0.04 280);              /* #050510 equivalent */
+  --oklch-light-bg: oklch(98.5% 0.003 247);           /* #f8f9fa equivalent */
+}

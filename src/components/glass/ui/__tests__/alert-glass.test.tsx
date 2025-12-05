@@ -56,27 +56,6 @@ describe('AlertGlass', () => {
     });
   });
 
-  describe('Backward compatibility - deprecated type prop', () => {
-    it('supports deprecated type prop with info alias', () => {
-      render(<AlertGlass type="info">Info alert</AlertGlass>);
-      expect(screen.getByText(/info alert/i)).toBeInTheDocument();
-    });
-
-    it('supports deprecated type prop with error alias', () => {
-      render(<AlertGlass type="error">Error alert</AlertGlass>);
-      expect(screen.getByText(/error alert/i)).toBeInTheDocument();
-    });
-
-    it('variant prop takes precedence over type prop', () => {
-      render(<AlertGlass variant="success" type="error">Success wins</AlertGlass>);
-      expect(screen.getByText(/success wins/i)).toBeInTheDocument();
-    });
-
-    it('works with only variant prop', () => {
-      render(<AlertGlass variant="default">With variant</AlertGlass>);
-      expect(screen.getByText(/with variant/i)).toBeInTheDocument();
-    });
-  });
 
   describe('Icons', () => {
     it('renders icon for default variant', () => {

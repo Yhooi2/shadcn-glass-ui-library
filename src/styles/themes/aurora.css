@@ -49,40 +49,40 @@
   --info-base: 217 91% 60%;
 
   /* ========================================
-     GLASS EFFECTS
+     GLASS EFFECTS (OKLCH)
      ======================================== */
-  --glass-bg: rgba(30, 41, 59, 0.4);
-  --glass-bg-subtle: rgba(30, 41, 59, 0.3);
-  --glass-bg-medium: rgba(30, 41, 59, 0.5);
-  --glass-bg-strong: rgba(30, 41, 59, 0.7);
+  --glass-bg: oklch(27.9% 0.041 260 / 0.4);
+  --glass-bg-subtle: oklch(27.9% 0.041 260 / 0.3);
+  --glass-bg-medium: oklch(27.9% 0.041 260 / 0.5);
+  --glass-bg-strong: oklch(27.9% 0.041 260 / 0.7);
 
-  --glass-border: rgba(51, 65, 85, 0.4);
-  --glass-border-subtle: rgba(51, 65, 85, 0.3);
-  --glass-border-medium: rgba(51, 65, 85, 0.5);
-  --glass-border-strong: rgba(51, 65, 85, 0.7);
+  --glass-border: oklch(37.2% 0.044 257 / 0.4);
+  --glass-border-subtle: oklch(37.2% 0.044 257 / 0.3);
+  --glass-border-medium: oklch(37.2% 0.044 257 / 0.5);
+  --glass-border-strong: oklch(37.2% 0.044 257 / 0.7);
 
   /* ========================================
-     SEMANTIC GLOWS
+     SEMANTIC GLOWS (OKLCH)
      ======================================== */
-  --glow-primary: 0 0 25px rgba(139, 92, 246, 0.4);
-  --glow-secondary: 0 0 20px rgba(59, 130, 246, 0.3);
-  --glow-success: 0 0 20px rgba(52, 211, 153, 0.4);
-  --glow-warning: 0 0 20px rgba(251, 191, 36, 0.4);
-  --glow-error: 0 0 20px rgba(248, 113, 113, 0.4);
+  --glow-primary: 0 0 25px oklch(62.7% 0.159 291 / 0.4);
+  --glow-secondary: 0 0 20px oklch(62.3% 0.180 255 / 0.3);
+  --glow-success: 0 0 20px oklch(76.5% 0.147 163 / 0.4);
+  --glow-warning: 0 0 20px oklch(82.8% 0.157 84 / 0.4);
+  --glow-error: 0 0 20px oklch(71.5% 0.179 27 / 0.4);
 
-  /* Additional color glows */
-  --glow-blue: 0 0 18px rgba(59, 130, 246, 0.30);
-  --glow-violet: 0 0 18px rgba(139, 92, 246, 0.30);
-  --glow-cyan: 0 0 18px rgba(6, 182, 212, 0.30);
-  --glow-neutral: 0 4px 12px rgba(0, 0, 0, 0.15);
+  /* Additional color glows (OKLCH) */
+  --glow-blue: 0 0 18px oklch(62.3% 0.180 255 / 0.30);
+  --glow-violet: 0 0 18px oklch(62.7% 0.159 291 / 0.30);
+  --glow-cyan: 0 0 18px oklch(71.5% 0.132 195 / 0.30);
+  --glow-neutral: 0 4px 12px oklch(0% 0 0 / 0.15);
 
   /* ========================================
-     BACKGROUND ORBS
+     BACKGROUND ORBS (OKLCH)
      ======================================== */
-  --orb-1: rgba(37, 99, 235, 0.1);
-  --orb-2: rgba(124, 58, 237, 0.08);
-  --orb-3: rgba(8, 145, 178, 0.08);
-  --orb-4: rgba(79, 70, 229, 0.06);
+  --orb-1: oklch(54.6% 0.200 260 / 0.1);
+  --orb-2: oklch(54.1% 0.175 293 / 0.08);
+  --orb-3: oklch(58.0% 0.130 195 / 0.08);
+  --orb-4: oklch(52.0% 0.180 275 / 0.06);
   --orb-5: transparent;
 
   /* ========================================
@@ -95,347 +95,348 @@
   --shadow-xl: 0 25px 50px -12px rgb(0 0 0 / 0.7);
 
   /* ========================================
-     BUTTON VARIABLES
+     BUTTON VARIABLES (OKLCH)
      ======================================== */
-  --btn-primary-bg: linear-gradient(135deg, #7c3aed, #8b5cf6);
-  --btn-primary-text: #ffffff;
-  --btn-primary-hover-bg: linear-gradient(135deg, #8b5cf6, #a78bfa);
-  --btn-primary-glow: 0 0 25px rgba(139, 92, 246, 0.5), 0 0 50px rgba(139, 92, 246, 0.25);
-  --btn-secondary-bg: rgba(51, 65, 85, 0.60);
-  --btn-secondary-text: #e2e8f0;
-  --btn-secondary-border: rgba(71, 85, 105, 0.50);
-  --btn-secondary-hover-bg: rgba(71, 85, 105, 0.80);
-  --btn-secondary-glow: 0 4px 20px rgba(0, 0, 0, 0.30);
+  --btn-primary-bg: linear-gradient(135deg, oklch(54.1% 0.175 293), oklch(62.7% 0.159 291));
+  --btn-primary-text: oklch(100% 0 0);
+  --btn-primary-hover-bg: linear-gradient(135deg, oklch(62.7% 0.159 291), oklch(71.4% 0.138 291));
+  --btn-primary-glow: 0 0 25px oklch(62.7% 0.159 291 / 0.5), 0 0 50px oklch(62.7% 0.159 291 / 0.25);
+  --btn-secondary-bg: oklch(37.2% 0.044 257 / 0.60);
+  --btn-secondary-text: oklch(92.9% 0.013 255);
+  --btn-secondary-border: oklch(44.6% 0.043 257 / 0.50);
+  --btn-secondary-hover-bg: oklch(44.6% 0.043 257 / 0.80);
+  --btn-secondary-glow: 0 4px 20px oklch(0% 0 0 / 0.30);
   --btn-ghost-bg: transparent;
-  --btn-ghost-text: #94a3b8;
-  --btn-ghost-hover-bg: rgba(51, 65, 85, 0.50);
-  --btn-danger-bg: linear-gradient(135deg, #ef4444, #f87171);
-  --btn-danger-text: #ffffff;
-  --btn-danger-glow: 0 0 25px rgba(248, 113, 113, 0.5);
-  --btn-success-bg: linear-gradient(135deg, #10b981, #34d399);
-  --btn-success-text: #ffffff;
-  --btn-success-glow: 0 0 25px rgba(52, 211, 153, 0.5);
+  --btn-ghost-text: oklch(70.4% 0.034 256);
+  --btn-ghost-hover-bg: oklch(37.2% 0.044 257 / 0.50);
+  --btn-destructive-bg: linear-gradient(135deg, oklch(62.8% 0.225 29), oklch(71.5% 0.179 27));
+  --btn-destructive-text: oklch(100% 0 0);
+  --btn-destructive-glow: 0 0 25px oklch(71.5% 0.179 27 / 0.5);
+  --btn-success-bg: linear-gradient(135deg, oklch(69.6% 0.155 163), oklch(76.5% 0.147 163));
+  --btn-success-text: oklch(100% 0 0);
+  --btn-success-glow: 0 0 25px oklch(76.5% 0.147 163 / 0.5);
 
   /* ========================================
-     BADGE VARIABLES
+     BADGE VARIABLES (OKLCH)
      ======================================== */
   /* shadcn/ui compatible variants */
-  --badge-default-bg: rgba(71, 85, 105, 0.30);
-  --badge-default-text: #cbd5e1;
-  --badge-default-border: rgba(71, 85, 105, 0.50);
-  --badge-secondary-bg: rgba(100, 116, 139, 0.30);
-  --badge-secondary-text: #94a3b8;
-  --badge-secondary-border: rgba(100, 116, 139, 0.50);
-  --badge-destructive-bg: rgba(239, 68, 68, 0.20);
-  --badge-destructive-text: #f87171;
-  --badge-destructive-border: rgba(239, 68, 68, 0.30);
+  --badge-default-bg: oklch(44.6% 0.043 257 / 0.30);
+  --badge-default-text: oklch(86.9% 0.022 252);
+  --badge-default-border: oklch(44.6% 0.043 257 / 0.50);
+  --badge-secondary-bg: oklch(55.4% 0.046 257 / 0.30);
+  --badge-secondary-text: oklch(70.4% 0.034 256);
+  --badge-secondary-border: oklch(55.4% 0.046 257 / 0.50);
+  --badge-destructive-bg: oklch(62.8% 0.225 29 / 0.20);
+  --badge-destructive-text: oklch(71.5% 0.179 27);
+  --badge-destructive-border: oklch(62.8% 0.225 29 / 0.30);
   --badge-outline-bg: transparent;
-  --badge-outline-text: #cbd5e1;
-  --badge-outline-border: rgba(148, 163, 184, 0.50);
+  --badge-outline-text: oklch(86.9% 0.022 252);
+  --badge-outline-border: oklch(70.4% 0.034 256 / 0.50);
   /* Glass UI extended variants */
-  --badge-success-bg: rgba(16, 185, 129, 0.20);
-  --badge-success-text: #34d399;
-  --badge-success-border: rgba(16, 185, 129, 0.30);
-  --badge-warning-bg: rgba(245, 158, 11, 0.20);
-  --badge-warning-text: #fbbf24;
-  --badge-warning-border: rgba(245, 158, 11, 0.30);
-  --badge-info-bg: rgba(59, 130, 246, 0.20);
-  --badge-info-text: #60a5fa;
-  --badge-info-border: rgba(59, 130, 246, 0.30);
+  --badge-success-bg: oklch(69.6% 0.155 163 / 0.20);
+  --badge-success-text: oklch(76.5% 0.147 163);
+  --badge-success-border: oklch(69.6% 0.155 163 / 0.30);
+  --badge-warning-bg: oklch(76.9% 0.169 75 / 0.20);
+  --badge-warning-text: oklch(82.8% 0.157 84);
+  --badge-warning-border: oklch(76.9% 0.169 75 / 0.30);
+  --badge-info-bg: oklch(62.3% 0.180 255 / 0.20);
+  --badge-info-text: oklch(70.7% 0.143 250);
+  --badge-info-border: oklch(62.3% 0.180 255 / 0.30);
 
   /* ========================================
-     INPUT VARIABLES
+     INPUT VARIABLES (OKLCH)
      ======================================== */
-  --input-bg: rgba(30, 41, 59, 0.80);
-  --input-border: rgba(51, 65, 85, 0.60);
-  --input-text: #e2e8f0;
-  --input-placeholder: #64748b;
-  --input-focus-border: #a78bfa;
-  --input-focus-glow: 0 0 0 3px rgba(167, 139, 250, 0.20);
+  --input-bg: oklch(27.9% 0.041 260 / 0.80);
+  --input-border: oklch(37.2% 0.044 257 / 0.60);
+  --input-text: oklch(92.9% 0.013 255);
+  --input-placeholder: oklch(55.4% 0.046 257);
+  --input-focus-border: oklch(71.4% 0.138 291);
+  --input-focus-glow: 0 0 0 2px oklch(100% 0 0 / 0.9), 0 0 0 4px oklch(0% 0 0 / 0.8);
 
   /* ========================================
-     FOCUS RING VARIABLES (keyboard-only focus indicators)
+     FOCUS RING VARIABLES (OKLCH)
+     Per UI_DIZINE.md: Double-outline pattern for universal visibility
      ======================================== */
-  /* Generic focus glow (fallback) - gradient-aware aurora theme */
-  --focus-glow: 0 0 0 3px rgba(167, 139, 250, 0.20);
+  /* Generic focus glow (fallback) - double-outline: white inner + black outer */
+  --focus-glow: 0 0 0 2px oklch(100% 0 0 / 0.9), 0 0 0 4px oklch(0% 0 0 / 0.8);
 
-  /* Component-specific focus glows - softer for aurora theme */
-  --btn-focus-glow: 0 0 0 3px rgba(167, 139, 250, 0.20);
-  --checkbox-focus-glow: 0 0 0 3px rgba(139, 92, 246, 0.20);
-  --toggle-focus-glow: 0 0 0 3px rgba(139, 92, 246, 0.20);
-  --tab-focus-glow: 0 0 0 3px rgba(167, 139, 250, 0.20);
-  --slider-focus-glow: 0 0 0 3px rgba(139, 92, 246, 0.20);
-  --dropdown-item-focus-glow: 0 0 0 3px rgba(167, 139, 250, 0.20);
-  --modal-close-focus-glow: 0 0 0 3px rgba(139, 92, 246, 0.20);
+  /* Component-specific focus glows - all use double-outline pattern */
+  --btn-focus-glow: 0 0 0 2px oklch(100% 0 0 / 0.9), 0 0 0 4px oklch(0% 0 0 / 0.8);
+  --checkbox-focus-glow: 0 0 0 2px oklch(100% 0 0 / 0.9), 0 0 0 4px oklch(0% 0 0 / 0.8);
+  --toggle-focus-glow: 0 0 0 2px oklch(100% 0 0 / 0.9), 0 0 0 4px oklch(0% 0 0 / 0.8);
+  --tab-focus-glow: 0 0 0 2px oklch(100% 0 0 / 0.9), 0 0 0 4px oklch(0% 0 0 / 0.8);
+  --slider-focus-glow: 0 0 0 2px oklch(100% 0 0 / 0.9), 0 0 0 4px oklch(0% 0 0 / 0.8);
+  --dropdown-item-focus-glow: 0 0 0 2px oklch(100% 0 0 / 0.9), 0 0 0 4px oklch(0% 0 0 / 0.8);
+  --modal-close-focus-glow: 0 0 0 2px oklch(100% 0 0 / 0.9), 0 0 0 4px oklch(0% 0 0 / 0.8);
 
   /* ========================================
-     ALERT VARIABLES
+     ALERT VARIABLES (OKLCH)
      ======================================== */
   /* shadcn/ui compatible variants */
-  --alert-default-bg: rgba(96, 165, 250, 0.10);
-  --alert-default-border: rgba(96, 165, 250, 0.20);
-  --alert-default-text: #60a5fa;
-  --alert-destructive-bg: rgba(239, 68, 68, 0.10);
-  --alert-destructive-border: rgba(239, 68, 68, 0.20);
-  --alert-destructive-text: #f87171;
+  --alert-default-bg: oklch(70.7% 0.143 250 / 0.10);
+  --alert-default-border: oklch(70.7% 0.143 250 / 0.20);
+  --alert-default-text: oklch(70.7% 0.143 250);
+  --alert-destructive-bg: oklch(62.8% 0.225 29 / 0.10);
+  --alert-destructive-border: oklch(62.8% 0.225 29 / 0.20);
+  --alert-destructive-text: oklch(71.5% 0.179 27);
   /* Glass UI extended variants */
-  --alert-success-bg: rgba(52, 211, 153, 0.10);
-  --alert-success-border: rgba(52, 211, 153, 0.20);
-  --alert-success-text: #34d399;
-  --alert-warning-bg: rgba(245, 158, 11, 0.10);
-  --alert-warning-border: rgba(245, 158, 11, 0.20);
-  --alert-warning-text: #fbbf24;
+  --alert-success-bg: oklch(76.5% 0.147 163 / 0.10);
+  --alert-success-border: oklch(76.5% 0.147 163 / 0.20);
+  --alert-success-text: oklch(76.5% 0.147 163);
+  --alert-warning-bg: oklch(76.9% 0.169 75 / 0.10);
+  --alert-warning-border: oklch(76.9% 0.169 75 / 0.20);
+  --alert-warning-text: oklch(82.8% 0.157 84);
   /* Alias for FlagAlertGlass danger type */
   --alert-danger-bg: var(--alert-destructive-bg);
   --alert-danger-border: var(--alert-destructive-border);
   --alert-danger-text: var(--alert-destructive-text);
 
   /* ========================================
-     TOGGLE/CHECKBOX VARIABLES
+     TOGGLE/CHECKBOX VARIABLES (OKLCH)
      ======================================== */
-  --toggle-bg: rgba(51, 65, 85, 0.80);
-  --toggle-active-bg: linear-gradient(135deg, #7c3aed, #8b5cf6);
-  --toggle-knob: #f1f5f9;
-  --toggle-glow: 0 0 15px rgba(139, 92, 246, 0.5);
-  --checkbox-bg: rgba(30, 41, 59, 0.80);
-  --checkbox-border: rgba(71, 85, 105, 0.80);
-  --checkbox-checked-bg: #8b5cf6;
-  --checkbox-glow: 0 0 0 3px rgba(139, 92, 246, 0.20);
+  --toggle-bg: oklch(37.2% 0.044 257 / 0.80);
+  --toggle-active-bg: linear-gradient(135deg, oklch(54.1% 0.175 293), oklch(62.7% 0.159 291));
+  --toggle-knob: oklch(96.8% 0.007 247);
+  --toggle-glow: 0 0 15px oklch(62.7% 0.159 291 / 0.5);
+  --checkbox-bg: oklch(27.9% 0.041 260 / 0.80);
+  --checkbox-border: oklch(44.6% 0.043 257 / 0.80);
+  --checkbox-checked-bg: oklch(62.7% 0.159 291);
+  --checkbox-glow: 0 0 0 3px oklch(62.7% 0.159 291 / 0.20);
 
   /* ========================================
-     TABS VARIABLES
+     TABS VARIABLES (OKLCH)
      ======================================== */
   --tab-bg: transparent;
-  --tab-active-bg: rgba(139, 92, 246, 0.15);
-  --tab-active-text: #a78bfa;
-  --tab-border: rgba(51, 65, 85, 0.50);
-  --tab-indicator: #a78bfa;
-  --tab-container-bg: rgba(51, 65, 85, 0.30);
-  --tab-container-border: rgba(51, 65, 85, 0.50);
+  --tab-active-bg: oklch(62.7% 0.159 291 / 0.15);
+  --tab-active-text: oklch(71.4% 0.138 291);
+  --tab-border: oklch(37.2% 0.044 257 / 0.50);
+  --tab-indicator: oklch(71.4% 0.138 291);
+  --tab-container-bg: oklch(37.2% 0.044 257 / 0.30);
+  --tab-container-border: oklch(37.2% 0.044 257 / 0.50);
 
   /* ========================================
-     MODAL/DROPDOWN VARIABLES
+     MODAL/DROPDOWN VARIABLES (OKLCH)
      ======================================== */
-  --modal-bg: rgba(15, 23, 42, 0.98);
-  --modal-border: rgba(51, 65, 85, 0.60);
-  --modal-overlay: rgba(0, 0, 0, 0.70);
-  --modal-glow: 0 25px 50px rgba(0, 0, 0, 0.50);
-  --modal-glow-effect: radial-gradient(ellipse at top, rgba(139, 92, 246, 0.10) 0%, transparent 50%);
-  --modal-close-btn-bg: rgba(51, 65, 85, 0.50);
+  --modal-bg: oklch(20.8% 0.042 265 / 0.98);
+  --modal-border: oklch(37.2% 0.044 257 / 0.60);
+  --modal-overlay: oklch(0% 0 0 / 0.70);
+  --modal-glow: 0 25px 50px oklch(0% 0 0 / 0.50);
+  --modal-glow-effect: radial-gradient(ellipse at top, oklch(62.7% 0.159 291 / 0.10) 0%, transparent 50%);
+  --modal-close-btn-bg: oklch(37.2% 0.044 257 / 0.50);
   --modal-close-btn-border: none;
-  --modal-close-btn-hover-glow: 0 0 15px rgba(139, 92, 246, 0.25);
-  --dropdown-bg: rgba(30, 41, 59, 0.98);
-  --dropdown-border: rgba(51, 65, 85, 0.60);
-  --dropdown-item-hover: rgba(51, 65, 85, 0.70);
-  --dropdown-item-text: #cbd5e1;
-  --dropdown-icon: #94a3b8;
-  --dropdown-icon-hover: #a78bfa;
-  --dropdown-divider: rgba(51, 65, 85, 0.50);
-  --dropdown-glow: 0 10px 40px rgba(0, 0, 0, 0.40);
+  --modal-close-btn-hover-glow: 0 0 15px oklch(62.7% 0.159 291 / 0.25);
+  --dropdown-bg: oklch(27.9% 0.041 260 / 0.98);
+  --dropdown-border: oklch(37.2% 0.044 257 / 0.60);
+  --dropdown-item-hover: oklch(37.2% 0.044 257 / 0.70);
+  --dropdown-item-text: oklch(86.9% 0.022 252);
+  --dropdown-icon: oklch(70.4% 0.034 256);
+  --dropdown-icon-hover: oklch(71.4% 0.138 291);
+  --dropdown-divider: oklch(37.2% 0.044 257 / 0.50);
+  --dropdown-glow: 0 10px 40px oklch(0% 0 0 / 0.40);
 
-  /* Popover Variables */
-  --popover-bg: rgba(30, 41, 59, 0.98);
-  --popover-border: rgba(51, 65, 85, 0.60);
-  --popover-shadow: 0 10px 40px rgba(0, 0, 0, 0.40);
-  --popover-arrow-bg: rgba(30, 41, 59, 0.98);
+  /* Popover Variables (OKLCH) */
+  --popover-bg: oklch(27.9% 0.041 260 / 0.98);
+  --popover-border: oklch(37.2% 0.044 257 / 0.60);
+  --popover-shadow: 0 10px 40px oklch(0% 0 0 / 0.40);
+  --popover-arrow-bg: oklch(27.9% 0.041 260 / 0.98);
 
-  /* Select Variables */
-  --select-trigger-bg: rgba(30, 41, 59, 0.98);
-  --select-trigger-border: rgba(51, 65, 85, 0.60);
-  --select-trigger-text: #cbd5e1;
-  --select-trigger-focus-glow: 0 0 0 3px rgba(139, 92, 246, 0.20);
-  --select-content-bg: rgba(30, 41, 59, 0.98);
-  --select-content-border: rgba(51, 65, 85, 0.60);
-  --select-item-hover-bg: rgba(51, 65, 85, 0.70);
-  --select-item-selected-bg: rgba(139, 92, 246, 0.20);
-  --select-item-selected-text: #a78bfa;
-
-  /* ========================================
-     TEXT VARIABLES
-     ======================================== */
-  --text-primary: rgba(241, 245, 249, 0.95);    /* slate-100 */
-  --text-secondary: rgba(203, 213, 225, 0.80);  /* slate-300 */
-  --text-muted: rgba(148, 163, 184, 0.70);      /* slate-400 */
-  --text-accent: #a78bfa;                       /* violet-400 */
-  --text-inverse: #ffffff;
+  /* Select Variables (OKLCH) */
+  --select-trigger-bg: oklch(27.9% 0.041 260 / 0.98);
+  --select-trigger-border: oklch(37.2% 0.044 257 / 0.60);
+  --select-trigger-text: oklch(86.9% 0.022 252);
+  --select-trigger-focus-glow: 0 0 0 2px oklch(100% 0 0 / 0.9), 0 0 0 4px oklch(0% 0 0 / 0.8);
+  --select-content-bg: oklch(27.9% 0.041 260 / 0.98);
+  --select-content-border: oklch(37.2% 0.044 257 / 0.60);
+  --select-item-hover-bg: oklch(37.2% 0.044 257 / 0.70);
+  --select-item-selected-bg: oklch(62.7% 0.159 291 / 0.20);
+  --select-item-selected-text: oklch(71.4% 0.138 291);
 
   /* ========================================
-     SLIDER VARIABLES
+     TEXT VARIABLES (OKLCH)
      ======================================== */
-  --slider-track: rgba(51, 65, 85, 0.80);
-  --slider-fill: #8b5cf6;
-  --slider-fill-glow: 0 0 12px rgba(139, 92, 246, 0.4);
-  --slider-thumb: #f1f5f9;
-  --slider-thumb-border: #8b5cf6;
-  --slider-thumb-glow: 0 0 12px rgba(139, 92, 246, 0.5);
-  --slider-thumb-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  --text-primary: oklch(96.8% 0.007 247 / 0.95);   /* slate-100 */
+  --text-secondary: oklch(86.9% 0.022 252 / 0.80); /* slate-300 */
+  --text-muted: oklch(70.4% 0.034 256 / 0.70);     /* slate-400 */
+  --text-accent: oklch(71.4% 0.138 291);           /* violet-400 */
+  --text-inverse: oklch(100% 0 0);
 
   /* ========================================
-     AVATAR VARIABLES
+     SLIDER VARIABLES (OKLCH)
      ======================================== */
-  --avatar-bg: linear-gradient(135deg, #8b5cf6, #7c3aed);
-  --avatar-border: rgba(51, 65, 85, 0.60);
-  --avatar-shadow: 0 4px 15px rgba(139, 92, 246, 0.25);
-  --avatar-hover-glow: 0 8px 24px rgba(139, 92, 246, 0.40);
-  --avatar-glow: 0 8px 24px rgba(124, 58, 237, 0.25);
-  --online-border: #0f172a;
-  --status-online: #34d399;
-  --status-online-glow: 0 0 6px rgba(52, 211, 153, 0.50);
-  --status-offline: #64748b;
-  --status-busy: #f87171;
-  --status-busy-glow: 0 0 6px rgba(248, 113, 113, 0.50);
-  --status-away: #fbbf24;
-  --status-away-glow: 0 0 6px rgba(251, 191, 36, 0.50);
-  --status-green: #34d399;
-  --status-green-glow: 0 0 8px rgba(52, 211, 153, 0.50);
-  --status-yellow: #fbbf24;
-  --status-yellow-glow: 0 0 8px rgba(251, 191, 36, 0.50);
-  --status-red: #f87171;
-  --status-red-glow: 0 0 8px rgba(248, 113, 113, 0.50);
+  --slider-track: oklch(37.2% 0.044 257 / 0.80);
+  --slider-fill: oklch(62.7% 0.159 291);
+  --slider-fill-glow: 0 0 12px oklch(62.7% 0.159 291 / 0.4);
+  --slider-thumb: oklch(96.8% 0.007 247);
+  --slider-thumb-border: oklch(62.7% 0.159 291);
+  --slider-thumb-glow: 0 0 12px oklch(62.7% 0.159 291 / 0.5);
+  --slider-thumb-shadow: 0 2px 6px oklch(0% 0 0 / 0.15);
 
   /* ========================================
-     SEGMENTED CONTROL VARIABLES
+     AVATAR VARIABLES (OKLCH)
      ======================================== */
-  --segmented-container-bg: rgba(51, 65, 85, 0.30);
-  --segmented-container-border: rgba(51, 65, 85, 0.50);
-  --segmented-active-bg: rgba(15, 23, 42, 0.80);
-  --segmented-active-text: #e2e8f0;
-  --segmented-inactive-text: #94a3b8;
+  --avatar-bg: linear-gradient(135deg, oklch(62.7% 0.159 291), oklch(54.1% 0.175 293));
+  --avatar-border: oklch(37.2% 0.044 257 / 0.60);
+  --avatar-shadow: 0 4px 15px oklch(62.7% 0.159 291 / 0.25);
+  --avatar-hover-glow: 0 8px 24px oklch(62.7% 0.159 291 / 0.40);
+  --avatar-glow: 0 8px 24px oklch(54.1% 0.175 293 / 0.25);
+  --online-border: oklch(20.8% 0.042 265);
+  --status-online: oklch(76.5% 0.147 163);
+  --status-online-glow: 0 0 6px oklch(76.5% 0.147 163 / 0.50);
+  --status-offline: oklch(55.4% 0.046 257);
+  --status-busy: oklch(71.5% 0.179 27);
+  --status-busy-glow: 0 0 6px oklch(71.5% 0.179 27 / 0.50);
+  --status-away: oklch(82.8% 0.157 84);
+  --status-away-glow: 0 0 6px oklch(82.8% 0.157 84 / 0.50);
+  --status-green: oklch(76.5% 0.147 163);
+  --status-green-glow: 0 0 8px oklch(76.5% 0.147 163 / 0.50);
+  --status-yellow: oklch(82.8% 0.157 84);
+  --status-yellow-glow: 0 0 8px oklch(82.8% 0.157 84 / 0.50);
+  --status-red: oklch(71.5% 0.179 27);
+  --status-red-glow: 0 0 8px oklch(71.5% 0.179 27 / 0.50);
 
   /* ========================================
-     RAINBOW PROGRESS VARIABLES
+     SEGMENTED CONTROL VARIABLES (OKLCH)
      ======================================== */
-  --rainbow-glow: 0 0 15px rgba(251, 191, 36, 0.30);
+  --segmented-container-bg: oklch(37.2% 0.044 257 / 0.30);
+  --segmented-container-border: oklch(37.2% 0.044 257 / 0.50);
+  --segmented-active-bg: oklch(20.8% 0.042 265 / 0.80);
+  --segmented-active-text: oklch(92.9% 0.013 255);
+  --segmented-inactive-text: oklch(70.4% 0.034 256);
+
+  /* ========================================
+     RAINBOW PROGRESS VARIABLES (OKLCH)
+     ======================================== */
+  --rainbow-glow: 0 0 15px oklch(82.8% 0.157 84 / 0.30);
   --rainbow-animation: rainbow-glow 4s ease-in-out infinite;
 
   /* ========================================
-     SKELETON VARIABLES
+     SKELETON VARIABLES (OKLCH)
      ======================================== */
-  --skeleton-bg: rgba(51, 65, 85, 0.60);
-  --skeleton-shine: rgba(255, 255, 255, 0.08);
+  --skeleton-bg: oklch(37.2% 0.044 257 / 0.60);
+  --skeleton-shine: oklch(100% 0 0 / 0.08);
 
   /* ========================================
-     NOTIFICATION VARIABLES
+     NOTIFICATION VARIABLES (OKLCH)
      ======================================== */
-  --notification-bg: rgba(30, 41, 59, 0.98);
-  --notification-border: rgba(51, 65, 85, 0.60);
-  --notification-shadow: 0 10px 40px rgba(0, 0, 0, 0.30);
-  --notification-info-color: #60a5fa;
-  --notification-info-glow: 0 0 18px rgba(96, 165, 250, 0.25);
-  --notification-info-icon-bg: rgba(96, 165, 250, 0.15);
-  --notification-success-color: #34d399;
-  --notification-success-glow: 0 0 18px rgba(52, 211, 153, 0.25);
-  --notification-success-icon-bg: rgba(52, 211, 153, 0.15);
-  --notification-warning-color: #fbbf24;
-  --notification-warning-glow: 0 0 18px rgba(251, 191, 36, 0.25);
-  --notification-warning-icon-bg: rgba(251, 191, 36, 0.15);
-  --notification-error-color: #f87171;
-  --notification-error-glow: 0 0 18px rgba(248, 113, 113, 0.25);
-  --notification-error-icon-bg: rgba(248, 113, 113, 0.15);
+  --notification-bg: oklch(27.9% 0.041 260 / 0.98);
+  --notification-border: oklch(37.2% 0.044 257 / 0.60);
+  --notification-shadow: 0 10px 40px oklch(0% 0 0 / 0.30);
+  --notification-info-color: oklch(70.7% 0.143 250);
+  --notification-info-glow: 0 0 18px oklch(70.7% 0.143 250 / 0.25);
+  --notification-info-icon-bg: oklch(70.7% 0.143 250 / 0.15);
+  --notification-success-color: oklch(76.5% 0.147 163);
+  --notification-success-glow: 0 0 18px oklch(76.5% 0.147 163 / 0.25);
+  --notification-success-icon-bg: oklch(76.5% 0.147 163 / 0.15);
+  --notification-warning-color: oklch(82.8% 0.157 84);
+  --notification-warning-glow: 0 0 18px oklch(82.8% 0.157 84 / 0.25);
+  --notification-warning-icon-bg: oklch(82.8% 0.157 84 / 0.15);
+  --notification-error-color: oklch(71.5% 0.179 27);
+  --notification-error-glow: 0 0 18px oklch(71.5% 0.179 27 / 0.25);
+  --notification-error-icon-bg: oklch(71.5% 0.179 27 / 0.15);
 
   /* ========================================
-     TOOLTIP VARIABLES
+     TOOLTIP VARIABLES (OKLCH)
      ======================================== */
-  --tooltip-bg: #1e293b;
-  --tooltip-text: #f1f5f9;
-  --tooltip-shadow: 0 4px 12px rgba(0, 0, 0, 0.20);
+  --tooltip-bg: oklch(27.9% 0.041 260);
+  --tooltip-text: oklch(96.8% 0.007 247);
+  --tooltip-shadow: 0 4px 12px oklch(0% 0 0 / 0.20);
 
   /* ========================================
-     CARD VARIABLES
+     CARD VARIABLES (OKLCH)
      ======================================== */
-  --card-bg: rgba(30, 41, 59, 0.40);
-  --card-border: rgba(51, 65, 85, 0.40);
-  --card-hover-bg: rgba(30, 41, 59, 0.60);
-  --card-hover-border: rgba(51, 65, 85, 0.60);
-  --card-hover-glow: 0 0 20px rgba(139, 92, 246, 0.20);
-  --card-subtle-bg: rgba(30, 41, 59, 0.25);
-  --card-subtle-border: rgba(51, 65, 85, 0.30);
-  --card-medium-bg: rgba(30, 41, 59, 0.40);
-  --card-medium-border: rgba(51, 65, 85, 0.40);
-  --card-strong-bg: rgba(30, 41, 59, 0.60);
-  --card-strong-border: rgba(51, 65, 85, 0.60);
-  --expanded-bg: rgba(30, 41, 59, 0.40);
-  --expanded-border: rgba(139, 92, 246, 0.50);
+  --card-bg: oklch(27.9% 0.041 260 / 0.40);
+  --card-border: oklch(37.2% 0.044 257 / 0.40);
+  --card-hover-bg: oklch(27.9% 0.041 260 / 0.60);
+  --card-hover-border: oklch(37.2% 0.044 257 / 0.60);
+  --card-hover-glow: 0 0 20px oklch(62.7% 0.159 291 / 0.20);
+  --card-subtle-bg: oklch(27.9% 0.041 260 / 0.25);
+  --card-subtle-border: oklch(37.2% 0.044 257 / 0.30);
+  --card-medium-bg: oklch(27.9% 0.041 260 / 0.40);
+  --card-medium-border: oklch(37.2% 0.044 257 / 0.40);
+  --card-strong-bg: oklch(27.9% 0.041 260 / 0.60);
+  --card-strong-border: oklch(37.2% 0.044 257 / 0.60);
+  --expanded-bg: oklch(27.9% 0.041 260 / 0.40);
+  --expanded-border: oklch(62.7% 0.159 291 / 0.50);
 
   /* ========================================
-     PROGRESS VARIABLES
+     PROGRESS VARIABLES (OKLCH)
      ======================================== */
-  --progress-bg: rgba(51, 65, 85, 0.50);
-  --progress-glow: 0 0 12px rgba(124, 58, 237, 0.4);
-  --progress-glow-violet: 0 0 12px rgba(139, 92, 246, 0.4);
-  --progress-glow-blue: 0 0 12px rgba(59, 130, 246, 0.4);
-  --progress-glow-cyan: 0 0 12px rgba(6, 182, 212, 0.4);
-  --progress-glow-amber: 0 0 12px rgba(245, 158, 11, 0.4);
-  --progress-glow-emerald: 0 0 12px rgba(16, 185, 129, 0.4);
-  --progress-glow-rose: 0 0 12px rgba(244, 63, 94, 0.4);
+  --progress-bg: oklch(37.2% 0.044 257 / 0.50);
+  --progress-glow: 0 0 12px oklch(54.1% 0.175 293 / 0.4);
+  --progress-glow-violet: 0 0 12px oklch(62.7% 0.159 291 / 0.4);
+  --progress-glow-blue: 0 0 12px oklch(62.3% 0.180 255 / 0.4);
+  --progress-glow-cyan: 0 0 12px oklch(71.5% 0.132 195 / 0.4);
+  --progress-glow-amber: 0 0 12px oklch(76.9% 0.169 75 / 0.4);
+  --progress-glow-emerald: 0 0 12px oklch(69.6% 0.155 163 / 0.4);
+  --progress-glow-rose: 0 0 12px oklch(64.5% 0.195 12 / 0.4);
 
   /* ========================================
-     METRIC CARD VARIABLES
+     METRIC CARD VARIABLES (OKLCH)
      ======================================== */
-  --metric-emerald-bg: rgba(16, 185, 129, 0.15);
-  --metric-emerald-text: #34d399;
-  --metric-emerald-border: rgba(16, 185, 129, 0.25);
-  --metric-emerald-glow: 0 0 10px rgba(52, 211, 153, 0.35);
-  --metric-amber-bg: rgba(245, 158, 11, 0.15);
-  --metric-amber-text: #fbbf24;
-  --metric-amber-border: rgba(245, 158, 11, 0.25);
-  --metric-amber-glow: 0 0 10px rgba(251, 191, 36, 0.35);
-  --metric-blue-bg: rgba(59, 130, 246, 0.15);
-  --metric-blue-text: #60a5fa;
-  --metric-blue-border: rgba(59, 130, 246, 0.25);
-  --metric-blue-glow: 0 0 10px rgba(96, 165, 250, 0.35);
-  --metric-red-bg: rgba(239, 68, 68, 0.15);
-  --metric-red-text: #f87171;
-  --metric-red-border: rgba(239, 68, 68, 0.25);
-  --metric-red-glow: 0 0 10px rgba(248, 113, 113, 0.35);
+  --metric-emerald-bg: oklch(69.6% 0.155 163 / 0.15);
+  --metric-emerald-text: oklch(76.5% 0.147 163);
+  --metric-emerald-border: oklch(69.6% 0.155 163 / 0.25);
+  --metric-emerald-glow: 0 0 10px oklch(76.5% 0.147 163 / 0.35);
+  --metric-amber-bg: oklch(76.9% 0.169 75 / 0.15);
+  --metric-amber-text: oklch(82.8% 0.157 84);
+  --metric-amber-border: oklch(76.9% 0.169 75 / 0.25);
+  --metric-amber-glow: 0 0 10px oklch(82.8% 0.157 84 / 0.35);
+  --metric-blue-bg: oklch(62.3% 0.180 255 / 0.15);
+  --metric-blue-text: oklch(70.7% 0.143 250);
+  --metric-blue-border: oklch(62.3% 0.180 255 / 0.25);
+  --metric-blue-glow: 0 0 10px oklch(70.7% 0.143 250 / 0.35);
+  --metric-red-bg: oklch(62.8% 0.225 29 / 0.15);
+  --metric-red-text: oklch(71.5% 0.179 27);
+  --metric-red-border: oklch(62.8% 0.225 29 / 0.25);
+  --metric-red-glow: 0 0 10px oklch(71.5% 0.179 27 / 0.35);
 
   /* ========================================
-     PROFILE AVATAR VARIABLES
+     PROFILE AVATAR VARIABLES (OKLCH)
      ======================================== */
-  --profile-avatar-border: rgba(51, 65, 85, 0.60);
-  --profile-avatar-glow: 0 8px 24px rgba(139, 92, 246, 0.40);
+  --profile-avatar-border: oklch(37.2% 0.044 257 / 0.60);
+  --profile-avatar-glow: 0 8px 24px oklch(62.7% 0.159 291 / 0.40);
 
   /* ========================================
-     YEAR CARD VARIABLES
+     YEAR CARD VARIABLES (OKLCH)
      ======================================== */
-  --year-card-bg: rgba(30, 41, 59, 0.40);
-  --year-card-border: rgba(51, 65, 85, 0.40);
-  --year-card-hover-glow: 0 8px 24px rgba(139, 92, 246, 0.18);
+  --year-card-bg: oklch(27.9% 0.041 260 / 0.40);
+  --year-card-border: oklch(37.2% 0.044 257 / 0.40);
+  --year-card-hover-glow: 0 8px 24px oklch(62.7% 0.159 291 / 0.18);
 
   /* ========================================
-     AI CARD VARIABLES
+     AI CARD VARIABLES (OKLCH)
      ======================================== */
-  --ai-card-bg: rgba(30, 41, 59, 0.50);
-  --ai-card-border: rgba(51, 65, 85, 0.50);
-  --ai-card-hover-glow: 0 10px 32px rgba(139, 92, 246, 0.22);
+  --ai-card-bg: oklch(27.9% 0.041 260 / 0.50);
+  --ai-card-border: oklch(37.2% 0.044 257 / 0.50);
+  --ai-card-hover-glow: 0 10px 32px oklch(62.7% 0.159 291 / 0.22);
 
   /* ========================================
-     HEADER VARIABLES
+     HEADER VARIABLES (OKLCH)
      ======================================== */
-  --header-bg: rgba(15, 23, 42, 0.60);
-  --header-border: rgba(51, 65, 85, 0.50);
-  --icon-btn-from: #334155;
-  --icon-btn-to: #1e293b;
-  --icon-btn-shadow: 0 4px 12px rgba(0, 0, 0, 0.30);
-  --icon-btn-text: #e2e8f0;
-  --search-bg: rgba(30, 41, 59, 0.60);
-  --search-border: rgba(51, 65, 85, 0.50);
-  --search-btn-bg: #e2e8f0;
-  --search-btn-text: #0f172a;
-  --search-focus-glow: none;
+  --header-bg: oklch(20.8% 0.042 265 / 0.60);
+  --header-border: oklch(37.2% 0.044 257 / 0.50);
+  --icon-btn-from: oklch(37.2% 0.044 257);
+  --icon-btn-to: oklch(27.9% 0.041 260);
+  --icon-btn-shadow: 0 4px 12px oklch(0% 0 0 / 0.30);
+  --icon-btn-text: oklch(92.9% 0.013 255);
+  --search-bg: oklch(27.9% 0.041 260 / 0.60);
+  --search-border: oklch(37.2% 0.044 257 / 0.50);
+  --search-btn-bg: oklch(92.9% 0.013 255);
+  --search-btn-text: oklch(20.8% 0.042 265);
+  --search-focus-glow: 0 0 0 2px oklch(100% 0 0 / 0.9), 0 0 0 4px oklch(0% 0 0 / 0.8);
 
   /* ========================================
-     REPO CARD VARIABLES
+     REPO CARD VARIABLES (OKLCH)
      ======================================== */
-  --repo-card-hover-glow: 0 8px 24px rgba(139, 92, 246, 0.12);
+  --repo-card-hover-glow: 0 8px 24px oklch(62.7% 0.159 291 / 0.12);
 
   /* ========================================
-     BACKGROUND VARIABLES
+     BACKGROUND VARIABLES (OKLCH)
      ======================================== */
-  --bg-from: #020617;
-  --bg-via: #0f172a;
-  --bg-to: #020617;
-  --grid-color: rgba(255, 255, 255, 0.05);
+  --bg-from: oklch(12.9% 0.042 264);
+  --bg-via: oklch(20.8% 0.042 265);
+  --bg-to: oklch(12.9% 0.042 264);
+  --grid-color: oklch(100% 0 0 / 0.05);
   --grid-opacity: 0.02;
-  --footer-text: #64748b;
+  --footer-text: oklch(55.4% 0.046 257);
 }

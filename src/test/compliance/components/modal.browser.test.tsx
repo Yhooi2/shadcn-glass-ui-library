@@ -128,9 +128,9 @@ describe('Modal Compliance Tests', () => {
       it('has glass effect with blur', () => {
         renderModal({ theme });
 
-        // Find modal content via title (blur is on the inner content, not the dialog wrapper)
+        // Find modal content via title (blur is on the content container with rounded-2xl)
         const modalTitle = screen.getByText('Test Modal');
-        const modalContent = modalTitle.closest('.rounded-3xl') as HTMLElement;
+        const modalContent = modalTitle.closest('.rounded-2xl') as HTMLElement;
 
         expect(modalContent).not.toBeNull();
         const props = getGlassProperties(modalContent);
@@ -140,9 +140,9 @@ describe('Modal Compliance Tests', () => {
       it('has correct blur value (24px)', () => {
         renderModal({ theme });
 
-        // Find modal content via title (blur is on the inner content, not the dialog wrapper)
+        // Find modal content via title (blur is on the content container with rounded-2xl)
         const modalTitle = screen.getByText('Test Modal');
-        const modalContent = modalTitle.closest('.rounded-3xl') as HTMLElement;
+        const modalContent = modalTitle.closest('.rounded-2xl') as HTMLElement;
 
         expect(modalContent).not.toBeNull();
         const result = validateModalBlur(modalContent);
@@ -156,13 +156,13 @@ describe('Modal Compliance Tests', () => {
       it('has correct border radius (20px)', () => {
         renderModal({ theme });
 
-        // Find modal content via title (border-radius is on the inner content)
+        // Find modal content via title (border-radius is on the content container)
         const modalTitle = screen.getByText('Test Modal');
-        const modalContent = modalTitle.closest('.rounded-3xl') as HTMLElement;
+        const modalContent = modalTitle.closest('.rounded-2xl') as HTMLElement;
 
         expect(modalContent).not.toBeNull();
         const snapshot = getComputedStyleSnapshot(modalContent);
-        // rounded-3xl = 24px, spec says 20px, allow some tolerance
+        // rounded-2xl = 16px, spec says 20px, allow some tolerance
         expect(snapshot.borderRadius.topLeft).toBeGreaterThanOrEqual(
           COMPONENT_SPECS.MODAL.radius - 4
         );

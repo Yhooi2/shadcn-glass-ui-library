@@ -71,14 +71,14 @@ const getVariantStyles = (
       border: 'none',
       boxShadow: isFocusVisible ? 'var(--btn-focus-glow)' : 'none',
     },
-    danger: {
-      background: 'var(--btn-danger-bg)',
-      color: 'var(--btn-danger-text)',
+    destructive: {
+      background: 'var(--btn-destructive-bg)',
+      color: 'var(--btn-destructive-text)',
       border: 'none',
       boxShadow: isFocusVisible
         ? 'var(--btn-focus-glow)'
         : isHovered
-        ? 'var(--btn-danger-glow)'
+        ? 'var(--btn-destructive-glow)'
         : '0 4px 15px rgba(239,68,68,0.25)',
     },
     success: {

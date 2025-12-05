@@ -74,7 +74,7 @@ export const NotificationsBlock = forwardRef<HTMLDivElement, NotificationsBlockP
             >
               Alerts
             </label>
-            <div className="space-y-2">
+            <div className="space-y-2 flex flex-col items-start">
               <AlertGlass
                 type="info"
                 title="Information"
