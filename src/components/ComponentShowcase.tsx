@@ -27,7 +27,7 @@ import {
 // Glass Components (only for modal, dropdown, tabs demo)
 import { GlassCard } from "./glass/composite/glass-card";
 import { ButtonGlass } from "./glass/ui/button-glass";
-import { TabsGlass, type TabItem } from "./glass/ui/tabs-glass";
+import { TabsGlass } from "./glass/ui/tabs-glass";
 import { ModalGlass } from "./glass/ui/modal-glass";
 import { DropdownGlass, type DropdownItem } from "./glass/ui/dropdown-glass";
 
@@ -42,13 +42,6 @@ export const ComponentShowcase = () => {
   // Get next theme info
   const nextTheme = THEMES[(THEMES.indexOf(theme) + 1) % THEMES.length];
   const NextIcon = THEME_CONFIG[nextTheme].icon;
-
-  // Tab items
-  const tabs: TabItem[] = [
-    { id: "tab1", label: "Overview" },
-    { id: "tab2", label: "Analytics" },
-    { id: "tab3", label: "Settings" },
-  ];
 
   // Dropdown items
   const dropdownItems: DropdownItem[] = [
@@ -105,11 +98,13 @@ export const ComponentShowcase = () => {
               Tabs & Navigation
             </h2>
             <div className="space-y-3 md:space-y-4">
-              <TabsGlass
-                tabs={tabs}
-                activeTab={activeTab}
-                onChange={setActiveTab}
-              />
+              <TabsGlass.Root value={activeTab} onValueChange={setActiveTab}>
+                <TabsGlass.List>
+                  <TabsGlass.Trigger value="tab1">Overview</TabsGlass.Trigger>
+                  <TabsGlass.Trigger value="tab2">Analytics</TabsGlass.Trigger>
+                  <TabsGlass.Trigger value="tab3">Settings</TabsGlass.Trigger>
+                </TabsGlass.List>
+              </TabsGlass.Root>
               <div className="flex flex-wrap items-center gap-3 md:gap-4">
                 <DropdownGlass
                   trigger={
@@ -155,34 +150,38 @@ export const ComponentShowcase = () => {
       </div>
 
       {/* Modal */}
-      <ModalGlass
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        title="Modal Title"
-        size="md"
-      >
-        <div className="space-y-4">
-          <p className="leading-relaxed">
-            This is a modal dialog with glassmorphism styling. It features
-            beautiful blur effects, gradient backgrounds, and smooth animations.
-          </p>
-          <p
-            className="leading-relaxed"
-            style={{ color: "var(--text-muted)" }}
-          >
-            The modal automatically locks body scroll, closes on Escape key, and
-            handles click outside behavior.
-          </p>
-          <div className="flex gap-3 justify-end pt-4">
-            <ButtonGlass variant="text" onClick={() => setModalOpen(false)}>
-              Cancel
-            </ButtonGlass>
-            <ButtonGlass variant="primary" onClick={() => setModalOpen(false)}>
-              Confirm
-            </ButtonGlass>
-          </div>
-        </div>
-      </ModalGlass>
+      <ModalGlass.Root open={modalOpen} onOpenChange={setModalOpen}>
+        <ModalGlass.Overlay />
+        <ModalGlass.Content size="md">
+          <ModalGlass.Header>
+            <ModalGlass.Title>Modal Title</ModalGlass.Title>
+            <ModalGlass.Close />
+          </ModalGlass.Header>
+          <ModalGlass.Body>
+            <div className="space-y-4">
+              <p className="leading-relaxed">
+                This is a modal dialog with glassmorphism styling. It features
+                beautiful blur effects, gradient backgrounds, and smooth animations.
+              </p>
+              <p
+                className="leading-relaxed"
+                style={{ color: "var(--text-muted)" }}
+              >
+                The modal automatically locks body scroll, closes on Escape key, and
+                handles click outside behavior.
+              </p>
+              <div className="flex gap-3 justify-end pt-4">
+                <ButtonGlass variant="text" onClick={() => setModalOpen(false)}>
+                  Cancel
+                </ButtonGlass>
+                <ButtonGlass variant="primary" onClick={() => setModalOpen(false)}>
+                  Confirm
+                </ButtonGlass>
+              </div>
+            </div>
+          </ModalGlass.Body>
+        </ModalGlass.Content>
+      </ModalGlass.Root>
     </div>
   );
 };

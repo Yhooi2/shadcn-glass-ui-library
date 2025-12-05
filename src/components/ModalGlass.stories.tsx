@@ -7,50 +7,15 @@ import { ButtonGlass } from "./glass/ui/button-glass";
 
 const meta = {
   title: "Components/ModalGlass",
-  component: ModalGlass,
   parameters: {
     layout: "fullscreen",
     snapshot: {
       // Enable visual snapshot testing
       disable: false,
     },
+  },
   tags: ["autodocs"],
-  },
-  argTypes: {
-    size: {
-      control: "select",
-      options: ["sm", "md", "lg", "xl", "full"],
-      description: "The size of the modal",
-      table: {
-        type: { summary: "'sm' | 'md' | 'lg' | 'xl' | 'full'" },
-        defaultValue: { summary: "md" },
-      },
-    },
-    isOpen: {
-      control: "boolean",
-      description: "Whether the modal is open",
-      table: {
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
-      },
-    },
-    title: {
-      control: "text",
-      description: "The modal title",
-      table: {
-        type: { summary: "string" },
-      },
-    },
-    children: {
-      table: {
-        type: { summary: "ReactNode" },
-      },
-    },
-  },
-  args: {
-    onClose: fn(),
-  },
-} satisfies Meta<typeof ModalGlass>;
+} satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -66,23 +31,29 @@ type Story = StoryObj<typeof meta>;
 // ========================================
 
 export const Default: Story = {
-  args: {
-    isOpen: true,
-    title: "Modal Title",
-    size: "md",
-    children: (
-      <div className="space-y-4">
-        <p className="leading-relaxed">
-          This is a modal dialog with glassmorphism styling. It features
-          beautiful blur effects, gradient backgrounds, and smooth animations.
-        </p>
-        <p className="leading-relaxed text-white/60">
-          The modal automatically locks body scroll, closes on Escape key, and
-          handles click outside behavior.
-        </p>
-      </div>
-    ),
-  },
+  render: () => (
+    <ModalGlass.Root open={true} onOpenChange={fn()}>
+      <ModalGlass.Overlay />
+      <ModalGlass.Content size="md">
+        <ModalGlass.Header>
+          <ModalGlass.Title>Modal Title</ModalGlass.Title>
+          <ModalGlass.Close />
+        </ModalGlass.Header>
+        <ModalGlass.Body>
+          <div className="space-y-4">
+            <p className="leading-relaxed">
+              This is a modal dialog with glassmorphism styling. It features
+              beautiful blur effects, gradient backgrounds, and smooth animations.
+            </p>
+            <p className="leading-relaxed text-white/60">
+              The modal automatically locks body scroll, closes on Escape key, and
+              handles click outside behavior.
+            </p>
+          </div>
+        </ModalGlass.Body>
+      </ModalGlass.Content>
+    </ModalGlass.Root>
+  ),
   async play({ canvasElement }) {
     // Visual snapshot test - Default medium modal
     // Background: rgba(255,255,255,0.06)
@@ -93,16 +64,22 @@ export const Default: Story = {
 };
 
 export const Small: Story = {
-  args: {
-    isOpen: true,
-    title: "Small Modal",
-    size: "sm",
-    children: (
-      <p className="leading-relaxed">
-        This is a small modal. Great for simple confirmations.
-      </p>
-    ),
-  },
+  render: () => (
+    <ModalGlass.Root open={true} onOpenChange={fn()}>
+      <ModalGlass.Overlay />
+      <ModalGlass.Content size="sm">
+        <ModalGlass.Header>
+          <ModalGlass.Title>Small Modal</ModalGlass.Title>
+          <ModalGlass.Close />
+        </ModalGlass.Header>
+        <ModalGlass.Body>
+          <p className="leading-relaxed">
+            This is a small modal. Great for simple confirmations.
+          </p>
+        </ModalGlass.Body>
+      </ModalGlass.Content>
+    </ModalGlass.Root>
+  ),
   async play({ canvasElement }) {
     // Visual snapshot test - Small modal: max-w-sm
     await expect(canvasElement).toBeInTheDocument();
@@ -110,16 +87,22 @@ export const Small: Story = {
 };
 
 export const Medium: Story = {
-  args: {
-    isOpen: true,
-    title: "Medium Modal",
-    size: "md",
-    children: (
-      <p className="leading-relaxed">
-        This is a medium modal. The default size for most use cases.
-      </p>
-    ),
-  },
+  render: () => (
+    <ModalGlass.Root open={true} onOpenChange={fn()}>
+      <ModalGlass.Overlay />
+      <ModalGlass.Content size="md">
+        <ModalGlass.Header>
+          <ModalGlass.Title>Medium Modal</ModalGlass.Title>
+          <ModalGlass.Close />
+        </ModalGlass.Header>
+        <ModalGlass.Body>
+          <p className="leading-relaxed">
+            This is a medium modal. The default size for most use cases.
+          </p>
+        </ModalGlass.Body>
+      </ModalGlass.Content>
+    </ModalGlass.Root>
+  ),
   async play({ canvasElement }) {
     // Visual snapshot test - Medium modal: max-w-md
     await expect(canvasElement).toBeInTheDocument();
@@ -127,22 +110,28 @@ export const Medium: Story = {
 };
 
 export const Large: Story = {
-  args: {
-    isOpen: true,
-    title: "Large Modal",
-    size: "lg",
-    children: (
-      <div className="space-y-4">
-        <p className="leading-relaxed">
-          This is a large modal. It provides more space for complex content.
-        </p>
-        <p className="leading-relaxed text-white/60">
-          Use this size when you need to display forms, detailed information, or
-          multiple sections of content.
-        </p>
-      </div>
-    ),
-  },
+  render: () => (
+    <ModalGlass.Root open={true} onOpenChange={fn()}>
+      <ModalGlass.Overlay />
+      <ModalGlass.Content size="lg">
+        <ModalGlass.Header>
+          <ModalGlass.Title>Large Modal</ModalGlass.Title>
+          <ModalGlass.Close />
+        </ModalGlass.Header>
+        <ModalGlass.Body>
+          <div className="space-y-4">
+            <p className="leading-relaxed">
+              This is a large modal. It provides more space for complex content.
+            </p>
+            <p className="leading-relaxed text-white/60">
+              Use this size when you need to display forms, detailed information, or
+              multiple sections of content.
+            </p>
+          </div>
+        </ModalGlass.Body>
+      </ModalGlass.Content>
+    </ModalGlass.Root>
+  ),
   async play({ canvasElement }) {
     // Visual snapshot test - Large modal: max-w-lg
     await expect(canvasElement).toBeInTheDocument();
@@ -150,21 +139,27 @@ export const Large: Story = {
 };
 
 export const ExtraLarge: Story = {
-  args: {
-    isOpen: true,
-    title: "Extra Large Modal",
-    size: "xl",
-    children: (
-      <div className="space-y-4">
-        <p className="leading-relaxed">
-          This is an extra large modal for complex workflows.
-        </p>
-        <p className="leading-relaxed text-white/60">
-          Perfect for multi-step forms, data tables, or rich content displays.
-        </p>
-      </div>
-    ),
-  },
+  render: () => (
+    <ModalGlass.Root open={true} onOpenChange={fn()}>
+      <ModalGlass.Overlay />
+      <ModalGlass.Content size="xl">
+        <ModalGlass.Header>
+          <ModalGlass.Title>Extra Large Modal</ModalGlass.Title>
+          <ModalGlass.Close />
+        </ModalGlass.Header>
+        <ModalGlass.Body>
+          <div className="space-y-4">
+            <p className="leading-relaxed">
+              This is an extra large modal for complex workflows.
+            </p>
+            <p className="leading-relaxed text-white/60">
+              Perfect for multi-step forms, data tables, or rich content displays.
+            </p>
+          </div>
+        </ModalGlass.Body>
+      </ModalGlass.Content>
+    </ModalGlass.Root>
+  ),
   async play({ canvasElement }) {
     // Visual snapshot test - Extra large modal: max-w-xl
     await expect(canvasElement).toBeInTheDocument();
@@ -172,22 +167,28 @@ export const ExtraLarge: Story = {
 };
 
 export const Full: Story = {
-  args: {
-    isOpen: true,
-    title: "Full Width Modal",
-    size: "full",
-    children: (
-      <div className="space-y-4">
-        <p className="leading-relaxed">
-          This is the maximum width modal. Use it for complex interfaces.
-        </p>
-        <p className="leading-relaxed text-white/60">
-          Ideal for dashboards, editors, or any content that needs maximum
-          screen real estate.
-        </p>
-      </div>
-    ),
-  },
+  render: () => (
+    <ModalGlass.Root open={true} onOpenChange={fn()}>
+      <ModalGlass.Overlay />
+      <ModalGlass.Content size="full">
+        <ModalGlass.Header>
+          <ModalGlass.Title>Full Width Modal</ModalGlass.Title>
+          <ModalGlass.Close />
+        </ModalGlass.Header>
+        <ModalGlass.Body>
+          <div className="space-y-4">
+            <p className="leading-relaxed">
+              This is the maximum width modal. Use it for complex interfaces.
+            </p>
+            <p className="leading-relaxed text-white/60">
+              Ideal for dashboards, editors, or any content that needs maximum
+              screen real estate.
+            </p>
+          </div>
+        </ModalGlass.Body>
+      </ModalGlass.Content>
+    </ModalGlass.Root>
+  ),
   async play({ canvasElement }) {
     // Visual snapshot test - Full width modal: max-w-4xl
     await expect(canvasElement).toBeInTheDocument();
@@ -199,23 +200,29 @@ export const Full: Story = {
 // ========================================
 
 export const WithActions: Story = {
-  args: {
-    isOpen: true,
-    title: "Confirm Action",
-    size: "md",
-    children: (
-      <div className="space-y-4">
-        <p className="leading-relaxed">
-          Are you sure you want to proceed with this action? This cannot be
-          undone.
-        </p>
-        <div className="flex gap-3 justify-end pt-4">
-          <ButtonGlass variant="text">Cancel</ButtonGlass>
-          <ButtonGlass variant="primary">Confirm</ButtonGlass>
-        </div>
-      </div>
-    ),
-  },
+  render: () => (
+    <ModalGlass.Root open={true} onOpenChange={fn()}>
+      <ModalGlass.Overlay />
+      <ModalGlass.Content size="md">
+        <ModalGlass.Header>
+          <ModalGlass.Title>Confirm Action</ModalGlass.Title>
+          <ModalGlass.Close />
+        </ModalGlass.Header>
+        <ModalGlass.Body>
+          <div className="space-y-4">
+            <p className="leading-relaxed">
+              Are you sure you want to proceed with this action? This cannot be
+              undone.
+            </p>
+            <div className="flex gap-3 justify-end pt-4">
+              <ButtonGlass variant="text">Cancel</ButtonGlass>
+              <ButtonGlass variant="primary">Confirm</ButtonGlass>
+            </div>
+          </div>
+        </ModalGlass.Body>
+      </ModalGlass.Content>
+    </ModalGlass.Root>
+  ),
   async play({ canvasElement }) {
     // Visual snapshot test - Modal with action buttons
     // Button styling should match glass theme
@@ -224,39 +231,45 @@ export const WithActions: Story = {
 };
 
 export const WithForm: Story = {
-  args: {
-    isOpen: true,
-    title: "Create New Item",
-    size: "md",
-    children: (
-      <div className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium text-white/80 mb-2">
-            Name
-          </label>
-          <input
-            type="text"
-            placeholder="Enter name"
-            className="w-full px-4 py-2 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-purple-500"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-white/80 mb-2">
-            Description
-          </label>
-          <textarea
-            placeholder="Enter description"
-            rows={3}
-            className="w-full px-4 py-2 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none"
-          />
-        </div>
-        <div className="flex gap-3 justify-end pt-4">
-          <ButtonGlass variant="text">Cancel</ButtonGlass>
-          <ButtonGlass variant="primary">Create</ButtonGlass>
-        </div>
-      </div>
-    ),
-  },
+  render: () => (
+    <ModalGlass.Root open={true} onOpenChange={fn()}>
+      <ModalGlass.Overlay />
+      <ModalGlass.Content size="md">
+        <ModalGlass.Header>
+          <ModalGlass.Title>Create New Item</ModalGlass.Title>
+          <ModalGlass.Close />
+        </ModalGlass.Header>
+        <ModalGlass.Body>
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-white/80 mb-2">
+                Name
+              </label>
+              <input
+                type="text"
+                placeholder="Enter name"
+                className="w-full px-4 py-2 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-white/80 mb-2">
+                Description
+              </label>
+              <textarea
+                placeholder="Enter description"
+                rows={3}
+                className="w-full px-4 py-2 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none"
+              />
+            </div>
+            <div className="flex gap-3 justify-end pt-4">
+              <ButtonGlass variant="text">Cancel</ButtonGlass>
+              <ButtonGlass variant="primary">Create</ButtonGlass>
+            </div>
+          </div>
+        </ModalGlass.Body>
+      </ModalGlass.Content>
+    </ModalGlass.Root>
+  ),
   async play({ canvasElement }) {
     // Visual snapshot test - Modal with form inputs
     // Input styling: bg-white/10, border-white/20, focus:ring-purple-500
@@ -265,39 +278,45 @@ export const WithForm: Story = {
 };
 
 export const WithLongContent: Story = {
-  args: {
-    isOpen: true,
-    title: "Terms and Conditions",
-    size: "md",
-    children: (
-      <div className="space-y-4 max-h-[300px] overflow-y-auto">
-        <p className="leading-relaxed">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </p>
-        <p className="leading-relaxed">
-          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-          nisi ut aliquip ex ea commodo consequat.
-        </p>
-        <p className="leading-relaxed">
-          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-          dolore eu fugiat nulla pariatur.
-        </p>
-        <p className="leading-relaxed">
-          Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-          officia deserunt mollit anim id est laborum.
-        </p>
-        <p className="leading-relaxed">
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium doloremque laudantium.
-        </p>
-        <div className="flex gap-3 justify-end pt-4 sticky bottom-0 bg-transparent">
-          <ButtonGlass variant="text">Decline</ButtonGlass>
-          <ButtonGlass variant="primary">Accept</ButtonGlass>
-        </div>
-      </div>
-    ),
-  },
+  render: () => (
+    <ModalGlass.Root open={true} onOpenChange={fn()}>
+      <ModalGlass.Overlay />
+      <ModalGlass.Content size="md">
+        <ModalGlass.Header>
+          <ModalGlass.Title>Terms and Conditions</ModalGlass.Title>
+          <ModalGlass.Close />
+        </ModalGlass.Header>
+        <ModalGlass.Body>
+          <div className="space-y-4 max-h-[300px] overflow-y-auto">
+            <p className="leading-relaxed">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+            <p className="leading-relaxed">
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat.
+            </p>
+            <p className="leading-relaxed">
+              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+              dolore eu fugiat nulla pariatur.
+            </p>
+            <p className="leading-relaxed">
+              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+              officia deserunt mollit anim id est laborum.
+            </p>
+            <p className="leading-relaxed">
+              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+              accusantium doloremque laudantium.
+            </p>
+            <div className="flex gap-3 justify-end pt-4 sticky bottom-0 bg-transparent">
+              <ButtonGlass variant="text">Decline</ButtonGlass>
+              <ButtonGlass variant="primary">Accept</ButtonGlass>
+            </div>
+          </div>
+        </ModalGlass.Body>
+      </ModalGlass.Content>
+    </ModalGlass.Root>
+  ),
   async play({ canvasElement }) {
     // Visual snapshot test - Modal with scrollable content
     await expect(canvasElement).toBeInTheDocument();
@@ -309,38 +328,63 @@ export const WithLongContent: Story = {
 // ========================================
 
 export const AllSizes: Story = {
-  args: {
-    isOpen: true,
-    onClose: fn(),
-    title: "Modal Title",
-    children: "Modal content",
-  },
   render: () => (
     <div className="min-h-screen grid grid-cols-2 gap-4 p-8">
       <div className="relative h-[300px] bg-slate-900/50 rounded-xl overflow-hidden">
-        <ModalGlass isOpen={true} onClose={() => {}} title="Small" size="sm">
-          <p>Small modal content</p>
-        </ModalGlass>
+        <ModalGlass.Root open={true} onOpenChange={() => {}}>
+          <ModalGlass.Overlay />
+          <ModalGlass.Content size="sm">
+            <ModalGlass.Header>
+              <ModalGlass.Title>Small</ModalGlass.Title>
+              <ModalGlass.Close />
+            </ModalGlass.Header>
+            <ModalGlass.Body>
+              <p>Small modal content</p>
+            </ModalGlass.Body>
+          </ModalGlass.Content>
+        </ModalGlass.Root>
       </div>
       <div className="relative h-[300px] bg-slate-900/50 rounded-xl overflow-hidden">
-        <ModalGlass isOpen={true} onClose={() => {}} title="Medium" size="md">
-          <p>Medium modal content</p>
-        </ModalGlass>
+        <ModalGlass.Root open={true} onOpenChange={() => {}}>
+          <ModalGlass.Overlay />
+          <ModalGlass.Content size="md">
+            <ModalGlass.Header>
+              <ModalGlass.Title>Medium</ModalGlass.Title>
+              <ModalGlass.Close />
+            </ModalGlass.Header>
+            <ModalGlass.Body>
+              <p>Medium modal content</p>
+            </ModalGlass.Body>
+          </ModalGlass.Content>
+        </ModalGlass.Root>
       </div>
       <div className="relative h-[300px] bg-slate-900/50 rounded-xl overflow-hidden">
-        <ModalGlass isOpen={true} onClose={() => {}} title="Large" size="lg">
-          <p>Large modal content</p>
-        </ModalGlass>
+        <ModalGlass.Root open={true} onOpenChange={() => {}}>
+          <ModalGlass.Overlay />
+          <ModalGlass.Content size="lg">
+            <ModalGlass.Header>
+              <ModalGlass.Title>Large</ModalGlass.Title>
+              <ModalGlass.Close />
+            </ModalGlass.Header>
+            <ModalGlass.Body>
+              <p>Large modal content</p>
+            </ModalGlass.Body>
+          </ModalGlass.Content>
+        </ModalGlass.Root>
       </div>
       <div className="relative h-[300px] bg-slate-900/50 rounded-xl overflow-hidden">
-        <ModalGlass
-          isOpen={true}
-          onClose={() => {}}
-          title="Extra Large"
-          size="xl"
-        >
-          <p>Extra large modal content</p>
-        </ModalGlass>
+        <ModalGlass.Root open={true} onOpenChange={() => {}}>
+          <ModalGlass.Overlay />
+          <ModalGlass.Content size="xl">
+            <ModalGlass.Header>
+              <ModalGlass.Title>Extra Large</ModalGlass.Title>
+              <ModalGlass.Close />
+            </ModalGlass.Header>
+            <ModalGlass.Body>
+              <p>Extra large modal content</p>
+            </ModalGlass.Body>
+          </ModalGlass.Content>
+        </ModalGlass.Root>
       </div>
     </div>
   ),
@@ -355,16 +399,22 @@ export const AllSizes: Story = {
 // ========================================
 
 export const GlassOverlayTest: Story = {
-  args: {
-    isOpen: true,
-    title: "Glass Overlay",
-    size: "md",
-    children: (
-      <p className="leading-relaxed">
-        Testing the glass overlay effect with blur backdrop.
-      </p>
-    ),
-  },
+  render: () => (
+    <ModalGlass.Root open={true} onOpenChange={fn()}>
+      <ModalGlass.Overlay />
+      <ModalGlass.Content size="md">
+        <ModalGlass.Header>
+          <ModalGlass.Title>Glass Overlay</ModalGlass.Title>
+          <ModalGlass.Close />
+        </ModalGlass.Header>
+        <ModalGlass.Body>
+          <p className="leading-relaxed">
+            Testing the glass overlay effect with blur backdrop.
+          </p>
+        </ModalGlass.Body>
+      </ModalGlass.Content>
+    </ModalGlass.Root>
+  ),
   async play({ canvasElement }) {
     // Visual snapshot test - Overlay styling
     // Background: rgba(15,23,42,0.60)
@@ -374,21 +424,27 @@ export const GlassOverlayTest: Story = {
 };
 
 export const GlassGlowTest: Story = {
-  args: {
-    isOpen: true,
-    title: "Glass Glow Effect",
-    size: "lg",
-    children: (
-      <div className="space-y-4">
-        <p className="leading-relaxed">
-          Testing the purple glow effect around the modal.
-        </p>
-        <p className="leading-relaxed text-white/60">
-          Box-shadow: 0 25px 80px rgba(168,85,247,0.35)
-        </p>
-      </div>
-    ),
-  },
+  render: () => (
+    <ModalGlass.Root open={true} onOpenChange={fn()}>
+      <ModalGlass.Overlay />
+      <ModalGlass.Content size="lg">
+        <ModalGlass.Header>
+          <ModalGlass.Title>Glass Glow Effect</ModalGlass.Title>
+          <ModalGlass.Close />
+        </ModalGlass.Header>
+        <ModalGlass.Body>
+          <div className="space-y-4">
+            <p className="leading-relaxed">
+              Testing the purple glow effect around the modal.
+            </p>
+            <p className="leading-relaxed text-white/60">
+              Box-shadow: 0 25px 80px rgba(168,85,247,0.35)
+            </p>
+          </div>
+        </ModalGlass.Body>
+      </ModalGlass.Content>
+    </ModalGlass.Root>
+  ),
   async play({ canvasElement }) {
     // Visual snapshot test - Glow effect
     // Box-shadow: 0 25px 80px rgba(168,85,247,0.35), inset 0 1px 0 rgba(255,255,255,0.15)
@@ -398,16 +454,22 @@ export const GlassGlowTest: Story = {
 };
 
 export const CloseButtonTest: Story = {
-  args: {
-    isOpen: true,
-    title: "Close Button Styling",
-    size: "md",
-    children: (
-      <p className="leading-relaxed">
-        Hover over the close button to see the hover effect.
-      </p>
-    ),
-  },
+  render: () => (
+    <ModalGlass.Root open={true} onOpenChange={fn()}>
+      <ModalGlass.Overlay />
+      <ModalGlass.Content size="md">
+        <ModalGlass.Header>
+          <ModalGlass.Title>Close Button Styling</ModalGlass.Title>
+          <ModalGlass.Close />
+        </ModalGlass.Header>
+        <ModalGlass.Body>
+          <p className="leading-relaxed">
+            Hover over the close button to see the hover effect.
+          </p>
+        </ModalGlass.Body>
+      </ModalGlass.Content>
+    </ModalGlass.Root>
+  ),
   async play({ canvasElement }) {
     // Visual snapshot test - Close button styling
     // Default: bg rgba(255,255,255,0.08), border rgba(255,255,255,0.10)
@@ -417,24 +479,30 @@ export const CloseButtonTest: Story = {
 };
 
 export const TitleAndBodyText: Story = {
-  args: {
-    isOpen: true,
-    title: "Typography Test",
-    size: "md",
-    children: (
-      <div className="space-y-4">
-        <p className="leading-relaxed">
-          This tests the title and body text colors.
-        </p>
-        <p className="leading-relaxed text-white/60">
-          Body text should be rgba(255,255,255,0.70).
-        </p>
-        <p className="font-semibold">
-          Title should be rgba(255,255,255,0.95).
-        </p>
-      </div>
-    ),
-  },
+  render: () => (
+    <ModalGlass.Root open={true} onOpenChange={fn()}>
+      <ModalGlass.Overlay />
+      <ModalGlass.Content size="md">
+        <ModalGlass.Header>
+          <ModalGlass.Title>Typography Test</ModalGlass.Title>
+          <ModalGlass.Close />
+        </ModalGlass.Header>
+        <ModalGlass.Body>
+          <div className="space-y-4">
+            <p className="leading-relaxed">
+              This tests the title and body text colors.
+            </p>
+            <p className="leading-relaxed text-white/60">
+              Body text should be rgba(255,255,255,0.70).
+            </p>
+            <p className="font-semibold">
+              Title should be rgba(255,255,255,0.95).
+            </p>
+          </div>
+        </ModalGlass.Body>
+      </ModalGlass.Content>
+    </ModalGlass.Root>
+  ),
   async play({ canvasElement }) {
     // Visual snapshot test - Text colors
     // Title: rgba(255,255,255,0.95)
@@ -448,45 +516,43 @@ export const TitleAndBodyText: Story = {
 // ========================================
 
 const InteractiveModalExample = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
   return (
     <div className="min-h-screen flex items-center justify-center p-8">
-      <ButtonGlass variant="primary" onClick={() => setIsOpen(true)}>
+      <ButtonGlass variant="primary" onClick={() => setOpen(true)}>
         Open Modal
       </ButtonGlass>
-      <ModalGlass
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        title="Interactive Modal"
-        size="md"
-      >
-        <div className="space-y-4">
-          <p className="leading-relaxed">
-            This is an interactive modal example. Click outside or press Escape
-            to close.
-          </p>
-          <div className="flex gap-3 justify-end pt-4">
-            <ButtonGlass variant="text" onClick={() => setIsOpen(false)}>
-              Cancel
-            </ButtonGlass>
-            <ButtonGlass variant="primary" onClick={() => setIsOpen(false)}>
-              Confirm
-            </ButtonGlass>
-          </div>
-        </div>
-      </ModalGlass>
+      <ModalGlass.Root open={open} onOpenChange={setOpen}>
+        <ModalGlass.Overlay />
+        <ModalGlass.Content size="md">
+          <ModalGlass.Header>
+            <ModalGlass.Title>Interactive Modal</ModalGlass.Title>
+            <ModalGlass.Close />
+          </ModalGlass.Header>
+          <ModalGlass.Body>
+            <div className="space-y-4">
+              <p className="leading-relaxed">
+                This is an interactive modal example. Click outside or press Escape
+                to close.
+              </p>
+              <div className="flex gap-3 justify-end pt-4">
+                <ButtonGlass variant="text" onClick={() => setOpen(false)}>
+                  Cancel
+                </ButtonGlass>
+                <ButtonGlass variant="primary" onClick={() => setOpen(false)}>
+                  Confirm
+                </ButtonGlass>
+              </div>
+            </div>
+          </ModalGlass.Body>
+        </ModalGlass.Content>
+      </ModalGlass.Root>
     </div>
   );
 };
 
 export const Interactive: Story = {
-  args: {
-    isOpen: true,
-    onClose: fn(),
-    title: "Modal Title",
-    children: "Modal content",
-  },
   render: () => <InteractiveModalExample />,
   async play({ canvasElement }) {
     // Interactive test - Opens modal on button click
@@ -505,12 +571,6 @@ export const Interactive: Story = {
 };
 
 export const InteractiveOpened: Story = {
-  args: {
-    isOpen: true,
-    onClose: fn(),
-    title: "Modal Title",
-    children: "Modal content",
-  },
   render: () => <InteractiveModalExample />,
   async play({ canvasElement }) {
     const canvas = within(canvasElement);
@@ -530,16 +590,22 @@ export const InteractiveOpened: Story = {
 // ========================================
 
 export const AnimationTest: Story = {
-  args: {
-    isOpen: true,
-    title: "Animation Test",
-    size: "md",
-    children: (
-      <p className="leading-relaxed">
-        This modal tests the open animation effect.
-      </p>
-    ),
-  },
+  render: () => (
+    <ModalGlass.Root open={true} onOpenChange={fn()}>
+      <ModalGlass.Overlay />
+      <ModalGlass.Content size="md">
+        <ModalGlass.Header>
+          <ModalGlass.Title>Animation Test</ModalGlass.Title>
+          <ModalGlass.Close />
+        </ModalGlass.Header>
+        <ModalGlass.Body>
+          <p className="leading-relaxed">
+            This modal tests the open animation effect.
+          </p>
+        </ModalGlass.Body>
+      </ModalGlass.Content>
+    </ModalGlass.Root>
+  ),
   async play({ canvasElement }) {
     // Visual snapshot test - Animation
     // modalFadeIn: from scale(0.95) translateY(20px) opacity(0)

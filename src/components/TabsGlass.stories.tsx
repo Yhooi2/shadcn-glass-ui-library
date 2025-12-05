@@ -7,75 +7,71 @@ import { GlassCard } from "./glass/composite/glass-card";
 
 const meta = {
   title: "Components/TabsGlass",
-  component: TabsGlass,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"],
-  argTypes: {
-    activeTab: {
-      control: "text",
-      description: "Active tab ID",
-    },
-  },
-  args: {
-    onChange: fn(),
-  },
-} satisfies Meta<typeof TabsGlass>;
+} satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const defaultTabs = [
-  { id: "tab1", label: "Overview" },
-  { id: "tab2", label: "Features" },
-  { id: "tab3", label: "Settings" },
-];
-
 export const Default: Story = {
-  args: {
-    tabs: defaultTabs,
-    activeTab: "tab1",
-  },
+  render: () => (
+    <TabsGlass.Root value="tab1" onValueChange={fn()}>
+      <TabsGlass.List>
+        <TabsGlass.Trigger value="tab1">Overview</TabsGlass.Trigger>
+        <TabsGlass.Trigger value="tab2">Features</TabsGlass.Trigger>
+        <TabsGlass.Trigger value="tab3">Settings</TabsGlass.Trigger>
+      </TabsGlass.List>
+    </TabsGlass.Root>
+  ),
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
   },
 };
 
 export const SecondTabActive: Story = {
-  args: {
-    tabs: defaultTabs,
-    activeTab: "tab2",
-  },
+  render: () => (
+    <TabsGlass.Root value="tab2" onValueChange={fn()}>
+      <TabsGlass.List>
+        <TabsGlass.Trigger value="tab1">Overview</TabsGlass.Trigger>
+        <TabsGlass.Trigger value="tab2">Features</TabsGlass.Trigger>
+        <TabsGlass.Trigger value="tab3">Settings</TabsGlass.Trigger>
+      </TabsGlass.List>
+    </TabsGlass.Root>
+  ),
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
   },
 };
 
 export const ManyTabs: Story = {
-  args: {
-    tabs: [
-      { id: "home", label: "Home" },
-      { id: "profile", label: "Profile" },
-      { id: "settings", label: "Settings" },
-      { id: "notifications", label: "Notifications" },
-      { id: "security", label: "Security" },
-    ],
-    activeTab: "home",
-  },
+  render: () => (
+    <TabsGlass.Root value="home" onValueChange={fn()}>
+      <TabsGlass.List>
+        <TabsGlass.Trigger value="home">Home</TabsGlass.Trigger>
+        <TabsGlass.Trigger value="profile">Profile</TabsGlass.Trigger>
+        <TabsGlass.Trigger value="settings">Settings</TabsGlass.Trigger>
+        <TabsGlass.Trigger value="notifications">Notifications</TabsGlass.Trigger>
+        <TabsGlass.Trigger value="security">Security</TabsGlass.Trigger>
+      </TabsGlass.List>
+    </TabsGlass.Root>
+  ),
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
   },
 };
 
 export const TwoTabs: Story = {
-  args: {
-    tabs: [
-      { id: "login", label: "Login" },
-      { id: "register", label: "Register" },
-    ],
-    activeTab: "login",
-  },
+  render: () => (
+    <TabsGlass.Root value="login" onValueChange={fn()}>
+      <TabsGlass.List>
+        <TabsGlass.Trigger value="login">Login</TabsGlass.Trigger>
+        <TabsGlass.Trigger value="register">Register</TabsGlass.Trigger>
+      </TabsGlass.List>
+    </TabsGlass.Root>
+  ),
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
   },
@@ -83,13 +79,6 @@ export const TwoTabs: Story = {
 
 const InteractiveTabsDemo = () => {
   const [activeTab, setActiveTab] = useState("overview");
-
-  const tabs = [
-    { id: "overview", label: "Overview" },
-    { id: "analytics", label: "Analytics" },
-    { id: "reports", label: "Reports" },
-    { id: "settings", label: "Settings" },
-  ];
 
   const content: Record<string, string> = {
     overview: "This is the overview panel. Here you can see a summary of all your data.",
@@ -100,7 +89,14 @@ const InteractiveTabsDemo = () => {
 
   return (
     <div className="w-[500px]">
-      <TabsGlass tabs={tabs} activeTab={activeTab} onChange={setActiveTab} />
+      <TabsGlass.Root value={activeTab} onValueChange={setActiveTab}>
+        <TabsGlass.List>
+          <TabsGlass.Trigger value="overview">Overview</TabsGlass.Trigger>
+          <TabsGlass.Trigger value="analytics">Analytics</TabsGlass.Trigger>
+          <TabsGlass.Trigger value="reports">Reports</TabsGlass.Trigger>
+          <TabsGlass.Trigger value="settings">Settings</TabsGlass.Trigger>
+        </TabsGlass.List>
+      </TabsGlass.Root>
       <GlassCard className="mt-4 p-4">
         <p style={{ color: "var(--text-secondary)" }}>{content[activeTab]}</p>
       </GlassCard>
@@ -109,14 +105,6 @@ const InteractiveTabsDemo = () => {
 };
 
 export const Interactive: Story = {
-  args: {
-    tabs: [
-      { id: 'tab1', label: 'Tab 1' },
-      { id: 'tab2', label: 'Tab 2' },
-    ],
-    activeTab: 'tab1',
-    onChange: fn(),
-  },
   render: () => <InteractiveTabsDemo />,
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -126,15 +114,15 @@ export const Interactive: Story = {
 const TabsWithContentDemo = () => {
   const [activeTab, setActiveTab] = useState("account");
 
-  const tabs = [
-    { id: "account", label: "Account" },
-    { id: "password", label: "Password" },
-    { id: "team", label: "Team" },
-  ];
-
   return (
     <div className="w-[400px]">
-      <TabsGlass tabs={tabs} activeTab={activeTab} onChange={setActiveTab} />
+      <TabsGlass.Root value={activeTab} onValueChange={setActiveTab}>
+        <TabsGlass.List>
+          <TabsGlass.Trigger value="account">Account</TabsGlass.Trigger>
+          <TabsGlass.Trigger value="password">Password</TabsGlass.Trigger>
+          <TabsGlass.Trigger value="team">Team</TabsGlass.Trigger>
+        </TabsGlass.List>
+      </TabsGlass.Root>
       <GlassCard className="mt-4 p-6">
         {activeTab === "account" && (
           <div>
@@ -172,14 +160,6 @@ const TabsWithContentDemo = () => {
 };
 
 export const WithContent: Story = {
-  args: {
-    tabs: [
-      { id: 'tab1', label: 'Tab 1' },
-      { id: 'tab2', label: 'Tab 2' },
-    ],
-    activeTab: 'tab1',
-    onChange: fn(),
-  },
   render: () => <TabsWithContentDemo />,
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();

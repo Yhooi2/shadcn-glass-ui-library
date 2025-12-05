@@ -141,12 +141,6 @@ const repos: Repository[] = [
   },
 ];
 
-const navTabs = [
-  { id: "overview", label: "Overview" },
-  { id: "repos", label: "Repositories" },
-  { id: "activity", label: "Activity" },
-];
-
 export function DesktopShowcase() {
   const { theme, cycleTheme } = useTheme();
 
@@ -276,11 +270,13 @@ export function DesktopShowcase() {
               Tabs, Dropdown & Modal
             </h2>
             <div className="space-y-4">
-              <TabsGlass
-                tabs={navTabs}
-                activeTab={activeNavTab}
-                onChange={setActiveNavTab}
-              />
+              <TabsGlass.Root value={activeNavTab} onValueChange={setActiveNavTab}>
+                <TabsGlass.List>
+                  <TabsGlass.Trigger value="overview">Overview</TabsGlass.Trigger>
+                  <TabsGlass.Trigger value="repos">Repositories</TabsGlass.Trigger>
+                  <TabsGlass.Trigger value="activity">Activity</TabsGlass.Trigger>
+                </TabsGlass.List>
+              </TabsGlass.Root>
               <div className="flex items-center gap-4 flex-wrap">
                 <DropdownGlass
                   trigger={
@@ -346,25 +342,29 @@ export function DesktopShowcase() {
       </div>
 
       {/* Modal */}
-      <ModalGlass
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        title="Modal Title"
-        size="md"
-      >
-        <p className="mb-4">
-          This is a modal dialog with glassmorphism styling. It includes a backdrop blur
-          effect and smooth animations.
-        </p>
-        <div className="flex gap-3 justify-end">
-          <ButtonGlass variant="ghost" onClick={() => setModalOpen(false)}>
-            Cancel
-          </ButtonGlass>
-          <ButtonGlass variant="primary" onClick={() => setModalOpen(false)}>
-            Confirm
-          </ButtonGlass>
-        </div>
-      </ModalGlass>
+      <ModalGlass.Root open={modalOpen} onOpenChange={setModalOpen}>
+        <ModalGlass.Overlay />
+        <ModalGlass.Content size="md">
+          <ModalGlass.Header>
+            <ModalGlass.Title>Modal Title</ModalGlass.Title>
+            <ModalGlass.Close />
+          </ModalGlass.Header>
+          <ModalGlass.Body>
+            <p className="mb-4">
+              This is a modal dialog with glassmorphism styling. It includes a backdrop blur
+              effect and smooth animations.
+            </p>
+            <div className="flex gap-3 justify-end">
+              <ButtonGlass variant="ghost" onClick={() => setModalOpen(false)}>
+                Cancel
+              </ButtonGlass>
+              <ButtonGlass variant="primary" onClick={() => setModalOpen(false)}>
+                Confirm
+              </ButtonGlass>
+            </div>
+          </ModalGlass.Body>
+        </ModalGlass.Content>
+      </ModalGlass.Root>
     </div>
   );
 }

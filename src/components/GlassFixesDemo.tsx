@@ -166,35 +166,39 @@ export const GlassFixesDemo = () => {
             Open Modal
           </ButtonGlass>
 
-          <ModalGlass
-            isOpen={modalOpen}
-            onClose={() => setModalOpen(false)}
-            title="Modal Title"
-            size="md"
-          >
-            <div className="space-y-4">
-              <p className="leading-relaxed">
-                This is a modal dialog with glassmorphism styling. It features
-                beautiful blur effects, gradient backgrounds, and smooth
-                animations.
-              </p>
-              <p className="leading-relaxed text-white/60">
-                The modal automatically locks body scroll, closes on Escape key,
-                and handles click outside behavior.
-              </p>
-              <div className="flex gap-3 justify-end pt-4">
-                <ButtonGlass variant="text" onClick={() => setModalOpen(false)}>
-                  Cancel
-                </ButtonGlass>
-                <ButtonGlass
-                  variant="primary"
-                  onClick={() => setModalOpen(false)}
-                >
-                  Confirm
-                </ButtonGlass>
-              </div>
-            </div>
-          </ModalGlass>
+          <ModalGlass.Root open={modalOpen} onOpenChange={setModalOpen}>
+            <ModalGlass.Overlay />
+            <ModalGlass.Content size="md">
+              <ModalGlass.Header>
+                <ModalGlass.Title>Modal Title</ModalGlass.Title>
+                <ModalGlass.Close />
+              </ModalGlass.Header>
+              <ModalGlass.Body>
+                <div className="space-y-4">
+                  <p className="leading-relaxed">
+                    This is a modal dialog with glassmorphism styling. It features
+                    beautiful blur effects, gradient backgrounds, and smooth
+                    animations.
+                  </p>
+                  <p className="leading-relaxed text-white/60">
+                    The modal automatically locks body scroll, closes on Escape key,
+                    and handles click outside behavior.
+                  </p>
+                  <div className="flex gap-3 justify-end pt-4">
+                    <ButtonGlass variant="text" onClick={() => setModalOpen(false)}>
+                      Cancel
+                    </ButtonGlass>
+                    <ButtonGlass
+                      variant="primary"
+                      onClick={() => setModalOpen(false)}
+                    >
+                      Confirm
+                    </ButtonGlass>
+                  </div>
+                </div>
+              </ModalGlass.Body>
+            </ModalGlass.Content>
+          </ModalGlass.Root>
         </section>
 
         {/* Button Variants Section */}
