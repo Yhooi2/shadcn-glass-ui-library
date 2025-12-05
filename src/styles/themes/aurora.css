@@ -151,23 +151,12 @@
   --input-text: oklch(92.9% 0.013 255);
   --input-placeholder: oklch(55.4% 0.046 257);
   --input-focus-border: oklch(71.4% 0.138 291);
-  --input-focus-glow: 0 0 0 2px oklch(100% 0 0 / 0.9), 0 0 0 4px oklch(0% 0 0 / 0.8);
 
   /* ========================================
      FOCUS RING VARIABLES (OKLCH)
-     Per UI_DIZINE.md: Double-outline pattern for universal visibility
+     Unified focus glow for all components - light gray ring + blue glow (aurora theme)
      ======================================== */
-  /* Generic focus glow (fallback) - double-outline: white inner + black outer */
-  --focus-glow: 0 0 0 2px oklch(100% 0 0 / 0.9), 0 0 0 4px oklch(0% 0 0 / 0.8);
-
-  /* Component-specific focus glows - all use double-outline pattern */
-  --btn-focus-glow: 0 0 0 2px oklch(100% 0 0 / 0.9), 0 0 0 4px oklch(0% 0 0 / 0.8);
-  --checkbox-focus-glow: 0 0 0 2px oklch(100% 0 0 / 0.9), 0 0 0 4px oklch(0% 0 0 / 0.8);
-  --toggle-focus-glow: 0 0 0 2px oklch(100% 0 0 / 0.9), 0 0 0 4px oklch(0% 0 0 / 0.8);
-  --tab-focus-glow: 0 0 0 2px oklch(100% 0 0 / 0.9), 0 0 0 4px oklch(0% 0 0 / 0.8);
-  --slider-focus-glow: 0 0 0 2px oklch(100% 0 0 / 0.9), 0 0 0 4px oklch(0% 0 0 / 0.8);
-  --dropdown-item-focus-glow: 0 0 0 2px oklch(100% 0 0 / 0.9), 0 0 0 4px oklch(0% 0 0 / 0.8);
-  --modal-close-focus-glow: 0 0 0 2px oklch(100% 0 0 / 0.9), 0 0 0 4px oklch(0% 0 0 / 0.8);
+  --focus-glow: 0 0 0 2px oklch(92.9% 0.013 255 / 0.9), 0 0 24px oklch(62.3% 0.180 255 / 0.5);
 
   /* ========================================
      ALERT VARIABLES (OKLCH)
@@ -244,7 +233,6 @@
   --select-trigger-bg: oklch(27.9% 0.041 260 / 0.98);
   --select-trigger-border: oklch(37.2% 0.044 257 / 0.60);
   --select-trigger-text: oklch(86.9% 0.022 252);
-  --select-trigger-focus-glow: 0 0 0 2px oklch(100% 0 0 / 0.9), 0 0 0 4px oklch(0% 0 0 / 0.8);
   --select-content-bg: oklch(27.9% 0.041 260 / 0.98);
   --select-content-border: oklch(37.2% 0.044 257 / 0.60);
   --select-item-hover-bg: oklch(37.2% 0.044 257 / 0.70);
@@ -423,7 +411,6 @@
   --search-border: oklch(37.2% 0.044 257 / 0.50);
   --search-btn-bg: oklch(92.9% 0.013 255);
   --search-btn-text: oklch(20.8% 0.042 265);
-  --search-focus-glow: 0 0 0 2px oklch(100% 0 0 / 0.9), 0 0 0 4px oklch(0% 0 0 / 0.8);
 
   /* ========================================
      REPO CARD VARIABLES (OKLCH)

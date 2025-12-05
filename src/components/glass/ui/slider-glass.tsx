@@ -78,7 +78,7 @@ export const SliderGlass = forwardRef<HTMLInputElement, SliderGlassProps>(
       background: 'var(--slider-thumb)',
       border: '2px solid var(--slider-thumb-border)',
       boxShadow: isFocusVisible
-        ? 'var(--slider-focus-glow)'
+        ? 'var(--focus-glow)'
         : isHovered || isDragging
           ? 'var(--slider-thumb-glow)'
           : 'var(--slider-thumb-shadow)',

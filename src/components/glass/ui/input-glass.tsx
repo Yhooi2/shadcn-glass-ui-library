@@ -47,7 +47,7 @@ const getInputStyles = (
     background: 'var(--input-bg)',
     border: `1px solid ${borderColor}`,
     color: 'var(--input-text)',
-    boxShadow: isFocused ? 'var(--input-focus-glow)' : 'none',
+    boxShadow: isFocused ? 'var(--focus-glow)' : 'none',
   };
 };
 

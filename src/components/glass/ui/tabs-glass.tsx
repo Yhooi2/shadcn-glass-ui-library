@@ -150,7 +150,7 @@ const TabsTrigger = forwardRef<HTMLButtonElement, TabsTriggerProps>(
     const tabStyles: CSSProperties = {
       background: isActive ? 'var(--tab-active-bg)' : 'var(--tab-bg)',
       color: isActive ? 'var(--tab-active-text)' : 'var(--text-secondary)',
-      boxShadow: isFocusVisible && !disabled ? 'var(--tab-focus-glow)' : 'none',
+      boxShadow: isFocusVisible && !disabled ? 'var(--focus-glow)' : 'none',
     };
 
     return (

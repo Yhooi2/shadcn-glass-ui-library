@@ -60,7 +60,7 @@ export const ToggleGlass = forwardRef<HTMLButtonElement, ToggleGlassProps>(
     const trackStyles: CSSProperties = {
       background: checked ? 'var(--toggle-active-bg)' : 'var(--toggle-bg)',
       boxShadow: isFocusVisible && !disabled
-        ? 'var(--toggle-focus-glow)'
+        ? 'var(--focus-glow)'
         : checked
         ? 'var(--toggle-glow)'
         : 'none',

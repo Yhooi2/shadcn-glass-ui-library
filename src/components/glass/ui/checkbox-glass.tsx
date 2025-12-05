@@ -48,7 +48,7 @@ export const CheckboxGlass = forwardRef<HTMLInputElement, CheckboxGlassProps>(
       background: checked ? 'var(--checkbox-checked-bg)' : 'var(--checkbox-bg)',
       border: `2px solid ${checked ? 'var(--checkbox-checked-bg)' : 'var(--checkbox-border)'}`,
       boxShadow: isFocusVisible && !disabled
-        ? 'var(--checkbox-focus-glow)'
+        ? 'var(--focus-glow)'
         : isHovered && !disabled
         ? 'var(--checkbox-glow)'
         : 'none',

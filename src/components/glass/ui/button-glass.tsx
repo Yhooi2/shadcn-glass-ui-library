@@ -46,7 +46,7 @@ const getVariantStyles = (
       color: 'var(--btn-primary-text)',
       border: 'none',
       boxShadow: isFocusVisible
-        ? 'var(--btn-focus-glow)'
+        ? 'var(--focus-glow)'
         : isHovered
         ? 'var(--btn-primary-glow)'
         : '0 4px 15px rgba(124,58,237,0.25)',
@@ -58,7 +58,7 @@ const getVariantStyles = (
       color: 'var(--btn-secondary-text)',
       border: '1px solid var(--btn-secondary-border)',
       boxShadow: isFocusVisible
-        ? 'var(--btn-focus-glow)'
+        ? 'var(--focus-glow)'
         : isHovered
         ? 'var(--btn-secondary-glow)'
         : 'none',
@@ -69,14 +69,14 @@ const getVariantStyles = (
         : 'var(--btn-ghost-bg)',
       color: 'var(--btn-ghost-text)',
       border: 'none',
-      boxShadow: isFocusVisible ? 'var(--btn-focus-glow)' : 'none',
+      boxShadow: isFocusVisible ? 'var(--focus-glow)' : 'none',
     },
     destructive: {
       background: 'var(--btn-destructive-bg)',
       color: 'var(--btn-destructive-text)',
       border: 'none',
       boxShadow: isFocusVisible
-        ? 'var(--btn-focus-glow)'
+        ? 'var(--focus-glow)'
         : isHovered
         ? 'var(--btn-destructive-glow)'
         : '0 4px 15px rgba(239,68,68,0.25)',
@@ -86,7 +86,7 @@ const getVariantStyles = (
       color: 'var(--btn-success-text)',
       border: 'none',
       boxShadow: isFocusVisible
-        ? 'var(--btn-focus-glow)'
+        ? 'var(--focus-glow)'
         : isHovered
         ? 'var(--btn-success-glow)'
         : '0 4px 15px rgba(16,185,129,0.25)',
@@ -95,7 +95,7 @@ const getVariantStyles = (
       background: 'transparent',
       color: 'var(--text-secondary)',
       border: 'none',
-      boxShadow: isFocusVisible ? 'var(--btn-focus-glow)' : 'none',
+      boxShadow: isFocusVisible ? 'var(--focus-glow)' : 'none',
     },
   };
 

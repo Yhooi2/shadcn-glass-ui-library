@@ -361,7 +361,7 @@ const ModalClose: FC<ModalCloseProps> = ({ className }) => {
       border: 'var(--modal-close-btn-border)',
       color: 'var(--text-muted)',
       boxShadow: isFocusVisible
-        ? 'var(--modal-close-focus-glow)'
+        ? 'var(--focus-glow)'
         : isHovered
           ? 'var(--modal-close-btn-hover-glow)'
           : 'none',

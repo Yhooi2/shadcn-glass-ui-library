@@ -3,11 +3,12 @@
 // Navigation header with search and theme toggle
 // ========================================
 
-import { forwardRef, useState, type CSSProperties } from "react";
-import { Github, Search, Sun, Moon, Palette } from "lucide-react";
+import { forwardRef, type CSSProperties } from "react";
+import { Github, Sun, Moon, Palette } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme, type ThemeName } from "@/lib/theme-context";
 import { ButtonGlass } from "../ui/button-glass";
+import { SearchBoxGlass } from "../atomic/search-box-glass";
 import "@/glass-theme.css";
 
 const themes: ThemeName[] = ["light", "aurora", "glass"];
@@ -27,8 +28,6 @@ export interface HeaderNavGlassProps extends React.HTMLAttributes<HTMLElement> {
 export const HeaderNavGlass = forwardRef<HTMLElement, HeaderNavGlassProps>(
   ({ username = "Yhooi2", onSearch, onThemeToggle, className, ...props }, ref) => {
     const { theme, cycleTheme } = useTheme();
-    const [searchValue, setSearchValue] = useState(username);
-    const [isSearchFocused, setIsSearchFocused] = useState(false);
 
     const nextTheme = themes[(themes.indexOf(theme) + 1) % themes.length];
     const NextIcon = themeConfig[nextTheme].icon;
@@ -45,39 +44,9 @@ export const HeaderNavGlass = forwardRef<HTMLElement, HeaderNavGlassProps>(
       boxShadow: "var(--icon-btn-shadow)",
     };
 
-    const searchBoxStyles: CSSProperties = {
-      boxShadow: isSearchFocused ? "var(--search-focus-glow)" : "none",
-    };
-
-    const inputStyles: CSSProperties = {
-      background: "var(--search-bg)",
-      color: "var(--text-primary)",
-      border: "1px solid var(--search-border)",
-      borderRight: "none",
-      borderTopLeftRadius: "0.75rem",
-      borderBottomLeftRadius: "0.75rem",
-    };
-
-    const searchBtnStyles: CSSProperties = {
-      background: "var(--search-btn-bg)",
-      color: "var(--search-btn-text)",
-      borderTopRightRadius: "0.75rem",
-      borderBottomRightRadius: "0.75rem",
-    };
-
     const themeBtnStyles: CSSProperties = {
       background: "var(--card-subtle-bg)",
       border: "1px solid var(--card-subtle-border)",
-    };
-
-    const handleSearch = (): void => {
-      onSearch?.(searchValue);
-    };
-
-    const handleKeyDown = (e: React.KeyboardEvent): void => {
-      if (e.key === "Enter") {
-        handleSearch();
-      }
     };
 
     return (
@@ -100,32 +69,13 @@ export const HeaderNavGlass = forwardRef<HTMLElement, HeaderNavGlassProps>(
             <span className="font-semibold text-base md:text-lg" style={{ color: "var(--text-primary)" }}>
               User Analytics
             </span>
-            <div
-              className="ml-2 md:ml-4 flex rounded-xl overflow-hidden"
-              style={searchBoxStyles}
-            >
-              <input
-                type="text"
-                value={searchValue}
-                onChange={(e) => setSearchValue(e.target.value)}
-                className="px-3 py-1.5 md:px-4 md:py-2 w-28 sm:w-36 md:w-48 text-xs md:text-sm outline-none"
-                style={inputStyles}
-                onFocus={() => setIsSearchFocused(true)}
-                onBlur={() => setIsSearchFocused(false)}
-                onKeyDown={handleKeyDown}
-                placeholder="Search username..."
-                aria-label="Search username"
-              />
-              <button
-                onClick={handleSearch}
-                className="px-2.5 sm:px-4 md:px-5 py-1.5 md:py-2 text-xs md:text-sm font-medium flex items-center gap-1.5 md:gap-2 hover:scale-[1.02] transition-transform"
-                style={searchBtnStyles}
-                type="button"
-              >
-                <Search className="w-3.5 h-3.5 md:w-4 md:h-4" />
-                <span className="hidden sm:inline">Search</span>
-              </button>
-            </div>
+            <SearchBoxGlass
+              className="ml-2 md:ml-4"
+              defaultValue={username}
+              onSubmit={onSearch}
+              inputWidth="w-28 sm:w-36 md:w-48"
+              placeholder="Search username..."
+            />
           </div>
           <div className="flex items-center gap-2 md:gap-3">
             <button

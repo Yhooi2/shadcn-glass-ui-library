@@ -3,29 +3,56 @@
    Main entry point - imports all modules
    ======================================== */
 
-@import "tailwindcss";
+@import 'tailwindcss';
+
+/* ========================================
+   BASE STYLES - Focus Reset
+   Remove default browser and Tailwind focus styles globally
+   Components will apply custom focus effects via CSS variables
+   ======================================== */
+
+/* Global focus ring override for all themes */
+:root {
+  --ring: transparent;
+  --ring-offset: transparent;
+}
+
+/* Remove default browser outline */
+*:focus,
+*:focus-visible {
+  outline: none;
+}
+
+/* Reset Tailwind ring utilities - they use CSS variables to build box-shadow */
+/* *:focus,
+*:focus-visible {
+  --tw-ring-shadow: 0 0 #0000 !important;
+  --tw-ring-offset-shadow: 0 0 #0000 !important;
+  --tw-ring-color: transparent !important;
+  --tw-ring-opacity: 0 !important;
+} */
 
 /* ========================================
    DESIGN TOKENS
    Foundation scales and configurations
    ======================================== */
-@import "./tokens/primitives.css";
-@import "./tokens/oklch-primitives.css";
-@import "./tokens/colors.css";
-@import "./tokens/animations.css";
+@import './tokens/primitives.css';
+@import './tokens/oklch-primitives.css';
+@import './tokens/colors.css';
+@import './tokens/animations.css';
 
 /* ========================================
    THEMES
    Theme-specific variable definitions
    ======================================== */
-@import "./themes/glass.css";
-@import "./themes/light.css";
-@import "./themes/aurora.css";
+@import './themes/glass.css';
+@import './themes/light.css';
+@import './themes/aurora.css';
 
 /* ========================================
    UTILITIES
    Utility classes and component styles
    ======================================== */
-@import "./utilities/glass-effects.css";
-@import "./utilities/glass-variants.css";
-@import "./utilities/glow-effects.css";
+@import './utilities/glass-effects.css';
+@import './utilities/glass-variants.css';
+@import './utilities/glow-effects.css';

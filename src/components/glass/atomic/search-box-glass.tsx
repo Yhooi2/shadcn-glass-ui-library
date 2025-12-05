@@ -71,7 +71,7 @@ export const SearchBoxGlass = forwardRef<HTMLInputElement, SearchBoxGlassProps>(
     };
 
     const containerStyles: CSSProperties = {
-      boxShadow: isFocused ? 'var(--search-focus-glow)' : 'none',
+      boxShadow: isFocused ? 'var(--focus-glow)' : 'none',
     };
 
     const inputStyles: CSSProperties = {
@@ -92,7 +92,7 @@ export const SearchBoxGlass = forwardRef<HTMLInputElement, SearchBoxGlassProps>(
 
     return (
       <div
-        className={cn('flex rounded-xl overflow-hidden', className)}
+        className={cn('flex w-fit rounded-xl overflow-hidden', className)}
         style={containerStyles}
       >
         <input
