@@ -192,25 +192,11 @@ export function DesktopShowcase() {
 
           {/* Header Navigation */}
           <div data-testid="section-header-nav">
-            <h2 className="text-lg md:text-xl lg:text-2xl font-semibold mb-3 md:mb-4" style={{ color: "var(--text-primary)" }}>
-              Header Navigation
-            </h2>
             <HeaderNavGlass username="Yhooi2" onThemeToggle={cycleTheme} />
-          </div>
-
-          {/* Trust Score */}
-          <div data-testid="section-trust-score">
-            <h2 className="text-lg md:text-xl lg:text-2xl font-semibold mb-3 md:mb-4" style={{ color: "var(--text-primary)" }}>
-              Trust Score
-            </h2>
-            <TrustScoreCardGlass score={72} metrics={metrics} />
           </div>
 
           {/* Profile Header */}
           <div data-testid="section-profile-header">
-            <h2 className="text-lg md:text-xl lg:text-2xl font-semibold mb-3 md:mb-4" style={{ color: "var(--text-primary)" }}>
-              Profile Header
-            </h2>
             <ProfileHeaderGlass
               name="Artem Safronov"
               username="Yhooi2"
@@ -220,44 +206,51 @@ export function DesktopShowcase() {
             />
           </div>
 
-          {/* Two Column: Flags + Career Stats */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            <div data-testid="section-flags" className="lg:col-span-1">
-              <h2 className="text-lg md:text-xl lg:text-2xl font-semibold mb-3 md:mb-4" style={{ color: "var(--text-primary)" }}>
-                Flags Section
-              </h2>
-              <FlagsSectionGlass
-                flags={flags}
-                expanded={flagsExpanded}
-                onToggle={() => setFlagsExpanded(!flagsExpanded)}
-              />
+          {/* Trust Score */}
+          <div data-testid="section-trust-score">
+            <TrustScoreCardGlass score={72} metrics={metrics} />
+          </div>
+
+          {/* Two Column Layout: Left (33%) - Flags + Career Stats, Right (67%) - Projects */}
+          {/* Mobile: Stack vertically */}
+          <div className="grid md:grid-cols-[33%_67%] gap-6 md:gap-8">
+            {/* Left Column: Flags + Career Stats (33%) */}
+            <div className="space-y-6 md:space-y-8">
+              {/* Flags Section */}
+              <div data-testid="section-flags">
+                <FlagsSectionGlass
+                  flags={flags}
+                  expanded={false}
+                  onToggle={() => setFlagsExpanded(!flagsExpanded)}
+                />
+              </div>
+
+              {/* Career Stats */}
+              <div data-testid="section-career-stats">
+                <CareerStatsGlass
+                  totalCommits={2242}
+                  totalPRs={47}
+                  totalRepos={11}
+                  years={years}
+                />
+              </div>
             </div>
-            <div data-testid="section-career-stats" className="lg:col-span-2">
-              <h2 className="text-lg md:text-xl lg:text-2xl font-semibold mb-3 md:mb-4" style={{ color: "var(--text-primary)" }}>
-                Career Stats
-              </h2>
-              <CareerStatsGlass
-                totalCommits={2242}
-                totalPRs={47}
-                totalRepos={11}
-                years={years}
+
+            {/* Right Column: Repository Cards (67%) */}
+            <div data-testid="section-repos">
+              <ProjectsListGlass
+                repositories={repos}
+                ownershipFilter={ownershipFilter}
+                onOwnershipChange={setOwnershipFilter}
+                sortBy={sortBy}
+                sortOrder={sortOrder}
+                onSortChange={(field, order) => {
+                  setSortBy(field);
+                  setSortOrder(order);
+                }}
               />
             </div>
           </div>
-
-          {/* Repository Cards - Using ProjectsListGlass */}
-          <ProjectsListGlass
-            data-testid="section-repos"
-            repositories={repos}
-            ownershipFilter={ownershipFilter}
-            onOwnershipChange={setOwnershipFilter}
-            sortBy={sortBy}
-            sortOrder={sortOrder}
-            onSortChange={(field, order) => {
-              setSortBy(field);
-              setSortOrder(order);
-            }}
-          />
 
           {/* Tabs, Dropdown & Modal */}
           <GlassCard
