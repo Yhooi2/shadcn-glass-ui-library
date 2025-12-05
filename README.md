@@ -37,6 +37,7 @@ See [DEPENDENCIES.md](DEPENDENCIES.md) for detailed dependency documentation.
 - **[Live Storybook Demo](https://yhooi2.github.io/shadcn-glass-ui-library/)** - Interactive component showcase
 - [Component Documentation](https://yhooi2.github.io/shadcn-glass-ui-library/?path=/docs) - Detailed API references
 - [Registry Usage Guide](docs/REGISTRY_USAGE.md) - shadcn CLI installation guide
+- [Registry Submission Guide](docs/REGISTRY_SUBMISSION_GUIDE.md) - Submit to registry.directory
 - [Design System](docs/design-system/UI_DESIGN.md) - Comprehensive UI specifications
 - [Migration Guides](docs/migration/) - Upgrade and API changes
 
