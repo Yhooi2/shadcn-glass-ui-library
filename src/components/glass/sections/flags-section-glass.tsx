@@ -40,7 +40,7 @@ export const FlagsSectionGlass = forwardRef<HTMLDivElement, FlagsSectionGlassPro
           aria-expanded={expanded}
         >
           <div className="flex items-center gap-1.5 md:gap-2">
-            <AlertTriangle className="w-4 h-4 md:w-5 md:h-5" style={{ color: "var(--status-yellow)" }} />
+            <AlertTriangle className="w-4 h-4 md:w-5 md:h-5" style={{ color: "var(--status-away)" }} />
             <span className="font-medium text-sm md:text-base">{flags.length} flags detected</span>
           </div>
           {expanded ? (

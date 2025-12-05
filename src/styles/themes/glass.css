@@ -237,12 +237,7 @@
   --popover-shadow: 0 15px 50px oklch(66.6% 0.159 303 / 0.25), inset 0 1px 0 oklch(100% 0 0 / 0.10);
   --popover-arrow-bg: oklch(100% 0 0 / 0.08);
 
-  /* Select Variables (OKLCH) */
-  --select-trigger-bg: oklch(100% 0 0 / 0.08);
-  --select-trigger-border: oklch(100% 0 0 / 0.15);
-  --select-trigger-text: oklch(100% 0 0 / 0.90);
-  --select-content-bg: oklch(100% 0 0 / 0.08);
-  --select-content-border: oklch(100% 0 0 / 0.15);
+  /* Select Variables (OKLCH) - Used by ComboBoxGlass */
   --select-item-hover-bg: oklch(100% 0 0 / 0.10);
   --select-item-selected-bg: oklch(66.6% 0.159 303 / 0.20);
   --select-item-selected-text: oklch(79.5% 0.103 293);
@@ -267,6 +262,14 @@
   --avatar-hover-glow: 0 0 30px oklch(66.6% 0.159 303 / 0.50), inset 0 1px 0 oklch(100% 0 0 / 0.20);
   --avatar-glow: 0 0 24px oklch(58.0% 0.200 293 / 0.50);
   --online-border: oklch(20.8% 0.042 265);
+
+  /* ========================================
+     STATUS COLORS (Semantic Naming)
+     Use semantic names for better clarity:
+     - online: Available/Success (green)
+     - away: Idle/Warning (yellow)
+     - busy: Unavailable/Error (red)
+     ======================================== */
   --status-online: oklch(76.5% 0.147 163);
   --status-online-glow: 0 0 8px oklch(76.5% 0.147 163 / 0.60), 0 0 16px oklch(76.5% 0.147 163 / 0.30);
   --status-offline: oklch(100% 0 0 / 0.40);
@@ -274,12 +277,6 @@
   --status-busy-glow: 0 0 8px oklch(71.2% 0.161 12 / 0.60), 0 0 16px oklch(71.2% 0.161 12 / 0.30);
   --status-away: oklch(82.8% 0.157 84);
   --status-away-glow: 0 0 8px oklch(82.8% 0.157 84 / 0.60), 0 0 16px oklch(82.8% 0.157 84 / 0.30);
-  --status-green: oklch(76.5% 0.147 163);
-  --status-green-glow: 0 0 8px oklch(76.5% 0.147 163 / 0.60);
-  --status-yellow: oklch(82.8% 0.157 84);
-  --status-yellow-glow: 0 0 8px oklch(82.8% 0.157 84 / 0.60);
-  --status-red: oklch(71.2% 0.161 12);
-  --status-red-glow: 0 0 8px oklch(71.2% 0.161 12 / 0.60);
 
   /* ========================================
      SEGMENTED CONTROL VARIABLES (OKLCH)

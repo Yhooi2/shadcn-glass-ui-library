@@ -67,7 +67,7 @@ export const AICardGlass = forwardRef<HTMLDivElement, AICardGlassProps>(
             >
               <Check
                 className="w-2.5 h-2.5 md:w-3 md:h-3"
-                style={{ color: "var(--status-green)" }}
+                style={{ color: "var(--status-online)" }}
               />
               {feature}
             </li>

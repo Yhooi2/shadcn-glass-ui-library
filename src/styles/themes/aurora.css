@@ -229,12 +229,7 @@
   --popover-shadow: 0 10px 40px oklch(0% 0 0 / 0.40);
   --popover-arrow-bg: oklch(27.9% 0.041 260 / 0.98);
 
-  /* Select Variables (OKLCH) */
-  --select-trigger-bg: oklch(27.9% 0.041 260 / 0.98);
-  --select-trigger-border: oklch(37.2% 0.044 257 / 0.60);
-  --select-trigger-text: oklch(86.9% 0.022 252);
-  --select-content-bg: oklch(27.9% 0.041 260 / 0.98);
-  --select-content-border: oklch(37.2% 0.044 257 / 0.60);
+  /* Select Variables (OKLCH) - Used by ComboBoxGlass */
   --select-item-hover-bg: oklch(37.2% 0.044 257 / 0.70);
   --select-item-selected-bg: oklch(62.7% 0.159 291 / 0.20);
   --select-item-selected-text: oklch(71.4% 0.138 291);
@@ -268,6 +263,14 @@
   --avatar-hover-glow: 0 8px 24px oklch(62.7% 0.159 291 / 0.40);
   --avatar-glow: 0 8px 24px oklch(54.1% 0.175 293 / 0.25);
   --online-border: oklch(20.8% 0.042 265);
+
+  /* ========================================
+     STATUS COLORS (Semantic Naming)
+     Use semantic names for better clarity:
+     - online: Available/Success (green)
+     - away: Idle/Warning (yellow)
+     - busy: Unavailable/Error (red)
+     ======================================== */
   --status-online: oklch(76.5% 0.147 163);
   --status-online-glow: 0 0 6px oklch(76.5% 0.147 163 / 0.50);
   --status-offline: oklch(55.4% 0.046 257);
@@ -275,12 +278,6 @@
   --status-busy-glow: 0 0 6px oklch(71.5% 0.179 27 / 0.50);
   --status-away: oklch(82.8% 0.157 84);
   --status-away-glow: 0 0 6px oklch(82.8% 0.157 84 / 0.50);
-  --status-green: oklch(76.5% 0.147 163);
-  --status-green-glow: 0 0 8px oklch(76.5% 0.147 163 / 0.50);
-  --status-yellow: oklch(82.8% 0.157 84);
-  --status-yellow-glow: 0 0 8px oklch(82.8% 0.157 84 / 0.50);
-  --status-red: oklch(71.5% 0.179 27);
-  --status-red-glow: 0 0 8px oklch(71.5% 0.179 27 / 0.50);
 
   /* ========================================
      SEGMENTED CONTROL VARIABLES (OKLCH)

@@ -31,12 +31,12 @@ const statusPositionClasses: Record<ProfileAvatarSize, string> = {
   xl: "-bottom-1 -right-1",
 };
 
-// CSS variable maps for status colors
+// CSS variable maps for status colors (using semantic naming)
 const statusVarMap: Record<ProfileAvatarStatus, string> = {
-  online: "var(--status-green)",
+  online: "var(--status-online)",
   offline: "var(--text-muted)",
-  busy: "var(--status-red)",
-  away: "var(--status-yellow)",
+  busy: "var(--status-busy)",
+  away: "var(--status-away)",
 };
 
 export interface ProfileAvatarGlassProps extends React.HTMLAttributes<HTMLDivElement> {

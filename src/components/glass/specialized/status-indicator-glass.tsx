@@ -26,11 +26,11 @@ const statusSymbols: Record<StatusType, string> = {
   red: "✕",
 };
 
-// CSS variable maps for status colors
+// CSS variable maps for status colors (using semantic naming)
 const statusVarMap: Record<StatusType, { bg: string; glow: string }> = {
-  green: { bg: "var(--status-green)", glow: "var(--status-green-glow)" },
-  yellow: { bg: "var(--status-yellow)", glow: "var(--status-yellow-glow)" },
-  red: { bg: "var(--status-red)", glow: "var(--status-red-glow)" },
+  green: { bg: "var(--status-online)", glow: "var(--status-online-glow)" },
+  yellow: { bg: "var(--status-away)", glow: "var(--status-away-glow)" },
+  red: { bg: "var(--status-busy)", glow: "var(--status-busy-glow)" },
 };
 
 export const StatusIndicatorGlass = forwardRef<HTMLDivElement, StatusIndicatorGlassProps>(

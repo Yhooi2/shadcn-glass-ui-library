@@ -170,7 +170,7 @@ export const ProjectsListGlass = forwardRef<HTMLDivElement, ProjectsListGlassPro
           {/* Left: Title + Badge */}
           <div className="flex items-center gap-2">
             {showFlaggedOnly ? (
-              <AlertTriangle className="w-4 h-4" style={{ color: "var(--status-yellow)" }} />
+              <AlertTriangle className="w-4 h-4" style={{ color: "var(--status-away)" }} />
             ) : (
               <FolderGit2 className="w-4 h-4" style={{ color: "var(--text-accent)" }} />
             )}

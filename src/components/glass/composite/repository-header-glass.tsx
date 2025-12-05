@@ -46,7 +46,7 @@ export const RepositoryHeaderGlass = forwardRef<
     };
 
     const starStyles: CSSProperties = {
-      color: 'var(--status-yellow)',
+      color: 'var(--status-away)',
     };
 
     const mutedStyles: CSSProperties = {

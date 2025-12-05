@@ -135,7 +135,7 @@ const ExpandableHeadersComponent = () => {
         <h3 className="text-sm font-medium text-white/80">With Icon</h3>
         <ExpandableHeaderGlass
           icon={AlertTriangle}
-          iconColor="var(--status-yellow)"
+          iconColor="var(--status-away)"
           title="5 flags detected"
           expanded={expanded1}
           onToggle={() => setExpanded1(!expanded1)}
@@ -192,7 +192,7 @@ const AllAtomicComponentsDemo = () => {
         <div className="space-y-2">
           <ExpandableHeaderGlass
             icon={AlertTriangle}
-            iconColor="var(--status-yellow)"
+            iconColor="var(--status-away)"
             title="Section 1"
             expanded={expandedStates.section1}
             onToggle={() =>

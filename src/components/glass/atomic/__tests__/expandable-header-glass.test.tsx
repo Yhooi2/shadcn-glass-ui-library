@@ -167,11 +167,11 @@ describe('ExpandableHeaderGlass', () => {
           title="Warnings"
           expanded={false}
           icon={AlertTriangle}
-          iconColor="var(--status-red)"
+          iconColor="var(--status-busy)"
         />
       );
       const icon = container.querySelector('svg');
-      expect(icon).toHaveStyle({ color: 'var(--status-red)' });
+      expect(icon).toHaveStyle({ color: 'var(--status-busy)' });
     });
 
     it('accepts CSS variable as icon color', () => {

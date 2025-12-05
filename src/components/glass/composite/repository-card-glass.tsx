@@ -109,7 +109,7 @@ export const RepositoryCardGlass = forwardRef<HTMLDivElement, RepositoryCardGlas
               {stars > 0 && (
                 <span
                   className="flex items-center gap-1 text-xs"
-                  style={{ color: "var(--status-yellow)" }}
+                  style={{ color: "var(--status-away)" }}
                 >
                   <Star className="w-3 h-3" />
                   {stars}
