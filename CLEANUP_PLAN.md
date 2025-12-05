@@ -479,6 +479,115 @@ User feedback: "Оставил type как deprecated с backward compatibility 
 
 **Time:** ~20 minutes
 
+### Phase 5: ✅ Complete (2025-12-05)
+
+**SelectGlass Deprecation Documentation:**
+- ✅ Created `docs/migration/select-to-combobox.md` (389 lines)
+  - Quick migration guide with 95% API compatibility
+  - 5 detailed migration examples (basic, icons, validation, non-searchable, custom empty message)
+  - API comparison table (all props mapped)
+  - Benefits section (performance, features, styling, active maintenance)
+  - Breaking changes: searchable defaults (false → true)
+  - Automated migration scripts (rg + sed commands)
+  - Migration checklist
+  - Timeline: v3.5 (deprecated) → v3.9 (last version) → v4.0 (removed, 6+ months)
+  - FAQ section with 5 common questions
+
+**What went well:**
+- ✅ Comprehensive migration guide matching ModalGlass/TabsGlass quality
+- ✅ Clear API compatibility (95% identical)
+- ✅ Automation scripts for bulk migration
+- ✅ Timeline and rollback plan included
+- ✅ SelectGlass already has TypeScript `@deprecated` JSDoc (lines 4-36)
+- ✅ Runtime deprecation warning already implemented (lines 145-153)
+
+**Impact:**
+- Users have clear path from SelectGlass → ComboBoxGlass
+- v4.0 removal well-documented (6+ months notice)
+- Automated migration reduces manual work
+- SelectGlass already marked deprecated in TypeScript
+
+**Time:** ~10 minutes
+
+### Phase 6: ✅ Complete (2025-12-05)
+
+**Documentation Updates:**
+
+**6.1 README.md Updated:**
+- ✅ Added "Breaking Changes (v3.x)" section before "Documentation"
+  - ButtonGlass: danger → destructive migration
+  - AlertGlass: type → variant migration with mapping table
+  - NotificationGlass: type → variant migration
+  - SelectGlass deprecation notice with ComboBoxGlass recommendation
+- ✅ Added "Migration Guides" subsection with links to all 3 guides:
+  - SelectGlass → ComboBoxGlass
+  - ModalGlass Compound API
+  - TabsGlass Compound API
+- ✅ Added "Changelog" link
+- ✅ Updated "Basic Usage" code example to use correct variant names
+
+**6.2 CLAUDE.md Updated:**
+- ✅ Completely rewrote "shadcn/ui API Compatibility" section
+  - Added "Breaking Changes (v3.x)" subsection with 4 sections:
+    1. ButtonGlass (danger removed)
+    2. AlertGlass (type removed)
+    3. NotificationGlass (type removed)
+    4. SelectGlass (deprecated, removal timeline)
+  - Added "Current Component APIs" subsection:
+    - BadgeGlass (current state)
+    - AlertGlass (updated in v3.x)
+    - NotificationGlass (updated in v3.x)
+  - Added "Migration Resources" with links to:
+    - CHANGELOG.md
+    - All 3 migration guides
+- ✅ Removed outdated backward compatibility notes
+- ✅ Code examples now show "Removed in v3.x" vs "Current API"
+
+**What went well:**
+- ✅ Both docs now clearly state breaking changes
+- ✅ Migration paths well-documented with code examples
+- ✅ Links to detailed guides provided
+- ✅ User-facing (README) and developer-facing (CLAUDE.md) docs aligned
+
+**Impact:**
+- Library users see breaking changes immediately in README
+- Claude Code AI has updated API knowledge in CLAUDE.md
+- Clear migration instructions reduce upgrade friction
+- All documentation cross-references each other
+
+**Time:** ~15 minutes
+
+### Phase 7: ✅ Complete (2025-12-05)
+
+**TypeScript Deprecation Markers:**
+
+**SelectGlass (already complete):**
+- ✅ JSDoc `@deprecated` tag with migration guide (lines 4-36 in select-glass.tsx)
+  - Includes before/after code examples
+  - Lists migration benefits (performance, features, maintenance)
+  - Notes v4.0 removal timeline (6+ months)
+- ✅ Runtime deprecation warning in development mode (lines 145-153)
+  - Only shows in NODE_ENV === 'development'
+  - Clear message with migration recommendation
+- ✅ No code changes needed - already properly deprecated
+
+**Verification:**
+- ✅ TypeScript users see deprecation warnings in IDE
+- ✅ Runtime warning appears in dev console
+- ✅ Migration guide accessible via JSDoc hover
+
+**What went well:**
+- ✅ SelectGlass already had comprehensive deprecation markers
+- ✅ No additional TypeScript work required
+- ✅ Deprecation follows best practices (JSDoc + runtime warning)
+
+**Impact:**
+- Developers using SelectGlass see immediate IDE warnings
+- Console warnings guide to migration documentation
+- Clear 6+ month timeline before v4.0 removal
+
+**Time:** ~5 minutes (verification only)
+
 ---
 
 ## Questions & Decisions Log

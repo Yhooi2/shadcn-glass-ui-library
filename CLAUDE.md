@@ -204,12 +204,75 @@ Thanks to the modern stack:
 
 ## shadcn/ui API Compatibility
 
-The library maintains full compatibility with shadcn/ui component APIs while providing extended Glass UI variants:
+The library maintains full compatibility with shadcn/ui component APIs while providing extended Glass UI variants.
 
-### BadgeGlass
+### ⚠️ Breaking Changes (v3.x)
+
+**IMPORTANT:** The following legacy APIs have been removed in v3.x. Update your code before upgrading.
+
+#### 1. ButtonGlass
+- **Removed:** `variant="danger"`
+- **Replaced with:** `variant="destructive"` (shadcn/ui standard)
+- **Migration:** Replace all `danger` → `destructive`
+
+```tsx
+// ❌ Removed in v3.x
+<ButtonGlass variant="danger">Delete</ButtonGlass>
+
+// ✅ Current API
+<ButtonGlass variant="destructive">Delete</ButtonGlass>
+```
+
+#### 2. AlertGlass
+- **Removed:** `type` prop
+- **Replaced with:** `variant` prop
+- **Migration:**
+  - `type="info"` → `variant="default"`
+  - `type="error"` → `variant="destructive"`
+  - `type="success"` → `variant="success"`
+  - `type="warning"` → `variant="warning"`
+
+```tsx
+// ❌ Removed in v3.x
+<AlertGlass type="error" title="Error">Message</AlertGlass>
+
+// ✅ Current API
+<AlertGlass variant="destructive" title="Error">Message</AlertGlass>
+```
+
+#### 3. NotificationGlass
+- **Removed:** `type` prop
+- **Replaced with:** `variant` prop
+- **Same mapping as AlertGlass** (see above)
+
+```tsx
+// ❌ Removed in v3.x
+<NotificationGlass type="info" title="Info" message="..." onClose={() => {}} />
+
+// ✅ Current API
+<NotificationGlass variant="default" title="Info" message="..." onClose={() => {}} />
+```
+
+#### 4. SelectGlass (Deprecated)
+- **Status:** Deprecated in v3.x, will be removed in v4.0
+- **Migration:** Use `ComboBoxGlass` instead
+- **Timeline:** 6+ months until removal
+
+```tsx
+// ⚠️ Deprecated (works in v3.x)
+<SelectGlass options={...} value={...} onChange={...} />
+
+// ✅ Recommended
+<ComboBoxGlass options={...} value={...} onChange={...} />
+```
+
+**Migration Guide:** [docs/migration/select-to-combobox.md](docs/migration/select-to-combobox.md)
+
+### Current Component APIs
+
+#### BadgeGlass
 - **shadcn/ui variants:** `default`, `secondary`, `destructive`, `outline`
 - **Extended variants:** `success`, `warning`, `info`
-- **Migration:** `danger` → `destructive` (breaking change in v2.8+)
 
 ```tsx
 // shadcn/ui compatible
@@ -220,11 +283,10 @@ The library maintains full compatibility with shadcn/ui component APIs while pro
 <BadgeGlass variant="success">Success</BadgeGlass>
 ```
 
-### AlertGlass
+#### AlertGlass (Updated in v3.x)
 - **shadcn/ui variants:** `default`, `destructive`
 - **Extended variants:** `success`, `warning`
-- **Aliases (backward compat):** `info` (→ `default`), `error` (→ `destructive`)
-- **Migration:** `type` prop → `variant` prop (deprecated warning in dev mode)
+- **Prop name:** `variant` (not `type`)
 
 ```tsx
 // shadcn/ui compatible
@@ -232,7 +294,25 @@ The library maintains full compatibility with shadcn/ui component APIs while pro
 
 // Glass UI extended
 <AlertGlass variant="success" title="Success">Operation completed</AlertGlass>
-
-// Backward compatible (deprecated)
-<AlertGlass type="error" title="Error">Still works with warning</AlertGlass>
 ```
+
+#### NotificationGlass (Updated in v3.x)
+- **shadcn/ui variants:** `default`, `destructive`
+- **Extended variants:** `success`, `warning`
+- **Prop name:** `variant` (not `type`)
+
+```tsx
+<NotificationGlass
+  variant="destructive"
+  title="Error"
+  message="Operation failed"
+  onClose={() => {}}
+/>
+```
+
+### Migration Resources
+
+- **[CHANGELOG.md](CHANGELOG.md)** - Complete version history
+- **[docs/migration/select-to-combobox.md](docs/migration/select-to-combobox.md)** - SelectGlass → ComboBoxGlass
+- **[docs/migration/modal-glass-compound-api.md](docs/migration/modal-glass-compound-api.md)** - ModalGlass compound API
+- **[docs/migration/tabs-glass-compound-api.md](docs/migration/tabs-glass-compound-api.md)** - TabsGlass compound API
