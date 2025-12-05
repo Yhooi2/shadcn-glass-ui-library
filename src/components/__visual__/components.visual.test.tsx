@@ -28,8 +28,7 @@ import { ProgressGlass } from '../glass/specialized/progress-glass';
 import { SliderGlass } from '../glass/ui/slider-glass';
 import { NotificationGlass } from '../glass/ui/notification-glass';
 import { PopoverGlass } from '../glass/ui/popover-glass';
-import { SelectGlass } from '../glass/ui/select-glass';
-import type { SelectOption } from '../glass/ui/select-glass';
+import { ComboBoxGlass, type ComboBoxOption } from '../glass/ui/combobox-glass';
 
 // Theme context
 import { ThemeProvider } from '@/lib/theme-context';
@@ -222,7 +221,7 @@ describe('Visual Regression Tests', () => {
     test(`NotificationGlass info - ${theme}`, async () => {
       renderWithTheme(
         <NotificationGlass
-          type="info"
+          variant="default"
           title="Notification"
           message="This is a notification"
           onClose={() => {}}
@@ -348,7 +347,7 @@ describe('Visual Regression Tests', () => {
     test(`NotificationGlass success - ${theme}`, async () => {
       renderWithTheme(
         <NotificationGlass
-          type="success"
+          variant="success"
           title="Success"
           message="Operation completed"
           onClose={() => {}}
@@ -364,7 +363,7 @@ describe('Visual Regression Tests', () => {
     test(`NotificationGlass warning - ${theme}`, async () => {
       renderWithTheme(
         <NotificationGlass
-          type="warning"
+          variant="warning"
           title="Warning"
           message="Please review"
           onClose={() => {}}
@@ -380,7 +379,7 @@ describe('Visual Regression Tests', () => {
     test(`NotificationGlass error - ${theme}`, async () => {
       renderWithTheme(
         <NotificationGlass
-          type="error"
+          variant="destructive"
           title="Error"
           message="Something went wrong"
           onClose={() => {}}
@@ -479,9 +478,18 @@ describe('Visual Regression Tests', () => {
     test(`ModalGlass opened - ${theme}`, async () => {
       renderWithTheme(
         <div data-testid="modal-container" style={{ width: '600px', height: '400px', position: 'relative' }}>
-          <ModalGlass isOpen={true} onClose={() => {}} title="Modal Title">
-            <p>Modal content</p>
-          </ModalGlass>
+          <ModalGlass.Root open={true} onOpenChange={() => {}}>
+            <ModalGlass.Overlay />
+            <ModalGlass.Content>
+              <ModalGlass.Header>
+                <ModalGlass.Title>Modal Title</ModalGlass.Title>
+                <ModalGlass.Close />
+              </ModalGlass.Header>
+              <ModalGlass.Body>
+                <p>Modal content</p>
+              </ModalGlass.Body>
+            </ModalGlass.Content>
+          </ModalGlass.Root>
         </div>,
         theme
       );
@@ -719,9 +727,18 @@ describe('Visual Regression Tests', () => {
     test(`ModalGlass size sm - ${theme}`, async () => {
       renderWithTheme(
         <div data-testid="modal-container" style={{ width: '600px', height: '400px', position: 'relative' }}>
-          <ModalGlass isOpen={true} onClose={() => {}} title="Small Modal" size="sm">
-            <p>Small modal content</p>
-          </ModalGlass>
+          <ModalGlass.Root open={true} onOpenChange={() => {}}>
+            <ModalGlass.Overlay />
+            <ModalGlass.Content size="sm">
+              <ModalGlass.Header>
+                <ModalGlass.Title>Small Modal</ModalGlass.Title>
+                <ModalGlass.Close />
+              </ModalGlass.Header>
+              <ModalGlass.Body>
+                <p>Small modal content</p>
+              </ModalGlass.Body>
+            </ModalGlass.Content>
+          </ModalGlass.Root>
         </div>,
         theme
       );
@@ -733,9 +750,18 @@ describe('Visual Regression Tests', () => {
     test(`ModalGlass size lg - ${theme}`, async () => {
       renderWithTheme(
         <div data-testid="modal-container" style={{ width: '800px', height: '500px', position: 'relative' }}>
-          <ModalGlass isOpen={true} onClose={() => {}} title="Large Modal" size="lg">
-            <p>Large modal content</p>
-          </ModalGlass>
+          <ModalGlass.Root open={true} onOpenChange={() => {}}>
+            <ModalGlass.Overlay />
+            <ModalGlass.Content size="lg">
+              <ModalGlass.Header>
+                <ModalGlass.Title>Large Modal</ModalGlass.Title>
+                <ModalGlass.Close />
+              </ModalGlass.Header>
+              <ModalGlass.Body>
+                <p>Large modal content</p>
+              </ModalGlass.Body>
+            </ModalGlass.Content>
+          </ModalGlass.Root>
         </div>,
         theme
       );
@@ -837,48 +863,49 @@ describe('Visual Regression Tests', () => {
   });
 });
 
-// SelectGlass Visual Tests
-describe('SelectGlass', () => {
+// ComboBoxGlass Visual Tests (migrated from SelectGlass)
+describe('ComboBoxGlass', () => {
   afterEach(cleanup);
 
-  const selectOptions: SelectOption[] = [
+  const comboBoxOptions: ComboBoxOption[] = [
     { value: '1', label: 'Option 1' },
     { value: '2', label: 'Option 2' },
     { value: '3', label: 'Option 3' },
   ];
 
   THEMES.forEach((theme) => {
-    test(`SelectGlass default - ${theme}`, async () => {
+    test(`ComboBoxGlass default - ${theme}`, async () => {
       renderWithTheme(
-        <div data-testid={`select-default-${theme}`} style={{ padding: '20px' }}>
-          <SelectGlass
-            options={selectOptions}
+        <div data-testid={`combobox-default-${theme}`} style={{ padding: '20px' }}>
+          <ComboBoxGlass
+            options={comboBoxOptions}
             value="1"
             placeholder="Select an option"
+            searchable={false}
           />
         </div>,
         theme
       );
       await waitForStability(300);
-      const container = page.getByTestId(`select-default-${theme}`);
-      await expect(container).toMatchScreenshot(`select-default-${theme}`);
+      const container = page.getByTestId(`combobox-default-${theme}`);
+      await expect(container).toMatchScreenshot(`combobox-default-${theme}`);
     });
 
-    test(`SelectGlass searchable - ${theme}`, async () => {
+    test(`ComboBoxGlass searchable - ${theme}`, async () => {
       renderWithTheme(
-        <div data-testid={`select-searchable-${theme}`} style={{ padding: '20px' }}>
-          <SelectGlass
-            options={selectOptions}
+        <div data-testid={`combobox-searchable-${theme}`} style={{ padding: '20px' }}>
+          <ComboBoxGlass
+            options={comboBoxOptions}
             value="2"
             placeholder="Search options..."
-            searchable
+            searchable={true}
           />
         </div>,
         theme
       );
       await waitForStability(300);
-      const container = page.getByTestId(`select-searchable-${theme}`);
-      await expect(container).toMatchScreenshot(`select-searchable-${theme}`);
+      const container = page.getByTestId(`combobox-searchable-${theme}`);
+      await expect(container).toMatchScreenshot(`combobox-searchable-${theme}`);
     });
   });
 });

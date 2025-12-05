@@ -1,9 +1,10 @@
 /**
  * Glass UI Components - Barrel Exports
  *
- * Level 1: UI Components (19 components)
+ * Level 1: UI Components (18 components)
  * Base glassmorphism components with theme-aware styling
  * Note: ProgressGlass moved to specialized/
+ * Note: SelectGlass removed in v1.0.0 (replaced by ComboBoxGlass)
  */
 
 // UI Components
@@ -45,9 +46,6 @@ export type { NotificationGlassProps } from './notification-glass';
 
 export { PopoverGlass } from './popover-glass';
 export type { PopoverGlassProps } from './popover-glass';
-
-export { SelectGlass } from './select-glass';
-export type { SelectGlassProps, SelectOption } from './select-glass';
 
 export { SkeletonGlass } from './skeleton-glass';
 export type { SkeletonGlassProps } from './skeleton-glass';
