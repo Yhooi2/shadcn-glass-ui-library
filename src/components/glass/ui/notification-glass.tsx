@@ -41,6 +41,8 @@ export interface NotificationGlassProps
   readonly message: string;
   /** Notification variant (shadcn/ui compatible) */
   readonly variant?: 'default' | 'destructive' | 'success' | 'warning';
+  /** @deprecated Use variant prop instead. Will be removed in next major version. */
+  readonly type?: NotificationType;
   readonly onClose: () => void;
 }
 
@@ -60,13 +62,26 @@ const getTypeVars = (notifType: NotificationType): { color: string; glow: string
 };
 
 export const NotificationGlass = forwardRef<HTMLDivElement, NotificationGlassProps>(
-  ({ variant = 'default', title, message, onClose, className, ...props }, ref) => {
+  ({ variant: variantProp, type: typeProp, title, message, onClose, className, ...props }, ref) => {
+    // Backward compatibility: support deprecated 'type' prop
+    const variant = variantProp ?? typeProp ?? 'default';
+
+    // Show deprecation warning in development
+    if (process.env.NODE_ENV === 'development' && typeProp) {
+      console.warn(
+        'NotificationGlass: The "type" prop is deprecated. Use "variant" instead. Example: <NotificationGlass variant="destructive" />'
+      );
+    }
+
     // Map variant to internal notification type
     const variantToType: Record<string, NotificationType> = {
       default: 'info',
       destructive: 'error',
       success: 'success',
       warning: 'warning',
+      // Backward compatibility aliases
+      info: 'info',
+      error: 'error',
     };
 
     const effectiveType: NotificationType = variantToType[variant] || 'info';
