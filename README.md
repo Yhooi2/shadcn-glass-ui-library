@@ -36,6 +36,7 @@ See [DEPENDENCIES.md](DEPENDENCIES.md) for detailed dependency documentation.
 
 - **[Live Storybook Demo](https://yhooi2.github.io/shadcn-glass-ui-library/)** - Interactive component showcase
 - [Component Documentation](https://yhooi2.github.io/shadcn-glass-ui-library/?path=/docs) - Detailed API references
+- [Registry Usage Guide](docs/REGISTRY_USAGE.md) - shadcn CLI installation guide
 - [Design System](docs/design-system/UI_DESIGN.md) - Comprehensive UI specifications
 - [Migration Guides](docs/migration/) - Upgrade and API changes
 
@@ -48,10 +49,16 @@ See [DEPENDENCIES.md](DEPENDENCIES.md) for detailed dependency documentation.
 Add individual components to your existing shadcn/ui project:
 
 ```bash
-npx shadcn@latest add @shadcn-glass-ui/button
-npx shadcn@latest add @shadcn-glass-ui/input
-npx shadcn@latest add @shadcn-glass-ui/modal
+# Configure registry in components.json
+# Add to "registries": { "@shadcn-glass-ui": { "url": "https://raw.githubusercontent.com/Yhooi2/shadcn-glass-ui-library/main/public/r" } }
+
+# Install components
+npx shadcn@latest add @shadcn-glass-ui/button-glass
+npx shadcn@latest add @shadcn-glass-ui/input-glass
+npx shadcn@latest add @shadcn-glass-ui/modal-glass
 ```
+
+See [Registry Usage Guide](docs/REGISTRY_USAGE.md) for detailed setup instructions.
 
 #### Option 2: NPM Package
 
