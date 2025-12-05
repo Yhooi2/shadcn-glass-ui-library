@@ -11,7 +11,7 @@ Add this entry to `/apps/web/public/registries.json`:
 ```json
 {
   "name": "shadcn-glass-ui",
-  "description": "Modern glassmorphism UI component library with 55+ components for React. Features 3 themes (glass, light, aurora), WCAG 2.1 AA accessibility, and full shadcn/ui compatibility.",
+  "description": "Modern glassmorphism UI component library with 55 components for React. Features 3 themes (glass, light, aurora), WCAG 2.1 AA accessibility, and full shadcn/ui compatibility.",
   "author": "Yhooi2",
   "homepage": "https://yhooi2.github.io/shadcn-glass-ui-library/",
   "repository": "https://github.com/Yhooi2/shadcn-glass-ui-library",
@@ -48,14 +48,22 @@ Add this entry to `/apps/web/public/registries.json`:
 
 ### Components Available
 
-**55 total components** across 6 categories:
+**55 total components** across 4 registry types:
 
-- **Core UI (18):** ButtonGlass, InputGlass, ModalGlass, TabsGlass, etc.
-- **Atomic (6):** ThemeToggleGlass, SearchBoxGlass, IconButtonGlass, etc.
-- **Specialized (8):** RainbowProgressGlass, LanguageBarGlass, SegmentedControlGlass, etc.
-- **Composite (13):** MetricCardGlass, RepositoryCardGlass, AICardGlass, etc.
-- **Sections (7):** HeaderNavGlass, ProfileHeaderGlass, CareerStatsGlass, etc.
-- **Primitives (3):** TouchTarget, FormFieldWrapper, InteractiveCard
+#### Registry Types
+- **`registry:ui` (18 components)** - Core UI components
+  - ButtonGlass, InputGlass, ModalGlass, TabsGlass, CheckboxGlass, ToggleGlass, SliderGlass, TooltipGlass, AlertGlass, AvatarGlass, BadgeGlass, GlassCard, DropdownGlass, ComboBoxGlass, CircularProgressGlass, SkeletonGlass, PopoverGlass, NotificationGlass
+
+- **`registry:component` (14 components)** - Atomic & Specialized components
+  - **Atomic (6):** ThemeToggleGlass, SearchBoxGlass, IconButtonGlass, SortDropdownGlass, StatItemGlass, ExpandableHeaderGlass
+  - **Specialized (8):** RainbowProgressGlass, LanguageBarGlass, SegmentedControlGlass, StatusIndicatorGlass, ProgressGlass, BaseProgressGlass, ProfileAvatarGlass, FlagAlertGlass
+
+- **`registry:block` (20 components)** - Composite & Section blocks
+  - **Composite (13):** MetricCardGlass, RepositoryCardGlass, AICardGlass, YearCardGlass, CircularMetricGlass, ContributionMetricsGlass, MetricsGridGlass, RepositoryHeaderGlass, RepositoryMetadataGlass, TrustScoreDisplayGlass, UserInfoGlass, UserStatsLineGlass, CareerStatsHeaderGlass
+  - **Sections (7):** HeaderNavGlass, ProfileHeaderGlass, CareerStatsGlass, FlagsSectionGlass, TrustScoreCardGlass, ProjectsListGlass, HeaderBrandingGlass
+
+- **`registry:lib` (3 components)** - Primitive utilities
+  - TouchTarget, FormFieldWrapper, InteractiveCard
 
 ### Installation Example
 
@@ -120,7 +128,7 @@ npx shadcn@latest add @shadcn-glass-ui/modal-glass
    ```
    Add shadcn-glass-ui registry
 
-   Modern glassmorphism UI component library with 55+ components.
+   Modern glassmorphism UI component library with 55 components.
 
    - Full shadcn/ui v4 compatibility
    - 3 themes (glass, light, aurora)

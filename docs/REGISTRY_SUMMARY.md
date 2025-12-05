@@ -30,14 +30,25 @@ We've implemented a **community-focused registry** approach with the following b
 |--------|-------|
 | **Total Components** | 55 |
 | **Registry Files** | 56 (55 components + 1 index) |
-| **JSON Size** | ~3,142 lines |
-| **Categories** | 6 (UI, Atomic, Specialized, Composite, Sections, Primitives) |
+| **JSON Size** | ~1,914 lines |
+| **Total Size** | 368 KB |
+| **Registry Types** | 4 (ui, component, block, lib) |
 | **Schema Compliance** | shadcn/ui v4 ✅ |
+| **CI/CD Automation** | ✅ Auto-generated on push |
 
-### Component Breakdown
+### Component Breakdown by Registry Type
 
-| Category | Count | Type |
-|----------|-------|------|
+| Registry Type | Count | Categories Included |
+|---------------|-------|---------------------|
+| `registry:ui` | 18 | Core UI components |
+| `registry:component` | 14 | Atomic (6) + Specialized (8) |
+| `registry:block` | 20 | Composite (13) + Sections (7) |
+| `registry:lib` | 3 | Primitives |
+
+### Detailed Breakdown by Category
+
+| Category | Count | Registry Type |
+|----------|-------|---------------|
 | Core UI | 18 | `registry:ui` |
 | Atomic | 6 | `registry:component` |
 | Specialized | 8 | `registry:component` |
@@ -96,7 +107,9 @@ shadcn-glass-ui-library/
 
 ### Generation Process
 
-**Automated via:** `npm run generate:registry`
+**Automated via:**
+- **Manual:** `npm run generate:registry`
+- **CI/CD:** Auto-runs on push to main (GitHub Actions)
 
 **Script Features:**
 - ✅ Automatic dependency detection from imports
@@ -106,6 +119,12 @@ shadcn-glass-ui-library/
 - ✅ Schema validation
 
 **Output:** 56 JSON files in `public/r/`
+
+**CI/CD Integration:**
+- Runs on every push to `main` branch
+- Automatically commits changes if registry updates detected
+- Uses `[skip ci]` tag to prevent infinite loops
+- GitHub Actions workflow: [`.github/workflows/ci.yml`](../.github/workflows/ci.yml)
 
 ## 📋 Registry Item Example
 
@@ -199,18 +218,32 @@ shadcn-glass-ui-library/
 
 ### Adding New Components
 
+**Option A: Manual (Development)**
 1. Create component in `src/components/glass/`
 2. Run `npm run generate:registry`
 3. Review generated JSON in `public/r/`
-4. Commit changes
-5. Push to GitHub → Registry auto-updates
+4. Commit changes (including registry files)
+5. Push to GitHub
+
+**Option B: Automatic (CI/CD)**
+1. Create component in `src/components/glass/`
+2. Commit and push component source only
+3. GitHub Actions automatically generates registry
+4. Registry auto-commits and updates
 
 ### Updating Existing Components
 
+**Option A: Manual (Development)**
 1. Edit component source
 2. Run `npm run generate:registry`
 3. Commit updated JSON files
 4. Push to GitHub
+
+**Option B: Automatic (CI/CD)**
+1. Edit component source
+2. Commit and push changes
+3. GitHub Actions detects changes
+4. Registry auto-regenerates and commits
 
 ### Version Management
 
