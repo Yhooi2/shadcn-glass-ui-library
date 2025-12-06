@@ -6,36 +6,58 @@
 @theme {
   /* ========================================
      BLUR SCALE
-     Design system tokens per UI_DIZINE.md:
-     sm=8px, md=16px, lg=24px, xl=32px
+     Base blur system - change --blur to adjust all blur levels globally
+     Default: --blur: 16px (medium glass effect)
+
+     Examples:
+     - Subtle: --blur: 8px (less blurry)
+     - Medium (current): --blur: 16px
+     - Strong: --blur: 24px (more blurry)
+     - Extra strong: --blur: 32px (very blurry)
      ======================================== */
-  --blur-xs: 4px;
-  --blur-sm: 8px;
-  --blur-md: 16px;
-  --blur-lg: 24px;
-  --blur-xl: 32px;
-  --blur-glass: var(--blur-lg);
+  --blur: 16px; /* Base value - controls all derived blur levels */
+  --blur-xs: calc(var(--blur) * 0.25); /* base * 0.25 = 4px default */
+  --blur-sm: calc(var(--blur) * 0.5); /* base * 0.5 = 8px default */
+  --blur-md: var(--blur); /* base = 16px default */
+  --blur-lg: calc(var(--blur) * 1.5); /* base * 1.5 = 24px default */
+  --blur-xl: calc(var(--blur) * 2); /* base * 2 = 32px default */
+  --blur-glass: var(--blur-lg); /* Default for glass components */
 
   /* ========================================
      RADIUS SCALE
-     Design system tokens per UI_DIZINE.md:
-     sm=4px, md=8px, lg=12px, xl=16px, 2xl=24px
+     Base radius system - change --radius to adjust all corners globally
+     Default: --radius: 0.75rem (12px) - optimized for glassmorphism
+     Per 2025 best practices: 12-16px is the sweet spot (NN/G, Apple Liquid Glass)
+
+     Examples:
+     - Compact: --radius: 0.5rem (8px - minimum for glass effects)
+     - Balanced (current): --radius: 0.75rem (12px - recommended)
+     - Premium: --radius: 1rem (16px - Apple-style liquid glass)
+     - Extra rounded: --radius: 1.25rem (20px - modern, soft aesthetic)
      ======================================== */
-  --radius: 0.75rem;
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  --radius-2xl: 24px;
-  --radius-full: 9999px;
+  --radius: 0.75rem; /* Base value - controls all derived radii */
+  --radius-sm: calc(var(--radius) - 0.125rem); /* base - 2px = 10px (badges, small chips) */
+  --radius-md: var(--radius); /* base = 12px (buttons, inputs, tooltips) */
+  --radius-lg: calc(var(--radius) + 0.25rem); /* base + 4px = 16px (cards, dropdowns) */
+  --radius-xl: calc(var(--radius) + 0.5rem); /* base + 8px = 20px (modals, glass panels) */
+  --radius-2xl: calc(var(--radius) + 1rem); /* base + 16px = 28px (hero cards, features) */
+  --radius-full: 9999px; /* Always circular */
 
   /* ========================================
      TRANSITION DURATIONS
-     Fast for micro-interactions, slow for emphasis
+     Base duration system - change --duration to adjust all animation speeds globally
+     Default: --duration: 200ms (balanced animation speed)
+
+     Examples:
+     - Snappy: --duration: 150ms (faster animations)
+     - Balanced (current): --duration: 200ms
+     - Smooth: --duration: 300ms (slower, more elegant)
+     - Slow-mo: --duration: 500ms (very slow for emphasis)
      ======================================== */
-  --duration-fast: 150ms;
-  --duration-base: 200ms;
-  --duration-slow: 300ms;
+  --duration: 200ms; /* Base value - controls all derived durations */
+  --duration-fast: calc(var(--duration) * 0.75); /* base * 0.75 = 150ms default */
+  --duration-base: var(--duration); /* base = 200ms default */
+  --duration-slow: calc(var(--duration) * 1.5); /* base * 1.5 = 300ms default */
 
   /* Backward compatibility aliases */
   --transition-fast: var(--duration-fast);
@@ -44,22 +66,39 @@
 
   /* ========================================
      GLOW INTENSITY SCALE
-     Used for box-shadow glow effects
+     Base glow system - change --glow to adjust all glow effects globally
+     Default: --glow: 16px (medium glow intensity)
+
+     Examples:
+     - Subtle: --glow: 8px (soft glow)
+     - Medium (current): --glow: 16px
+     - Strong: --glow: 24px (bright glow)
+     - Intense: --glow: 32px (very bright glow)
      ======================================== */
-  --glow-sm: 8px;
-  --glow-md: 16px;
-  --glow-lg: 24px;
-  --glow-xl: 40px;
+  --glow: 16px; /* Base value - controls all derived glow intensities */
+  --glow-sm: calc(var(--glow) * 0.5); /* base * 0.5 = 8px default */
+  --glow-md: var(--glow); /* base = 16px default */
+  --glow-lg: calc(var(--glow) * 1.5); /* base * 1.5 = 24px default */
+  --glow-xl: calc(var(--glow) * 2.5); /* base * 2.5 = 40px default */
 
   /* ========================================
      OPACITY SCALE
-     For glass backgrounds and overlays
+     Base opacity system - change --opacity to adjust all glass transparency globally
+     Default: --opacity: 0.08 (medium glass transparency)
+     Per glassmorphism best practices 2025: minimum 5% opacity for visibility
+
+     Examples:
+     - Transparent: --opacity: 0.05 (minimum recommended for glass effects)
+     - Medium (current): --opacity: 0.08
+     - Opaque: --opacity: 0.12 (less see-through)
+     - Solid: --opacity: 0.20 (almost solid)
      ======================================== */
-  --opacity-subtle: 0.03;
-  --opacity-light: 0.05;
-  --opacity-medium: 0.08;
-  --opacity-strong: 0.15;
-  --opacity-solid: 0.25;
+  --opacity: 0.08; /* Base value - controls all derived opacity levels */
+  --opacity-subtle: calc(var(--opacity) * 0.625); /* base * 0.625 = 0.05 default (minimum per best practices) */
+  --opacity-light: calc(var(--opacity) * 0.875); /* base * 0.875 = 0.07 default */
+  --opacity-medium: var(--opacity); /* base = 0.08 default */
+  --opacity-strong: calc(var(--opacity) * 1.875); /* base * 1.875 = 0.15 default */
+  --opacity-solid: calc(var(--opacity) * 3.125); /* base * 3.125 = 0.25 default */
 
   /* ========================================
      SHADOW ALIASES FOR @theme
@@ -79,7 +118,7 @@
   /* ========================================
      TEXT SHADOW FOR GLASS
      Improves text readability on glass surfaces
-     per UI_DIZINE.md
+     Per UI_DESIGN.md glassmorphism guidelines
      ======================================== */
   --text-shadow-glass: 0 1px 2px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.2);
 }

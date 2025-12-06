@@ -206,3 +206,160 @@ export const AllIntensities: Story = {
     await expect(canvasElement).toBeInTheDocument();
   },
 };
+
+// ========================================
+// GLASS VARIANTS (CSS Classes)
+// ========================================
+
+export const GlassVariant: Story = {
+  render: () => (
+    <div className="glass p-6 w-80 rounded-2xl">
+      <div className="space-y-2">
+        <h3 className="text-lg font-semibold" style={{ color: "var(--text-primary)" }}>
+          Standard Glass
+        </h3>
+        <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
+          blur: 16px, saturation: 180%
+        </p>
+        <p className="text-xs" style={{ color: "var(--text-muted)" }}>
+          className="glass rounded-2xl"
+        </p>
+      </div>
+    </div>
+  ),
+  async play({ canvasElement }) {
+    await expect(canvasElement).toBeInTheDocument();
+  },
+};
+
+export const FrostedVariant: Story = {
+  render: () => (
+    <div className="frosted p-6 w-80 rounded-2xl">
+      <div className="space-y-2">
+        <h3 className="text-lg font-semibold" style={{ color: "var(--text-primary)" }}>
+          Frosted Glass
+        </h3>
+        <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
+          blur: 32px, saturation: 100% - Matte finish
+        </p>
+        <p className="text-xs" style={{ color: "var(--text-muted)" }}>
+          className="frosted rounded-2xl"
+        </p>
+      </div>
+    </div>
+  ),
+  async play({ canvasElement }) {
+    await expect(canvasElement).toBeInTheDocument();
+  },
+};
+
+export const FlutedVariant: Story = {
+  render: () => (
+    <div className="fluted p-6 w-80 rounded-2xl">
+      <div className="space-y-2">
+        <h3 className="text-lg font-semibold" style={{ color: "var(--text-primary)" }}>
+          Fluted Glass
+        </h3>
+        <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
+          blur: 16px, saturation: 120% - Ribbed effect
+        </p>
+        <p className="text-xs" style={{ color: "var(--text-muted)" }}>
+          className="fluted rounded-2xl"
+        </p>
+      </div>
+    </div>
+  ),
+  async play({ canvasElement }) {
+    await expect(canvasElement).toBeInTheDocument();
+  },
+};
+
+export const CrystalVariant: Story = {
+  render: () => (
+    <div className="crystal p-6 w-80 rounded-2xl">
+      <div className="space-y-2">
+        <h3 className="text-lg font-semibold" style={{ color: "var(--text-primary)" }}>
+          Crystal Glass
+        </h3>
+        <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
+          blur: 8px, saturation: 200% - Crystal-clear
+        </p>
+        <p className="text-xs" style={{ color: "var(--text-muted)" }}>
+          className="crystal rounded-2xl"
+        </p>
+      </div>
+    </div>
+  ),
+  async play({ canvasElement }) {
+    await expect(canvasElement).toBeInTheDocument();
+  },
+};
+
+export const AllGlassVariants: Story = {
+  render: () => (
+    <div className="flex flex-col gap-6">
+      <div className="grid grid-cols-2 gap-4">
+        <div className="glass p-6 rounded-xl">
+          <div className="space-y-2">
+            <h4 className="font-semibold" style={{ color: "var(--text-primary)" }}>
+              Glass
+            </h4>
+            <p className="text-xs" style={{ color: "var(--text-secondary)" }}>
+              Standard glassmorphism
+            </p>
+            <p className="text-xs" style={{ color: "var(--text-muted)" }}>
+              blur: 16px, sat: 180%
+            </p>
+          </div>
+        </div>
+        <div className="frosted p-6 rounded-xl">
+          <div className="space-y-2">
+            <h4 className="font-semibold" style={{ color: "var(--text-primary)" }}>
+              Frosted
+            </h4>
+            <p className="text-xs" style={{ color: "var(--text-secondary)" }}>
+              Matte finish
+            </p>
+            <p className="text-xs" style={{ color: "var(--text-muted)" }}>
+              blur: 32px, sat: 100%
+            </p>
+          </div>
+        </div>
+        <div className="fluted p-6 rounded-xl">
+          <div className="space-y-2">
+            <h4 className="font-semibold" style={{ color: "var(--text-primary)" }}>
+              Fluted
+            </h4>
+            <p className="text-xs" style={{ color: "var(--text-secondary)" }}>
+              Ribbed effect
+            </p>
+            <p className="text-xs" style={{ color: "var(--text-muted)" }}>
+              blur: 16px, sat: 120%
+            </p>
+          </div>
+        </div>
+        <div className="crystal p-6 rounded-xl">
+          <div className="space-y-2">
+            <h4 className="font-semibold" style={{ color: "var(--text-primary)" }}>
+              Crystal
+            </h4>
+            <p className="text-xs" style={{ color: "var(--text-secondary)" }}>
+              Crystal-clear
+            </p>
+            <p className="text-xs" style={{ color: "var(--text-muted)" }}>
+              blur: 8px, sat: 200%
+            </p>
+          </div>
+        </div>
+      </div>
+      <div className="text-center">
+        <p className="text-sm" style={{ color: "var(--text-muted)" }}>
+          Use CSS classes: .glass, .frosted, .fluted, .crystal (+ rounded-xl/2xl)
+        </p>
+      </div>
+    </div>
+  ),
+  async play({ canvasElement }) {
+    await expect(canvasElement).toBeInTheDocument();
+  },
+};

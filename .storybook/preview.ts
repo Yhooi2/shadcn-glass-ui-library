@@ -119,11 +119,11 @@ const preview: Preview = {
     a11y: {
       test: 'todo', // Shows violations in addon panel but doesn't fail tests
     },
-    // Docs configuration - dark theme + show source code by default
+    // Docs configuration - dark theme + hide source code by default
     docs: {
       theme: glassDocsTheme,
       canvas: {
-        sourceState: 'shown',
+        sourceState: 'hidden',
       },
     },
     // Visual regression testing - disable animations for stable screenshots
