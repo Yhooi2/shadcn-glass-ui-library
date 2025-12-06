@@ -1,7 +1,7 @@
 {
   "name": "@yhooi2/shadcn-glass-ui",
   "private": false,
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Modern glassmorphism UI component library for React with full shadcn/ui compatibility",
   "author": "Yhooi2",
   "license": "MIT",
