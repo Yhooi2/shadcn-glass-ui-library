@@ -43,7 +43,7 @@ describe('MobileShowcase Visual Tests', () => {
   describe.each(THEMES)('Full Demo Page - Theme: %s', (theme) => {
     test(`MobileShowcase full page - ${theme}`, async () => {
       renderShowcase(theme);
-      await waitForStability(500);
+      await waitForStability(1000); // Increased for complex mobile layout
 
       const root = page.getByTestId('showcase-root');
       await expect(root).toMatchScreenshot(`mobileshowcase-full-${theme}`);
@@ -65,7 +65,7 @@ describe('MobileShowcase Visual Tests', () => {
 
     test(`Profile section - ${theme}`, async () => {
       renderShowcase(theme);
-      await waitForStability();
+      await waitForStability(600); // Increased for avatar animations
 
       const section = page.getByTestId('section-profile');
       await expect(section).toMatchScreenshot(`mobileshowcase-profile-${theme}`);
