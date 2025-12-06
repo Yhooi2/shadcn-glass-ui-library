@@ -150,7 +150,7 @@ export const ComponentShowcase = () => {
       </div>
 
       {/* Modal */}
-      <ModalGlass.Root open={modalOpen} onOpenChange={setModalOpen} size="md">
+      <ModalGlass.Root open={modalOpen} onOpenChange={setModalOpen} size="sm">
         <ModalGlass.Overlay />
         <ModalGlass.Content>
           <ModalGlass.Header>
