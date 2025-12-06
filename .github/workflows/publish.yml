@@ -13,6 +13,7 @@ on:
 permissions:
   contents: read
   packages: write  # Required for GitHub Packages
+  deployments: write  # Required for GitHub deployments
 
 jobs:
   publish:
@@ -32,7 +33,7 @@ jobs:
       - name: Configure npm authentication
         run: |
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
-          cat ~/.npmrc
+          echo "✅ npm authentication configured"
 
       - name: Install dependencies
         run: npm ci
