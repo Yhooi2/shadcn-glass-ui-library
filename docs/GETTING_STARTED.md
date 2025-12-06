@@ -41,7 +41,7 @@ This will:
 
 ### Option 2: NPM Package
 
-Install the entire library at once:
+Install from the public npm registry:
 
 ```bash
 npm install shadcn-glass-ui
@@ -49,18 +49,44 @@ npm install shadcn-glass-ui
 
 For TypeScript projects, types are included automatically.
 
-### Option 3: Manual Installation
+### Option 3: GitHub Packages
+
+Install from GitHub Packages for enhanced security and integration:
+
+**Setup (one-time):**
+
+1. Create `.npmrc` in your project root:
+```
+@yhooi2:registry=https://npm.pkg.github.com
+```
+
+2. Authenticate:
+```bash
+npm login --scope=@yhooi2 --registry=https://npm.pkg.github.com
+# Use your GitHub username and Personal Access Token (with read:packages scope)
+```
+
+3. Install:
+```bash
+npm install @yhooi2/shadcn-glass-ui
+```
+
+**Note:** Import paths remain the same regardless of installation method.
+
+See [GitHub Packages Guide](GITHUB_PACKAGES.md) for detailed instructions.
+
+### Option 4: Manual Installation
 
 Copy components directly from the repository:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/shadcn-glass-ui.git
+git clone https://github.com/Yhooi2/shadcn-glass-ui-library.git
 
 # Copy desired components
-cp shadcn-glass-ui/src/components/glass/ui/button-glass.tsx ./src/components/ui/
-cp shadcn-glass-ui/src/lib/variants/button-glass-variants.ts ./src/lib/variants/
-cp shadcn-glass-ui/src/lib/utils.ts ./src/lib/
+cp shadcn-glass-ui-library/src/components/glass/ui/button-glass.tsx ./src/components/ui/
+cp shadcn-glass-ui-library/src/lib/variants/button-glass-variants.ts ./src/lib/variants/
+cp shadcn-glass-ui-library/src/lib/utils.ts ./src/lib/
 ```
 
 ## Project Setup
@@ -506,7 +532,7 @@ Read [UI_DESIGN.md](design-system/UI_DESIGN.md) to understand:
 
 ### Browse Examples
 
-- [Storybook](https://yourusername.github.io/shadcn-glass-ui/) - Live component demos
+- [Storybook](https://yhooi2.github.io/shadcn-glass-ui-library/) - Live component demos
 - [ComponentShowcase](../src/components/ComponentShowcase.tsx) - All components in one page
 - [DesktopShowcase](../src/components/DesktopShowcase.tsx) - Full application example
 
@@ -519,8 +545,8 @@ Read [UI_DESIGN.md](design-system/UI_DESIGN.md) to understand:
 
 ### Get Help
 
-- [GitHub Discussions](https://github.com/yourusername/shadcn-glass-ui/discussions)
-- [Issues](https://github.com/yourusername/shadcn-glass-ui/issues)
+- [GitHub Discussions](https://github.com/Yhooi2/shadcn-glass-ui-library/discussions)
+- [Issues](https://github.com/Yhooi2/shadcn-glass-ui-library/issues)
 - [Contributing Guide](../CONTRIBUTING.md)
 
 ---

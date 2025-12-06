@@ -1,12 +1,16 @@
 # shadcn-glass-ui
 
-> Modern glassmorphism UI component library for React with full shadcn/ui compatibility
-
-[![npm version](https://img.shields.io/npm/v/shadcn-glass-ui.svg)](https://www.npmjs.com/package/shadcn-glass-ui)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![npm version](https://img.shields.io/npm/v/@yhooi2/shadcn-glass-ui.svg)](https://www.npmjs.com/package/@yhooi2/shadcn-glass-ui)
+[![GitHub Package](https://img.shields.io/badge/GitHub_Package-Available-success)](https://github.com/Yhooi2/shadcn-glass-ui-library/packages)
+[![npm downloads](https://img.shields.io/npm/dm/@yhooi2/shadcn-glass-ui.svg)](https://www.npmjs.com/package/@yhooi2/shadcn-glass-ui)
+[![License](https://img.shields.io/npm/l/@yhooi2/shadcn-glass-ui.svg)](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/main/LICENSE)
+[![CI](https://github.com/Yhooi2/shadcn-glass-ui-library/workflows/CI%2FCD%20Pipeline/badge.svg)](https://github.com/Yhooi2/shadcn-glass-ui-library/actions)
+[![Bundle Size](https://img.shields.io/bundlephobia/minzip/@yhooi2/shadcn-glass-ui)](https://bundlephobia.com/package/@yhooi2/shadcn-glass-ui)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue)](https://www.typescriptlang.org/)
-[![Tests](https://img.shields.io/badge/tests-2,127%20passing-success)](https://github.com/yourusername/shadcn-glass-ui)
-[![Storybook](https://img.shields.io/badge/Storybook-Live%20Demo-ff69b4)](https://yhooi2.github.io/shadcn-glass-ui-library/)
+[![React](https://img.shields.io/badge/React-19.2-blue)](https://reactjs.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.1-blue)](https://tailwindcss.com/)
+
+Modern glassmorphism UI component library for React with full shadcn/ui compatibility.
 
 ## ✨ Highlights
 
@@ -32,109 +36,81 @@
 
 See [DEPENDENCIES.md](DEPENDENCIES.md) for detailed dependency documentation.
 
-## 📖 Documentation
+## 📚 Documentation
 
-- **[Live Storybook Demo](https://yhooi2.github.io/shadcn-glass-ui-library/)** - Interactive component showcase
+- **[Live Storybook](https://yhooi2.github.io/shadcn-glass-ui-library/)** - Interactive component demos
+- **[npm Package](https://www.npmjs.com/package/@yhooi2/shadcn-glass-ui)** - Public npm registry
+- **[GitHub Packages](https://github.com/Yhooi2/shadcn-glass-ui-library/packages)** - GitHub registry (authentication required)
+- **[Getting Started Guide](docs/GETTING_STARTED.md)** - Setup tutorial
+- **[GitHub](https://github.com/Yhooi2/shadcn-glass-ui-library)** - Source code
 - [Component Documentation](https://yhooi2.github.io/shadcn-glass-ui-library/?path=/docs) - Detailed API references
+- [GitHub Packages Guide](docs/GITHUB_PACKAGES.md) - Installation from GitHub Packages
 - [Registry Usage Guide](docs/REGISTRY_USAGE.md) - shadcn CLI installation guide
-- [Registry Submission Guide](docs/REGISTRY_SUBMISSION_GUIDE.md) - Submit to registry.directory
 - [Design System](docs/design-system/UI_DESIGN.md) - Comprehensive UI specifications
 - [Migration Guides](docs/migration/) - Upgrade and API changes
 
+## 📦 Installation
+
+The package `@yhooi2/shadcn-glass-ui` is available in two registries:
+
+### Option 1: npm Registry (Recommended)
+
+**Easiest installation** - no authentication required:
+
+```bash
+npm install @yhooi2/shadcn-glass-ui
+```
+
+### Option 2: GitHub Packages
+
+Enhanced security with GitHub integration. Requires authentication:
+
+1. **Create `.npmrc`** in your project root:
+   ```
+   @yhooi2:registry=https://npm.pkg.github.com
+   ```
+
+2. **Authenticate** (one-time setup):
+   ```bash
+   npm login --scope=@yhooi2 --registry=https://npm.pkg.github.com
+   ```
+   - Username: Your GitHub username
+   - Password: [Personal Access Token](https://github.com/settings/tokens) with `read:packages` scope
+
+3. **Install**:
+   ```bash
+   npm install @yhooi2/shadcn-glass-ui
+   ```
+
+**See [GitHub Packages Guide](docs/GITHUB_PACKAGES.md) for detailed instructions.**
+
 ## 🚀 Quick Start
 
-### Installation
-
-#### Option 1: shadcn CLI (Recommended)
-
-Add individual components to your existing shadcn/ui project:
-
-```bash
-# Configure registry in components.json
-# Add to "registries": { "@shadcn-glass-ui": { "url": "https://raw.githubusercontent.com/Yhooi2/shadcn-glass-ui-library/main/public/r" } }
-
-# Install components
-npx shadcn@latest add @shadcn-glass-ui/button-glass
-npx shadcn@latest add @shadcn-glass-ui/input-glass
-npx shadcn@latest add @shadcn-glass-ui/modal-glass
-```
-
-See [Registry Usage Guide](docs/REGISTRY_USAGE.md) for detailed setup instructions.
-
-#### Option 2: NPM Package
-
-Install the entire library:
-
-```bash
-npm install shadcn-glass-ui
-```
-
-#### Option 3: Manual Copy
-
-Copy component files directly from the repository:
-
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/shadcn-glass-ui.git
-
-# Copy components
-cp shadcn-glass-ui/src/components/glass/ui/button-glass.tsx your-project/components/ui/
-```
+**Requirements:**
+- React 18.0+ or 19.0+
+- React-DOM 18.0+ or 19.0+
+- Tailwind CSS 4.0+
 
 ### Basic Usage
 
 ```tsx
-import { ButtonGlass, InputGlass, AlertGlass } from 'shadcn-glass-ui';
+import { ButtonGlass, InputGlass, ThemeProvider } from 'shadcn-glass-ui';
+import 'shadcn-glass-ui/dist/styles.css';
 
-export default function App() {
+function App() {
   return (
-    <div className="theme-glass min-h-screen p-8">
-      <ButtonGlass variant="primary">Click me</ButtonGlass>
-      <ButtonGlass variant="destructive">Delete</ButtonGlass>
-      <InputGlass placeholder="Enter text..." />
-      <AlertGlass variant="default" title="Welcome">
-        Getting started with shadcn-glass-ui
-      </AlertGlass>
-    </div>
+    <ThemeProvider defaultTheme="glass">
+      <div className="p-8 space-y-4">
+        <ButtonGlass variant="primary" size="lg">
+          Click me
+        </ButtonGlass>
+        <InputGlass placeholder="Enter text..." />
+      </div>
+    </ThemeProvider>
   );
 }
-```
 
-### Theme Setup
-
-Add CSS variables to your `globals.css`:
-
-```css
-@import 'shadcn-glass-ui/dist/styles.css';
-
-/* Or define variables manually */
-:root {
-  --blur-sm: 8px;
-  --blur-md: 16px;
-  --blur-lg: 24px;
-  --blur-xl: 32px;
-  --card-medium-bg: rgba(255, 255, 255, 0.15);
-  --card-medium-border: rgba(255, 255, 255, 0.15);
-}
-```
-
-Apply theme class to your app:
-
-```tsx
-// Glass theme (dark glassmorphism)
-<div className="theme-glass">
-  <App />
-</div>
-
-// Light theme
-<div className="theme-light">
-  <App />
-</div>
-
-// Aurora theme (gradient)
-<div className="theme-aurora">
-  <App />
-</div>
+export default App;
 ```
 
 ## 🆕 Advanced Features (Phase 3)
@@ -307,12 +283,12 @@ Detailed migration guides are available in the [docs/migration/](docs/migration/
 
 See [CHANGELOG.md](CHANGELOG.md) for complete version history and breaking changes.
 
-## 📚 Documentation
+## 📚 Full Documentation
 
 - **[Getting Started Guide](docs/GETTING_STARTED.md)** - Comprehensive setup tutorial
 - **[AI Usage Guide](docs/AI_USAGE.md)** - Using library with AI assistants (Copilot, Claude, GPT)
 - **[Publishing Guide](docs/PUBLISHING.md)** - Build and publish with TypeScript declarations
-- **[Storybook](https://yourusername.github.io/shadcn-glass-ui/)** - Live component demos
+- **[Storybook](https://yhooi2.github.io/shadcn-glass-ui-library/)** - Live component demos
 - **[UI Design System](docs/design-system/UI_DESIGN.md)** - Complete design specifications
 - **[Visual Testing Guide](docs/visual-testing-guide.md)** - Screenshot update workflow
 - **[Migration Guide](MIGRATION_GUIDE.md)** - Upgrading from v1
@@ -406,7 +382,7 @@ Complete application examples:
 - **ComponentShowcase** - Interactive demo of all 57 core components
 - **DesktopShowcase** - GitHub Analytics desktop application mockup with glassmorphism design
 
-[Try live demos →](https://yourusername.github.io/shadcn-glass-ui/)
+[Try live demos →](https://yhooi2.github.io/shadcn-glass-ui-library/)
 
 ## 🎨 Themes
 
@@ -601,8 +577,8 @@ npm run test:coverage
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/shadcn-glass-ui.git
-cd shadcn-glass-ui
+git clone https://github.com/Yhooi2/shadcn-glass-ui-library.git
+cd shadcn-glass-ui-library
 
 # Install dependencies
 npm install
@@ -678,7 +654,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
 ## 📝 License
 
-MIT © [Your Name]
+MIT License
 
 This project is open source under the MIT license. See [LICENSE](LICENSE) for details.
 
@@ -696,16 +672,16 @@ Built with amazing open source projects:
 ## 🔗 Links
 
 - **NPM Package**: [shadcn-glass-ui](https://www.npmjs.com/package/shadcn-glass-ui)
-- **Documentation**: [Storybook](https://yourusername.github.io/shadcn-glass-ui/)
-- **GitHub**: [shadcn-glass-ui](https://github.com/yourusername/shadcn-glass-ui)
-- **Issues**: [Report a bug](https://github.com/yourusername/shadcn-glass-ui/issues)
-- **Discussions**: [Community](https://github.com/yourusername/shadcn-glass-ui/discussions)
+- **Documentation**: [Storybook](https://yhooi2.github.io/shadcn-glass-ui-library/)
+- **GitHub**: [shadcn-glass-ui-library](https://github.com/Yhooi2/shadcn-glass-ui-library)
+- **Issues**: [Report a bug](https://github.com/Yhooi2/shadcn-glass-ui-library/issues)
+- **Discussions**: [Community](https://github.com/Yhooi2/shadcn-glass-ui-library/discussions)
 
 ## ⭐ Star History
 
 If you find this project useful, please consider giving it a star on GitHub!
 
-[![Star History Chart](https://api.star-history.com/svg?repos=yourusername/shadcn-glass-ui&type=Date)](https://star-history.com/#yourusername/shadcn-glass-ui&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=Yhooi2/shadcn-glass-ui-library&type=Date)](https://star-history.com/#Yhooi2/shadcn-glass-ui-library&Date)
 
 ---
 

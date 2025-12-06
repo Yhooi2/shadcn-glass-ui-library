@@ -30,19 +30,19 @@ This project and everyone participating in it is governed by our Code of Conduct
 
 1. **Fork the repository**
 
-   Click the "Fork" button on GitHub to create your own copy.
+   Fork the repository: https://github.com/Yhooi2/shadcn-glass-ui-library/fork
 
 2. **Clone your fork**
 
    ```bash
-   git clone https://github.com/YOUR_USERNAME/shadcn-glass-ui.git
-   cd shadcn-glass-ui
+   git clone https://github.com/YOUR_USERNAME/shadcn-glass-ui-library.git
+   cd shadcn-glass-ui-library
    ```
 
 3. **Add upstream remote**
 
    ```bash
-   git remote add upstream https://github.com/yourusername/shadcn-glass-ui.git
+   git remote add upstream https://github.com/Yhooi2/shadcn-glass-ui-library.git
    ```
 
 4. **Install dependencies**
@@ -536,11 +536,66 @@ const variants = cva('base', {
 });
 ```
 
+## Publishing & Distribution
+
+### Package Registries
+
+This package is published to two registries:
+
+1. **npm Registry** (Public)
+   - Package name: `shadcn-glass-ui`
+   - Installation: `npm install shadcn-glass-ui`
+
+2. **GitHub Packages** (Scoped)
+   - Package name: `@yhooi2/shadcn-glass-ui`
+   - Installation: See [GitHub Packages Guide](docs/GITHUB_PACKAGES.md)
+
+### Publishing Workflow
+
+Publishing is automated via GitHub Actions. See [docs/GITHUB_PACKAGES.md](docs/GITHUB_PACKAGES.md) for detailed instructions.
+
+**For Maintainers:**
+
+1. **Update version** in package.json:
+   ```bash
+   npm version patch  # or minor, or major
+   ```
+
+2. **Create git tag**:
+   ```bash
+   git tag v1.0.1
+   git push && git push --tags
+   ```
+
+3. **Create GitHub Release**:
+   - Go to [Releases](https://github.com/Yhooi2/shadcn-glass-ui-library/releases)
+   - Click "Draft a new release"
+   - Select the tag (e.g., `v1.0.1`)
+   - Publish release
+
+4. **Automated Publishing**:
+   - GitHub Actions automatically publishes to both registries
+   - npm: uses OIDC Trusted Publishing (no tokens needed)
+   - GitHub Packages: uses `GITHUB_TOKEN`
+
+### Manual Publishing (Emergency Only)
+
+```bash
+# Build library
+npm run build:lib
+
+# Publish to npm
+npm publish --access public
+
+# Publish to GitHub Packages
+npm publish --registry=https://npm.pkg.github.com
+```
+
 ## Questions?
 
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/shadcn-glass-ui/discussions)
-- **Issues**: [Report a bug](https://github.com/yourusername/shadcn-glass-ui/issues)
-- **Email**: maintainer@email.com
+- **Discussions**: [GitHub Discussions](https://github.com/Yhooi2/shadcn-glass-ui-library/discussions)
+- **Issues**: [Report a bug](https://github.com/Yhooi2/shadcn-glass-ui-library/issues)
+- **GitHub Packages**: [Installation Guide](docs/GITHUB_PACKAGES.md)
 
 ## License
 

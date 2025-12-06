@@ -1,4 +1,4 @@
-name: Publish to npm
+name: Publish to GitHub Packages
 
 on:
   release:
@@ -12,6 +12,7 @@ on:
 
 permissions:
   contents: read
+  packages: write
   id-token: write
 
 jobs:
@@ -27,7 +28,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          registry-url: 'https://registry.npmjs.org'
+          registry-url: 'https://npm.pkg.github.com'
           cache: 'npm'
 
       - name: Install dependencies
@@ -63,35 +64,35 @@ jobs:
           fi
           echo "✅ Version verified: $PACKAGE_VERSION"
 
-      - name: Publish to npm (with OIDC Trusted Publishing)
-        run: npm publish --access public --registry https://registry.npmjs.org
-        # Note: --provenance flag is automatic with npm CLI 11.5.1+ and trusted publishing
-        # No NODE_AUTH_TOKEN needed when using OIDC trusted publishing
-        # Registry is explicitly set to prevent publishConfig conflicts
-
-      - name: Create GitHub deployment
-        uses: actions/github-script@v7
-        with:
-          script: |
-            github.rest.repos.createDeployment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: '${{ steps.get_version.outputs.version }}',
-              environment: 'npm',
-              auto_merge: false,
-              required_contexts: [],
-              description: 'Published to npm registry'
-            })
+      - name: Publish to GitHub Packages
+        run: npm publish --registry https://npm.pkg.github.com
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # Note: GitHub Packages does not support OIDC Trusted Publishing
+        # We use GITHUB_TOKEN which is automatically available in GitHub Actions
 
       - name: Post summary
         run: |
-          echo "## 📦 Package Published Successfully to npm" >> $GITHUB_STEP_SUMMARY
+          echo "## 📦 Package Published Successfully to GitHub Packages" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Package:** @yhooi2/shadcn-glass-ui" >> $GITHUB_STEP_SUMMARY
           echo "**Version:** ${{ steps.get_version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
-          echo "**Registry:** https://www.npmjs.com/package/@yhooi2/shadcn-glass-ui" >> $GITHUB_STEP_SUMMARY
+          echo "**Registry:** GitHub Packages" >> $GITHUB_STEP_SUMMARY
+          echo "**URL:** https://github.com/Yhooi2/shadcn-glass-ui-library/packages" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### Installation" >> $GITHUB_STEP_SUMMARY
           echo '```bash' >> $GITHUB_STEP_SUMMARY
+          echo "# Create .npmrc file:" >> $GITHUB_STEP_SUMMARY
+          echo "@yhooi2:registry=https://npm.pkg.github.com" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "# Install package:" >> $GITHUB_STEP_SUMMARY
           echo "npm install @yhooi2/shadcn-glass-ui@${{ steps.get_version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Authentication" >> $GITHUB_STEP_SUMMARY
+          echo "To install from GitHub Packages, you need to authenticate:" >> $GITHUB_STEP_SUMMARY
+          echo '```bash' >> $GITHUB_STEP_SUMMARY
+          echo "npm login --scope=@yhooi2 --registry=https://npm.pkg.github.com" >> $GITHUB_STEP_SUMMARY
+          echo "# Username: your GitHub username" >> $GITHUB_STEP_SUMMARY
+          echo "# Password: your GitHub Personal Access Token (with read:packages scope)" >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
