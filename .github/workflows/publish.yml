@@ -12,7 +12,6 @@ on:
 
 permissions:
   contents: read
-  id-token: write
 
 jobs:
   publish:
@@ -63,11 +62,10 @@ jobs:
           fi
           echo "✅ Version verified: $PACKAGE_VERSION"
 
-      - name: Publish to npm (with OIDC Trusted Publishing)
-        run: npm publish --access public --registry https://registry.npmjs.org
-        # Note: --provenance flag is automatic with npm CLI 11.5.1+ and trusted publishing
-        # No NODE_AUTH_TOKEN needed when using OIDC trusted publishing
-        # Registry is explicitly set to prevent publishConfig conflicts
+      - name: Publish to npm
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Create GitHub deployment
         uses: actions/github-script@v7
