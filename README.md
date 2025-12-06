@@ -671,7 +671,7 @@ Built with amazing open source projects:
 
 ## 🔗 Links
 
-- **NPM Package**: [shadcn-glass-ui](https://www.npmjs.com/package/shadcn-glass-ui)
+- **NPM Package**: [@yhooi2/shadcn-glass-ui](https://www.npmjs.com/package/@yhooi2/shadcn-glass-ui)
 - **Documentation**: [Storybook](https://yhooi2.github.io/shadcn-glass-ui-library/)
 - **GitHub**: [shadcn-glass-ui-library](https://github.com/Yhooi2/shadcn-glass-ui-library)
 - **Issues**: [Report a bug](https://github.com/Yhooi2/shadcn-glass-ui-library/issues)
