@@ -58,7 +58,8 @@ describe('Glass Variants Visual Tests', () => {
         );
 
         await waitForStable();
-        await expect(page.locator('[data-testid="visual-test-container"]')).toMatchScreenshot(
+        const container = page.getByTestId('visual-test-container');
+        await expect(container).toMatchScreenshot(
           `glass-variant-${variant}-${theme}.png`
         );
       });
@@ -91,7 +92,8 @@ describe('Glass Variants Visual Tests', () => {
       );
 
       await waitForStable();
-      await expect(page.locator('[data-testid="visual-test-container"]')).toMatchScreenshot(
+      const container = page.getByTestId('visual-test-container');
+      await expect(container).toMatchScreenshot(
         `glass-variants-comparison-${theme}.png`
       );
     });
@@ -116,7 +118,8 @@ describe('Glass Variants Visual Tests', () => {
       );
 
       await waitForStable();
-      await expect(page.locator('[data-testid="visual-test-container"]')).toMatchScreenshot(
+      const container = page.getByTestId('visual-test-container');
+      await expect(container).toMatchScreenshot(
         `glass-intensity-modifiers-${theme}.png`
       );
     });
@@ -144,7 +147,8 @@ describe('Glass Variants Visual Tests', () => {
       );
 
       await waitForStable();
-      await expect(page.locator('[data-testid="visual-test-container"]')).toMatchScreenshot(
+      const container = page.getByTestId('visual-test-container');
+      await expect(container).toMatchScreenshot(
         `glass-color-tints-${theme}.png`
       );
     });
@@ -169,7 +173,8 @@ describe('Glass Variants Visual Tests', () => {
       );
 
       await waitForStable();
-      await expect(page.locator('[data-testid="visual-test-container"]')).toMatchScreenshot(
+      const container = page.getByTestId('visual-test-container');
+      await expect(container).toMatchScreenshot(
         `glass-combined-modifiers-${theme}.png`
       );
     });
