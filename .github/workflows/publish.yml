@@ -64,37 +64,17 @@ jobs:
       - name: Publish to npm
         run: npm publish --access public
 
-      - name: Setup Node.js for GitHub Packages
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          registry-url: 'https://npm.pkg.github.com'
-          scope: '@yhooi2'
-
-      - name: Publish to GitHub Packages
-        run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Post summary
         run: |
           echo "## 📦 Package Published Successfully" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Package:** @yhooi2/shadcn-glass-ui" >> $GITHUB_STEP_SUMMARY
+          echo "**Package:** shadcn-glass-ui" >> $GITHUB_STEP_SUMMARY
           echo "**Version:** ${{ steps.get_version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### 🌐 Registries" >> $GITHUB_STEP_SUMMARY
-          echo "- **npm:** https://www.npmjs.com/package/@yhooi2/shadcn-glass-ui" >> $GITHUB_STEP_SUMMARY
-          echo "- **GitHub Packages:** https://github.com/Yhooi2/shadcn-glass-ui-library/packages" >> $GITHUB_STEP_SUMMARY
+          echo "### 🌐 Registry" >> $GITHUB_STEP_SUMMARY
+          echo "- **npm:** https://www.npmjs.com/package/shadcn-glass-ui" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### 📥 Installation" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**From npm (recommended):**" >> $GITHUB_STEP_SUMMARY
           echo '```bash' >> $GITHUB_STEP_SUMMARY
-          echo "npm install @yhooi2/shadcn-glass-ui@${{ steps.get_version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**From GitHub Packages:**" >> $GITHUB_STEP_SUMMARY
-          echo '```bash' >> $GITHUB_STEP_SUMMARY
-          echo "npm install @yhooi2/shadcn-glass-ui@${{ steps.get_version.outputs.version }} --registry=https://npm.pkg.github.com" >> $GITHUB_STEP_SUMMARY
+          echo "npm install shadcn-glass-ui@${{ steps.get_version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY

@@ -1,11 +1,10 @@
 # shadcn-glass-ui
 
-[![npm version](https://img.shields.io/npm/v/@yhooi2/shadcn-glass-ui.svg)](https://www.npmjs.com/package/@yhooi2/shadcn-glass-ui)
-[![GitHub Package](https://img.shields.io/badge/GitHub_Package-Available-success)](https://github.com/Yhooi2/shadcn-glass-ui-library/packages)
-[![npm downloads](https://img.shields.io/npm/dm/@yhooi2/shadcn-glass-ui.svg)](https://www.npmjs.com/package/@yhooi2/shadcn-glass-ui)
-[![License](https://img.shields.io/npm/l/@yhooi2/shadcn-glass-ui.svg)](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/main/LICENSE)
+[![npm version](https://img.shields.io/npm/v/shadcn-glass-ui.svg)](https://www.npmjs.com/package/shadcn-glass-ui)
+[![npm downloads](https://img.shields.io/npm/dm/shadcn-glass-ui.svg)](https://www.npmjs.com/package/shadcn-glass-ui)
+[![License](https://img.shields.io/npm/l/shadcn-glass-ui.svg)](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/main/LICENSE)
 [![CI](https://github.com/Yhooi2/shadcn-glass-ui-library/workflows/CI%2FCD%20Pipeline/badge.svg)](https://github.com/Yhooi2/shadcn-glass-ui-library/actions)
-[![Bundle Size](https://img.shields.io/bundlephobia/minzip/@yhooi2/shadcn-glass-ui)](https://bundlephobia.com/package/@yhooi2/shadcn-glass-ui)
+[![Bundle Size](https://img.shields.io/bundlephobia/minzip/shadcn-glass-ui)](https://bundlephobia.com/package/shadcn-glass-ui)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue)](https://www.typescriptlang.org/)
 [![React](https://img.shields.io/badge/React-19.2-blue)](https://reactjs.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.1-blue)](https://tailwindcss.com/)
@@ -39,50 +38,21 @@ See [DEPENDENCIES.md](DEPENDENCIES.md) for detailed dependency documentation.
 ## 📚 Documentation
 
 - **[Live Storybook](https://yhooi2.github.io/shadcn-glass-ui-library/)** - Interactive component demos
-- **[npm Package](https://www.npmjs.com/package/@yhooi2/shadcn-glass-ui)** - Public npm registry
-- **[GitHub Packages](https://github.com/Yhooi2/shadcn-glass-ui-library/packages)** - GitHub registry (authentication required)
+- **[npm Package](https://www.npmjs.com/package/shadcn-glass-ui)** - Public npm registry
 - **[Getting Started Guide](docs/GETTING_STARTED.md)** - Setup tutorial
 - **[GitHub](https://github.com/Yhooi2/shadcn-glass-ui-library)** - Source code
 - [Component Documentation](https://yhooi2.github.io/shadcn-glass-ui-library/?path=/docs) - Detailed API references
-- [GitHub Packages Guide](docs/GITHUB_PACKAGES.md) - Installation from GitHub Packages
 - [Registry Usage Guide](docs/REGISTRY_USAGE.md) - shadcn CLI installation guide
 - [Design System](docs/design-system/UI_DESIGN.md) - Comprehensive UI specifications
 - [Migration Guides](docs/migration/) - Upgrade and API changes
 
 ## 📦 Installation
 
-The package `@yhooi2/shadcn-glass-ui` is available in two registries:
-
-### Option 1: npm Registry (Recommended)
-
-**Easiest installation** - no authentication required:
+Install from npm registry:
 
 ```bash
-npm install @yhooi2/shadcn-glass-ui
+npm install shadcn-glass-ui
 ```
-
-### Option 2: GitHub Packages
-
-Enhanced security with GitHub integration. Requires authentication:
-
-1. **Create `.npmrc`** in your project root:
-   ```
-   @yhooi2:registry=https://npm.pkg.github.com
-   ```
-
-2. **Authenticate** (one-time setup):
-   ```bash
-   npm login --scope=@yhooi2 --registry=https://npm.pkg.github.com
-   ```
-   - Username: Your GitHub username
-   - Password: [Personal Access Token](https://github.com/settings/tokens) with `read:packages` scope
-
-3. **Install**:
-   ```bash
-   npm install @yhooi2/shadcn-glass-ui
-   ```
-
-**See [GitHub Packages Guide](docs/GITHUB_PACKAGES.md) for detailed instructions.**
 
 ## 🚀 Quick Start
 
@@ -696,7 +666,7 @@ Built with amazing open source projects:
 
 ## 🔗 Links
 
-- **NPM Package**: [@yhooi2/shadcn-glass-ui](https://www.npmjs.com/package/@yhooi2/shadcn-glass-ui)
+- **NPM Package**: [shadcn-glass-ui](https://www.npmjs.com/package/shadcn-glass-ui)
 - **Documentation**: [Storybook](https://yhooi2.github.io/shadcn-glass-ui-library/)
 - **GitHub**: [shadcn-glass-ui-library](https://github.com/Yhooi2/shadcn-glass-ui-library)
 - **Issues**: [Report a bug](https://github.com/Yhooi2/shadcn-glass-ui-library/issues)
