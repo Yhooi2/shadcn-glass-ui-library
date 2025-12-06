@@ -3,7 +3,33 @@
    Main entry point - imports all modules
    ======================================== */
 
+/* All @import directives must come first (CSS spec requirement) */
 @import 'tailwindcss';
+
+/* ========================================
+   DESIGN TOKENS
+   Foundation scales and configurations
+   ======================================== */
+@import './tokens/primitives.css';
+@import './tokens/oklch-primitives.css';
+@import './tokens/colors.css';
+@import './tokens/animations.css';
+
+/* ========================================
+   THEMES
+   Theme-specific variable definitions
+   ======================================== */
+@import './themes/glass.css';
+@import './themes/light.css';
+@import './themes/aurora.css';
+
+/* ========================================
+   UTILITIES
+   Utility classes and component styles
+   ======================================== */
+@import './utilities/glass-effects.css';
+@import './utilities/glass-variants.css';
+@import './utilities/glow-effects.css';
 
 /* ========================================
    BASE STYLES - Focus Reset
@@ -31,28 +57,3 @@
   --tw-ring-color: transparent !important;
   --tw-ring-opacity: 0 !important;
 } */
-
-/* ========================================
-   DESIGN TOKENS
-   Foundation scales and configurations
-   ======================================== */
-@import './tokens/primitives.css';
-@import './tokens/oklch-primitives.css';
-@import './tokens/colors.css';
-@import './tokens/animations.css';
-
-/* ========================================
-   THEMES
-   Theme-specific variable definitions
-   ======================================== */
-@import './themes/glass.css';
-@import './themes/light.css';
-@import './themes/aurora.css';
-
-/* ========================================
-   UTILITIES
-   Utility classes and component styles
-   ======================================== */
-@import './utilities/glass-effects.css';
-@import './utilities/glass-variants.css';
-@import './utilities/glow-effects.css';
