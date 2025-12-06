@@ -1,0 +1,62 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["./src/index.ts"],
+  "out": "./docs/api",
+  "plugin": ["typedoc-plugin-markdown"],
+  "name": "shadcn-glass-ui API Reference",
+  "readme": "./README.md",
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "excludeExternals": true,
+  "excludeInternal": true,
+  "categorizeByGroup": true,
+  "categoryOrder": [
+    "Core UI",
+    "Atomic",
+    "Specialized",
+    "Composite",
+    "Sections",
+    "Primitives",
+    "Utilities",
+    "Theme",
+    "Hooks",
+    "Types",
+    "*"
+  ],
+  "groupOrder": [
+    "Components",
+    "Utilities",
+    "Hooks",
+    "Types",
+    "*"
+  ],
+  "sort": ["source-order", "required-first", "alphabetical"],
+  "kindSortOrder": [
+    "Interface",
+    "TypeAlias",
+    "Function",
+    "Variable",
+    "Class"
+  ],
+  "navigation": {
+    "includeCategories": true,
+    "includeGroups": true,
+    "includeFolders": true
+  },
+  "searchInComments": true,
+  "searchInDocuments": true,
+  "validation": {
+    "notExported": true,
+    "invalidLink": true,
+    "notDocumented": false
+  },
+  "basePath": ".",
+  "cleanOutputDir": true,
+  "emit": "both",
+  "githubPages": false,
+  "hideGenerator": true,
+  "includeVersion": true,
+  "skipErrorChecking": false,
+  "treatWarningsAsErrors": false,
+  "treatValidationWarningsAsErrors": false
+}

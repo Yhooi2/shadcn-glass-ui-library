@@ -1,6 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "shadcn-glass-ui",
+  "description": "AI-friendly glassmorphism UI component library with 55+ components, strict TypeScript, and WCAG 2.1 AA compliance",
+  "url": "https://raw.githubusercontent.com/Yhooi2/shadcn-glass-ui-library/main/public/r",
   "homepage": "https://yhooi2.github.io/shadcn-glass-ui-library/",
   "items": [
     {

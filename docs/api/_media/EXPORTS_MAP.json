@@ -1,0 +1,875 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "shadcn-glass-ui Exports Map",
+  "description": "Machine-readable export structure for AI assistants and automated tools",
+  "version": "1.0.7",
+  "library": "shadcn-glass-ui",
+  "repository": "https://github.com/yhooi2/shadcn-glass-ui",
+  "lastUpdated": "2025-12-06",
+
+  "components": {
+    "primitives": {
+      "level": 0,
+      "description": "Foundation building blocks",
+      "exports": [
+        {
+          "name": "TouchTarget",
+          "path": "components/glass/primitives/touch-target",
+          "type": "component",
+          "description": "Touch-friendly wrapper (44/48px minimum, Apple HIG compliance)",
+          "props": "TouchTargetProps",
+          "category": "accessibility",
+          "keywords": ["touch", "accessibility", "mobile", "wrapper"]
+        },
+        {
+          "name": "FormFieldWrapper",
+          "path": "components/glass/primitives/form-field-wrapper",
+          "type": "component",
+          "description": "Unified form field structure (label, error, success states)",
+          "props": "FormFieldWrapperProps",
+          "category": "forms",
+          "keywords": ["form", "field", "label", "error", "validation"]
+        },
+        {
+          "name": "InteractiveCard",
+          "path": "components/glass/primitives/interactive-card",
+          "type": "component",
+          "description": "Hover animations + glass effects for card components",
+          "props": "InteractiveCardProps",
+          "category": "layout",
+          "keywords": ["card", "hover", "animation", "glass"]
+        }
+      ]
+    },
+
+    "core": {
+      "level": 1,
+      "description": "Basic interactive components (most commonly used)",
+      "exports": [
+        {
+          "name": "AlertGlass",
+          "path": "components/glass/ui/alert-glass",
+          "type": "component",
+          "description": "Alert message with glassmorphism styling",
+          "props": "AlertGlassProps",
+          "variants": ["default", "destructive", "success", "warning"],
+          "category": "feedback",
+          "keywords": ["alert", "message", "notification", "feedback"],
+          "shadcnCompatible": true
+        },
+        {
+          "name": "AvatarGlass",
+          "path": "components/glass/ui/avatar-glass",
+          "type": "component",
+          "description": "User avatar with status indicator",
+          "props": "AvatarGlassProps",
+          "sizes": ["xs", "sm", "md", "lg", "xl"],
+          "statuses": ["online", "offline", "away", "busy"],
+          "category": "display",
+          "keywords": ["avatar", "profile", "user", "image", "status"],
+          "shadcnCompatible": true,
+          "supportsAsChild": true
+        },
+        {
+          "name": "BadgeGlass",
+          "path": "components/glass/ui/badge-glass",
+          "type": "component",
+          "description": "Status badge with multiple variants",
+          "props": "BadgeGlassProps",
+          "variants": ["default", "secondary", "destructive", "outline", "success", "warning", "info"],
+          "category": "display",
+          "keywords": ["badge", "tag", "label", "status"],
+          "shadcnCompatible": true
+        },
+        {
+          "name": "ButtonGlass",
+          "path": "components/glass/ui/button-glass",
+          "type": "component",
+          "description": "Primary action button with glassmorphism effects",
+          "props": "ButtonGlassProps",
+          "variants": ["default", "secondary", "outline", "destructive", "ghost", "link"],
+          "sizes": ["sm", "md", "lg"],
+          "category": "input",
+          "keywords": ["button", "action", "click", "submit"],
+          "shadcnCompatible": true,
+          "supportsAsChild": true
+        },
+        {
+          "name": "CheckboxGlass",
+          "path": "components/glass/ui/checkbox-glass",
+          "type": "component",
+          "description": "Checkbox input with glass styling",
+          "props": "CheckboxGlassProps",
+          "category": "input",
+          "keywords": ["checkbox", "input", "form", "toggle", "selection"],
+          "shadcnCompatible": true
+        },
+        {
+          "name": "CircularProgressGlass",
+          "path": "components/glass/ui/circular-progress-glass",
+          "type": "component",
+          "description": "Circular progress indicator",
+          "props": "CircularProgressGlassProps",
+          "sizes": ["sm", "md", "lg", "xl"],
+          "category": "feedback",
+          "keywords": ["progress", "loading", "circular", "spinner"]
+        },
+        {
+          "name": "ComboBoxGlass",
+          "path": "components/glass/ui/combobox-glass",
+          "type": "component",
+          "description": "Searchable dropdown with autocomplete",
+          "props": "ComboBoxGlassProps",
+          "category": "input",
+          "keywords": ["combobox", "select", "dropdown", "autocomplete", "search"],
+          "shadcnCompatible": true,
+          "replacedComponent": "SelectGlass"
+        },
+        {
+          "name": "DropdownGlass",
+          "path": "components/glass/ui/dropdown-glass",
+          "type": "component",
+          "description": "Dropdown menu with actions",
+          "props": "DropdownGlassProps",
+          "category": "navigation",
+          "keywords": ["dropdown", "menu", "actions", "popover"],
+          "shadcnCompatible": true
+        },
+        {
+          "name": "GlassCard",
+          "path": "components/glass/ui/glass-card",
+          "type": "component",
+          "description": "Card container with glassmorphism effects",
+          "props": "GlassCardProps",
+          "glowTypes": ["none", "subtle", "medium", "strong"],
+          "intensities": ["low", "medium", "high"],
+          "category": "layout",
+          "keywords": ["card", "container", "glass", "panel"],
+          "shadcnCompatible": true,
+          "supportsAsChild": true
+        },
+        {
+          "name": "InputGlass",
+          "path": "components/glass/ui/input-glass",
+          "type": "component",
+          "description": "Text input field with glass styling",
+          "props": "InputGlassProps",
+          "category": "input",
+          "keywords": ["input", "text", "form", "field"],
+          "shadcnCompatible": true
+        },
+        {
+          "name": "ModalGlass",
+          "path": "components/glass/ui/modal-glass",
+          "type": "component",
+          "description": "Modal dialog with compound component API",
+          "props": "ModalGlassProps",
+          "sizes": ["sm", "md", "lg", "xl", "full"],
+          "category": "overlay",
+          "keywords": ["modal", "dialog", "overlay", "popup"],
+          "shadcnCompatible": true,
+          "compoundAPI": true,
+          "subComponents": ["Root", "Trigger", "Overlay", "Content", "Header", "Title", "Description", "Body", "Footer", "Close"]
+        },
+        {
+          "name": "NotificationGlass",
+          "path": "components/glass/ui/notification-glass",
+          "type": "component",
+          "description": "Toast notification with auto-dismiss",
+          "props": "NotificationGlassProps",
+          "variants": ["default", "destructive", "success", "warning"],
+          "category": "feedback",
+          "keywords": ["notification", "toast", "alert", "message"],
+          "shadcnCompatible": true
+        },
+        {
+          "name": "PopoverGlass",
+          "path": "components/glass/ui/popover-glass",
+          "type": "component",
+          "description": "Popover dialog with trigger",
+          "props": "PopoverGlassProps",
+          "category": "overlay",
+          "keywords": ["popover", "tooltip", "dialog", "overlay"],
+          "shadcnCompatible": true
+        },
+        {
+          "name": "SkeletonGlass",
+          "path": "components/glass/ui/skeleton-glass",
+          "type": "component",
+          "description": "Loading skeleton placeholder",
+          "props": "SkeletonGlassProps",
+          "variants": ["text", "circle", "rectangle"],
+          "category": "feedback",
+          "keywords": ["skeleton", "loading", "placeholder", "shimmer"],
+          "shadcnCompatible": true
+        },
+        {
+          "name": "SliderGlass",
+          "path": "components/glass/ui/slider-glass",
+          "type": "component",
+          "description": "Range slider input",
+          "props": "SliderGlassProps",
+          "category": "input",
+          "keywords": ["slider", "range", "input", "number"],
+          "shadcnCompatible": true
+        },
+        {
+          "name": "TabsGlass",
+          "path": "components/glass/ui/tabs-glass",
+          "type": "component",
+          "description": "Tab navigation with compound component API",
+          "props": "TabsGlassProps",
+          "category": "navigation",
+          "keywords": ["tabs", "navigation", "switcher"],
+          "shadcnCompatible": true,
+          "compoundAPI": true,
+          "subComponents": ["Root", "List", "Trigger", "Content"]
+        },
+        {
+          "name": "ToggleGlass",
+          "path": "components/glass/ui/toggle-glass",
+          "type": "component",
+          "description": "Toggle switch input",
+          "props": "ToggleGlassProps",
+          "category": "input",
+          "keywords": ["toggle", "switch", "boolean", "checkbox"],
+          "shadcnCompatible": true
+        },
+        {
+          "name": "TooltipGlass",
+          "path": "components/glass/ui/tooltip-glass",
+          "type": "component",
+          "description": "Tooltip overlay with positioning",
+          "props": "TooltipGlassProps",
+          "positions": ["top", "bottom", "left", "right"],
+          "category": "overlay",
+          "keywords": ["tooltip", "hint", "help", "overlay"],
+          "shadcnCompatible": true
+        }
+      ]
+    },
+
+    "atomic": {
+      "level": 2,
+      "description": "Small, single-purpose components",
+      "exports": [
+        {
+          "name": "ExpandableHeaderGlass",
+          "path": "components/glass/atomic/expandable-header-glass",
+          "type": "component",
+          "description": "Collapsible section header for accordions",
+          "props": "ExpandableHeaderGlassProps",
+          "category": "navigation",
+          "keywords": ["header", "expandable", "collapsible", "accordion"]
+        },
+        {
+          "name": "IconButtonGlass",
+          "path": "components/glass/atomic/icon-button-glass",
+          "type": "component",
+          "description": "Icon-only button for toolbars",
+          "props": "IconButtonGlassProps",
+          "category": "input",
+          "keywords": ["button", "icon", "toolbar", "action"]
+        },
+        {
+          "name": "SearchBoxGlass",
+          "path": "components/glass/atomic/search-box-glass",
+          "type": "component",
+          "description": "Search input with icon and clear button",
+          "props": "SearchBoxGlassProps",
+          "category": "input",
+          "keywords": ["search", "input", "filter", "query"]
+        },
+        {
+          "name": "SortDropdownGlass",
+          "path": "components/glass/atomic/sort-dropdown-glass",
+          "type": "component",
+          "description": "Dropdown for sorting options",
+          "props": "SortDropdownGlassProps",
+          "category": "navigation",
+          "keywords": ["sort", "dropdown", "order", "filter"]
+        },
+        {
+          "name": "StatItemGlass",
+          "path": "components/glass/atomic/stat-item-glass",
+          "type": "component",
+          "description": "Single statistic display with icon",
+          "props": "StatItemGlassProps",
+          "category": "display",
+          "keywords": ["stat", "metric", "number", "kpi"]
+        },
+        {
+          "name": "ThemeToggleGlass",
+          "path": "components/glass/atomic/theme-toggle-glass",
+          "type": "component",
+          "description": "Theme switcher button (glass/light/aurora)",
+          "props": "ThemeToggleGlassProps",
+          "category": "input",
+          "keywords": ["theme", "toggle", "dark", "light", "switch"]
+        }
+      ]
+    },
+
+    "specialized": {
+      "level": 3,
+      "description": "Domain-specific components",
+      "exports": [
+        {
+          "name": "BaseProgressGlass",
+          "path": "components/glass/specialized/base-progress-glass",
+          "type": "component",
+          "description": "Foundation for custom progress bars",
+          "props": "BaseProgressGlassProps",
+          "category": "feedback",
+          "keywords": ["progress", "base", "foundation", "loading"]
+        },
+        {
+          "name": "FlagAlertGlass",
+          "path": "components/glass/specialized/flag-alert-glass",
+          "type": "component",
+          "description": "Warning/danger flag alert",
+          "props": "FlagAlertGlassProps",
+          "variants": ["warning", "danger"],
+          "category": "feedback",
+          "keywords": ["flag", "alert", "warning", "danger"]
+        },
+        {
+          "name": "LanguageBarGlass",
+          "path": "components/glass/specialized/language-bar-glass",
+          "type": "component",
+          "description": "Language proficiency bar with color",
+          "props": "LanguageBarGlassProps",
+          "category": "display",
+          "keywords": ["language", "skill", "bar", "proficiency"]
+        },
+        {
+          "name": "ProfileAvatarGlass",
+          "path": "components/glass/specialized/profile-avatar-glass",
+          "type": "component",
+          "description": "Large avatar with glow animation for profiles",
+          "props": "ProfileAvatarGlassProps",
+          "category": "display",
+          "keywords": ["avatar", "profile", "glow", "animation"]
+        },
+        {
+          "name": "ProgressGlass",
+          "path": "components/glass/specialized/progress-glass",
+          "type": "component",
+          "description": "Standard progress bar with gradients",
+          "props": "ProgressGlassProps",
+          "gradients": ["default", "rainbow", "blue", "green", "red"],
+          "category": "feedback",
+          "keywords": ["progress", "bar", "loading", "percentage"]
+        },
+        {
+          "name": "RainbowProgressGlass",
+          "path": "components/glass/specialized/rainbow-progress-glass",
+          "type": "component",
+          "description": "Multi-color gradient progress bar",
+          "props": "RainbowProgressGlassProps",
+          "category": "feedback",
+          "keywords": ["progress", "rainbow", "gradient", "colorful"]
+        },
+        {
+          "name": "SegmentedControlGlass",
+          "path": "components/glass/specialized/segmented-control-glass",
+          "type": "component",
+          "description": "Segmented button group for view switching",
+          "props": "SegmentedControlGlassProps",
+          "category": "input",
+          "keywords": ["segmented", "control", "toggle", "group", "switch"]
+        },
+        {
+          "name": "StatusIndicatorGlass",
+          "path": "components/glass/specialized/status-indicator-glass",
+          "type": "component",
+          "description": "Status dot with glow effect",
+          "props": "StatusIndicatorGlassProps",
+          "statuses": ["online", "offline", "away", "busy"],
+          "category": "display",
+          "keywords": ["status", "indicator", "dot", "online", "offline"]
+        }
+      ]
+    },
+
+    "composite": {
+      "level": 4,
+      "description": "Multi-component compositions",
+      "exports": [
+        {
+          "name": "AICardGlass",
+          "path": "components/glass/composite/ai-card-glass",
+          "type": "component",
+          "description": "AI summary card with feature list",
+          "props": "AICardGlassProps",
+          "category": "display",
+          "keywords": ["ai", "card", "summary", "features"],
+          "contains": ["GlassCard", "BadgeGlass"]
+        },
+        {
+          "name": "CareerStatsHeaderGlass",
+          "path": "components/glass/composite/career-stats-header-glass",
+          "type": "component",
+          "description": "Career statistics header with toggle",
+          "props": "CareerStatsHeaderGlassProps",
+          "category": "display",
+          "keywords": ["career", "stats", "header", "toggle"],
+          "contains": ["StatItemGlass", "ToggleGlass"]
+        },
+        {
+          "name": "CircularMetricGlass",
+          "path": "components/glass/composite/circular-metric-glass",
+          "type": "component",
+          "description": "Metric with circular progress indicator",
+          "props": "CircularMetricGlassProps",
+          "category": "display",
+          "keywords": ["metric", "circular", "progress", "kpi"],
+          "contains": ["CircularProgressGlass"]
+        },
+        {
+          "name": "ContributionMetricsGlass",
+          "path": "components/glass/composite/contribution-metrics-glass",
+          "type": "component",
+          "description": "GitHub-style contribution chart",
+          "props": "ContributionMetricsGlassProps",
+          "category": "display",
+          "keywords": ["contribution", "chart", "github", "activity"],
+          "contains": ["TooltipGlass"]
+        },
+        {
+          "name": "MetricCardGlass",
+          "path": "components/glass/composite/metric-card-glass",
+          "type": "component",
+          "description": "Metric display card with progress bar",
+          "props": "MetricCardGlassProps",
+          "category": "display",
+          "keywords": ["metric", "card", "kpi", "dashboard"],
+          "contains": ["GlassCard", "ProgressGlass"]
+        },
+        {
+          "name": "MetricsGridGlass",
+          "path": "components/glass/composite/metrics-grid-glass",
+          "type": "component",
+          "description": "Grid layout for multiple metric cards",
+          "props": "MetricsGridGlassProps",
+          "category": "layout",
+          "keywords": ["metrics", "grid", "dashboard", "layout"],
+          "contains": ["MetricCardGlass"]
+        },
+        {
+          "name": "RepositoryCardGlass",
+          "path": "components/glass/composite/repository-card-glass",
+          "type": "component",
+          "description": "Repository card with expandable details",
+          "props": "RepositoryCardGlassProps",
+          "category": "display",
+          "keywords": ["repository", "card", "github", "project"],
+          "contains": ["GlassCard", "BadgeGlass", "ButtonGlass"]
+        },
+        {
+          "name": "RepositoryHeaderGlass",
+          "path": "components/glass/composite/repository-header-glass",
+          "type": "component",
+          "description": "Repository header with breadcrumbs",
+          "props": "RepositoryHeaderGlassProps",
+          "category": "display",
+          "keywords": ["repository", "header", "breadcrumbs"],
+          "contains": ["BadgeGlass"]
+        },
+        {
+          "name": "RepositoryMetadataGlass",
+          "path": "components/glass/composite/repository-metadata-glass",
+          "type": "component",
+          "description": "Repository metadata display",
+          "props": "RepositoryMetadataGlassProps",
+          "category": "display",
+          "keywords": ["repository", "metadata", "info"],
+          "contains": ["BadgeGlass"]
+        },
+        {
+          "name": "TrustScoreDisplayGlass",
+          "path": "components/glass/composite/trust-score-display-glass",
+          "type": "component",
+          "description": "Trust score indicator with circular progress",
+          "props": "TrustScoreDisplayGlassProps",
+          "category": "display",
+          "keywords": ["trust", "score", "reputation", "rating"],
+          "contains": ["CircularProgressGlass", "BadgeGlass"]
+        },
+        {
+          "name": "UserInfoGlass",
+          "path": "components/glass/composite/user-info-glass",
+          "type": "component",
+          "description": "User information display with avatar",
+          "props": "UserInfoGlassProps",
+          "category": "display",
+          "keywords": ["user", "info", "profile", "avatar"],
+          "contains": ["AvatarGlass", "BadgeGlass"]
+        },
+        {
+          "name": "UserStatsLineGlass",
+          "path": "components/glass/composite/user-stats-line-glass",
+          "type": "component",
+          "description": "Single-line user statistics display",
+          "props": "UserStatsLineGlassProps",
+          "category": "display",
+          "keywords": ["user", "stats", "statistics", "inline"],
+          "contains": ["StatItemGlass"]
+        },
+        {
+          "name": "YearCardGlass",
+          "path": "components/glass/composite/year-card-glass",
+          "type": "component",
+          "description": "Year timeline card for career history",
+          "props": "YearCardGlassProps",
+          "category": "display",
+          "keywords": ["year", "card", "timeline", "career"],
+          "contains": ["GlassCard", "StatItemGlass"]
+        }
+      ]
+    },
+
+    "sections": {
+      "level": 5,
+      "description": "Complete page sections",
+      "exports": [
+        {
+          "name": "CareerStatsGlass",
+          "path": "components/glass/sections/career-stats-glass",
+          "type": "component",
+          "description": "Career statistics section with year cards",
+          "props": "CareerStatsGlassProps",
+          "category": "layout",
+          "keywords": ["career", "stats", "section", "timeline"],
+          "contains": ["CareerStatsHeaderGlass", "YearCardGlass"]
+        },
+        {
+          "name": "FlagsSectionGlass",
+          "path": "components/glass/sections/flags-section-glass",
+          "type": "component",
+          "description": "Expandable warnings/flags section",
+          "props": "FlagsSectionGlassProps",
+          "category": "layout",
+          "keywords": ["flags", "warnings", "section", "alerts"],
+          "contains": ["ExpandableHeaderGlass", "FlagAlertGlass"]
+        },
+        {
+          "name": "HeaderBrandingGlass",
+          "path": "components/glass/sections/header-branding-glass",
+          "type": "component",
+          "description": "Brand header section with logo",
+          "props": "HeaderBrandingGlassProps",
+          "category": "layout",
+          "keywords": ["header", "branding", "logo", "navigation"]
+        },
+        {
+          "name": "HeaderNavGlass",
+          "path": "components/glass/sections/header-nav-glass",
+          "type": "component",
+          "description": "Navigation header with search and theme toggle",
+          "props": "HeaderNavGlassProps",
+          "category": "layout",
+          "keywords": ["header", "navigation", "search", "theme"],
+          "contains": ["SearchBoxGlass", "ThemeToggleGlass", "ButtonGlass"]
+        },
+        {
+          "name": "ProfileHeaderGlass",
+          "path": "components/glass/sections/profile-header-glass",
+          "type": "component",
+          "description": "User profile header with avatar and stats",
+          "props": "ProfileHeaderGlassProps",
+          "category": "layout",
+          "keywords": ["profile", "header", "user", "avatar"],
+          "contains": ["ProfileAvatarGlass", "UserStatsLineGlass", "LanguageBarGlass"]
+        },
+        {
+          "name": "ProjectsListGlass",
+          "path": "components/glass/sections/projects-list-glass",
+          "type": "component",
+          "description": "Projects list section with sorting",
+          "props": "ProjectsListGlassProps",
+          "category": "layout",
+          "keywords": ["projects", "list", "repositories", "gallery"],
+          "contains": ["SortDropdownGlass", "RepositoryCardGlass"]
+        },
+        {
+          "name": "TrustScoreCardGlass",
+          "path": "components/glass/sections/trust-score-card-glass",
+          "type": "component",
+          "description": "Trust score card section with metrics",
+          "props": "TrustScoreCardGlassProps",
+          "category": "layout",
+          "keywords": ["trust", "score", "section", "reputation"],
+          "contains": ["TrustScoreDisplayGlass", "MetricCardGlass"]
+        }
+      ]
+    }
+  },
+
+  "utilities": {
+    "functions": [
+      {
+        "name": "cn",
+        "path": "lib/utils",
+        "type": "function",
+        "description": "Merge Tailwind CSS classes with conflict resolution (clsx + tailwind-merge)",
+        "signature": "(...inputs: ClassValue[]) => string",
+        "category": "styling",
+        "keywords": ["classnames", "tailwind", "merge", "css"]
+      }
+    ]
+  },
+
+  "theme": {
+    "provider": {
+      "name": "ThemeProvider",
+      "path": "lib/theme-context",
+      "type": "component",
+      "description": "React context provider for theme management",
+      "props": "{ defaultTheme?: Theme; children: React.ReactNode }",
+      "category": "context",
+      "keywords": ["theme", "provider", "context"]
+    },
+    "hook": {
+      "name": "useTheme",
+      "path": "lib/theme-context",
+      "type": "hook",
+      "description": "React hook for accessing theme context",
+      "returns": "ThemeContextValue",
+      "category": "hooks",
+      "keywords": ["theme", "hook", "context"]
+    },
+    "constants": [
+      {
+        "name": "THEMES",
+        "path": "lib/theme-context",
+        "type": "constant",
+        "value": ["glass", "light", "aurora"],
+        "description": "Available theme options"
+      },
+      {
+        "name": "THEME_CONFIG",
+        "path": "lib/theme-context",
+        "type": "constant",
+        "description": "Theme configuration objects with labels"
+      }
+    ],
+    "helpers": [
+      {
+        "name": "getNextTheme",
+        "path": "lib/theme-context",
+        "type": "function",
+        "description": "Get next theme in cycle",
+        "signature": "(currentTheme: Theme) => Theme"
+      },
+      {
+        "name": "getThemeConfig",
+        "path": "lib/theme-context",
+        "type": "function",
+        "description": "Get theme configuration object",
+        "signature": "(theme: Theme) => ThemeConfig"
+      }
+    ]
+  },
+
+  "hooks": {
+    "exports": [
+      {
+        "name": "useFocus",
+        "path": "lib/hooks/use-focus",
+        "type": "hook",
+        "description": "Focus state management hook",
+        "returns": "{ isFocused: boolean; focusProps: object }",
+        "category": "interaction",
+        "keywords": ["focus", "interaction", "state"]
+      },
+      {
+        "name": "useHover",
+        "path": "lib/hooks/use-hover",
+        "type": "hook",
+        "description": "Hover state detection hook",
+        "returns": "{ isHovered: boolean; hoverProps: object }",
+        "category": "interaction",
+        "keywords": ["hover", "interaction", "state"]
+      },
+      {
+        "name": "useResponsive",
+        "path": "lib/hooks/use-responsive",
+        "type": "hook",
+        "description": "Responsive breakpoint detection hook",
+        "returns": "{ isMobile: boolean; isTablet: boolean; isDesktop: boolean }",
+        "category": "layout",
+        "keywords": ["responsive", "breakpoint", "media", "query"]
+      },
+      {
+        "name": "useWallpaperTint",
+        "path": "lib/hooks/use-wallpaper-tint",
+        "type": "hook",
+        "description": "Wallpaper tint color detection hook (macOS)",
+        "returns": "{ isDark: boolean; tintColor: string }",
+        "category": "theming",
+        "keywords": ["wallpaper", "tint", "color", "macos"]
+      }
+    ]
+  },
+
+  "types": {
+    "componentProps": [
+      "ButtonGlassProps",
+      "InputGlassProps",
+      "GlassCardProps",
+      "AlertGlassProps",
+      "NotificationGlassProps",
+      "AvatarGlassProps",
+      "BadgeGlassProps",
+      "CheckboxGlassProps",
+      "DropdownGlassProps",
+      "ModalGlassProps",
+      "TabsGlassProps",
+      "ToggleGlassProps",
+      "TooltipGlassProps",
+      "SkeletonGlassProps",
+      "SliderGlassProps",
+      "ProgressGlassProps",
+      "CircularProgressGlassProps",
+      "ComboBoxGlassProps",
+      "PopoverGlassProps"
+    ],
+    "variants": {
+      "AlertType": ["default", "destructive", "success", "warning"],
+      "BadgeVariant": ["default", "secondary", "destructive", "outline", "success", "warning", "info"],
+      "NotificationType": ["default", "destructive", "success", "warning"],
+      "SkeletonVariant": ["text", "circle", "rectangle"],
+      "TooltipPosition": ["top", "bottom", "left", "right"],
+      "AvatarSize": ["xs", "sm", "md", "lg", "xl"],
+      "AvatarStatus": ["online", "offline", "away", "busy"],
+      "ModalSize": ["sm", "md", "lg", "xl", "full"],
+      "ProgressGradient": ["default", "rainbow", "blue", "green", "red"],
+      "GlowType": ["none", "subtle", "medium", "strong"],
+      "IntensityType": ["low", "medium", "high"]
+    },
+    "theme": {
+      "Theme": ["glass", "light", "aurora"],
+      "ThemeConfig": "{ name: Theme; label: string }",
+      "ThemeContextValue": "{ theme: Theme; setTheme: (theme: Theme) => void; cycleTheme: () => void }"
+    },
+    "common": {
+      "DropdownItem": "{ label: string; value: string; icon?: React.ReactNode; disabled?: boolean }",
+      "TabItem": "{ label: string; value: string; icon?: React.ReactNode; disabled?: boolean }"
+    }
+  },
+
+  "variants": {
+    "description": "CVA (Class Variance Authority) variant functions for advanced usage",
+    "path": "lib/variants",
+    "exports": [
+      "buttonGlassVariants",
+      "badgeGlassVariants",
+      "alertGlassVariants",
+      "notificationGlassVariants",
+      "glassCardVariants",
+      "inputGlassVariants",
+      "modalGlassVariants",
+      "avatarGlassVariants",
+      "skeletonGlassVariants",
+      "tooltipGlassVariants",
+      "progressGlassVariants",
+      "dropdownContentStyles"
+    ]
+  },
+
+  "statistics": {
+    "totalComponents": 55,
+    "byLevel": {
+      "primitives": 3,
+      "core": 18,
+      "atomic": 6,
+      "specialized": 8,
+      "composite": 13,
+      "sections": 7
+    },
+    "totalTypes": 45,
+    "totalHooks": 4,
+    "totalUtilities": 1,
+    "shadcnCompatible": 18,
+    "supportsAsChild": 3,
+    "compoundAPI": 2
+  },
+
+  "usage": {
+    "mostCommon": [
+      "ButtonGlass",
+      "InputGlass",
+      "GlassCard",
+      "AlertGlass",
+      "BadgeGlass",
+      "ThemeProvider",
+      "useTheme",
+      "cn"
+    ],
+    "useCases": {
+      "dashboard": [
+        "MetricCardGlass",
+        "CircularMetricGlass",
+        "MetricsGridGlass",
+        "ProgressGlass",
+        "BadgeGlass",
+        "HeaderNavGlass"
+      ],
+      "forms": [
+        "InputGlass",
+        "ButtonGlass",
+        "CheckboxGlass",
+        "ToggleGlass",
+        "SliderGlass",
+        "ComboBoxGlass",
+        "DropdownGlass",
+        "AlertGlass"
+      ],
+      "profile": [
+        "ProfileHeaderGlass",
+        "CareerStatsGlass",
+        "ProjectsListGlass",
+        "RepositoryCardGlass",
+        "TrustScoreCardGlass",
+        "LanguageBarGlass"
+      ]
+    }
+  },
+
+  "compatibility": {
+    "shadcnUI": {
+      "compatible": true,
+      "standardProps": ["variant", "size", "disabled", "className"],
+      "standardVariants": ["default", "secondary", "destructive", "outline"]
+    },
+    "breakingChanges": {
+      "v1.0.0": [
+        {
+          "component": "ButtonGlass",
+          "old": "variant=\"danger\"",
+          "new": "variant=\"destructive\"",
+          "reason": "shadcn/ui alignment"
+        },
+        {
+          "component": "AlertGlass",
+          "old": "type=\"error\"",
+          "new": "variant=\"destructive\"",
+          "reason": "Consistent prop naming"
+        },
+        {
+          "component": "NotificationGlass",
+          "old": "type=\"info\"",
+          "new": "variant=\"default\"",
+          "reason": "Consistent prop naming"
+        },
+        {
+          "component": "SelectGlass",
+          "old": "SelectGlass",
+          "new": "ComboBoxGlass",
+          "reason": "Component replacement"
+        }
+      ]
+    }
+  }
+}
