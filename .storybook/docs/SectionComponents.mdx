@@ -1,0 +1,215 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import LinkTo from '@storybook/addon-links/react';
+
+<Meta title="Components/Sections" />
+
+# Section Components
+
+Ready-made page sections for rapid interface assembly.
+
+## Overview
+
+<div className="docs-stats-grid">
+  <div className="docs-stat-card">
+    <div className="docs-stat-number">7</div>
+    <div className="docs-stat-label">Sections</div>
+  </div>
+  <div className="docs-stat-card">
+    <div className="docs-stat-number">📱</div>
+    <div className="docs-stat-label">Responsive</div>
+  </div>
+</div>
+
+## Section List
+
+<div className="docs-category-grid">
+  <div className="docs-category-card">
+    <h3><LinkTo kind="Glass/Composite/HeaderNavGlass" story="docs">🧭 HeaderNavGlass</LinkTo></h3>
+    <p>Navigation header with search and theme toggle.</p>
+    <ul>
+      <li>Logo and navigation links</li>
+      <li>Search input</li>
+      <li>Theme toggle</li>
+      <li>User avatar</li>
+    </ul>
+  </div>
+
+  <div className="docs-category-card">
+    <h3><LinkTo kind="Glass/Composite/TrustScoreCardGlass" story="docs">⭐ TrustScoreCardGlass</LinkTo></h3>
+    <p>Trust score card with metrics.</p>
+    <ul>
+      <li>Large score display</li>
+      <li>Metrics breakdown</li>
+      <li>Trend indicators</li>
+    </ul>
+  </div>
+
+  <div className="docs-category-card">
+    <h3><LinkTo kind="Glass/Composite/ProfileHeaderGlass" story="docs">👤 ProfileHeaderGlass</LinkTo></h3>
+    <p>User profile header section.</p>
+    <ul>
+      <li>Avatar and name</li>
+      <li>Statistics (followers, repos)</li>
+      <li>Bio and location</li>
+      <li>Languages bar</li>
+    </ul>
+  </div>
+
+  <div className="docs-category-card">
+    <h3><LinkTo kind="Glass/Composite/CareerStatsGlass" story="docs">📈 CareerStatsGlass</LinkTo></h3>
+    <p>Career statistics with year cards.</p>
+    <ul>
+      <li>Year cards grid</li>
+      <li>Expandable details</li>
+      <li>Activity heatmap</li>
+    </ul>
+  </div>
+
+  <div className="docs-category-card">
+    <h3><LinkTo kind="Glass/Composite/FlagsSectionGlass" story="docs">🚩 FlagsSectionGlass</LinkTo></h3>
+    <p>Flags/warnings section.</p>
+    <ul>
+      <li>Collapsible</li>
+      <li>Warning/danger flags</li>
+      <li>Count badge</li>
+    </ul>
+  </div>
+
+  <div className="docs-category-card">
+    <h3><LinkTo kind="Glass/Composite/RepositoryCardGlass" story="docs">📁 RepositoryCardGlass</LinkTo></h3>
+    <p>Repository card component.</p>
+    <ul>
+      <li>Name and description</li>
+      <li>Stars and forks</li>
+      <li>Language badge</li>
+      <li>Expandable details</li>
+    </ul>
+  </div>
+</div>
+
+## Usage Examples
+
+### HeaderNavGlass
+
+```tsx
+import { HeaderNavGlass } from 'shadcn-glass-ui';
+
+<HeaderNavGlass
+  logo={<Logo />}
+  navItems={[
+    { label: 'Dashboard', href: '/dashboard' },
+    { label: 'Projects', href: '/projects' },
+    { label: 'Settings', href: '/settings' },
+  ]}
+  user={{
+    name: 'John Doe',
+    avatar: '/avatar.jpg',
+  }}
+  onSearch={(query) => console.log(query)}
+/>
+```
+
+### ProfileHeaderGlass
+
+```tsx
+import { ProfileHeaderGlass } from 'shadcn-glass-ui';
+
+<ProfileHeaderGlass
+  user={{
+    name: 'Jane Developer',
+    username: '@janedev',
+    avatar: '/jane.jpg',
+    bio: 'Full-stack developer passionate about React',
+    location: 'San Francisco, CA',
+    stats: {
+      followers: 1234,
+      following: 567,
+      repos: 89,
+    },
+    languages: [
+      { name: 'TypeScript', level: 'native' },
+      { name: 'Python', level: 'fluent' },
+    ],
+  }}
+/>
+```
+
+### RepoCardGlass
+
+```tsx
+import { RepoCardGlass } from 'shadcn-glass-ui';
+
+<RepoCardGlass
+  repo={{
+    name: 'awesome-project',
+    description: 'A really awesome project',
+    stars: 1234,
+    forks: 56,
+    language: 'TypeScript',
+    updatedAt: '2024-01-15',
+  }}
+  expanded={false}
+  onToggle={() => setExpanded(!expanded)}
+/>
+```
+
+### TrustScoreCardGlass
+
+```tsx
+import { TrustScoreCardGlass } from 'shadcn-glass-ui';
+
+<TrustScoreCardGlass
+  score={87}
+  metrics={[
+    { label: 'Code Quality', value: 92, trend: 'up' },
+    { label: 'Activity', value: 78, trend: 'stable' },
+    { label: 'Community', value: 85, trend: 'up' },
+  ]}
+/>
+```
+
+## Building Pages
+
+Section components combine easily to create complete pages:
+
+```tsx
+function ProfilePage() {
+  return (
+    <div className="min-h-screen">
+      <HeaderNavGlass {...headerProps} />
+
+      <main className="container mx-auto py-8">
+        <ProfileHeaderGlass {...profileProps} />
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+          <TrustScoreCardGlass {...scoreProps} />
+          <CareerStatsGlass {...careerProps} />
+        </div>
+
+        <FlagsSectionGlass {...flagsProps} />
+
+        <h2 className="text-xl font-semibold mt-8 mb-4">
+          Repositories
+        </h2>
+        {repos.map(repo => (
+          <RepoCardGlass key={repo.name} repo={repo} />
+        ))}
+      </main>
+    </div>
+  );
+}
+```
+
+## Next Steps
+
+<div className="docs-links-section">
+  <LinkTo kind="Components/Blocks" className="docs-link-button">
+    Blocks
+  </LinkTo>
+  <LinkTo kind="Demo/DesktopShowcase" story="Default" className="docs-link-button">
+    Desktop Demo
+  </LinkTo>
+  <LinkTo kind="Glass/Composite/ProfileHeaderGlass" story="docs" className="docs-link-button">
+    ProfileHeaderGlass Demo
+  </LinkTo>
+</div>

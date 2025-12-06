@@ -1,0 +1,176 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import LinkTo from '@storybook/addon-links/react';
+
+<Meta title="Components/Core" />
+
+# Core Components
+
+Essential building blocks for any application. These components form the foundation of the Glass UI library.
+
+## Overview
+
+<div className="docs-stats-grid">
+  <div className="docs-stat-card">
+    <div className="docs-stat-number">16</div>
+    <div className="docs-stat-label">Components</div>
+  </div>
+  <div className="docs-stat-card">
+    <div className="docs-stat-number">100%</div>
+    <div className="docs-stat-label">shadcn/ui compatible</div>
+  </div>
+  <div className="docs-stat-card">
+    <div className="docs-stat-number">AA</div>
+    <div className="docs-stat-label">WCAG level</div>
+  </div>
+</div>
+
+## Categories
+
+<div className="docs-category-grid">
+  <div className="docs-category-card">
+    <h3>Buttons & Actions</h3>
+    <ul>
+      <li><LinkTo kind="Components/ButtonGlass" story="docs">ButtonGlass</LinkTo> — main button with glass effect</li>
+    </ul>
+  </div>
+
+  <div className="docs-category-card">
+    <h3>Form Elements</h3>
+    <ul>
+      <li><LinkTo kind="Components/InputGlass" story="docs">InputGlass</LinkTo> — text input</li>
+      <li><LinkTo kind="Components/CheckboxGlass" story="docs">CheckboxGlass</LinkTo> — checkbox</li>
+      <li><LinkTo kind="Components/ToggleGlass" story="docs">ToggleGlass</LinkTo> — toggle switch</li>
+      <li><LinkTo kind="Components/SliderGlass" story="docs">SliderGlass</LinkTo> — slider</li>
+    </ul>
+  </div>
+
+  <div className="docs-category-card">
+    <h3>Containers</h3>
+    <ul>
+      <li><LinkTo kind="Components/GlassCard" story="docs">GlassCard</LinkTo> — card with glass effect</li>
+      <li><LinkTo kind="Components/ModalGlass" story="docs">ModalGlass</LinkTo> — modal dialog</li>
+    </ul>
+  </div>
+
+  <div className="docs-category-card">
+    <h3>Navigation</h3>
+    <ul>
+      <li><LinkTo kind="Components/TabsGlass" story="docs">TabsGlass</LinkTo> — tabs</li>
+      <li><LinkTo kind="Components/DropdownGlass" story="docs">DropdownGlass</LinkTo> — dropdown menu</li>
+    </ul>
+  </div>
+
+  <div className="docs-category-card">
+    <h3>Feedback</h3>
+    <ul>
+      <li><LinkTo kind="Components/BadgeGlass" story="docs">BadgeGlass</LinkTo> — badge/label</li>
+      <li><LinkTo kind="Components/AlertGlass" story="docs">AlertGlass</LinkTo> — inline alert</li>
+      <li><LinkTo kind="Components/NotificationGlass" story="docs">NotificationGlass</LinkTo> — toast notification</li>
+      <li><LinkTo kind="Components/TooltipGlass" story="docs">TooltipGlass</LinkTo> — tooltip</li>
+      <li><LinkTo kind="Components/SkeletonGlass" story="docs">SkeletonGlass</LinkTo> — loading skeleton</li>
+      <li><LinkTo kind="Components/ProgressGlass" story="docs">ProgressGlass</LinkTo> — progress bar</li>
+    </ul>
+  </div>
+
+  <div className="docs-category-card">
+    <h3>Media</h3>
+    <ul>
+      <li><LinkTo kind="Components/AvatarGlass" story="docs">AvatarGlass</LinkTo> — user avatar</li>
+    </ul>
+  </div>
+</div>
+
+## Quick Start
+
+### ButtonGlass
+
+```tsx
+import { ButtonGlass } from 'shadcn-glass-ui';
+
+// Variants
+<ButtonGlass variant="primary">Primary</ButtonGlass>
+<ButtonGlass variant="secondary">Secondary</ButtonGlass>
+<ButtonGlass variant="destructive">Destructive</ButtonGlass>
+<ButtonGlass variant="ghost">Ghost</ButtonGlass>
+
+// Sizes
+<ButtonGlass size="sm">Small</ButtonGlass>
+<ButtonGlass size="md">Medium</ButtonGlass>
+<ButtonGlass size="lg">Large</ButtonGlass>
+```
+
+### InputGlass
+
+```tsx
+import { InputGlass } from 'shadcn-glass-ui';
+
+<InputGlass
+  placeholder="Email"
+  type="email"
+/>
+
+<InputGlass
+  label="Password"
+  type="password"
+  error="Minimum 8 characters"
+/>
+```
+
+### GlassCard
+
+```tsx
+import { GlassCard } from 'shadcn-glass-ui';
+
+<GlassCard variant="glass" intensity="medium">
+  <h3>Title</h3>
+  <p>Card content</p>
+</GlassCard>
+```
+
+## API Patterns
+
+### Compound Components
+
+ModalGlass and TabsGlass support the compound component pattern:
+
+```tsx
+// ModalGlass compound API
+<ModalGlass.Root open={open} onOpenChange={setOpen}>
+  <ModalGlass.Overlay />
+  <ModalGlass.Content>
+    <ModalGlass.Header>
+      <ModalGlass.Title>Title</ModalGlass.Title>
+    </ModalGlass.Header>
+    <ModalGlass.Body>Content</ModalGlass.Body>
+    <ModalGlass.Footer>
+      <ButtonGlass>OK</ButtonGlass>
+    </ModalGlass.Footer>
+  </ModalGlass.Content>
+</ModalGlass.Root>
+```
+
+### asChild Pattern
+
+ButtonGlass, AvatarGlass, GlassCard support polymorphic rendering:
+
+```tsx
+import { Link } from 'react-router-dom';
+
+<ButtonGlass asChild>
+  <Link href="/">Home</Link>
+</ButtonGlass>
+```
+
+## Next Steps
+
+<div className="docs-links-section">
+  <LinkTo kind="Components/Atomic" className="docs-link-button">
+    Atomic
+  </LinkTo>
+  <LinkTo kind="Components/Composite" className="docs-link-button">
+    Composite
+  </LinkTo>
+  <LinkTo kind="Components/ButtonGlass" story="docs" className="docs-link-button">
+    ButtonGlass Demo
+  </LinkTo>
+</div>

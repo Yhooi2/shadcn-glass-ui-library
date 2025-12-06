@@ -1,0 +1,140 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import LinkTo from '@storybook/addon-links/react';
+
+<Meta title="Components/Atomic" />
+
+# Atomic Components
+
+Small specialized components for specific use cases.
+
+## Overview
+
+<div className="docs-stats-grid">
+  <div className="docs-stat-card">
+    <div className="docs-stat-number">6</div>
+    <div className="docs-stat-label">Components</div>
+  </div>
+  <div className="docs-stat-card">
+    <div className="docs-stat-number">44px</div>
+    <div className="docs-stat-label">Min touch target</div>
+  </div>
+</div>
+
+## Component List
+
+<div className="docs-category-grid">
+  <div className="docs-category-card">
+    <h3><LinkTo kind="Glass/Composite/StatusIndicatorGlass" story="docs">🔵 StatusIndicatorGlass</LinkTo></h3>
+    <p>Status dot with glow effect for displaying state.</p>
+    <ul>
+      <li>online — green with pulse</li>
+      <li>offline — gray without effects</li>
+      <li>busy — red with glow</li>
+      <li>away — yellow with glow</li>
+    </ul>
+  </div>
+
+  <div className="docs-category-card">
+    <h3><LinkTo kind="Glass/Composite/SegmentedControlGlass" story="docs">🔘 SegmentedControlGlass</LinkTo></h3>
+    <p>Segmented button group for single selection.</p>
+    <ul>
+      <li>Animated indicator</li>
+      <li>Icon support</li>
+      <li>Keyboard navigation</li>
+    </ul>
+  </div>
+
+  <div className="docs-category-card">
+    <h3><LinkTo kind="Glass/Composite/RainbowProgressGlass" story="docs">🌈 RainbowProgressGlass</LinkTo></h3>
+    <p>Progress bar with rainbow gradient.</p>
+    <ul>
+      <li>Animated gradient</li>
+      <li>Glow effect</li>
+      <li>Smooth fill animation</li>
+    </ul>
+  </div>
+
+  <div className="docs-category-card">
+    <h3><LinkTo kind="Glass/Composite/LanguageBarGlass" story="docs">🌍 LanguageBarGlass</LinkTo></h3>
+    <p>Language proficiency visualization.</p>
+    <ul>
+      <li>Levels: native, fluent, intermediate, basic</li>
+      <li>Color legend</li>
+      <li>Horizontal bars</li>
+    </ul>
+  </div>
+</div>
+
+## Usage Examples
+
+### StatusIndicatorGlass
+
+```tsx
+import { StatusIndicatorGlass } from 'shadcn-glass-ui';
+
+// User statuses
+<StatusIndicatorGlass status="online" />
+<StatusIndicatorGlass status="offline" />
+<StatusIndicatorGlass status="busy" />
+<StatusIndicatorGlass status="away" />
+
+// With sizes
+<StatusIndicatorGlass status="online" size="sm" />
+<StatusIndicatorGlass status="online" size="md" />
+<StatusIndicatorGlass status="online" size="lg" />
+```
+
+### SegmentedControlGlass
+
+```tsx
+import { SegmentedControlGlass } from 'shadcn-glass-ui';
+
+const options = [
+  { value: 'day', label: 'Day' },
+  { value: 'week', label: 'Week' },
+  { value: 'month', label: 'Month' },
+];
+
+<SegmentedControlGlass
+  options={options}
+  value={selected}
+  onChange={setSelected}
+/>
+```
+
+### RainbowProgressGlass
+
+```tsx
+import { RainbowProgressGlass } from 'shadcn-glass-ui';
+
+<RainbowProgressGlass value={75} />
+<RainbowProgressGlass value={100} animated />
+```
+
+### LanguageBarGlass
+
+```tsx
+import { LanguageBarGlass } from 'shadcn-glass-ui';
+
+const languages = [
+  { name: 'English', level: 'native' },
+  { name: 'Spanish', level: 'fluent' },
+  { name: 'German', level: 'intermediate' },
+];
+
+<LanguageBarGlass languages={languages} showLegend />
+```
+
+## Next Steps
+
+<div className="docs-links-section">
+  <LinkTo kind="Components/Composite" className="docs-link-button">
+    Composite Components
+  </LinkTo>
+  <LinkTo kind="Components/Sections" className="docs-link-button">
+    Section Components
+  </LinkTo>
+  <LinkTo kind="Glass/Composite/StatusIndicatorGlass" story="docs" className="docs-link-button">
+    StatusIndicatorGlass Demo
+  </LinkTo>
+</div>

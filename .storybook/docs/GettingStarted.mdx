@@ -1,0 +1,179 @@
+import { Meta, Source } from '@storybook/addon-docs/blocks';
+import LinkTo from '@storybook/addon-links/react';
+
+<Meta title="Getting Started" />
+
+# Getting Started
+
+Quick start guide for Glass UI.
+
+## Installation
+
+### Via shadcn CLI (recommended)
+
+<Source code={`npx shadcn@latest add https://shadcn-glass-ui.dev/r/button-glass`} language="bash" />
+
+### Via npm
+
+<Source code={`npm install shadcn-glass-ui`} language="bash" />
+
+### Via yarn
+
+<Source code={`yarn add shadcn-glass-ui`} language="bash" />
+
+## ThemeProvider Setup
+
+Wrap your application with ThemeProvider:
+
+<Source
+  code={`import { ThemeProvider } from 'shadcn-glass-ui';
+
+function App() {
+  return (
+    <ThemeProvider defaultTheme="glass">
+      <YourApp />
+    </ThemeProvider>
+  );
+}`}
+  language="tsx"
+/>
+
+## CSS Import
+
+Add the required styles to your main application file:
+
+<Source
+  code={`// In main.tsx or App.tsx
+import 'shadcn-glass-ui/dist/styles.css';`}
+  language="tsx"
+/>
+
+## Basic Usage
+
+<Source
+  code={`import { ButtonGlass, InputGlass, GlassCard } from 'shadcn-glass-ui';
+
+function MyComponent() {
+  return (
+    <GlassCard variant="glass" intensity="medium">
+      <h2>Hello, Glass UI!</h2>
+      <InputGlass
+        placeholder="Enter text..."
+        className="mb-4"
+      />
+      <ButtonGlass variant="primary">
+        Submit
+      </ButtonGlass>
+    </GlassCard>
+  );
+}`}
+  language="tsx"
+/>
+
+## Themes
+
+Glass UI supports three themes out of the box:
+
+<div className="docs-table-wrapper">
+  <table className="docs-table">
+    <thead>
+      <tr>
+        <th>Theme</th>
+        <th>Description</th>
+        <th>Use Case</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>glass</code></td>
+        <td>Dark glassmorphism with purple accents</td>
+        <td>Dashboards, admin panels</td>
+      </tr>
+      <tr>
+        <td><code>light</code></td>
+        <td>Clean light theme</td>
+        <td>Landing pages, public sites</td>
+      </tr>
+      <tr>
+        <td><code>aurora</code></td>
+        <td>Dark gradient with soft glow</td>
+        <td>Portfolios, creative projects</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+## Theme Switching
+
+Use the `useTheme` hook for programmatic theme switching:
+
+<Source
+  code={`import { useTheme } from 'shadcn-glass-ui';
+
+function ThemeSwitcher() {
+  const { theme, setTheme, cycleTheme } = useTheme();
+
+  return (
+    <div>
+      <p>Current theme: {theme}</p>
+      <ButtonGlass onClick={() => setTheme('aurora')}>
+        Aurora
+      </ButtonGlass>
+      <ButtonGlass onClick={cycleTheme}>
+        Next Theme
+      </ButtonGlass>
+    </div>
+  );
+}`}
+  language="tsx"
+/>
+
+## Glass Effect Variants
+
+Each component supports different intensity levels:
+
+<Source
+  code={`// Glass effect intensity levels
+<GlassCard intensity="subtle">Subtle effect</GlassCard>
+<GlassCard intensity="medium">Standard effect</GlassCard>
+<GlassCard intensity="strong">Strong effect</GlassCard>
+
+// Glass style variants
+<GlassCard variant="glass">Standard glass</GlassCard>
+<GlassCard variant="frosted">Frosted glass</GlassCard>
+<GlassCard variant="fluted">Fluted glass</GlassCard>
+<GlassCard variant="crystal">Crystal glass</GlassCard>`}
+  language="tsx"
+/>
+
+## shadcn/ui Compatibility
+
+Glass UI is fully compatible with shadcn/ui API:
+
+<Source
+  code={`// Same props as shadcn/ui
+<ButtonGlass variant="default">Default</ButtonGlass>
+<ButtonGlass variant="secondary">Secondary</ButtonGlass>
+<ButtonGlass variant="destructive">Destructive</ButtonGlass>
+<ButtonGlass variant="outline">Outline</ButtonGlass>
+<ButtonGlass variant="ghost">Ghost</ButtonGlass>
+
+// Extended Glass variants
+<ButtonGlass variant="primary">Primary (Glass)</ButtonGlass>
+<ButtonGlass variant="success">Success (Glass)</ButtonGlass>`}
+  language="tsx"
+/>
+
+## Next Steps
+
+<div className="docs-links-section">
+  <LinkTo kind="Design System" className="docs-link-button">
+    Design System
+  </LinkTo>
+  <LinkTo kind="Components/Core" className="docs-link-button">
+    Core Components
+  </LinkTo>
+  <LinkTo kind="Components/ButtonGlass" story="docs" className="docs-link-button">
+    ButtonGlass Demo
+  </LinkTo>
+</div>

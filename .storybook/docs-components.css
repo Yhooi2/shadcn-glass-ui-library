@@ -1,0 +1,575 @@
+/* ========================================
+   MDX DOCUMENTATION COMPONENTS
+   Reusable styled components for docs
+   Theme-aware using CSS variables
+   ======================================== */
+
+/* ========================================
+   HERO SECTION
+   Main landing hero with glassmorphism
+   ======================================== */
+
+.docs-hero {
+  background: linear-gradient(
+    135deg,
+    var(--glass-bg-medium, rgba(255, 255, 255, 0.15)),
+    var(--glass-bg, rgba(255, 255, 255, 0.05))
+  );
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.18));
+  backdrop-filter: blur(var(--blur-md, 16px));
+  border-radius: var(--radius-xl, 16px);
+  padding: 3rem 2rem;
+  margin: 2rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.docs-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    var(--orb-1, rgba(168, 85, 247, 0.15)) 0%,
+    transparent 50%
+  );
+  pointer-events: none;
+}
+
+.docs-hero h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #818cf8, #c084fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+}
+
+.docs-hero p {
+  font-size: 1.25rem;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.6));
+  position: relative;
+}
+
+/* ========================================
+   FEATURES GRID
+   Grid of feature cards
+   ======================================== */
+
+.docs-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.docs-feature-card {
+  background: var(--card-bg, rgba(255, 255, 255, 0.05));
+  border: 1px solid var(--card-border, rgba(255, 255, 255, 0.1));
+  border-radius: var(--radius-lg, 12px);
+  padding: 1.5rem;
+  backdrop-filter: blur(var(--blur-sm, 8px));
+  transition: all 0.3s ease;
+}
+
+.docs-feature-card:hover {
+  background: var(--card-hover-bg, rgba(255, 255, 255, 0.07));
+  border-color: var(--card-hover-border, rgba(255, 255, 255, 0.15));
+  box-shadow: var(--card-hover-glow, 0 0 20px rgba(168, 85, 247, 0.25));
+  transform: translateY(-2px);
+}
+
+.docs-feature-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.docs-feature-title {
+  font-weight: 600;
+  color: var(--text-inverse, #ffffff);
+  margin-bottom: 0.5rem;
+}
+
+.docs-feature-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.6));
+}
+
+/* ========================================
+   STATS GRID
+   Statistics cards
+   ======================================== */
+
+.docs-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.docs-stat-card {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  background: var(--glass-bg, rgba(255, 255, 255, 0.05));
+  border: 1px solid var(--glass-border-subtle, rgba(255, 255, 255, 0.05));
+  border-radius: var(--radius-md, 8px);
+}
+
+.docs-stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-accent, #c4b5fd);
+  margin-bottom: 0.25rem;
+  line-height: 1;
+}
+
+.docs-stat-label {
+  font-size: 0.9rem;
+  color: var(--text-muted, rgba(255, 255, 255, 0.4));
+}
+
+/* ========================================
+   LINKS SECTION
+   Link buttons row
+   ======================================== */
+
+.docs-links-section {
+  margin: 2rem 0;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.docs-link-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--btn-secondary-bg, rgba(255, 255, 255, 0.1));
+  border: 1px solid var(--btn-secondary-border, rgba(255, 255, 255, 0.2));
+  border-radius: var(--radius-md, 8px);
+  color: var(--text-primary, rgba(255, 255, 255, 0.9));
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.docs-link-button:hover {
+  background: var(--btn-secondary-hover-bg, rgba(255, 255, 255, 0.18));
+  box-shadow: var(--btn-secondary-glow, 0 4px 20px rgba(168, 85, 247, 0.2));
+  transform: translateY(-1px);
+  color: var(--text-primary, rgba(255, 255, 255, 0.9));
+}
+
+/* ========================================
+   CATEGORY GRID
+   Component categories grid
+   ======================================== */
+
+.docs-category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.docs-category-card {
+  background: var(--card-medium-bg, rgba(255, 255, 255, 0.15));
+  border: 1px solid var(--card-medium-border, rgba(255, 255, 255, 0.15));
+  border-radius: var(--radius-lg, 12px);
+  padding: 1.5rem;
+  backdrop-filter: blur(var(--blur-md, 16px));
+}
+
+.docs-category-card h3 {
+  color: var(--text-inverse, #ffffff);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.docs-category-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.docs-category-card li {
+  padding: 0.35rem 0;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.6));
+  font-size: 0.95rem;
+}
+
+.docs-category-card li::before {
+  content: '•';
+  color: var(--text-accent, #c4b5fd);
+  margin-right: 0.5rem;
+}
+
+/* ========================================
+   CODE EXAMPLE BOX
+   Code snippets with header
+   ======================================== */
+
+.docs-code-example {
+  background: var(--modal-bg, rgba(255, 255, 255, 0.06));
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.18));
+  border-radius: var(--radius-lg, 12px);
+  overflow: hidden;
+  margin: 1.5rem 0;
+}
+
+.docs-code-header {
+  background: var(--glass-bg-medium, rgba(255, 255, 255, 0.15));
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--glass-border, rgba(255, 255, 255, 0.18));
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.docs-code-title {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.6));
+}
+
+.docs-code-copy {
+  background: var(--btn-ghost-bg, transparent);
+  border: none;
+  color: var(--text-muted, rgba(255, 255, 255, 0.4));
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm, 4px);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.75rem;
+}
+
+.docs-code-copy:hover {
+  background: var(--btn-ghost-hover-bg, rgba(255, 255, 255, 0.1));
+  color: var(--text-primary, rgba(255, 255, 255, 0.9));
+}
+
+/* ========================================
+   THEME BADGES
+   Theme indicator badges
+   ======================================== */
+
+.docs-theme-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.75rem;
+  background: var(--badge-default-bg, rgba(255, 255, 255, 0.2));
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  color: var(--badge-default-text, rgba(255, 255, 255, 0.9));
+}
+
+.docs-theme-badge.glass {
+  background: var(--badge-info-bg, rgba(112, 180, 250, 0.2));
+  color: var(--badge-info-text, #93c5fd);
+}
+
+.docs-theme-badge.light {
+  background: var(--badge-secondary-bg, rgba(112, 128, 144, 0.2));
+  color: var(--badge-secondary-text, #cbd5e1);
+}
+
+.docs-theme-badge.aurora {
+  background: var(--badge-success-bg, rgba(122, 201, 167, 0.2));
+  color: var(--badge-success-text, #86efac);
+}
+
+/* ========================================
+   INFO BOX
+   Information callout box
+   ======================================== */
+
+.docs-info-box {
+  background: var(--alert-default-bg, rgba(112, 180, 250, 0.1));
+  border: 1px solid var(--alert-default-border, rgba(112, 180, 250, 0.2));
+  border-radius: var(--radius-md, 8px);
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  color: var(--alert-default-text, #93c5fd);
+}
+
+.docs-info-box.warning {
+  background: var(--alert-warning-bg, rgba(251, 191, 36, 0.1));
+  border-color: var(--alert-warning-border, rgba(251, 191, 36, 0.2));
+  color: var(--alert-warning-text, #fcd34d);
+}
+
+.docs-info-box.success {
+  background: var(--alert-success-bg, rgba(74, 222, 128, 0.1));
+  border-color: var(--alert-success-border, rgba(74, 222, 128, 0.2));
+  color: var(--alert-success-text, #86efac);
+}
+
+/* ========================================
+   TABLE STYLES
+   Documentation tables
+   ======================================== */
+
+.docs-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+.docs-table th,
+.docs-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--glass-border, rgba(255, 255, 255, 0.18));
+}
+
+.docs-table th {
+  background: var(--glass-bg-medium, rgba(255, 255, 255, 0.15));
+  color: var(--text-inverse, #ffffff);
+  font-weight: 600;
+}
+
+.docs-table td {
+  color: var(--text-primary, rgba(255, 255, 255, 0.9));
+}
+
+.docs-table tr:hover td {
+  background: var(--glass-bg, rgba(255, 255, 255, 0.05));
+}
+
+/* ========================================
+   SECTION DIVIDER
+   Visual section separator
+   ======================================== */
+
+.docs-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--glass-border, rgba(255, 255, 255, 0.18)),
+    transparent
+  );
+  margin: 3rem 0;
+}
+
+/* ========================================
+   COMPONENT PREVIEW
+   Interactive component preview area
+   ======================================== */
+
+.docs-preview {
+  background: var(--card-bg, rgba(255, 255, 255, 0.05));
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.18));
+  border-radius: var(--radius-lg, 12px);
+  padding: 2rem;
+  margin: 1.5rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+/* ========================================
+   LIGHT THEME OVERRIDES
+   Dark text on light backgrounds
+   ======================================== */
+
+[data-theme="light"] .docs-hero {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.03),
+    rgba(0, 0, 0, 0.06)
+  );
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .docs-hero p {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="light"] .docs-feature-card {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .docs-feature-card:hover {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+[data-theme="light"] .docs-feature-title {
+  color: #1e293b;
+}
+
+[data-theme="light"] .docs-feature-desc {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="light"] .docs-stat-card {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="light"] .docs-stat-number {
+  color: #7c3aed;
+}
+
+[data-theme="light"] .docs-stat-label {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="light"] .docs-link-button {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #1e293b;
+}
+
+[data-theme="light"] .docs-link-button:hover {
+  background: rgba(0, 0, 0, 0.08);
+  color: #1e293b;
+}
+
+[data-theme="light"] .docs-category-card {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .docs-category-card h3 {
+  color: #1e293b;
+}
+
+[data-theme="light"] .docs-category-card p {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="light"] .docs-category-card li {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="light"] .docs-category-card li::before {
+  color: #7c3aed;
+}
+
+[data-theme="light"] .docs-category-card a {
+  color: #7c3aed;
+}
+
+[data-theme="light"] .docs-code-example {
+  background: rgba(0, 0, 0, 0.02);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .docs-code-header {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .docs-code-title {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="light"] .docs-code-copy {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="light"] .docs-code-copy:hover {
+  background: rgba(0, 0, 0, 0.06);
+  color: rgba(0, 0, 0, 0.8);
+}
+
+[data-theme="light"] .docs-info-box {
+  background: rgba(59, 130, 246, 0.08);
+  border-color: rgba(59, 130, 246, 0.2);
+  color: #2563eb;
+}
+
+[data-theme="light"] .docs-info-box.warning {
+  background: rgba(245, 158, 11, 0.08);
+  border-color: rgba(245, 158, 11, 0.2);
+  color: #d97706;
+}
+
+[data-theme="light"] .docs-info-box.success {
+  background: rgba(34, 197, 94, 0.08);
+  border-color: rgba(34, 197, 94, 0.2);
+  color: #16a34a;
+}
+
+[data-theme="light"] .docs-table th {
+  background: rgba(0, 0, 0, 0.04);
+  color: #1e293b;
+}
+
+[data-theme="light"] .docs-table td {
+  color: rgba(0, 0, 0, 0.8);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .docs-table th {
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .docs-table tr:hover td {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+[data-theme="light"] .docs-divider {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 0, 0, 0.1),
+    transparent
+  );
+}
+
+[data-theme="light"] .docs-preview {
+  background: rgba(0, 0, 0, 0.02);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .docs-table-wrapper {
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 8px;
+}
+
+/* ========================================
+   RESPONSIVE ADJUSTMENTS
+   ======================================== */
+
+@media (max-width: 768px) {
+  .docs-hero {
+    padding: 2rem 1.5rem;
+  }
+
+  .docs-hero h1 {
+    font-size: 2rem;
+  }
+
+  .docs-features-grid,
+  .docs-category-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .docs-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .docs-links-section {
+    flex-direction: column;
+  }
+
+  .docs-link-button {
+    justify-content: center;
+  }
+}

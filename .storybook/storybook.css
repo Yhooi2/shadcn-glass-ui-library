@@ -1,6 +1,13 @@
-/* Storybook-specific styles */
+/* ========================================
+   STORYBOOK GLASS UI STYLES
+   Theme-aware styles using CSS variables
+   ======================================== */
 
-/* Glass story container - wraps each story */
+/* ========================================
+   STORY CONTAINERS
+   Containers for individual stories
+   ======================================== */
+
 .glass-story-container {
   background: var(--story-bg, linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%));
   display: inline-block;
@@ -79,114 +86,144 @@
   background: var(--story-orb-2, rgba(59, 130, 246, 0.2));
 }
 
-/* Docs page - dark background with light text */
+/* ========================================
+   DOCS PAGE THEMING
+   Styles react to CSS variables from theme
+   ======================================== */
+
+/* Docs wrapper - Glass (dark) theme by default */
 .sbdocs-wrapper {
-  background: #1a1a2e !important;
-  color: #e2e8f0 !important;
+  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%) !important;
+  color: rgba(255, 255, 255, 0.9);
 }
 
-/* Docs content area - light text */
+/* Glass theme explicit */
+[data-theme="glass"] .sbdocs-wrapper {
+  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%) !important;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Aurora theme */
+[data-theme="aurora"] .sbdocs-wrapper {
+  background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e1b4b 100%) !important;
+  color: rgba(255, 255, 255, 0.9);
+}
+
 .sbdocs-content {
-  background: transparent !important;
-  color: #e2e8f0 !important;
+  background: transparent;
+  color: var(--text-primary, rgba(255, 255, 255, 0.9));
 }
 
-/* Headings in Docs - brighter white */
+/* Headings in Docs */
 .sbdocs .sbdocs-h1,
 .sbdocs .sbdocs-h2,
 .sbdocs .sbdocs-h3,
 .sbdocs .sbdocs-h4,
 .sbdocs .sbdocs-h5,
 .sbdocs .sbdocs-h6 {
-  color: #ffffff !important;
+  color: var(--text-inverse, #ffffff);
 }
 
-/* Paragraphs and general text in Docs - light text */
+/* Paragraphs and general text */
 .sbdocs .sbdocs-p,
 .sbdocs .sbdocs-li {
-  color: #e2e8f0 !important;
+  color: var(--text-primary, rgba(255, 255, 255, 0.9));
 }
 
-/* MDX content - all text elements */
-.sbdocs-wrapper p,
-.sbdocs-wrapper li,
-.sbdocs-wrapper h1,
-.sbdocs-wrapper h2,
-.sbdocs-wrapper h3,
-.sbdocs-wrapper h4,
-.sbdocs-wrapper h5,
-.sbdocs-wrapper h6,
-.sbdocs-wrapper span,
-.sbdocs-wrapper a {
-  color: #e2e8f0 !important;
+/* MDX content - text elements */
+/* Only target direct docs content, not component content */
+.sbdocs-wrapper > .sbdocs-content p,
+.sbdocs-wrapper > .sbdocs-content li,
+.sbdocs-wrapper > .sbdocs-content h1,
+.sbdocs-wrapper > .sbdocs-content h2,
+.sbdocs-wrapper > .sbdocs-content h3,
+.sbdocs-wrapper > .sbdocs-content h4,
+.sbdocs-wrapper > .sbdocs-content h5,
+.sbdocs-wrapper > .sbdocs-content h6,
+.sbdocs-wrapper > .sbdocs-content span {
+  color: var(--text-primary, rgba(255, 255, 255, 0.9));
 }
 
 /* MDX headings - brighter */
-.sbdocs-wrapper h1,
-.sbdocs-wrapper h2,
-.sbdocs-wrapper h3 {
-  color: #ffffff !important;
+/* Only target direct docs content, not component content */
+.sbdocs-wrapper > .sbdocs-content h1,
+.sbdocs-wrapper > .sbdocs-content h2,
+.sbdocs-wrapper > .sbdocs-content h3 {
+  color: var(--text-inverse, #ffffff);
 }
 
 /* MDX links */
 .sbdocs-wrapper a {
-  color: #a5b4fc !important;
+  color: var(--text-accent, #c4b5fd);
+  transition: color 0.2s ease;
 }
 
 .sbdocs-wrapper a:hover {
-  color: #c4b5fd !important;
+  color: var(--tab-indicator, #c084fc);
 }
 
 /* MDX code blocks */
 .sbdocs-wrapper code {
-  background: #334155 !important;
-  color: #a5b4fc !important;
+  background: var(--card-bg, rgba(255, 255, 255, 0.05));
+  color: var(--text-accent, #c4b5fd);
+  border-radius: 4px;
+  padding: 0.2em 0.4em;
 }
 
 .sbdocs-wrapper pre {
-  background: #0f172a !important;
-  border: 1px solid #334155 !important;
+  background: var(--modal-bg, rgba(255, 255, 255, 0.06));
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.18));
+  border-radius: 8px;
 }
 
 .sbdocs-wrapper pre code {
-  background: transparent !important;
-  color: #e2e8f0 !important;
+  background: transparent;
+  color: var(--text-primary, rgba(255, 255, 255, 0.9));
+  padding: 0;
 }
 
 /* MDX lists */
 .sbdocs-wrapper ul,
 .sbdocs-wrapper ol {
-  color: #e2e8f0 !important;
+  color: var(--text-primary, rgba(255, 255, 255, 0.9));
 }
 
 /* MDX strong/bold */
 .sbdocs-wrapper strong {
-  color: #ffffff !important;
+  color: var(--text-inverse, #ffffff);
 }
 
-/* ArgTypes table - dark theme */
+/* ========================================
+   ARGTYPES TABLE
+   Props documentation table
+   ======================================== */
+
 .docblock-argstable {
-  background: #1e293b !important;
+  background: #1a1a2e !important;
+  backdrop-filter: blur(8px);
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
 .docblock-argstable thead tr {
-  background: #0f172a !important;
+  background: rgba(255, 255, 255, 0.05) !important;
 }
 
 .docblock-argstable thead th {
   color: #e2e8f0 !important;
-  border-color: #334155 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
 }
 
 .docblock-argstable tbody tr {
-  background: #1e293b !important;
-  border-color: #334155 !important;
+  background: #1a1a2e !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
 }
 
 .docblock-argstable tbody td {
   color: #e2e8f0 !important;
-  border-color: #334155 !important;
-  background: #1e293b !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  background: #1a1a2e !important;
 }
 
 /* ArgTypes table text elements */
@@ -198,53 +235,382 @@
 
 /* Code/type badges in table */
 .docblock-argstable code {
-  background: #334155 !important;
-  color: #a5b4fc !important;
+  background: rgba(139, 92, 246, 0.2) !important;
+  color: #c4b5fd !important;
 }
 
-/* Controls in table - keep them readable */
+/* Controls in table - force dark inputs */
 .docblock-argstable input,
 .docblock-argstable select,
 .docblock-argstable textarea {
-  background: #0f172a !important;
+  background: #1e1e2e !important;
   color: #e2e8f0 !important;
-  border-color: #475569 !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  border-radius: 6px;
 }
 
-/* Control labels and values */
+.docblock-argstable input::placeholder,
+.docblock-argstable textarea::placeholder {
+  color: rgba(255, 255, 255, 0.4) !important;
+}
+
+/* Control labels and buttons */
 .docblock-argstable button {
-  background: #334155 !important;
+  background: rgba(255, 255, 255, 0.1) !important;
   color: #e2e8f0 !important;
-  border-color: #475569 !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
 }
 
-/* Story preview container in Docs */
+.docblock-argstable button:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* ========================================
+   STORY PREVIEW
+   Canvas and preview areas
+   ======================================== */
+
 .docs-story {
-  background: transparent !important;
-  padding: 1rem !important;
-  min-height: auto !important;
+  background: transparent;
+  padding: 1rem;
+  min-height: auto;
 }
 
-/* Docs story iframe - ensure it inherits the theme */
+/* Docs story iframe */
 #storybook-preview-iframe,
 iframe[id^="storybook-preview"] {
-  background: transparent !important;
+  background: transparent;
 }
 
-/* Canvas background - neutral */
+/* Canvas background */
 .sb-show-main {
-  background: #1a1a2e !important;
+  background: var(--bg-from, #1a1a2e);
 }
 
-/* Remove default Storybook backgrounds */
+/* Remove default backgrounds */
 .sb-main-padded {
-  background: transparent !important;
+  background: transparent;
 }
 
-/*
- * Visual regression testing - disable animations for stable screenshots
- * Applied globally to ensure consistent captures
- */
+/* ========================================
+   SOURCE CODE BLOCKS
+   Syntax highlighted code
+   ======================================== */
+
+/* Source code container - force dark theme */
+.docblock-source {
+  background: #1e1e2e !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px;
+}
+
+.docblock-source pre {
+  background: #1e1e2e !important;
+}
+
+.docblock-source code {
+  background: transparent !important;
+  color: #e2e8f0 !important;
+}
+
+/* Source component from addon-docs */
+.docs-story pre,
+.sbdocs pre,
+.sbdocs-wrapper pre {
+  background: #1e1e2e !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px;
+}
+
+.docs-story pre code,
+.sbdocs pre code,
+.sbdocs-wrapper pre code {
+  background: transparent !important;
+  color: #e2e8f0 !important;
+}
+
+/* Syntax highlighting tokens */
+.sbdocs-wrapper .token.keyword,
+.sbdocs .token.keyword {
+  color: #c792ea !important;
+}
+
+.sbdocs-wrapper .token.string,
+.sbdocs .token.string {
+  color: #c3e88d !important;
+}
+
+.sbdocs-wrapper .token.function,
+.sbdocs .token.function {
+  color: #82aaff !important;
+}
+
+.sbdocs-wrapper .token.punctuation,
+.sbdocs .token.punctuation {
+  color: #89ddff !important;
+}
+
+.sbdocs-wrapper .token.operator,
+.sbdocs .token.operator {
+  color: #89ddff !important;
+}
+
+.sbdocs-wrapper .token.comment,
+.sbdocs .token.comment {
+  color: #676e95 !important;
+}
+
+.sbdocs-wrapper .token.tag,
+.sbdocs .token.tag {
+  color: #f07178 !important;
+}
+
+.sbdocs-wrapper .token.attr-name,
+.sbdocs .token.attr-name {
+  color: #ffcb6b !important;
+}
+
+.sbdocs-wrapper .token.attr-value,
+.sbdocs .token.attr-value {
+  color: #c3e88d !important;
+}
+
+/* Source code header */
+.docblock-source button {
+  color: var(--text-secondary, rgba(255, 255, 255, 0.6));
+}
+
+.docblock-source button:hover {
+  color: var(--text-primary, rgba(255, 255, 255, 0.9));
+}
+
+/* ========================================
+   CANVAS CONTROLS
+   Story controls panel
+   ======================================== */
+
+/* Controls panel */
+.docblock-control {
+  background: var(--card-bg, rgba(255, 255, 255, 0.05));
+  border-color: var(--glass-border, rgba(255, 255, 255, 0.18));
+}
+
+/* ========================================
+   LIGHT THEME OVERRIDES
+   Theme-specific styles for light mode
+   ======================================== */
+
+[data-theme="light"] .sbdocs-wrapper {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%) !important;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+[data-theme="light"] .sbdocs-content {
+  color: rgba(0, 0, 0, 0.8);
+}
+
+[data-theme="light"] .sbdocs .sbdocs-h1,
+[data-theme="light"] .sbdocs .sbdocs-h2,
+[data-theme="light"] .sbdocs .sbdocs-h3,
+[data-theme="light"] .sbdocs .sbdocs-h4,
+[data-theme="light"] .sbdocs .sbdocs-h5,
+[data-theme="light"] .sbdocs .sbdocs-h6 {
+  color: #1e293b;
+}
+
+[data-theme="light"] .sbdocs .sbdocs-p,
+[data-theme="light"] .sbdocs .sbdocs-li {
+  color: rgba(0, 0, 0, 0.8);
+}
+
+[data-theme="light"] .sbdocs-wrapper > .sbdocs-content p,
+[data-theme="light"] .sbdocs-wrapper > .sbdocs-content li,
+[data-theme="light"] .sbdocs-wrapper > .sbdocs-content span {
+  color: rgba(0, 0, 0, 0.8);
+}
+
+[data-theme="light"] .sbdocs-wrapper > .sbdocs-content h1,
+[data-theme="light"] .sbdocs-wrapper > .sbdocs-content h2,
+[data-theme="light"] .sbdocs-wrapper > .sbdocs-content h3,
+[data-theme="light"] .sbdocs-wrapper > .sbdocs-content h4,
+[data-theme="light"] .sbdocs-wrapper > .sbdocs-content h5,
+[data-theme="light"] .sbdocs-wrapper > .sbdocs-content h6 {
+  color: #1e293b;
+}
+
+[data-theme="light"] .sbdocs-wrapper a {
+  color: #7c3aed;
+}
+
+[data-theme="light"] .sbdocs-wrapper a:hover {
+  color: #6d28d9;
+}
+
+[data-theme="light"] .sbdocs-wrapper code {
+  background: rgba(0, 0, 0, 0.05);
+  color: #7c3aed;
+}
+
+[data-theme="light"] .sbdocs-wrapper pre {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .sbdocs-wrapper pre code {
+  background: transparent;
+  color: #1e293b;
+}
+
+[data-theme="light"] .sbdocs-wrapper strong {
+  color: #0f172a;
+}
+
+[data-theme="light"] .docblock-argstable {
+  background: #ffffff !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+[data-theme="light"] .docblock-argstable thead tr {
+  background: rgba(0, 0, 0, 0.04) !important;
+}
+
+[data-theme="light"] .docblock-argstable thead th {
+  color: #1e293b !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+[data-theme="light"] .docblock-argstable tbody tr {
+  background: #ffffff !important;
+  border-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+[data-theme="light"] .docblock-argstable tbody td {
+  color: rgba(0, 0, 0, 0.8) !important;
+  border-color: rgba(0, 0, 0, 0.06) !important;
+  background: #ffffff !important;
+}
+
+[data-theme="light"] .docblock-argstable td span,
+[data-theme="light"] .docblock-argstable td p,
+[data-theme="light"] .docblock-argstable td div {
+  color: rgba(0, 0, 0, 0.8) !important;
+}
+
+[data-theme="light"] .docblock-argstable code {
+  background: rgba(0, 0, 0, 0.05) !important;
+  color: #7c3aed !important;
+}
+
+[data-theme="light"] .docblock-argstable input,
+[data-theme="light"] .docblock-argstable select,
+[data-theme="light"] .docblock-argstable textarea {
+  background: white !important;
+  color: #1e293b !important;
+  border-color: rgba(0, 0, 0, 0.15) !important;
+}
+
+[data-theme="light"] .docblock-argstable button {
+  background: rgba(0, 0, 0, 0.05) !important;
+  color: #1e293b !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+[data-theme="light"] .sb-show-main {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%) !important;
+}
+
+[data-theme="light"] .docblock-source {
+  background: #f8fafc !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+[data-theme="light"] .docblock-source pre {
+  background: #f8fafc !important;
+}
+
+[data-theme="light"] .docblock-source code {
+  background: transparent !important;
+  color: #1e293b !important;
+}
+
+[data-theme="light"] .docs-story pre,
+[data-theme="light"] .sbdocs pre,
+[data-theme="light"] .sbdocs-wrapper pre {
+  background: #f8fafc !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+[data-theme="light"] .docs-story pre code,
+[data-theme="light"] .sbdocs pre code,
+[data-theme="light"] .sbdocs-wrapper pre code {
+  background: transparent !important;
+  color: #1e293b !important;
+}
+
+/* Light theme syntax highlighting */
+[data-theme="light"] .sbdocs-wrapper .token.keyword,
+[data-theme="light"] .sbdocs .token.keyword {
+  color: #8250df !important;
+}
+
+[data-theme="light"] .sbdocs-wrapper .token.string,
+[data-theme="light"] .sbdocs .token.string {
+  color: #0a3069 !important;
+}
+
+[data-theme="light"] .sbdocs-wrapper .token.function,
+[data-theme="light"] .sbdocs .token.function {
+  color: #8250df !important;
+}
+
+[data-theme="light"] .sbdocs-wrapper .token.punctuation,
+[data-theme="light"] .sbdocs .token.punctuation {
+  color: #24292f !important;
+}
+
+[data-theme="light"] .sbdocs-wrapper .token.operator,
+[data-theme="light"] .sbdocs .token.operator {
+  color: #cf222e !important;
+}
+
+[data-theme="light"] .sbdocs-wrapper .token.comment,
+[data-theme="light"] .sbdocs .token.comment {
+  color: #6e7781 !important;
+}
+
+[data-theme="light"] .sbdocs-wrapper .token.tag,
+[data-theme="light"] .sbdocs .token.tag {
+  color: #116329 !important;
+}
+
+[data-theme="light"] .sbdocs-wrapper .token.attr-name,
+[data-theme="light"] .sbdocs .token.attr-name {
+  color: #0550ae !important;
+}
+
+[data-theme="light"] .sbdocs-wrapper .token.attr-value,
+[data-theme="light"] .sbdocs .token.attr-value {
+  color: #0a3069 !important;
+}
+
+[data-theme="light"] .docblock-source button {
+  color: rgba(0, 0, 0, 0.5) !important;
+}
+
+[data-theme="light"] .docblock-source button:hover {
+  color: rgba(0, 0, 0, 0.8) !important;
+}
+
+[data-theme="light"] .docblock-control {
+  background: rgba(0, 0, 0, 0.02) !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+/* ========================================
+   VISUAL REGRESSION TESTING
+   Disable animations for stable screenshots
+   ======================================== */
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

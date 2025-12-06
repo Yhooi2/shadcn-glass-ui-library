@@ -1,9 +1,52 @@
 import type { Preview } from '@storybook/react-vite';
 import React, { useEffect } from 'react';
+import { themes, create } from 'storybook/theming';
 import { ThemeProvider, type Theme } from '../src/lib/theme-context';
 import '../src/index.css';
 import '../src/glass-theme.css';
 import './storybook.css';
+import './docs-components.css';
+
+// Custom Glass dark theme for docs
+const glassDocsTheme = create({
+  base: 'dark',
+
+  // Brand
+  brandTitle: 'Glass UI',
+  brandUrl: 'https://github.com/ArtRiv/shadcn-glass-ui-library',
+
+  // Colors
+  colorPrimary: '#a855f7',
+  colorSecondary: '#8b5cf6',
+
+  // UI
+  appBg: '#0f0f23',
+  appContentBg: '#1a1a2e',
+  appPreviewBg: '#0f0f23',
+  appBorderColor: 'rgba(255, 255, 255, 0.1)',
+  appBorderRadius: 8,
+
+  // Text colors
+  textColor: '#e2e8f0',
+  textInverseColor: '#0f172a',
+  textMutedColor: 'rgba(255, 255, 255, 0.6)',
+
+  // Toolbar & Tabs
+  barTextColor: 'rgba(255, 255, 255, 0.7)',
+  barSelectedColor: '#a855f7',
+  barHoverColor: '#c084fc',
+  barBg: '#1a1a2e',
+
+  // Form colors
+  inputBg: 'rgba(255, 255, 255, 0.08)',
+  inputBorder: 'rgba(255, 255, 255, 0.15)',
+  inputTextColor: '#e2e8f0',
+  inputBorderRadius: 6,
+
+  // Typography
+  fontBase: '"Inter", system-ui, sans-serif',
+  fontCode: '"JetBrains Mono", monospace',
+});
 
 // Theme backgrounds for Storybook
 const THEME_BACKGROUNDS = {
@@ -75,6 +118,13 @@ const preview: Preview = {
     },
     a11y: {
       test: 'todo', // Shows violations in addon panel but doesn't fail tests
+    },
+    // Docs configuration - dark theme + show source code by default
+    docs: {
+      theme: glassDocsTheme,
+      canvas: {
+        sourceState: 'shown',
+      },
     },
     // Visual regression testing - disable animations for stable screenshots
     testingLibrary: {

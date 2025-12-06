@@ -1,0 +1,196 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import LinkTo from '@storybook/addon-links/react';
+
+<Meta title="Components/Blocks" />
+
+# Blocks
+
+Ready-to-use showcase sections following the shadcn/ui blocks pattern.
+
+## Overview
+
+Blocks are ready-made demonstration sections showing various component use cases. Use them as reference or copy directly into your projects.
+
+<div className="docs-stats-grid">
+  <div className="docs-stat-card">
+    <div className="docs-stat-number">6</div>
+    <div className="docs-stat-label">Blocks</div>
+  </div>
+  <div className="docs-stat-card">
+    <div className="docs-stat-number">Copy & Paste</div>
+    <div className="docs-stat-label">Ready to use</div>
+  </div>
+</div>
+
+## Block List
+
+<div className="docs-category-grid">
+  <div className="docs-category-card">
+    <h3><LinkTo kind="Glass/Blocks" story="docs">🔘 ButtonsBlock</LinkTo></h3>
+    <p>Demonstration of all button variants.</p>
+    <ul>
+      <li>All variants (primary, secondary, destructive...)</li>
+      <li>All sizes (sm, md, lg)</li>
+      <li>States (loading, disabled)</li>
+      <li>Icon buttons</li>
+    </ul>
+  </div>
+
+  <div className="docs-category-card">
+    <h3><LinkTo kind="Glass/Blocks" story="docs">📝 FormElementsBlock</LinkTo></h3>
+    <p>Form elements in action.</p>
+    <ul>
+      <li>InputGlass variants</li>
+      <li>SliderGlass</li>
+      <li>ToggleGlass</li>
+      <li>CheckboxGlass</li>
+    </ul>
+  </div>
+
+  <div className="docs-category-card">
+    <h3><LinkTo kind="Glass/Blocks" story="docs">📊 ProgressBlock</LinkTo></h3>
+    <p>Progress indicators.</p>
+    <ul>
+      <li>ProgressGlass colors</li>
+      <li>RainbowProgressGlass</li>
+      <li>SkeletonGlass animations</li>
+    </ul>
+  </div>
+
+  <div className="docs-category-card">
+    <h3><LinkTo kind="Glass/Blocks" story="docs">👥 AvatarGalleryBlock</LinkTo></h3>
+    <p>Avatar gallery.</p>
+    <ul>
+      <li>All sizes</li>
+      <li>Status indicators</li>
+      <li>Avatar groups</li>
+    </ul>
+  </div>
+
+  <div className="docs-category-card">
+    <h3><LinkTo kind="Glass/Blocks" story="docs">🏷️ BadgesBlock</LinkTo></h3>
+    <p>Badges and labels.</p>
+    <ul>
+      <li>All variants</li>
+      <li>With icons</li>
+      <li>Tooltips</li>
+    </ul>
+  </div>
+
+  <div className="docs-category-card">
+    <h3><LinkTo kind="Glass/Blocks" story="docs">🔔 NotificationsBlock</LinkTo></h3>
+    <p>Notifications and alerts.</p>
+    <ul>
+      <li>NotificationGlass types</li>
+      <li>AlertGlass variants</li>
+      <li>Toast examples</li>
+    </ul>
+  </div>
+</div>
+
+## Using Blocks
+
+### Importing a Block
+
+```tsx
+import { ButtonsBlock } from 'shadcn-glass-ui/blocks';
+
+// In your component
+function ComponentsDemo() {
+  return (
+    <div className="p-8">
+      <h2>Buttons</h2>
+      <ButtonsBlock />
+    </div>
+  );
+}
+```
+
+### Customizing a Block
+
+```tsx
+import { FormElementsBlock } from 'shadcn-glass-ui/blocks';
+
+<FormElementsBlock
+  showLabels
+  className="my-custom-class"
+  onInputChange={(value) => console.log(value)}
+/>
+```
+
+## Demo Pages
+
+Blocks are used in demo pages:
+
+<div className="docs-category-grid">
+  <div className="docs-category-card">
+    <h3>ComponentShowcase</h3>
+    <p>Demonstration of all core components.</p>
+    <ul>
+      <li>Uses all 6 blocks</li>
+      <li>Organized by category</li>
+      <li>Interactive examples</li>
+    </ul>
+    <LinkTo kind="Demo/ComponentShowcase" story="Default" className="docs-link-button" style={{ marginTop: '1rem' }}>
+      Open Demo
+    </LinkTo>
+  </div>
+
+  <div className="docs-category-card">
+    <h3>DesktopShowcase</h3>
+    <p>GitHub Analytics desktop mockup.</p>
+    <ul>
+      <li>Realistic UI</li>
+      <li>Section components</li>
+      <li>Fullscreen mode</li>
+    </ul>
+    <LinkTo kind="Demo/DesktopShowcase" story="Default" className="docs-link-button" style={{ marginTop: '1rem' }}>
+      Open Demo
+    </LinkTo>
+  </div>
+</div>
+
+## Creating Custom Blocks
+
+Follow this pattern to create your own blocks:
+
+```tsx
+// MyCustomBlock.tsx
+import { GlassCard, ButtonGlass } from 'shadcn-glass-ui';
+
+interface MyCustomBlockProps {
+  title?: string;
+  className?: string;
+}
+
+export function MyCustomBlock({
+  title = 'My Block',
+  className,
+}: MyCustomBlockProps) {
+  return (
+    <GlassCard className={className}>
+      <h3 className="text-lg font-semibold mb-4">{title}</h3>
+
+      <div className="flex flex-wrap gap-4">
+        {/* Your components */}
+        <ButtonGlass variant="primary">Action 1</ButtonGlass>
+        <ButtonGlass variant="secondary">Action 2</ButtonGlass>
+      </div>
+    </GlassCard>
+  );
+}
+```
+
+## Next Steps
+
+<div className="docs-links-section">
+  <LinkTo kind="Demo/ComponentShowcase" story="Default" className="docs-link-button">
+    ComponentShowcase
+  </LinkTo>
+  <LinkTo kind="Demo/DesktopShowcase" story="Default" className="docs-link-button">
+    DesktopShowcase
+  </LinkTo>
+  <LinkTo kind="Introduction" className="docs-link-button">
+    Home
+  </LinkTo>
+</div>
