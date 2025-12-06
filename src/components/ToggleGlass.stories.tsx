@@ -135,34 +135,49 @@ export const DisabledChecked: Story = {
   },
 };
 
+const AllSizesDemo = () => {
+  const [sm, setSm] = useState(true);
+  const [md, setMd] = useState(true);
+  const [lg, setLg] = useState(true);
+
+  return (
+    <div className="flex flex-col gap-4">
+      <ToggleGlass size="sm" checked={sm} onChange={setSm} label="Small" />
+      <ToggleGlass size="md" checked={md} onChange={setMd} label="Medium" />
+      <ToggleGlass size="lg" checked={lg} onChange={setLg} label="Large" />
+    </div>
+  );
+};
+
 export const AllSizes: Story = {
   args: {
     checked: true,
   },
-  render: () => (
-    <div className="flex flex-col gap-4">
-      <ToggleGlass size="sm" checked label="Small" />
-      <ToggleGlass size="md" checked label="Medium" />
-      <ToggleGlass size="lg" checked label="Large" />
-    </div>
-  ),
+  render: () => <AllSizesDemo />,
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
   },
+};
+
+const AllStatesDemo = () => {
+  const [unchecked, setUnchecked] = useState(false);
+  const [checked, setChecked] = useState(true);
+
+  return (
+    <div className="flex flex-col gap-4">
+      <ToggleGlass checked={unchecked} onChange={setUnchecked} label="Unchecked" />
+      <ToggleGlass checked={checked} onChange={setChecked} label="Checked" />
+      <ToggleGlass checked={false} disabled label="Disabled unchecked" />
+      <ToggleGlass checked={true} disabled label="Disabled checked" />
+    </div>
+  );
 };
 
 export const AllStates: Story = {
   args: {
     checked: false,
   },
-  render: () => (
-    <div className="flex flex-col gap-4">
-      <ToggleGlass checked={false} label="Unchecked" />
-      <ToggleGlass checked={true} label="Checked" />
-      <ToggleGlass checked={false} disabled label="Disabled unchecked" />
-      <ToggleGlass checked={true} disabled label="Disabled checked" />
-    </div>
-  ),
+  render: () => <AllStatesDemo />,
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
   },

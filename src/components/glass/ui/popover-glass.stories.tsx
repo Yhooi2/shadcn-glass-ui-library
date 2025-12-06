@@ -54,9 +54,9 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    trigger: <ButtonGlass variant="ghost">Open Popover</ButtonGlass>,
+    trigger: <ButtonGlass variant="secondary">Open Popover</ButtonGlass>,
     children: (
-      <div className="w-64">
+      <div className="w-64 p-4">
         <h3 className="font-semibold text-white mb-2">Popover Title</h3>
         <p className="text-sm text-white/70">
           This is a simple popover with glass-themed styling.
