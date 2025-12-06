@@ -35,8 +35,8 @@ export const HeaderNavGlass = forwardRef<HTMLElement, HeaderNavGlassProps>(
     const headerStyles: CSSProperties = {
       background: "var(--header-bg)",
       borderColor: "var(--header-border)",
-      backdropFilter: "blur(16px)",
-      WebkitBackdropFilter: "blur(16px)",
+      backdropFilter: "blur(var(--blur-md))",
+      WebkitBackdropFilter: "blur(var(--blur-md))",
     };
 
     const iconBtnStyles: CSSProperties = {

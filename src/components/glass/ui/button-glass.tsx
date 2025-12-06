@@ -49,7 +49,7 @@ const getVariantStyles = (
         ? 'var(--focus-glow)'
         : isHovered
         ? 'var(--btn-primary-glow)'
-        : '0 4px 15px rgba(124,58,237,0.25)',
+        : '0 4px 15px oklch(48.5% 0.26 283 / 0.25)',
     },
     secondary: {
       background: isHovered
@@ -79,7 +79,7 @@ const getVariantStyles = (
         ? 'var(--focus-glow)'
         : isHovered
         ? 'var(--btn-destructive-glow)'
-        : '0 4px 15px rgba(239,68,68,0.25)',
+        : '0 4px 15px oklch(62.8% 0.225 29 / 0.25)',
     },
     success: {
       background: 'var(--btn-success-bg)',
@@ -89,7 +89,7 @@ const getVariantStyles = (
         ? 'var(--focus-glow)'
         : isHovered
         ? 'var(--btn-success-glow)'
-        : '0 4px 15px rgba(16,185,129,0.25)',
+        : '0 4px 15px oklch(70.7% 0.143 167 / 0.25)',
     },
     text: {
       background: 'transparent',
@@ -316,7 +316,7 @@ export const ButtonGlass = forwardRef<HTMLButtonElement, ButtonGlassProps>(
                 className="absolute inset-0 rounded-xl animate-glow-pulse pointer-events-none"
                 style={{
                   background:
-                    'radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%)',
+                    'radial-gradient(circle, oklch(100% 0 0 / 0.1) 0%, transparent 70%)',
                 }}
               />
             )}

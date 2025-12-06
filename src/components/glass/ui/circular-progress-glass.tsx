@@ -105,7 +105,7 @@ export const CircularProgressGlass = forwardRef<HTMLDivElement, CircularProgress
       thickness = 8,
       trackWidth = 8,
       color = 'violet',
-      trackColor = 'rgba(255, 255, 255, 0.1)',
+      trackColor = 'oklch(100% 0 0 / 0.1)',
       showLabel = true,
       label,
       labelColor,

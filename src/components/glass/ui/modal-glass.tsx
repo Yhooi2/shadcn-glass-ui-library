@@ -187,8 +187,8 @@ const ModalOverlay: FC<ModalOverlayProps> = ({ className }) => {
   const overlayStyles: CSSProperties = useMemo(
     () => ({
       background: 'var(--modal-overlay)',
-      backdropFilter: 'blur(8px)',
-      WebkitBackdropFilter: 'blur(8px)',
+      backdropFilter: 'blur(var(--blur-sm))',
+      WebkitBackdropFilter: 'blur(var(--blur-sm))',
       opacity: isClosing ? 0 : 1,
       transition: 'all 0.3s',
     }),
@@ -223,8 +223,8 @@ const ModalContent = forwardRef<HTMLDivElement, ModalContentProps>(
         background: 'var(--modal-bg)',
         border: '1px solid var(--modal-border)',
         boxShadow: 'var(--modal-glow)',
-        backdropFilter: 'blur(24px)',
-        WebkitBackdropFilter: 'blur(24px)',
+        backdropFilter: 'blur(var(--blur-lg))',
+        WebkitBackdropFilter: 'blur(var(--blur-lg))',
         transform: isClosing ? 'scale(0.95) translateY(10px)' : 'scale(1) translateY(0)',
         opacity: isClosing ? 0 : 1,
         animation: !isClosing ? 'modalFadeIn 0.3s ease-out' : 'none',
