@@ -5,22 +5,22 @@
 
 @theme {
   /* ========================================
-     BLUR SCALE
+     BLUR SCALE (per UI_DESIGN.md)
+     Standard blur values: sm(8px), md(16px), lg(24px), xl(32px)
      Base blur system - change --blur to adjust all blur levels globally
      Default: --blur: 16px (medium glass effect)
 
-     Examples:
-     - Subtle: --blur: 8px (less blurry)
-     - Medium (current): --blur: 16px
-     - Strong: --blur: 24px (more blurry)
-     - Extra strong: --blur: 32px (very blurry)
+     Blur progression follows 8px increments:
+     - sm: 8px (subtle glass effect)
+     - md: 16px (standard cards/panels)
+     - lg: 24px (overlays/modals)
+     - xl: 32px (heavy background treatment)
      ======================================== */
   --blur: 16px; /* Base value - controls all derived blur levels */
-  --blur-xs: calc(var(--blur) * 0.25); /* base * 0.25 = 4px default */
-  --blur-sm: calc(var(--blur) * 0.5); /* base * 0.5 = 8px default */
-  --blur-md: var(--blur); /* base = 16px default */
-  --blur-lg: calc(var(--blur) * 1.5); /* base * 1.5 = 24px default */
-  --blur-xl: calc(var(--blur) * 2); /* base * 2 = 32px default */
+  --blur-sm: calc(var(--blur) * 0.5); /* base * 0.5 = 8px */
+  --blur-md: var(--blur); /* base = 16px */
+  --blur-lg: calc(var(--blur) * 1.5); /* base * 1.5 = 24px */
+  --blur-xl: calc(var(--blur) * 2); /* base * 2 = 32px */
   --blur-glass: var(--blur-lg); /* Default for glass components */
 
   /* ========================================

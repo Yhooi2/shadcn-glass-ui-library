@@ -34,7 +34,7 @@ export const TooltipGlass = forwardRef<HTMLDivElement, TooltipGlassProps>(
     const { isHovered, hoverProps } = useHover();
     const tooltipId = useId();
 
-    // Solid tooltip design per UI_DIZINE.md - tooltips should NOT use glass effect
+    // Solid tooltip design per UI_DESIGN.md - tooltips should NOT use glass effect
     // for maximum readability (line 380: "Tooltips should use solid backgrounds")
     const tooltipStyles: CSSProperties = {
       background: 'var(--tooltip-bg)',

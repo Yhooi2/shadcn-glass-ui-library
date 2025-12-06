@@ -25,10 +25,10 @@ import type { GlowType, IntensityType, PaddingType } from '@/lib/variants/glass-
 // ========================================
 // BLUR MAP
 // ========================================
-// Per UI_DIZINE.md design tokens:
-// - subtle: 8px (sm token) - light glass effect
-// - medium: 16px (md token) - standard cards (was 12px - breaking change)
-// - strong: 24px (lg token) - featured cards (was 16px - breaking change)
+// Per UI_DESIGN.md design tokens:
+// - subtle: 8px (--glass-blur-sm) - light glass effect
+// - medium: 16px (--glass-blur-md) - standard cards (was 12px - breaking change)
+// - strong: 24px (--glass-blur-lg) - featured cards (was 16px - breaking change)
 
 const blurMap: Record<IntensityType, string> = {
   subtle: 'var(--blur-sm)',   // 8px

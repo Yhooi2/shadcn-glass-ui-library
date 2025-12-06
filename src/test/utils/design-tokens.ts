@@ -1,7 +1,7 @@
 /**
  * Design System Token Definitions
  *
- * Based on UI_DIZINE.md specifications for glassmorphism design system.
+ * Based on UI_DESIGN.md specifications for glassmorphism design system.
  * These tokens define the authoritative values for spacing, typography,
  * color, blur, opacity, and component-specific dimensions.
  */

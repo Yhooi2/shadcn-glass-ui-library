@@ -132,24 +132,31 @@ function ThemeSwitcher() {
   dark
 />
 
-## Glass Effect Variants
+## Glass Effect Intensity
 
-Each component supports different intensity levels:
+GlassCard supports three intensity levels for customizable blur effects:
 
 <Source
   code={`// Glass effect intensity levels
-<GlassCard intensity="subtle">Subtle effect</GlassCard>
-<GlassCard intensity="medium">Standard effect</GlassCard>
-<GlassCard intensity="strong">Strong effect</GlassCard>
+<GlassCard intensity="subtle">
+  Subtle effect (8px blur)
+</GlassCard>
 
-// Glass style variants
-<GlassCard variant="glass">Standard glass</GlassCard>
-<GlassCard variant="frosted">Frosted glass</GlassCard>
-<GlassCard variant="fluted">Fluted glass</GlassCard>
-<GlassCard variant="crystal">Crystal glass</GlassCard>`}
+<GlassCard intensity="medium">
+  Standard effect (16px blur - default)
+</GlassCard>
+
+<GlassCard intensity="strong">
+  Strong effect (24px blur)
+</GlassCard>`}
   language="tsx"
   dark
 />
+
+**Intensity levels:**
+- `subtle` - 8px blur (--blur-sm) - Light glass effect
+- `medium` - 16px blur (--blur-md) - Standard cards (default)
+- `strong` - 24px blur (--blur-lg) - Featured cards
 
 ## shadcn/ui Compatibility
 

@@ -333,7 +333,7 @@
   --card-hover-bg: oklch(100% 0 0 / 0.07);
   --card-hover-border: oklch(100% 0 0 / 0.15);
   --card-hover-glow: 0 0 20px oklch(66.6% 0.159 303 / 0.25);
-  /* Card opacity per UI_DIZINE.md STANDARD_CARDS range (15-25%) */
+  /* Card opacity per UI_DESIGN.md STANDARD_CARDS range (15-25%) */
   --card-subtle-bg: oklch(100% 0 0 / 0.08);
   --card-subtle-border: oklch(100% 0 0 / 0.10);
   --card-medium-bg: oklch(100% 0 0 / 0.15);

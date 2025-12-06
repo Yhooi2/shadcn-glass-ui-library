@@ -247,12 +247,16 @@ accent and focus states.
 
 ### Blur value recommendations
 
-| Token             | Value | Use Case                   | Performance   |
-| ----------------- | ----- | -------------------------- | ------------- |
-| `--glass-blur-sm` | 8px   | Subtle glass effect        | Good          |
-| `--glass-blur-md` | 16px  | Standard cards/panels      | Moderate      |
-| `--glass-blur-lg` | 24px  | Overlays/modals            | Moderate      |
-| `--glass-blur-xl` | 32px  | Heavy background treatment | Use sparingly |
+Blur values follow 8px increments for consistent progression:
+
+| Token        | Value | Use Case                   | Performance   |
+| ------------ | ----- | -------------------------- | ------------- |
+| `--blur-sm`  | 8px   | Subtle glass effect        | Good          |
+| `--blur-md`  | 16px  | Standard cards/panels      | Moderate      |
+| `--blur-lg`  | 24px  | Overlays/modals            | Moderate      |
+| `--blur-xl`  | 32px  | Heavy background treatment | Use sparingly |
+
+**Note:** These tokens are defined in `src/styles/tokens/primitives.css` using Tailwind CSS 4 `@theme` directive.
 
 ### Border specifications
 
@@ -591,10 +595,10 @@ Never animate `box-shadow` directly—it triggers paint on every frame. Instead:
   --shadow-glow-secondary: 0 0 40px rgba(168, 85, 247, 0.35), 0 0 80px rgba(168, 85, 247, 0.15);
 
   /* ========== GLASSMORPHISM ========== */
-  --glass-blur-sm: 8px;
-  --glass-blur-md: 16px;
-  --glass-blur-lg: 24px;
-  --glass-blur-xl: 32px;
+  --blur-sm: 8px;   /* Subtle glass effect */
+  --blur-md: 16px;  /* Standard cards/panels */
+  --blur-lg: 24px;  /* Overlays/modals */
+  --blur-xl: 32px;  /* Heavy background treatment */
   --glass-opacity-surface: 0.2;
   --glass-opacity-overlay: 0.4;
   --glass-border-width: 1px;

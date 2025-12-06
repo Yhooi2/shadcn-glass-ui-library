@@ -10,7 +10,7 @@
 @utility glass {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
-  border-top-color: oklch(100% 0 0 / 0.35); /* Top edge shine per UI_DIZINE.md */
+  border-top-color: oklch(100% 0 0 / 0.35); /* Top edge shine per UI_DESIGN.md */
   backdrop-filter: blur(var(--blur-md)) saturate(180%);
   -webkit-backdrop-filter: blur(var(--blur-md)) saturate(180%);
 }
@@ -41,7 +41,7 @@
 
 /* ========================================
    FALLBACK FOR BROWSERS WITHOUT BACKDROP-FILTER
-   Per UI_DIZINE.md: provide solid background fallback
+   Per UI_DESIGN.md: provide solid background fallback
    ======================================== */
 
 /* Fallback styles applied when backdrop-filter is NOT supported */
@@ -255,7 +255,7 @@
    TEXT UTILITIES
    ======================================== */
 
-/* Text shadow for enhanced readability on glass backgrounds (UI_DIZINE.md) */
+/* Text shadow for enhanced readability on glass backgrounds (UI_DESIGN.md) */
 .text-shadow-glass {
   text-shadow: var(--text-shadow-glass);
   /* 0 1px 2px rgba(0,0,0,0.4), 0 2px 6px rgba(0,0,0,0.2) */

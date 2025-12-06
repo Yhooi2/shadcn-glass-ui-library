@@ -29,7 +29,7 @@ export const buttonGlassVariants = cva(
       },
       size: {
         // All sizes include min-h for touch target compliance (Apple HIG: 44px minimum)
-        // Border radius per UI_DIZINE.md: sm/md=8px, lg=12px
+        // Border radius per UI_DESIGN.md: sm/md=8px, lg=12px
         sm: 'px-3 py-1.5 text-sm gap-1.5 min-h-[44px] rounded-md',     // 8px radius
         md: 'px-4 py-2.5 text-sm gap-2 min-h-[44px] rounded-md',       // 8px radius
         lg: 'px-6 py-3 text-base gap-2.5 min-h-[48px] rounded-lg',     // 12px radius

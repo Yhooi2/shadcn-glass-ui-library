@@ -14,13 +14,13 @@ Modern glassmorphism UI component library for React with full shadcn/ui compatib
 
 ## ✨ Highlights
 
-- 🎨 **48 Components** - Core UI (16) + Atomic (4) + Composites (5) + Sections (6) + Blocks (6) + New (11)
+- 🎨 **55 Components** - Core UI (18) + Atomic (6) + Composite (13) + Sections (7) + Specialized (8) + Primitives (3)
 - 🌈 **3 Themes** - Glass (dark glassmorphism), Light (clean minimal), Aurora (gradient glow)
 - 🔮 **Advanced Patterns** - asChild polymorphic rendering, Compound components (Modal, Tabs)
 - ♿ **WCAG 2.1 AA** - Full accessibility compliance with automated testing
 - 📱 **Touch Optimized** - 44×44px minimum touch targets (Apple HIG)
 - ⚡ **Modern Stack** - React 19, Tailwind v4, Vitest 4, Storybook 10, Vite 7
-- 🧪 **704 Tests** - 125 unit tests + 579 visual regression (99.5% passing)
+- 🧪 **1355+ Tests** - 650+ compliance + 580 visual regression + 125 unit tests
 - 📦 **shadcn Compatible** - Works seamlessly with existing shadcn/ui projects
 - 🎯 **Design System** - Comprehensive [UI_DESIGN.md](docs/design-system/UI_DESIGN.md) specifications
 - 📦 **Bundle Size** - ~110KB gzipped (production build)
@@ -298,12 +298,12 @@ See [CHANGELOG.md](CHANGELOG.md) for complete version history and breaking chang
 
 ## 🎯 Component Categories
 
-### Level 1: Core UI (17 components)
+### Level 1: Core UI (18 components)
 
 Essential building blocks for any application:
 
-- **Buttons & Actions**: ButtonGlass, IconButtonGlass
-- **Inputs**: InputGlass, CheckboxGlass, ToggleGlass, SliderGlass, ComboBoxGlass
+- **Buttons & Actions**: ButtonGlass
+- **Inputs**: InputGlass, CheckboxGlass, ToggleGlass, SliderGlass, ComboBoxGlass, PopoverGlass
 - **Containers**: GlassCard, ModalGlass
 - **Navigation**: TabsGlass, DropdownGlass
 - **Feedback**: BadgeGlass, AlertGlass, NotificationGlass, TooltipGlass, SkeletonGlass,
@@ -312,19 +312,16 @@ Essential building blocks for any application:
 
 [View all Core UI components →](src/components/glass/ui/)
 
-### Level 2: Atomic (9 components)
+### Level 2: Atomic (6 components)
 
 Small, specialized components for specific use cases:
 
-- **StatusIndicatorGlass** - Status dots with glow effect
-- **SegmentedControlGlass** - Segmented button group
-- **RainbowProgressGlass** - Rainbow gradient progress bar
-- **LanguageBarGlass** - Language proficiency bar with legend
-- **StatItemGlass** - Individual stat display
 - **SearchBoxGlass** - Search input with icon
 - **ThemeToggleGlass** - Theme switcher button
 - **ExpandableHeaderGlass** - Collapsible header section
 - **SortDropdownGlass** - Sorting dropdown menu
+- **StatItemGlass** - Individual stat display
+- **IconButtonGlass** - Icon-only button variant
 
 [View all Atomic components →](src/components/glass/atomic/)
 
@@ -332,21 +329,36 @@ Small, specialized components for specific use cases:
 
 Pre-built complex components combining multiple elements:
 
+- **AICardGlass** - AI summary card with feature list
 - **MetricCardGlass** - Metric display card with progress indicator
 - **YearCardGlass** - Year card for career timeline
-- **AICardGlass** - AI summary card with feature list
+- **CircularMetricGlass** - Circular progress metric display
 - **RepositoryCardGlass** - Repository card with expandable details
+- **RepositoryHeaderGlass** - Repository header with metadata
+- **RepositoryMetadataGlass** - Repository metadata display
 - **TrustScoreDisplayGlass** - Trust score with visual indicator
-- **ProfileAvatarGlass** - Large avatar with glow animation
-- **FlagAlertGlass** - Warning/danger flag alert with icon
 - **UserStatsLineGlass** - User statistics horizontal display
-- **ProjectCardGlass** - Project card with status and metadata
-- **TeamMemberCardGlass** - Team member profile card
-- **NotificationCardGlass** - Notification card with actions
-- **TimelineItemGlass** - Timeline entry with connector
-- **PricingCardGlass** - Pricing tier card with features
+- **UserInfoGlass** - User information card
+- **CareerStatsHeaderGlass** - Career statistics header
+- **ContributionMetricsGlass** - Contribution metrics display
+- **MetricsGridGlass** - Grid layout for metrics
 
 [View all Composite components →](src/components/glass/composite/)
+
+### Specialized Components (8 components)
+
+Advanced specialized components for specific use cases:
+
+- **StatusIndicatorGlass** - Status dots with glow effect
+- **SegmentedControlGlass** - Segmented button group
+- **RainbowProgressGlass** - Rainbow gradient progress bar
+- **LanguageBarGlass** - Language proficiency bar with legend
+- **ProfileAvatarGlass** - Large avatar with glow animation
+- **FlagAlertGlass** - Warning/danger flag alert with icon
+- **ProgressGlass** - Enhanced progress bar
+- **BaseProgressGlass** - Base progress component
+
+[View all Specialized components →](src/components/glass/specialized/)
 
 ### Level 4: Sections (7 components)
 
@@ -362,25 +374,28 @@ Full-page sections ready to use in your application:
 
 [View all Section components →](src/components/glass/sections/)
 
-### Blocks (6 ready-to-use sections)
+### Blocks (6 ready-to-use demo sections)
 
-Complete component showcases following shadcn/ui pattern:
+Complete component showcases following shadcn/ui pattern - these are demo/documentation components, not production-ready blocks:
 
-- **ButtonsBlock** - All button variants, sizes, states
+- **ButtonsBlock** - All button variants, sizes, states demo
 - **FormElementsBlock** - Input, Slider, Toggle, Checkbox demos
-- **ProgressBlock** - Progress bars, RainbowProgress, Skeletons
-- **AvatarGalleryBlock** - Avatar sizes and status indicators
-- **BadgesBlock** - Badge variants with tooltips
-- **NotificationsBlock** - Notifications and alerts
+- **ProgressBlock** - Progress bars, RainbowProgress, Skeletons demo
+- **AvatarGalleryBlock** - Avatar sizes and status indicators demo
+- **BadgesBlock** - Badge variants with tooltips demo
+- **NotificationsBlock** - Notifications and alerts demo
 
-[View all Blocks →](src/components/blocks/)
+**Note:** Blocks are showcase/demo components visible in Storybook. For production use, utilize individual components from the categories above.
 
-### Demo Pages (2 full applications)
+[View Blocks in Storybook →](https://yhooi2.github.io/shadcn-glass-ui-library/?path=/story/glass-blocks--default)
 
-Complete application examples:
+### Demo Pages (3 full applications)
 
-- **ComponentShowcase** - Interactive demo of all 57 core components
+Complete application examples showcasing all components:
+
+- **ComponentShowcase** - Interactive demo of all 55 components with theme switching
 - **DesktopShowcase** - GitHub Analytics desktop application mockup with glassmorphism design
+- **MobileShowcase** - Mobile-optimized GitHub profile view with responsive layout
 
 [Try live demos →](https://yhooi2.github.io/shadcn-glass-ui-library/)
 
@@ -466,23 +481,33 @@ function ThemeSwitcher() {
 }
 ```
 
-## 🔮 Glass Effect Variants
+## 🔮 Glass Effect Intensity
 
-Each GlassCard supports 4 glass effect variants:
+GlassCard supports 3 intensity levels for customizable blur effects:
 
 ```tsx
-// Standard glassmorphism (16px blur)
-<GlassCard variant="glass">Standard Glass</GlassCard>
+// Subtle glass effect (8px blur)
+<GlassCard intensity="subtle">
+  Subtle Effect
+</GlassCard>
 
-// Heavy frosted effect (32px blur)
-<GlassCard variant="frosted">Frosted Glass</GlassCard>
+// Standard glassmorphism (16px blur - default)
+<GlassCard intensity="medium">
+  Standard Glass
+</GlassCard>
 
-// Vertical streaks effect
-<GlassCard variant="fluted">Fluted Glass</GlassCard>
-
-// Diamond-cut reflections
-<GlassCard variant="crystal">Crystal Glass</GlassCard>
+// Strong glass effect (24px blur)
+<GlassCard intensity="strong">
+  Strong Effect
+</GlassCard>
 ```
+
+**Intensity Levels:**
+- `subtle` - 8px blur (--blur-sm) - Light glass effect
+- `medium` - 16px blur (--blur-md) - Standard cards (default)
+- `strong` - 24px blur (--blur-lg) - Featured cards
+
+**Performance Note:** Use sparingly - limit to 2-3 glass elements per view for optimal performance.
 
 ## ♿ Accessibility
 
@@ -498,7 +523,7 @@ All components are WCAG 2.1 AA compliant:
 ### Automated Testing
 
 ```bash
-npm run test:compliance        # Design system compliance (647 tests)
+npm run test:compliance        # Design system compliance (650+ tests)
 npm run test:compliance:browser # Browser-based a11y tests
 ```
 
@@ -539,18 +564,18 @@ Comprehensive test coverage across multiple layers:
 ### Test Suites
 
 ```bash
-# All tests (2,127 total)
+# All tests (1,355+ total)
 npm test
 
-# Design system compliance (647 tests)
+# Design system compliance (650+ tests)
 npm run test:compliance:run          # jsdom tests
 npm run test:compliance:browser:run  # browser tests
 
-# Visual regression (1,480 screenshots)
+# Visual regression (580 screenshots)
 npm run test:visual:ci              # Run visual tests
 npm run test:visual:update          # Update baselines
 
-# Unit tests (110 tests)
+# Unit tests (125 tests)
 npm run test:unit
 
 # Coverage report (90% target)
@@ -559,12 +584,12 @@ npm run test:coverage
 
 ### Test Categories
 
-| Category                     | Tests     | Coverage          |
-| ---------------------------- | --------- | ----------------- |
-| **Design System Compliance** | 647       | 100%              |
-| **Visual Regression**        | 1,480     | All components    |
-| **Unit Tests**               | 110       | 13.87% (growing)  |
-| **Total**                    | **2,127** | **Comprehensive** |
+| Category                     | Tests      | Coverage          |
+| ---------------------------- | ---------- | ----------------- |
+| **Design System Compliance** | 650+       | 100%              |
+| **Visual Regression**        | 580        | All components    |
+| **Unit Tests**               | 125        | Core utilities    |
+| **Total**                    | **1,355+** | **Comprehensive** |
 
 ## 🛠️ Development
 

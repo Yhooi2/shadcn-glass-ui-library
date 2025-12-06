@@ -34,7 +34,7 @@ describe('Blur Compliance Tests - JSDOM Safe', () => {
       expect(BLUR_TOKENS.MAX_DESKTOP).toBe(24);
     });
 
-    it('component specs match UI_DIZINE.md', () => {
+    it('component specs match UI_DESIGN.md', () => {
       // Card default blur should be md (16px)
       expect(COMPONENT_SPECS.CARD.default.blur).toBe(16);
 

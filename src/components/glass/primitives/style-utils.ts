@@ -187,7 +187,7 @@ export function getStateBorderColor(
 // ============================================
 
 /**
- * Standard blur values from design system (UI_DIZINE.md)
+ * Standard blur values from design system (UI_DESIGN.md)
  *
  * - sm: 8px (subtle effects, close to surface)
  * - md: 16px (standard glassmorphism)
