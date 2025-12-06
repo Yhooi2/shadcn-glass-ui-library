@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.2] - 2025-12-06
+
+### 📚 Documentation
+
+- Updated Storybook documentation with LinkTo components for improved navigation
+- Added comprehensive documentation for Blocks, Composite, Core, and Section components
+- Implemented custom Glass UI theme for Storybook Manager
+- Added Design System and Getting Started guides in Storybook
+
+### 🔧 Maintenance
+
+- Updated GitHub Actions workflow to use OIDC publishing (no auth token needed)
+- Fixed npm publish workflow to explicitly set registry URL
+- Improved package.json metadata with correct registry configuration
+
+## [1.0.1] - 2025-12-05
+
+### 🚀 Initial Public Release
+
+- First public release to npm registry
+- Added registry system for shadcn CLI compatibility
+- Added registry submission guide and CI/CD automation
+- Added git hook to prevent committing non-Linux screenshots
+
 ## [1.0.0] - 2025-12-05
 
 ### ⚠️ BREAKING CHANGES
