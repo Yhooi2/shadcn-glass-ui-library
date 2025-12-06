@@ -57,8 +57,8 @@ export const Default: Story = {
     trigger: <ButtonGlass variant="secondary">Open Popover</ButtonGlass>,
     children: (
       <div className="w-64 p-4">
-        <h3 className="font-semibold text-white mb-2">Popover Title</h3>
-        <p className="text-sm text-white/70">
+        <h3 className="font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>Popover Title</h3>
+        <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
           This is a simple popover with glass-themed styling.
         </p>
       </div>
@@ -81,7 +81,7 @@ export const WithForm: Story = {
     ),
     children: (
       <div className="w-72 space-y-4">
-        <h3 className="font-semibold text-white mb-2">Quick Settings</h3>
+        <h3 className="font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>Quick Settings</h3>
         <InputGlass
           label="Username"
           placeholder="Enter username"
@@ -127,7 +127,7 @@ export const Positions: Story = {
         side="top"
       >
         <div className="p-2">
-          <p className="text-sm text-white">Top position</p>
+          <p className="text-sm" style={{ color: 'var(--text-primary)' }}>Top position</p>
         </div>
       </PopoverGlass>
 
@@ -136,7 +136,7 @@ export const Positions: Story = {
         side="right"
       >
         <div className="p-2">
-          <p className="text-sm text-white">Right position</p>
+          <p className="text-sm" style={{ color: 'var(--text-primary)' }}>Right position</p>
         </div>
       </PopoverGlass>
 
@@ -145,7 +145,7 @@ export const Positions: Story = {
         side="bottom"
       >
         <div className="p-2">
-          <p className="text-sm text-white">Bottom position</p>
+          <p className="text-sm" style={{ color: 'var(--text-primary)' }}>Bottom position</p>
         </div>
       </PopoverGlass>
 
@@ -154,7 +154,7 @@ export const Positions: Story = {
         side="left"
       >
         <div className="p-2">
-          <p className="text-sm text-white">Left position</p>
+          <p className="text-sm" style={{ color: 'var(--text-primary)' }}>Left position</p>
         </div>
       </PopoverGlass>
     </div>
@@ -188,7 +188,7 @@ export const Alignments: Story = {
         align="start"
       >
         <div className="w-48 p-2">
-          <p className="text-sm text-white">Aligned to start</p>
+          <p className="text-sm" style={{ color: 'var(--text-primary)' }}>Aligned to start</p>
         </div>
       </PopoverGlass>
 
@@ -198,7 +198,7 @@ export const Alignments: Story = {
         align="center"
       >
         <div className="w-48 p-2">
-          <p className="text-sm text-white">Aligned to center</p>
+          <p className="text-sm" style={{ color: 'var(--text-primary)' }}>Aligned to center</p>
         </div>
       </PopoverGlass>
 
@@ -208,7 +208,7 @@ export const Alignments: Story = {
         align="end"
       >
         <div className="w-48 p-2">
-          <p className="text-sm text-white">Aligned to end</p>
+          <p className="text-sm" style={{ color: 'var(--text-primary)' }}>Aligned to end</p>
         </div>
       </PopoverGlass>
     </div>
@@ -238,8 +238,8 @@ export const Controlled: Story = {
           onOpenChange={setOpen}
         >
           <div className="w-64">
-            <h3 className="font-semibold text-white mb-2">Controlled State</h3>
-            <p className="text-sm text-white/70 mb-4">
+            <h3 className="font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>Controlled State</h3>
+            <p className="text-sm mb-4" style={{ color: 'var(--text-secondary)' }}>
               This popover is controlled by external state.
             </p>
             <ButtonGlass
@@ -252,7 +252,7 @@ export const Controlled: Story = {
           </div>
         </PopoverGlass>
 
-        <p className="text-sm text-white/50">
+        <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
           Open: {open ? "true" : "false"}
         </p>
       </div>
@@ -272,8 +272,8 @@ export const NoArrow: Story = {
     trigger: <ButtonGlass variant="ghost">No Arrow</ButtonGlass>,
     children: (
       <div className="w-64">
-        <h3 className="font-semibold text-white mb-2">No Arrow</h3>
-        <p className="text-sm text-white/70">
+        <h3 className="font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>No Arrow</h3>
+        <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
           This popover has no arrow pointer.
         </p>
       </div>
@@ -296,8 +296,8 @@ export const OpenedDefault: Story = {
     trigger: <ButtonGlass variant="ghost">Open Popover</ButtonGlass>,
     children: (
       <div className="w-64">
-        <h3 className="font-semibold text-white mb-2">Glass Popover</h3>
-        <p className="text-sm text-white/70">
+        <h3 className="font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>Glass Popover</h3>
+        <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
           Glass background with backdrop blur effect.
         </p>
       </div>
@@ -339,16 +339,21 @@ export const OpenedWithForm: Story = {
     ),
     children: (
       <div className="w-80 space-y-4">
-        <h3 className="font-semibold text-white mb-2">Need Help?</h3>
+        <h3 className="font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>Need Help?</h3>
         <InputGlass
           label="Subject"
           placeholder="What do you need help with?"
           size="sm"
         />
         <div className="space-y-2">
-          <label className="text-sm text-white/70">Message</label>
+          <label className="text-sm" style={{ color: 'var(--text-secondary)' }}>Message</label>
           <textarea
-            className="w-full px-3 py-2 rounded-lg text-sm text-white bg-white/5 border border-white/10 focus:border-purple-400 focus:outline-none resize-none"
+            className="w-full px-3 py-2 rounded-lg text-sm focus:outline-none resize-none"
+            style={{
+              color: 'var(--text-primary)',
+              background: 'var(--input-bg)',
+              border: '1px solid var(--input-border)',
+            }}
             rows={3}
             placeholder="Describe your issue..."
           />
@@ -386,10 +391,10 @@ export const OpenedTopPosition: Story = {
     children: (
       <div className="w-56">
         <div className="flex items-center gap-2 mb-2">
-          <Info className="w-4 h-4 text-purple-400" />
-          <h3 className="font-semibold text-white">Info</h3>
+          <Info className="w-4 h-4" style={{ color: 'var(--text-accent)' }} />
+          <h3 className="font-semibold" style={{ color: 'var(--text-primary)' }}>Info</h3>
         </div>
-        <p className="text-sm text-white/70">
+        <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
           Popover positioned above trigger.
         </p>
       </div>

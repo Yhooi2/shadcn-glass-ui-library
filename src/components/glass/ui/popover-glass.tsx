@@ -16,7 +16,10 @@
  *   side="top"
  *   align="center"
  * >
- *   <div className="p-4">Popover content</div>
+ *   <div className="p-4">
+ *     <h3 style={{ color: 'var(--text-primary)' }}>Title</h3>
+ *     <p style={{ color: 'var(--text-secondary)' }}>Content</p>
+ *   </div>
  * </PopoverGlass>
  * ```
  */
@@ -98,7 +101,7 @@ export const PopoverGlass = React.forwardRef<
             align={align}
             sideOffset={sideOffset}
             className={cn(
-              'z-[50003] rounded-2xl p-4',
+              'z-[50003] rounded-2xl',
               'animate-in fade-in-0 zoom-in-95 duration-200',
               'data-[side=bottom]:slide-in-from-top-2',
               'data-[side=top]:slide-in-from-bottom-2',
