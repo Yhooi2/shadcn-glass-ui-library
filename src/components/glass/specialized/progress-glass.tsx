@@ -48,7 +48,7 @@ export const ProgressGlass = forwardRef<HTMLDivElement, ProgressGlassProps>(
     {
       className,
       size = 'md',
-      value,
+      value = 0,
       gradient = 'violet',
       showLabel,
       ...props
@@ -56,7 +56,7 @@ export const ProgressGlass = forwardRef<HTMLDivElement, ProgressGlassProps>(
     ref
   ) => {
     const clampedValue = Math.min(100, Math.max(0, value));
-    const gradientColors = getGradientColors(gradient);
+    const gradientColors = getGradientColors(gradient ?? 'violet');
 
     const trackStyles: CSSProperties = {
       background: 'var(--progress-bg)',

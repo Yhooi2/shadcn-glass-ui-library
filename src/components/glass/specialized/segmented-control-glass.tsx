@@ -18,11 +18,16 @@ export interface SegmentedControlGlassProps extends Omit<React.HTMLAttributes<HT
 }
 
 export const SegmentedControlGlass = forwardRef<HTMLDivElement, SegmentedControlGlassProps>(
-  ({ options, value, onChange, className, ...props }, ref) => {
+  ({ options = [], value, onChange, className, ...props }, ref) => {
     const containerStyles: CSSProperties = {
       border: "1px solid var(--segmented-container-border)",
       background: "var(--segmented-container-bg)",
     };
+
+    // Early return if no options provided
+    if (!options || options.length === 0) {
+      return null;
+    }
 
     return (
       <div

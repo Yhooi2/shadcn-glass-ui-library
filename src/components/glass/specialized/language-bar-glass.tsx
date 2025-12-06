@@ -32,12 +32,17 @@ const defaultLangColors: Record<string, string> = {
 };
 
 export const LanguageBarGlass = forwardRef<HTMLDivElement, LanguageBarGlassProps>(
-  ({ languages, showLegend = true, className, ...props }, ref) => {
+  ({ languages = [], showLegend = true, className, ...props }, ref) => {
     const [hoveredLang, setHoveredLang] = useState<number | null>(null);
 
     const barStyles: CSSProperties = {
       boxShadow: "var(--rainbow-glow)",
     };
+
+    // Early return if no languages provided
+    if (!languages || languages.length === 0) {
+      return null;
+    }
 
     return (
       <div ref={ref} className={cn("w-full", className)} {...props}>
