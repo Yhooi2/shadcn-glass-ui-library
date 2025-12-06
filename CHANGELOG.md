@@ -5,6 +5,51 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.8] - 2025-12-06
+
+### 📚 Documentation
+
+**Major CLAUDE.md Restructure - AI-Friendly Documentation:**
+- Added **Quick Commands Cheatsheet** at the top for instant reference
+- Added **Common Tasks for AI** section with step-by-step workflows:
+  - Adding new Glass components
+  - Fixing visual regression tests
+  - Migrating to compound API
+  - Adding new themes
+- Added **File Organization Map** with visual directory structure
+- Added **Component Anatomy Pattern** with code examples
+- Added **Theme System Quick Reference** with usage examples
+- Added **Testing Strategy** section with comprehensive table and workflow
+- Added **Architecture Decisions** explaining technology choices:
+  - Why Vite 7 (rolldown-vite)
+  - Why Compound Components
+  - Why Visual Regression on Linux only
+  - Why CVA for variants
+  - Why asChild pattern
+- Added **AI Assistant Guidelines** with DO/DO NOT lists
+- Added comprehensive **Troubleshooting** section:
+  - Visual tests fail on macOS
+  - Stale visual test baselines after merge
+  - TypeScript errors after npm install
+  - Storybook fails to start
+  - Component not appearing in Storybook
+  - Module not found errors
+  - Component variants not applying
+  - Performance regressions
+  - Linting errors
+- Reorganized **Glass Components Structure** for better readability
+- Enhanced commands with `npm run lint:fix` and `npm run typecheck`
+
+**Goal:** AI assistants can now understand any typical task in 10 seconds.
+
+### 🎯 Benefits
+
+- **Faster onboarding** for AI tools (Claude Code, GitHub Copilot, etc.)
+- **Clear decision context** - understand WHY technologies were chosen
+- **Quick troubleshooting** - common issues solved in seconds
+- **Better task planning** - step-by-step workflows for all common tasks
+- **Reduced confusion** - explicit DO/DO NOT guidelines
+
 ## [1.0.7] - 2025-12-06
 
 ### 🔄 Changed
