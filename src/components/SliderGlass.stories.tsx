@@ -166,20 +166,30 @@ export const MaxValue: Story = {
   },
 };
 
+const AllStatesDemo = () => {
+  const [empty, setEmpty] = useState(0);
+  const [quarter, setQuarter] = useState(25);
+  const [half, setHalf] = useState(50);
+  const [threeQuarters, setThreeQuarters] = useState(75);
+  const [full, setFull] = useState(100);
+
+  return (
+    <div className="flex flex-col gap-6 w-80">
+      <SliderGlass value={empty} onChange={setEmpty} label="Empty" showValue />
+      <SliderGlass value={quarter} onChange={setQuarter} label="Quarter" showValue />
+      <SliderGlass value={half} onChange={setHalf} label="Half" showValue />
+      <SliderGlass value={threeQuarters} onChange={setThreeQuarters} label="Three quarters" showValue />
+      <SliderGlass value={full} onChange={setFull} label="Full" showValue />
+      <SliderGlass value={50} onChange={() => {}} label="Disabled" showValue disabled />
+    </div>
+  );
+};
+
 export const AllStates: Story = {
   args: {
     value: 50,
   },
-  render: () => (
-    <div className="flex flex-col gap-6 w-80">
-      <SliderGlass value={0} onChange={() => {}} label="Empty" showValue />
-      <SliderGlass value={25} onChange={() => {}} label="Quarter" showValue />
-      <SliderGlass value={50} onChange={() => {}} label="Half" showValue />
-      <SliderGlass value={75} onChange={() => {}} label="Three quarters" showValue />
-      <SliderGlass value={100} onChange={() => {}} label="Full" showValue />
-      <SliderGlass value={50} onChange={() => {}} label="Disabled" showValue disabled />
-    </div>
-  ),
+  render: () => <AllStatesDemo />,
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
   },

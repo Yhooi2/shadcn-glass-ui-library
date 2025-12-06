@@ -16,39 +16,50 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  render: () => (
-    <TabsGlass.Root value="tab1" onValueChange={fn()}>
+const DefaultDemo = () => {
+  const [value, setValue] = useState("tab1");
+  return (
+    <TabsGlass.Root value={value} onValueChange={setValue}>
       <TabsGlass.List>
         <TabsGlass.Trigger value="tab1">Overview</TabsGlass.Trigger>
         <TabsGlass.Trigger value="tab2">Features</TabsGlass.Trigger>
         <TabsGlass.Trigger value="tab3">Settings</TabsGlass.Trigger>
       </TabsGlass.List>
     </TabsGlass.Root>
-  ),
+  );
+};
+
+export const Default: Story = {
+  render: () => <DefaultDemo />,
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
   },
+};
+
+const SecondTabActiveDemo = () => {
+  const [value, setValue] = useState("tab2");
+  return (
+    <TabsGlass.Root value={value} onValueChange={setValue}>
+      <TabsGlass.List>
+        <TabsGlass.Trigger value="tab1">Overview</TabsGlass.Trigger>
+        <TabsGlass.Trigger value="tab2">Features</TabsGlass.Trigger>
+        <TabsGlass.Trigger value="tab3">Settings</TabsGlass.Trigger>
+      </TabsGlass.List>
+    </TabsGlass.Root>
+  );
 };
 
 export const SecondTabActive: Story = {
-  render: () => (
-    <TabsGlass.Root value="tab2" onValueChange={fn()}>
-      <TabsGlass.List>
-        <TabsGlass.Trigger value="tab1">Overview</TabsGlass.Trigger>
-        <TabsGlass.Trigger value="tab2">Features</TabsGlass.Trigger>
-        <TabsGlass.Trigger value="tab3">Settings</TabsGlass.Trigger>
-      </TabsGlass.List>
-    </TabsGlass.Root>
-  ),
+  render: () => <SecondTabActiveDemo />,
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
   },
 };
 
-export const ManyTabs: Story = {
-  render: () => (
-    <TabsGlass.Root value="home" onValueChange={fn()}>
+const ManyTabsDemo = () => {
+  const [value, setValue] = useState("home");
+  return (
+    <TabsGlass.Root value={value} onValueChange={setValue}>
       <TabsGlass.List>
         <TabsGlass.Trigger value="home">Home</TabsGlass.Trigger>
         <TabsGlass.Trigger value="profile">Profile</TabsGlass.Trigger>
@@ -57,21 +68,30 @@ export const ManyTabs: Story = {
         <TabsGlass.Trigger value="security">Security</TabsGlass.Trigger>
       </TabsGlass.List>
     </TabsGlass.Root>
-  ),
+  );
+};
+
+export const ManyTabs: Story = {
+  render: () => <ManyTabsDemo />,
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
   },
 };
 
-export const TwoTabs: Story = {
-  render: () => (
-    <TabsGlass.Root value="login" onValueChange={fn()}>
+const TwoTabsDemo = () => {
+  const [value, setValue] = useState("login");
+  return (
+    <TabsGlass.Root value={value} onValueChange={setValue}>
       <TabsGlass.List>
         <TabsGlass.Trigger value="login">Login</TabsGlass.Trigger>
         <TabsGlass.Trigger value="register">Register</TabsGlass.Trigger>
       </TabsGlass.List>
     </TabsGlass.Root>
-  ),
+  );
+};
+
+export const TwoTabs: Story = {
+  render: () => <TwoTabsDemo />,
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
   },
