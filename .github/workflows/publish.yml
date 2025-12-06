@@ -13,7 +13,6 @@ on:
 permissions:
   contents: read
   packages: write  # Required for GitHub Packages
-  deployments: write  # Required for GitHub deployments
 
 jobs:
   publish:
@@ -76,20 +75,6 @@ jobs:
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Create GitHub deployment
-        uses: actions/github-script@v7
-        with:
-          script: |
-            github.rest.repos.createDeployment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: '${{ steps.get_version.outputs.version }}',
-              environment: 'npm',
-              auto_merge: false,
-              required_contexts: [],
-              description: 'Published to npm registry'
-            })
 
       - name: Post summary
         run: |
