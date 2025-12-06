@@ -1,6 +1,6 @@
 import type { Preview } from '@storybook/react-vite';
 import React, { useEffect } from 'react';
-import { themes, create } from 'storybook/theming';
+import { create } from 'storybook/theming';
 import { ThemeProvider, type Theme } from '../src/lib/theme-context';
 import '../src/index.css';
 import '../src/glass-theme.css';
