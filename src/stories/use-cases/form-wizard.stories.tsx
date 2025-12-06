@@ -22,7 +22,7 @@
 
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { ThemeProvider } from '@/lib/theme-context';
+import { ThemeProvider, type Theme } from '@/lib/theme-context';
 import {
   TabsGlass,
   InputGlass,
@@ -39,8 +39,20 @@ import { User, Briefcase, CreditCard, CheckCircle } from 'lucide-react';
 // META
 // ========================================
 
-const meta: Meta = {
+// Extend story args to include theme
+type StoryArgs = {
+  theme: Theme;
+};
+
+const meta: Meta<StoryArgs> = {
   title: 'Use Cases/Form Wizard',
+  decorators: [
+    (Story, context) => (
+      <ThemeProvider defaultTheme={context.args.theme || 'glass'}>
+        <Story />
+      </ThemeProvider>
+    ),
+  ],
   parameters: {
     layout: 'centered',
     docs: {
@@ -50,11 +62,22 @@ const meta: Meta = {
       },
     },
   },
+  argTypes: {
+    theme: {
+      control: { type: 'select' },
+      options: ['glass', 'light', 'aurora'],
+      description: 'Theme variant for the form wizard',
+      table: {
+        type: { summary: 'ThemeName' },
+        defaultValue: { summary: 'glass' },
+      },
+    },
+  },
   tags: ['use-case', 'forms', 'wizard', 'validation'],
 };
 
 export default meta;
-type Story = StoryObj;
+type Story = StoryObj<StoryArgs>;
 
 // ========================================
 // FORM DATA TYPES
@@ -175,8 +198,7 @@ const FormWizard = () => {
   };
 
   return (
-    <ThemeProvider defaultTheme="glass">
-      <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-6 flex items-center justify-center">
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-6 flex items-center justify-center">
         <GlassCard intensity="high" className="w-full max-w-2xl p-8">
           {/* Header */}
           <div className="mb-6">
@@ -441,7 +463,6 @@ const FormWizard = () => {
           )}
         </GlassCard>
       </div>
-    </ThemeProvider>
   );
 };
 
@@ -450,21 +471,22 @@ const FormWizard = () => {
 // ========================================
 
 export const Default: Story = {
+  args: {
+    theme: 'glass',
+  },
   render: () => <FormWizard />,
 };
 
 export const LightTheme: Story = {
-  render: () => (
-    <ThemeProvider defaultTheme="light">
-      <FormWizard />
-    </ThemeProvider>
-  ),
+  args: {
+    theme: 'light',
+  },
+  render: () => <FormWizard />,
 };
 
 export const AuroraTheme: Story = {
-  render: () => (
-    <ThemeProvider defaultTheme="aurora">
-      <FormWizard />
-    </ThemeProvider>
-  ),
+  args: {
+    theme: 'aurora',
+  },
+  render: () => <FormWizard />,
 };

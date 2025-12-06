@@ -32,9 +32,9 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: () => (
-    <ModalGlass.Root open={true} onOpenChange={fn()}>
+    <ModalGlass.Root open={true} onOpenChange={fn()} size="sm">
       <ModalGlass.Overlay />
-      <ModalGlass.Content size="md">
+      <ModalGlass.Content>
         <ModalGlass.Header>
           <ModalGlass.Title>Modal Title</ModalGlass.Title>
           <ModalGlass.Close />

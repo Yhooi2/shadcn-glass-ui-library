@@ -50,15 +50,17 @@
 }
 
 .glass-subtle-fallback {
-  background: oklch(20.8% 0.042 265 / 0.90) !important; /* More opaque for subtle */
+  background: oklch(20.8% 0.042 265 / 0.9) !important; /* More opaque for subtle */
 }
 
 .glass-medium-fallback {
-  background: oklch(20.8% 0.042 265 / 0.80) !important; /* Less opaque for medium */
+  background: oklch(20.8% 0.042 265 / 0.8) !important; /* Less opaque for medium */
 }
 
 .glass-strong-fallback {
-  background: oklch(20.8% 0.042 265 / 0.75) !important; /* Even less for strong (more content visible) */
+  background: oklch(
+    20.8% 0.042 265 / 0.75
+  ) !important; /* Even less for strong (more content visible) */
 }
 
 /* Apply glass effects only when backdrop-filter is supported */
@@ -135,7 +137,7 @@
   background: var(--glass-bg-medium);
 }
 
-.glass-toggle[data-state="checked"] {
+.glass-toggle[data-state='checked'] {
   background: linear-gradient(135deg, hsl(var(--primary-base)), hsl(var(--chart-2-base)));
   box-shadow: var(--glow-primary);
 }
@@ -185,7 +187,7 @@
   @apply hover:text-foreground;
 }
 
-.glass-tab[data-state="active"] {
+.glass-tab[data-state='active'] {
   @apply bg-primary/20 text-primary;
 }
 
@@ -275,10 +277,12 @@
    ======================================== */
 
 * {
-  @apply border-border;
+  border-color: transparent;
 }
 
 body {
   @apply bg-background text-foreground;
-  font-feature-settings: "rlig" 1, "calt" 1;
+  font-feature-settings:
+    'rlig' 1,
+    'calt' 1;
 }

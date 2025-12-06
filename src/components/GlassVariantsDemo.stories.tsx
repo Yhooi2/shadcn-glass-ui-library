@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from "storybook/test";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
 
 /**
  * Glass Variants Demo
@@ -17,10 +17,10 @@ const GlassVariantsDemo = () => {
   return (
     <div className="w-full p-6 space-y-6">
       <div className="space-y-2 text-center">
-        <h1 className="text-3xl font-bold" style={{ color: "var(--text-primary)" }}>
+        <h1 className="text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>
           Glass Variants
         </h1>
-        <p className="text-base" style={{ color: "var(--text-secondary)" }}>
+        <p className="text-base" style={{ color: 'var(--text-secondary)' }}>
           4 glassmorphism effects for maximum visual flexibility
         </p>
       </div>
@@ -31,16 +31,19 @@ const GlassVariantsDemo = () => {
         <div className="glass p-6 rounded-2xl">
           <div className="space-y-3">
             <div className="text-4xl">🔮</div>
-            <h2 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>
+            <h2 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>
               Glass
             </h2>
-            <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
+            <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
               Standard glassmorphism effect
             </p>
-            <div className="space-y-1 text-xs" style={{ color: "var(--text-muted)" }}>
+            <div className="space-y-1 text-xs" style={{ color: 'var(--text-muted)' }}>
               <p>blur: 16px | saturation: 180%</p>
             </div>
-            <code className="block mt-2 p-2 rounded bg-black/20 text-xs" style={{ color: "var(--text-secondary)" }}>
+            <code
+              className="block mt-2 p-2 rounded bg-black/20 text-xs"
+              style={{ color: 'var(--text-secondary)' }}
+            >
               className="glass rounded-2xl"
             </code>
           </div>
@@ -50,16 +53,19 @@ const GlassVariantsDemo = () => {
         <div className="frosted p-6 rounded-2xl">
           <div className="space-y-3">
             <div className="text-4xl">❄️</div>
-            <h2 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>
+            <h2 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>
               Frosted
             </h2>
-            <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
+            <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
               Matte finish with maximum blur
             </p>
-            <div className="space-y-1 text-xs" style={{ color: "var(--text-muted)" }}>
+            <div className="space-y-1 text-xs" style={{ color: 'var(--text-muted)' }}>
               <p>blur: 32px | saturation: 100%</p>
             </div>
-            <code className="block mt-2 p-2 rounded bg-black/20 text-xs" style={{ color: "var(--text-secondary)" }}>
+            <code
+              className="block mt-2 p-2 rounded bg-black/20 text-xs"
+              style={{ color: 'var(--text-secondary)' }}
+            >
               className="frosted rounded-2xl"
             </code>
           </div>
@@ -69,16 +75,19 @@ const GlassVariantsDemo = () => {
         <div className="fluted p-6 rounded-2xl">
           <div className="space-y-3">
             <div className="text-4xl">📏</div>
-            <h2 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>
+            <h2 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>
               Fluted
             </h2>
-            <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
+            <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
               Ribbed effect with vertical stripes
             </p>
-            <div className="space-y-1 text-xs" style={{ color: "var(--text-muted)" }}>
+            <div className="space-y-1 text-xs" style={{ color: 'var(--text-muted)' }}>
               <p>blur: 16px | saturation: 120%</p>
             </div>
-            <code className="block mt-2 p-2 rounded bg-black/20 text-xs" style={{ color: "var(--text-secondary)" }}>
+            <code
+              className="block mt-2 p-2 rounded bg-black/20 text-xs"
+              style={{ color: 'var(--text-secondary)' }}
+            >
               className="fluted rounded-2xl"
             </code>
           </div>
@@ -88,16 +97,19 @@ const GlassVariantsDemo = () => {
         <div className="crystal p-6 rounded-2xl">
           <div className="space-y-3">
             <div className="text-4xl">💎</div>
-            <h2 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>
+            <h2 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>
               Crystal
             </h2>
-            <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
+            <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
               Crystal-clear with minimal blur
             </p>
-            <div className="space-y-1 text-xs" style={{ color: "var(--text-muted)" }}>
+            <div className="space-y-1 text-xs" style={{ color: 'var(--text-muted)' }}>
               <p>blur: 8px | saturation: 200%</p>
             </div>
-            <code className="block mt-2 p-2 rounded bg-black/20 text-xs" style={{ color: "var(--text-secondary)" }}>
+            <code
+              className="block mt-2 p-2 rounded bg-black/20 text-xs"
+              style={{ color: 'var(--text-secondary)' }}
+            >
               className="crystal rounded-2xl"
             </code>
           </div>
@@ -106,31 +118,47 @@ const GlassVariantsDemo = () => {
 
       {/* Comparison Grid */}
       <div className="space-y-3">
-        <h2 className="text-xl font-bold text-center" style={{ color: "var(--text-primary)" }}>
+        <h2 className="text-xl font-bold text-center" style={{ color: 'var(--text-primary)' }}>
           Quick Comparison
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           <div className="glass p-4 rounded-xl text-center">
-            <p className="font-semibold text-sm mb-1" style={{ color: "var(--text-primary)" }}>Glass</p>
-            <p className="text-xs" style={{ color: "var(--text-secondary)" }}>Standard</p>
+            <p className="font-semibold text-sm mb-1" style={{ color: 'var(--text-primary)' }}>
+              Glass
+            </p>
+            <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>
+              Standard
+            </p>
           </div>
           <div className="frosted p-4 rounded-xl text-center">
-            <p className="font-semibold text-sm mb-1" style={{ color: "var(--text-primary)" }}>Frosted</p>
-            <p className="text-xs" style={{ color: "var(--text-secondary)" }}>Matte</p>
+            <p className="font-semibold text-sm mb-1" style={{ color: 'var(--text-primary)' }}>
+              Frosted
+            </p>
+            <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>
+              Matte
+            </p>
           </div>
           <div className="fluted p-4 rounded-xl text-center">
-            <p className="font-semibold text-sm mb-1" style={{ color: "var(--text-primary)" }}>Fluted</p>
-            <p className="text-xs" style={{ color: "var(--text-secondary)" }}>Ribbed</p>
+            <p className="font-semibold text-sm mb-1" style={{ color: 'var(--text-primary)' }}>
+              Fluted
+            </p>
+            <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>
+              Ribbed
+            </p>
           </div>
           <div className="crystal p-4 rounded-xl text-center">
-            <p className="font-semibold text-sm mb-1" style={{ color: "var(--text-primary)" }}>Crystal</p>
-            <p className="text-xs" style={{ color: "var(--text-secondary)" }}>Clear</p>
+            <p className="font-semibold text-sm mb-1" style={{ color: 'var(--text-primary)' }}>
+              Crystal
+            </p>
+            <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>
+              Clear
+            </p>
           </div>
         </div>
       </div>
 
       {/* Reference */}
-      <div className="text-center text-xs" style={{ color: "var(--text-muted)" }}>
+      <div className="text-center text-xs" style={{ color: 'var(--text-muted)' }}>
         <p>
           Defined in <code>src/styles/utilities/glass-variants.css</code>
         </p>
@@ -140,10 +168,9 @@ const GlassVariantsDemo = () => {
 };
 
 const meta = {
-  title: "Demo/Glass Variants",
+  title: 'Demo/Glass Variants',
   component: GlassVariantsDemo,
   parameters: {
-    layout: "fullscreen",
     docs: {
       description: {
         component: `
@@ -188,7 +215,7 @@ See \`src/styles/utilities/glass-variants.css\` for the complete CSS implementat
       },
     },
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
 } satisfies Meta<typeof GlassVariantsDemo>;
 
 export default meta;
@@ -202,7 +229,7 @@ export const Default: Story = {
 
 export const GlassTheme: Story = {
   parameters: {
-    theme: "glass",
+    theme: 'glass',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -211,7 +238,7 @@ export const GlassTheme: Story = {
 
 export const LightTheme: Story = {
   parameters: {
-    theme: "light",
+    theme: 'light',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -220,7 +247,7 @@ export const LightTheme: Story = {
 
 export const AuroraTheme: Story = {
   parameters: {
-    theme: "aurora",
+    theme: 'aurora',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();

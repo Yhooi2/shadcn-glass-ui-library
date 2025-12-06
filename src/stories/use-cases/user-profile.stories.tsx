@@ -29,7 +29,7 @@
 
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { ThemeProvider } from '@/lib/theme-context';
+import { ThemeProvider, type Theme } from '@/lib/theme-context';
 import {
   ProfileHeaderGlass,
   CareerStatsGlass,
@@ -48,8 +48,20 @@ import { Edit, Save, X } from 'lucide-react';
 // META
 // ========================================
 
-const meta: Meta = {
+// Extend story args to include theme
+type StoryArgs = {
+  theme: Theme;
+};
+
+const meta: Meta<StoryArgs> = {
   title: 'Use Cases/User Profile Page',
+  decorators: [
+    (Story, context) => (
+      <ThemeProvider defaultTheme={context.args.theme || 'glass'}>
+        <Story />
+      </ThemeProvider>
+    ),
+  ],
   parameters: {
     layout: 'fullscreen',
     docs: {
@@ -59,11 +71,22 @@ const meta: Meta = {
       },
     },
   },
+  argTypes: {
+    theme: {
+      control: { type: 'select' },
+      options: ['glass', 'light', 'aurora'],
+      description: 'Theme variant for the user profile',
+      table: {
+        type: { summary: 'ThemeName' },
+        defaultValue: { summary: 'glass' },
+      },
+    },
+  },
   tags: ['use-case', 'profile', 'dashboard'],
 };
 
 export default meta;
-type Story = StoryObj;
+type Story = StoryObj<StoryArgs>;
 
 // ========================================
 // DEMO DATA
@@ -162,8 +185,7 @@ const UserProfile = () => {
   };
 
   return (
-    <ThemeProvider defaultTheme="glass">
-      <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-6">
         {/* Profile Header */}
         <ProfileHeaderGlass
           username="alexdev"
@@ -414,7 +436,6 @@ const UserProfile = () => {
           </TabsGlass.Root>
         </div>
       </div>
-    </ThemeProvider>
   );
 };
 
@@ -427,6 +448,9 @@ const UserProfile = () => {
  * activity stats, and language proficiency.
  */
 export const Default: Story = {
+  args: {
+    theme: 'glass',
+  },
   render: () => <UserProfile />,
 };
 
@@ -435,6 +459,9 @@ export const Default: Story = {
  * Demonstrates form editing with save/cancel actions.
  */
 export const EditMode: Story = {
+  args: {
+    theme: 'glass',
+  },
   render: () => {
     const EditModeProfile = () => {
       const [activeTab, setActiveTab] = useState('about');
@@ -443,57 +470,54 @@ export const EditMode: Story = {
       );
 
       return (
-        <ThemeProvider defaultTheme="glass">
-          <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-6">
-            <ProfileHeaderGlass
-              username="alexdev"
-              bio={bio}
-              avatarUrl="https://api.dicebear.com/7.x/avataaars/svg?seed=alex"
-              joinDate="Joined March 2020"
-              stats={{
-                repositories: 42,
-                contributions: 2847,
-                followers: 1234,
-                following: 567,
-              }}
-              languages={demoLanguages}
-            />
-            <div className="mt-8">
-              <TabsGlass.Root value={activeTab} onValueChange={setActiveTab}>
-                <TabsGlass.List>
-                  <TabsGlass.Trigger value="about">About</TabsGlass.Trigger>
-                </TabsGlass.List>
-                <TabsGlass.Content value="about" className="mt-6">
-                  <GlassCard intensity="medium" className="p-6">
-                    <div className="flex items-center justify-between mb-4">
-                      <h2 className="text-xl font-semibold text-white">About</h2>
-                      <div className="flex gap-2">
-                        <ButtonGlass variant="success" size="sm">
-                          <Save className="w-4 h-4 mr-2" />
-                          Save
-                        </ButtonGlass>
-                        <ButtonGlass
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => setIsEditing(false)}
-                        >
-                          <X className="w-4 h-4 mr-2" />
-                          Cancel
-                        </ButtonGlass>
-                      </div>
+        <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-6">
+          <ProfileHeaderGlass
+            username="alexdev"
+            bio={bio}
+            avatarUrl="https://api.dicebear.com/7.x/avataaars/svg?seed=alex"
+            joinDate="Joined March 2020"
+            stats={{
+              repositories: 42,
+              contributions: 2847,
+              followers: 1234,
+              following: 567,
+            }}
+            languages={demoLanguages}
+          />
+          <div className="mt-8">
+            <TabsGlass.Root value={activeTab} onValueChange={setActiveTab}>
+              <TabsGlass.List>
+                <TabsGlass.Trigger value="about">About</TabsGlass.Trigger>
+              </TabsGlass.List>
+              <TabsGlass.Content value="about" className="mt-6">
+                <GlassCard intensity="medium" className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h2 className="text-xl font-semibold text-white">About</h2>
+                    <div className="flex gap-2">
+                      <ButtonGlass variant="success" size="sm">
+                        <Save className="w-4 h-4 mr-2" />
+                        Save
+                      </ButtonGlass>
+                      <ButtonGlass
+                        variant="ghost"
+                        size="sm"
+                      >
+                        <X className="w-4 h-4 mr-2" />
+                        Cancel
+                      </ButtonGlass>
                     </div>
-                    <InputGlass
-                      value={bio}
-                      onChange={(e) => setBio(e.target.value)}
-                      placeholder="Tell us about yourself..."
-                      className="w-full"
-                    />
-                  </GlassCard>
-                </TabsGlass.Content>
-              </TabsGlass.Root>
-            </div>
+                  </div>
+                  <InputGlass
+                    value={bio}
+                    onChange={(e) => setBio(e.target.value)}
+                    placeholder="Tell us about yourself..."
+                    className="w-full"
+                  />
+                </GlassCard>
+              </TabsGlass.Content>
+            </TabsGlass.Root>
           </div>
-        </ThemeProvider>
+        </div>
       );
     };
     return <EditModeProfile />;
@@ -505,48 +529,49 @@ export const EditMode: Story = {
  * Shows what other users see when viewing this profile.
  */
 export const PublicView: Story = {
+  args: {
+    theme: 'glass',
+  },
   render: () => {
     const PublicProfile = () => {
       const [activeTab, setActiveTab] = useState('overview');
 
       return (
-        <ThemeProvider defaultTheme="glass">
-          <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-6">
-            <ProfileHeaderGlass
-              username="alexdev"
-              bio="Senior Software Engineer passionate about building scalable systems and elegant user experiences. Open source contributor and tech community advocate."
-              avatarUrl="https://api.dicebear.com/7.x/avataaars/svg?seed=alex"
-              joinDate="Joined March 2020"
-              stats={{
-                repositories: 42,
-                contributions: 2847,
-                followers: 1234,
-                following: 567,
-              }}
-              languages={demoLanguages}
-            />
-            <div className="mt-8">
-              <TabsGlass.Root value={activeTab} onValueChange={setActiveTab}>
-                <TabsGlass.List>
-                  <TabsGlass.Trigger value="overview">Overview</TabsGlass.Trigger>
-                  <TabsGlass.Trigger value="repositories">
-                    Repositories
-                  </TabsGlass.Trigger>
-                </TabsGlass.List>
-                <TabsGlass.Content value="overview" className="mt-6">
-                  <GlassCard intensity="medium" className="p-6 text-center">
-                    <p className="text-white/70">
-                      Public view - Edit controls hidden
-                    </p>
-                  </GlassCard>
-                </TabsGlass.Content>
-                <TabsGlass.Content value="repositories" className="mt-6">
-                  <ProjectsListGlass repositories={demoRepositories} />
-                </TabsGlass.Content>
-              </TabsGlass.Root>
-            </div>
+        <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-6">
+          <ProfileHeaderGlass
+            username="alexdev"
+            bio="Senior Software Engineer passionate about building scalable systems and elegant user experiences. Open source contributor and tech community advocate."
+            avatarUrl="https://api.dicebear.com/7.x/avataaars/svg?seed=alex"
+            joinDate="Joined March 2020"
+            stats={{
+              repositories: 42,
+              contributions: 2847,
+              followers: 1234,
+              following: 567,
+            }}
+            languages={demoLanguages}
+          />
+          <div className="mt-8">
+            <TabsGlass.Root value={activeTab} onValueChange={setActiveTab}>
+              <TabsGlass.List>
+                <TabsGlass.Trigger value="overview">Overview</TabsGlass.Trigger>
+                <TabsGlass.Trigger value="repositories">
+                  Repositories
+                </TabsGlass.Trigger>
+              </TabsGlass.List>
+              <TabsGlass.Content value="overview" className="mt-6">
+                <GlassCard intensity="medium" className="p-6 text-center">
+                  <p className="text-white/70">
+                    Public view - Edit controls hidden
+                  </p>
+                </GlassCard>
+              </TabsGlass.Content>
+              <TabsGlass.Content value="repositories" className="mt-6">
+                <ProjectsListGlass repositories={demoRepositories} />
+              </TabsGlass.Content>
+            </TabsGlass.Root>
           </div>
-        </ThemeProvider>
+        </div>
       );
     };
     return <PublicProfile />;
@@ -558,6 +583,9 @@ export const PublicView: Story = {
  * Tabs stack vertically, cards are full-width.
  */
 export const MobileView: Story = {
+  args: {
+    theme: 'glass',
+  },
   render: () => <UserProfile />,
   parameters: {
     viewport: {
@@ -576,20 +604,18 @@ export const MobileView: Story = {
  * Light theme variant of the user profile.
  */
 export const LightTheme: Story = {
-  render: () => (
-    <ThemeProvider defaultTheme="light">
-      <UserProfile />
-    </ThemeProvider>
-  ),
+  args: {
+    theme: 'light',
+  },
+  render: () => <UserProfile />,
 };
 
 /**
  * Aurora theme variant with gradient effects.
  */
 export const AuroraTheme: Story = {
-  render: () => (
-    <ThemeProvider defaultTheme="aurora">
-      <UserProfile />
-    </ThemeProvider>
-  ),
+  args: {
+    theme: 'aurora',
+  },
+  render: () => <UserProfile />,
 };

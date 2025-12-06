@@ -20,7 +20,7 @@
 
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { ThemeProvider } from '@/lib/theme-context';
+import { ThemeProvider, type Theme } from '@/lib/theme-context';
 import {
   HeaderNavGlass,
   MetricCardGlass,
@@ -43,8 +43,20 @@ import {
 // META
 // ========================================
 
-const meta: Meta = {
+// Extend story args to include theme
+type StoryArgs = {
+  theme: Theme;
+};
+
+const meta: Meta<StoryArgs> = {
   title: 'Use Cases/Dashboard Application',
+  decorators: [
+    (Story, context) => (
+      <ThemeProvider defaultTheme={context.args.theme || 'glass'}>
+        <Story />
+      </ThemeProvider>
+    ),
+  ],
   parameters: {
     layout: 'fullscreen',
     docs: {
@@ -54,11 +66,22 @@ const meta: Meta = {
       },
     },
   },
+  argTypes: {
+    theme: {
+      control: { type: 'select' },
+      options: ['glass', 'light', 'aurora'],
+      description: 'Theme variant for the dashboard',
+      table: {
+        type: { summary: 'ThemeName' },
+        defaultValue: { summary: 'glass' },
+      },
+    },
+  },
   tags: ['use-case', 'dashboard', 'analytics'],
 };
 
 export default meta;
-type Story = StoryObj;
+type Story = StoryObj<StoryArgs>;
 
 // ========================================
 // DASHBOARD COMPONENT
@@ -68,8 +91,7 @@ const Dashboard = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   return (
-    <ThemeProvider defaultTheme="glass">
-      <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-6">
         {/* Header */}
         <HeaderNavGlass
           onSearch={(query) => setSearchQuery(query)}
@@ -263,7 +285,6 @@ const Dashboard = () => {
           </div>
         )}
       </div>
-    </ThemeProvider>
   );
 };
 
@@ -272,32 +293,36 @@ const Dashboard = () => {
 // ========================================
 
 export const Default: Story = {
+  args: {
+    theme: 'glass',
+  },
   render: () => <Dashboard />,
 };
 
 export const WithSearchQuery: Story = {
+  args: {
+    theme: 'glass',
+  },
   render: () => {
     const DashboardWithSearch = () => {
       const [searchQuery, setSearchQuery] = useState('analytics');
       return (
-        <ThemeProvider defaultTheme="glass">
-          <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-6">
-            <HeaderNavGlass
-              onSearch={setSearchQuery}
-              userName="Admin User"
-            />
-            <div className="mt-6">
-              <GlassCard intensity="medium" className="p-6">
-                <h3 className="text-lg font-semibold text-white mb-2">
-                  Search Results for "{searchQuery}"
-                </h3>
-                <p className="text-white/70 text-sm">
-                  Showing results for your query...
-                </p>
-              </GlassCard>
-            </div>
+        <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-6">
+          <HeaderNavGlass
+            onSearch={setSearchQuery}
+            userName="Admin User"
+          />
+          <div className="mt-6">
+            <GlassCard intensity="medium" className="p-6">
+              <h3 className="text-lg font-semibold text-white mb-2">
+                Search Results for "{searchQuery}"
+              </h3>
+              <p className="text-white/70 text-sm">
+                Showing results for your query...
+              </p>
+            </GlassCard>
           </div>
-        </ThemeProvider>
+        </div>
       );
     };
     return <DashboardWithSearch />;
@@ -305,17 +330,15 @@ export const WithSearchQuery: Story = {
 };
 
 export const LightTheme: Story = {
-  render: () => (
-    <ThemeProvider defaultTheme="light">
-      <Dashboard />
-    </ThemeProvider>
-  ),
+  args: {
+    theme: 'light',
+  },
+  render: () => <Dashboard />,
 };
 
 export const AuroraTheme: Story = {
-  render: () => (
-    <ThemeProvider defaultTheme="aurora">
-      <Dashboard />
-    </ThemeProvider>
-  ),
+  args: {
+    theme: 'aurora',
+  },
+  render: () => <Dashboard />,
 };

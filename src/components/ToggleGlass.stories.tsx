@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, fn } from "storybook/test";
 import { useState } from "react";
@@ -52,10 +53,13 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const DefaultDemo = () => {
+  const [checked, setChecked] = useState(false);
+  return <ToggleGlass checked={checked} onChange={setChecked} />;
+};
+
 export const Default: Story = {
-  args: {
-    checked: false,
-  },
+  render: () => <DefaultDemo />,
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
   },

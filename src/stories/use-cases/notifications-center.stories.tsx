@@ -33,7 +33,7 @@
 
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState, useEffect } from 'react';
-import { ThemeProvider } from '@/lib/theme-context';
+import { ThemeProvider, type Theme } from '@/lib/theme-context';
 import {
   NotificationGlass,
   AlertGlass,
@@ -61,8 +61,20 @@ import {
 // META
 // ========================================
 
-const meta: Meta = {
+// Extend story args to include theme
+type StoryArgs = {
+  theme: Theme;
+};
+
+const meta: Meta<StoryArgs> = {
   title: 'Use Cases/Notifications Center',
+  decorators: [
+    (Story, context) => (
+      <ThemeProvider defaultTheme={context.args.theme || 'glass'}>
+        <Story />
+      </ThemeProvider>
+    ),
+  ],
   parameters: {
     layout: 'fullscreen',
     docs: {
@@ -72,11 +84,22 @@ const meta: Meta = {
       },
     },
   },
+  argTypes: {
+    theme: {
+      control: { type: 'select' },
+      options: ['glass', 'light', 'aurora'],
+      description: 'Theme variant for the notifications center',
+      table: {
+        type: { summary: 'ThemeName' },
+        defaultValue: { summary: 'glass' },
+      },
+    },
+  },
   tags: ['use-case', 'notifications', 'alerts', 'messaging'],
 };
 
 export default meta;
-type Story = StoryObj;
+type Story = StoryObj<StoryArgs>;
 
 // ========================================
 // TYPES
@@ -304,10 +327,9 @@ const NotificationsCenter = ({
   };
 
   return (
-    <ThemeProvider defaultTheme="glass">
-      <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-6">
-        {/* Header with Notification Bell */}
-        <div className="flex items-center justify-between mb-8">
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-6">
+      {/* Header with Notification Bell */}
+      <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold text-white mb-2">Notifications</h1>
             <p className="text-white/70">Manage your alerts and updates</p>
@@ -639,7 +661,6 @@ const NotificationsCenter = ({
           </ModalGlass.Root>
         )}
       </div>
-    </ThemeProvider>
   );
 };
 
@@ -652,6 +673,9 @@ const NotificationsCenter = ({
  * Shows all filtering options and bulk actions.
  */
 export const Default: Story = {
+  args: {
+    theme: 'glass',
+  },
   render: () => <NotificationsCenter />,
 };
 
@@ -660,6 +684,9 @@ export const Default: Story = {
  * Highlights the unread tab with notification count.
  */
 export const WithUnread: Story = {
+  args: {
+    theme: 'glass',
+  },
   render: () => {
     const unreadNotifications = createDemoNotifications().map((n, i) => ({
       ...n,
@@ -674,6 +701,9 @@ export const WithUnread: Story = {
  * Shows friendly empty state message.
  */
 export const EmptyState: Story = {
+  args: {
+    theme: 'glass',
+  },
   render: () => <NotificationsCenter initialNotifications={[]} />,
 };
 
@@ -681,6 +711,9 @@ export const EmptyState: Story = {
  * Notifications center with many notifications to demonstrate scrolling and pagination.
  */
 export const ManyNotifications: Story = {
+  args: {
+    theme: 'glass',
+  },
   render: () => {
     const manyNotifications: Notification[] = Array.from({ length: 20 }, (_, i) => ({
       id: `notif-${i}`,
@@ -701,20 +734,18 @@ export const ManyNotifications: Story = {
  * Light theme variant of the notifications center.
  */
 export const LightTheme: Story = {
-  render: () => (
-    <ThemeProvider defaultTheme="light">
-      <NotificationsCenter />
-    </ThemeProvider>
-  ),
+  args: {
+    theme: 'light',
+  },
+  render: () => <NotificationsCenter />,
 };
 
 /**
  * Aurora theme variant with gradient effects.
  */
 export const AuroraTheme: Story = {
-  render: () => (
-    <ThemeProvider defaultTheme="aurora">
-      <NotificationsCenter />
-    </ThemeProvider>
-  ),
+  args: {
+    theme: 'aurora',
+  },
+  render: () => <NotificationsCenter />,
 };

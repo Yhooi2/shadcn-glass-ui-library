@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, fn } from "storybook/test";
 import { useState } from "react";
@@ -76,10 +77,13 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const DefaultDemo = () => {
+  const [value, setValue] = useState(50);
+  return <SliderGlass value={value} onChange={setValue} className="w-80" />;
+};
+
 export const Default: Story = {
-  args: {
-    value: 50,
-  },
+  render: () => <DefaultDemo />,
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
   },

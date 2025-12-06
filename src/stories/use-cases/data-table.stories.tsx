@@ -310,11 +310,7 @@ const DataTable = ({
   };
 
   const handleBulkArchive = () => {
-    setUsers(
-      users.map((u) =>
-        selectedIds.has(u.id) ? { ...u, status: 'inactive' as const } : u
-      )
-    );
+    setUsers(users.map((u) => (selectedIds.has(u.id) ? { ...u, status: 'inactive' as const } : u)));
     setSelectedIds(new Set());
   };
 
@@ -339,9 +335,7 @@ const DataTable = ({
           {/* Header */}
           <div className="mb-6">
             <h1 className="text-2xl font-bold text-white mb-2">User Management</h1>
-            <p className="text-white/70 text-sm">
-              Manage users, roles, and permissions
-            </p>
+            <p className="text-white/70 text-sm">Manage users, roles, and permissions</p>
           </div>
 
           {/* Actions Bar */}
@@ -352,7 +346,7 @@ const DataTable = ({
                 placeholder="Search by name or email..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                icon={<Search className="w-4 h-4" />}
+                icon={Search}
                 aria-label="Search users"
               />
             </div>
@@ -449,18 +443,13 @@ const DataTable = ({
 
           {/* Table */}
           <div className="overflow-x-auto">
-            <table
-              className="w-full"
-              role="grid"
-              aria-label="User management table"
-            >
+            <table className="w-full" role="grid" aria-label="User management table">
               <thead>
                 <tr className="border-b border-white/10">
                   <th className="text-left p-3">
                     <CheckboxGlass
                       checked={
-                        selectedIds.size === paginatedUsers.length &&
-                        paginatedUsers.length > 0
+                        selectedIds.size === paginatedUsers.length && paginatedUsers.length > 0
                       }
                       onCheckedChange={toggleSelectAll}
                       aria-label="Select all users"
@@ -527,7 +516,11 @@ const DataTable = ({
                   >
                     <div className="flex items-center gap-2">
                       Status
-                      <SortIcon field="status" sortField={sortField} sortDirection={sortDirection} />
+                      <SortIcon
+                        field="status"
+                        sortField={sortField}
+                        sortDirection={sortDirection}
+                      />
                     </div>
                   </th>
                   <th
@@ -543,7 +536,11 @@ const DataTable = ({
                   >
                     <div className="flex items-center gap-2">
                       Last Active
-                      <SortIcon field="lastActive" sortField={sortField} sortDirection={sortDirection} />
+                      <SortIcon
+                        field="lastActive"
+                        sortField={sortField}
+                        sortDirection={sortDirection}
+                      />
                     </div>
                   </th>
                   <th
@@ -559,12 +556,14 @@ const DataTable = ({
                   >
                     <div className="flex items-center gap-2">
                       Projects
-                      <SortIcon field="projects" sortField={sortField} sortDirection={sortDirection} />
+                      <SortIcon
+                        field="projects"
+                        sortField={sortField}
+                        sortDirection={sortDirection}
+                      />
                     </div>
                   </th>
-                  <th className="text-left p-3 text-white/80 text-sm font-medium">
-                    Actions
-                  </th>
+                  <th className="text-left p-3 text-white/80 text-sm font-medium">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -620,8 +619,8 @@ const DataTable = ({
                             user.role === 'admin'
                               ? 'destructive'
                               : user.role === 'editor'
-                              ? 'info'
-                              : 'default'
+                                ? 'info'
+                                : 'default'
                           }
                         >
                           {user.role}
@@ -633,16 +632,14 @@ const DataTable = ({
                             user.status === 'active'
                               ? 'success'
                               : user.status === 'pending'
-                              ? 'warning'
-                              : 'default'
+                                ? 'warning'
+                                : 'default'
                           }
                         >
                           {user.status}
                         </BadgeGlass>
                       </td>
-                      <td className="p-3 text-white/80 text-sm">
-                        {user.lastActive}
-                      </td>
+                      <td className="p-3 text-white/80 text-sm">{user.lastActive}</td>
                       <td className="p-3 text-white/80 text-sm">{user.projects}</td>
                       <td className="p-3">
                         <DropdownGlass
@@ -670,8 +667,8 @@ const DataTable = ({
             <div className="flex items-center justify-between mt-6 pt-6 border-t border-white/10">
               <div className="text-white/60 text-sm">
                 Showing {(currentPage - 1) * itemsPerPage + 1} to{' '}
-                {Math.min(currentPage * itemsPerPage, filteredAndSortedUsers.length)}{' '}
-                of {filteredAndSortedUsers.length} users
+                {Math.min(currentPage * itemsPerPage, filteredAndSortedUsers.length)} of{' '}
+                {filteredAndSortedUsers.length} users
               </div>
               <div className="flex items-center gap-2">
                 <ButtonGlass
@@ -719,21 +716,17 @@ const DataTable = ({
               <ModalGlass.Header>
                 <ModalGlass.Title>Delete Users</ModalGlass.Title>
                 <ModalGlass.Description>
-                  Are you sure you want to delete {selectedIds.size} user(s)? This
-                  action cannot be undone.
+                  Are you sure you want to delete {selectedIds.size} user(s)? This action cannot be
+                  undone.
                 </ModalGlass.Description>
               </ModalGlass.Header>
               <ModalGlass.Body>
                 <AlertGlass variant="destructive" title="Warning">
-                  This will permanently delete the selected users and all their
-                  associated data.
+                  This will permanently delete the selected users and all their associated data.
                 </AlertGlass>
               </ModalGlass.Body>
               <ModalGlass.Footer>
-                <ButtonGlass
-                  variant="ghost"
-                  onClick={() => setShowDeleteModal(false)}
-                >
+                <ButtonGlass variant="ghost" onClick={() => setShowDeleteModal(false)}>
                   Cancel
                 </ButtonGlass>
                 <ButtonGlass variant="destructive" onClick={handleBulkDelete}>
@@ -775,9 +768,7 @@ export const WithSelection: Story = {
           <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-6">
             <GlassCard intensity="high" className="p-6">
               <div className="mb-6">
-                <h1 className="text-2xl font-bold text-white mb-2">
-                  User Management
-                </h1>
+                <h1 className="text-2xl font-bold text-white mb-2">User Management</h1>
                 <AlertGlass variant="info" title="Selection Active">
                   {selectedIds.size} users selected. Bulk actions available.
                 </AlertGlass>

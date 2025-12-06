@@ -132,17 +132,7 @@
 
 /* MDX content - text elements */
 /* Only target direct docs content, not component content */
-.sbdocs-wrapper > .sbdocs-content p,
-.sbdocs-wrapper > .sbdocs-content li,
-.sbdocs-wrapper > .sbdocs-content h1,
-.sbdocs-wrapper > .sbdocs-content h2,
-.sbdocs-wrapper > .sbdocs-content h3,
-.sbdocs-wrapper > .sbdocs-content h4,
-.sbdocs-wrapper > .sbdocs-content h5,
-.sbdocs-wrapper > .sbdocs-content h6,
-.sbdocs-wrapper > .sbdocs-content span {
-  color: var(--text-primary, rgba(255, 255, 255, 0.9));
-}
+/* REMOVED: This was affecting component content inside stories */
 
 /* MDX headings - brighter */
 /* Only target direct docs content, not component content */
@@ -423,11 +413,7 @@ iframe[id^="storybook-preview"] {
   color: rgba(0, 0, 0, 0.8);
 }
 
-[data-theme="light"] .sbdocs-wrapper > .sbdocs-content p,
-[data-theme="light"] .sbdocs-wrapper > .sbdocs-content li,
-[data-theme="light"] .sbdocs-wrapper > .sbdocs-content span {
-  color: rgba(0, 0, 0, 0.8);
-}
+/* REMOVED: This was affecting component content inside stories */
 
 [data-theme="light"] .sbdocs-wrapper > .sbdocs-content h1,
 [data-theme="light"] .sbdocs-wrapper > .sbdocs-content h2,
