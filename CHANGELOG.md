@@ -5,6 +5,51 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.7] - 2025-12-06
+
+### 🔄 Changed
+
+**Package Name:**
+- Renamed package from `@yhooi2/shadcn-glass-ui` to `shadcn-glass-ui`
+- Simpler installation: `npm install shadcn-glass-ui`
+- **Migration:** Update your `package.json` dependencies from `@yhooi2/shadcn-glass-ui` to `shadcn-glass-ui`
+
+**Publishing:**
+- Now publishing only to npm Registry (removed GitHub Packages)
+- Simplified installation - no authentication required
+- Single source of truth for package distribution
+
+### 📚 Documentation
+
+- Updated all documentation to reflect new package name
+- Removed GitHub Packages installation instructions
+- Updated README badges and links
+- Simplified installation guide
+
+### 🗑️ Removed
+
+- GitHub Packages publishing workflow
+- GitHub Packages documentation
+- Removed cyclic self-dependency from package.json
+
+### 📦 Migration Guide
+
+If you're upgrading from `@yhooi2/shadcn-glass-ui`:
+
+```bash
+# Uninstall old package
+npm uninstall @yhooi2/shadcn-glass-ui
+
+# Install new package
+npm install shadcn-glass-ui
+```
+
+Update your imports (no changes needed - imports remain the same):
+```tsx
+// Still works the same way
+import { ButtonGlass, InputGlass } from 'shadcn-glass-ui';
+```
+
 ## [1.0.6] - 2025-12-06
 
 ### 🔄 Changed
