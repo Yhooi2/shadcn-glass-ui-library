@@ -2,14 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project
+adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [1.0.9] - 2025-12-06
+
+### 📚 AIDocumentation
+
+- Added improved AI-focused documentation to help LLMs understand and work with the codebase more
+  effectively
+- Added guidance for AI assistants, workflows, and common automation patterns
+- Enhanced internal docs to optimize reasoning and code navigation for AI tools
+- Added improved storybook stories
 
 ## [1.0.9] - 2025-12-06
 
 ### 🐛 Bug Fixes
 
 **CSS Import Order:**
+
 - Fixed PostCSS warnings by moving all `@import` directives before CSS rules
 - All imports now precede style declarations (per CSS spec requirement)
 - Build process now runs completely clean without warnings
@@ -21,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### 📚 Documentation
 
 **Major CLAUDE.md Restructure - AI-Friendly Documentation:**
+
 - Added **Quick Commands Cheatsheet** at the top for instant reference
 - Added **Common Tasks for AI** section with step-by-step workflows:
   - Adding new Glass components
@@ -66,11 +78,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### 🔄 Changed
 
 **Package Name:**
+
 - Renamed package from `@yhooi2/shadcn-glass-ui` to `shadcn-glass-ui`
 - Simpler installation: `npm install shadcn-glass-ui`
-- **Migration:** Update your `package.json` dependencies from `@yhooi2/shadcn-glass-ui` to `shadcn-glass-ui`
+- **Migration:** Update your `package.json` dependencies from `@yhooi2/shadcn-glass-ui` to
+  `shadcn-glass-ui`
 
 **Publishing:**
+
 - Now publishing only to npm Registry (removed GitHub Packages)
 - Simplified installation - no authentication required
 - Single source of truth for package distribution
@@ -101,6 +116,7 @@ npm install shadcn-glass-ui
 ```
 
 Update your imports (no changes needed - imports remain the same):
+
 ```tsx
 // Still works the same way
 import { ButtonGlass, InputGlass } from 'shadcn-glass-ui';
@@ -111,11 +127,14 @@ import { ButtonGlass, InputGlass } from 'shadcn-glass-ui';
 ### 🔄 Changed
 
 **Package Name:**
+
 - Renamed package from `@yhooi2/shadcn-glass-ui` to `shadcn-glass-ui`
 - Simpler installation: `npm install shadcn-glass-ui`
-- **Migration:** Update your `package.json` dependencies from `@yhooi2/shadcn-glass-ui` to `shadcn-glass-ui`
+- **Migration:** Update your `package.json` dependencies from `@yhooi2/shadcn-glass-ui` to
+  `shadcn-glass-ui`
 
 **Publishing:**
+
 - Now publishing only to npm Registry (removed GitHub Packages)
 - Simplified installation - no authentication required
 - Single source of truth for package distribution
@@ -146,6 +165,7 @@ npm install shadcn-glass-ui
 ```
 
 Update your imports (no changes needed - imports remain the same):
+
 ```tsx
 // Still works the same way
 import { ButtonGlass, InputGlass } from 'shadcn-glass-ui';
@@ -156,6 +176,7 @@ import { ButtonGlass, InputGlass } from 'shadcn-glass-ui';
 ### ✨ Added
 
 **Glass Variants System:**
+
 - New comprehensive glass effect variants: `crystal`, `frosted`, `fluted`, `glass`
 - Color tint modifiers: `purple`, `cyan`, `amber`, `emerald`, `rose`
 - Intensity modifiers: `subtle`, `medium`, `strong`
@@ -163,10 +184,12 @@ import { ButtonGlass, InputGlass } from 'shadcn-glass-ui';
 - New CSS utility classes in `primitives.css` for all variants
 
 **Components:**
+
 - `GlassVariantsDemo` - Interactive showcase of all 72 glass variant combinations
 - Updated `GlassCard.stories.tsx` with variant demonstrations
 
 **Publishing:**
+
 - Dual registry support: npm Registry + GitHub Packages
 - Automated publishing to both registries on release
 - Enhanced GitHub Actions workflow with registry validation
@@ -239,7 +262,8 @@ import { ButtonGlass, InputGlass } from 'shadcn-glass-ui';
 
 - **ModalGlass:** Legacy props API completely removed
   - **Old API:** `isOpen`, `onClose`, `title` props
-  - **New API:** Compound API only (`ModalGlass.Root`, `.Overlay`, `.Content`, `.Header`, `.Body`, `.Footer`, `.Title`, `.Description`, `.Close`)
+  - **New API:** Compound API only (`ModalGlass.Root`, `.Overlay`, `.Content`, `.Header`, `.Body`,
+    `.Footer`, `.Title`, `.Description`, `.Close`)
   - **Migration:** See [ModalGlass Compound API guide](docs/migration/modal-glass-compound-api.md)
   - **Key Changes:**
     - `isOpen` → `open` (on ModalGlass.Root)
@@ -291,7 +315,8 @@ import { ButtonGlass, InputGlass } from 'shadcn-glass-ui';
 
 ### ⚠️ BREAKING CHANGES
 
-- **ButtonGlass:** Removed `danger` variant in favor of `destructive` for shadcn/ui API compatibility
+- **ButtonGlass:** Removed `danger` variant in favor of `destructive` for shadcn/ui API
+  compatibility
   - **Migration:** Replace `variant="danger"` with `variant="destructive"`
   - **Affected:** 3 files in library, user code may require updates
   - **Rationale:** Aligns with shadcn/ui design system standards
@@ -312,7 +337,8 @@ import { ButtonGlass, InputGlass } from 'shadcn-glass-ui';
 
 ### 🔧 Refactored
 
-- **AlertGlass:** Migrated from deprecated `type` prop to `variant` prop (57 instances across codebase)
+- **AlertGlass:** Migrated from deprecated `type` prop to `variant` prop (57 instances across
+  codebase)
 - **NotificationGlass:** Migrated from deprecated `type` prop to `variant` prop (8 source files)
 - Updated all visual regression tests to use new `variant` API (582 tests passing)
 - Updated all unit tests to use new `variant` API (32 NotificationGlass tests, 32 AlertGlass tests)
@@ -398,8 +424,10 @@ If you're using this library and have code that breaks after updating, here's ho
 
 All changes align the library with shadcn/ui design system standards:
 
-1. **Consistent Naming**: `variant` is the standard prop name across shadcn/ui components (Button, Badge, Alert, etc.)
-2. **Semantic Correctness**: `variant` describes visual style variations, while `type` describes data types
+1. **Consistent Naming**: `variant` is the standard prop name across shadcn/ui components (Button,
+   Badge, Alert, etc.)
+2. **Semantic Correctness**: `variant` describes visual style variations, while `type` describes
+   data types
 3. **Better DX**: Consistent APIs across all Glass components improve developer experience
 4. **Design System Compliance**: Makes the library easier to integrate with shadcn/ui projects
 
@@ -415,13 +443,13 @@ All changes align the library with shadcn/ui design system standards:
 
 ### Changes Summary
 
-| Category           | Count |
-|--------------------|-------|
+| Category           | Count                                          |
+| ------------------ | ---------------------------------------------- |
 | Breaking changes   | 3 (ButtonGlass, AlertGlass, NotificationGlass) |
-| Files modified     | 20+ |
-| Empty dirs removed | 9 |
-| Tests updated      | 582 visual + 64 unit |
-| Documentation      | 5 new files (1,967 lines) |
+| Files modified     | 20+                                            |
+| Empty dirs removed | 9                                              |
+| Tests updated      | 582 visual + 64 unit                           |
+| Documentation      | 5 new files (1,967 lines)                      |
 
 ### Quality Metrics
 
@@ -448,4 +476,6 @@ All changes align the library with shadcn/ui design system standards:
 
 ---
 
-**Note**: This changelog documents the breaking changes and migrations performed during the legacy code cleanup initiative. For future releases, this file will continue to track all notable changes to the project.
+**Note**: This changelog documents the breaking changes and migrations performed during the legacy
+code cleanup initiative. For future releases, this file will continue to track all notable changes
+to the project.
