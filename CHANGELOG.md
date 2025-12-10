@@ -5,6 +5,74 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2025-12-10
+
+### ✨ Added
+
+**New Components:**
+
+- **SparklineGlass**: Compact bar chart for time series visualization
+  - Support for height variants (sm/md/lg) and gap spacing (none/sm/md)
+  - Highlight maximum value with custom colors
+  - Animated grow effect with staggered delays
+  - Full accessibility with role="img" and descriptive aria-labels
+  - 10 Storybook stories and comprehensive unit tests
+
+- **InsightCardGlass**: Insight display component with 7 semantic variants
+  - Variants: default, tip, highlight, warning, stat, growth, decline
+  - Inline and card display modes
+  - Clickable with full keyboard support (Enter/Space keys)
+  - Animated fade-in effect
+  - Full accessibility support
+
+**Extended Components:**
+
+- **YearCardGlass**:
+  - Added optional `sparklineData` for monthly activity trends
+  - Added optional `insights` array for analytical insight cards
+  - Support for all 7 InsightCardGlass variants
+  - Full backward compatibility maintained
+  - 8 new Storybook stories, 30 unit tests
+
+- **MetricCardGlass**:
+  - Added optional `sparklineData` for metric trend visualization
+  - Added `showSparkline` flag for toggling sparkline display
+  - Automatic positioning of progress bar and sparkline
+  - Full backward compatibility maintained
+  - 11 new Storybook stories, 33 unit tests
+
+**AI Compatibility:**
+
+- Included `docs/` folder in npm package for AI assistants
+- Added `docs/EXPORTS_MAP.json` - Machine-readable component registry
+- Added `docs/AI_USAGE.md` - Quick reference guide for AI tools
+- Enhanced TypeDoc comments with `@example` and `@accessibility` sections
+
+**Infrastructure:**
+
+- Installed `framer-motion` dependency for animations
+- Added CVA variants for SparklineGlass and InsightCardGlass
+- Added CSS animations: `sparkline-grow` and `insight-fade-in`
+- Added CSS variables for SparklineGlass theming
+- Created visual regression tests for new components
+
+### 📊 Testing
+
+- **Total new tests**: 83 unit tests + 5 visual regression tests
+- **Pass rate**: 100% (all tests passing)
+- **Coverage**: SparklineGlass (10 tests), InsightCardGlass (10 tests), YearCardGlass (+30 tests),
+  MetricCardGlass (+33 tests)
+
+### 🔄 Changed
+
+- Updated component count: 55+ components (was 53)
+- Updated `package.json` to include `docs/` in published package
+- Enhanced registry with new component entries
+
+### 🚀 Breaking Changes
+
+**None** - This release maintains full backward compatibility with v1.0.x
+
 ## [1.0.9] - 2025-12-06
 
 ### 📚 AIDocumentation
