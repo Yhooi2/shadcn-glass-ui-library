@@ -129,8 +129,8 @@ jobs:
             echo "❌ dist/index.cjs not found"
             exit 1
           fi
-          if [ ! -f dist/styles.css ]; then
-            echo "❌ dist/styles.css not found"
+          if [ ! -f dist/shadcn-glass-ui.css ]; then
+            echo "❌ dist/shadcn-glass-ui.css not found"
             exit 1
           fi
           echo "✅ All build artifacts present"
