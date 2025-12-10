@@ -32,11 +32,7 @@ describe('SegmentedControlGlass', () => {
 
     it('applies custom className', () => {
       render(
-        <SegmentedControlGlass
-          options={mockOptions}
-          value="overview"
-          className="custom-class"
-        />
+        <SegmentedControlGlass options={mockOptions} value="overview" className="custom-class" />
       );
       expect(screen.getByRole('tablist')).toHaveClass('custom-class');
     });
@@ -62,19 +58,23 @@ describe('SegmentedControlGlass', () => {
     });
 
     it('updates aria-selected when value changes', () => {
-      const { rerender } = render(
-        <SegmentedControlGlass options={mockOptions} value="overview" />
-      );
+      const { rerender } = render(<SegmentedControlGlass options={mockOptions} value="overview" />);
 
-      expect(screen.getByText('Overview').closest('[role="tab"]'))
-        .toHaveAttribute('aria-selected', 'true');
+      expect(screen.getByText('Overview').closest('[role="tab"]')).toHaveAttribute(
+        'aria-selected',
+        'true'
+      );
 
       rerender(<SegmentedControlGlass options={mockOptions} value="projects" />);
 
-      expect(screen.getByText('Overview').closest('[role="tab"]'))
-        .toHaveAttribute('aria-selected', 'false');
-      expect(screen.getByText('Projects').closest('[role="tab"]'))
-        .toHaveAttribute('aria-selected', 'true');
+      expect(screen.getByText('Overview').closest('[role="tab"]')).toHaveAttribute(
+        'aria-selected',
+        'false'
+      );
+      expect(screen.getByText('Projects').closest('[role="tab"]')).toHaveAttribute(
+        'aria-selected',
+        'true'
+      );
     });
   });
 
@@ -83,11 +83,7 @@ describe('SegmentedControlGlass', () => {
       const user = userEvent.setup();
       const handleChange = vi.fn();
       render(
-        <SegmentedControlGlass
-          options={mockOptions}
-          value="overview"
-          onChange={handleChange}
-        />
+        <SegmentedControlGlass options={mockOptions} value="overview" onChange={handleChange} />
       );
 
       await user.click(screen.getByText('Contributions'));
@@ -99,11 +95,7 @@ describe('SegmentedControlGlass', () => {
       const user = userEvent.setup();
       const handleChange = vi.fn();
       render(
-        <SegmentedControlGlass
-          options={mockOptions}
-          value="overview"
-          onChange={handleChange}
-        />
+        <SegmentedControlGlass options={mockOptions} value="overview" onChange={handleChange} />
       );
 
       await user.click(screen.getByText('Projects'));
@@ -117,11 +109,7 @@ describe('SegmentedControlGlass', () => {
       const user = userEvent.setup();
       const handleChange = vi.fn();
       render(
-        <SegmentedControlGlass
-          options={mockOptions}
-          value="overview"
-          onChange={handleChange}
-        />
+        <SegmentedControlGlass options={mockOptions} value="overview" onChange={handleChange} />
       );
 
       await user.click(screen.getByText('Overview'));
@@ -131,9 +119,9 @@ describe('SegmentedControlGlass', () => {
 
   describe('Edge Cases', () => {
     it('handles empty options array', () => {
-      render(<SegmentedControlGlass options={[]} value="" />);
-      expect(screen.getByRole('tablist')).toBeInTheDocument();
-      expect(screen.queryAllByRole('tab')).toHaveLength(0);
+      const { container } = render(<SegmentedControlGlass options={[]} value="" />);
+      // Component returns null for empty array
+      expect(container.firstChild).toBeNull();
     });
 
     it('handles undefined onChange gracefully', async () => {
@@ -153,9 +141,7 @@ describe('SegmentedControlGlass', () => {
     });
 
     it('handles value not in options', () => {
-      render(
-        <SegmentedControlGlass options={mockOptions} value="nonexistent" />
-      );
+      render(<SegmentedControlGlass options={mockOptions} value="nonexistent" />);
 
       // All should be aria-selected=false
       const tabs = screen.getAllByRole('tab');

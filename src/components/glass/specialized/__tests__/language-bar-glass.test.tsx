@@ -84,27 +84,21 @@ describe('LanguageBarGlass', () => {
 
   describe('Color Fallback', () => {
     it('uses provided custom color', () => {
-      const languages: LanguageData[] = [
-        { name: 'Custom', percent: 100, color: 'bg-pink-500' },
-      ];
+      const languages: LanguageData[] = [{ name: 'Custom', percent: 100, color: 'bg-pink-500' }];
       const { container } = render(<LanguageBarGlass languages={languages} />);
       const segment = container.querySelector('.bg-pink-500');
       expect(segment).toBeInTheDocument();
     });
 
     it('falls back to default color for known languages', () => {
-      const languages: LanguageData[] = [
-        { name: 'TypeScript', percent: 100 },
-      ];
+      const languages: LanguageData[] = [{ name: 'TypeScript', percent: 100 }];
       const { container } = render(<LanguageBarGlass languages={languages} />);
       const segment = container.querySelector('.bg-blue-500');
       expect(segment).toBeInTheDocument();
     });
 
     it('falls back to slate-400 for unknown languages', () => {
-      const languages: LanguageData[] = [
-        { name: 'UnknownLang', percent: 100 },
-      ];
+      const languages: LanguageData[] = [{ name: 'UnknownLang', percent: 100 }];
       const { container } = render(<LanguageBarGlass languages={languages} />);
       const segment = container.querySelector('.bg-slate-400');
       expect(segment).toBeInTheDocument();
@@ -202,15 +196,13 @@ describe('LanguageBarGlass', () => {
 
   describe('Edge Cases', () => {
     it('handles empty languages array', () => {
-      render(<LanguageBarGlass languages={[]} />);
-      expect(screen.getByRole('group', { name: /language distribution/i })).toBeInTheDocument();
-      expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+      const { container } = render(<LanguageBarGlass languages={[]} />);
+      // Component returns null for empty array
+      expect(container.firstChild).toBeNull();
     });
 
     it('handles single language', () => {
-      const languages: LanguageData[] = [
-        { name: 'TypeScript', percent: 100 },
-      ];
+      const languages: LanguageData[] = [{ name: 'TypeScript', percent: 100 }];
       render(<LanguageBarGlass languages={languages} />);
       expect(screen.getByRole('progressbar', { name: 'TypeScript: 100%' })).toBeInTheDocument();
     });
