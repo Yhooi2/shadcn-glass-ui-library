@@ -26,10 +26,11 @@ export { ToggleGlass } from './components/glass/ui/toggle-glass';
 export { TooltipGlass } from './components/glass/ui/tooltip-glass';
 
 // ========================================
-// ATOMIC COMPONENTS (Level 2 - 6 components)
+// ATOMIC COMPONENTS (Level 2 - 7 components)
 // ========================================
 export { ExpandableHeaderGlass } from './components/glass/atomic/expandable-header-glass';
 export { IconButtonGlass } from './components/glass/atomic/icon-button-glass';
+export { InsightCardGlass } from './components/glass/atomic/insight-card-glass';
 export { SearchBoxGlass } from './components/glass/atomic/search-box-glass';
 export { SortDropdownGlass } from './components/glass/atomic/sort-dropdown-glass';
 export { StatItemGlass } from './components/glass/atomic/stat-item-glass';
@@ -143,6 +144,9 @@ export type {
   SkeletonVariant,
   SliderGlassProps,
 } from './lib/types';
+
+// Atomic component types
+export type { InsightCardGlassProps } from './components/glass/atomic/insight-card-glass';
 
 // Specialized component types
 export type { SparklineGlassProps } from './components/glass/specialized/sparkline-glass';

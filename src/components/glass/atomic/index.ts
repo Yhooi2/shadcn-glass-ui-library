@@ -5,30 +5,15 @@
  * for better composition and reduced duplication.
  */
 
-export {
-  IconButtonGlass,
-  type IconButtonGlassProps,
-} from './icon-button-glass';
+export { IconButtonGlass, type IconButtonGlassProps } from './icon-button-glass';
 
-export {
-  ThemeToggleGlass,
-  type ThemeToggleGlassProps,
-} from './theme-toggle-glass';
+export { ThemeToggleGlass, type ThemeToggleGlassProps } from './theme-toggle-glass';
 
-export {
-  SearchBoxGlass,
-  type SearchBoxGlassProps,
-} from './search-box-glass';
+export { SearchBoxGlass, type SearchBoxGlassProps } from './search-box-glass';
 
-export {
-  StatItemGlass,
-  type StatItemGlassProps,
-} from './stat-item-glass';
+export { StatItemGlass, type StatItemGlassProps } from './stat-item-glass';
 
-export {
-  ExpandableHeaderGlass,
-  type ExpandableHeaderGlassProps,
-} from './expandable-header-glass';
+export { ExpandableHeaderGlass, type ExpandableHeaderGlassProps } from './expandable-header-glass';
 
 export {
   SortDropdownGlass,
@@ -36,3 +21,5 @@ export {
   type SortField,
   type SortOrder,
 } from './sort-dropdown-glass';
+
+export { InsightCardGlass, type InsightCardGlassProps } from './insight-card-glass';
