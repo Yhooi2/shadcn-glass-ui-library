@@ -29,13 +29,18 @@ npm run lint:fix               # Auto-fix ESLint issues
 npm run typecheck              # TypeScript check without build
 
 # Git & CI
+./scripts/clean-local-screenshots.sh  # Clean local screenshots (macOS/Windows)
 git checkout origin/main -- src/components/__visual__/__screenshots__/  # Reset screenshots
 gh workflow run update-screenshots.yml  # Update visual baselines
 gh run list --workflow=update-screenshots.yml --limit 1  # Check status
 
 # Committing (pre-commit hooks run automatically)
 git add .                        # Stage changes
-git commit -m "feat: message"    # Husky runs lint-staged automatically
+git commit -m "feat: message"    # Husky runs lint-staged + screenshot check
+# Pre-commit hooks:
+#   1. Blocks screenshot commits (use GitHub Actions instead)
+#   2. Runs ESLint --max-warnings=0 on staged TS/TSX files
+#   3. Runs Prettier on all staged files
 # Commit message triggers auto-release:
 #   feat: -> minor version bump (1.0.0 -> 1.1.0)
 #   fix:  -> patch version bump (1.0.0 -> 1.0.1)
