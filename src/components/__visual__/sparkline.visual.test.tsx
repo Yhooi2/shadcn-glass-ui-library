@@ -1,27 +1,31 @@
-import { test, expect } from '@playwright/experimental-ct-react';
+import { describe, test, expect, afterEach } from 'vitest';
+import { render, cleanup } from '@testing-library/react';
+import { page } from '@vitest/browser/context';
 import { SparklineGlass } from '../glass/specialized/sparkline-glass';
 
 const data = [10, 25, 45, 80, 60, 30, 40, 55, 70, 50, 35, 20];
 
-test.describe('SparklineGlass Visual', () => {
-  test('default', async ({ mount }) => {
-    const component = await mount(<SparklineGlass data={data} />);
-    await expect(component).toHaveScreenshot();
+afterEach(cleanup);
+
+describe('SparklineGlass Visual', () => {
+  test('default', async () => {
+    render(<SparklineGlass data={data} />);
+    await expect(page.locator('svg').first()).toMatchScreenshot();
   });
 
-  test('with labels', async ({ mount }) => {
-    const component = await mount(
+  test('with labels', async () => {
+    render(
       <SparklineGlass
         data={data}
         labels={['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D']}
         showLabels
       />
     );
-    await expect(component).toHaveScreenshot();
+    await expect(page.locator('svg').first()).toMatchScreenshot();
   });
 
-  test('highlight max', async ({ mount }) => {
-    const component = await mount(<SparklineGlass data={data} highlightMax />);
-    await expect(component).toHaveScreenshot();
+  test('highlight max', async () => {
+    render(<SparklineGlass data={data} highlightMax />);
+    await expect(page.locator('svg').first()).toMatchScreenshot();
   });
 });

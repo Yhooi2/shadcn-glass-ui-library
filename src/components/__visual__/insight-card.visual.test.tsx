@@ -1,15 +1,32 @@
-import { test, expect } from '@playwright/experimental-ct-react';
+import { describe, test, expect, afterEach } from 'vitest';
+import { render, cleanup } from '@testing-library/react';
+import { page } from '@vitest/browser/context';
 import { InsightCardGlass } from '../glass/atomic/insight-card-glass';
 
-test.describe('InsightCardGlass Visual', () => {
-  test('default', async ({ mount }) => {
-    const component = await mount(<InsightCardGlass text="Test insight" detail="Details" />);
-    await expect(component).toHaveScreenshot();
+// Wait for animations to settle
+async function waitForStability(ms = 100) {
+  await new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+describe('InsightCardGlass Visual', () => {
+  afterEach(() => {
+    cleanup();
   });
 
-  test('all variants', async ({ mount }) => {
-    const component = await mount(
-      <div className="space-y-2">
+  test('default', async () => {
+    render(
+      <div data-testid="insight-card-default">
+        <InsightCardGlass text="Test insight" detail="Details" />
+      </div>
+    );
+    await waitForStability();
+    const container = page.getByTestId('insight-card-default');
+    await expect(container).toMatchScreenshot('insight-card-default');
+  });
+
+  test('all variants', async () => {
+    render(
+      <div data-testid="insight-card-variants" className="space-y-2">
         <InsightCardGlass variant="default" text="Default" />
         <InsightCardGlass variant="highlight" text="Highlight" />
         <InsightCardGlass variant="warning" text="Warning" />
@@ -17,6 +34,8 @@ test.describe('InsightCardGlass Visual', () => {
         <InsightCardGlass variant="decline" text="Decline" />
       </div>
     );
-    await expect(component).toHaveScreenshot();
+    await waitForStability();
+    const container = page.getByTestId('insight-card-variants');
+    await expect(container).toMatchScreenshot('insight-card-variants');
   });
 });
