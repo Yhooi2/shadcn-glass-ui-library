@@ -1,0 +1,129 @@
+# Dependabot configuration for automated dependency updates
+# https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+version: 2
+
+updates:
+  # npm dependencies
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "UTC"
+
+    # Limit open PRs to avoid noise
+    open-pull-requests-limit: 10
+
+    # Cooldown period to avoid too frequent updates (new in 2025)
+    cooldown:
+      default: 3  # Wait 3 days before creating PRs for new versions
+      semver-major: 7  # Wait 7 days for major versions
+
+    # Group related dependencies to reduce PR noise
+    groups:
+      # Production dependencies - critical updates
+      react-ecosystem:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@radix-ui/*"
+        update-types:
+          - "minor"
+          - "patch"
+
+      tailwind-ecosystem:
+        patterns:
+          - "tailwindcss"
+          - "@tailwindcss/*"
+          - "tailwind-merge"
+        update-types:
+          - "minor"
+          - "patch"
+
+      # Development dependencies - less critical
+      storybook:
+        patterns:
+          - "storybook"
+          - "@storybook/*"
+          - "@chromatic-com/*"
+        update-types:
+          - "minor"
+          - "patch"
+
+      testing:
+        patterns:
+          - "vitest"
+          - "@vitest/*"
+          - "@testing-library/*"
+          - "playwright"
+        update-types:
+          - "minor"
+          - "patch"
+
+      linting:
+        patterns:
+          - "eslint"
+          - "eslint-*"
+          - "@eslint/*"
+          - "typescript-eslint"
+          - "prettier"
+        update-types:
+          - "minor"
+          - "patch"
+
+      typescript:
+        patterns:
+          - "typescript"
+          - "@types/*"
+        update-types:
+          - "minor"
+          - "patch"
+
+      build-tools:
+        patterns:
+          - "vite"
+          - "rolldown-vite"
+          - "@vitejs/*"
+          - "vite-*"
+          - "tsx"
+        update-types:
+          - "minor"
+          - "patch"
+
+    # Reviewers and labels for PRs
+    labels:
+      - "dependencies"
+      - "automated"
+
+    # Commit message format
+    commit-message:
+      prefix: "chore(deps)"
+      prefix-development: "chore(deps-dev)"
+
+    # Ignore specific packages that require manual updates
+    ignore:
+      # rolldown-vite requires careful testing with Storybook
+      - dependency-name: "vite"
+        update-types: ["version-update:semver-major"]
+      # React major versions need migration planning
+      - dependency-name: "react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-dom"
+        update-types: ["version-update:semver-major"]
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "chore(ci)"
+    groups:
+      github-actions:
+        patterns:
+          - "*"

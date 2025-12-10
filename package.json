@@ -136,7 +136,8 @@
     "audit:design-system": "npm run test:compliance:run && npm run test:compliance:source",
     "generate:registry": "tsx scripts/generate-registry.ts",
     "docs:api": "typedoc",
-    "docs:api:watch": "typedoc --watch"
+    "docs:api:watch": "typedoc --watch",
+    "prepare": "husky"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.11",
@@ -189,7 +190,9 @@
     "eslint-plugin-storybook": "^10.1.0",
     "glob": "^13.0.0",
     "globals": "^16.5.0",
+    "husky": "^9.1.7",
     "jsdom": "^27.2.0",
+    "lint-staged": "^16.2.7",
     "playwright": "^1.57.0",
     "prettier": "3.7.1",
     "react": "^19.2.0",

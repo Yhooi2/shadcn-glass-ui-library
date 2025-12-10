@@ -1,0 +1,150 @@
+# Bundle size tracking workflow
+# Monitors and reports on bundle size changes
+name: Bundle Size
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "package.json"
+      - "package-lock.json"
+      - "vite.config.*.ts"
+      - "tsconfig*.json"
+
+jobs:
+  bundle-size:
+    name: Check Bundle Size
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build library
+        run: npm run build:lib
+
+      - name: Analyze bundle size
+        id: bundle
+        run: |
+          # Get sizes of built files
+          JS_SIZE=$(stat -c%s dist/index.js 2>/dev/null || stat -f%z dist/index.js)
+          CJS_SIZE=$(stat -c%s dist/index.cjs 2>/dev/null || stat -f%z dist/index.cjs)
+          CSS_SIZE=$(stat -c%s dist/styles.css 2>/dev/null || stat -f%z dist/styles.css)
+
+          # Convert to KB
+          JS_KB=$(echo "scale=2; $JS_SIZE / 1024" | bc)
+          CJS_KB=$(echo "scale=2; $CJS_SIZE / 1024" | bc)
+          CSS_KB=$(echo "scale=2; $CSS_SIZE / 1024" | bc)
+          TOTAL_KB=$(echo "scale=2; ($JS_SIZE + $CJS_SIZE + $CSS_SIZE) / 1024" | bc)
+
+          echo "js_size=$JS_KB" >> $GITHUB_OUTPUT
+          echo "cjs_size=$CJS_KB" >> $GITHUB_OUTPUT
+          echo "css_size=$CSS_KB" >> $GITHUB_OUTPUT
+          echo "total_size=$TOTAL_KB" >> $GITHUB_OUTPUT
+
+          # Get gzipped sizes
+          gzip -c dist/index.js > /tmp/index.js.gz
+          gzip -c dist/styles.css > /tmp/styles.css.gz
+          JS_GZ=$(stat -c%s /tmp/index.js.gz 2>/dev/null || stat -f%z /tmp/index.js.gz)
+          CSS_GZ=$(stat -c%s /tmp/styles.css.gz 2>/dev/null || stat -f%z /tmp/styles.css.gz)
+
+          JS_GZ_KB=$(echo "scale=2; $JS_GZ / 1024" | bc)
+          CSS_GZ_KB=$(echo "scale=2; $CSS_GZ / 1024" | bc)
+
+          echo "js_gzip=$JS_GZ_KB" >> $GITHUB_OUTPUT
+          echo "css_gzip=$CSS_GZ_KB" >> $GITHUB_OUTPUT
+
+      - name: Comment on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const jsSize = '${{ steps.bundle.outputs.js_size }}';
+            const cjsSize = '${{ steps.bundle.outputs.cjs_size }}';
+            const cssSize = '${{ steps.bundle.outputs.css_size }}';
+            const totalSize = '${{ steps.bundle.outputs.total_size }}';
+            const jsGzip = '${{ steps.bundle.outputs.js_gzip }}';
+            const cssGzip = '${{ steps.bundle.outputs.css_gzip }}';
+
+            const body = `## 📦 Bundle Size Report
+
+            | File | Size | Gzipped |
+            |------|------|---------|
+            | \`dist/index.js\` (ESM) | ${jsSize} KB | ${jsGzip} KB |
+            | \`dist/index.cjs\` (CJS) | ${cjsSize} KB | - |
+            | \`dist/styles.css\` | ${cssSize} KB | ${cssGzip} KB |
+            | **Total** | **${totalSize} KB** | - |
+
+            <details>
+            <summary>Size limits recommendation</summary>
+
+            - ESM bundle: < 100 KB (gzipped < 30 KB)
+            - CSS bundle: < 50 KB (gzipped < 10 KB)
+
+            </details>`;
+
+            // Find existing comment
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const botComment = comments.find(comment =>
+              comment.user.type === 'Bot' &&
+              comment.body.includes('Bundle Size Report')
+            );
+
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: body
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: body
+              });
+            }
+
+      - name: Check size limits
+        run: |
+          JS_SIZE=${{ steps.bundle.outputs.js_size }}
+          CSS_SIZE=${{ steps.bundle.outputs.css_size }}
+
+          # Warn if bundles are too large (soft limits)
+          if (( $(echo "$JS_SIZE > 150" | bc -l) )); then
+            echo "::warning::ESM bundle is larger than 150KB ($JS_SIZE KB). Consider code splitting."
+          fi
+
+          if (( $(echo "$CSS_SIZE > 100" | bc -l) )); then
+            echo "::warning::CSS bundle is larger than 100KB ($CSS_SIZE KB). Consider optimizing styles."
+          fi
+
+          # Fail if bundles exceed hard limits
+          if (( $(echo "$JS_SIZE > 300" | bc -l) )); then
+            echo "::error::ESM bundle exceeds 300KB limit ($JS_SIZE KB)"
+            exit 1
+          fi
+
+          if (( $(echo "$CSS_SIZE > 200" | bc -l) )); then
+            echo "::error::CSS bundle exceeds 200KB limit ($CSS_SIZE KB)"
+            exit 1
+          fi
+
+          echo "✅ Bundle sizes are within limits"

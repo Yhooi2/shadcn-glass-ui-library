@@ -1,0 +1,234 @@
+# Auto-release workflow
+# Creates a new release when src/ changes are pushed to main and all checks pass
+name: Auto Release
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "!src/**/*.test.ts"
+      - "!src/**/*.test.tsx"
+      - "!src/**/*.stories.tsx"
+      - "!src/**/*.stories.ts"
+      - "!src/**/*.mdx"
+      - "!src/test/**"
+      - "!src/**/__tests__/**"
+      - "!src/**/__visual__/**"
+
+# Prevent concurrent releases
+concurrency:
+  group: auto-release
+  cancel-in-progress: false
+
+jobs:
+  # Check if this is a release-worthy change
+  check-release:
+    name: Check if Release Needed
+    runs-on: ubuntu-latest
+    outputs:
+      should_release: ${{ steps.check.outputs.should_release }}
+      version: ${{ steps.version.outputs.version }}
+      new_version: ${{ steps.bump.outputs.new_version }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check commit message
+        id: check
+        run: |
+          COMMIT_MSG=$(git log -1 --pretty=%B)
+          echo "Commit message: $COMMIT_MSG"
+
+          # Skip if commit is from bot or has [skip release]
+          if [[ "$COMMIT_MSG" == *"[skip ci]"* ]] || \
+             [[ "$COMMIT_MSG" == *"[skip release]"* ]] || \
+             [[ "$COMMIT_MSG" == *"chore: auto-update"* ]] || \
+             [[ "$COMMIT_MSG" == *"chore(release)"* ]]; then
+            echo "should_release=false" >> $GITHUB_OUTPUT
+            echo "Skipping release: commit message indicates skip"
+          else
+            echo "should_release=true" >> $GITHUB_OUTPUT
+            echo "Release check passed"
+          fi
+
+      - name: Get current version
+        id: version
+        if: steps.check.outputs.should_release == 'true'
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Current version: $VERSION"
+
+      - name: Determine version bump
+        id: bump
+        if: steps.check.outputs.should_release == 'true'
+        run: |
+          COMMIT_MSG=$(git log -1 --pretty=%B)
+          CURRENT="${{ steps.version.outputs.version }}"
+
+          # Parse current version
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT"
+
+          # Determine bump type from commit message
+          if [[ "$COMMIT_MSG" == *"BREAKING CHANGE"* ]] || [[ "$COMMIT_MSG" == *"!:"* ]]; then
+            # Major bump
+            NEW_VERSION="$((MAJOR + 1)).0.0"
+            echo "Detected: BREAKING CHANGE -> Major bump"
+          elif [[ "$COMMIT_MSG" == feat:* ]] || [[ "$COMMIT_MSG" == feat\(*\):* ]]; then
+            # Minor bump for features
+            NEW_VERSION="${MAJOR}.$((MINOR + 1)).0"
+            echo "Detected: feat -> Minor bump"
+          else
+            # Patch bump for everything else
+            NEW_VERSION="${MAJOR}.${MINOR}.$((PATCH + 1))"
+            echo "Detected: fix/chore/etc -> Patch bump"
+          fi
+
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "New version will be: $NEW_VERSION"
+
+  # Run all checks before release
+  verify:
+    name: Verify Build
+    needs: check-release
+    if: needs.check-release.outputs.should_release == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run linting
+        run: npm run lint
+
+      - name: Run TypeScript check
+        run: npx tsc --noEmit
+
+      - name: Build library
+        run: npm run build:lib
+
+      - name: Verify build artifacts
+        run: |
+          if [ ! -f dist/index.js ]; then
+            echo "❌ dist/index.js not found"
+            exit 1
+          fi
+          if [ ! -f dist/index.cjs ]; then
+            echo "❌ dist/index.cjs not found"
+            exit 1
+          fi
+          if [ ! -f dist/styles.css ]; then
+            echo "❌ dist/styles.css not found"
+            exit 1
+          fi
+          echo "✅ All build artifacts present"
+
+  # Create release
+  release:
+    name: Create Release
+    needs: [check-release, verify]
+    if: needs.check-release.outputs.should_release == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      tag: ${{ steps.tag.outputs.tag }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Configure Git
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+      - name: Update package.json version
+        run: |
+          NEW_VERSION="${{ needs.check-release.outputs.new_version }}"
+          npm version $NEW_VERSION --no-git-tag-version
+          echo "Updated package.json to version $NEW_VERSION"
+
+      - name: Commit version bump
+        run: |
+          NEW_VERSION="${{ needs.check-release.outputs.new_version }}"
+          git add package.json package-lock.json
+          git commit -m "chore(release): v${NEW_VERSION} [skip ci]"
+          git push
+
+      - name: Create and push tag
+        id: tag
+        run: |
+          NEW_VERSION="${{ needs.check-release.outputs.new_version }}"
+          TAG="v${NEW_VERSION}"
+          git tag -a "$TAG" -m "Release $TAG"
+          git push origin "$TAG"
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "Created tag: $TAG"
+
+      - name: Generate changelog
+        id: changelog
+        run: |
+          PREV_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+          NEW_TAG="${{ steps.tag.outputs.tag }}"
+
+          echo "## What's Changed" > changelog.md
+          echo "" >> changelog.md
+
+          if [ -n "$PREV_TAG" ]; then
+            git log ${PREV_TAG}..HEAD --pretty=format:"* %s (%h)" --no-merges >> changelog.md
+          else
+            git log --pretty=format:"* %s (%h)" --no-merges -10 >> changelog.md
+          fi
+
+          echo "" >> changelog.md
+          echo "" >> changelog.md
+          echo "**Full Changelog**: https://github.com/${{ github.repository }}/compare/${PREV_TAG:-initial}...${NEW_TAG}" >> changelog.md
+
+          cat changelog.md
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.tag.outputs.tag }}
+          name: ${{ steps.tag.outputs.tag }}
+          body_path: changelog.md
+          draft: false
+          prerelease: false
+          generate_release_notes: false
+
+  # Publish to npm (triggered by release event in publish.yml)
+  notify:
+    name: Notify
+    needs: [check-release, release]
+    if: needs.check-release.outputs.should_release == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Summary
+        run: |
+          echo "## 🚀 Auto-Release Complete" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Version:** ${{ needs.check-release.outputs.new_version }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Tag:** ${{ needs.release.outputs.tag }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "The publish workflow will now be triggered automatically." >> $GITHUB_STEP_SUMMARY

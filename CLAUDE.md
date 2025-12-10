@@ -1,6 +1,7 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this
+repository.
 
 ## Quick Commands Cheatsheet
 
@@ -31,23 +32,38 @@ npm run typecheck              # TypeScript check without build
 git checkout origin/main -- src/components/__visual__/__screenshots__/  # Reset screenshots
 gh workflow run update-screenshots.yml  # Update visual baselines
 gh run list --workflow=update-screenshots.yml --limit 1  # Check status
+
+# Committing (pre-commit hooks run automatically)
+git add .                        # Stage changes
+git commit -m "feat: message"    # Husky runs lint-staged automatically
+# Commit message triggers auto-release:
+#   feat: -> minor version bump (1.0.0 -> 1.1.0)
+#   fix:  -> patch version bump (1.0.0 -> 1.0.1)
+#   BREAKING CHANGE or !: -> major version bump (1.0.0 -> 2.0.0)
 ```
 
 ## Project Overview
 
 A modern glassmorphism UI component library built with:
-- **React 19.2** - Latest stable release with production-ready Server Components, enabling ahead-of-time rendering in separate environments for build-time or request-time execution
+
+- **React 19.2** - Latest stable release with production-ready Server Components, enabling
+  ahead-of-time rendering in separate environments for build-time or request-time execution
 - **TypeScript 5.9** - Strict type checking for enhanced developer experience
-- **Tailwind CSS 4.1** - CSS-first configuration with 5x faster full builds, 100x faster incremental builds (microseconds), automatic content detection, and CSS variables by default
-- **Storybook 10.1** - ESM-only component workshop (29% smaller install), typesafe CSF factories, enhanced tag filtering, and native Vitest integration for testing
-- **Vite 7** (rolldown-vite) - Rust-based Rolldown bundler providing 3-16x faster builds, 100x memory reduction, and unified dev/prod bundling
-- **Vitest 4.0** - Stable browser mode with visual regression testing via `toMatchScreenshot`, Playwright traces for CI debugging, and first-class viewport testing
+- **Tailwind CSS 4.1** - CSS-first configuration with 5x faster full builds, 100x faster incremental
+  builds (microseconds), automatic content detection, and CSS variables by default
+- **Storybook 10.1** - ESM-only component workshop (29% smaller install), typesafe CSF factories,
+  enhanced tag filtering, and native Vitest integration for testing
+- **Vite 7** (rolldown-vite) - Rust-based Rolldown bundler providing 3-16x faster builds, 100x
+  memory reduction, and unified dev/prod bundling
+- **Vitest 4.0** - Stable browser mode with visual regression testing via `toMatchScreenshot`,
+  Playwright traces for CI debugging, and first-class viewport testing
 
 See [DEPENDENCIES.md](DEPENDENCIES.md) for detailed dependency documentation.
 
 ## Common Tasks for AI
 
 ### Adding a new Glass component
+
 1. Create component in `src/components/glass/ui/[name]-glass.tsx`
 2. Add variant definition in `src/lib/variants/[name]-glass-variants.ts`
 3. Add unit tests in `src/components/glass/ui/__tests__/[name]-glass.test.tsx`
@@ -57,18 +73,22 @@ See [DEPENDENCIES.md](DEPENDENCIES.md) for detailed dependency documentation.
 7. Update registry: `npm run generate:registry`
 
 ### Fixing a visual regression test
+
 - **DO NOT** update screenshots locally on macOS
 - **DO** use GitHub Actions: `gh workflow run update-screenshots.yml`
 - Reference screenshots are Linux-only (ubuntu-latest)
 - After workflow completes: `git pull origin main`
 
 ### Migrating a component to compound API
-- See [docs/migration/modal-glass-compound-api.md](docs/migration/modal-glass-compound-api.md) for pattern
+
+- See [docs/migration/modal-glass-compound-api.md](docs/migration/modal-glass-compound-api.md) for
+  pattern
 - Maintain backward compatibility via Object.assign
 - Add both legacy and compound examples to Storybook
 - Document migration in component JSDoc
 
 ### Adding a new theme
+
 1. Add theme name to `Theme` type in `src/lib/theme-context.tsx`
 2. Add CSS variables in `src/glass-theme.css` under `[data-theme="themename"]`
 3. Add theme styles in `src/lib/themeStyles.ts`
@@ -109,6 +129,7 @@ src/
 ```
 
 **Path resolution:**
+
 - `@/` → `src/` (configured in tsconfig.json and vite.config.ts)
 - Use absolute imports: `import { cn } from '@/lib/utils'`
 
@@ -125,8 +146,7 @@ import { componentVariants } from '@/lib/variants/component-variants';
 
 // 2. Component Interface
 interface ComponentProps
-  extends React.ComponentPropsWithoutRef<'element'>,
-          VariantProps<typeof componentVariants> {
+  extends React.ComponentPropsWithoutRef<'element'>, VariantProps<typeof componentVariants> {
   // Glass-specific props
 }
 
@@ -147,6 +167,7 @@ Component.displayName = 'Component';
 ```
 
 **Key patterns:**
+
 - CVA (class-variance-authority) for variant management
 - Separate variant files in `src/lib/variants/` for reusability
 - `cn()` for className merging (always last parameter)
@@ -159,27 +180,25 @@ Component.displayName = 'Component';
 **Themes:** `glass` (dark glassmorphism) | `light` | `aurora` (gradient)
 
 **Usage:**
+
 ```tsx
 import { useTheme } from '@/lib/theme-context';
 
 function Component() {
   const { theme, cycleTheme } = useTheme();
 
-  return (
-    <button onClick={cycleTheme}>
-      Current: {theme}
-    </button>
-  );
+  return <button onClick={cycleTheme}>Current: {theme}</button>;
 }
 ```
 
-**CSS Variables:**
-Defined in `src/glass-theme.css`:
+**CSS Variables:** Defined in `src/glass-theme.css`:
+
 - `--blur-sm`, `--blur-md`, `--blur-lg` - Backdrop blur values
 - `--glass-bg`, `--glass-border` - Theme-specific colors
 - Theme-specific variables in `[data-theme="glass"]` blocks
 
 **Adding theme support to new components:**
+
 1. Use CSS variables: `bg-[var(--glass-bg)]` or Tailwind arbitrary values
 2. Or use `themeStyles[theme]` from `src/lib/themeStyles.ts`
 3. Test all 3 themes in Storybook
@@ -188,6 +207,7 @@ Defined in `src/glass-theme.css`:
 ## Testing Strategy
 
 ### Quick Reference
+
 ```bash
 npx vitest                       # All tests
 npx vitest --project=storybook   # Component tests only
@@ -197,13 +217,15 @@ npm run test:visual:update       # ⚠️ DO NOT USE on macOS
 ```
 
 ### Test Types
-| Type | Count | Location | Purpose |
-|------|-------|----------|---------|
-| Visual Regression | 582 | `src/components/__visual__/` | Screenshot comparison (Linux-only) |
-| Unit Tests | 125 | `src/**/__tests__/` | Component logic |
-| Storybook Tests | - | `src/**/*.stories.tsx` | Visual documentation + interaction tests |
+
+| Type              | Count | Location                     | Purpose                                  |
+| ----------------- | ----- | ---------------------------- | ---------------------------------------- |
+| Visual Regression | 582   | `src/components/__visual__/` | Screenshot comparison (Linux-only)       |
+| Unit Tests        | 125   | `src/**/__tests__/`          | Component logic                          |
+| Storybook Tests   | -     | `src/**/*.stories.tsx`       | Visual documentation + interaction tests |
 
 ### Visual Test Workflow
+
 1. Make component changes
 2. Run `npx vitest --project=visual` locally (expect failures on macOS)
 3. Push changes to GitHub
@@ -220,12 +242,14 @@ See [docs/visual-testing-guide.md](docs/visual-testing-guide.md) for complete gu
 ## Architecture Decisions
 
 ### Why Vite 7 (rolldown-vite)?
+
 - 3-16x faster builds vs traditional Rollup
 - 100x memory reduction (critical for CI)
 - Unified dev/prod bundling (no Webpack/Rollup split)
 - Rust-based Rolldown bundler replaces esbuild + Rollup
 
 ### Why Compound Components for Modal/Tabs?
+
 - Better composition flexibility (custom layouts)
 - Improved tree-shaking (unused parts not bundled)
 - More intuitive API for complex use cases
@@ -233,18 +257,21 @@ See [docs/visual-testing-guide.md](docs/visual-testing-guide.md) for complete gu
 - Easier to maintain and extend
 
 ### Why Visual Regression on Linux only?
+
 - Pixel-perfect rendering consistency
 - Font rendering differs between macOS/Linux
 - GitHub Actions runs ubuntu-latest
 - Prevents false positives from OS-specific rendering
 
 ### Why CVA for variants?
+
 - Type-safe variant props
 - Automatic TypeScript inference
 - Better bundle size (no runtime logic)
 - Consistent API across all components
 
 ### Why asChild pattern?
+
 - Polymorphic components without wrapper divs
 - Better accessibility (semantic HTML)
 - Radix UI Slot integration
@@ -253,51 +280,50 @@ See [docs/visual-testing-guide.md](docs/visual-testing-guide.md) for complete gu
 ## AI Assistant Guidelines
 
 ### DO
-✅ Read component code before suggesting changes
-✅ Use `gh workflow run update-screenshots.yml` for visual updates
-✅ Maintain backward compatibility for public APIs
-✅ Add both unit and visual tests for new components
-✅ Follow shadcn/ui naming conventions (e.g., `variant`, not `type`)
-✅ Use TypeScript strict mode (no `any` types)
-✅ Test all 3 themes (glass, light, aurora)
-✅ Use `cn()` for className merging
-✅ Add accessibility attributes (ARIA labels, roles)
-✅ Document migration paths for breaking changes
+
+✅ Read component code before suggesting changes ✅ Use `gh workflow run update-screenshots.yml` for
+visual updates ✅ Maintain backward compatibility for public APIs ✅ Add both unit and visual tests
+for new components ✅ Follow shadcn/ui naming conventions (e.g., `variant`, not `type`) ✅ Use
+TypeScript strict mode (no `any` types) ✅ Test all 3 themes (glass, light, aurora) ✅ Use `cn()`
+for className merging ✅ Add accessibility attributes (ARIA labels, roles) ✅ Document migration
+paths for breaking changes
 
 ### DO NOT
-❌ Commit screenshots from macOS
-❌ Use `variant="danger"` (removed in v1.0.0, use `destructive`)
-❌ Use `type` prop on AlertGlass/NotificationGlass (use `variant`)
-❌ Modify package.json overrides without understanding rolldown-vite requirements
-❌ Add new dependencies without checking compatibility with Vite 7 + Storybook 10
-❌ Delete "unused" CSS variables (they may be theme-specific)
-❌ Create new files when editing existing ones is sufficient
-❌ Use `any` types in TypeScript (strict mode enabled)
-❌ Skip accessibility testing (Storybook a11y addon enforced)
-❌ Hard-code colors/spacing (use Tailwind classes or CSS variables)
-❌ Import from `@/components/ui` (use `@/components/glass/ui` for Glass variants)
+
+❌ Commit screenshots from macOS ❌ Use `variant="danger"` (removed in v1.0.0, use `destructive`) ❌
+Use `type` prop on AlertGlass/NotificationGlass (use `variant`) ❌ Modify package.json overrides
+without understanding rolldown-vite requirements ❌ Add new dependencies without checking
+compatibility with Vite 7 + Storybook 10 ❌ Delete "unused" CSS variables (they may be
+theme-specific) ❌ Create new files when editing existing ones is sufficient ❌ Use `any` types in
+TypeScript (strict mode enabled) ❌ Skip accessibility testing (Storybook a11y addon enforced) ❌
+Hard-code colors/spacing (use Tailwind classes or CSS variables) ❌ Import from `@/components/ui`
+(use `@/components/glass/ui` for Glass variants)
 
 ## Troubleshooting
 
 ### Visual tests fail on macOS
-**Expected behavior.** macOS font rendering differs from Linux.
-**Solution:** Use GitHub Actions to update screenshots: `gh workflow run update-screenshots.yml`
+
+**Expected behavior.** macOS font rendering differs from Linux. **Solution:** Use GitHub Actions to
+update screenshots: `gh workflow run update-screenshots.yml`
 
 ### Stale visual test baselines after merge
-**Cause:** Branch screenshots conflict with main
-**Solution:** `git checkout origin/main -- src/components/__visual__/__screenshots__/`
+
+**Cause:** Branch screenshots conflict with main **Solution:**
+`git checkout origin/main -- src/components/__visual__/__screenshots__/`
 
 ### TypeScript errors after npm install
-**Cause:** Stale type cache
-**Solution:** `rm -rf node_modules/.vite && npm run build:types`
+
+**Cause:** Stale type cache **Solution:** `rm -rf node_modules/.vite && npm run build:types`
 
 ### Storybook fails to start
-**Cause:** Node.js version < 20.16
-**Solution:** Update to Node.js 20.16+, 22.19+, or 24+
-**Check version:** `node --version`
+
+**Cause:** Node.js version < 20.16 **Solution:** Update to Node.js 20.16+, 22.19+, or 24+ **Check
+version:** `node --version`
 
 ### Component not appearing in Storybook
+
 **Checklist:**
+
 - Story file matches pattern: `src/**/*.stories.@(js|jsx|mjs|ts|tsx)`
 - Component exported as default or named export
 - Meta object has `title` field
@@ -305,31 +331,36 @@ See [docs/visual-testing-guide.md](docs/visual-testing-guide.md) for complete gu
 - Check browser console for errors
 
 ### "Module not found" errors in Storybook
-**Cause:** Path alias misconfiguration
-**Check:**
+
+**Cause:** Path alias misconfiguration **Check:**
+
 1. `tsconfig.json` has `"@/*": ["./src/*"]`
 2. `.storybook/main.ts` has matching viteFinal config
 3. Run `npm run storybook` (rebuilds aliases)
 
 ### Component variants not applying
+
 **Checklist:**
+
 - Variant definition uses CVA (class-variance-authority)
 - className prop uses `cn(variants({ ... }), className)`
 - CSS variables defined in `src/glass-theme.css`
 - Theme provider wraps app in `src/main.tsx`
 
 ### Performance regression after adding component
-**Profile:** Use React DevTools Profiler
-**Check:**
+
+**Profile:** Use React DevTools Profiler **Check:**
+
 1. Unnecessary re-renders (missing React.memo?)
 2. Large bundle impact (check vite bundle analyzer)
 3. CSS-in-JS vs Tailwind (prefer Tailwind for Glass UI)
 4. Heavy computations in render (use useMemo)
 
 ### Linting errors after editing
-**Quick fix:** `npm run lint:fix`
-**Manual:** Check ESLint output for specific violations
-**Common issues:**
+
+**Quick fix:** `npm run lint:fix` **Manual:** Check ESLint output for specific violations **Common
+issues:**
+
 - Missing dependencies in useEffect
 - Unused variables
 - Missing TypeScript types
@@ -337,20 +368,26 @@ See [docs/visual-testing-guide.md](docs/visual-testing-guide.md) for complete gu
 ## Glass Components Structure
 
 ### Core Components (16)
+
 Basic UI primitives. See [src/components/glass/ui/](src/components/glass/ui/) for complete list:
+
 - ButtonGlass, InputGlass, GlassCard, ProgressGlass, BadgeGlass, AlertGlass
 - ToggleGlass, CheckboxGlass, TabsGlass, TooltipGlass, SliderGlass
 - SkeletonGlass, ModalGlass, DropdownGlass, AvatarGlass, NotificationGlass
 
 ### Atomic Components (4)
+
 Single-purpose components with specialized functionality:
+
 - StatusIndicatorGlass - Status dots with glow effect
 - SegmentedControlGlass - Segmented button group
 - RainbowProgressGlass - Rainbow gradient progress bar
 - LanguageBarGlass - Language proficiency bar with legend
 
 ### Composite Components (5)
+
 Multi-element widgets combining core components:
+
 - MetricCardGlass - Metric display card with progress
 - ProfileAvatarGlass - Large avatar with glow animation
 - FlagAlertGlass - Warning/danger flag alert
@@ -358,7 +395,9 @@ Multi-element widgets combining core components:
 - AICardGlass - AI summary card with feature list
 
 ### Section Components (6)
+
 Full-featured page sections (GitHub Analytics pattern):
+
 - HeaderNavGlass - Navigation header with search and theme toggle
 - TrustScoreCardGlass - Trust score display with metrics
 - ProfileHeaderGlass - User profile header with avatar, stats, languages
@@ -367,7 +406,9 @@ Full-featured page sections (GitHub Analytics pattern):
 - RepoCardGlass - Repository card with expandable details
 
 ### Blocks (6)
+
 Ready-to-use demo sections (shadcn/ui pattern):
+
 - ButtonsBlock - Button variants, sizes, and states demo
 - FormElementsBlock - Input, Slider, Toggle, Checkbox demos
 - ProgressBlock - Progress bars, RainbowProgress, Skeletons
@@ -376,33 +417,40 @@ Ready-to-use demo sections (shadcn/ui pattern):
 - NotificationsBlock - Notifications and alerts
 
 ### Demo Pages
+
 - [ComponentShowcase.tsx](src/components/ComponentShowcase.tsx) - Core components demo (uses Blocks)
-- [DesktopShowcase.tsx](src/components/DesktopShowcase.tsx) - Full desktop analytics app (uses Blocks + Sections)
+- [DesktopShowcase.tsx](src/components/DesktopShowcase.tsx) - Full desktop analytics app (uses
+  Blocks + Sections)
 
 ### Themes
+
 - **glass** - Dark glassmorphism (default)
 - **light** - Light mode with subtle glass effects
 - **aurora** - Gradient theme with aurora effects
 
-**Theme system:** `src/lib/theme-context.tsx` (ThemeProvider, useTheme, cycleTheme)
-**Theme styles:** `src/lib/themeStyles.ts`
-**CSS variables:** `src/glass-theme.css`
+**Theme system:** `src/lib/theme-context.tsx` (ThemeProvider, useTheme, cycleTheme) **Theme
+styles:** `src/lib/themeStyles.ts` **CSS variables:** `src/glass-theme.css`
 
 ## Phase 3 Refactoring (Weeks 1-5, Complete)
 
 ### Primitives & Reusable Components
+
 `src/components/glass/primitives/` - Foundation components:
+
 - `style-utils.ts` - Centralized style constants (ICON_SIZES, BLUR_VALUES, TRANSITIONS)
 - `touch-target.tsx` - Touch-friendly wrapper (44/48px minimum, Apple HIG compliance)
 - `form-field-wrapper.tsx` - Unified form field structure (label, error, success states)
 - `interactive-card.tsx` - Hover animations + glass effects for card components
 
 **Shared utilities:**
+
 - `src/lib/variants/dropdown-content-styles.ts` - Unified dropdown styling utilities
 - Unit tests: `__tests__/` directories (125 tests, 100% pass rate)
 
 ### asChild Pattern (Week 4)
+
 ButtonGlass, AvatarGlass, GlassCard support polymorphic rendering via Radix UI Slot:
+
 ```tsx
 <ButtonGlass asChild>
   <Link href="/">Home</Link>
@@ -412,6 +460,7 @@ ButtonGlass, AvatarGlass, GlassCard support polymorphic rendering via Radix UI S
 ### Compound Components (Week 4)
 
 #### ModalGlass (9 sub-components)
+
 - `ModalGlass.Root` - Context provider with open/close state
 - `ModalGlass.Overlay` - Backdrop with blur and click-to-close
 - `ModalGlass.Content` - Main content container
@@ -420,6 +469,7 @@ ButtonGlass, AvatarGlass, GlassCard support polymorphic rendering via Radix UI S
 - Legacy API preserved via Object.assign for backward compatibility
 
 #### TabsGlass (4 sub-components)
+
 - `TabsGlass.Root` - Context provider with value/onValueChange
 - `TabsGlass.List` - Visual container for tab triggers
 - `TabsGlass.Trigger` - Individual tab button with active state
@@ -427,24 +477,29 @@ ButtonGlass, AvatarGlass, GlassCard support polymorphic rendering via Radix UI S
 - Legacy API preserved for backward compatibility
 
 ### Testing (Week 5)
+
 - Visual regression: 579/582 passing (99.5%) - See `docs/visual-tests-audit.md`
 - Unit tests: 125 tests across primitives and utilities
 - Storybook: 8 new compound component stories demonstrating advanced usage
 
 ### API Compatibility
+
 - 100% backward compatibility maintained
 - Both legacy and compound APIs available simultaneously
 - Migration path documented in component JSDoc
 
 ## shadcn/ui API Compatibility
 
-The library maintains full compatibility with shadcn/ui component APIs while providing extended Glass UI variants.
+The library maintains full compatibility with shadcn/ui component APIs while providing extended
+Glass UI variants.
 
 ### ⚠️ Breaking Changes (v1.0.0)
 
-**IMPORTANT:** The following legacy APIs have been removed in v1.0.0. Update your code before upgrading.
+**IMPORTANT:** The following legacy APIs have been removed in v1.0.0. Update your code before
+upgrading.
 
 #### 1. ButtonGlass
+
 - **Removed:** `variant="danger"`
 - **Replaced with:** `variant="destructive"` (shadcn/ui standard)
 - **Migration:** Replace all `danger` → `destructive`
@@ -458,6 +513,7 @@ The library maintains full compatibility with shadcn/ui component APIs while pro
 ```
 
 #### 2. AlertGlass
+
 - **Removed:** `type` prop
 - **Replaced with:** `variant` prop
 - **Migration:**
@@ -475,6 +531,7 @@ The library maintains full compatibility with shadcn/ui component APIs while pro
 ```
 
 #### 3. NotificationGlass
+
 - **Removed:** `type` prop
 - **Replaced with:** `variant` prop
 - **Same mapping as AlertGlass** (see above)
@@ -488,6 +545,7 @@ The library maintains full compatibility with shadcn/ui component APIs while pro
 ```
 
 #### 4. SelectGlass (Removed)
+
 - **Status:** Removed in v1.0.0
 - **Migration:** Use `ComboBoxGlass` instead
 
@@ -504,6 +562,7 @@ The library maintains full compatibility with shadcn/ui component APIs while pro
 ### Current Component APIs
 
 #### BadgeGlass
+
 - **shadcn/ui variants:** `default`, `secondary`, `destructive`, `outline`
 - **Extended variants:** `success`, `warning`, `info`
 
@@ -517,6 +576,7 @@ The library maintains full compatibility with shadcn/ui component APIs while pro
 ```
 
 #### AlertGlass (Updated in v1.0.0)
+
 - **shadcn/ui variants:** `default`, `destructive`
 - **Extended variants:** `success`, `warning`
 - **Prop name:** `variant` (not `type`)
@@ -530,6 +590,7 @@ The library maintains full compatibility with shadcn/ui component APIs while pro
 ```
 
 #### NotificationGlass (Updated in v1.0.0)
+
 - **shadcn/ui variants:** `default`, `destructive`
 - **Extended variants:** `success`, `warning`
 - **Prop name:** `variant` (not `type`)
@@ -546,9 +607,12 @@ The library maintains full compatibility with shadcn/ui component APIs while pro
 ### Migration Resources
 
 - **[CHANGELOG.md](CHANGELOG.md)** - Complete version history
-- **[docs/migration/select-to-combobox.md](docs/migration/select-to-combobox.md)** - SelectGlass → ComboBoxGlass
-- **[docs/migration/modal-glass-compound-api.md](docs/migration/modal-glass-compound-api.md)** - ModalGlass compound API
-- **[docs/migration/tabs-glass-compound-api.md](docs/migration/tabs-glass-compound-api.md)** - TabsGlass compound API
+- **[docs/migration/select-to-combobox.md](docs/migration/select-to-combobox.md)** - SelectGlass →
+  ComboBoxGlass
+- **[docs/migration/modal-glass-compound-api.md](docs/migration/modal-glass-compound-api.md)** -
+  ModalGlass compound API
+- **[docs/migration/tabs-glass-compound-api.md](docs/migration/tabs-glass-compound-api.md)** -
+  TabsGlass compound API
 
 ## Path Aliases
 
@@ -569,7 +633,8 @@ The library maintains full compatibility with shadcn/ui component APIs while pro
 npx shadcn add <component-name>
 ```
 
-Components will be added to `src/components/ui/`. To create Glass variants, copy to `src/components/glass/ui/` and apply glass styling.
+Components will be added to `src/components/ui/`. To create Glass variants, copy to
+`src/components/glass/ui/` and apply glass styling.
 
 ## Storybook
 
@@ -598,6 +663,7 @@ Components will be added to `src/components/ui/`. To create Glass variants, copy
 ## Performance Characteristics
 
 Thanks to the modern stack:
+
 - **Build Speed:** 3-16x faster production builds with Rolldown vs traditional Rollup
 - **Memory Usage:** 100x reduction vs traditional JavaScript bundlers (e.g., GitLab: 2.5min → 40sec)
 - **Dev Server:** Near-instant start with Vite's on-demand compilation
@@ -614,3 +680,68 @@ Thanks to the modern stack:
 - **Testing:** Minimum 90% coverage target
 - **Linting:** ESLint with React hooks, TypeScript, and Storybook rules
 - **Formatting:** Prettier 3.7.1
+
+## CI/CD & Automation
+
+### GitHub Workflows
+
+| Workflow                                                           | Trigger               | Purpose                                          |
+| ------------------------------------------------------------------ | --------------------- | ------------------------------------------------ |
+| [ci.yml](.github/workflows/ci.yml)                                 | Push/PR to main       | Lint, TypeScript, build, visual tests, Storybook |
+| [security.yml](.github/workflows/security.yml)                     | Push/PR + weekly      | npm audit, CodeQL, license check, secrets scan   |
+| [bundle-size.yml](.github/workflows/bundle-size.yml)               | PR (src changes)      | Bundle size tracking with PR comments            |
+| [auto-release.yml](.github/workflows/auto-release.yml)             | Push to main (src/\*) | Auto version bump + GitHub release               |
+| [publish.yml](.github/workflows/publish.yml)                       | Release published     | Publish to npm                                   |
+| [update-screenshots.yml](.github/workflows/update-screenshots.yml) | Manual                | Update visual test baselines                     |
+
+### Pre-commit Hooks (Husky + lint-staged)
+
+Runs automatically on every commit:
+
+- **ESLint** with `--max-warnings=0` on staged TS/TSX files
+- **Prettier** formatting on staged files
+- Fast: only checks staged files
+
+Configuration:
+
+- `.husky/pre-commit` - Hook script
+- `.lintstagedrc.json` - lint-staged config
+
+### Auto-Release System
+
+When you push to `main` with changes in `src/` (excluding tests, stories, docs):
+
+1. **Version bump** based on commit message:
+   - `feat:` or `feat(scope):` → Minor (1.0.0 → 1.1.0)
+   - `fix:`, `chore:`, etc. → Patch (1.0.0 → 1.0.1)
+   - `BREAKING CHANGE` or `!:` → Major (1.0.0 → 2.0.0)
+
+2. **Automatic actions:**
+   - Updates `package.json` version
+   - Creates git tag (e.g., `v1.1.0`)
+   - Creates GitHub Release with changelog
+   - Triggers npm publish
+
+**Skip auto-release:** Add `[skip release]` to commit message.
+
+### Dependabot
+
+Configured in `.github/dependabot.yml`:
+
+- Weekly npm updates (Monday 9:00 UTC)
+- Groups related dependencies (React, Tailwind, Storybook, etc.)
+- Cooldown periods to reduce noise
+- GitHub Actions updates
+
+### Security Scanning
+
+See [docs/SECURITY.md](docs/SECURITY.md) for details:
+
+- **npm audit** - Known vulnerabilities
+- **CodeQL** - Static analysis (TypeScript 5.9 supported)
+- **License check** - Approved licenses only
+- **TruffleHog** - Secrets detection
+- **Dependency review** - PR dependency analysis
+
+**Recommended:** Install [Socket.dev](https://github.com/marketplace/socket-security) for
+supply-chain attack protection.
