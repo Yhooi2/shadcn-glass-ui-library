@@ -165,44 +165,85 @@ describe('MetricCardGlass', () => {
       ];
 
       colors.forEach((color) => {
-        const { unmount } = render(
-          <MetricCardGlass label="Test" value={50} color={color} />
-        );
+        const { unmount } = render(<MetricCardGlass label="Test" value={50} color={color} />);
         expect(screen.getByText('Test')).toBeInTheDocument();
         unmount();
       });
     });
   });
 
+  describe('Sparkline Integration', () => {
+    it('renders sparkline when data provided', () => {
+      const sparklineData = [10, 20, 15, 25, 30, 28, 35];
+      render(<MetricCardGlass label="Test" value={75} sparklineData={sparklineData} />);
+
+      // Sparkline has role="img"
+      expect(screen.getByRole('img', { name: /test trend/i })).toBeInTheDocument();
+    });
+
+    it('does not render sparkline when data is empty', () => {
+      render(<MetricCardGlass label="Test" value={75} sparklineData={[]} />);
+
+      expect(screen.queryByRole('img', { name: /trend/i })).not.toBeInTheDocument();
+    });
+
+    it('does not render sparkline when data is undefined', () => {
+      render(<MetricCardGlass label="Test" value={75} />);
+
+      expect(screen.queryByRole('img', { name: /trend/i })).not.toBeInTheDocument();
+    });
+
+    it('does not render sparkline when showSparkline is false', () => {
+      const sparklineData = [10, 20, 15, 25, 30, 28, 35];
+      render(
+        <MetricCardGlass
+          label="Test"
+          value={75}
+          sparklineData={sparklineData}
+          showSparkline={false}
+        />
+      );
+
+      expect(screen.queryByRole('img', { name: /trend/i })).not.toBeInTheDocument();
+    });
+
+    it('renders both progress bar and sparkline when data provided', () => {
+      const sparklineData = [10, 20, 15, 25, 30, 28, 35];
+      render(<MetricCardGlass label="Test" value={75} sparklineData={sparklineData} />);
+
+      expect(screen.getByRole('progressbar')).toBeInTheDocument();
+      expect(screen.getByRole('img', { name: /test trend/i })).toBeInTheDocument();
+    });
+
+    it('uses correct aria-label for sparkline', () => {
+      const sparklineData = [10, 20, 15, 25, 30];
+      render(<MetricCardGlass label="Performance" value={85} sparklineData={sparklineData} />);
+
+      expect(screen.getByRole('img', { name: 'Performance trend' })).toBeInTheDocument();
+    });
+  });
+
   describe('CSS Variables', () => {
     it('applies color-specific CSS variables for emerald', () => {
-      const { container } = render(
-        <MetricCardGlass label="Test" value={50} color="emerald" />
-      );
+      const { container } = render(<MetricCardGlass label="Test" value={50} color="emerald" />);
       const card = container.firstChild as HTMLElement;
       expect(card.style.background).toContain('var(--metric-emerald-bg)');
     });
 
     it('applies color-specific CSS variables for amber', () => {
-      const { container } = render(
-        <MetricCardGlass label="Test" value={50} color="amber" />
-      );
+      const { container } = render(<MetricCardGlass label="Test" value={50} color="amber" />);
       const card = container.firstChild as HTMLElement;
       expect(card.style.background).toContain('var(--metric-amber-bg)');
     });
 
     it('applies color-specific CSS variables for blue', () => {
-      const { container } = render(
-        <MetricCardGlass label="Test" value={50} color="blue" />
-      );
+      const { container } = render(<MetricCardGlass label="Test" value={50} color="blue" />);
       const card = container.firstChild as HTMLElement;
       expect(card.style.background).toContain('var(--metric-blue-bg)');
     });
 
     it('applies color-specific CSS variables for red', () => {
-      const { container } = render(
-        <MetricCardGlass label="Test" value={50} color="red" />
-      );
+      const { container } = render(<MetricCardGlass label="Test" value={50} color="red" />);
       const card = container.firstChild as HTMLElement;
       expect(card.style.background).toContain('var(--metric-red-bg)');
     });

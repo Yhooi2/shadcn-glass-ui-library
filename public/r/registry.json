@@ -118,6 +118,12 @@
       "description": "Status Indicator Glass component with glass effects"
     },
     {
+      "name": "sparkline-glass",
+      "type": "registry:component",
+      "title": "Sparkline Glass",
+      "description": "Sparkline Glass component with glass effects"
+    },
+    {
       "name": "segmented-control-glass",
       "type": "registry:component",
       "title": "Segmented Control Glass",
@@ -320,6 +326,12 @@
       "type": "registry:component",
       "title": "Search Box Glass",
       "description": "Search Box Glass component with glass effects"
+    },
+    {
+      "name": "insight-card-glass",
+      "type": "registry:component",
+      "title": "Insight Card Glass",
+      "description": "Insight Card Glass component with glass effects"
     },
     {
       "name": "icon-button-glass",

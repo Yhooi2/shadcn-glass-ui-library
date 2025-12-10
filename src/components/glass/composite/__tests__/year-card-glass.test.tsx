@@ -64,29 +64,15 @@ describe('YearCardGlass', () => {
     });
 
     it('shows Show Year button when onShowYear provided and expanded', () => {
-      render(
-        <YearCardGlass
-          {...defaultProps}
-          isExpanded
-          onShowYear={vi.fn()}
-        />
-      );
+      render(<YearCardGlass {...defaultProps} isExpanded onShowYear={vi.fn()} />);
 
-      expect(screen.getByRole('button', { name: /show repos from 2023/i }))
-        .toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /show repos from 2023/i })).toBeInTheDocument();
     });
 
     it('does not show Show Year button when collapsed', () => {
-      render(
-        <YearCardGlass
-          {...defaultProps}
-          isExpanded={false}
-          onShowYear={vi.fn()}
-        />
-      );
+      render(<YearCardGlass {...defaultProps} isExpanded={false} onShowYear={vi.fn()} />);
 
-      expect(screen.queryByRole('button', { name: /show repos/i }))
-        .not.toBeInTheDocument();
+      expect(screen.queryByRole('button', { name: /show repos/i })).not.toBeInTheDocument();
     });
   });
 
@@ -176,16 +162,72 @@ describe('YearCardGlass', () => {
     });
   });
 
+  describe('Sparkline Integration', () => {
+    it('renders sparkline when data provided', () => {
+      const sparklineData = [10, 20, 15, 25, 30, 28, 35];
+      render(<YearCardGlass {...defaultProps} sparklineData={sparklineData} />);
+
+      // Sparkline has role="img"
+      expect(screen.getByRole('img', { name: /activity trend/i })).toBeInTheDocument();
+    });
+
+    it('does not render sparkline when data is empty', () => {
+      render(<YearCardGlass {...defaultProps} sparklineData={[]} />);
+
+      expect(screen.queryByRole('img', { name: /activity trend/i })).not.toBeInTheDocument();
+    });
+
+    it('does not render sparkline when data is undefined', () => {
+      render(<YearCardGlass {...defaultProps} />);
+
+      expect(screen.queryByRole('img', { name: /activity trend/i })).not.toBeInTheDocument();
+    });
+  });
+
+  describe('Insights Integration', () => {
+    const mockInsights = [
+      { variant: 'growth' as const, text: 'Growth', detail: '+47%' },
+      { variant: 'highlight' as const, text: 'Best month', detail: 'April' },
+    ];
+
+    it('renders insights when expanded and insights provided', () => {
+      render(<YearCardGlass {...defaultProps} isExpanded insights={mockInsights} />);
+
+      expect(screen.getByText('Growth')).toBeInTheDocument();
+      expect(screen.getByText('+47%')).toBeInTheDocument();
+      expect(screen.getByText('Best month')).toBeInTheDocument();
+      expect(screen.getByText('April')).toBeInTheDocument();
+    });
+
+    it('does not render insights when collapsed', () => {
+      render(<YearCardGlass {...defaultProps} isExpanded={false} insights={mockInsights} />);
+
+      expect(screen.queryByText('Growth')).not.toBeInTheDocument();
+    });
+
+    it('does not render insights section when insights array is empty', () => {
+      render(<YearCardGlass {...defaultProps} isExpanded insights={[]} />);
+
+      // Check that stats grid is still visible
+      expect(screen.getByText('Commits')).toBeInTheDocument();
+      // But no insight text
+      expect(screen.queryByText('Growth')).not.toBeInTheDocument();
+    });
+
+    it('renders insights with custom emoji', () => {
+      const insightsWithEmoji = [
+        { variant: 'stat' as const, emoji: '⭐', text: 'New record', detail: 'Most PRs' },
+      ];
+      render(<YearCardGlass {...defaultProps} isExpanded insights={insightsWithEmoji} />);
+
+      expect(screen.getByText('New record')).toBeInTheDocument();
+      expect(screen.getByText('Most PRs')).toBeInTheDocument();
+    });
+  });
+
   describe('Edge Cases', () => {
     it('handles zero PRs and repos', () => {
-      render(
-        <YearCardGlass
-          {...defaultProps}
-          isExpanded
-          prs={0}
-          repos={0}
-        />
-      );
+      render(<YearCardGlass {...defaultProps} isExpanded prs={0} repos={0} />);
 
       // Should display 0 for both
       const zeros = screen.getAllByText('0');
@@ -195,8 +237,7 @@ describe('YearCardGlass', () => {
     it('handles undefined onShowYear', () => {
       render(<YearCardGlass {...defaultProps} isExpanded />);
       // Should not show the button
-      expect(screen.queryByRole('button', { name: /show repos/i }))
-        .not.toBeInTheDocument();
+      expect(screen.queryByRole('button', { name: /show repos/i })).not.toBeInTheDocument();
     });
 
     it('handles undefined onClick gracefully', async () => {
@@ -205,6 +246,22 @@ describe('YearCardGlass', () => {
 
       // Should not throw
       await user.click(screen.getByRole('button'));
+    });
+
+    it('handles both sparkline and insights together', () => {
+      const sparklineData = [10, 20, 15, 25, 30];
+      const insights = [{ variant: 'growth' as const, text: 'Growing', detail: '+50%' }];
+      render(
+        <YearCardGlass
+          {...defaultProps}
+          isExpanded
+          sparklineData={sparklineData}
+          insights={insights}
+        />
+      );
+
+      expect(screen.getByRole('img', { name: /activity trend/i })).toBeInTheDocument();
+      expect(screen.getByText('Growing')).toBeInTheDocument();
     });
   });
 });
