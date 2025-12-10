@@ -13,10 +13,12 @@ export * from './button-glass-variants';
 export * from './dropdown-glass-variants';
 export * from './glass-card-variants';
 export * from './input-glass-variants';
+export * from './insight-card-glass-variants';
 export * from './modal-glass-variants';
 export * from './notification-glass-variants';
 export * from './progress-glass-variants';
 export * from './skeleton-glass-variants';
+export * from './sparkline-glass-variants';
 export * from './toggle-glass-variants';
 export * from './tooltip-glass-variants';
 

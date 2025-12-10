@@ -437,4 +437,13 @@
   --grid-color: oklch(100% 0 0 / 0.05);
   --grid-opacity: 0.03;
   --footer-text: oklch(100% 0 0 / 0.3);
+
+  /* ========================================
+     SPARKLINE GLASS VARIABLES (OKLCH)
+     ======================================== */
+  --sparkline-bar-bg: oklch(100% 0 0 / 0.05);
+  --sparkline-bar-fill: oklch(66.6% 0.159 303); /* primary accent */
+  --sparkline-bar-max: oklch(76.5% 0.147 163); /* emerald-400 success */
+  --sparkline-label-color: oklch(100% 0 0 / 0.5);
+  --sparkline-label-size: 0.625rem;
 }

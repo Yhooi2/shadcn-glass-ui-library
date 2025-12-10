@@ -1,47 +1,46 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, fn } from "storybook/test";
-import { useState } from "react";
-import { ToggleGlass } from "./glass/ui/toggle-glass";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, fn } from 'storybook/test';
+import { useState } from 'react';
+import { ToggleGlass } from './glass/ui/toggle-glass';
 
 const meta = {
-  title: "Components/ToggleGlass",
+  title: 'Components/ToggleGlass',
   component: ToggleGlass,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     size: {
-      control: "select",
-      options: ["sm", "md", "lg"],
-      description: "Toggle size",
+      control: 'select',
+      options: ['sm', 'md', 'lg'],
+      description: 'Toggle size',
       table: {
         type: { summary: "'sm' | 'md' | 'lg'" },
-        defaultValue: { summary: "md" },
+        defaultValue: { summary: 'md' },
       },
     },
     checked: {
-      control: "boolean",
-      description: "Toggle state",
+      control: 'boolean',
+      description: 'Toggle state',
       table: {
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
       },
     },
     disabled: {
-      control: "boolean",
-      description: "Disabled state",
+      control: 'boolean',
+      description: 'Disabled state',
       table: {
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
       },
     },
     label: {
-      control: "text",
-      description: "Label text",
+      control: 'text',
+      description: 'Label text',
       table: {
-        type: { summary: "string" },
+        type: { summary: 'string' },
       },
     },
   },
@@ -77,7 +76,7 @@ export const Checked: Story = {
 export const WithLabel: Story = {
   args: {
     checked: false,
-    label: "Enable notifications",
+    label: 'Enable notifications',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -86,9 +85,9 @@ export const WithLabel: Story = {
 
 export const Small: Story = {
   args: {
-    size: "sm",
+    size: 'sm',
     checked: true,
-    label: "Small toggle",
+    label: 'Small toggle',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -97,9 +96,9 @@ export const Small: Story = {
 
 export const Medium: Story = {
   args: {
-    size: "md",
+    size: 'md',
     checked: true,
-    label: "Medium toggle",
+    label: 'Medium toggle',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -108,9 +107,9 @@ export const Medium: Story = {
 
 export const Large: Story = {
   args: {
-    size: "lg",
+    size: 'lg',
     checked: true,
-    label: "Large toggle",
+    label: 'Large toggle',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -121,7 +120,7 @@ export const Disabled: Story = {
   args: {
     checked: false,
     disabled: true,
-    label: "Disabled toggle",
+    label: 'Disabled toggle',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -132,7 +131,7 @@ export const DisabledChecked: Story = {
   args: {
     checked: true,
     disabled: true,
-    label: "Disabled checked",
+    label: 'Disabled checked',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -194,10 +193,10 @@ const InteractiveToggleDemo = () => {
       <ToggleGlass
         checked={checked}
         onChange={setChecked}
-        label={checked ? "Enabled" : "Disabled"}
+        label={checked ? 'Enabled' : 'Disabled'}
       />
-      <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
-        Status: {checked ? "ON" : "OFF"}
+      <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+        Status: {checked ? 'ON' : 'OFF'}
       </p>
     </div>
   );
