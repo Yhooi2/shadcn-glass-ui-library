@@ -91,42 +91,21 @@ describe('RepositoryCardGlass', () => {
 
   describe('Calculations', () => {
     it('calculates total project commits from contribution', () => {
-      render(
-        <RepositoryCardGlass
-          {...defaultProps}
-          commits={100}
-          contribution={50}
-          expanded
-        />
-      );
+      render(<RepositoryCardGlass {...defaultProps} commits={100} contribution={50} expanded />);
 
       // 100 / 0.5 = 200 total commits
       expect(screen.getByText('200 commits')).toBeInTheDocument();
     });
 
     it('calculates estimated lines (commits * 12)', () => {
-      render(
-        <RepositoryCardGlass
-          {...defaultProps}
-          commits={100}
-          contribution={100}
-          expanded
-        />
-      );
+      render(<RepositoryCardGlass {...defaultProps} commits={100} contribution={100} expanded />);
 
       // 100 * 12 = 1200 lines
       expect(screen.getByText('~1200 lines')).toBeInTheDocument();
     });
 
     it('handles 0% contribution', () => {
-      render(
-        <RepositoryCardGlass
-          {...defaultProps}
-          commits={100}
-          contribution={0}
-          expanded
-        />
-      );
+      render(<RepositoryCardGlass {...defaultProps} commits={100} contribution={0} expanded />);
 
       // When contribution is 0, total equals commits
       // There are multiple elements with "100 commits" (in header and expanded section)
@@ -150,8 +129,7 @@ describe('RepositoryCardGlass', () => {
       const handleToggle = vi.fn();
       render(<RepositoryCardGlass {...defaultProps} onToggle={handleToggle} />);
 
-      const button = screen.getByRole('button');
-      button.focus();
+      await user.tab();
       await user.keyboard('{Enter}');
 
       expect(handleToggle).toHaveBeenCalled();
@@ -162,8 +140,7 @@ describe('RepositoryCardGlass', () => {
       const handleToggle = vi.fn();
       render(<RepositoryCardGlass {...defaultProps} onToggle={handleToggle} />);
 
-      const button = screen.getByRole('button');
-      button.focus();
+      await user.tab();
       await user.keyboard(' ');
 
       expect(handleToggle).toHaveBeenCalled();
@@ -239,14 +216,14 @@ describe('RepositoryCardGlass', () => {
     it('defaults to green flag', () => {
       render(<RepositoryCardGlass {...defaultProps} />);
       // StatusIndicatorGlass should be present
-      expect(screen.getByRole('button').querySelector('[class*="status"]') ||
-             screen.getByRole('button').querySelector('span')).toBeInTheDocument();
+      expect(
+        screen.getByRole('button').querySelector('[class*="status"]') ||
+          screen.getByRole('button').querySelector('span')
+      ).toBeInTheDocument();
     });
 
     it('accepts different flag types', () => {
-      const { rerender } = render(
-        <RepositoryCardGlass {...defaultProps} flagType="green" />
-      );
+      const { rerender } = render(<RepositoryCardGlass {...defaultProps} flagType="green" />);
       expect(screen.getByRole('button')).toBeInTheDocument();
 
       rerender(<RepositoryCardGlass {...defaultProps} flagType="yellow" />);
@@ -267,14 +244,7 @@ describe('RepositoryCardGlass', () => {
     });
 
     it('handles very large numbers', () => {
-      render(
-        <RepositoryCardGlass
-          {...defaultProps}
-          commits={1000000}
-          contribution={1}
-          expanded
-        />
-      );
+      render(<RepositoryCardGlass {...defaultProps} commits={1000000} contribution={1} expanded />);
 
       // Should render without error
       expect(screen.getByText('Your Contribution')).toBeInTheDocument();

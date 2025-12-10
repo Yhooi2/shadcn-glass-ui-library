@@ -91,8 +91,7 @@ describe('YearCardGlass', () => {
       const handleClick = vi.fn();
       render(<YearCardGlass {...defaultProps} onClick={handleClick} />);
 
-      const card = screen.getByRole('button');
-      card.focus();
+      await user.tab();
       await user.keyboard('{Enter}');
 
       expect(handleClick).toHaveBeenCalled();
@@ -103,8 +102,7 @@ describe('YearCardGlass', () => {
       const handleClick = vi.fn();
       render(<YearCardGlass {...defaultProps} onClick={handleClick} />);
 
-      const card = screen.getByRole('button');
-      card.focus();
+      await user.tab();
       await user.keyboard(' ');
 
       expect(handleClick).toHaveBeenCalled();
