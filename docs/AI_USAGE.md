@@ -635,7 +635,7 @@ Full rules available in [context7.json](../context7.json).
 - **Registry URL:** `https://raw.githubusercontent.com/Yhooi2/shadcn-glass-ui-library/main/public/r`
 - **Registry namespace:** `@shadcn-glass-ui`
 - **Context7 Library ID:** `/yhooi2/shadcn-glass-ui-library`
-- **Component count:** 55
+- **Component count:** 57
 - **React version:** 18.0+ or 19.0+
 - **Tailwind version:** 4.0+
 - **Node version:** 20.16+, 22.19+, or 24+

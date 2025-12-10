@@ -1,7 +1,7 @@
 {
   "$schema": "https://context7.com/schema/context7.json",
   "projectTitle": "shadcn-glass-ui",
-  "description": "Glassmorphism UI library for React - AI-friendly with 55+ components, strict TypeScript, and comprehensive docs",
+  "description": "Glassmorphism UI library for React - AI-friendly with 57 components, strict TypeScript, and comprehensive docs",
   "branch": "main",
   "folders": ["docs"],
   "excludeFolders": [
@@ -35,10 +35,19 @@
     "Use TooltipGlass with aria-label on icon buttons for screen reader support",
     "ExpandableHeaderGlass has built-in ARIA attributes for accessible expandable sections",
     "Memoize ComboBoxGlass options array with useMemo to prevent unnecessary re-renders",
-    "RainbowProgressGlass uses GPU-optimized animations with will-change for smooth performance"
+    "RainbowProgressGlass uses GPU-optimized animations with will-change for smooth performance",
+    "SparklineGlass displays compact time series data - use with sparklineData array of numbers (e.g., [10, 15, 12, 18, 20])",
+    "SparklineGlass supports height variants (sm/md/lg) and gap spacing (none/sm/md) for flexible visualization",
+    "InsightCardGlass has 7 semantic variants: default, tip, highlight, warning, stat, growth, decline",
+    "InsightCardGlass supports inline and card display modes - use displayMode prop to switch between layouts",
+    "YearCardGlass accepts optional sparklineData for monthly activity trends visualization",
+    "YearCardGlass accepts optional insights array for displaying InsightCardGlass items with all 7 variants",
+    "MetricCardGlass supports optional sparklineData for metric trend visualization alongside progress bars",
+    "When using sparklineData in cards, data array length should match your time period (e.g., 12 months = 12 values)"
   ],
   "previousVersions": [
-    { "tag": "v1.0.11", "title": "Version 1.0.11 (Latest)" },
+    { "tag": "v1.1.0", "title": "Version 1.1.0 (Latest)" },
+    { "tag": "v1.0.11", "title": "Version 1.0.11" },
     { "tag": "v1.0.0", "title": "Version 1.0.0 (Breaking Changes)" }
   ]
 }

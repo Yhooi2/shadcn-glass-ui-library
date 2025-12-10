@@ -1,6 +1,6 @@
 # Component Catalog
 
-Searchable index of all **55 components** in shadcn-glass-ui.
+Searchable index of all **57 components** in shadcn-glass-ui.
 
 ## Quick Reference Table
 
@@ -31,6 +31,7 @@ Searchable index of all **55 components** in shadcn-glass-ui.
 | **SortDropdownGlass**        | Atomic      | `src/components/glass/atomic/sort-dropdown-glass.tsx`           | 5     | Sort options, ascending/descending         |
 | **StatItemGlass**            | Atomic      | `src/components/glass/atomic/stat-item-glass.tsx`               | 5     | Label, value, change, trend                |
 | **ExpandableHeaderGlass**    | Atomic      | `src/components/glass/atomic/expandable-header-glass.tsx`       | 5     | Collapsible, animated                      |
+| **InsightCardGlass**         | Atomic      | `src/components/glass/atomic/insight-card-glass.tsx`            | 7     | 7 variants, inline/card mode, clickable    |
 | **StatusIndicatorGlass**     | Specialized | `src/components/glass/specialized/status-indicator-glass.tsx`   | 4     | Status dot, 4 states, glow                 |
 | **SegmentedControlGlass**    | Specialized | `src/components/glass/specialized/segmented-control-glass.tsx`  | 5     | Button group, exclusive selection          |
 | **RainbowProgressGlass**     | Specialized | `src/components/glass/specialized/rainbow-progress-glass.tsx`   | 4     | Gradient progress, animated                |
@@ -39,6 +40,7 @@ Searchable index of all **55 components** in shadcn-glass-ui.
 | **FlagAlertGlass**           | Specialized | `src/components/glass/specialized/flag-alert-glass.tsx`         | 5     | Warning/danger, icon, dismissable          |
 | **ProgressGlass**            | Specialized | `src/components/glass/specialized/progress-glass.tsx`           | 5     | Enhanced progress bar                      |
 | **BaseProgressGlass**        | Specialized | `src/components/glass/specialized/base-progress-glass.tsx`      | 4     | Base progress component                    |
+| **SparklineGlass**           | Specialized | `src/components/glass/specialized/sparkline-glass.tsx`          | 6     | Time series chart, height/gap variants     |
 | **MetricCardGlass**          | Composite   | `src/components/glass/composite/metric-card-glass.tsx`          | 6     | Metric display, progress, trend            |
 | **YearCardGlass**            | Composite   | `src/components/glass/composite/year-card-glass.tsx`            | 5     | Timeline card, expandable                  |
 | **AICardGlass**              | Composite   | `src/components/glass/composite/ai-card-glass.tsx`              | 5     | AI summary, feature list                   |
@@ -759,7 +761,7 @@ delayDuration | number | 200 | Show delay (ms) | | sideOffset | number | 4 | Dis
 
 ---
 
-### Level 2 - Atomic (6)
+### Level 2 - Atomic (7)
 
 Small, specialized components for specific use cases.
 
@@ -822,7 +824,7 @@ animated, chevron icon **Usage:**
 
 ---
 
-### Level 3 - Specialized (8)
+### Level 3 - Specialized (9)
 
 Advanced specialized components for specific use cases.
 

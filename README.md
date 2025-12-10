@@ -13,13 +13,13 @@
 [![GitHub Copilot](https://img.shields.io/badge/GitHub-Copilot-181717?logo=github)](docs/AI_USAGE.md)
 [![Context7](https://img.shields.io/badge/Context7-Indexed-00D4AA)](https://context7.com/yhooi2/shadcn-glass-ui-library)
 
-Glassmorphism UI library for React - AI-friendly with 55+ components, strict TypeScript, and
+Glassmorphism UI library for React - AI-friendly with 57 components, strict TypeScript, and
 comprehensive docs.
 
 ## ✨ Highlights
 
-- 🎨 **55 Components** - Core UI (18) + Atomic (6) + Composite (13) + Sections (7) + Specialized
-  (8) + Primitives (3)
+- 🎨 **57 Components** - Core UI (18) + Atomic (7) + Composite (13) + Sections (7) + Specialized
+  (9) + Primitives (3)
 - 🌈 **3 Themes** - Glass (dark glassmorphism), Light (clean minimal), Aurora (gradient glow)
 - 🤖 **AI-Friendly** - Optimized for Claude Code, Copilot, GPT with comprehensive docs
 - 🔮 **Advanced Patterns** - asChild polymorphic rendering, Compound components (Modal, Tabs)
@@ -31,6 +31,7 @@ comprehensive docs.
 - 🎯 **Design System** - Comprehensive [UI_DESIGN.md](docs/design-system/UI_DESIGN.md)
   specifications
 - 📦 **Bundle Size** - ~110KB gzipped (production build)
+- 📊 **Data Visualization** - SparklineGlass for compact time series, InsightCardGlass for analytics
 
 ## Tech Stack
 
@@ -135,7 +136,7 @@ npx shadcn@latest add @shadcn-glass-ui/button-glass --deps
 - ✅ Automatic dependency installation
 - ✅ Type-safe CLI workflow
 - ✅ Compatible with existing shadcn/ui projects
-- ✅ 55+ components available
+- ✅ 57 components available
 
 **[→ Full Registry Documentation](docs/REGISTRY_USAGE.md)**
 
@@ -384,7 +385,7 @@ Essential building blocks for any application:
 
 [View all Core UI components →](src/components/glass/ui/)
 
-### Level 2: Atomic (6 components)
+### Level 2: Atomic (7 components)
 
 Small, specialized components for specific use cases:
 
@@ -394,6 +395,8 @@ Small, specialized components for specific use cases:
 - **SortDropdownGlass** - Sorting dropdown menu
 - **StatItemGlass** - Individual stat display
 - **IconButtonGlass** - Icon-only button variant
+- **InsightCardGlass** - Insight display with 7 semantic variants (default, tip, highlight, warning,
+  stat, growth, decline)
 
 [View all Atomic components →](src/components/glass/atomic/)
 
@@ -417,7 +420,7 @@ Pre-built complex components combining multiple elements:
 
 [View all Composite components →](src/components/glass/composite/)
 
-### Specialized Components (8 components)
+### Specialized Components (9 components)
 
 Advanced specialized components for specific use cases:
 
@@ -429,6 +432,7 @@ Advanced specialized components for specific use cases:
 - **FlagAlertGlass** - Warning/danger flag alert with icon
 - **ProgressGlass** - Enhanced progress bar
 - **BaseProgressGlass** - Base progress component
+- **SparklineGlass** - Compact bar chart for time series visualization with height/gap variants
 
 [View all Specialized components →](src/components/glass/specialized/)
 
@@ -467,7 +471,7 @@ individual components from the categories above.
 
 Complete application examples showcasing all components:
 
-- **ComponentShowcase** - Interactive demo of all 55 components with theme switching
+- **ComponentShowcase** - Interactive demo of all 57 components with theme switching
 - **DesktopShowcase** - GitHub Analytics desktop application mockup with glassmorphism design
 - **MobileShowcase** - Mobile-optimized GitHub profile view with responsive layout
 

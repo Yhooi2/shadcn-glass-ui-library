@@ -1,6 +1,6 @@
 **shadcn-glass-ui API Reference v1.0.7**
 
-***
+---
 
 # shadcn-glass-ui
 
@@ -16,11 +16,13 @@
 [![Claude Code](https://img.shields.io/badge/Claude-Code-5865F2?logo=anthropic)](docs/AI_USAGE.md)
 [![GitHub Copilot](https://img.shields.io/badge/GitHub-Copilot-181717?logo=github)](docs/AI_USAGE.md)
 
-Glassmorphism UI library for React - AI-friendly with 55+ components, strict TypeScript, and comprehensive docs.
+Glassmorphism UI library for React - AI-friendly with 57 components, strict TypeScript, and
+comprehensive docs.
 
 ## ✨ Highlights
 
-- 🎨 **55 Components** - Core UI (18) + Atomic (6) + Composite (13) + Sections (7) + Specialized (8) + Primitives (3)
+- 🎨 **57 Components** - Core UI (18) + Atomic (7) + Composite (13) + Sections (7) + Specialized
+  (9) + Primitives (3)
 - 🌈 **3 Themes** - Glass (dark glassmorphism), Light (clean minimal), Aurora (gradient glow)
 - 🤖 **AI-Friendly** - Optimized for Claude Code, Copilot, GPT with comprehensive docs
 - 🔮 **Advanced Patterns** - asChild polymorphic rendering, Compound components (Modal, Tabs)
@@ -45,25 +47,31 @@ See [DEPENDENCIES.md](DEPENDENCIES.md) for detailed dependency documentation.
 
 ## 🤖 AI Assistant Support
 
-This library is **optimized for AI coding assistants** including Claude Code, GitHub Copilot, and ChatGPT:
+This library is **optimized for AI coding assistants** including Claude Code, GitHub Copilot, and
+ChatGPT:
 
 - 📖 **Dedicated AI Guide** - [AI_USAGE.md](_media/AI_USAGE.md) with decision trees and workflows
 - 🎯 **TypeScript Strict Mode** - Full type inference for autocomplete
 - 📝 **Rich JSDoc** - Every component documented with @example, @accessibility
-- 🗂️ **Component Catalog** - [COMPONENTS_CATALOG.md](_media/COMPONENTS_CATALOG.md) with searchable index
+- 🗂️ **Component Catalog** - [COMPONENTS_CATALOG.md](_media/COMPONENTS_CATALOG.md) with searchable
+  index
 - 🔍 **Exports Map** - Machine-readable [EXPORTS_MAP.json](_media/EXPORTS_MAP.json)
 - 🧪 **Real-World Examples** - Use-case based Storybook stories
-- 📦 **shadcn CLI Compatible** - Install components via `npx shadcn add @shadcn-glass-ui/button-glass`
+- 📦 **shadcn CLI Compatible** - Install components via
+  `npx shadcn add @shadcn-glass-ui/button-glass`
 
-[**→ Read AI Usage Guide**](_media/AI_USAGE.md) | [**→ Component Catalog**](_media/COMPONENTS_CATALOG.md)
+[**→ Read AI Usage Guide**](_media/AI_USAGE.md) |
+[**→ Component Catalog**](_media/COMPONENTS_CATALOG.md)
 
 ## 📚 Documentation
 
-- **[Live Storybook](https://yhooi2.github.io/shadcn-glass-ui-library/)** - Interactive component demos
+- **[Live Storybook](https://yhooi2.github.io/shadcn-glass-ui-library/)** - Interactive component
+  demos
 - **[npm Package](https://www.npmjs.com/package/shadcn-glass-ui)** - Public npm registry
 - **[Getting Started Guide](_media/GETTING_STARTED.md)** - Setup tutorial
 - **[GitHub](https://github.com/Yhooi2/shadcn-glass-ui-library)** - Source code
-- [Component Documentation](https://yhooi2.github.io/shadcn-glass-ui-library/?path=/docs) - Detailed API references
+- [Component Documentation](https://yhooi2.github.io/shadcn-glass-ui-library/?path=/docs) - Detailed
+  API references
 - [Registry Usage Guide](_media/REGISTRY_USAGE.md) - shadcn CLI installation guide
 - [Design System](_media/UI_DESIGN.md) - Comprehensive UI specifications
 - [Migration Guides](_media/migration) - Upgrade and API changes
@@ -79,6 +87,7 @@ npm install shadcn-glass-ui
 ## 🚀 Quick Start
 
 **Requirements:**
+
 - React 18.0+ or 19.0+
 - React-DOM 18.0+ or 19.0+
 - Tailwind CSS 4.0+
@@ -175,7 +184,8 @@ import { ModalGlass, TabsGlass } from 'shadcn-glass-ui';
 
 ## ⚠️ Breaking Changes (v1.0.0)
 
-**v1.0.0 removes all legacy/deprecated APIs.** This is a clean slate release with only Compound API support.
+**v1.0.0 removes all legacy/deprecated APIs.** This is a clean slate release with only Compound API
+support.
 
 ### Removed Components
 
@@ -227,8 +237,10 @@ import { ModalGlass, TabsGlass } from 'shadcn-glass-ui';
 ```
 
 **Key Changes:**
+
 - `isOpen` → `open` (on ModalGlass.Root)
-- `onClose` → `onOpenChange` (callback signature changed from `() => void` to `(open: boolean) => void`)
+- `onClose` → `onOpenChange` (callback signature changed from `() => void` to
+  `(open: boolean) => void`)
 - `title` prop removed → use `<ModalGlass.Title>` component
 - Manual structure required (Overlay, Content, Header, Body, Footer)
 
@@ -259,6 +271,7 @@ import { ModalGlass, TabsGlass } from 'shadcn-glass-ui';
 ```
 
 **Key Changes:**
+
 - `tabs` array prop removed → use individual `<TabsGlass.Trigger>` components
 - `activeTab` → `value` (on TabsGlass.Root)
 - `onChange` → `onValueChange`
@@ -368,7 +381,8 @@ Full-page sections ready to use in your application:
 
 ### Blocks (6 ready-to-use demo sections)
 
-Complete component showcases following shadcn/ui pattern - these are demo/documentation components, not production-ready blocks:
+Complete component showcases following shadcn/ui pattern - these are demo/documentation components,
+not production-ready blocks:
 
 - **ButtonsBlock** - All button variants, sizes, states demo
 - **FormElementsBlock** - Input, Slider, Toggle, Checkbox demos
@@ -377,7 +391,8 @@ Complete component showcases following shadcn/ui pattern - these are demo/docume
 - **BadgesBlock** - Badge variants with tooltips demo
 - **NotificationsBlock** - Notifications and alerts demo
 
-**Note:** Blocks are showcase/demo components visible in Storybook. For production use, utilize individual components from the categories above.
+**Note:** Blocks are showcase/demo components visible in Storybook. For production use, utilize
+individual components from the categories above.
 
 [View Blocks in Storybook →](https://yhooi2.github.io/shadcn-glass-ui-library/?path=/story/glass-blocks--default)
 
@@ -385,7 +400,7 @@ Complete component showcases following shadcn/ui pattern - these are demo/docume
 
 Complete application examples showcasing all components:
 
-- **ComponentShowcase** - Interactive demo of all 55 components with theme switching
+- **ComponentShowcase** - Interactive demo of all 57 components with theme switching
 - **DesktopShowcase** - GitHub Analytics desktop application mockup with glassmorphism design
 - **MobileShowcase** - Mobile-optimized GitHub profile view with responsive layout
 
@@ -495,6 +510,7 @@ GlassCard supports 3 intensity levels for customizable blur effects:
 ```
 
 **Intensity Levels:**
+
 - `subtle` - 8px blur (--blur-sm) - Light glass effect
 - `medium` - 16px blur (--blur-md) - Standard cards (default)
 - `strong` - 24px blur (--blur-lg) - Featured cards

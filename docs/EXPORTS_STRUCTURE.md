@@ -2,7 +2,8 @@
 
 > **AI-Friendly Documentation** - Complete guide to library exports for AI assistants
 
-This document provides a comprehensive guide to all exports from `shadcn-glass-ui` library, organized by category and hierarchy level.
+This document provides a comprehensive guide to all exports from `shadcn-glass-ui` library,
+organized by category and hierarchy level.
 
 ## Table of Contents
 
@@ -21,12 +22,7 @@ This document provides a comprehensive guide to all exports from `shadcn-glass-u
 
 ```tsx
 // Core UI components (most commonly used)
-import {
-  ButtonGlass,
-  InputGlass,
-  ModalGlass,
-  GlassCard
-} from 'shadcn-glass-ui';
+import { ButtonGlass, InputGlass, ModalGlass, GlassCard } from 'shadcn-glass-ui';
 
 // Theme system
 import { ThemeProvider, useTheme } from 'shadcn-glass-ui';
@@ -38,11 +34,7 @@ import { cn } from 'shadcn-glass-ui';
 ### TypeScript Support
 
 ```tsx
-import type {
-  ButtonGlassProps,
-  Theme,
-  ThemeConfig
-} from 'shadcn-glass-ui';
+import type { ButtonGlassProps, Theme, ThemeConfig } from 'shadcn-glass-ui';
 ```
 
 ---
@@ -56,6 +48,7 @@ import { ButtonGlass, InputGlass, useTheme } from 'shadcn-glass-ui';
 ```
 
 **Pros:**
+
 - Tree-shakable
 - Clear dependencies
 - Type-safe
@@ -67,6 +60,7 @@ import type { ButtonGlassProps, Theme } from 'shadcn-glass-ui';
 ```
 
 **Pros:**
+
 - Zero runtime cost
 - Explicit type usage
 
@@ -79,6 +73,7 @@ import * as GlassUI from 'shadcn-glass-ui';
 ```
 
 **Cons:**
+
 - No tree-shaking
 - Larger bundle size
 
@@ -139,18 +134,20 @@ Level 5: Sections (7)        → Complete page sections
 
 Foundation components that other components build upon. Rarely used directly in application code.
 
-| Export | Type | Description | Use Case |
-|--------|------|-------------|----------|
-| `TouchTarget` | Component | Touch-friendly wrapper (44/48px minimum) | Wrap small interactive elements |
-| `FormFieldWrapper` | Component | Unified form field structure | Create custom form components |
-| `InteractiveCard` | Component | Hover animations + glass effects | Build custom card components |
+| Export             | Type      | Description                              | Use Case                        |
+| ------------------ | --------- | ---------------------------------------- | ------------------------------- |
+| `TouchTarget`      | Component | Touch-friendly wrapper (44/48px minimum) | Wrap small interactive elements |
+| `FormFieldWrapper` | Component | Unified form field structure             | Create custom form components   |
+| `InteractiveCard`  | Component | Hover animations + glass effects         | Build custom card components    |
 
 **Import:**
+
 ```tsx
 import { TouchTarget, FormFieldWrapper, InteractiveCard } from 'shadcn-glass-ui';
 ```
 
 **Example:**
+
 ```tsx
 <TouchTarget>
   <button className="w-8 h-8">×</button>
@@ -165,38 +162,39 @@ Primary building blocks for application interfaces. These are the most commonly 
 
 #### Interactive Controls (7)
 
-| Export | Description | Key Props | Variants |
-|--------|-------------|-----------|----------|
-| `ButtonGlass` | Primary action button | `variant`, `size`, `asChild` | default, secondary, outline, destructive, ghost, link |
-| `CheckboxGlass` | Checkbox input | `checked`, `onCheckedChange` | - |
-| `ComboBoxGlass` | Searchable dropdown | `options`, `value`, `onChange` | - |
-| `DropdownGlass` | Dropdown menu | `items`, `onSelect`, `trigger` | - |
-| `PopoverGlass` | Popover dialog | `trigger`, `content` | - |
-| `SliderGlass` | Range slider | `value`, `min`, `max`, `step` | - |
-| `ToggleGlass` | Toggle switch | `pressed`, `onPressedChange` | - |
+| Export          | Description           | Key Props                      | Variants                                              |
+| --------------- | --------------------- | ------------------------------ | ----------------------------------------------------- |
+| `ButtonGlass`   | Primary action button | `variant`, `size`, `asChild`   | default, secondary, outline, destructive, ghost, link |
+| `CheckboxGlass` | Checkbox input        | `checked`, `onCheckedChange`   | -                                                     |
+| `ComboBoxGlass` | Searchable dropdown   | `options`, `value`, `onChange` | -                                                     |
+| `DropdownGlass` | Dropdown menu         | `items`, `onSelect`, `trigger` | -                                                     |
+| `PopoverGlass`  | Popover dialog        | `trigger`, `content`           | -                                                     |
+| `SliderGlass`   | Range slider          | `value`, `min`, `max`, `step`  | -                                                     |
+| `ToggleGlass`   | Toggle switch         | `pressed`, `onPressedChange`   | -                                                     |
 
 #### Form Elements (2)
 
-| Export | Description | Key Props | Variants |
-|--------|-------------|-----------|----------|
-| `InputGlass` | Text input field | `type`, `placeholder`, `error` | - |
-| `TabsGlass` | Tab navigation | `defaultValue`, `items` (legacy) OR compound API | - |
+| Export       | Description      | Key Props                                        | Variants |
+| ------------ | ---------------- | ------------------------------------------------ | -------- |
+| `InputGlass` | Text input field | `type`, `placeholder`, `error`                   | -        |
+| `TabsGlass`  | Tab navigation   | `defaultValue`, `items` (legacy) OR compound API | -        |
 
 #### Feedback & Display (9)
 
-| Export | Description | Key Props | Variants |
-|--------|-------------|-----------|----------|
-| `AlertGlass` | Alert message | `variant`, `title`, `children` | default, destructive, success, warning |
-| `AvatarGlass` | User avatar | `src`, `alt`, `size`, `status`, `asChild` | - |
-| `BadgeGlass` | Status badge | `variant`, `children` | default, secondary, destructive, outline, success, warning, info |
-| `CircularProgressGlass` | Circular progress indicator | `value`, `size` | - |
-| `GlassCard` | Card container | `glow`, `intensity`, `asChild` | - |
-| `ModalGlass` | Modal dialog | `size`, `children` (legacy) OR compound API | sm, md, lg, xl, full |
-| `NotificationGlass` | Toast notification | `variant`, `title`, `message`, `onClose` | default, destructive, success, warning |
-| `SkeletonGlass` | Loading skeleton | `variant`, `width`, `height` | text, circle, rectangle |
-| `TooltipGlass` | Tooltip overlay | `content`, `position`, `children` | top, bottom, left, right |
+| Export                  | Description                 | Key Props                                   | Variants                                                         |
+| ----------------------- | --------------------------- | ------------------------------------------- | ---------------------------------------------------------------- |
+| `AlertGlass`            | Alert message               | `variant`, `title`, `children`              | default, destructive, success, warning                           |
+| `AvatarGlass`           | User avatar                 | `src`, `alt`, `size`, `status`, `asChild`   | -                                                                |
+| `BadgeGlass`            | Status badge                | `variant`, `children`                       | default, secondary, destructive, outline, success, warning, info |
+| `CircularProgressGlass` | Circular progress indicator | `value`, `size`                             | -                                                                |
+| `GlassCard`             | Card container              | `glow`, `intensity`, `asChild`              | -                                                                |
+| `ModalGlass`            | Modal dialog                | `size`, `children` (legacy) OR compound API | sm, md, lg, xl, full                                             |
+| `NotificationGlass`     | Toast notification          | `variant`, `title`, `message`, `onClose`    | default, destructive, success, warning                           |
+| `SkeletonGlass`         | Loading skeleton            | `variant`, `width`, `height`                | text, circle, rectangle                                          |
+| `TooltipGlass`          | Tooltip overlay             | `content`, `position`, `children`           | top, bottom, left, right                                         |
 
 **Import:**
+
 ```tsx
 import {
   ButtonGlass,
@@ -204,11 +202,12 @@ import {
   CheckboxGlass,
   AlertGlass,
   ModalGlass,
-  TabsGlass
+  TabsGlass,
 } from 'shadcn-glass-ui';
 ```
 
 **Example:**
+
 ```tsx
 // Simple button
 <ButtonGlass variant="default" size="md">Click me</ButtonGlass>
@@ -243,25 +242,23 @@ import {
 
 Small, single-purpose components with focused functionality.
 
-| Export | Description | Key Props | Use Case |
-|--------|-------------|-----------|----------|
-| `ExpandableHeaderGlass` | Collapsible section header | `title`, `isExpanded`, `onToggle` | Accordion headers |
-| `IconButtonGlass` | Icon-only button | `icon`, `label`, `onClick` | Toolbars, compact UIs |
-| `SearchBoxGlass` | Search input with icon | `value`, `onChange`, `placeholder` | Search bars |
-| `SortDropdownGlass` | Sort options dropdown | `value`, `options`, `onChange` | Data tables, lists |
-| `StatItemGlass` | Single statistic display | `label`, `value`, `icon` | Dashboard metrics |
-| `ThemeToggleGlass` | Theme switcher button | - | App header |
+| Export                  | Description                | Key Props                          | Use Case              |
+| ----------------------- | -------------------------- | ---------------------------------- | --------------------- |
+| `ExpandableHeaderGlass` | Collapsible section header | `title`, `isExpanded`, `onToggle`  | Accordion headers     |
+| `IconButtonGlass`       | Icon-only button           | `icon`, `label`, `onClick`         | Toolbars, compact UIs |
+| `SearchBoxGlass`        | Search input with icon     | `value`, `onChange`, `placeholder` | Search bars           |
+| `SortDropdownGlass`     | Sort options dropdown      | `value`, `options`, `onChange`     | Data tables, lists    |
+| `StatItemGlass`         | Single statistic display   | `label`, `value`, `icon`           | Dashboard metrics     |
+| `ThemeToggleGlass`      | Theme switcher button      | -                                  | App header            |
 
 **Import:**
+
 ```tsx
-import {
-  SearchBoxGlass,
-  ThemeToggleGlass,
-  StatItemGlass
-} from 'shadcn-glass-ui';
+import { SearchBoxGlass, ThemeToggleGlass, StatItemGlass } from 'shadcn-glass-ui';
 ```
 
 **Example:**
+
 ```tsx
 <SearchBoxGlass
   value={search}
@@ -286,37 +283,35 @@ Domain-specific components with unique styling or functionality.
 
 #### Progress Indicators (3)
 
-| Export | Description | Key Props | Use Case |
-|--------|-------------|-----------|----------|
-| `BaseProgressGlass` | Foundation for progress bars | `value`, `className` | Extend for custom progress |
-| `ProgressGlass` | Standard progress bar | `value`, `gradient`, `showValue` | Loading, progress tracking |
-| `RainbowProgressGlass` | Multi-color gradient progress | `value` | Visual appeal, gamification |
+| Export                 | Description                   | Key Props                        | Use Case                    |
+| ---------------------- | ----------------------------- | -------------------------------- | --------------------------- |
+| `BaseProgressGlass`    | Foundation for progress bars  | `value`, `className`             | Extend for custom progress  |
+| `ProgressGlass`        | Standard progress bar         | `value`, `gradient`, `showValue` | Loading, progress tracking  |
+| `RainbowProgressGlass` | Multi-color gradient progress | `value`                          | Visual appeal, gamification |
 
 #### Profile & Status (3)
 
-| Export | Description | Key Props | Use Case |
-|--------|-------------|-----------|----------|
-| `ProfileAvatarGlass` | Large avatar with glow | `src`, `alt`, `size` | Profile pages |
-| `StatusIndicatorGlass` | Status dot with glow | `status`, `size` | Online/offline indicators |
-| `LanguageBarGlass` | Language proficiency bar | `language`, `percentage`, `color` | Skills display |
+| Export                 | Description              | Key Props                         | Use Case                  |
+| ---------------------- | ------------------------ | --------------------------------- | ------------------------- |
+| `ProfileAvatarGlass`   | Large avatar with glow   | `src`, `alt`, `size`              | Profile pages             |
+| `StatusIndicatorGlass` | Status dot with glow     | `status`, `size`                  | Online/offline indicators |
+| `LanguageBarGlass`     | Language proficiency bar | `language`, `percentage`, `color` | Skills display            |
 
 #### UI Controls (2)
 
-| Export | Description | Key Props | Use Case |
-|--------|-------------|-----------|----------|
-| `FlagAlertGlass` | Warning/danger flag | `variant`, `title`, `message` | Critical alerts |
-| `SegmentedControlGlass` | Segmented button group | `options`, `value`, `onChange` | View switchers |
+| Export                  | Description            | Key Props                      | Use Case        |
+| ----------------------- | ---------------------- | ------------------------------ | --------------- |
+| `FlagAlertGlass`        | Warning/danger flag    | `variant`, `title`, `message`  | Critical alerts |
+| `SegmentedControlGlass` | Segmented button group | `options`, `value`, `onChange` | View switchers  |
 
 **Import:**
+
 ```tsx
-import {
-  ProgressGlass,
-  RainbowProgressGlass,
-  SegmentedControlGlass
-} from 'shadcn-glass-ui';
+import { ProgressGlass, RainbowProgressGlass, SegmentedControlGlass } from 'shadcn-glass-ui';
 ```
 
 **Example:**
+
 ```tsx
 <ProgressGlass value={75} gradient="default" showValue />
 
@@ -337,42 +332,40 @@ Multi-component compositions that combine several elements.
 
 #### Metrics & Stats (4)
 
-| Export | Description | Contains | Use Case |
-|--------|-------------|----------|----------|
-| `CircularMetricGlass` | Metric with circular progress | CircularProgressGlass | KPI displays |
-| `MetricCardGlass` | Metric display card | GlassCard, ProgressGlass | Dashboard cards |
-| `MetricsGridGlass` | Grid of metrics | Multiple MetricCardGlass | Dashboard layouts |
-| `ContributionMetricsGlass` | GitHub-style contribution chart | Grid, tooltips | Activity visualization |
+| Export                     | Description                     | Contains                 | Use Case               |
+| -------------------------- | ------------------------------- | ------------------------ | ---------------------- |
+| `CircularMetricGlass`      | Metric with circular progress   | CircularProgressGlass    | KPI displays           |
+| `MetricCardGlass`          | Metric display card             | GlassCard, ProgressGlass | Dashboard cards        |
+| `MetricsGridGlass`         | Grid of metrics                 | Multiple MetricCardGlass | Dashboard layouts      |
+| `ContributionMetricsGlass` | GitHub-style contribution chart | Grid, tooltips           | Activity visualization |
 
 #### User & Profile (3)
 
-| Export | Description | Contains | Use Case |
-|--------|-------------|----------|----------|
-| `UserInfoGlass` | User info display | AvatarGlass, BadgeGlass | Profile headers |
-| `UserStatsLineGlass` | Single-line user stats | StatItemGlass (multiple) | Compact profiles |
-| `AICardGlass` | AI summary card | GlassCard, BadgeGlass, icons | AI features showcase |
+| Export               | Description            | Contains                     | Use Case             |
+| -------------------- | ---------------------- | ---------------------------- | -------------------- |
+| `UserInfoGlass`      | User info display      | AvatarGlass, BadgeGlass      | Profile headers      |
+| `UserStatsLineGlass` | Single-line user stats | StatItemGlass (multiple)     | Compact profiles     |
+| `AICardGlass`        | AI summary card        | GlassCard, BadgeGlass, icons | AI features showcase |
 
 #### Repository & Career (6)
 
-| Export | Description | Contains | Use Case |
-|--------|-------------|----------|----------|
-| `RepositoryCardGlass` | Repository card with details | GlassCard, BadgeGlass, buttons | Project listings |
-| `RepositoryHeaderGlass` | Repository header | Breadcrumbs, stats | Repo pages |
-| `RepositoryMetadataGlass` | Repository metadata | Icons, text, links | Repo details |
-| `TrustScoreDisplayGlass` | Trust score indicator | CircularProgressGlass, badges | Reputation systems |
-| `YearCardGlass` | Year timeline card | GlassCard, stats | Career timelines |
-| `CareerStatsHeaderGlass` | Career stats header | Stats, toggle | Profile sections |
+| Export                    | Description                  | Contains                       | Use Case           |
+| ------------------------- | ---------------------------- | ------------------------------ | ------------------ |
+| `RepositoryCardGlass`     | Repository card with details | GlassCard, BadgeGlass, buttons | Project listings   |
+| `RepositoryHeaderGlass`   | Repository header            | Breadcrumbs, stats             | Repo pages         |
+| `RepositoryMetadataGlass` | Repository metadata          | Icons, text, links             | Repo details       |
+| `TrustScoreDisplayGlass`  | Trust score indicator        | CircularProgressGlass, badges  | Reputation systems |
+| `YearCardGlass`           | Year timeline card           | GlassCard, stats               | Career timelines   |
+| `CareerStatsHeaderGlass`  | Career stats header          | Stats, toggle                  | Profile sections   |
 
 **Import:**
+
 ```tsx
-import {
-  MetricCardGlass,
-  CircularMetricGlass,
-  RepositoryCardGlass
-} from 'shadcn-glass-ui';
+import { MetricCardGlass, CircularMetricGlass, RepositoryCardGlass } from 'shadcn-glass-ui';
 ```
 
 **Example:**
+
 ```tsx
 <MetricCardGlass
   title="Total Commits"
@@ -394,26 +387,24 @@ import {
 
 Complete page sections, ready to use with minimal configuration.
 
-| Export | Description | Contains | Use Case |
-|--------|-------------|----------|----------|
-| `HeaderNavGlass` | Navigation header | SearchBoxGlass, ThemeToggleGlass, ButtonGlass | App header |
-| `HeaderBrandingGlass` | Brand header section | Logo, title, links | Landing pages |
-| `ProfileHeaderGlass` | User profile header | ProfileAvatarGlass, UserStatsLineGlass, LanguageBarGlass | Profile pages |
-| `TrustScoreCardGlass` | Trust score card section | TrustScoreDisplayGlass, MetricCardGlass (multiple) | Reputation pages |
-| `CareerStatsGlass` | Career statistics section | CareerStatsHeaderGlass, YearCardGlass (multiple) | Portfolio pages |
-| `FlagsSectionGlass` | Warnings/flags section | ExpandableHeaderGlass, FlagAlertGlass (multiple) | Alert sections |
-| `ProjectsListGlass` | Projects list section | SortDropdownGlass, RepositoryCardGlass (multiple) | Project galleries |
+| Export                | Description               | Contains                                                 | Use Case          |
+| --------------------- | ------------------------- | -------------------------------------------------------- | ----------------- |
+| `HeaderNavGlass`      | Navigation header         | SearchBoxGlass, ThemeToggleGlass, ButtonGlass            | App header        |
+| `HeaderBrandingGlass` | Brand header section      | Logo, title, links                                       | Landing pages     |
+| `ProfileHeaderGlass`  | User profile header       | ProfileAvatarGlass, UserStatsLineGlass, LanguageBarGlass | Profile pages     |
+| `TrustScoreCardGlass` | Trust score card section  | TrustScoreDisplayGlass, MetricCardGlass (multiple)       | Reputation pages  |
+| `CareerStatsGlass`    | Career statistics section | CareerStatsHeaderGlass, YearCardGlass (multiple)         | Portfolio pages   |
+| `FlagsSectionGlass`   | Warnings/flags section    | ExpandableHeaderGlass, FlagAlertGlass (multiple)         | Alert sections    |
+| `ProjectsListGlass`   | Projects list section     | SortDropdownGlass, RepositoryCardGlass (multiple)        | Project galleries |
 
 **Import:**
+
 ```tsx
-import {
-  HeaderNavGlass,
-  ProfileHeaderGlass,
-  CareerStatsGlass
-} from 'shadcn-glass-ui';
+import { HeaderNavGlass, ProfileHeaderGlass, CareerStatsGlass } from 'shadcn-glass-ui';
 ```
 
 **Example:**
+
 ```tsx
 <HeaderNavGlass
   onSearch={handleSearch}
@@ -462,7 +453,7 @@ import type {
   AlertType,
   NotificationType,
   SkeletonVariant,
-  TooltipPosition
+  TooltipPosition,
 } from 'shadcn-glass-ui';
 ```
 
@@ -472,17 +463,17 @@ CVA (Class Variance Authority) variant types:
 
 ```tsx
 import type {
-  BadgeVariant,      // 'default' | 'secondary' | 'destructive' | 'outline' | 'success' | 'warning' | 'info'
-  AlertType,         // 'default' | 'destructive' | 'success' | 'warning'
-  NotificationType,  // 'default' | 'destructive' | 'success' | 'warning'
-  SkeletonVariant,   // 'text' | 'circle' | 'rectangle'
-  TooltipPosition,   // 'top' | 'bottom' | 'left' | 'right'
-  AvatarSize,        // 'xs' | 'sm' | 'md' | 'lg' | 'xl'
-  AvatarStatus,      // 'online' | 'offline' | 'away' | 'busy'
-  ModalSize,         // 'sm' | 'md' | 'lg' | 'xl' | 'full'
-  ProgressGradient,  // 'default' | 'rainbow' | 'blue' | 'green' | 'red'
-  GlowType,          // 'none' | 'subtle' | 'medium' | 'strong'
-  IntensityType      // 'low' | 'medium' | 'high'
+  BadgeVariant, // 'default' | 'secondary' | 'destructive' | 'outline' | 'success' | 'warning' | 'info'
+  AlertType, // 'default' | 'destructive' | 'success' | 'warning'
+  NotificationType, // 'default' | 'destructive' | 'success' | 'warning'
+  SkeletonVariant, // 'text' | 'circle' | 'rectangle'
+  TooltipPosition, // 'top' | 'bottom' | 'left' | 'right'
+  AvatarSize, // 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+  AvatarStatus, // 'online' | 'offline' | 'away' | 'busy'
+  ModalSize, // 'sm' | 'md' | 'lg' | 'xl' | 'full'
+  ProgressGradient, // 'default' | 'rainbow' | 'blue' | 'green' | 'red'
+  GlowType, // 'none' | 'subtle' | 'medium' | 'strong'
+  IntensityType, // 'low' | 'medium' | 'high'
 } from 'shadcn-glass-ui';
 ```
 
@@ -490,9 +481,9 @@ import type {
 
 ```tsx
 import type {
-  Theme,              // 'glass' | 'light' | 'aurora'
-  ThemeConfig,        // { name: Theme; label: string; }
-  ThemeContextValue   // { theme: Theme; setTheme: (theme: Theme) => void; cycleTheme: () => void; }
+  Theme, // 'glass' | 'light' | 'aurora'
+  ThemeConfig, // { name: Theme; label: string; }
+  ThemeContextValue, // { theme: Theme; setTheme: (theme: Theme) => void; cycleTheme: () => void; }
 } from 'shadcn-glass-ui';
 ```
 
@@ -500,8 +491,8 @@ import type {
 
 ```tsx
 import type {
-  DropdownItem,  // { label: string; value: string; icon?: React.ReactNode; disabled?: boolean; }
-  TabItem        // { label: string; value: string; icon?: React.ReactNode; disabled?: boolean; }
+  DropdownItem, // { label: string; value: string; icon?: React.ReactNode; disabled?: boolean; }
+  TabItem, // { label: string; value: string; icon?: React.ReactNode; disabled?: boolean; }
 } from 'shadcn-glass-ui';
 ```
 
@@ -515,11 +506,7 @@ import type {
 import { cn } from 'shadcn-glass-ui';
 
 // Merge Tailwind classes with conflict resolution
-const className = cn(
-  'base-class',
-  condition && 'conditional-class',
-  'override-class'
-);
+const className = cn('base-class', condition && 'conditional-class', 'override-class');
 ```
 
 ### Theme System
@@ -531,13 +518,13 @@ import {
   THEMES,
   THEME_CONFIG,
   getNextTheme,
-  getThemeConfig
+  getThemeConfig,
 } from 'shadcn-glass-ui';
 
 // Wrap your app
 <ThemeProvider defaultTheme="glass">
   <App />
-</ThemeProvider>
+</ThemeProvider>;
 
 // Use in components
 function MyComponent() {
@@ -559,12 +546,7 @@ console.log(THEME_CONFIG); // [{ name: 'glass', label: 'Glass' }, ...]
 ### React Hooks
 
 ```tsx
-import {
-  useFocus,
-  useHover,
-  useResponsive,
-  useWallpaperTint
-} from 'shadcn-glass-ui';
+import { useFocus, useHover, useResponsive, useWallpaperTint } from 'shadcn-glass-ui';
 
 // Focus management
 function FocusExample() {
@@ -603,11 +585,7 @@ export * from './lib/variants';
 import { buttonGlassVariants } from 'shadcn-glass-ui';
 
 const MyCustomButton = ({ variant, size }) => {
-  return (
-    <button className={buttonGlassVariants({ variant, size })}>
-      Click me
-    </button>
-  );
+  return <button className={buttonGlassVariants({ variant, size })}>Click me</button>;
 };
 ```
 
@@ -620,7 +598,8 @@ const MyCustomButton = ({ variant, size }) => {
 ```tsx
 import {
   // Theme (always needed)
-  ThemeProvider, useTheme,
+  ThemeProvider,
+  useTheme,
 
   // Core UI (80% of use cases)
   ButtonGlass,
@@ -647,16 +626,18 @@ import {
   HeaderNavGlass,
 
   // Utility
-  cn
+  cn,
 } from 'shadcn-glass-ui';
 ```
 
 ### Import by Use Case
 
 #### Dashboard Application
+
 ```tsx
 import {
-  ThemeProvider, useTheme,
+  ThemeProvider,
+  useTheme,
   GlassCard,
   MetricCardGlass,
   CircularMetricGlass,
@@ -664,11 +645,12 @@ import {
   ProgressGlass,
   RainbowProgressGlass,
   BadgeGlass,
-  HeaderNavGlass
+  HeaderNavGlass,
 } from 'shadcn-glass-ui';
 ```
 
 #### Form-Heavy Application
+
 ```tsx
 import {
   ThemeProvider,
@@ -680,11 +662,12 @@ import {
   ComboBoxGlass,
   DropdownGlass,
   AlertGlass,
-  ModalGlass
+  ModalGlass,
 } from 'shadcn-glass-ui';
 ```
 
 #### Profile/Portfolio Page
+
 ```tsx
 import {
   ThemeProvider,
@@ -694,7 +677,7 @@ import {
   RepositoryCardGlass,
   TrustScoreCardGlass,
   LanguageBarGlass,
-  YearCardGlass
+  YearCardGlass,
 } from 'shadcn-glass-ui';
 ```
 
@@ -706,15 +689,15 @@ import {
 
 - **Level 0 (Primitives):** 3 components
 - **Level 1 (Core UI):** 18 components
-- **Level 2 (Atomic):** 6 components
-- **Level 3 (Specialized):** 8 components
+- **Level 2 (Atomic):** 7 components
+- **Level 3 (Specialized):** 9 components
 - **Level 4 (Composite):** 13 components
 - **Level 5 (Sections):** 7 components
-- **Total:** 55 components
+- **Total:** 57 components
 
 ### Export Categories
 
-- **Components:** 55 total
+- **Components:** 57 total
 - **Types:** 25+ prop types, 15+ variant types
 - **Utilities:** 1 function (`cn`)
 - **Hooks:** 4 custom hooks
@@ -724,6 +707,7 @@ import {
 ### shadcn/ui Compatibility
 
 Components maintain full API compatibility with shadcn/ui:
+
 - Standard prop names (`variant`, `size`, `disabled`, etc.)
 - Consistent variant naming (`default`, `secondary`, `destructive`, `outline`)
 - Compatible type definitions

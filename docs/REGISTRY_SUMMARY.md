@@ -12,13 +12,13 @@
 
 ### Components Available
 
-- **Total**: 55+ components
+- **Total**: 57 components
 - **Categories**:
   - Core UI (18)
-  - Atomic (6)
+  - Atomic (7)
   - Composite (13)
   - Sections (7)
-  - Specialized (8)
+  - Specialized (9)
   - Primitives (3)
 
 ### Installation Namespace

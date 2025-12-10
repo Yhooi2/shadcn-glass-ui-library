@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
+import { fn } from 'storybook/test';
 import { InsightCardGlass } from './insight-card-glass';
 
 const meta = {
@@ -26,27 +26,27 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: { text: 'Лучший месяц: Апрель', detail: '156 коммитов' },
+  args: { text: 'Best month: April', detail: '156 commits' },
 };
 
 export const Inline: Story = {
-  args: { text: 'Лучший месяц: Апрель (156 коммитов)', inline: true },
+  args: { text: 'Best month: April (156 commits)', inline: true },
 };
 
 export const Highlight: Story = {
-  args: { variant: 'highlight', text: 'Достижение!', detail: 'Первые 1000 коммитов' },
+  args: { variant: 'highlight', text: 'Achievement!', detail: 'First 1000 commits' },
 };
 
 export const Warning: Story = {
-  args: { variant: 'warning', text: 'Активность снизилась', detail: '-23%' },
+  args: { variant: 'warning', text: 'Activity decreased', detail: '-23%' },
 };
 
 export const Growth: Story = {
-  args: { variant: 'growth', text: 'Рост', detail: '+47%' },
+  args: { variant: 'growth', text: 'Growth', detail: '+47%' },
 };
 
 export const Clickable: Story = {
-  args: { text: 'Подробнее', onClick: action('clicked'), showArrow: true },
+  args: { text: 'Learn more', onClick: fn(), showArrow: true },
 };
 
 export const AllVariants: Story = {
