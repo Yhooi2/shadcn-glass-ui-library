@@ -1,1 +1,23 @@
+#!/bin/sh
+
+# Check for screenshot files being committed (macOS screenshots not allowed)
+SCREENSHOTS=$(git diff --cached --name-only | grep '__screenshots__/' || true)
+
+if [ -n "$SCREENSHOTS" ]; then
+  echo "❌ ERROR: Screenshot files should not be committed locally"
+  echo ""
+  echo "Screenshots must be generated on Linux via GitHub Actions to ensure consistency."
+  echo ""
+  echo "To update screenshots:"
+  echo "  1. Push your changes WITHOUT screenshots"
+  echo "  2. Run: gh workflow run update-screenshots.yml"
+  echo "  3. After workflow completes: git pull origin main"
+  echo ""
+  echo "To unstage screenshot files:"
+  echo "  git reset HEAD src/components/__visual__/__screenshots__/"
+  echo ""
+  exit 1
+fi
+
+# Run lint-staged
 npx lint-staged
