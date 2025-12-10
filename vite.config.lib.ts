@@ -39,6 +39,7 @@ export default defineConfig({
         hooks: path.resolve(__dirname, 'src/hooks.ts'),
         utils: path.resolve(__dirname, 'src/utils.ts'),
         themes: path.resolve(__dirname, 'src/themes.ts'),
+        'cli/index': path.resolve(__dirname, 'src/cli/index.ts'),
       },
       formats: ['es', 'cjs'],
       fileName: (format, entryName) => {
@@ -64,6 +65,11 @@ export default defineConfig({
         'clsx',
         'lucide-react',
         'tailwind-merge',
+        // Node.js built-ins for CLI
+        'node:util',
+        'node:fs',
+        'node:path',
+        'node:url',
       ],
       output: {
         preserveModules: false,

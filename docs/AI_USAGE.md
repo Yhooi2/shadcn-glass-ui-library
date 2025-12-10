@@ -1,6 +1,7 @@
 # AI Usage Guide for shadcn-glass-ui
 
-This guide is specifically for **AI assistants** (Claude Code, GitHub Copilot, GPT-based tools) helping users integrate shadcn-glass-ui into their projects.
+This guide is specifically for **AI assistants** (Claude Code, GitHub Copilot, GPT-based tools)
+helping users integrate shadcn-glass-ui into their projects.
 
 ## 🎯 Quick Decision Tree
 
@@ -33,6 +34,7 @@ Is this an existing shadcn/ui project?
 ### Prerequisites Check
 
 Before suggesting this option, verify:
+
 - `components.json` exists in project root
 - `@/components/ui` alias configured
 - Tailwind CSS installed
@@ -62,16 +64,18 @@ npx shadcn@latest add @shadcn-glass-ui/button-glass
 ```tsx
 import { ButtonGlass } from '@/components/glass/ui/button-glass';
 
-<ButtonGlass variant="primary">Click me</ButtonGlass>
+<ButtonGlass variant="primary">Click me</ButtonGlass>;
 ```
 
 ### Common Issues
 
 **Issue: "Registry not found"**
+
 - **Cause:** Missing registry configuration
 - **Fix:** Ensure `registries` object in `components.json`
 
 **Issue: "Component not found"**
+
 - **Cause:** Wrong component name
 - **Fix:** Use `@shadcn-glass-ui/` prefix (e.g., `@shadcn-glass-ui/button-glass`, not `ButtonGlass`)
 
@@ -185,14 +189,17 @@ export function Test() {
 ### Common Issues
 
 **Issue: "Module not found: 'shadcn-glass-ui'"**
+
 - **Cause:** Package not installed
 - **Fix:** `npm install shadcn-glass-ui`
 
 **Issue: "Peer dependency warning"**
+
 - **Cause:** Missing React or Tailwind
 - **Fix:** `npm install react@19 react-dom@19 tailwindcss@4`
 
 **Issue: "Styles not applied"**
+
 - **Cause:** CSS not imported
 - **Fix:** Add `@import 'shadcn-glass-ui/dist/styles.css';` to main CSS
 
@@ -261,11 +268,7 @@ import { ButtonGlass } from 'shadcn-glass-ui';
 
 function MyComponent() {
   return (
-    <ButtonGlass
-      variant="primary"
-      size="md"
-      onClick={() => console.log('Clicked!')}
-    >
+    <ButtonGlass variant="primary" size="md" onClick={() => console.log('Clicked!')}>
       Click me
     </ButtonGlass>
   );
@@ -276,7 +279,7 @@ function MyComponent() {
 
 ```tsx
 // If theme not configured:
-"I notice you haven't set up the theme provider. Add this to your App.tsx:"
+"I notice you haven't set up the theme provider. Add this to your App.tsx:";
 
 import { ThemeProvider } from 'shadcn-glass-ui';
 
@@ -307,6 +310,7 @@ npx shadcn@latest add \
 ```
 
 **Why these 5?**
+
 - **ButtonGlass** - Most common UI element
 - **InputGlass** - Forms need inputs
 - **GlassCard** - Layout container
@@ -412,6 +416,7 @@ npx shadcn@latest add \
    - Look for `variant="danger"` or `type="error"` → v0.x
 
 2. **Suggest upgrade**
+
    ```bash
    npm install shadcn-glass-ui@latest
    ```
@@ -470,12 +475,14 @@ function Test() {
 ### Issue 1: "Cannot find module 'shadcn-glass-ui'"
 
 **Diagnosis:**
+
 ```bash
 npm list shadcn-glass-ui
 # If not found → package not installed
 ```
 
 **Fix:**
+
 ```bash
 npm install shadcn-glass-ui
 ```
@@ -483,10 +490,12 @@ npm install shadcn-glass-ui
 ### Issue 2: "Component has no styles"
 
 **Diagnosis:**
+
 - Check if CSS imported in `src/index.css`
 - Check if Tailwind config includes `node_modules/shadcn-glass-ui/dist/**/*`
 
 **Fix:**
+
 ```css
 /* src/index.css */
 @import 'shadcn-glass-ui/dist/styles.css';
@@ -503,10 +512,12 @@ content: [
 ### Issue 3: "Theme not applying"
 
 **Diagnosis:**
+
 - Check if `ThemeProvider` wraps components
 - Check if theme class applied to container
 
 **Fix:**
+
 ```tsx
 import { ThemeProvider } from 'shadcn-glass-ui';
 
@@ -519,6 +530,68 @@ function App() {
     </ThemeProvider>
   );
 }
+```
+
+---
+
+## 🖥️ CLI Commands
+
+Explore components directly from the command line:
+
+```bash
+# Get component info (fuzzy search supported)
+npx shadcn-glass-ui info ButtonGlass
+npx shadcn-glass-ui info button     # Works with partial names
+npx shadcn-glass-ui info modal      # Finds ModalGlass
+
+# List all components
+npx shadcn-glass-ui list
+
+# List by category
+npx shadcn-glass-ui list --category=core
+npx shadcn-glass-ui list --category=composite
+npx shadcn-glass-ui list --level=1
+
+# Show help
+npx shadcn-glass-ui --help
+```
+
+**Output for `npx shadcn-glass-ui info ButtonGlass`:**
+
+```
+ButtonGlass
+──────────────────────────────────────────────────
+
+Description:
+  Primary action button with glassmorphism effects
+
+Category:    core
+Level:       L1
+Type:        component
+Props:       ButtonGlassProps
+
+Variants:
+  • default
+  • secondary
+  • destructive
+  • ghost
+
+Sizes:
+  • sm
+  • md
+  • lg
+
+✓ shadcn/ui compatible
+✓ Supports asChild pattern
+
+Usage Example:
+─────────────────────
+
+import { ButtonGlass } from 'shadcn-glass-ui';
+
+<ButtonGlass variant="default" size="sm">
+  {/* Content here */}
+</ButtonGlass>
 ```
 
 ---
@@ -538,6 +611,7 @@ function App() {
 ### Import Patterns
 
 **npm package:**
+
 ```tsx
 import { ButtonGlass, InputGlass } from 'shadcn-glass-ui';
 import { ThemeProvider, useTheme } from 'shadcn-glass-ui';
@@ -545,6 +619,7 @@ import 'shadcn-glass-ui/dist/styles.css';
 ```
 
 **shadcn CLI:**
+
 ```tsx
 import { ButtonGlass } from '@/components/glass/ui/button-glass';
 import { ThemeProvider } from '@/lib/theme-context';
@@ -553,15 +628,19 @@ import { ThemeProvider } from '@/lib/theme-context';
 ### Component Variants Reference
 
 **ButtonGlass:**
+
 - `primary`, `secondary`, `outline`, `ghost`, `link`, `destructive`
 
 **BadgeGlass:**
+
 - `default`, `secondary`, `outline`, `destructive`, `success`, `warning`, `info`
 
 **AlertGlass:**
+
 - `default`, `destructive`, `success`, `warning`
 
 **GlassCard:**
+
 - `glass`, `light`, `aurora`, `outline`
 - Intensity: `subtle`, `medium`, `strong`
 
@@ -599,6 +678,7 @@ import { ThemeProvider } from '@/lib/theme-context';
 ### DON'T ❌
 
 1. **Don't mix installation methods**
+
    ```tsx
    // ❌ BAD: Mixing npm and shadcn CLI imports
    import { ButtonGlass } from 'shadcn-glass-ui';
@@ -609,6 +689,7 @@ import { ThemeProvider } from '@/lib/theme-context';
    ```
 
 2. **Don't use deprecated APIs**
+
    ```tsx
    // ❌ BAD: v0.x API
    <ButtonGlass variant="danger">Delete</ButtonGlass>
@@ -618,6 +699,7 @@ import { ThemeProvider } from '@/lib/theme-context';
    ```
 
 3. **Don't skip theme setup**
+
    ```tsx
    // ❌ BAD: No theme provider
    function App() {
@@ -635,6 +717,7 @@ import { ThemeProvider } from '@/lib/theme-context';
    ```
 
 4. **Don't forget CSS import**
+
    ```css
    /* ❌ BAD: Missing CSS import */
    @tailwind base;
@@ -662,6 +745,7 @@ import { ThemeProvider } from '@/lib/theme-context';
 4. Try 3 themes (glass, light, aurora)
 
 **Example project:**
+
 ```bash
 npx create-vite@latest my-glass-app --template react-ts
 cd my-glass-app
@@ -698,6 +782,7 @@ npm install shadcn-glass-ui react@19 react-dom@19 tailwindcss@4
 ### Prompt 1: "Help me install shadcn-glass-ui"
 
 **Response template:**
+
 ```
 I'll help you install shadcn-glass-ui. First, let me check your project setup:
 
@@ -717,7 +802,8 @@ After installation, try this test component:
 ### Prompt 2: "Add a glass button"
 
 **Response template:**
-```
+
+````
 I'll add a glassmorphism button to your project.
 
 [If not installed: Suggest installation first]
@@ -738,9 +824,10 @@ function MyComponent() {
     </ButtonGlass>
   );
 }
-```
+````
 
 Available variants:
+
 - primary (purple gradient)
 - secondary (muted)
 - outline (border only)
@@ -749,23 +836,24 @@ Available variants:
 - destructive (red for delete/danger)
 
 [If theme not set up: Suggest ThemeProvider]
+
 ```
 
 ### Prompt 3: "Migrate from v0.x to v1.0"
 
 **Response template:**
 ```
+
 I'll help you migrate to v1.0. Here are the breaking changes in your code:
 
 1. [Identify deprecated APIs in user's code]
 2. [Provide replacement code]
 3. [Explain why changed]
 
-Updated code:
-[Show before/after comparison]
+Updated code: [Show before/after comparison]
 
-After migration, test these components:
-[List affected components]
+After migration, test these components: [List affected components]
+
 ```
 
 ---
@@ -794,3 +882,4 @@ After migration, test these components:
 ---
 
 **Made for AI assistants by shadcn-glass-ui team** 🤖✨
+```

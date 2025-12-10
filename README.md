@@ -60,6 +60,27 @@ ChatGPT:
 [**→ Read AI Usage Guide**](docs/AI_USAGE.md) |
 [**→ Component Catalog**](docs/COMPONENTS_CATALOG.md)
 
+## 🖥️ CLI
+
+Explore components directly from the command line:
+
+```bash
+# Get component info (fuzzy search supported)
+npx shadcn-glass-ui info ButtonGlass
+npx shadcn-glass-ui info button
+npx shadcn-glass-ui info modal
+
+# List all components
+npx shadcn-glass-ui list
+
+# List by category
+npx shadcn-glass-ui list --category=core
+npx shadcn-glass-ui list --category=composite
+
+# Show help
+npx shadcn-glass-ui --help
+```
+
 ## 📚 Documentation
 
 - **[Live Storybook](https://yhooi2.github.io/shadcn-glass-ui-library/)** - Interactive component

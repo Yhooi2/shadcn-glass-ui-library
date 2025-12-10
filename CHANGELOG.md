@@ -47,6 +47,11 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Added `docs/EXPORTS_MAP.json` - Machine-readable component registry
 - Added `docs/AI_USAGE.md` - Quick reference guide for AI tools
 - Enhanced TypeDoc comments with `@example` and `@accessibility` sections
+- Added `context7.json` for Context7 MCP integration
+- Added CLI commands for component exploration:
+  - `npx shadcn-glass-ui info <name>` - Show component details (fuzzy search)
+  - `npx shadcn-glass-ui list` - List all components
+  - `npx shadcn-glass-ui list --category=core` - Filter by category
 
 **Infrastructure:**
 

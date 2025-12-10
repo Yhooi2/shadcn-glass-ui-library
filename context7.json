@@ -1,0 +1,32 @@
+{
+  "$schema": "https://context7.com/schema/context7.json",
+  "projectTitle": "shadcn-glass-ui",
+  "description": "Glassmorphism UI library for React - AI-friendly with 55+ components, strict TypeScript, and comprehensive docs",
+  "branch": "main",
+  "folders": ["docs"],
+  "excludeFolders": [
+    "src",
+    "node_modules",
+    "dist",
+    ".storybook",
+    ".github",
+    "public",
+    "coverage",
+    "docs/api/_media"
+  ],
+  "excludeFiles": ["package-lock.json", ".DS_Store"],
+  "rules": [
+    "Use 'variant' prop instead of 'type' for AlertGlass and NotificationGlass (v1.0 breaking change)",
+    "Use 'variant=\"destructive\"' instead of 'variant=\"danger\"' for ButtonGlass",
+    "Always wrap components with ThemeProvider from 'shadcn-glass-ui'",
+    "Import CSS: '@import \"shadcn-glass-ui/dist/styles.css\"' in main CSS file",
+    "Use TypeScript strict mode - no 'any' types allowed",
+    "ModalGlass and TabsGlass use compound component API (e.g., ModalGlass.Root, ModalGlass.Content)",
+    "Three themes available: 'glass' (dark), 'light', 'aurora' (gradient)",
+    "WCAG 2.1 AA accessibility compliance required"
+  ],
+  "previousVersions": [
+    { "tag": "v1.0.11", "title": "Version 1.0.11 (Latest)" },
+    { "tag": "v1.0.0", "title": "Version 1.0.0 (Breaking Changes)" }
+  ]
+}

@@ -35,6 +35,9 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "bin": {
+    "shadcn-glass-ui": "./dist/cli/index.js"
+  },
   "exports": {
     ".": {
       "import": {
