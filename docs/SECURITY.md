@@ -90,15 +90,12 @@ Enable these in repository Settings → Security:
 
 The following licenses are allowed for dependencies:
 
-- MIT
+- MIT, MIT\*, MIT-0, (MIT OR CC0-1.0)
 - Apache-2.0
-- BSD-2-Clause
-- BSD-3-Clause
-- ISC
-- 0BSD
-- CC0-1.0
-- CC-BY-3.0
-- CC-BY-4.0
+- BSD-2-Clause, BSD-3-Clause
+- ISC, 0BSD
+- CC0-1.0, CC-BY-3.0, CC-BY-4.0
+- MPL-2.0
 - Unlicense
 - Python-2.0
 - BlueOak-1.0.0
