@@ -36,7 +36,7 @@ export { StatItemGlass } from './components/glass/atomic/stat-item-glass';
 export { ThemeToggleGlass } from './components/glass/atomic/theme-toggle-glass';
 
 // ========================================
-// SPECIALIZED COMPONENTS (Level 3 - 8 components)
+// SPECIALIZED COMPONENTS (Level 3 - 9 components)
 // ========================================
 export { BaseProgressGlass } from './components/glass/specialized/base-progress-glass';
 export { FlagAlertGlass } from './components/glass/specialized/flag-alert-glass';
@@ -45,6 +45,7 @@ export { ProfileAvatarGlass } from './components/glass/specialized/profile-avata
 export { ProgressGlass } from './components/glass/specialized/progress-glass';
 export { RainbowProgressGlass } from './components/glass/specialized/rainbow-progress-glass';
 export { SegmentedControlGlass } from './components/glass/specialized/segmented-control-glass';
+export { SparklineGlass } from './components/glass/specialized/sparkline-glass';
 export { StatusIndicatorGlass } from './components/glass/specialized/status-indicator-glass';
 
 // ========================================
@@ -142,6 +143,9 @@ export type {
   SkeletonVariant,
   SliderGlassProps,
 } from './lib/types';
+
+// Specialized component types
+export type { SparklineGlassProps } from './components/glass/specialized/sparkline-glass';
 
 // ========================================
 // VARIANTS (CVA)

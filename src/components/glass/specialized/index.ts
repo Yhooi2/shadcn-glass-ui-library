@@ -17,30 +17,15 @@ export {
   type StatusType,
 } from './status-indicator-glass';
 
-export {
-  SegmentedControlGlass,
-  type SegmentedControlGlassProps,
-} from './segmented-control-glass';
+export { SegmentedControlGlass, type SegmentedControlGlassProps } from './segmented-control-glass';
 
-export {
-  BaseProgressGlass,
-  type BaseProgressGlassProps,
-} from './base-progress-glass';
+export { BaseProgressGlass, type BaseProgressGlassProps } from './base-progress-glass';
 
-export {
-  ProgressGlass,
-  type ProgressGlassProps,
-} from './progress-glass';
+export { ProgressGlass, type ProgressGlassProps } from './progress-glass';
 
-export {
-  RainbowProgressGlass,
-  type RainbowProgressGlassProps,
-} from './rainbow-progress-glass';
+export { RainbowProgressGlass, type RainbowProgressGlassProps } from './rainbow-progress-glass';
 
-export {
-  ProfileAvatarGlass,
-  type ProfileAvatarGlassProps,
-} from './profile-avatar-glass';
+export { ProfileAvatarGlass, type ProfileAvatarGlassProps } from './profile-avatar-glass';
 
 export {
   LanguageBarGlass,
@@ -48,8 +33,6 @@ export {
   type LanguageData,
 } from './language-bar-glass';
 
-export {
-  FlagAlertGlass,
-  type FlagAlertGlassProps,
-  type FlagType,
-} from './flag-alert-glass';
+export { FlagAlertGlass, type FlagAlertGlassProps, type FlagType } from './flag-alert-glass';
+
+export { SparklineGlass, type SparklineGlassProps } from './sparkline-glass';
