@@ -208,24 +208,6 @@
       "description": "Career Stats Glass component with glass effects"
     },
     {
-      "name": "touch-target",
-      "type": "registry:lib",
-      "title": "Touch Target",
-      "description": "Ensures minimum touch target size compliance with Apple Human Interface Guidelines.\n * Wraps interactive elements to guarantee accessibility on touch devices.\n *\n * Apple HIG recommends minimum 44×44pt (44×44px) touch targets.\n * Material Design recommends 48×48dp for better accessibility.\n *\n * @see https://developer.apple.com/design/human-interface-guidelines/layout"
-    },
-    {
-      "name": "interactive-card",
-      "type": "registry:lib",
-      "title": "Interactive Card",
-      "description": "Unified wrapper for card components with hover animations and glass effects.\n * Eliminates hover state duplication in MetricCardGlass, YearCardGlass,\n * AICardGlass, RepositoryCardGlass, and other card components.\n *\n * Features:"
-    },
-    {
-      "name": "form-field-wrapper",
-      "type": "registry:lib",
-      "title": "Form Field Wrapper",
-      "description": "Unified wrapper for form controls with label, validation states, and messages.\n * Eliminates code duplication across InputGlass, SliderGlass, ComboBoxGlass, etc.\n *\n * Handles:"
-    },
-    {
       "name": "year-card-glass",
       "type": "registry:block",
       "title": "Year Card Glass",
@@ -302,6 +284,24 @@
       "type": "registry:block",
       "title": "Ai Card Glass",
       "description": "Ai Card Glass component with glass effects"
+    },
+    {
+      "name": "touch-target",
+      "type": "registry:lib",
+      "title": "Touch Target",
+      "description": "Ensures minimum touch target size compliance with Apple Human Interface Guidelines.\n * Wraps interactive elements to guarantee accessibility on touch devices.\n *\n * Apple HIG recommends minimum 44×44pt (44×44px) touch targets.\n * Material Design recommends 48×48dp for better accessibility.\n *\n * @see https://developer.apple.com/design/human-interface-guidelines/layout"
+    },
+    {
+      "name": "interactive-card",
+      "type": "registry:lib",
+      "title": "Interactive Card",
+      "description": "Unified wrapper for card components with hover animations and glass effects.\n * Eliminates hover state duplication in MetricCardGlass, YearCardGlass,\n * AICardGlass, RepositoryCardGlass, and other card components.\n *\n * Features:"
+    },
+    {
+      "name": "form-field-wrapper",
+      "type": "registry:lib",
+      "title": "Form Field Wrapper",
+      "description": "Unified wrapper for form controls with label, validation states, and messages.\n * Eliminates code duplication across InputGlass, SliderGlass, ComboBoxGlass, etc.\n *\n * Handles:"
     },
     {
       "name": "theme-toggle-glass",
