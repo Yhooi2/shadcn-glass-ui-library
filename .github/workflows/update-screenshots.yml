@@ -57,7 +57,7 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add src/components/__visual__/__screenshots__/
-          git commit -m "${{ github.event.inputs.commit_message || 'chore: update visual test screenshots' }}
+          git commit --no-verify -m "${{ github.event.inputs.commit_message || 'chore: update visual test screenshots' }}
 
           Generated on Linux (ubuntu-latest) with Chromium.
 
