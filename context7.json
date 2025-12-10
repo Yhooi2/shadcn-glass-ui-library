@@ -23,7 +23,19 @@
     "Use TypeScript strict mode - no 'any' types allowed",
     "ModalGlass and TabsGlass use compound component API (e.g., ModalGlass.Root, ModalGlass.Content)",
     "Three themes available: 'glass' (dark), 'light', 'aurora' (gradient)",
-    "WCAG 2.1 AA accessibility compliance required"
+    "WCAG 2.1 AA accessibility compliance required",
+    "Use asChild prop on ButtonGlass for polymorphic rendering: <ButtonGlass asChild><Link href='/'>Home</Link></ButtonGlass>",
+    "Combine FormFieldWrapper with InputGlass for consistent form validation feedback",
+    "Use ComboBoxGlass instead of SelectGlass for searchable dropdowns (SelectGlass removed in v1.0)",
+    "For forms with validation, use InputGlass error/success props: <InputGlass error='Required' /> or <InputGlass success='Valid' />",
+    "Use SegmentedControlGlass for exclusive selection (like radio buttons but glass-styled)",
+    "Test all components with 3 themes before shipping: glass (dark), light, aurora",
+    "Use CSS variables from glass-theme.css for custom styling: --glass-bg, --blur-md, --focus-glow",
+    "Prefer GlassCard intensity variants (subtle, medium, strong) for different visual depths",
+    "Use TooltipGlass with aria-label on icon buttons for screen reader support",
+    "ExpandableHeaderGlass has built-in ARIA attributes for accessible expandable sections",
+    "Memoize ComboBoxGlass options array with useMemo to prevent unnecessary re-renders",
+    "RainbowProgressGlass uses GPU-optimized animations with will-change for smooth performance"
   ],
   "previousVersions": [
     { "tag": "v1.0.11", "title": "Version 1.0.11 (Latest)" },
