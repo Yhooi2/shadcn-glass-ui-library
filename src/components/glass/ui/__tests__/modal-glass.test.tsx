@@ -326,4 +326,67 @@ describe('ModalGlass', () => {
       expect(screen.getByText('Action')).toBeInTheDocument();
     });
   });
+
+  describe('Modal Description Component', () => {
+    it('renders description with correct id', () => {
+      render(
+        <ModalGlass.Root open={true} onOpenChange={vi.fn()}>
+          <ModalGlass.Content>
+            <ModalGlass.Header>
+              <ModalGlass.Title>Title</ModalGlass.Title>
+            </ModalGlass.Header>
+            <ModalGlass.Description>Description text</ModalGlass.Description>
+          </ModalGlass.Content>
+        </ModalGlass.Root>
+      );
+
+      const description = screen.getByText('Description text');
+      expect(description).toHaveAttribute('id', 'modal-description');
+    });
+
+    it('links description to content via aria-describedby', () => {
+      render(
+        <ModalGlass.Root open={true} onOpenChange={vi.fn()}>
+          <ModalGlass.Content>
+            <ModalGlass.Header>
+              <ModalGlass.Title>Title</ModalGlass.Title>
+            </ModalGlass.Header>
+            <ModalGlass.Description>Description</ModalGlass.Description>
+          </ModalGlass.Content>
+        </ModalGlass.Root>
+      );
+
+      const dialog = screen.getByRole('dialog');
+      expect(dialog).toHaveAttribute('aria-describedby', 'modal-description');
+    });
+  });
+
+  describe('Close Button Details', () => {
+    it('close button has correct responsive icon size', () => {
+      renderModal();
+      const closeButton = screen.getByLabelText('Close modal');
+      const icon = closeButton.querySelector('svg');
+      // Icon should have responsive classes: w-3.5 h-3.5 on mobile, w-4 h-4 on desktop
+      expect(icon).toHaveClass('w-3.5', 'h-3.5', 'md:w-4', 'md:h-4');
+    });
+  });
+
+  describe('Edge Cases', () => {
+    it('handles missing onOpenChange gracefully', () => {
+      render(
+        <ModalGlass.Root open={true}>
+          <ModalGlass.Content>
+            <ModalGlass.Header>
+              <ModalGlass.Title>Title</ModalGlass.Title>
+              <ModalGlass.Close />
+            </ModalGlass.Header>
+            <ModalGlass.Body>Content</ModalGlass.Body>
+          </ModalGlass.Content>
+        </ModalGlass.Root>
+      );
+
+      const closeBtn = screen.getByLabelText('Close modal');
+      expect(() => closeBtn.click()).not.toThrow();
+    });
+  });
 });

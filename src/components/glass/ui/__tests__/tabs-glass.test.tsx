@@ -221,7 +221,7 @@ describe('TabsGlass', () => {
     it('handles activeTab not in tabs array', () => {
       renderTabs({ value: 'nonexistent' });
       const tabs = screen.getAllByRole('tab');
-      tabs.forEach(tab => {
+      tabs.forEach((tab) => {
         expect(tab).toHaveAttribute('aria-selected', 'false');
       });
     });
@@ -250,6 +250,80 @@ describe('TabsGlass', () => {
       expect(inactiveTab).toHaveStyle({
         background: 'var(--tab-bg)',
       });
+    });
+  });
+
+  describe('Keyboard Navigation', () => {
+    it('moves to next tab with ArrowRight', async () => {
+      const user = userEvent.setup();
+      const handleChange = vi.fn();
+      renderTabs({ value: 'tab1', onValueChange: handleChange });
+
+      const tab1 = screen.getByRole('tab', { name: 'Tab 1' });
+      tab1.focus();
+      await user.keyboard('{ArrowRight}');
+
+      expect(handleChange).toHaveBeenCalledWith('tab2');
+    });
+
+    it('moves to previous tab with ArrowLeft', async () => {
+      const user = userEvent.setup();
+      const handleChange = vi.fn();
+      renderTabs({ value: 'tab2', onValueChange: handleChange });
+
+      const tab2 = screen.getByRole('tab', { name: 'Tab 2' });
+      tab2.focus();
+      await user.keyboard('{ArrowLeft}');
+
+      expect(handleChange).toHaveBeenCalledWith('tab1');
+    });
+
+    it('moves to first tab with Home key', async () => {
+      const user = userEvent.setup();
+      const handleChange = vi.fn();
+      renderTabs({ value: 'tab3', onValueChange: handleChange });
+
+      const tab3 = screen.getByRole('tab', { name: 'Tab 3' });
+      tab3.focus();
+      await user.keyboard('{Home}');
+
+      expect(handleChange).toHaveBeenCalledWith('tab1');
+    });
+
+    it('moves to last tab with End key', async () => {
+      const user = userEvent.setup();
+      const handleChange = vi.fn();
+      renderTabs({ value: 'tab1', onValueChange: handleChange });
+
+      const tab1 = screen.getByRole('tab', { name: 'Tab 1' });
+      tab1.focus();
+      await user.keyboard('{End}');
+
+      expect(handleChange).toHaveBeenCalledWith('tab3');
+    });
+  });
+
+  describe('Context Error Handling', () => {
+    it('throws error when TabsTrigger used outside Root', () => {
+      // Suppress console.error for this test
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+      expect(() => {
+        render(<TabsGlass.Trigger value="test">Test</TabsGlass.Trigger>);
+      }).toThrow('Tabs compound components must be used within TabsGlass.Root');
+
+      consoleSpy.mockRestore();
+    });
+
+    it('throws error when TabsContent used outside Root', () => {
+      // Suppress console.error for this test
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+      expect(() => {
+        render(<TabsGlass.Content value="test">Content</TabsGlass.Content>);
+      }).toThrow('Tabs compound components must be used within TabsGlass.Root');
+
+      consoleSpy.mockRestore();
     });
   });
 });

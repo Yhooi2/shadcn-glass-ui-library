@@ -236,6 +236,51 @@ const TabsTrigger = forwardRef<HTMLButtonElement, TabsTriggerProps>(
       boxShadow: isFocusVisible && !disabled ? 'var(--focus-glow)' : 'none',
     };
 
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+      if (disabled) return;
+
+      const tablist = e.currentTarget.closest('[role="tablist"]');
+      if (!tablist) return;
+
+      const tabs = Array.from(
+        tablist.querySelectorAll('[role="tab"]:not([disabled])')
+      ) as HTMLButtonElement[];
+      const currentIndex = tabs.indexOf(e.currentTarget);
+
+      let nextIndex = currentIndex;
+
+      switch (e.key) {
+        case 'ArrowRight':
+          e.preventDefault();
+          nextIndex = currentIndex + 1 >= tabs.length ? 0 : currentIndex + 1;
+          break;
+        case 'ArrowLeft':
+          e.preventDefault();
+          nextIndex = currentIndex - 1 < 0 ? tabs.length - 1 : currentIndex - 1;
+          break;
+        case 'Home':
+          e.preventDefault();
+          nextIndex = 0;
+          break;
+        case 'End':
+          e.preventDefault();
+          nextIndex = tabs.length - 1;
+          break;
+        default:
+          return;
+      }
+
+      const nextTab = tabs[nextIndex];
+      if (nextTab) {
+        nextTab.focus();
+        // Get the value from the button's data attribute or find it in context
+        const nextValue = nextTab.getAttribute('data-value');
+        if (nextValue && onValueChange) {
+          onValueChange(nextValue);
+        }
+      }
+    };
+
     return (
       <button
         ref={ref}
@@ -243,6 +288,7 @@ const TabsTrigger = forwardRef<HTMLButtonElement, TabsTriggerProps>(
         role="tab"
         aria-selected={isActive}
         disabled={disabled}
+        data-value={value}
         className={cn(
           'relative px-2.5 py-1.5 md:px-4 md:py-2 rounded-lg text-xs md:text-sm font-medium transition-[background-color,color,opacity] duration-300',
           disabled && 'opacity-50 cursor-not-allowed',
@@ -250,6 +296,7 @@ const TabsTrigger = forwardRef<HTMLButtonElement, TabsTriggerProps>(
         )}
         style={tabStyles}
         onClick={() => !disabled && onValueChange?.(value)}
+        onKeyDown={handleKeyDown}
         onFocus={focusProps.onFocus}
         onBlur={focusProps.onBlur}
       >

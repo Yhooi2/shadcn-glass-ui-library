@@ -34,7 +34,7 @@
  * @since v1.0.0 - Legacy API removed (isOpen/onClose/title props)
  */
 
-import {
+import React, {
   useState,
   useEffect,
   useCallback,
@@ -208,13 +208,7 @@ interface ModalRootProps extends React.HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
 }
 
-const ModalRoot: FC<ModalRootProps> = ({
-  open,
-  onOpenChange,
-  size = 'md',
-  children,
-  ...props
-}) => {
+const ModalRoot: FC<ModalRootProps> = ({ open, onOpenChange, size = 'md', children, ...props }) => {
   const [isClosing, setIsClosing] = useState(false);
 
   const handleClose = useCallback(async () => {
@@ -259,6 +253,7 @@ const ModalRoot: FC<ModalRootProps> = ({
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"
+        aria-describedby="modal-description"
         {...props}
       >
         {children}
@@ -388,9 +383,7 @@ interface ModalFooterProps {
 
 const ModalFooter: FC<ModalFooterProps> = ({ children, className }) => {
   return (
-    <div className={cn('relative flex gap-3 mt-4 md:mt-5 justify-end', className)}>
-      {children}
-    </div>
+    <div className={cn('relative flex gap-3 mt-4 md:mt-5 justify-end', className)}>{children}</div>
   );
 };
 
@@ -471,10 +464,7 @@ const ModalClose: FC<ModalCloseProps> = ({ className }) => {
       onMouseLeave={hoverProps.onMouseLeave}
       onFocus={focusProps.onFocus}
       onBlur={focusProps.onBlur}
-      className={cn(
-        'p-1.5 md:p-2 rounded-xl transition-all duration-300',
-        className
-      )}
+      className={cn('p-1.5 md:p-2 rounded-xl transition-all duration-300', className)}
       style={closeButtonStyles}
       type="button"
       aria-label="Close modal"

@@ -192,4 +192,51 @@ describe('SliderGlass', () => {
       });
     });
   });
+
+  describe('Error and Success States', () => {
+    it('displays error message when error prop is set', () => {
+      render(<SliderGlass value={50} onChange={vi.fn()} error="Value too low" />);
+      expect(screen.getByText('Value too low')).toBeInTheDocument();
+    });
+
+    it('displays success message when success prop is set', () => {
+      render(<SliderGlass value={75} onChange={vi.fn()} success="Perfect value" />);
+      expect(screen.getByText('Perfect value')).toBeInTheDocument();
+    });
+
+    it('error takes priority over success', () => {
+      render(
+        <SliderGlass
+          value={50}
+          onChange={vi.fn()}
+          error="Error message"
+          success="Success message"
+        />
+      );
+      expect(screen.getByText('Error message')).toBeInTheDocument();
+      expect(screen.queryByText('Success message')).not.toBeInTheDocument();
+    });
+  });
+
+  describe('Edge Cases', () => {
+    it('handles value at minimum boundary', () => {
+      const { container } = render(<SliderGlass value={0} onChange={vi.fn()} min={0} max={100} />);
+      const slider = screen.getByRole('slider') as HTMLInputElement;
+      expect(slider.value).toBe('0');
+      // Verify percentage calculation: 0%
+      const fill = container.querySelectorAll('.rounded-full')[1] as HTMLElement;
+      expect(fill).toHaveStyle({ width: '0%' });
+    });
+
+    it('handles value at maximum boundary', () => {
+      const { container } = render(
+        <SliderGlass value={100} onChange={vi.fn()} min={0} max={100} />
+      );
+      const slider = screen.getByRole('slider') as HTMLInputElement;
+      expect(slider.value).toBe('100');
+      // Verify percentage calculation: 100%
+      const fill = container.querySelectorAll('.rounded-full')[1] as HTMLElement;
+      expect(fill).toHaveStyle({ width: '100%' });
+    });
+  });
 });
