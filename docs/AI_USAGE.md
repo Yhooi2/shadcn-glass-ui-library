@@ -596,6 +596,37 @@ import { ButtonGlass } from 'shadcn-glass-ui';
 
 ---
 
+## 🌐 Context7 MCP Integration
+
+This library is indexed on [Context7](https://context7.com/yhooi2/shadcn-glass-ui-library) for AI
+assistant discoverability.
+
+### Using Context7 MCP
+
+If your AI assistant has Context7 MCP configured, you can fetch library documentation directly:
+
+```
+// In Claude Code or other Context7-enabled assistants:
+mcp__context7__get-library-docs /yhooi2/shadcn-glass-ui-library
+```
+
+### Context7 Rules (20 total)
+
+Key rules indexed for AI assistants:
+
+1. Use `variant` prop instead of `type` for AlertGlass/NotificationGlass
+2. Use `variant="destructive"` instead of `variant="danger"` for ButtonGlass
+3. Always wrap components with ThemeProvider
+4. ModalGlass and TabsGlass use compound component API
+5. Three themes: `glass`, `light`, `aurora`
+6. Use `asChild` prop for polymorphic rendering
+7. Memoize ComboBoxGlass options with `useMemo`
+8. Use TooltipGlass with `aria-label` on icon buttons
+
+Full rules available in [context7.json](../context7.json).
+
+---
+
 ## 📚 Resources for AI Assistants
 
 ### Quick Reference
@@ -603,6 +634,7 @@ import { ButtonGlass } from 'shadcn-glass-ui';
 - **Package name:** `shadcn-glass-ui`
 - **Registry URL:** `https://raw.githubusercontent.com/Yhooi2/shadcn-glass-ui-library/main/public/r`
 - **Registry namespace:** `@shadcn-glass-ui`
+- **Context7 Library ID:** `/yhooi2/shadcn-glass-ui-library`
 - **Component count:** 55
 - **React version:** 18.0+ or 19.0+
 - **Tailwind version:** 4.0+

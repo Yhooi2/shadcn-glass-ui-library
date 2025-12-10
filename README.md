@@ -11,6 +11,7 @@
 [![AI-Friendly](https://img.shields.io/badge/AI-Friendly-blueviolet?logo=openai)](docs/AI_USAGE.md)
 [![Claude Code](https://img.shields.io/badge/Claude-Code-5865F2?logo=anthropic)](docs/AI_USAGE.md)
 [![GitHub Copilot](https://img.shields.io/badge/GitHub-Copilot-181717?logo=github)](docs/AI_USAGE.md)
+[![Context7](https://img.shields.io/badge/Context7-Indexed-00D4AA)](https://context7.com/yhooi2/shadcn-glass-ui-library)
 
 Glassmorphism UI library for React - AI-friendly with 55+ components, strict TypeScript, and
 comprehensive docs.
@@ -56,6 +57,8 @@ ChatGPT:
 - 🧪 **Real-World Examples** - Use-case based Storybook stories
 - 📦 **shadcn CLI Compatible** - Install components via
   `npx shadcn add @shadcn-glass-ui/button-glass`
+- 🌐 **Context7 Indexed** - Discoverable via
+  [Context7 MCP](https://context7.com/yhooi2/shadcn-glass-ui-library) for AI assistants
 
 [**→ Read AI Usage Guide**](docs/AI_USAGE.md) |
 [**→ Component Catalog**](docs/COMPONENTS_CATALOG.md)
