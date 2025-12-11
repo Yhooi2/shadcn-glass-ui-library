@@ -105,9 +105,8 @@ describe('FlagAlertGlass', () => {
     it('description uses muted text color', () => {
       render(<FlagAlertGlass title="Warning" description="Details here" />);
       const description = screen.getByText('Details here');
-      expect(description).toHaveStyle({
-        color: 'var(--text-muted)',
-      });
+      // Uses Tailwind class text-(--text-muted) instead of inline style
+      expect(description).toHaveClass('text-(--text-muted)');
     });
   });
 
@@ -133,7 +132,8 @@ describe('FlagAlertGlass', () => {
     it('description has responsive font size', () => {
       render(<FlagAlertGlass title="Warning" description="Details" />);
       const description = screen.getByText('Details');
-      expect(description).toHaveClass('text-[10px]', 'md:text-xs');
+      // Uses CSS variable text-(length:--font-size-2xs) instead of hardcoded text-[10px]
+      expect(description).toHaveClass('text-(length:--font-size-2xs)', 'md:text-xs');
     });
   });
 

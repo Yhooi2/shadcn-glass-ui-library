@@ -54,8 +54,7 @@ export type AvatarStatus = 'online' | 'offline' | 'busy' | 'away';
  * ```
  */
 export interface AvatarGlassProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'style'>,
-    VariantProps<typeof avatarSizes> {
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'style'>, VariantProps<typeof avatarSizes> {
   /**
    * Render as child element instead of div (polymorphic rendering).
    * Useful for making avatars clickable links.
@@ -125,7 +124,7 @@ export const AvatarGlass = forwardRef<HTMLDivElement, AvatarGlassProps>(
       background: 'var(--avatar-bg)',
       border: '2px solid var(--avatar-border)',
       boxShadow: isHovered ? 'var(--avatar-hover-glow)' : 'var(--avatar-shadow)',
-      color: '#ffffff',
+      color: 'var(--text-inverse)',
     };
 
     const initials = getInitials(name);

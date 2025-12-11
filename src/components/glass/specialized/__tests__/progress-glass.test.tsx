@@ -20,9 +20,7 @@ describe('ProgressGlass', () => {
     });
 
     it('applies custom className', () => {
-      const { container } = render(
-        <ProgressGlass value={50} className="custom-class" />
-      );
+      const { container } = render(<ProgressGlass value={50} className="custom-class" />);
       const wrapper = container.firstChild;
       expect(wrapper).toHaveClass('custom-class');
     });
@@ -150,8 +148,9 @@ describe('ProgressGlass', () => {
       const progressLabel = screen.getByText('Progress');
       const percentageLabel = screen.getByText('50%');
 
-      expect(progressLabel).toHaveStyle({ color: 'var(--text-muted)' });
-      expect(percentageLabel).toHaveStyle({ color: 'var(--text-secondary)' });
+      // Uses Tailwind classes instead of inline styles
+      expect(progressLabel).toHaveClass('text-(--text-muted)');
+      expect(percentageLabel).toHaveClass('text-(--text-secondary)');
     });
   });
 
@@ -193,11 +192,7 @@ describe('ProgressGlass', () => {
   describe('Additional Props', () => {
     it('passes additional HTML attributes to wrapper', () => {
       render(
-        <ProgressGlass
-          value={50}
-          data-testid="custom-progress"
-          aria-describedby="description"
-        />
+        <ProgressGlass value={50} data-testid="custom-progress" aria-describedby="description" />
       );
 
       const wrapper = screen.getByTestId('custom-progress');

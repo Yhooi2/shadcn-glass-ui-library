@@ -3,9 +3,9 @@
 // Language/skill proficiency bar with legend
 // ========================================
 
-import { forwardRef, useState, type CSSProperties } from "react";
-import { cn } from "@/lib/utils";
-import "@/glass-theme.css";
+import { forwardRef, useState, type CSSProperties } from 'react';
+import { cn } from '@/lib/utils';
+import '@/glass-theme.css';
 
 export interface LanguageData {
   readonly name: string;
@@ -19,16 +19,16 @@ export interface LanguageBarGlassProps extends React.HTMLAttributes<HTMLDivEleme
 }
 
 const defaultLangColors: Record<string, string> = {
-  TypeScript: "bg-blue-500",
-  JavaScript: "bg-yellow-400",
-  Python: "bg-emerald-500",
-  HTML: "bg-orange-500",
-  CSS: "bg-purple-500",
-  Java: "bg-red-500",
-  Go: "bg-cyan-500",
-  Rust: "bg-orange-600",
-  Ruby: "bg-red-600",
-  PHP: "bg-indigo-500",
+  TypeScript: 'bg-blue-500',
+  JavaScript: 'bg-yellow-400',
+  Python: 'bg-emerald-500',
+  HTML: 'bg-orange-500',
+  CSS: 'bg-purple-500',
+  Java: 'bg-red-500',
+  Go: 'bg-cyan-500',
+  Rust: 'bg-orange-600',
+  Ruby: 'bg-red-600',
+  PHP: 'bg-indigo-500',
 };
 
 export const LanguageBarGlass = forwardRef<HTMLDivElement, LanguageBarGlassProps>(
@@ -36,7 +36,7 @@ export const LanguageBarGlass = forwardRef<HTMLDivElement, LanguageBarGlassProps
     const [hoveredLang, setHoveredLang] = useState<number | null>(null);
 
     const barStyles: CSSProperties = {
-      boxShadow: "var(--rainbow-glow)",
+      boxShadow: 'var(--rainbow-glow)',
     };
 
     // Early return if no languages provided
@@ -45,7 +45,7 @@ export const LanguageBarGlass = forwardRef<HTMLDivElement, LanguageBarGlassProps
     }
 
     return (
-      <div ref={ref} className={cn("w-full", className)} {...props}>
+      <div ref={ref} className={cn('w-full', className)} {...props}>
         {/* Progress bar */}
         <div
           className="flex h-2 md:h-2.5 rounded-full overflow-hidden"
@@ -54,11 +54,11 @@ export const LanguageBarGlass = forwardRef<HTMLDivElement, LanguageBarGlassProps
           aria-label="Language distribution"
         >
           {languages.map((lang, i) => {
-            const colorClass = lang.color ?? defaultLangColors[lang.name] ?? "bg-slate-400";
+            const colorClass = lang.color ?? defaultLangColors[lang.name] ?? 'bg-slate-400';
             const segmentStyles: CSSProperties = {
               width: `${lang.percent}%`,
               opacity: hoveredLang !== null && hoveredLang !== i ? 0.5 : 1,
-              transition: "all 0.3s",
+              transition: 'all 0.3s',
             };
 
             return (
@@ -80,12 +80,9 @@ export const LanguageBarGlass = forwardRef<HTMLDivElement, LanguageBarGlassProps
 
         {/* Legend */}
         {showLegend && (
-          <div
-            className="flex items-center gap-3 md:gap-4 mt-1.5 md:mt-2 text-[10px] md:text-xs flex-wrap"
-            style={{ color: "var(--text-secondary)" }}
-          >
+          <div className="flex items-center gap-3 md:gap-4 mt-1.5 md:mt-2 text-(length:--font-size-2xs) md:text-xs flex-wrap text-(--text-secondary)">
             {languages.map((lang, i) => {
-              const colorClass = lang.color ?? defaultLangColors[lang.name] ?? "bg-slate-400";
+              const colorClass = lang.color ?? defaultLangColors[lang.name] ?? 'bg-slate-400';
 
               return (
                 <span
@@ -94,7 +91,7 @@ export const LanguageBarGlass = forwardRef<HTMLDivElement, LanguageBarGlassProps
                   onMouseEnter={() => setHoveredLang(i)}
                   onMouseLeave={() => setHoveredLang(null)}
                 >
-                  <span className={cn("w-2 h-2 md:w-2.5 md:h-2.5 rounded-full", colorClass)} />
+                  <span className={cn('w-2 h-2 md:w-2.5 md:h-2.5 rounded-full', colorClass)} />
                   {lang.name} {lang.percent}%
                 </span>
               );
@@ -106,4 +103,4 @@ export const LanguageBarGlass = forwardRef<HTMLDivElement, LanguageBarGlassProps
   }
 );
 
-LanguageBarGlass.displayName = "LanguageBarGlass";
+LanguageBarGlass.displayName = 'LanguageBarGlass';

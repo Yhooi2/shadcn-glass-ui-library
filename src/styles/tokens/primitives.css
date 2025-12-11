@@ -94,7 +94,9 @@
      - Solid: --opacity: 0.20 (almost solid)
      ======================================== */
   --opacity: 0.08; /* Base value - controls all derived opacity levels */
-  --opacity-subtle: calc(var(--opacity) * 0.625); /* base * 0.625 = 0.05 default (minimum per best practices) */
+  --opacity-subtle: calc(
+    var(--opacity) * 0.625
+  ); /* base * 0.625 = 0.05 default (minimum per best practices) */
   --opacity-light: calc(var(--opacity) * 0.875); /* base * 0.875 = 0.07 default */
   --opacity-medium: var(--opacity); /* base = 0.08 default */
   --opacity-strong: calc(var(--opacity) * 1.875); /* base * 1.875 = 0.15 default */
@@ -121,4 +123,28 @@
      Per UI_DESIGN.md glassmorphism guidelines
      ======================================== */
   --text-shadow-glass: 0 1px 2px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.2);
+
+  /* ========================================
+     FONT SIZE SCALE
+     Base font size system - change --font-size to adjust typography globally
+     Default: --font-size: 0.875rem (14px) - standard body text
+
+     Tailwind defaults:
+     - xs: 0.75rem (12px)
+     - sm: 0.875rem (14px)
+     - base: 1rem (16px)
+     - lg: 1.125rem (18px)
+
+     Examples:
+     - Compact: --font-size: 0.8125rem (13px - denser UI)
+     - Balanced (current): --font-size: 0.875rem (14px)
+     - Readable: --font-size: 1rem (16px - larger text)
+     ======================================== */
+  --font-size: 0.875rem; /* Base value = 14px (text-sm) */
+  --font-size-2xs: calc(var(--font-size) * 0.714); /* ~10px - compact labels */
+  --font-size-xs: calc(var(--font-size) * 0.857); /* ~12px - small text */
+  --font-size-sm: var(--font-size); /* 14px - default body */
+  --font-size-base: calc(var(--font-size) * 1.143); /* ~16px - larger body */
+  --font-size-lg: calc(var(--font-size) * 1.286); /* ~18px - headings */
+  --font-size-xl: calc(var(--font-size) * 1.429); /* ~20px - large headings */
 }

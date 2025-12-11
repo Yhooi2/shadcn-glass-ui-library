@@ -17,23 +17,23 @@ export const insightVariantConfig: Record<
     borderVar: string;
   }
 > = {
-  default: { defaultEmoji: '💡', glowVar: '--glow-primary', borderVar: '--glass-border-light' },
-  tip: { defaultEmoji: '💡', glowVar: '--glow-info', borderVar: '--glass-accent-info' },
-  highlight: { defaultEmoji: '✨', glowVar: '--glow-success', borderVar: '--glass-accent-success' },
-  warning: { defaultEmoji: '⚠️', glowVar: '--glow-warning', borderVar: '--glass-accent-warning' },
-  stat: { defaultEmoji: '📊', glowVar: null, borderVar: '--glass-border-light' },
-  growth: { defaultEmoji: '📈', glowVar: '--glow-success', borderVar: '--glass-accent-success' },
-  decline: { defaultEmoji: '📉', glowVar: '--glow-danger', borderVar: '--glass-accent-danger' },
+  default: { defaultEmoji: '💡', glowVar: '--glow-primary', borderVar: '--glass-border' },
+  tip: { defaultEmoji: '💡', glowVar: '--glow-secondary', borderVar: '--alert-default-border' },
+  highlight: { defaultEmoji: '✨', glowVar: '--glow-success', borderVar: '--alert-success-border' },
+  warning: { defaultEmoji: '⚠️', glowVar: '--glow-warning', borderVar: '--alert-warning-border' },
+  stat: { defaultEmoji: '📊', glowVar: null, borderVar: '--glass-border' },
+  growth: { defaultEmoji: '📈', glowVar: '--glow-success', borderVar: '--alert-success-border' },
+  decline: { defaultEmoji: '📉', glowVar: '--glow-error', borderVar: '--alert-destructive-border' },
 };
 
 export const insightCardVariants = cva('relative rounded-lg transition-all duration-200', {
   variants: {
     inline: {
       true: 'inline-flex items-center gap-1.5',
-      false: 'p-3 bg-[var(--glass-frost-5)] border',
+      false: 'p-3 bg-[var(--glass-bg-subtle)] border',
     },
     clickable: {
-      true: 'cursor-pointer hover:bg-[var(--glass-frost-10)]',
+      true: 'cursor-pointer hover:bg-[var(--glass-bg)]',
       false: '',
     },
   },
