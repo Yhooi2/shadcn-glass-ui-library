@@ -256,22 +256,22 @@
   --focus-glow: 0 0 0 2px oklch(66.6% 0.159 303 / 0.6), 0 0 20px oklch(66.6% 0.159 303 / 0.4);
 
   /* ========================================
-     ALERT VARIABLES (OKLCH)
+     ALERT VARIABLES (using semantic tokens)
      ======================================== */
   /* shadcn/ui compatible variants */
-  --alert-default-bg: oklch(70.7% 0.143 250 / 0.1); /* blue-400 */
-  --alert-default-border: oklch(70.7% 0.143 250 / 0.2); /* blue-400 */
-  --alert-default-text: oklch(79.2% 0.108 251); /* blue-300 */
-  --alert-destructive-bg: oklch(71.2% 0.161 12 / 0.1); /* rose-400 */
-  --alert-destructive-border: oklch(71.2% 0.161 12 / 0.2); /* rose-400 */
-  --alert-destructive-text: oklch(81% 0.105 11); /* rose-300 */
+  --alert-default-bg: var(--semantic-info-subtle);
+  --alert-default-border: var(--semantic-info-muted);
+  --alert-default-text: var(--semantic-info-text);
+  --alert-destructive-bg: var(--semantic-error-subtle);
+  --alert-destructive-border: var(--semantic-error-muted);
+  --alert-destructive-text: var(--semantic-error-text);
   /* Glass UI extended variants */
-  --alert-success-bg: oklch(76.5% 0.147 163 / 0.1); /* emerald-400 */
-  --alert-success-border: oklch(76.5% 0.147 163 / 0.2); /* emerald-400 */
-  --alert-success-text: oklch(84.5% 0.127 163); /* emerald-300 */
-  --alert-warning-bg: oklch(82.8% 0.157 84 / 0.1); /* amber-400 */
-  --alert-warning-border: oklch(82.8% 0.157 84 / 0.2); /* amber-400 */
-  --alert-warning-text: oklch(87.9% 0.15 91); /* amber-300 */
+  --alert-success-bg: var(--semantic-success-subtle);
+  --alert-success-border: var(--semantic-success-muted);
+  --alert-success-text: var(--semantic-success-text);
+  --alert-warning-bg: var(--semantic-warning-subtle);
+  --alert-warning-border: var(--semantic-warning-muted);
+  --alert-warning-text: var(--semantic-warning-text);
   /* Alias for FlagAlertGlass danger type */
   --alert-danger-bg: var(--alert-destructive-bg);
   --alert-danger-border: var(--alert-destructive-border);
