@@ -4,8 +4,12 @@
   "type": "registry:block",
   "title": "Circular Metric Glass",
   "description": "CircularMetricGlass - Compact circular progress metric display",
-  "dependencies": ["react"],
-  "registryDependencies": ["cn"],
+  "dependencies": [
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
   "files": [
     {
       "path": "components/glass/composite/circular-metric-glass.tsx",
@@ -13,5 +17,7 @@
       "content": "// ========================================\n// CIRCULAR METRIC GLASS COMPONENT\n// Compact circular metric display for mobile\n// ========================================\n\nimport { forwardRef } from 'react';\nimport { cn } from '@/lib/utils';\nimport {\n  CircularProgressGlass,\n  type CircularProgressGradient,\n} from '../ui/circular-progress-glass';\nimport '@/glass-theme.css';\n\n// ========================================\n// TYPES\n// ========================================\n\nexport type CircularMetricColor = 'emerald' | 'amber' | 'blue' | 'red';\n\nexport interface CircularMetricGlassProps extends React.HTMLAttributes<HTMLDivElement> {\n  /** Metric label (e.g., \"Reg\", \"Imp\") */\n  readonly label: string;\n  /** Metric value (0-100) */\n  readonly value: number;\n  /** Metric color */\n  readonly color?: CircularMetricColor;\n  /** Size variant */\n  readonly size?: 'sm' | 'md';\n}\n\n// ========================================\n// HELPERS\n// ========================================\n\n// Map CircularMetricColor to CircularProgressGlass gradient and CSS variable\nconst colorMap: Record<\n  CircularMetricColor,\n  { gradient: CircularProgressGradient; textVar: string }\n> = {\n  emerald: { gradient: 'emerald', textVar: 'var(--metric-success-text)' },\n  amber: { gradient: 'amber', textVar: 'var(--metric-warning-text)' },\n  blue: { gradient: 'blue', textVar: 'var(--metric-default-text)' },\n  red: { gradient: 'rose', textVar: 'var(--metric-destructive-text)' },\n};\n\n// ========================================\n// COMPONENT\n// ========================================\n\n/**\n * CircularMetricGlass - Compact circular progress metric display\n *\n * Designed for mobile layouts where rectangular MetricCardGlass is too wide.\n * Shows a circular progress indicator with percentage inside and label below.\n *\n * @example\n * ```tsx\n * <CircularMetricGlass label=\"Reg\" value={84} color=\"emerald\" />\n * ```\n */\nexport const CircularMetricGlass = forwardRef<HTMLDivElement, CircularMetricGlassProps>(\n  ({ label, value, color = 'blue', size = 'sm', className, ...props }, ref) => {\n    const { gradient, textVar } = colorMap[color];\n\n    return (\n      <div ref={ref} className={cn('flex flex-col items-center gap-1', className)} {...props}>\n        <CircularProgressGlass\n          value={value}\n          size={size}\n          color={gradient}\n          labelColor={textVar}\n          thickness={size === 'sm' ? 6 : 8}\n          showGlow\n          glowIntensity=\"medium\"\n        />\n        <span className=\"text-xs font-medium\" style={{ color: textVar }}>\n          {label}\n        </span>\n      </div>\n    );\n  }\n);\n\nCircularMetricGlass.displayName = 'CircularMetricGlass';\n"
     }
   ],
-  "categories": ["composite"]
+  "categories": [
+    "composite"
+  ]
 }

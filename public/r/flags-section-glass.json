@@ -4,8 +4,13 @@
   "type": "registry:block",
   "title": "Flags Section Glass",
   "description": "Flags Section Glass component with glass effects",
-  "dependencies": ["lucide-react", "react"],
-  "registryDependencies": ["cn"],
+  "dependencies": [
+    "lucide-react",
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
   "files": [
     {
       "path": "components/glass/sections/flags-section-glass.tsx",
@@ -13,5 +18,7 @@
       "content": "// ========================================\n// FLAGS SECTION GLASS COMPONENT\n// Expandable flags/warnings section\n// ========================================\n\nimport { forwardRef } from 'react';\nimport { AlertTriangle, ChevronUp, ChevronDown } from 'lucide-react';\nimport { cn } from '@/lib/utils';\nimport { GlassCard } from '../ui/glass-card';\nimport { FlagAlertGlass, type FlagType } from '../specialized/flag-alert-glass';\nimport '@/glass-theme.css';\n\nexport interface FlagData {\n  readonly type: FlagType;\n  readonly title: string;\n  readonly description?: string;\n}\n\nexport interface FlagsSectionGlassProps extends React.HTMLAttributes<HTMLDivElement> {\n  readonly flags?: readonly FlagData[];\n  readonly expanded?: boolean;\n  readonly onToggle?: () => void;\n}\n\nexport const FlagsSectionGlass = forwardRef<HTMLDivElement, FlagsSectionGlassProps>(\n  ({ flags = [], expanded = false, onToggle, className, ...props }, ref) => {\n    return (\n      <GlassCard\n        ref={ref}\n        className={cn('w-full max-w-2xl', className)}\n        intensity=\"medium\"\n        hover={false}\n        {...props}\n      >\n        <button\n          onClick={onToggle}\n          className=\"w-full p-3 md:p-4 flex items-center justify-between rounded-2xl\"\n          style={{ color: 'var(--text-primary)' }}\n          type=\"button\"\n          aria-expanded={expanded}\n        >\n          <div className=\"flex items-center gap-1.5 md:gap-2\">\n            <AlertTriangle\n              className=\"w-4 h-4 md:w-5 md:h-5\"\n              style={{ color: 'var(--status-away)' }}\n            />\n            <span className=\"font-medium text-sm md:text-base\">{flags.length} flags detected</span>\n          </div>\n          {expanded ? (\n            <ChevronUp className=\"w-4 h-4 md:w-5 md:h-5\" style={{ color: 'var(--text-muted)' }} />\n          ) : (\n            <ChevronDown className=\"w-4 h-4 md:w-5 md:h-5\" style={{ color: 'var(--text-muted)' }} />\n          )}\n        </button>\n        {expanded && (\n          <div className=\"px-3 pb-3 md:px-4 md:pb-4 space-y-1.5 md:space-y-2\">\n            {flags.map((flag, i) => (\n              <FlagAlertGlass\n                key={`flag-${i}`}\n                type={flag.type}\n                title={flag.title}\n                description={flag.description}\n              />\n            ))}\n          </div>\n        )}\n      </GlassCard>\n    );\n  }\n);\n\nFlagsSectionGlass.displayName = 'FlagsSectionGlass';\n"
     }
   ],
-  "categories": ["sections"]
+  "categories": [
+    "sections"
+  ]
 }

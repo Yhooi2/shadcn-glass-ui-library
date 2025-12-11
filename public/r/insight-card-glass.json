@@ -4,8 +4,15 @@
   "type": "registry:component",
   "title": "Insight Card Glass",
   "description": "Insight Card Glass component with glass effects",
-  "dependencies": ["class-variance-authority", "lucide-react", "react"],
-  "registryDependencies": ["cn", "variants"],
+  "dependencies": [
+    "class-variance-authority",
+    "lucide-react",
+    "react"
+  ],
+  "registryDependencies": [
+    "cn",
+    "variants"
+  ],
   "files": [
     {
       "path": "components/glass/atomic/insight-card-glass.tsx",
@@ -13,5 +20,7 @@
       "content": "import { forwardRef, type CSSProperties, type KeyboardEvent } from 'react';\nimport { type VariantProps } from 'class-variance-authority';\nimport { ChevronRight } from 'lucide-react';\nimport { cn } from '@/lib/utils';\nimport {\n  insightCardVariants,\n  insightVariantConfig,\n  type InsightVariant,\n} from '@/lib/variants/insight-card-glass-variants';\nimport '@/glass-theme.css';\n\nexport interface InsightCardGlassProps\n  extends\n    Omit<React.HTMLAttributes<HTMLDivElement>, 'style'>,\n    VariantProps<typeof insightCardVariants> {\n  /** Emoji icon for the insight */\n  readonly emoji?: string;\n  /** Main insight text */\n  readonly text: string;\n  /** Additional details */\n  readonly detail?: string;\n  /** Insight type variant */\n  readonly variant?: InsightVariant;\n  /** Inline display mode */\n  readonly inline?: boolean;\n  /** Click handler (makes the insight clickable) */\n  readonly onClick?: () => void;\n  /** Show arrow indicator */\n  readonly showArrow?: boolean;\n  /** Fade-in animation */\n  readonly animated?: boolean;\n}\n\nexport const InsightCardGlass = forwardRef<HTMLDivElement, InsightCardGlassProps>(\n  (\n    {\n      emoji,\n      text,\n      detail,\n      variant = 'default',\n      inline = false,\n      onClick,\n      showArrow = false,\n      animated = false,\n      className,\n      ...props\n    },\n    ref\n  ) => {\n    const config = insightVariantConfig[variant];\n    const displayEmoji = emoji ?? config.defaultEmoji;\n    const isClickable = !!onClick;\n\n    const handleClick = () => onClick?.();\n\n    const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {\n      if (isClickable && (e.key === 'Enter' || e.key === ' ')) {\n        e.preventDefault();\n        onClick?.();\n      }\n    };\n\n    const borderStyle: CSSProperties = !inline\n      ? {\n          borderColor: `var(${config.borderVar})`,\n        }\n      : {};\n\n    const glowStyle: CSSProperties =\n      isClickable && config.glowVar\n        ? ({\n            '--hover-glow': `var(${config.glowVar})`,\n          } as CSSProperties)\n        : {};\n\n    // Inline variant\n    if (inline) {\n      return (\n        <span\n          ref={ref as React.Ref<HTMLSpanElement>}\n          className={cn(\n            'inline-flex items-center gap-1.5 text-sm text-[var(--text-secondary)]',\n            className\n          )}\n          {...props}\n        >\n          <span aria-hidden=\"true\">{displayEmoji}</span>\n          <span>{text}</span>\n          {detail && <span className=\"text-[var(--text-muted)]\">({detail})</span>}\n        </span>\n      );\n    }\n\n    // Card variant\n    return (\n      <div\n        ref={ref}\n        role={isClickable ? 'button' : undefined}\n        tabIndex={isClickable ? 0 : undefined}\n        onClick={isClickable ? handleClick : undefined}\n        onKeyDown={isClickable ? handleKeyDown : undefined}\n        className={cn(\n          insightCardVariants({ inline, clickable: isClickable }),\n          isClickable && config.glowVar && 'hover:shadow-[0_0_12px_var(--hover-glow)]',\n          animated && 'animate-insight-fade-in',\n          className\n        )}\n        style={{ ...borderStyle, ...glowStyle }}\n        {...props}\n      >\n        <div className=\"flex items-start gap-2\">\n          <span className=\"text-lg flex-shrink-0\" aria-hidden=\"true\">\n            {displayEmoji}\n          </span>\n          <div className=\"flex-1 min-w-0\">\n            <p className=\"text-sm text-[var(--text-primary)]\">{text}</p>\n            {detail && <p className=\"text-xs text-[var(--text-muted)] mt-0.5\">{detail}</p>}\n          </div>\n          {showArrow && (\n            <ChevronRight\n              className=\"w-4 h-4 text-[var(--text-muted)] flex-shrink-0\"\n              aria-hidden=\"true\"\n            />\n          )}\n        </div>\n      </div>\n    );\n  }\n);\n\nInsightCardGlass.displayName = 'InsightCardGlass';\n"
     }
   ],
-  "categories": ["atomic"]
+  "categories": [
+    "atomic"
+  ]
 }
