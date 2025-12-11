@@ -30,52 +30,81 @@ Essential building blocks for any application. These components form the foundat
   <div className="docs-category-card">
     <h3>Buttons & Actions</h3>
     <ul>
-      <li><LinkTo kind="Components/ButtonGlass" story="docs">ButtonGlass</LinkTo> — main button with glass effect</li>
+      <li><LinkTo kind="Glass UI/Buttons/ButtonGlass">ButtonGlass</LinkTo> — main button with glass effect</li>
     </ul>
   </div>
 
-  <div className="docs-category-card">
-    <h3>Form Elements</h3>
-    <ul>
-      <li><LinkTo kind="Components/InputGlass" story="docs">InputGlass</LinkTo> — text input</li>
-      <li><LinkTo kind="Components/CheckboxGlass" story="docs">CheckboxGlass</LinkTo> — checkbox</li>
-      <li><LinkTo kind="Components/ToggleGlass" story="docs">ToggleGlass</LinkTo> — toggle switch</li>
-      <li><LinkTo kind="Components/SliderGlass" story="docs">SliderGlass</LinkTo> — slider</li>
-    </ul>
-  </div>
+<div className="docs-category-card">
+  <h3>Form Elements</h3>
+  <ul>
+    <li>
+      <LinkTo kind="Glass UI/Form/InputGlass">InputGlass</LinkTo> — text input
+    </li>
+    <li>
+      <LinkTo kind="Glass UI/Form/CheckboxGlass">CheckboxGlass</LinkTo> — checkbox
+    </li>
+    <li>
+      <LinkTo kind="Glass UI/Form/ToggleGlass">ToggleGlass</LinkTo> — toggle switch
+    </li>
+    <li>
+      <LinkTo kind="Glass UI/Form/SliderGlass">SliderGlass</LinkTo> — slider
+    </li>
+  </ul>
+</div>
 
-  <div className="docs-category-card">
-    <h3>Containers</h3>
-    <ul>
-      <li><LinkTo kind="Components/GlassCard" story="docs">GlassCard</LinkTo> — card with glass effect</li>
-      <li><LinkTo kind="Components/ModalGlass" story="docs">ModalGlass</LinkTo> — modal dialog</li>
-    </ul>
-  </div>
+<div className="docs-category-card">
+  <h3>Containers</h3>
+  <ul>
+    <li>
+      <LinkTo kind="Glass UI/Display/GlassCard">GlassCard</LinkTo> — card with glass effect
+    </li>
+    <li>
+      <LinkTo kind="Glass UI/Overlay/ModalGlass">ModalGlass</LinkTo> — modal dialog
+    </li>
+  </ul>
+</div>
 
-  <div className="docs-category-card">
-    <h3>Navigation</h3>
-    <ul>
-      <li><LinkTo kind="Components/TabsGlass" story="docs">TabsGlass</LinkTo> — tabs</li>
-      <li><LinkTo kind="Components/DropdownGlass" story="docs">DropdownGlass</LinkTo> — dropdown menu</li>
-    </ul>
-  </div>
+<div className="docs-category-card">
+  <h3>Navigation</h3>
+  <ul>
+    <li>
+      <LinkTo kind="Glass UI/Navigation/TabsGlass">TabsGlass</LinkTo> — tabs
+    </li>
+    <li>
+      <LinkTo kind="Glass UI/Overlay/DropdownGlass">DropdownGlass</LinkTo> — dropdown menu
+    </li>
+  </ul>
+</div>
 
-  <div className="docs-category-card">
-    <h3>Feedback</h3>
-    <ul>
-      <li><LinkTo kind="Components/BadgeGlass" story="docs">BadgeGlass</LinkTo> — badge/label</li>
-      <li><LinkTo kind="Components/AlertGlass" story="docs">AlertGlass</LinkTo> — inline alert</li>
-      <li><LinkTo kind="Components/NotificationGlass" story="docs">NotificationGlass</LinkTo> — toast notification</li>
-      <li><LinkTo kind="Components/TooltipGlass" story="docs">TooltipGlass</LinkTo> — tooltip</li>
-      <li><LinkTo kind="Components/SkeletonGlass" story="docs">SkeletonGlass</LinkTo> — loading skeleton</li>
-      <li><LinkTo kind="Components/ProgressGlass" story="docs">ProgressGlass</LinkTo> — progress bar</li>
-    </ul>
-  </div>
+<div className="docs-category-card">
+  <h3>Feedback</h3>
+  <ul>
+    <li>
+      <LinkTo kind="Glass UI/Display/BadgeGlass">BadgeGlass</LinkTo> — badge/label
+    </li>
+    <li>
+      <LinkTo kind="Glass UI/Feedback/AlertGlass">AlertGlass</LinkTo> — inline alert
+    </li>
+    <li>
+      <LinkTo kind="Glass UI/Feedback/NotificationGlass">NotificationGlass</LinkTo> — toast
+      notification
+    </li>
+    <li>
+      <LinkTo kind="Glass UI/Feedback/TooltipGlass">TooltipGlass</LinkTo> — tooltip
+    </li>
+    <li>
+      <LinkTo kind="Glass UI/Feedback/SkeletonGlass">SkeletonGlass</LinkTo> — loading skeleton
+    </li>
+    <li>
+      <LinkTo kind="Glass UI/Progress/ProgressGlass">ProgressGlass</LinkTo> — progress bar
+    </li>
+  </ul>
+</div>
 
   <div className="docs-category-card">
     <h3>Media</h3>
     <ul>
-      <li><LinkTo kind="Components/AvatarGlass" story="docs">AvatarGlass</LinkTo> — user avatar</li>
+      <li><LinkTo kind="Glass UI/Display/AvatarGlass">AvatarGlass</LinkTo> — user avatar</li>
     </ul>
   </div>
 </div>
@@ -124,7 +153,7 @@ import { GlassCard } from 'shadcn-glass-ui';
 <GlassCard variant="glass" intensity="medium">
   <h3>Title</h3>
   <p>Card content</p>
-</GlassCard>
+</GlassCard>;
 ```
 
 ## API Patterns
@@ -158,19 +187,19 @@ import { Link } from 'react-router-dom';
 
 <ButtonGlass asChild>
   <Link href="/">Home</Link>
-</ButtonGlass>
+</ButtonGlass>;
 ```
 
 ## Next Steps
 
 <div className="docs-links-section">
-  <LinkTo kind="Components/Atomic" story="docs" className="docs-link-button">
-    Atomic
+  <LinkTo kind="Glass UI/Atomic Components" className="docs-link-button">
+    Atomic Components
   </LinkTo>
-  <LinkTo kind="Components/Composite" story="docs" className="docs-link-button">
-    Composite
+  <LinkTo kind="Glass UI/Composite Components" className="docs-link-button">
+    Composite Components
   </LinkTo>
-  <LinkTo kind="Components/ButtonGlass" story="docs" className="docs-link-button">
+  <LinkTo kind="Glass UI/Buttons/ButtonGlass" className="docs-link-button">
     ButtonGlass Demo
   </LinkTo>
 </div>

@@ -36,46 +36,62 @@ Blocks are ready-made demonstration sections showing various component use cases
     </ul>
   </div>
 
-  <div className="docs-category-card">
-    <h3><LinkTo kind="Glass/Blocks" story="docs">📝 FormElementsBlock</LinkTo></h3>
-    <p>Form elements in action.</p>
-    <ul>
-      <li>InputGlass variants</li>
-      <li>SliderGlass</li>
-      <li>ToggleGlass</li>
-      <li>CheckboxGlass</li>
-    </ul>
-  </div>
+<div className="docs-category-card">
+  <h3>
+    <LinkTo kind="Glass/Blocks" story="docs">
+      📝 FormElementsBlock
+    </LinkTo>
+  </h3>
+  <p>Form elements in action.</p>
+  <ul>
+    <li>InputGlass variants</li>
+    <li>SliderGlass</li>
+    <li>ToggleGlass</li>
+    <li>CheckboxGlass</li>
+  </ul>
+</div>
 
-  <div className="docs-category-card">
-    <h3><LinkTo kind="Glass/Blocks" story="docs">📊 ProgressBlock</LinkTo></h3>
-    <p>Progress indicators.</p>
-    <ul>
-      <li>ProgressGlass colors</li>
-      <li>RainbowProgressGlass</li>
-      <li>SkeletonGlass animations</li>
-    </ul>
-  </div>
+<div className="docs-category-card">
+  <h3>
+    <LinkTo kind="Glass/Blocks" story="docs">
+      📊 ProgressBlock
+    </LinkTo>
+  </h3>
+  <p>Progress indicators.</p>
+  <ul>
+    <li>ProgressGlass colors</li>
+    <li>RainbowProgressGlass</li>
+    <li>SkeletonGlass animations</li>
+  </ul>
+</div>
 
-  <div className="docs-category-card">
-    <h3><LinkTo kind="Glass/Blocks" story="docs">👥 AvatarGalleryBlock</LinkTo></h3>
-    <p>Avatar gallery.</p>
-    <ul>
-      <li>All sizes</li>
-      <li>Status indicators</li>
-      <li>Avatar groups</li>
-    </ul>
-  </div>
+<div className="docs-category-card">
+  <h3>
+    <LinkTo kind="Glass/Blocks" story="docs">
+      👥 AvatarGalleryBlock
+    </LinkTo>
+  </h3>
+  <p>Avatar gallery.</p>
+  <ul>
+    <li>All sizes</li>
+    <li>Status indicators</li>
+    <li>Avatar groups</li>
+  </ul>
+</div>
 
-  <div className="docs-category-card">
-    <h3><LinkTo kind="Glass/Blocks" story="docs">🏷️ BadgesBlock</LinkTo></h3>
-    <p>Badges and labels.</p>
-    <ul>
-      <li>All variants</li>
-      <li>With icons</li>
-      <li>Tooltips</li>
-    </ul>
-  </div>
+<div className="docs-category-card">
+  <h3>
+    <LinkTo kind="Glass/Blocks" story="docs">
+      🏷️ BadgesBlock
+    </LinkTo>
+  </h3>
+  <p>Badges and labels.</p>
+  <ul>
+    <li>All variants</li>
+    <li>With icons</li>
+    <li>Tooltips</li>
+  </ul>
+</div>
 
   <div className="docs-category-card">
     <h3><LinkTo kind="Glass/Blocks" story="docs">🔔 NotificationsBlock</LinkTo></h3>
@@ -115,7 +131,7 @@ import { FormElementsBlock } from 'shadcn-glass-ui/blocks';
   showLabels
   className="my-custom-class"
   onInputChange={(value) => console.log(value)}
-/>
+/>;
 ```
 
 ## Demo Pages
@@ -131,7 +147,7 @@ Blocks are used in demo pages:
       <li>Organized by category</li>
       <li>Interactive examples</li>
     </ul>
-    <LinkTo kind="Demo/ComponentShowcase" story="Default" className="docs-link-button" style={{ marginTop: '1rem' }}>
+    <LinkTo kind="Demo/ComponentShowcase" className="docs-link-button" style={{ marginTop: '1rem' }}>
       Open Demo
     </LinkTo>
   </div>
@@ -144,7 +160,7 @@ Blocks are used in demo pages:
       <li>Section components</li>
       <li>Fullscreen mode</li>
     </ul>
-    <LinkTo kind="Demo/DesktopShowcase" story="Default" className="docs-link-button" style={{ marginTop: '1rem' }}>
+    <LinkTo kind="Demo/DesktopShowcase" className="docs-link-button" style={{ marginTop: '1rem' }}>
       Open Demo
     </LinkTo>
   </div>
@@ -163,10 +179,7 @@ interface MyCustomBlockProps {
   className?: string;
 }
 
-export function MyCustomBlock({
-  title = 'My Block',
-  className,
-}: MyCustomBlockProps) {
+export function MyCustomBlock({ title = 'My Block', className }: MyCustomBlockProps) {
   return (
     <GlassCard className={className}>
       <h3 className="text-lg font-semibold mb-4">{title}</h3>
@@ -184,13 +197,13 @@ export function MyCustomBlock({
 ## Next Steps
 
 <div className="docs-links-section">
-  <LinkTo kind="Demo/ComponentShowcase" story="Default" className="docs-link-button">
+  <LinkTo kind="Demo/ComponentShowcase" className="docs-link-button">
     ComponentShowcase
   </LinkTo>
-  <LinkTo kind="Demo/DesktopShowcase" story="Default" className="docs-link-button">
+  <LinkTo kind="Demo/DesktopShowcase" className="docs-link-button">
     DesktopShowcase
   </LinkTo>
-  <LinkTo kind="Introduction" story="docs" className="docs-link-button">
+  <LinkTo kind="Introduction" className="docs-link-button">
     Home
   </LinkTo>
 </div>

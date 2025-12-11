@@ -24,7 +24,7 @@ Ready-to-use complex components combining multiple base elements.
 
 <div className="docs-category-grid">
   <div className="docs-category-card">
-    <h3><LinkTo kind="Glass/Composite/CircularMetricGlass" story="docs">📊 CircularMetricGlass</LinkTo></h3>
+    <h3><LinkTo kind="Glass UI/Composite/CircularMetricGlass">📊 CircularMetricGlass</LinkTo></h3>
     <p>Circular metric display with progress.</p>
     <ul>
       <li>Value and change indicator</li>
@@ -33,45 +33,53 @@ Ready-to-use complex components combining multiple base elements.
     </ul>
   </div>
 
-  <div className="docs-category-card">
-    <h3><LinkTo kind="Glass/Composite/ProfileAvatarGlass" story="docs">👤 ProfileAvatarGlass</LinkTo></h3>
-    <p>Large avatar with glow animation.</p>
-    <ul>
-      <li>Hover animation</li>
-      <li>Status indicator</li>
-      <li>Custom sizes</li>
-    </ul>
-  </div>
+<div className="docs-category-card">
+  <h3>
+    <LinkTo kind="Glass UI/Composite/ProfileAvatarGlass">👤 ProfileAvatarGlass</LinkTo>
+  </h3>
+  <p>Large avatar with glow animation.</p>
+  <ul>
+    <li>Hover animation</li>
+    <li>Status indicator</li>
+    <li>Custom sizes</li>
+  </ul>
+</div>
 
-  <div className="docs-category-card">
-    <h3><LinkTo kind="Glass/Composite/FlagAlertGlass" story="docs">⚠️ FlagAlertGlass</LinkTo></h3>
-    <p>Warning flag alert component.</p>
-    <ul>
-      <li>warning / danger types</li>
-      <li>Icon and text</li>
-      <li>Expandable description</li>
-    </ul>
-  </div>
+<div className="docs-category-card">
+  <h3>
+    <LinkTo kind="Glass UI/Composite/FlagAlertGlass">⚠️ FlagAlertGlass</LinkTo>
+  </h3>
+  <p>Warning flag alert component.</p>
+  <ul>
+    <li>warning / danger types</li>
+    <li>Icon and text</li>
+    <li>Expandable description</li>
+  </ul>
+</div>
 
-  <div className="docs-category-card">
-    <h3><LinkTo kind="Glass/Composite/YearCardGlass" story="docs">📅 YearCardGlass</LinkTo></h3>
-    <p>Year card for career timeline.</p>
-    <ul>
-      <li>Year and statistics</li>
-      <li>Hover effects</li>
-      <li>Click for details</li>
-    </ul>
-  </div>
+<div className="docs-category-card">
+  <h3>
+    <LinkTo kind="Glass UI/Composite/YearCardGlass">📅 YearCardGlass</LinkTo>
+  </h3>
+  <p>Year card for career timeline.</p>
+  <ul>
+    <li>Year and statistics</li>
+    <li>Hover effects</li>
+    <li>Click for details</li>
+  </ul>
+</div>
 
-  <div className="docs-category-card">
-    <h3><LinkTo kind="Glass/Composite/AICardGlass" story="docs">🤖 AICardGlass</LinkTo></h3>
-    <p>AI summary card with features.</p>
-    <ul>
-      <li>Feature list</li>
-      <li>CTA button</li>
-      <li>Gradient accent</li>
-    </ul>
-  </div>
+<div className="docs-category-card">
+  <h3>
+    <LinkTo kind="Glass UI/Composite/AICardGlass">🤖 AICardGlass</LinkTo>
+  </h3>
+  <p>AI summary card with features.</p>
+  <ul>
+    <li>Feature list</li>
+    <li>CTA button</li>
+    <li>Gradient accent</li>
+  </ul>
+</div>
 
   <div className="docs-category-card">
     <h3>🏷️ TagGlass</h3>
@@ -112,13 +120,7 @@ import { MetricCardGlass } from 'shadcn-glass-ui';
 ```tsx
 import { ProfileAvatarGlass } from 'shadcn-glass-ui';
 
-<ProfileAvatarGlass
-  src="/avatar.jpg"
-  name="John Doe"
-  size="xl"
-  status="online"
-  showGlow
-/>
+<ProfileAvatarGlass src="/avatar.jpg" name="John Doe" size="xl" status="online" showGlow />;
 ```
 
 ### FlagAlertGlass
@@ -148,26 +150,22 @@ import { AICardGlass } from 'shadcn-glass-ui';
 <AICardGlass
   title="AI Summary"
   description="Get comprehensive analysis:"
-  features={[
-    'Code quality assessment',
-    'Architecture patterns',
-    'Best practices',
-  ]}
+  features={['Code quality assessment', 'Architecture patterns', 'Best practices']}
   ctaText="Generate Report"
   onCtaClick={() => console.log('Generate!')}
-/>
+/>;
 ```
 
 ## Next Steps
 
 <div className="docs-links-section">
-  <LinkTo kind="Components/Sections" story="docs" className="docs-link-button">
+  <LinkTo kind="Glass/Section Components" className="docs-link-button">
     Section Components
   </LinkTo>
-  <LinkTo kind="Components/Blocks" story="docs" className="docs-link-button">
+  <LinkTo kind="Glass/Blocks" className="docs-link-button">
     Blocks
   </LinkTo>
-  <LinkTo kind="Glass/Composite/CircularMetricGlass" story="docs" className="docs-link-button">
+  <LinkTo kind="Glass UI/Composite/CircularMetricGlass" className="docs-link-button">
     CircularMetricGlass Demo
   </LinkTo>
 </div>
