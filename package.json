@@ -32,6 +32,10 @@
     "type": "git",
     "url": "git+https://github.com/Yhooi2/shadcn-glass-ui-library.git"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
   "homepage": "https://yhooi2.github.io/shadcn-glass-ui-library/",
   "bugs": "https://github.com/Yhooi2/shadcn-glass-ui-library/issues",
   "type": "module",
