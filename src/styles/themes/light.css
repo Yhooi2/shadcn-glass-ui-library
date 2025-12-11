@@ -3,7 +3,7 @@
    Clean light theme with violet accent
    ======================================== */
 
-[data-theme="light"] {
+[data-theme='light'] {
   /* ========================================
      BASE COLORS (HSL format)
      ======================================== */
@@ -49,6 +49,91 @@
   --info-base: 217 91% 60%;
 
   /* ========================================
+     SEMANTIC COLOR TOKENS (Layer 2)
+     Map primitive tokens to semantic roles (Light Theme)
+     Primitives defined in: src/styles/tokens/oklch-primitives.css
+     ======================================== */
+
+  /* Primary Accent (Violet-600 in light theme) */
+  --semantic-primary: var(--oklch-violet-600);
+  --semantic-primary-hover: var(--oklch-violet-500);
+  --semantic-primary-muted: var(--oklch-violet-600-25);
+  --semantic-primary-subtle: var(--oklch-violet-600-15);
+  --semantic-primary-text: var(--oklch-violet-600);
+
+  /* Secondary Accent (Violet-500) */
+  --semantic-secondary: var(--oklch-violet-500);
+  --semantic-secondary-muted: var(--oklch-violet-500-20);
+
+  /* Surface Colors (Light backgrounds with Slate-100) */
+  --semantic-surface: var(--oklch-slate-100-80);
+  --semantic-surface-muted: var(--oklch-slate-100-50);
+  --semantic-surface-elevated: var(--oklch-white);
+  --semantic-surface-overlay: var(--oklch-slate-100-40);
+  --semantic-surface-strong: var(--oklch-white);
+
+  /* Border Colors (Slate-200) */
+  --semantic-border: var(--oklch-slate-200);
+  --semantic-border-muted: var(--oklch-slate-200-50);
+  --semantic-border-strong: var(--oklch-slate-200-80);
+  --semantic-border-subtle: var(--oklch-slate-200-40);
+
+  /* Text Colors (Slate scale for light theme) */
+  --semantic-text: var(--oklch-slate-800);
+  --semantic-text-muted: var(--oklch-slate-500);
+  --semantic-text-subtle: var(--oklch-slate-500);
+  --semantic-text-disabled: var(--oklch-slate-400);
+  --semantic-text-inverse: var(--oklch-white);
+
+  /* Status Colors - Success (Emerald) */
+  --semantic-success: var(--oklch-emerald-500);
+  --semantic-success-muted: var(--oklch-emerald-500-20);
+  --semantic-success-subtle: var(--oklch-emerald-500-10);
+  --semantic-success-text: var(--oklch-emerald-500);
+
+  /* Status Colors - Warning (Amber) */
+  --semantic-warning: var(--oklch-amber-500);
+  --semantic-warning-muted: var(--oklch-amber-400-20);
+  --semantic-warning-subtle: var(--oklch-amber-400-10);
+  --semantic-warning-text: var(--oklch-amber-500);
+
+  /* Status Colors - Error/Destructive (Red) */
+  --semantic-error: var(--oklch-red-500);
+  --semantic-error-muted: var(--oklch-red-500-20);
+  --semantic-error-subtle: var(--oklch-red-500-10);
+  --semantic-error-text: var(--oklch-red-500);
+
+  /* Status Colors - Info (Blue) */
+  --semantic-info: var(--oklch-blue-500);
+  --semantic-info-muted: var(--oklch-blue-500-20);
+  --semantic-info-subtle: var(--oklch-blue-400-10);
+  --semantic-info-text: var(--oklch-blue-500);
+
+  /* Glass-specific Effects (Light theme - high opacity) */
+  --semantic-glass-bg: var(--oklch-white-60);
+  --semantic-glass-bg-subtle: var(--oklch-white-40);
+  --semantic-glass-bg-medium: var(--oklch-white-70);
+  --semantic-glass-bg-strong: var(--oklch-white-85);
+
+  /* ========================================
+     LEGACY TOKENS (backward compatibility)
+     TODO Phase 5: Remove after full migration
+     ======================================== */
+  --color-primary: var(--semantic-primary);
+  --color-primary-muted: var(--semantic-primary-muted);
+  --color-primary-subtle: var(--semantic-primary-subtle);
+  --color-primary-text: var(--semantic-primary-text);
+  --color-secondary: var(--semantic-secondary);
+  --color-surface: var(--semantic-surface);
+  --color-surface-muted: var(--semantic-surface-muted);
+  --color-border: var(--semantic-border);
+  --color-border-muted: var(--semantic-border-muted);
+  --color-text: var(--semantic-text);
+  --color-text-muted: var(--semantic-text-muted);
+  --color-text-subtle: var(--semantic-text-subtle);
+  --color-text-disabled: var(--semantic-text-disabled);
+
+  /* ========================================
      GLASS EFFECTS (OKLCH)
      ======================================== */
   --glass-bg: oklch(100% 0 0 / 0.6);
@@ -65,13 +150,13 @@
      SEMANTIC GLOWS (OKLCH)
      ======================================== */
   --glow-primary: 0 0 20px oklch(54.1% 0.175 293 / 0.3);
-  --glow-secondary: 0 0 15px oklch(62.3% 0.180 255 / 0.25);
+  --glow-secondary: 0 0 15px oklch(62.3% 0.18 255 / 0.25);
   --glow-success: 0 0 15px oklch(69.6% 0.155 163 / 0.3);
   --glow-warning: 0 0 15px oklch(76.9% 0.169 75 / 0.3);
   --glow-error: 0 0 15px oklch(62.8% 0.225 29 / 0.3);
 
   /* Additional color glows (OKLCH) */
-  --glow-blue: 0 0 15px oklch(62.3% 0.180 255 / 0.25);
+  --glow-blue: 0 0 15px oklch(62.3% 0.18 255 / 0.25);
   --glow-violet: 0 0 15px oklch(62.7% 0.159 291 / 0.25);
   --glow-cyan: 0 0 15px oklch(71.5% 0.132 195 / 0.25);
   --glow-neutral: 0 4px 12px oklch(0% 0 0 / 0.08);
@@ -82,7 +167,7 @@
   --orb-1: oklch(70.7% 0.143 250 / 0.2);
   --orb-2: oklch(71.4% 0.138 291 / 0.15);
   --orb-3: oklch(78.9% 0.118 195 / 0.15);
-  --orb-4: oklch(64.0% 0.140 275 / 0.1);
+  --orb-4: oklch(64% 0.14 275 / 0.1);
   --orb-5: transparent;
 
   /* ========================================
@@ -99,16 +184,16 @@
      ======================================== */
   --btn-primary-bg: linear-gradient(135deg, oklch(54.1% 0.175 293), oklch(62.7% 0.159 291));
   --btn-primary-text: oklch(100% 0 0);
-  --btn-primary-hover-bg: linear-gradient(135deg, oklch(46.0% 0.195 293), oklch(54.1% 0.175 293));
+  --btn-primary-hover-bg: linear-gradient(135deg, oklch(46% 0.195 293), oklch(54.1% 0.175 293));
   --btn-primary-glow: 0 0 20px oklch(54.1% 0.175 293 / 0.4), 0 0 40px oklch(54.1% 0.175 293 / 0.2);
-  --btn-secondary-bg: oklch(100% 0 0 / 0.80);
+  --btn-secondary-bg: oklch(100% 0 0 / 0.8);
   --btn-secondary-text: oklch(37.2% 0.044 257);
   --btn-secondary-border: oklch(92.9% 0.013 255);
   --btn-secondary-hover-bg: oklch(96.8% 0.007 247);
   --btn-secondary-glow: 0 4px 20px oklch(0% 0 0 / 0.08);
   --btn-ghost-bg: transparent;
   --btn-ghost-text: oklch(55.4% 0.046 257);
-  --btn-ghost-hover-bg: oklch(96.8% 0.007 247 / 0.80);
+  --btn-ghost-hover-bg: oklch(96.8% 0.007 247 / 0.8);
   --btn-destructive-bg: linear-gradient(135deg, oklch(62.8% 0.225 29), oklch(71.5% 0.179 27));
   --btn-destructive-text: oklch(100% 0 0);
   --btn-destructive-glow: 0 0 20px oklch(62.8% 0.225 29 / 0.4);
@@ -128,25 +213,25 @@
   --badge-secondary-border: oklch(92.9% 0.013 255);
   --badge-destructive-bg: oklch(62.8% 0.225 29 / 0.1);
   --badge-destructive-text: oklch(44.4% 0.177 26);
-  --badge-destructive-border: oklch(86.0% 0.058 16);
+  --badge-destructive-border: oklch(86% 0.058 16);
   --badge-outline-bg: transparent;
   --badge-outline-text: oklch(44.6% 0.043 257);
   --badge-outline-border: oklch(86.9% 0.022 252);
   /* Glass UI extended variants */
   --badge-success-bg: oklch(69.6% 0.155 163 / 0.1);
-  --badge-success-text: oklch(51.5% 0.140 163);
+  --badge-success-text: oklch(51.5% 0.14 163);
   --badge-success-border: oklch(87.5% 0.099 163);
   --badge-warning-bg: oklch(76.9% 0.169 75 / 0.1);
-  --badge-warning-text: oklch(57.0% 0.140 55);
+  --badge-warning-text: oklch(57% 0.14 55);
   --badge-warning-border: oklch(90.5% 0.112 95);
-  --badge-info-bg: oklch(62.3% 0.180 255 / 0.1);
-  --badge-info-text: oklch(51.2% 0.180 260);
-  --badge-info-border: oklch(86.5% 0.080 250);
+  --badge-info-bg: oklch(62.3% 0.18 255 / 0.1);
+  --badge-info-text: oklch(51.2% 0.18 260);
+  --badge-info-border: oklch(86.5% 0.08 250);
 
   /* ========================================
      INPUT VARIABLES (OKLCH)
      ======================================== */
-  --input-bg: oklch(100% 0 0 / 0.90);
+  --input-bg: oklch(100% 0 0 / 0.9);
   --input-border: oklch(92.9% 0.013 255);
   --input-text: oklch(27.9% 0.041 260);
   --input-placeholder: oklch(70.4% 0.034 256);
@@ -162,19 +247,19 @@
      ALERT VARIABLES (OKLCH)
      ======================================== */
   /* shadcn/ui compatible variants */
-  --alert-default-bg: oklch(62.3% 0.180 255 / 0.05);
-  --alert-default-border: oklch(86.5% 0.080 250 / 0.6);
-  --alert-default-text: oklch(51.2% 0.180 260);
+  --alert-default-bg: oklch(62.3% 0.18 255 / 0.05);
+  --alert-default-border: oklch(86.5% 0.08 250 / 0.6);
+  --alert-default-text: oklch(51.2% 0.18 260);
   --alert-destructive-bg: oklch(62.8% 0.225 29 / 0.05);
-  --alert-destructive-border: oklch(86.0% 0.058 16 / 0.6);
+  --alert-destructive-border: oklch(86% 0.058 16 / 0.6);
   --alert-destructive-text: oklch(44.4% 0.177 26);
   /* Glass UI extended variants */
   --alert-success-bg: oklch(69.6% 0.155 163 / 0.05);
   --alert-success-border: oklch(87.5% 0.099 163 / 0.6);
-  --alert-success-text: oklch(51.5% 0.140 163);
+  --alert-success-text: oklch(51.5% 0.14 163);
   --alert-warning-bg: oklch(76.9% 0.169 75 / 0.05);
   --alert-warning-border: oklch(90.5% 0.112 95 / 0.6);
-  --alert-warning-text: oklch(57.0% 0.140 55);
+  --alert-warning-text: oklch(57% 0.14 55);
   /* Alias for FlagAlertGlass danger type */
   --alert-danger-bg: var(--alert-destructive-bg);
   --alert-danger-border: var(--alert-destructive-border);
@@ -196,51 +281,79 @@
      TABS VARIABLES (OKLCH)
      ======================================== */
   --tab-bg: transparent;
-  --tab-active-bg: oklch(54.1% 0.175 293 / 0.10);
+  --tab-active-bg: oklch(54.1% 0.175 293 / 0.1);
   --tab-active-text: oklch(54.1% 0.175 293);
   --tab-border: oklch(92.9% 0.013 255);
   --tab-indicator: oklch(54.1% 0.175 293);
-  --tab-container-bg: oklch(96.8% 0.007 247 / 0.50);
+  --tab-container-bg: oklch(96.8% 0.007 247 / 0.5);
   --tab-container-border: oklch(92.9% 0.013 255);
+
+  /* ========================================
+     STEPPER VARIABLES (using primitive tokens)
+     ======================================== */
+  /* Step indicator backgrounds */
+  --stepper-step-bg: var(--color-surface);
+  --stepper-step-active-bg: var(--color-primary-muted);
+  --stepper-step-completed-bg: var(--color-primary);
+  --stepper-step-disabled-bg: var(--color-surface-muted);
+  /* Step indicator borders */
+  --stepper-step-border: var(--color-border);
+  --stepper-step-active-border: oklch(54.1% 0.175 293 / 0.6);
+  --stepper-step-completed-border: var(--color-primary);
+  --stepper-step-disabled-border: var(--color-border-muted);
+  /* Step indicator text */
+  --stepper-step-text: var(--color-text-muted);
+  --stepper-step-active-text: var(--color-primary-text);
+  --stepper-step-completed-text: oklch(100% 0 0);
+  --stepper-step-disabled-text: var(--color-text-disabled);
+  /* Connector lines */
+  --stepper-connector-bg: var(--color-border);
+  --stepper-connector-active-bg: var(--color-primary);
+  /* Glow effects */
+  --stepper-step-glow: none;
+  --stepper-step-active-glow: 0 0 12px oklch(54.1% 0.175 293 / 0.25);
+  /* Label colors */
+  --stepper-label-text: var(--color-text);
+  --stepper-description-text: var(--color-text-subtle);
 
   /* ========================================
      MODAL/DROPDOWN VARIABLES (OKLCH)
      ======================================== */
   --modal-bg: oklch(100% 0 0 / 0.98);
-  --modal-border: oklch(92.9% 0.013 255 / 0.80);
-  --modal-overlay: oklch(20.8% 0.042 265 / 0.50);
+  --modal-border: oklch(92.9% 0.013 255 / 0.8);
+  --modal-overlay: oklch(20.8% 0.042 265 / 0.5);
   --modal-glow: 0 25px 50px oklch(0% 0 0 / 0.15);
   --modal-glow-effect: none;
-  --modal-close-btn-bg: oklch(96.8% 0.007 247 / 0.80);
+  --modal-close-btn-bg: oklch(96.8% 0.007 247 / 0.8);
   --modal-close-btn-border: none;
-  --modal-close-btn-hover-glow: 0 0 10px oklch(54.1% 0.175 293 / 0.20);
+  --modal-close-btn-hover-glow: 0 0 10px oklch(54.1% 0.175 293 / 0.2);
   --dropdown-bg: oklch(100% 0 0 / 0.98);
   --dropdown-border: oklch(92.9% 0.013 255);
-  --dropdown-item-hover: oklch(96.8% 0.007 247 / 0.90);
+  --dropdown-item-hover: oklch(96.8% 0.007 247 / 0.9);
   --dropdown-item-text: oklch(44.6% 0.043 257);
   --dropdown-icon: oklch(70.4% 0.034 256);
   --dropdown-icon-hover: oklch(54.1% 0.175 293);
   --dropdown-divider: oklch(92.9% 0.013 255);
-  --dropdown-glow: 0 10px 40px oklch(0% 0 0 / 0.10);
+  --dropdown-glow: 0 10px 40px oklch(0% 0 0 / 0.1);
 
   /* Popover Variables (OKLCH) */
   --popover-bg: oklch(100% 0 0 / 0.98);
   --popover-border: oklch(92.9% 0.013 255);
-  --popover-shadow: 0 10px 40px oklch(0% 0 0 / 0.10);
+  --popover-shadow: 0 10px 40px oklch(0% 0 0 / 0.1);
   --popover-arrow-bg: oklch(100% 0 0 / 0.98);
 
   /* Select Variables (OKLCH) - Used by ComboBoxGlass */
-  --select-item-hover-bg: oklch(96.8% 0.007 247 / 0.90);
-  --select-item-selected-bg: oklch(54.1% 0.175 293 / 0.10);
+  --select-item-hover-bg: oklch(96.8% 0.007 247 / 0.9);
+  --select-item-selected-bg: oklch(54.1% 0.175 293 / 0.1);
   --select-item-selected-text: oklch(54.1% 0.175 293);
 
   /* ========================================
      TEXT VARIABLES (OKLCH)
      ======================================== */
-  --text-primary: oklch(20.8% 0.042 265 / 0.90);   /* slate-900 */
-  --text-secondary: oklch(37.2% 0.044 257 / 0.70); /* slate-700 */
-  --text-muted: oklch(55.4% 0.046 257 / 0.80);     /* slate-500 */
-  --text-accent: oklch(54.1% 0.175 293);           /* violet-600 */
+  --text-primary: oklch(20.8% 0.042 265 / 0.9); /* slate-900 */
+  --text-secondary: oklch(37.2% 0.044 257 / 0.7); /* slate-700 */
+  --text-muted: oklch(55.4% 0.046 257 / 0.8); /* slate-500 */
+  --text-accent: oklch(54.1% 0.175 293); /* violet-600 */
   --text-inverse: oklch(100% 0 0);
 
   /* ========================================
@@ -259,8 +372,8 @@
      ======================================== */
   --avatar-bg: linear-gradient(135deg, oklch(62.7% 0.159 291), oklch(54.1% 0.175 293));
   --avatar-border: oklch(100% 0 0);
-  --avatar-shadow: 0 4px 12px oklch(54.1% 0.175 293 / 0.20);
-  --avatar-hover-glow: 0 8px 24px oklch(54.1% 0.175 293 / 0.30);
+  --avatar-shadow: 0 4px 12px oklch(54.1% 0.175 293 / 0.2);
+  --avatar-hover-glow: 0 8px 24px oklch(54.1% 0.175 293 / 0.3);
   --avatar-glow: 0 8px 24px oklch(54.1% 0.175 293 / 0.25);
   --online-border: oklch(100% 0 0);
 
@@ -304,20 +417,20 @@
      NOTIFICATION VARIABLES (OKLCH)
      ======================================== */
   --notification-bg: oklch(100% 0 0 / 0.98);
-  --notification-border: oklch(92.9% 0.013 255 / 0.80);
+  --notification-border: oklch(92.9% 0.013 255 / 0.8);
   --notification-shadow: 0 10px 40px oklch(0% 0 0 / 0.08);
-  --notification-info-color: oklch(62.3% 0.180 255);
-  --notification-info-glow: 0 0 15px oklch(62.3% 0.180 255 / 0.20);
-  --notification-info-icon-bg: oklch(62.3% 0.180 255 / 0.10);
+  --notification-info-color: oklch(62.3% 0.18 255);
+  --notification-info-glow: 0 0 15px oklch(62.3% 0.18 255 / 0.2);
+  --notification-info-icon-bg: oklch(62.3% 0.18 255 / 0.1);
   --notification-success-color: oklch(69.6% 0.155 163);
-  --notification-success-glow: 0 0 15px oklch(69.6% 0.155 163 / 0.20);
-  --notification-success-icon-bg: oklch(69.6% 0.155 163 / 0.10);
+  --notification-success-glow: 0 0 15px oklch(69.6% 0.155 163 / 0.2);
+  --notification-success-icon-bg: oklch(69.6% 0.155 163 / 0.1);
   --notification-warning-color: oklch(76.9% 0.169 75);
-  --notification-warning-glow: 0 0 15px oklch(76.9% 0.169 75 / 0.20);
-  --notification-warning-icon-bg: oklch(76.9% 0.169 75 / 0.10);
+  --notification-warning-glow: 0 0 15px oklch(76.9% 0.169 75 / 0.2);
+  --notification-warning-icon-bg: oklch(76.9% 0.169 75 / 0.1);
   --notification-error-color: oklch(62.8% 0.225 29);
-  --notification-error-glow: 0 0 15px oklch(62.8% 0.225 29 / 0.20);
-  --notification-error-icon-bg: oklch(62.8% 0.225 29 / 0.10);
+  --notification-error-glow: 0 0 15px oklch(62.8% 0.225 29 / 0.2);
+  --notification-error-icon-bg: oklch(62.8% 0.225 29 / 0.1);
 
   /* ========================================
      TOOLTIP VARIABLES (OKLCH)
@@ -330,27 +443,27 @@
   /* ========================================
      CARD VARIABLES (OKLCH)
      ======================================== */
-  --card-bg: oklch(100% 0 0 / 0.60);
-  --card-border: oklch(92.9% 0.013 255 / 0.60);
-  --card-hover-bg: oklch(100% 0 0 / 0.80);
-  --card-hover-border: oklch(92.9% 0.013 255 / 0.80);
+  --card-bg: oklch(100% 0 0 / 0.6);
+  --card-border: oklch(92.9% 0.013 255 / 0.6);
+  --card-hover-bg: oklch(100% 0 0 / 0.8);
+  --card-hover-border: oklch(92.9% 0.013 255 / 0.8);
   --card-hover-glow: 0 8px 24px oklch(54.1% 0.175 293 / 0.15);
-  --card-subtle-bg: oklch(100% 0 0 / 0.40);
-  --card-subtle-border: oklch(92.9% 0.013 255 / 0.40);
-  --card-medium-bg: oklch(100% 0 0 / 0.60);
-  --card-medium-border: oklch(92.9% 0.013 255 / 0.60);
-  --card-strong-bg: oklch(100% 0 0 / 0.80);
-  --card-strong-border: oklch(92.9% 0.013 255 / 0.80);
-  --expanded-bg: oklch(100% 0 0 / 0.70);
+  --card-subtle-bg: oklch(100% 0 0 / 0.4);
+  --card-subtle-border: oklch(92.9% 0.013 255 / 0.4);
+  --card-medium-bg: oklch(100% 0 0 / 0.6);
+  --card-medium-border: oklch(92.9% 0.013 255 / 0.6);
+  --card-strong-bg: oklch(100% 0 0 / 0.8);
+  --card-strong-border: oklch(92.9% 0.013 255 / 0.8);
+  --expanded-bg: oklch(100% 0 0 / 0.7);
   --expanded-border: oklch(62.7% 0.159 291 / 0.5);
 
   /* ========================================
      PROGRESS VARIABLES (OKLCH)
      ======================================== */
-  --progress-bg: oklch(92.9% 0.013 255 / 0.60);
+  --progress-bg: oklch(92.9% 0.013 255 / 0.6);
   --progress-glow: 0 0 8px oklch(54.1% 0.175 293 / 0.3);
   --progress-glow-violet: 0 0 8px oklch(62.7% 0.159 291 / 0.3);
-  --progress-glow-blue: 0 0 8px oklch(62.3% 0.180 255 / 0.3);
+  --progress-glow-blue: 0 0 8px oklch(62.3% 0.18 255 / 0.3);
   --progress-glow-cyan: 0 0 8px oklch(71.5% 0.132 195 / 0.3);
   --progress-glow-amber: 0 0 8px oklch(76.9% 0.169 75 / 0.3);
   --progress-glow-emerald: 0 0 8px oklch(69.6% 0.155 163 / 0.3);
@@ -359,54 +472,84 @@
   /* ========================================
      METRIC CARD VARIABLES (OKLCH)
      ======================================== */
-  --metric-emerald-bg: oklch(69.6% 0.155 163 / 0.10);
-  --metric-emerald-text: oklch(69.6% 0.155 163);
-  --metric-emerald-border: oklch(69.6% 0.155 163 / 0.20);
-  --metric-emerald-glow: none;
-  --metric-amber-bg: oklch(76.9% 0.169 75 / 0.10);
-  --metric-amber-text: oklch(76.9% 0.169 75);
-  --metric-amber-border: oklch(76.9% 0.169 75 / 0.20);
-  --metric-amber-glow: none;
-  --metric-blue-bg: oklch(62.3% 0.180 255 / 0.10);
-  --metric-blue-text: oklch(62.3% 0.180 255);
-  --metric-blue-border: oklch(62.3% 0.180 255 / 0.20);
-  --metric-blue-glow: none;
-  --metric-red-bg: oklch(62.8% 0.225 29 / 0.10);
-  --metric-red-text: oklch(62.8% 0.225 29);
-  --metric-red-border: oklch(62.8% 0.225 29 / 0.20);
-  --metric-red-glow: none;
+  /* NEW: shadcn/ui compatible variants */
+  --metric-default-bg: transparent;
+  --metric-default-text: oklch(62.3% 0.18 255); /* blue-500 */
+  --metric-default-border: transparent;
+  --metric-default-glow: none;
+
+  --metric-secondary-bg: transparent;
+  --metric-secondary-text: oklch(55.4% 0.046 257); /* slate-500 */
+  --metric-secondary-border: transparent;
+  --metric-secondary-glow: none;
+
+  --metric-success-bg: transparent;
+  --metric-success-text: oklch(69.6% 0.155 163); /* emerald-500 */
+  --metric-success-border: transparent;
+  --metric-success-glow: none;
+
+  --metric-warning-bg: transparent;
+  --metric-warning-text: oklch(76.9% 0.169 75); /* amber-500 */
+  --metric-warning-border: transparent;
+  --metric-warning-glow: none;
+
+  --metric-destructive-bg: transparent;
+  --metric-destructive-text: oklch(62.8% 0.225 29); /* rose-500 */
+  --metric-destructive-border: transparent;
+  --metric-destructive-glow: none;
+
+  /* DEPRECATED: Old color system (backward compatibility) */
+  --metric-emerald-bg: var(--metric-success-bg);
+  --metric-emerald-text: var(--metric-success-text);
+  --metric-emerald-border: var(--metric-success-border);
+  --metric-emerald-glow: var(--metric-success-glow);
+
+  --metric-amber-bg: var(--metric-warning-bg);
+  --metric-amber-text: var(--metric-warning-text);
+  --metric-amber-border: var(--metric-warning-border);
+  --metric-amber-glow: var(--metric-warning-glow);
+
+  --metric-blue-bg: var(--metric-default-bg);
+  --metric-blue-text: var(--metric-default-text);
+  --metric-blue-border: var(--metric-default-border);
+  --metric-blue-glow: var(--metric-default-glow);
+
+  --metric-red-bg: var(--metric-destructive-bg);
+  --metric-red-text: var(--metric-destructive-text);
+  --metric-red-border: var(--metric-destructive-border);
+  --metric-red-glow: var(--metric-destructive-glow);
 
   /* ========================================
      PROFILE AVATAR VARIABLES (OKLCH)
      ======================================== */
   --profile-avatar-border: oklch(100% 0 0);
-  --profile-avatar-glow: 0 8px 24px oklch(54.1% 0.175 293 / 0.30);
+  --profile-avatar-glow: 0 8px 24px oklch(54.1% 0.175 293 / 0.3);
 
   /* ========================================
      YEAR CARD VARIABLES (OKLCH)
      ======================================== */
-  --year-card-bg: oklch(100% 0 0 / 0.60);
-  --year-card-border: oklch(92.9% 0.013 255 / 0.60);
+  --year-card-bg: oklch(100% 0 0 / 0.6);
+  --year-card-border: oklch(92.9% 0.013 255 / 0.6);
   --year-card-hover-glow: none;
 
   /* ========================================
      AI CARD VARIABLES (OKLCH)
      ======================================== */
-  --ai-card-bg: oklch(100% 0 0 / 0.80);
-  --ai-card-border: oklch(92.9% 0.013 255 / 0.60);
+  --ai-card-bg: oklch(100% 0 0 / 0.8);
+  --ai-card-border: oklch(92.9% 0.013 255 / 0.6);
   --ai-card-hover-glow: 0 8px 24px oklch(54.1% 0.175 293 / 0.15);
 
   /* ========================================
      HEADER VARIABLES (OKLCH)
      ======================================== */
-  --header-bg: oklch(100% 0 0 / 0.60);
-  --header-border: oklch(100% 0 0 / 0.80);
+  --header-bg: oklch(100% 0 0 / 0.6);
+  --header-border: oklch(100% 0 0 / 0.8);
   --icon-btn-from: oklch(27.9% 0.041 260);
   --icon-btn-to: oklch(20.8% 0.042 265);
   --icon-btn-shadow: 0 4px 12px oklch(0% 0 0 / 0.15);
   --icon-btn-text: oklch(100% 0 0);
-  --search-bg: oklch(100% 0 0 / 0.80);
-  --search-border: oklch(92.9% 0.013 255 / 0.80);
+  --search-bg: oklch(100% 0 0 / 0.8);
+  --search-border: oklch(92.9% 0.013 255 / 0.8);
   --search-btn-bg: oklch(27.9% 0.041 260);
   --search-btn-text: oklch(100% 0 0);
 
@@ -420,7 +563,7 @@
      ======================================== */
   --bg-from: oklch(96.8% 0.007 247);
   --bg-via: oklch(97.4% 0.012 250);
-  --bg-to: oklch(97.0% 0.015 295);
+  --bg-to: oklch(97% 0.015 295);
   --grid-color: oklch(0% 0 0 / 0.1);
   --grid-opacity: 0.015;
   --footer-text: oklch(70.4% 0.034 256 / 0.6);
