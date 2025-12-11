@@ -364,15 +364,15 @@
   --select-item-selected-text: var(--semantic-primary-text);
 
   /* ========================================
-     SLIDER VARIABLES (OKLCH)
+     SLIDER VARIABLES (using semantic tokens)
      ======================================== */
-  --slider-track: oklch(100% 0 0 / 0.15);
-  --slider-fill: linear-gradient(90deg, oklch(62.7% 0.159 291), oklch(66.6% 0.159 303));
-  --slider-fill-glow: 0 0 12px oklch(66.6% 0.159 303 / 0.5);
-  --slider-thumb: oklch(100% 0 0);
-  --slider-thumb-border: oklch(66.6% 0.159 303);
-  --slider-thumb-glow: 0 0 15px oklch(66.6% 0.159 303 / 0.6);
-  --slider-thumb-shadow: 0 2px 8px oklch(0% 0 0 / 0.3);
+  --slider-track: var(--semantic-border);
+  --slider-fill: linear-gradient(90deg, var(--semantic-secondary), var(--semantic-primary));
+  --slider-fill-glow: 0 0 12px var(--oklch-purple-500-50);
+  --slider-thumb: var(--oklch-white);
+  --slider-thumb-border: var(--semantic-primary);
+  --slider-thumb-glow: 0 0 15px var(--oklch-purple-500-60);
+  --slider-thumb-shadow: 0 2px 8px var(--oklch-black-30);
 
   /* ========================================
      AVATAR VARIABLES (OKLCH)
