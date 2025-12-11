@@ -241,19 +241,19 @@
   --badge-info-border: transparent;
 
   /* ========================================
-     INPUT VARIABLES (OKLCH)
+     INPUT VARIABLES (using semantic tokens)
      ======================================== */
-  --input-bg: oklch(100% 0 0 / 0.08);
-  --input-border: oklch(100% 0 0 / 0.15);
-  --input-text: oklch(100% 0 0 / 0.9);
-  --input-placeholder: oklch(100% 0 0 / 0.4);
-  --input-focus-border: oklch(79.5% 0.103 293); /* violet-300 */
+  --input-bg: var(--semantic-surface);
+  --input-border: var(--semantic-border);
+  --input-text: var(--semantic-text);
+  --input-placeholder: var(--oklch-white-40);
+  --input-focus-border: var(--semantic-primary-text);
 
   /* ========================================
-     FOCUS RING VARIABLES (OKLCH)
+     FOCUS RING VARIABLES (using semantic tokens)
      Unified focus glow for all components - purple-500 ring + soft glow
      ======================================== */
-  --focus-glow: 0 0 0 2px oklch(66.6% 0.159 303 / 0.6), 0 0 20px oklch(66.6% 0.159 303 / 0.4);
+  --focus-glow: 0 0 0 2px var(--oklch-purple-500-60), 0 0 20px var(--oklch-purple-500-40);
 
   /* ========================================
      ALERT VARIABLES (using semantic tokens)
@@ -476,20 +476,6 @@
   --progress-glow-amber: 0 0 16px oklch(76.9% 0.169 75 / 0.5);
   --progress-glow-emerald: 0 0 16px oklch(69.6% 0.155 163 / 0.5);
   --progress-glow-rose: 0 0 16px oklch(64.5% 0.195 12 / 0.5);
-
-  /* Progress gradient colors */
-  --progress-violet-from: oklch(62.7% 0.159 291);
-  --progress-violet-to: oklch(68.3% 0.145 293);
-  --progress-blue-from: oklch(62.3% 0.18 255);
-  --progress-blue-to: oklch(69.7% 0.147 255);
-  --progress-cyan-from: oklch(71.5% 0.132 195);
-  --progress-cyan-to: oklch(78.7% 0.113 195);
-  --progress-amber-from: oklch(76.9% 0.169 75);
-  --progress-amber-to: oklch(83.2% 0.142 81);
-  --progress-emerald-from: oklch(69.6% 0.155 163);
-  --progress-emerald-to: oklch(76.5% 0.135 163);
-  --progress-rose-from: oklch(64.5% 0.195 12);
-  --progress-rose-to: oklch(71.6% 0.168 12);
 
   /* ========================================
      TEXT VARIABLES (OKLCH)
