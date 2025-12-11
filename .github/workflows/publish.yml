@@ -11,8 +11,9 @@ on:
         type: string
 
 permissions:
+  id-token: write
   contents: read
-  packages: write  # Required for GitHub Packages
+  packages: write # Required for GitHub Packages
 
 jobs:
   publish:
