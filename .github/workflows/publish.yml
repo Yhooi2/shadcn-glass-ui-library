@@ -13,7 +13,6 @@ on:
 permissions:
   id-token: write
   contents: read
-  packages: write # Required for GitHub Packages
 
 jobs:
   publish:
@@ -29,11 +28,13 @@ jobs:
         with:
           node-version: '22'
           cache: 'npm'
+          registry-url: 'https://registry.npmjs.org'
 
-      - name: Configure npm authentication
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
-          echo "✅ npm authentication configured"
+      - name: Remove default npm auth token
+        run: npm config delete //registry.npmjs.org/:_authToken
+
+      - name: Update npm to latest
+        run: npm install -g npm@latest
 
       - name: Install dependencies
         run: npm ci
@@ -62,8 +63,8 @@ jobs:
           fi
           echo "✅ Version verified: $PACKAGE_VERSION"
 
-      - name: Publish to npm
-        run: npm publish --access public
+      - name: Publish to npm with provenance
+        run: npm publish --provenance --access public
 
       - name: Post summary
         run: |
