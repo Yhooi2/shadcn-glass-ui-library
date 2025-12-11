@@ -3,18 +3,18 @@
 // Overall trust score display with metrics
 // ========================================
 
-import { forwardRef } from "react";
-import { Target } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { GlassCard } from "../ui/glass-card";
-import { RainbowProgressGlass } from "../specialized/rainbow-progress-glass";
-import { MetricCardGlass, type MetricColor } from "../composite/metric-card-glass";
-import "@/glass-theme.css";
+import { forwardRef } from 'react';
+import { Target } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { GlassCard } from '../ui/glass-card';
+import { RainbowProgressGlass } from '../specialized/rainbow-progress-glass';
+import { MetricCardGlass, type MetricVariant } from '../composite/metric-card-glass';
+import '@/glass-theme.css';
 
 export interface MetricData {
-  readonly label: string;
-  readonly value: number;
-  readonly color: MetricColor;
+  readonly title: string;
+  readonly value: string | number;
+  readonly variant: MetricVariant;
 }
 
 export interface TrustScoreCardGlassProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -27,7 +27,7 @@ export const TrustScoreCardGlass = forwardRef<HTMLDivElement, TrustScoreCardGlas
     return (
       <GlassCard
         ref={ref}
-        className={cn("p-4 md:p-5", className)}
+        className={cn('p-4 md:p-5', className)}
         intensity="strong"
         glow="cyan"
         hover={false}
@@ -36,16 +36,16 @@ export const TrustScoreCardGlass = forwardRef<HTMLDivElement, TrustScoreCardGlas
         <div className="flex items-center justify-between mb-3 md:mb-4">
           <h2
             className="font-semibold flex items-center gap-1.5 md:gap-2 text-base md:text-lg"
-            style={{ color: "var(--text-primary)" }}
+            style={{ color: 'var(--text-primary)' }}
           >
-            <Target className="w-4 h-4 md:w-5 md:h-5" style={{ color: "var(--text-accent)" }} />
+            <Target className="w-4 h-4 md:w-5 md:h-5" style={{ color: 'var(--text-accent)' }} />
             Overall Trust Score
           </h2>
           <div className="flex items-center gap-1.5 md:gap-2 animate-[score-pulse_2s_ease-in-out_infinite]">
             <span className="text-3xl md:text-4xl font-bold bg-linear-to-r from-amber-400 via-emerald-400 to-cyan-400 bg-clip-text text-transparent">
               {score}
             </span>
-            <span className="text-lg md:text-xl" style={{ color: "var(--text-muted)" }}>
+            <span className="text-lg md:text-xl" style={{ color: 'var(--text-muted)' }}>
               / 100
             </span>
           </div>
@@ -54,12 +54,7 @@ export const TrustScoreCardGlass = forwardRef<HTMLDivElement, TrustScoreCardGlas
         {metrics.length > 0 && (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-4 mt-4 md:mt-5">
             {metrics.map((m) => (
-              <MetricCardGlass
-                key={m.label}
-                label={m.label}
-                value={m.value}
-                color={m.color}
-              />
+              <MetricCardGlass key={m.title} title={m.title} value={m.value} variant={m.variant} />
             ))}
           </div>
         )}
@@ -68,4 +63,4 @@ export const TrustScoreCardGlass = forwardRef<HTMLDivElement, TrustScoreCardGlas
   }
 );
 
-TrustScoreCardGlass.displayName = "TrustScoreCardGlass";
+TrustScoreCardGlass.displayName = 'TrustScoreCardGlass';

@@ -146,10 +146,10 @@ const demoRepositories: Repository[] = [
 ];
 
 const demoLanguages = [
-  { name: 'TypeScript', percentage: 45, color: '#3178c6' },
-  { name: 'Python', percentage: 25, color: '#3776ab' },
-  { name: 'Go', percentage: 20, color: '#00add8' },
-  { name: 'Rust', percentage: 10, color: '#dea584' },
+  { name: 'TypeScript', percent: 45, color: 'bg-blue-500' },
+  { name: 'Python', percent: 25, color: 'bg-emerald-500' },
+  { name: 'Go', percent: 20, color: 'bg-cyan-500' },
+  { name: 'Rust', percent: 10, color: 'bg-orange-600' },
 ];
 
 // ========================================
@@ -310,16 +310,7 @@ const UserProfile = () => {
                   Language Proficiency
                 </h2>
                 <GlassCard intensity="medium" className="p-6">
-                  <div className="space-y-4">
-                    {demoLanguages.map((lang) => (
-                      <LanguageBarGlass
-                        key={lang.name}
-                        language={lang.name}
-                        percentage={lang.percentage}
-                        color={lang.color}
-                      />
-                    ))}
-                  </div>
+                  <LanguageBarGlass languages={demoLanguages} />
                 </GlassCard>
               </div>
             </TabsGlass.Content>

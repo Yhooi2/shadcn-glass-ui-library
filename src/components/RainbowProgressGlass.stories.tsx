@@ -1,27 +1,27 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from "storybook/test";
-import { RainbowProgressGlass } from "./glass/specialized/rainbow-progress-glass";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
+import { RainbowProgressGlass } from './glass/specialized/rainbow-progress-glass';
 
 const meta = {
-  title: "Glass/Composite/RainbowProgressGlass",
+  title: 'Glass UI/Progress/RainbowProgressGlass',
   component: RainbowProgressGlass,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     value: {
-      control: { type: "range", min: 0, max: 100 },
-      description: "Progress value (0-100)",
+      control: { type: 'range', min: 0, max: 100 },
+      description: 'Progress value (0-100)',
     },
     size: {
-      control: "select",
-      options: ["sm", "md", "lg", "xl"],
-      description: "Progress bar size",
+      control: 'select',
+      options: ['sm', 'md', 'lg', 'xl'],
+      description: 'Progress bar size',
     },
     showGlow: {
-      control: "boolean",
-      description: "Enable glow effect",
+      control: 'boolean',
+      description: 'Enable glow effect',
     },
   },
 } satisfies Meta<typeof RainbowProgressGlass>;
@@ -32,7 +32,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     value: 72,
-    size: "lg",
+    size: 'lg',
     showGlow: true,
   },
   render: (args) => (
@@ -48,7 +48,7 @@ export const Default: Story = {
 export const SmallSize: Story = {
   args: {
     value: 50,
-    size: "sm",
+    size: 'sm',
   },
   render: (args) => (
     <div className="w-64">
@@ -63,7 +63,7 @@ export const SmallSize: Story = {
 export const ExtraLarge: Story = {
   args: {
     value: 85,
-    size: "xl",
+    size: 'xl',
   },
   render: (args) => (
     <div className="w-64">
@@ -78,7 +78,7 @@ export const ExtraLarge: Story = {
 export const NoGlow: Story = {
   args: {
     value: 60,
-    size: "lg",
+    size: 'lg',
     showGlow: false,
   },
   render: (args) => (
@@ -98,19 +98,19 @@ export const AllSizes: Story = {
   render: () => (
     <div className="w-64 space-y-4">
       <div>
-        <span style={{ color: "var(--text-muted)", fontSize: "12px" }}>Small</span>
+        <span style={{ color: 'var(--text-muted)', fontSize: '12px' }}>Small</span>
         <RainbowProgressGlass value={72} size="sm" />
       </div>
       <div>
-        <span style={{ color: "var(--text-muted)", fontSize: "12px" }}>Medium</span>
+        <span style={{ color: 'var(--text-muted)', fontSize: '12px' }}>Medium</span>
         <RainbowProgressGlass value={72} size="md" />
       </div>
       <div>
-        <span style={{ color: "var(--text-muted)", fontSize: "12px" }}>Large</span>
+        <span style={{ color: 'var(--text-muted)', fontSize: '12px' }}>Large</span>
         <RainbowProgressGlass value={72} size="lg" />
       </div>
       <div>
-        <span style={{ color: "var(--text-muted)", fontSize: "12px" }}>Extra Large</span>
+        <span style={{ color: 'var(--text-muted)', fontSize: '12px' }}>Extra Large</span>
         <RainbowProgressGlass value={72} size="xl" />
       </div>
     </div>

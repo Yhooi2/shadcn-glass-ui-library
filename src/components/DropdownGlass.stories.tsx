@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within } from "storybook/test";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within } from 'storybook/test';
 import {
   User,
   Settings,
@@ -12,26 +12,26 @@ import {
   Heart,
   Star,
   Share,
-} from "lucide-react";
-import { DropdownGlass, type DropdownItem } from "./glass/ui/dropdown-glass";
-import { ButtonGlass } from "./glass/ui/button-glass";
+} from 'lucide-react';
+import { DropdownGlass, type DropdownItem } from './glass/ui/dropdown-glass';
+import { ButtonGlass } from './glass/ui/button-glass';
 
 const meta = {
-  title: "Components/DropdownGlass",
+  title: 'Glass UI/Overlay/DropdownGlass',
   component: DropdownGlass,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
     snapshot: {
       // Enable visual snapshot testing
       disable: false,
     },
-  tags: ["autodocs"],
+    tags: ['autodocs'],
   },
   argTypes: {
     align: {
-      control: "select",
-      options: ["left", "right"],
-      description: "The alignment of the dropdown menu",
+      control: 'select',
+      options: ['left', 'right'],
+      description: 'The alignment of the dropdown menu',
     },
   },
   decorators: [
@@ -55,43 +55,43 @@ type Story = StoryObj<typeof meta>;
 // ========================================
 
 const defaultItems: DropdownItem[] = [
-  { label: "Profile", icon: User, onClick: () => console.log("Profile") },
+  { label: 'Profile', icon: User, onClick: () => console.log('Profile') },
   {
-    label: "Settings",
+    label: 'Settings',
     icon: Settings,
-    onClick: () => console.log("Settings"),
+    onClick: () => console.log('Settings'),
   },
   { divider: true },
   {
-    label: "Sign out",
+    label: 'Sign out',
     icon: LogOut,
     danger: true,
-    onClick: () => console.log("Sign out"),
+    onClick: () => console.log('Sign out'),
   },
 ];
 
 const editItems: DropdownItem[] = [
-  { label: "Edit", icon: Edit, onClick: () => console.log("Edit") },
-  { label: "Copy", icon: Copy, onClick: () => console.log("Copy") },
+  { label: 'Edit', icon: Edit, onClick: () => console.log('Edit') },
+  { label: 'Copy', icon: Copy, onClick: () => console.log('Copy') },
   { divider: true },
   {
-    label: "Delete",
+    label: 'Delete',
     icon: Trash,
     danger: true,
-    onClick: () => console.log("Delete"),
+    onClick: () => console.log('Delete'),
   },
 ];
 
 const manyItems: DropdownItem[] = [
-  { label: "Profile", icon: User, onClick: () => {} },
-  { label: "Settings", icon: Settings, onClick: () => {} },
-  { label: "Notifications", icon: Bell, onClick: () => {} },
-  { label: "Favorites", icon: Heart, onClick: () => {} },
+  { label: 'Profile', icon: User, onClick: () => {} },
+  { label: 'Settings', icon: Settings, onClick: () => {} },
+  { label: 'Notifications', icon: Bell, onClick: () => {} },
+  { label: 'Favorites', icon: Heart, onClick: () => {} },
   { divider: true },
-  { label: "Starred", icon: Star, onClick: () => {} },
-  { label: "Share", icon: Share, onClick: () => {} },
+  { label: 'Starred', icon: Star, onClick: () => {} },
+  { label: 'Share', icon: Share, onClick: () => {} },
   { divider: true },
-  { label: "Sign out", icon: LogOut, danger: true, onClick: () => {} },
+  { label: 'Sign out', icon: LogOut, danger: true, onClick: () => {} },
 ];
 
 // ========================================
@@ -107,7 +107,7 @@ export const Default: Story = {
       </ButtonGlass>
     ),
     items: defaultItems,
-    align: "left",
+    align: 'left',
   },
   async play({ canvasElement }) {
     // Visual snapshot test - Closed dropdown trigger with glass effect
@@ -124,7 +124,7 @@ export const AlignRight: Story = {
       </ButtonGlass>
     ),
     items: defaultItems,
-    align: "right",
+    align: 'right',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -140,7 +140,7 @@ export const PrimaryTrigger: Story = {
       </ButtonGlass>
     ),
     items: defaultItems,
-    align: "left",
+    align: 'left',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -160,7 +160,7 @@ export const OpenedDefault: Story = {
       </ButtonGlass>
     ),
     items: defaultItems,
-    align: "left",
+    align: 'left',
   },
   parameters: {
     a11y: {
@@ -168,7 +168,7 @@ export const OpenedDefault: Story = {
         // Radix Portal adds aria-hidden to parent containers, which is normal
         rules: [{ id: 'aria-hidden-focus', enabled: false }],
       },
-  tags: ["autodocs"],
+      tags: ['autodocs'],
     },
   },
   async play({ canvasElement }) {
@@ -176,7 +176,7 @@ export const OpenedDefault: Story = {
     const body = within(document.body);
 
     // Use getByText to find the button by its text content
-    const trigger = canvas.getByText("Menu");
+    const trigger = canvas.getByText('Menu');
 
     // Open dropdown
     await userEvent.click(trigger);
@@ -189,7 +189,7 @@ export const OpenedDefault: Story = {
     // Border: 1px solid rgba(255,255,255,0.15)
     // Box-shadow: 0 15px 50px rgba(168,85,247,0.25)
     // Menu is rendered in a Portal, so search in body
-    await expect(body.getByRole("menu")).toBeInTheDocument();
+    await expect(body.getByRole('menu')).toBeInTheDocument();
   },
 };
 
@@ -202,7 +202,7 @@ export const OpenedAlignRight: Story = {
       </ButtonGlass>
     ),
     items: defaultItems,
-    align: "right",
+    align: 'right',
   },
   parameters: {
     a11y: {
@@ -210,18 +210,18 @@ export const OpenedAlignRight: Story = {
         // Radix Portal adds aria-hidden to parent containers, which is normal
         rules: [{ id: 'aria-hidden-focus', enabled: false }],
       },
-  tags: ["autodocs"],
+      tags: ['autodocs'],
     },
   },
   async play({ canvasElement }) {
     const canvas = within(canvasElement);
     const body = within(document.body);
-    const trigger = canvas.getByText("Menu");
+    const trigger = canvas.getByText('Menu');
 
     await userEvent.click(trigger);
     await new Promise((resolve) => setTimeout(resolve, 300));
 
-    await expect(body.getByRole("menu")).toBeInTheDocument();
+    await expect(body.getByRole('menu')).toBeInTheDocument();
   },
 };
 
@@ -234,7 +234,7 @@ export const OpenedWithEditActions: Story = {
       </ButtonGlass>
     ),
     items: editItems,
-    align: "left",
+    align: 'left',
   },
   parameters: {
     a11y: {
@@ -242,19 +242,19 @@ export const OpenedWithEditActions: Story = {
         // Radix Portal adds aria-hidden to parent containers, which is normal
         rules: [{ id: 'aria-hidden-focus', enabled: false }],
       },
-  tags: ["autodocs"],
+      tags: ['autodocs'],
     },
   },
   async play({ canvasElement }) {
     const canvas = within(canvasElement);
     const body = within(document.body);
-    const trigger = canvas.getByText("Actions");
+    const trigger = canvas.getByText('Actions');
 
     await userEvent.click(trigger);
     await new Promise((resolve) => setTimeout(resolve, 300));
 
     // Visual snapshot test - Edit actions with danger item (Delete)
-    await expect(body.getByRole("menu")).toBeInTheDocument();
+    await expect(body.getByRole('menu')).toBeInTheDocument();
   },
 };
 
@@ -267,7 +267,7 @@ export const OpenedWithManyItems: Story = {
       </ButtonGlass>
     ),
     items: manyItems,
-    align: "left",
+    align: 'left',
   },
   decorators: [
     (Story) => (
@@ -281,19 +281,19 @@ export const OpenedWithManyItems: Story = {
       config: {
         rules: [{ id: 'aria-hidden-focus', enabled: false }],
       },
-  tags: ["autodocs"],
+      tags: ['autodocs'],
     },
   },
   async play({ canvasElement }) {
     const canvas = within(canvasElement);
     const body = within(document.body);
-    const trigger = canvas.getByText("Full Menu");
+    const trigger = canvas.getByText('Full Menu');
 
     await userEvent.click(trigger);
     await new Promise((resolve) => setTimeout(resolve, 300));
 
     // Visual snapshot test - Long menu with multiple dividers
-    await expect(body.getByRole("menu")).toBeInTheDocument();
+    await expect(body.getByRole('menu')).toBeInTheDocument();
   },
 };
 
@@ -306,30 +306,30 @@ export const OpenedTextOnly: Story = {
       </ButtonGlass>
     ),
     items: [
-      { label: "Option 1", onClick: () => console.log("Option 1") },
-      { label: "Option 2", onClick: () => console.log("Option 2") },
-      { label: "Option 3", onClick: () => console.log("Option 3") },
+      { label: 'Option 1', onClick: () => console.log('Option 1') },
+      { label: 'Option 2', onClick: () => console.log('Option 2') },
+      { label: 'Option 3', onClick: () => console.log('Option 3') },
     ],
-    align: "left",
+    align: 'left',
   },
   parameters: {
     a11y: {
       config: {
         rules: [{ id: 'aria-hidden-focus', enabled: false }],
       },
-  tags: ["autodocs"],
+      tags: ['autodocs'],
     },
   },
   async play({ canvasElement }) {
     const canvas = within(canvasElement);
     const body = within(document.body);
-    const trigger = canvas.getByText("Simple Menu");
+    const trigger = canvas.getByText('Simple Menu');
 
     await userEvent.click(trigger);
     await new Promise((resolve) => setTimeout(resolve, 300));
 
     // Visual snapshot test - Text-only items without icons
-    await expect(body.getByRole("menu")).toBeInTheDocument();
+    await expect(body.getByRole('menu')).toBeInTheDocument();
   },
 };
 
@@ -346,7 +346,7 @@ export const WithEditActions: Story = {
       </ButtonGlass>
     ),
     items: editItems,
-    align: "left",
+    align: 'left',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -362,11 +362,11 @@ export const TextOnly: Story = {
       </ButtonGlass>
     ),
     items: [
-      { label: "Option 1", onClick: () => console.log("Option 1") },
-      { label: "Option 2", onClick: () => console.log("Option 2") },
-      { label: "Option 3", onClick: () => console.log("Option 3") },
+      { label: 'Option 1', onClick: () => console.log('Option 1') },
+      { label: 'Option 2', onClick: () => console.log('Option 2') },
+      { label: 'Option 3', onClick: () => console.log('Option 3') },
     ],
-    align: "left",
+    align: 'left',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -426,14 +426,14 @@ export const LeftAlignOpened: Story = {
       </ButtonGlass>
     ),
     items: defaultItems,
-    align: "left",
+    align: 'left',
   },
   parameters: {
     a11y: {
       config: {
         rules: [{ id: 'aria-hidden-focus', enabled: false }],
       },
-  tags: ["autodocs"],
+      tags: ['autodocs'],
     },
   },
   render: () => (
@@ -460,13 +460,13 @@ export const LeftAlignOpened: Story = {
   async play({ canvasElement }) {
     const canvas = within(canvasElement);
     const body = within(document.body);
-    const trigger = canvas.getByText("Left Align");
+    const trigger = canvas.getByText('Left Align');
 
     await userEvent.click(trigger);
     await new Promise((resolve) => setTimeout(resolve, 300));
 
     // Visual snapshot test - Left aligned dropdown open
-    await expect(body.getByRole("menu")).toBeInTheDocument();
+    await expect(body.getByRole('menu')).toBeInTheDocument();
   },
 };
 
@@ -479,14 +479,14 @@ export const RightAlignOpened: Story = {
       </ButtonGlass>
     ),
     items: defaultItems,
-    align: "right",
+    align: 'right',
   },
   parameters: {
     a11y: {
       config: {
         rules: [{ id: 'aria-hidden-focus', enabled: false }],
       },
-  tags: ["autodocs"],
+      tags: ['autodocs'],
     },
   },
   render: () => (
@@ -513,13 +513,13 @@ export const RightAlignOpened: Story = {
   async play({ canvasElement }) {
     const canvas = within(canvasElement);
     const body = within(document.body);
-    const trigger = canvas.getByText("Right Align");
+    const trigger = canvas.getByText('Right Align');
 
     await userEvent.click(trigger);
     await new Promise((resolve) => setTimeout(resolve, 300));
 
     // Visual snapshot test - Right aligned dropdown open
-    await expect(body.getByRole("menu")).toBeInTheDocument();
+    await expect(body.getByRole('menu')).toBeInTheDocument();
   },
 };
 
@@ -536,7 +536,7 @@ export const GlassMenuStyling: Story = {
       </ButtonGlass>
     ),
     items: defaultItems,
-    align: "left",
+    align: 'left',
   },
   parameters: {
     a11y: {
@@ -544,14 +544,14 @@ export const GlassMenuStyling: Story = {
         // Radix Portal adds aria-hidden to parent containers, which is normal
         rules: [{ id: 'aria-hidden-focus', enabled: false }],
       },
-  tags: ["autodocs"],
+      tags: ['autodocs'],
     },
   },
 
   async play({ canvasElement }) {
     const canvas = within(canvasElement);
     const body = within(document.body);
-    const trigger = canvas.getByText("Glass Menu");
+    const trigger = canvas.getByText('Glass Menu');
 
     await userEvent.click(trigger);
     await new Promise((resolve) => setTimeout(resolve, 300));
@@ -563,7 +563,7 @@ export const GlassMenuStyling: Story = {
     // Backdrop-filter: blur(20px)
     // Item hover: rgba(255,255,255,0.12)
     // Divider: rgba(255,255,255,0.08)
-    await expect(body.getByRole("menu")).toBeInTheDocument();
+    await expect(body.getByRole('menu')).toBeInTheDocument();
   },
 };
 
@@ -576,31 +576,31 @@ export const DangerItemStyling: Story = {
       </ButtonGlass>
     ),
     items: [
-      { label: "Normal Item", icon: User, onClick: () => {} },
+      { label: 'Normal Item', icon: User, onClick: () => {} },
       { divider: true },
-      { label: "Delete Item", icon: Trash, danger: true, onClick: () => {} },
-      { label: "Sign Out", icon: LogOut, danger: true, onClick: () => {} },
+      { label: 'Delete Item', icon: Trash, danger: true, onClick: () => {} },
+      { label: 'Sign Out', icon: LogOut, danger: true, onClick: () => {} },
     ],
-    align: "left",
+    align: 'left',
   },
   parameters: {
     a11y: {
       config: {
         rules: [{ id: 'aria-hidden-focus', enabled: false }],
       },
-  tags: ["autodocs"],
+      tags: ['autodocs'],
     },
   },
   async play({ canvasElement }) {
     const canvas = within(canvasElement);
     const body = within(document.body);
-    const trigger = canvas.getByText("Danger Menu");
+    const trigger = canvas.getByText('Danger Menu');
 
     await userEvent.click(trigger);
     await new Promise((resolve) => setTimeout(resolve, 300));
 
     // Visual snapshot test - Danger items color: #fb7185
-    await expect(body.getByRole("menu")).toBeInTheDocument();
+    await expect(body.getByRole('menu')).toBeInTheDocument();
   },
 };
 
@@ -613,7 +613,7 @@ export const AnimationTest: Story = {
       </ButtonGlass>
     ),
     items: defaultItems,
-    align: "left",
+    align: 'left',
   },
   parameters: {
     a11y: {
@@ -621,14 +621,14 @@ export const AnimationTest: Story = {
         // Radix Portal adds aria-hidden to parent containers, which is normal
         rules: [{ id: 'aria-hidden-focus', enabled: false }],
       },
-  tags: ["autodocs"],
+      tags: ['autodocs'],
     },
   },
 
   async play({ canvasElement }) {
     const canvas = within(canvasElement);
     const body = within(document.body);
-    const trigger = canvas.getByText("Animated Menu");
+    const trigger = canvas.getByText('Animated Menu');
 
     await userEvent.click(trigger);
     // Capture at animation midpoint
@@ -637,7 +637,7 @@ export const AnimationTest: Story = {
     // Visual snapshot test - Animation: dropdownFadeIn 0.2s ease-out
     // from: opacity 0, translateY(-8px) scale(0.96)
     // to: opacity 1, translateY(0) scale(1)
-    await expect(body.getByRole("menu")).toBeInTheDocument();
+    await expect(body.getByRole('menu')).toBeInTheDocument();
   },
 };
 
@@ -654,7 +654,7 @@ export const SecondaryTrigger: Story = {
       </ButtonGlass>
     ),
     items: defaultItems,
-    align: "left",
+    align: 'left',
   },
   async play({ canvasElement }) {
     // Visual snapshot test - Secondary (glass) trigger button
@@ -671,25 +671,25 @@ export const SecondaryTriggerOpened: Story = {
       </ButtonGlass>
     ),
     items: defaultItems,
-    align: "left",
+    align: 'left',
   },
   parameters: {
     a11y: {
       config: {
         rules: [{ id: 'aria-hidden-focus', enabled: false }],
       },
-      tags: ["autodocs"],
+      tags: ['autodocs'],
     },
   },
   async play({ canvasElement }) {
     const canvas = within(canvasElement);
     const body = within(document.body);
-    const trigger = canvas.getByText("Glass Menu");
+    const trigger = canvas.getByText('Glass Menu');
 
     await userEvent.click(trigger);
     await new Promise((resolve) => setTimeout(resolve, 300));
 
     // Visual snapshot test - Glass button with opened dropdown
-    await expect(body.getByRole("menu")).toBeInTheDocument();
+    await expect(body.getByRole('menu')).toBeInTheDocument();
   },
 };

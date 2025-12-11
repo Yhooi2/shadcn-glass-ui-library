@@ -85,38 +85,37 @@ describe('ProgressGlass', () => {
     it('renders violet gradient by default', () => {
       const { container } = render(<ProgressGlass value={50} />);
       const fill = container.querySelector('[role="progressbar"]') as HTMLElement;
-      expect(fill.style.background).toContain('linear-gradient');
-      expect(fill.style.background).toContain('139, 92, 246');
+      expect(fill.style.background).toContain('var(--metric-default-text)');
     });
 
     it('renders blue gradient', () => {
       const { container } = render(<ProgressGlass value={50} gradient="blue" />);
       const fill = container.querySelector('[role="progressbar"]') as HTMLElement;
-      expect(fill.style.background).toContain('59, 130, 246');
+      expect(fill.style.background).toContain('var(--metric-default-text)');
     });
 
     it('renders cyan gradient', () => {
       const { container } = render(<ProgressGlass value={50} gradient="cyan" />);
       const fill = container.querySelector('[role="progressbar"]') as HTMLElement;
-      expect(fill.style.background).toContain('6, 182, 212');
+      expect(fill.style.background).toContain('var(--metric-secondary-text)');
     });
 
     it('renders amber gradient', () => {
       const { container } = render(<ProgressGlass value={50} gradient="amber" />);
       const fill = container.querySelector('[role="progressbar"]') as HTMLElement;
-      expect(fill.style.background).toContain('245, 158, 11');
+      expect(fill.style.background).toContain('var(--metric-warning-text)');
     });
 
     it('renders emerald gradient', () => {
       const { container } = render(<ProgressGlass value={50} gradient="emerald" />);
       const fill = container.querySelector('[role="progressbar"]') as HTMLElement;
-      expect(fill.style.background).toContain('16, 185, 129');
+      expect(fill.style.background).toContain('var(--metric-success-text)');
     });
 
     it('renders rose gradient', () => {
       const { container } = render(<ProgressGlass value={50} gradient="rose" />);
       const fill = container.querySelector('[role="progressbar"]') as HTMLElement;
-      expect(fill.style.background).toContain('244, 63, 94');
+      expect(fill.style.background).toContain('var(--metric-destructive-text)');
     });
   });
 

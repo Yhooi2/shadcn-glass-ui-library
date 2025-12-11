@@ -54,6 +54,214 @@ function App() {
 
 ---
 
+## Token Usage Best Practices (v2.0.0+)
+
+### 3-Layer Token System
+
+shadcn-glass-ui v2.0.0 introduced a 3-layer token architecture. **Always use tokens, never hardcode
+colors.**
+
+```
+Layer 3: Component Tokens  (--btn-primary-bg, --input-border)
+         ↓
+Layer 2: Semantic Tokens   (--semantic-primary, --semantic-surface)
+         ↓
+Layer 1: Primitive Tokens  (--oklch-purple-500, --oklch-white-8)
+```
+
+### DO ✅
+
+**Use semantic tokens for custom components:**
+
+```tsx
+// ✅ GOOD: Semantic tokens
+function MyCustomCard({ children }: { children: React.ReactNode }) {
+  return (
+    <div
+      className="p-6 rounded-2xl"
+      style={{
+        background: 'var(--semantic-surface)',
+        color: 'var(--semantic-text)',
+        border: '1px solid var(--semantic-border)',
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+```
+
+**Use Tailwind arbitrary values with semantic tokens:**
+
+```tsx
+// ✅ GOOD: Tailwind + semantic tokens
+<div className="bg-[var(--semantic-surface)] text-[var(--semantic-text)] border-[var(--semantic-border)]">
+  Content
+</div>
+```
+
+**Use component tokens for specific components:**
+
+```css
+/* ✅ GOOD: Component tokens */
+.my-button {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+}
+
+.my-button:hover {
+  background: var(--btn-primary-bg-hover);
+}
+```
+
+**Use primitive tokens for specific effects:**
+
+```css
+/* ✅ GOOD: Primitive tokens for glow effects */
+.my-card-glow {
+  box-shadow: 0 0 20px var(--oklch-purple-500-40);
+}
+
+.my-success-glow {
+  box-shadow: 0 0 30px var(--oklch-emerald-400-60);
+}
+```
+
+### DON'T ❌
+
+**Never hardcode OKLCH values:**
+
+```tsx
+// ❌ BAD: Hardcoded OKLCH
+<div style={{ background: 'oklch(66.6% 0.159 303)' }}>Content</div>
+
+// ❌ BAD: Hardcoded OKLCH in CSS
+.my-component {
+  background: oklch(100% 0 0 / 0.08);
+  color: oklch(66.6% 0.159 303);
+}
+```
+
+**Don't use color names directly:**
+
+```tsx
+// ❌ BAD: Direct color reference
+<div style={{ background: 'var(--oklch-purple-500)' }}>Content</div>
+
+// ✅ GOOD: Use semantic token
+<div style={{ background: 'var(--semantic-primary)' }}>Content</div>
+```
+
+**Don't use removed v1.x variables:**
+
+```css
+/* ❌ BAD: Removed in v2.0.0 */
+.my-metric {
+  background: var(--metric-emerald-bg); /* REMOVED */
+  color: var(--metric-amber-text); /* REMOVED */
+}
+
+/* ✅ GOOD: v2.0.0 semantic replacements */
+.my-metric {
+  background: var(--metric-success-bg);
+  color: var(--metric-warning-text);
+}
+```
+
+### Custom Styling Workflow
+
+**Step 1:** Check if a semantic token exists
+
+```bash
+# Search for semantic tokens
+grep "semantic-" src/styles/themes/glass.css
+```
+
+**Step 2:** Use existing semantic token
+
+```tsx
+// If --semantic-accent exists
+<div style={{ color: 'var(--semantic-accent)' }}>Accent text</div>
+```
+
+**Step 3:** If no semantic token, check primitives
+
+```bash
+# Search for primitive tokens
+grep "oklch-cyan" src/styles/tokens/oklch-primitives.css
+```
+
+**Step 4:** Use primitive for specific effects only
+
+```tsx
+// For special effects (glows, shadows)
+<div
+  style={{
+    boxShadow: '0 0 20px var(--oklch-cyan-400-50)',
+  }}
+>
+  Glowing card
+</div>
+```
+
+### Theme Customization
+
+**Creating custom semantic tokens:**
+
+```css
+/* Add to src/styles/themes/glass.css */
+[data-theme='glass'] {
+  /* Custom semantic tokens */
+  --semantic-accent-secondary: var(--oklch-cyan-500);
+  --semantic-glow-primary: 0 0 30px var(--oklch-purple-500-60);
+  --semantic-glow-success: 0 0 20px var(--oklch-emerald-400-40);
+}
+```
+
+**Then use in components:**
+
+```tsx
+<div
+  style={{
+    background: 'var(--semantic-surface)',
+    boxShadow: 'var(--semantic-glow-primary)',
+  }}
+>
+  Custom card with semantic glow
+</div>
+```
+
+### v2.0.0 Migration Checklist
+
+- [ ] Replace `--metric-emerald-*` → `--metric-success-*`
+- [ ] Replace `--metric-amber-*` → `--metric-warning-*`
+- [ ] Replace `--metric-blue-*` → `--metric-default-*`
+- [ ] Replace `--metric-red-*` → `--metric-destructive-*`
+- [ ] Remove all hardcoded `oklch()` values
+- [ ] Use semantic tokens for component styling
+- [ ] Use primitive tokens only for specific effects (glows, shadows)
+
+**Automated migration:**
+
+```bash
+# macOS/Linux
+find src/ -type f \( -name "*.tsx" -o -name "*.css" \) -exec sed -i '' \
+  -e 's/--metric-emerald-/--metric-success-/g' \
+  -e 's/--metric-amber-/--metric-warning-/g' \
+  -e 's/--metric-blue-/--metric-default-/g' \
+  -e 's/--metric-red-/--metric-destructive-/g' \
+  {} +
+```
+
+### Documentation
+
+- [TOKEN_ARCHITECTURE.md](TOKEN_ARCHITECTURE.md) - Complete 3-layer system guide
+- [THEME_CREATION_GUIDE.md](THEME_CREATION_GUIDE.md) - Create themes in 15 minutes
+- [CSS_VARIABLES_MIGRATION_2.0.md](migration/CSS_VARIABLES_MIGRATION_2.0.md) - Migration guide
+- [PRIMITIVE_MAPPING.md](PRIMITIVE_MAPPING.md) - OKLCH primitive reference
+
+---
+
 ## Form Patterns
 
 ### Basic Form with Validation

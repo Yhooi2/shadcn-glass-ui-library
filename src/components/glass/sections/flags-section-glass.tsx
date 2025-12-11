@@ -3,12 +3,12 @@
 // Expandable flags/warnings section
 // ========================================
 
-import { forwardRef } from "react";
-import { AlertTriangle, ChevronUp, ChevronDown } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { GlassCard } from "../ui/glass-card";
-import { FlagAlertGlass, type FlagType } from "../specialized/flag-alert-glass";
-import "@/glass-theme.css";
+import { forwardRef } from 'react';
+import { AlertTriangle, ChevronUp, ChevronDown } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { GlassCard } from '../ui/glass-card';
+import { FlagAlertGlass, type FlagType } from '../specialized/flag-alert-glass';
+import '@/glass-theme.css';
 
 export interface FlagData {
   readonly type: FlagType;
@@ -27,7 +27,7 @@ export const FlagsSectionGlass = forwardRef<HTMLDivElement, FlagsSectionGlassPro
     return (
       <GlassCard
         ref={ref}
-        className={cn(className)}
+        className={cn('w-full max-w-2xl', className)}
         intensity="medium"
         hover={false}
         {...props}
@@ -35,18 +35,21 @@ export const FlagsSectionGlass = forwardRef<HTMLDivElement, FlagsSectionGlassPro
         <button
           onClick={onToggle}
           className="w-full p-3 md:p-4 flex items-center justify-between rounded-2xl"
-          style={{ color: "var(--text-primary)" }}
+          style={{ color: 'var(--text-primary)' }}
           type="button"
           aria-expanded={expanded}
         >
           <div className="flex items-center gap-1.5 md:gap-2">
-            <AlertTriangle className="w-4 h-4 md:w-5 md:h-5" style={{ color: "var(--status-away)" }} />
+            <AlertTriangle
+              className="w-4 h-4 md:w-5 md:h-5"
+              style={{ color: 'var(--status-away)' }}
+            />
             <span className="font-medium text-sm md:text-base">{flags.length} flags detected</span>
           </div>
           {expanded ? (
-            <ChevronUp className="w-4 h-4 md:w-5 md:h-5" style={{ color: "var(--text-muted)" }} />
+            <ChevronUp className="w-4 h-4 md:w-5 md:h-5" style={{ color: 'var(--text-muted)' }} />
           ) : (
-            <ChevronDown className="w-4 h-4 md:w-5 md:h-5" style={{ color: "var(--text-muted)" }} />
+            <ChevronDown className="w-4 h-4 md:w-5 md:h-5" style={{ color: 'var(--text-muted)' }} />
           )}
         </button>
         {expanded && (
@@ -66,4 +69,4 @@ export const FlagsSectionGlass = forwardRef<HTMLDivElement, FlagsSectionGlassPro
   }
 );
 
-FlagsSectionGlass.displayName = "FlagsSectionGlass";
+FlagsSectionGlass.displayName = 'FlagsSectionGlass';

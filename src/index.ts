@@ -21,6 +21,7 @@ export { NotificationGlass } from './components/glass/ui/notification-glass';
 export { PopoverGlass } from './components/glass/ui/popover-glass';
 export { SkeletonGlass } from './components/glass/ui/skeleton-glass';
 export { SliderGlass } from './components/glass/ui/slider-glass';
+export { StepperGlass } from './components/glass/ui/stepper-glass';
 export { TabsGlass } from './components/glass/ui/tabs-glass';
 export { ToggleGlass } from './components/glass/ui/toggle-glass';
 export { TooltipGlass } from './components/glass/ui/tooltip-glass';

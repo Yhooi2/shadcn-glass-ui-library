@@ -690,14 +690,14 @@ import {
 - **Level 0 (Primitives):** 3 components
 - **Level 1 (Core UI):** 18 components
 - **Level 2 (Atomic):** 7 components
-- **Level 3 (Specialized):** 9 components
+- **Level 3 (Specialized):** 10 components
 - **Level 4 (Composite):** 13 components
 - **Level 5 (Sections):** 7 components
-- **Total:** 57 components
+- **Total:** 58 components
 
 ### Export Categories
 
-- **Components:** 57 total
+- **Components:** 58 total
 - **Types:** 25+ prop types, 15+ variant types
 - **Utilities:** 1 function (`cn`)
 - **Hooks:** 4 custom hooks

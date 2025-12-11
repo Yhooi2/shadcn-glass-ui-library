@@ -108,7 +108,7 @@ export interface InteractiveCardProps extends HTMLAttributes<HTMLDivElement> {
  * <InteractiveCard
  *   blur="md"
  *   rounded="rounded-3xl"
- *   baseBg="var(--metric-emerald-bg)"
+ *   baseBg="var(--metric-success-bg)"
  * >
  *   <StatusCard />
  * </InteractiveCard>
@@ -141,9 +141,7 @@ export const InteractiveCard = forwardRef<HTMLDivElement, InteractiveCardProps>(
       background: isHovered && hoverBg ? hoverBg : baseBg,
 
       // Border
-      border: `1px solid ${
-        isHovered && hoverBorderColor ? hoverBorderColor : borderColor
-      }`,
+      border: `1px solid ${isHovered && hoverBorderColor ? hoverBorderColor : borderColor}`,
 
       // Glassmorphism
       backdropFilter: `blur(var(--blur-${blur}))`,

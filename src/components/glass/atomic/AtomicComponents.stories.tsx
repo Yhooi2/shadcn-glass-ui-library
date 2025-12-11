@@ -8,7 +8,7 @@ import { StatItemGlass } from './stat-item-glass';
 import { ExpandableHeaderGlass } from './expandable-header-glass';
 
 const meta = {
-  title: 'Glass/Atomic Components',
+  title: 'Glass UI/Atomic Components',
   parameters: {
     layout: 'centered',
   },
@@ -108,7 +108,13 @@ export const StatItems: StoryObj = {
         <h3 className="text-sm font-medium text-white/80">Vertical Layout</h3>
         <div className="flex items-center gap-4">
           <StatItemGlass icon={FolderGit2} value={11} label="repos" layout="vertical" />
-          <StatItemGlass icon={FolderGit2} value={1234} label="followers" layout="vertical" abbreviated />
+          <StatItemGlass
+            icon={FolderGit2}
+            value={1234}
+            label="followers"
+            layout="vertical"
+            abbreviated
+          />
         </div>
       </div>
 
@@ -195,27 +201,19 @@ const AllAtomicComponentsDemo = () => {
             iconColor="var(--status-away)"
             title="Section 1"
             expanded={expandedStates.section1}
-            onToggle={() =>
-              setExpandedStates((prev) => ({ ...prev, section1: !prev.section1 }))
-            }
+            onToggle={() => setExpandedStates((prev) => ({ ...prev, section1: !prev.section1 }))}
           />
           {expandedStates.section1 && (
-            <div className="p-4 text-sm text-white/60">
-              Section 1 content goes here
-            </div>
+            <div className="p-4 text-sm text-white/60">Section 1 content goes here</div>
           )}
 
           <ExpandableHeaderGlass
             title="Section 2"
             expanded={expandedStates.section2}
-            onToggle={() =>
-              setExpandedStates((prev) => ({ ...prev, section2: !prev.section2 }))
-            }
+            onToggle={() => setExpandedStates((prev) => ({ ...prev, section2: !prev.section2 }))}
           />
           {expandedStates.section2 && (
-            <div className="p-4 text-sm text-white/60">
-              Section 2 content goes here
-            </div>
+            <div className="p-4 text-sm text-white/60">Section 2 content goes here</div>
           )}
         </div>
       </div>

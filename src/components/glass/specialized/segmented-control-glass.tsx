@@ -2,16 +2,19 @@
 // SEGMENTED CONTROL GLASS COMPONENT
 // ========================================
 
-import { forwardRef, type CSSProperties } from "react";
-import { cn } from "@/lib/utils";
-import "@/glass-theme.css";
+import { forwardRef, type CSSProperties } from 'react';
+import { cn } from '@/lib/utils';
+import '@/glass-theme.css';
 
 export interface SegmentOption {
   readonly value: string;
   readonly label: string;
 }
 
-export interface SegmentedControlGlassProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
+export interface SegmentedControlGlassProps extends Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  'onChange'
+> {
   readonly options: readonly SegmentOption[];
   readonly value: string;
   readonly onChange?: (value: string) => void;
@@ -20,8 +23,8 @@ export interface SegmentedControlGlassProps extends Omit<React.HTMLAttributes<HT
 export const SegmentedControlGlass = forwardRef<HTMLDivElement, SegmentedControlGlassProps>(
   ({ options = [], value, onChange, className, ...props }, ref) => {
     const containerStyles: CSSProperties = {
-      border: "1px solid var(--segmented-container-border)",
-      background: "var(--segmented-container-bg)",
+      border: '1px solid var(--segmented-container-border)',
+      background: 'var(--segmented-container-bg)',
     };
 
     // Early return if no options provided
@@ -32,7 +35,7 @@ export const SegmentedControlGlass = forwardRef<HTMLDivElement, SegmentedControl
     return (
       <div
         ref={ref}
-        className={cn("flex rounded-xl overflow-hidden", className)}
+        className={cn('inline-flex rounded-xl overflow-hidden', className)}
         style={containerStyles}
         role="tablist"
         {...props}
@@ -40,8 +43,8 @@ export const SegmentedControlGlass = forwardRef<HTMLDivElement, SegmentedControl
         {options.map((opt) => {
           const isActive = value === opt.value;
           const buttonStyles: CSSProperties = {
-            background: isActive ? "var(--segmented-active-bg)" : "transparent",
-            color: isActive ? "var(--segmented-active-text)" : "var(--segmented-inactive-text)",
+            background: isActive ? 'var(--segmented-active-bg)' : 'transparent',
+            color: isActive ? 'var(--segmented-active-text)' : 'var(--segmented-inactive-text)',
           };
 
           return (
@@ -63,4 +66,4 @@ export const SegmentedControlGlass = forwardRef<HTMLDivElement, SegmentedControl
   }
 );
 
-SegmentedControlGlass.displayName = "SegmentedControlGlass";
+SegmentedControlGlass.displayName = 'SegmentedControlGlass';

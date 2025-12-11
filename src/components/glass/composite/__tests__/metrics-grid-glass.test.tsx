@@ -3,10 +3,10 @@ import { render } from '@testing-library/react';
 import { MetricsGridGlass, type MetricData } from '../metrics-grid-glass';
 
 const mockMetrics: MetricData[] = [
-  { label: 'Commits', value: 75, color: 'blue' },
-  { label: 'PRs', value: 90, color: 'emerald' },
-  { label: 'Issues', value: 60, color: 'amber' },
-  { label: 'Stars', value: 85, color: 'blue' },
+  { title: 'Commits', value: '75%', variant: 'default' },
+  { title: 'PRs', value: '90%', variant: 'success' },
+  { title: 'Issues', value: '60%', variant: 'warning' },
+  { title: 'Stars', value: '85%', variant: 'default' },
 ];
 
 describe('MetricsGridGlass', () => {
@@ -115,10 +115,10 @@ describe('MetricsGridGlass', () => {
   describe('Metric Colors', () => {
     it('renders metrics with different colors', () => {
       const coloredMetrics: MetricData[] = [
-        { label: 'Blue', value: 50, color: 'blue' },
-        { label: 'Emerald', value: 60, color: 'emerald' },
-        { label: 'Amber', value: 70, color: 'amber' },
-        { label: 'Red', value: 80, color: 'red' },
+        { title: 'Blue', value: '50%', variant: 'default' },
+        { title: 'Emerald', value: '60%', variant: 'success' },
+        { title: 'Amber', value: '70%', variant: 'warning' },
+        { title: 'Red', value: '80%', variant: 'destructive' },
       ];
       const { getByText } = render(<MetricsGridGlass metrics={coloredMetrics} />);
       expect(getByText('Blue')).toBeInTheDocument();
@@ -162,7 +162,7 @@ describe('MetricsGridGlass', () => {
 
   describe('Edge Cases', () => {
     it('handles single metric', () => {
-      const singleMetric: MetricData[] = [{ label: 'Solo', value: 100, color: 'blue' }];
+      const singleMetric: MetricData[] = [{ title: 'Solo', value: '100%', variant: 'default' }];
       const { getByText } = render(<MetricsGridGlass metrics={singleMetric} />);
       expect(getByText('Solo')).toBeInTheDocument();
       expect(getByText('100%')).toBeInTheDocument();
@@ -170,9 +170,9 @@ describe('MetricsGridGlass', () => {
 
     it('handles many metrics', () => {
       const manyMetrics: MetricData[] = Array.from({ length: 12 }, (_, i) => ({
-        label: `Metric ${i + 1}`,
-        value: (i + 1) * 10,
-        color: 'blue' as const,
+        title: `Metric ${i + 1}`,
+        value: `${(i + 1) * 10}%`,
+        variant: 'default' as const,
       }));
       const { getByText } = render(<MetricsGridGlass metrics={manyMetrics} />);
       expect(getByText('Metric 1')).toBeInTheDocument();
@@ -181,8 +181,8 @@ describe('MetricsGridGlass', () => {
 
     it('handles metrics with 0 value', () => {
       const zeroMetrics: MetricData[] = [
-        { label: 'Zero', value: 0, color: 'blue' },
-        { label: 'Hundred', value: 100, color: 'emerald' },
+        { title: 'Zero', value: '0%', variant: 'default' },
+        { title: 'Hundred', value: '100%', variant: 'success' },
       ];
       const { getByText } = render(<MetricsGridGlass metrics={zeroMetrics} />);
       expect(getByText('Zero')).toBeInTheDocument();
@@ -190,7 +190,7 @@ describe('MetricsGridGlass', () => {
     });
 
     it('handles metrics with 100 value', () => {
-      const maxMetrics: MetricData[] = [{ label: 'Perfect', value: 100, color: 'emerald' }];
+      const maxMetrics: MetricData[] = [{ title: 'Perfect', value: '100%', variant: 'success' }];
       const { getByText } = render(<MetricsGridGlass metrics={maxMetrics} />);
       expect(getByText('Perfect')).toBeInTheDocument();
       expect(getByText('100%')).toBeInTheDocument();
@@ -198,7 +198,7 @@ describe('MetricsGridGlass', () => {
 
     it('handles long metric labels', () => {
       const longLabel: MetricData[] = [
-        { label: 'Very Long Metric Label That Might Wrap', value: 75, color: 'blue' },
+        { title: 'Very Long Metric Label That Might Wrap', value: '75%', variant: 'default' },
       ];
       const { getByText } = render(<MetricsGridGlass metrics={longLabel} />);
       expect(getByText('Very Long Metric Label That Might Wrap')).toBeInTheDocument();
@@ -237,8 +237,8 @@ describe('MetricsGridGlass', () => {
       const { getByText } = render(<MetricsGridGlass metrics={mockMetrics} />);
       // Verify each metric card receives correct data
       mockMetrics.forEach((metric) => {
-        expect(getByText(metric.label)).toBeInTheDocument();
-        expect(getByText(`${metric.value}%`)).toBeInTheDocument();
+        expect(getByText(metric.title)).toBeInTheDocument();
+        expect(getByText(metric.value)).toBeInTheDocument();
       });
     });
   });

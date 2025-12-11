@@ -2,8 +2,8 @@ import { addons } from 'storybook/manager-api';
 import { create } from 'storybook/theming/create';
 
 /**
- * Glass UI тема для Storybook Manager (sidebar, toolbar)
- * Использует хардкод значения, т.к. Manager не поддерживает CSS переменные
+ * Glass UI theme for Storybook Manager (sidebar, toolbar)
+ * Uses hardcoded values since Manager doesn't support CSS variables
  */
 const glassTheme = create({
   base: 'dark',
@@ -22,7 +22,7 @@ const glassTheme = create({
   colorSecondary: '#8b5cf6', // violet-500
 
   // UI
-  appBg: '#0f0f23', // bg-from из glass.css
+  appBg: '#0f0f23', // bg-from from glass.css
   appContentBg: '#1a1a2e',
   appPreviewBg: 'transparent',
   appBorderColor: 'rgba(255, 255, 255, 0.1)',

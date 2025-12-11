@@ -431,6 +431,298 @@ npx shadcn@latest add \
 
 ---
 
+## 🚨 v2.0.0 Breaking Changes (CSS Variables)
+
+### Overview
+
+**v2.0.0 removes deprecated metric color CSS variables** in favor of semantic naming aligned with
+shadcn/ui conventions.
+
+**Impact:** Custom themes, inline styles, or Tailwind arbitrary values using old metric variables
+will break.
+
+**Migration time:** ~5-10 minutes (automated script provided)
+
+### Removed CSS Variables
+
+| Removed (v1.x)            | Replacement (v2.0+)           | Semantic Meaning   | Use Case         |
+| ------------------------- | ----------------------------- | ------------------ | ---------------- |
+| `--metric-emerald-bg`     | `--metric-success-bg`         | Success background | Positive metrics |
+| `--metric-emerald-text`   | `--metric-success-text`       | Success text       | Positive values  |
+| `--metric-emerald-border` | `--metric-success-border`     | Success border     | Success cards    |
+| `--metric-emerald-glow`   | `--metric-success-glow`       | Success glow       | Hover effects    |
+| `--metric-amber-bg`       | `--metric-warning-bg`         | Warning background | Warning metrics  |
+| `--metric-amber-text`     | `--metric-warning-text`       | Warning text       | Alert values     |
+| `--metric-amber-border`   | `--metric-warning-border`     | Warning border     | Warning cards    |
+| `--metric-amber-glow`     | `--metric-warning-glow`       | Warning glow       | Hover effects    |
+| `--metric-blue-bg`        | `--metric-default-bg`         | Default background | Neutral metrics  |
+| `--metric-blue-text`      | `--metric-default-text`       | Default text       | Normal values    |
+| `--metric-blue-border`    | `--metric-default-border`     | Default border     | Neutral cards    |
+| `--metric-blue-glow`      | `--metric-default-glow`       | Default glow       | Hover effects    |
+| `--metric-red-bg`         | `--metric-destructive-bg`     | Error background   | Error metrics    |
+| `--metric-red-text`       | `--metric-destructive-text`   | Error text         | Error values     |
+| `--metric-red-border`     | `--metric-destructive-border` | Error border       | Error cards      |
+| `--metric-red-glow`       | `--metric-destructive-glow`   | Error glow         | Hover effects    |
+
+**Total affected:** 16 variables (4 color families × 4 properties)
+
+### Why This Change?
+
+1. **Semantic Clarity** - Color names (emerald, amber) → semantic roles (success, warning)
+2. **shadcn/ui Alignment** - Matches AlertGlass, BadgeGlass, ButtonGlass variant naming
+3. **Consistency** - All components now use same semantic vocabulary
+4. **3-Layer Token System** - Part of v2.0.0 token architecture migration
+
+### Automated Migration
+
+**Step 1: Find affected files**
+
+```bash
+grep -rn "metric-emerald\|metric-amber\|metric-blue\|metric-red" src/
+```
+
+**Step 2: Automated replacement**
+
+```bash
+# macOS/BSD sed
+find src/ -type f \( -name "*.tsx" -o -name "*.ts" -o -name "*.css" -o -name "*.scss" \) -exec sed -i '' \
+  -e 's/--metric-emerald-/--metric-success-/g' \
+  -e 's/--metric-amber-/--metric-warning-/g' \
+  -e 's/--metric-blue-/--metric-default-/g' \
+  -e 's/--metric-red-/--metric-destructive-/g' \
+  {} +
+
+# Linux sed
+find src/ -type f \( -name "*.tsx" -o -name "*.ts" -o -name "*.css" -o -name "*.scss" \) -exec sed -i \
+  -e 's/--metric-emerald-/--metric-success-/g' \
+  -e 's/--metric-amber-/--metric-warning-/g' \
+  -e 's/--metric-blue-/--metric-default-/g' \
+  -e 's/--metric-red-/--metric-destructive-/g' \
+  {} +
+```
+
+**Step 3: Verify changes**
+
+```bash
+npm run typecheck    # TypeScript validation
+npm run lint         # ESLint checks
+npm test             # Run test suite
+npm run build        # Production build test
+```
+
+### Manual Migration Examples
+
+**Example 1: Custom CSS**
+
+```css
+/* ❌ v1.x (REMOVED in v2.0.0) */
+.metric-card-success {
+  background: var(--metric-emerald-bg);
+  color: var(--metric-emerald-text);
+  border: 1px solid var(--metric-emerald-border);
+  box-shadow: var(--metric-emerald-glow);
+}
+
+/* ✅ v2.0+ */
+.metric-card-success {
+  background: var(--metric-success-bg);
+  color: var(--metric-success-text);
+  border: 1px solid var(--metric-success-border);
+  box-shadow: var(--metric-success-glow);
+}
+```
+
+**Example 2: Tailwind Arbitrary Values**
+
+```tsx
+// ❌ v1.x
+<div className="bg-[var(--metric-amber-bg)] text-[var(--metric-amber-text)]">
+  Warning
+</div>
+
+// ✅ v2.0+
+<div className="bg-[var(--metric-warning-bg)] text-[var(--metric-warning-text)]">
+  Warning
+</div>
+```
+
+**Example 3: Inline Styles**
+
+```tsx
+// ❌ v1.x
+<div
+  style={{
+    background: 'var(--metric-blue-bg)',
+    color: 'var(--metric-blue-text)',
+  }}
+>
+  Default
+</div>
+
+// ✅ v2.0+
+<div
+  style={{
+    background: 'var(--metric-default-bg)',
+    color: 'var(--metric-default-text)',
+  }}
+>
+  Default
+</div>
+```
+
+### Affected Components
+
+The following components may use metric color variables in **user custom implementations**:
+
+- MetricCardGlass
+- CircularMetricGlass
+- MetricsGridGlass
+- YearCardGlass (with sparkline metrics)
+- Custom dashboard components
+- Custom metric displays
+
+**Note:** shadcn-glass-ui v2.0.0 library code is already migrated. This migration is only for **user
+code** that references these variables.
+
+### AI Assistant Guidance
+
+**When user reports "CSS variable not defined" errors:**
+
+1. **Check package version:**
+
+   ```bash
+   npm list shadcn-glass-ui
+   # If v2.0.0+ → old metric variables removed
+   ```
+
+2. **Identify deprecated usage:**
+
+   ```bash
+   grep -rn "metric-emerald\|metric-amber\|metric-blue\|metric-red" src/
+   ```
+
+3. **Provide automated fix:**
+
+   ```
+   I see you're using deprecated CSS variables from v1.x.
+   In v2.0.0, metric color variables were renamed to semantic names.
+
+   Run this command to automatically migrate:
+   [Provide bash script above]
+
+   This will update all occurrences in your codebase.
+   ```
+
+4. **Explain why:**
+   ```
+   This change aligns with shadcn/ui naming conventions:
+   - emerald → success (positive metrics)
+   - amber → warning (alert metrics)
+   - blue → default (neutral metrics)
+   - red → destructive (error metrics)
+   ```
+
+### Common Error Messages
+
+**"CSS variable '--metric-emerald-bg' is not defined"**
+
+- **Cause:** Using v1.x variable name in v2.0.0+
+- **Fix:** Replace `--metric-emerald-bg` → `--metric-success-bg`
+
+**"Unexpected color in metric card"**
+
+- **Cause:** CSS fallback to default color due to undefined variable
+- **Fix:** Run automated migration script
+
+**"TypeScript error: Property '--metric-blue-text' does not exist"**
+
+- **Cause:** TypeScript strict mode detecting undefined CSS variable
+- **Fix:** Update to semantic naming (`--metric-default-text`)
+
+### Token System (v2.0.0+)
+
+v2.0.0 introduces a **3-layer token architecture** that eliminates hardcoded colors:
+
+```
+Layer 3: Component Tokens  (--btn-primary-bg, --metric-success-bg)
+         ↓ references
+Layer 2: Semantic Tokens   (--semantic-primary, --semantic-success)
+         ↓ references
+Layer 1: Primitive Tokens  (--oklch-purple-500, --oklch-emerald-400)
+```
+
+**Benefits:**
+
+- **207 primitive tokens** - Single source of truth for all OKLCH colors
+- **Zero hardcoded OKLCH** - 100% CSS variable coverage
+- **15-minute theme creation** - Was 2-3 hours before refactor
+- **Rapid theming** - 90% faster (2-3 hours → 10-15 minutes)
+
+**For AI Assistants:**
+
+When suggesting custom styling in v2.0.0+:
+
+1. **NEVER suggest hardcoded OKLCH values:**
+
+   ```css
+   /* ❌ BAD */
+   background: oklch(66.6% 0.159 303);
+   ```
+
+2. **ALWAYS use semantic tokens:**
+
+   ```css
+   /* ✅ GOOD */
+   background: var(--semantic-primary);
+   ```
+
+3. **Check if needed primitive exists:**
+   - Search `src/styles/tokens/oklch-primitives.css` for color
+   - If not found, suggest adding to appropriate family
+
+4. **Creating custom themes:**
+   - Reference [THEME_CREATION_GUIDE.md](THEME_CREATION_GUIDE.md)
+   - Only need ~50 lines of semantic mappings
+   - Component tokens inherited automatically
+
+**Token Documentation:**
+
+- [TOKEN_ARCHITECTURE.md](TOKEN_ARCHITECTURE.md) - Complete 3-layer system guide
+- [THEME_CREATION_GUIDE.md](THEME_CREATION_GUIDE.md) - 15-minute theme creation
+- [CSS_VARIABLES_MIGRATION_2.0.md](migration/CSS_VARIABLES_MIGRATION_2.0.md) - Full migration guide
+- [PRIMITIVE_MAPPING.md](PRIMITIVE_MAPPING.md) - OKLCH primitive reference
+
+### Migration Checklist
+
+- [ ] Search codebase for deprecated variables
+      (`grep -rn "metric-emerald|metric-amber|metric-blue|metric-red"`)
+- [ ] Run automated replacement script
+- [ ] Verify TypeScript compilation (`npm run typecheck`)
+- [ ] Run linter (`npm run lint`)
+- [ ] Run test suite (`npm test`)
+- [ ] Test production build (`npm run build`)
+- [ ] Visual regression testing (if applicable)
+- [ ] Manual testing of affected components
+- [ ] Update custom theme files (if any)
+- [ ] Commit changes with message: `chore: migrate CSS variables to v2.0.0 semantic naming`
+
+### Timeline
+
+| Version              | Status       | Deprecated Variables                             |
+| -------------------- | ------------ | ------------------------------------------------ |
+| **v1.0.0 - v1.0.11** | ✅ Supported | Work via CSS aliases (with deprecation warnings) |
+| **v2.0.0**           | 🚀 Current   | ❌ **REMOVED** (breaking change)                 |
+| **v2.1.0+**          | ⏭️ Future    | Only semantic variables supported                |
+
+### Need Help?
+
+- 📖 [Full Migration Guide](migration/CSS_VARIABLES_MIGRATION_2.0.md)
+- 🎨 [Token Architecture](TOKEN_ARCHITECTURE.md)
+- 🛠️ [Theme Creation Guide](THEME_CREATION_GUIDE.md)
+- 🐛 [Report Issues](https://github.com/Yhooi2/shadcn-glass-ui-library/issues)
+
+---
+
 ## 🧪 Testing Components
 
 ### Verify Installation
@@ -599,31 +891,150 @@ import { ButtonGlass } from 'shadcn-glass-ui';
 ## 🌐 Context7 MCP Integration
 
 This library is indexed on [Context7](https://context7.com/yhooi2/shadcn-glass-ui-library) for AI
-assistant discoverability.
+assistant discoverability. AI assistants can automatically fetch documentation, code examples, and
+component specifications through the Context7 MCP server.
+
+### What is Context7?
+
+Context7 is a library indexing service that makes open-source libraries discoverable and accessible
+to AI coding assistants through the Model Context Protocol (MCP). When an AI assistant has Context7
+MCP configured, it can:
+
+- 🔍 **Search** for libraries by name or functionality
+- 📖 **Fetch** up-to-date documentation automatically
+- 💡 **Access** code examples and best practices
+- 🎯 **Apply** library-specific rules and conventions
+- 🔄 **Track** version history and breaking changes
 
 ### Using Context7 MCP
 
-If your AI assistant has Context7 MCP configured, you can fetch library documentation directly:
+#### Step 1: Resolve Library ID
+
+First, resolve the library name to get the Context7-compatible ID:
 
 ```
-// In Claude Code or other Context7-enabled assistants:
-mcp__context7__get-library-docs /yhooi2/shadcn-glass-ui-library
+mcp__context7__resolve-library-id shadcn-glass-ui
 ```
+
+**Returns:** `/yhooi2/shadcn-glass-ui-library`
+
+#### Step 2: Fetch Documentation
+
+Once you have the library ID, fetch documentation for specific topics:
+
+```
+// Get component API documentation
+mcp__context7__get-library-docs /yhooi2/shadcn-glass-ui-library --topic="ButtonGlass"
+
+// Get theming documentation
+mcp__context7__get-library-docs /yhooi2/shadcn-glass-ui-library --topic="themes"
+
+// Get installation guide
+mcp__context7__get-library-docs /yhooi2/shadcn-glass-ui-library --topic="installation"
+
+// Get token system documentation (v2.0.0+)
+mcp__context7__get-library-docs /yhooi2/shadcn-glass-ui-library --topic="token architecture"
+```
+
+#### Step 3: Access Specific Versions
+
+You can also fetch documentation for specific versions:
+
+```
+// Get v2.0.0 documentation
+mcp__context7__get-library-docs /yhooi2/shadcn-glass-ui-library/v2.0.0
+
+// Get v1.0.0 documentation (legacy)
+mcp__context7__get-library-docs /yhooi2/shadcn-glass-ui-library/v1.0.0
+```
+
+### Context7 Benefits for AI Development
+
+1. **Always Up-to-Date** - Documentation syncs with latest releases via context7.json
+2. **Version-Aware** - Access docs for any tagged version (v1.0.0, v2.0.0, etc.)
+3. **Rule-Based Guidance** - 20+ library-specific rules prevent common mistakes
+4. **Zero Configuration** - No manual doc downloads or context copying
+5. **Fast Iteration** - AI assistants fetch examples instantly during development
 
 ### Context7 Rules (20 total)
 
 Key rules indexed for AI assistants:
 
-1. Use `variant` prop instead of `type` for AlertGlass/NotificationGlass
-2. Use `variant="destructive"` instead of `variant="danger"` for ButtonGlass
-3. Always wrap components with ThemeProvider
-4. ModalGlass and TabsGlass use compound component API
-5. Three themes: `glass`, `light`, `aurora`
-6. Use `asChild` prop for polymorphic rendering
-7. Memoize ComboBoxGlass options with `useMemo`
-8. Use TooltipGlass with `aria-label` on icon buttons
+**v2.0.0+ Breaking Changes:**
+
+1. Use `--metric-success-*` instead of `--metric-emerald-*` (REMOVED)
+2. Use `--metric-warning-*` instead of `--metric-amber-*` (REMOVED)
+3. Use `--metric-default-*` instead of `--metric-blue-*` (REMOVED)
+4. Use `--metric-destructive-*` instead of `--metric-red-*` (REMOVED)
+5. NEVER hardcode OKLCH values - use CSS variables from oklch-primitives.css
+6. Use 3-layer token system: Primitive → Semantic → Component tokens
+
+**Component API:** 7. Use `variant` prop instead of `type` for AlertGlass/NotificationGlass 8. Use
+`variant="destructive"` instead of `variant="danger"` for ButtonGlass 9. Always wrap components with
+ThemeProvider 10. ModalGlass and TabsGlass use compound component API 11. StepperGlass uses compound
+API: Root, Step, Title, Description, Indicator 12. Three themes: `glass`, `light`, `aurora` 13. Use
+`asChild` prop for polymorphic rendering 14. Memoize ComboBoxGlass options with `useMemo` 15. Use
+TooltipGlass with `aria-label` on icon buttons
+
+**Theming:** 16. Create new themes in 15 minutes using THEME_CREATION_GUIDE.md 17. All 207 primitive
+tokens defined in src/styles/tokens/oklch-primitives.css 18. Reference TOKEN_ARCHITECTURE.md for
+token system documentation 19. Use exported hooks: useFocus, useHover, useResponsive,
+useWallpaperTint 20. StepperGlass supports linear mode (wizard pattern) - set linear prop
 
 Full rules available in [context7.json](../context7.json).
+
+### Example: AI-Assisted Development with Context7
+
+**User Request:** "Add a stepper component to my checkout flow"
+
+**AI Assistant with Context7:**
+
+1. Fetches StepperGlass documentation via MCP
+2. Reads rules: "StepperGlass uses compound API", "supports linear mode"
+3. Generates code following library conventions:
+
+```tsx
+import { StepperGlass } from 'shadcn-glass-ui';
+
+function CheckoutFlow() {
+  const [currentStep, setCurrentStep] = useState(0);
+
+  return (
+    <StepperGlass.Root value={currentStep} onValueChange={setCurrentStep} linear>
+      <StepperGlass.Step value={0}>
+        <StepperGlass.Indicator />
+        <StepperGlass.Title>Cart Review</StepperGlass.Title>
+        <StepperGlass.Description>Review your items</StepperGlass.Description>
+      </StepperGlass.Step>
+      {/* ... */}
+    </StepperGlass.Root>
+  );
+}
+```
+
+**Without Context7:** AI might use incorrect API, miss linear mode, or suggest non-existent props.
+
+### Configuring Context7 MCP
+
+To enable Context7 in your AI assistant (Claude Code, Cursor, etc.):
+
+1. Install Context7 MCP server
+2. Add to MCP settings:
+   ```json
+   {
+     "mcpServers": {
+       "context7": {
+         "command": "npx",
+         "args": ["-y", "@context7/mcp-server"]
+       }
+     }
+   }
+   ```
+3. Restart your AI assistant
+
+See
+[Context7 MCP Documentation](https://github.com/modelcontextprotocol/servers/tree/main/src/context7)
+for details.
 
 ---
 
@@ -635,7 +1046,7 @@ Full rules available in [context7.json](../context7.json).
 - **Registry URL:** `https://raw.githubusercontent.com/Yhooi2/shadcn-glass-ui-library/main/public/r`
 - **Registry namespace:** `@shadcn-glass-ui`
 - **Context7 Library ID:** `/yhooi2/shadcn-glass-ui-library`
-- **Component count:** 57
+- **Component count:** 58 (includes StepperGlass in v2.0.0+)
 - **React version:** 18.0+ or 19.0+
 - **Tailwind version:** 4.0+
 - **Node version:** 20.16+, 22.19+, or 24+

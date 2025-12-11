@@ -34,6 +34,7 @@ npx shadcn@latest add @shadcn-glass-ui/modal
 ```
 
 This will:
+
 - Download component files
 - Install dependencies
 - Configure Tailwind
@@ -139,7 +140,7 @@ Create or update your `globals.css`:
     /* Glass theme (dark) */
     --card-subtle-bg: rgba(255, 255, 255, 0.08);
     --card-medium-bg: rgba(255, 255, 255, 0.15);
-    --card-strong-bg: rgba(255, 255, 255, 0.20);
+    --card-strong-bg: rgba(255, 255, 255, 0.2);
     --card-medium-border: rgba(255, 255, 255, 0.15);
 
     /* Text shadow for glass readability */
@@ -151,12 +152,12 @@ Create or update your `globals.css`:
     --card-subtle-bg: rgba(0, 0, 0, 0.03);
     --card-medium-bg: rgba(0, 0, 0, 0.05);
     --card-strong-bg: rgba(0, 0, 0, 0.08);
-    --card-medium-border: rgba(0, 0, 0, 0.10);
+    --card-medium-border: rgba(0, 0, 0, 0.1);
   }
 
   /* Aurora theme (gradient) */
   .theme-aurora {
-    --card-subtle-bg: rgba(255, 255, 255, 0.10);
+    --card-subtle-bg: rgba(255, 255, 255, 0.1);
     --card-medium-bg: rgba(255, 255, 255, 0.18);
     --card-strong-bg: rgba(255, 255, 255, 0.25);
   }
@@ -175,6 +176,146 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 ```
+
+## Understanding the Token System (v2.0.0+)
+
+shadcn-glass-ui uses a **3-layer token architecture** that eliminates hardcoded colors and enables
+rapid theme creation.
+
+### 3-Layer Architecture
+
+```
+Layer 3: Component Tokens  (--btn-primary-bg, --input-border, --modal-bg)
+         ↓ references
+Layer 2: Semantic Tokens   (--semantic-primary, --semantic-surface, --semantic-text)
+         ↓ references
+Layer 1: Primitive Tokens  (--oklch-purple-500, --oklch-white-8, --oklch-slate-800)
+```
+
+**What this means for you:**
+
+1. **No hardcoded colors** - All colors use CSS variables
+2. **Easy customization** - Change theme by updating semantic tokens
+3. **Consistency** - All components automatically sync with theme changes
+4. **Fast theme creation** - Create production-ready themes in 15 minutes
+
+### Token Layers Explained
+
+**Layer 1: Primitives** (`src/styles/tokens/oklch-primitives.css`)
+
+- 207 OKLCH color primitives
+- Single source of truth for all colors
+- Shared across all themes (glass, light, aurora)
+
+Example:
+
+```css
+--oklch-purple-500: oklch(66.6% 0.159 303);
+--oklch-white-8: oklch(100% 0 0 / 0.08);
+--oklch-emerald-400: oklch(76.5% 0.147 163);
+```
+
+**Layer 2: Semantic Tokens** (per-theme in `src/styles/themes/*.css`)
+
+- Role-based color names
+- Describe usage, not appearance
+- Defined per theme (glass.css, light.css, aurora.css)
+
+Example:
+
+```css
+/* glass.css */
+--semantic-primary: var(--oklch-purple-500);
+--semantic-surface: var(--oklch-white-8);
+--semantic-text: var(--oklch-white-90);
+
+/* light.css */
+--semantic-primary: var(--oklch-violet-600);
+--semantic-surface: var(--oklch-slate-100-80);
+--semantic-text: var(--oklch-slate-800);
+```
+
+**Layer 3: Component Tokens** (per-theme in `src/styles/themes/*.css`)
+
+- Component-specific styling
+- References semantic tokens
+- Inherited automatically when creating new themes
+
+Example:
+
+```css
+--btn-primary-bg: linear-gradient(135deg, var(--semantic-primary), var(--semantic-secondary));
+--btn-primary-text: var(--semantic-text-inverse);
+--input-border: var(--semantic-border);
+--modal-bg: var(--semantic-surface-elevated);
+```
+
+### Using Tokens in Your Code
+
+**DO ✅ Use semantic tokens:**
+
+```tsx
+// Tailwind arbitrary values
+<div className="bg-[var(--semantic-surface)] text-[var(--semantic-text)]">
+  Content
+</div>
+
+// Custom CSS
+.my-component {
+  background: var(--semantic-surface);
+  color: var(--semantic-text);
+  border: 1px solid var(--semantic-border);
+}
+```
+
+**DON'T ❌ Hardcode OKLCH values:**
+
+```tsx
+// ❌ BAD
+<div style={{ background: 'oklch(66.6% 0.159 303)' }}>Content</div>
+
+// ❌ BAD
+.my-component {
+  background: oklch(100% 0 0 / 0.08);
+}
+```
+
+### v2.0.0 Breaking Changes
+
+**Removed CSS variables** (use semantic replacements):
+
+| Removed (v1.x)       | Replacement (v2.0+)      |
+| -------------------- | ------------------------ |
+| `--metric-emerald-*` | `--metric-success-*`     |
+| `--metric-amber-*`   | `--metric-warning-*`     |
+| `--metric-blue-*`    | `--metric-default-*`     |
+| `--metric-red-*`     | `--metric-destructive-*` |
+
+**Migration:**
+
+```css
+/* ❌ v1.x (REMOVED) */
+background: var(--metric-emerald-bg);
+
+/* ✅ v2.0+ */
+background: var(--metric-success-bg);
+```
+
+See [CSS Variables Migration Guide](migration/CSS_VARIABLES_MIGRATION_2.0.md) for automated
+migration scripts.
+
+### Benefits
+
+- **15-minute theme creation** - Was 2-3 hours before v2.0.0
+- **Zero duplication** - Single source of truth for colors
+- **Type-safe theming** - Semantic names prevent confusion
+- **Maintainability** - Update one variable, affects all components
+
+### Documentation
+
+- [TOKEN_ARCHITECTURE.md](TOKEN_ARCHITECTURE.md) - Complete 3-layer system guide
+- [THEME_CREATION_GUIDE.md](THEME_CREATION_GUIDE.md) - Create themes in 15 minutes
+- [CSS_VARIABLES_AUDIT.md](CSS_VARIABLES_AUDIT.md) - Full variable reference
 
 ## Theme Configuration
 
@@ -261,11 +402,7 @@ import { ButtonGlass } from 'shadcn-glass-ui';
 export default function Demo() {
   return (
     <div className="theme-glass p-8">
-      <ButtonGlass
-        variant="primary"
-        size="md"
-        onClick={() => alert('Clicked!')}
-      >
+      <ButtonGlass variant="primary" size="md" onClick={() => alert('Clicked!')}>
         Click Me
       </ButtonGlass>
     </div>
@@ -339,9 +476,7 @@ export default function ProductCard() {
 
           <div className="flex items-center justify-between pt-4">
             <span className="text-2xl font-bold">$49</span>
-            <ButtonGlass variant="primary">
-              Purchase
-            </ButtonGlass>
+            <ButtonGlass variant="primary">Purchase</ButtonGlass>
           </div>
         </div>
       </GlassCard>
@@ -363,26 +498,21 @@ export default function ModalDemo() {
 
   return (
     <div className="theme-glass p-8">
-      <ButtonGlass onClick={() => setIsOpen(true)}>
-        Open Modal
-      </ButtonGlass>
+      <ButtonGlass onClick={() => setIsOpen(true)}>Open Modal</ButtonGlass>
 
-      <ModalGlass
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        title="Confirm Action"
-        size="md"
-      >
+      <ModalGlass isOpen={isOpen} onClose={() => setIsOpen(false)} title="Confirm Action" size="md">
         <p className="mb-6">Are you sure you want to proceed?</p>
 
         <div className="flex gap-3 justify-end">
           <ButtonGlass variant="ghost" onClick={() => setIsOpen(false)}>
             Cancel
           </ButtonGlass>
-          <ButtonGlass onClick={() => {
-            console.log('Confirmed');
-            setIsOpen(false);
-          }}>
+          <ButtonGlass
+            onClick={() => {
+              console.log('Confirmed');
+              setIsOpen(false);
+            }}
+          >
             Confirm
           </ButtonGlass>
         </div>
@@ -414,25 +544,21 @@ export default function SettingsPanel() {
           <ToggleGlass
             checked={settings.notifications}
             onCheckedChange={(checked) =>
-              setSettings(prev => ({ ...prev, notifications: checked }))
+              setSettings((prev) => ({ ...prev, notifications: checked }))
             }
             label="Push Notifications"
           />
 
           <ToggleGlass
             checked={settings.darkMode}
-            onCheckedChange={(checked) =>
-              setSettings(prev => ({ ...prev, darkMode: checked }))
-            }
+            onCheckedChange={(checked) => setSettings((prev) => ({ ...prev, darkMode: checked }))}
             label="Dark Mode"
           />
 
           <CheckboxGlass
             id="auto-save"
             checked={settings.autoSave}
-            onCheckedChange={(checked) =>
-              setSettings(prev => ({ ...prev, autoSave: checked }))
-            }
+            onCheckedChange={(checked) => setSettings((prev) => ({ ...prev, autoSave: checked }))}
             label="Auto Save"
           />
 
@@ -440,7 +566,7 @@ export default function SettingsPanel() {
             id="email-updates"
             checked={settings.emailUpdates}
             onCheckedChange={(checked) =>
-              setSettings(prev => ({ ...prev, emailUpdates: checked }))
+              setSettings((prev) => ({ ...prev, emailUpdates: checked }))
             }
             label="Email Updates"
           />
@@ -499,6 +625,7 @@ export default function Dashboard() {
 ### Learn the Design System
 
 Read [UI_DESIGN.md](design-system/UI_DESIGN.md) to understand:
+
 - Design tokens and spacing
 - Touch target requirements
 - Accessibility guidelines

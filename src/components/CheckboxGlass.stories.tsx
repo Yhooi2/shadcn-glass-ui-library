@@ -1,37 +1,37 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, fn } from "storybook/test";
-import { useState } from "react";
-import { CheckboxGlass } from "./glass/ui/checkbox-glass";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, fn } from 'storybook/test';
+import { useState } from 'react';
+import { CheckboxGlass } from './glass/ui/checkbox-glass';
 
 const meta = {
-  title: "Components/CheckboxGlass",
+  title: 'Glass UI/Form/CheckboxGlass',
   component: CheckboxGlass,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     checked: {
-      control: "boolean",
-      description: "Checkbox state",
+      control: 'boolean',
+      description: 'Checkbox state',
       table: {
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
       },
     },
     disabled: {
-      control: "boolean",
-      description: "Disabled state",
+      control: 'boolean',
+      description: 'Disabled state',
       table: {
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
       },
     },
     label: {
-      control: "text",
-      description: "Label text",
+      control: 'text',
+      description: 'Label text',
       table: {
-        type: { summary: "string" },
+        type: { summary: 'string' },
       },
     },
   },
@@ -64,7 +64,7 @@ export const Checked: Story = {
 export const WithLabel: Story = {
   args: {
     checked: false,
-    label: "Accept terms and conditions",
+    label: 'Accept terms and conditions',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -74,7 +74,7 @@ export const WithLabel: Story = {
 export const CheckedWithLabel: Story = {
   args: {
     checked: true,
-    label: "I agree to the privacy policy",
+    label: 'I agree to the privacy policy',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -85,7 +85,7 @@ export const Disabled: Story = {
   args: {
     checked: false,
     disabled: true,
-    label: "Disabled checkbox",
+    label: 'Disabled checkbox',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -96,7 +96,7 @@ export const DisabledChecked: Story = {
   args: {
     checked: true,
     disabled: true,
-    label: "Disabled checked",
+    label: 'Disabled checked',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -135,17 +135,17 @@ const InteractiveCheckboxDemo = () => {
     <div className="flex flex-col gap-3">
       <CheckboxGlass
         checked={options.notifications}
-        onChange={handleChange("notifications")}
+        onChange={handleChange('notifications')}
         label="Email notifications"
       />
       <CheckboxGlass
         checked={options.marketing}
-        onChange={handleChange("marketing")}
+        onChange={handleChange('marketing')}
         label="Marketing emails"
       />
       <CheckboxGlass
         checked={options.updates}
-        onChange={handleChange("updates")}
+        onChange={handleChange('updates')}
         label="Product updates"
       />
     </div>

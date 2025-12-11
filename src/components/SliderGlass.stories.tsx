@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { SliderGlass } from './glass/ui/slider-glass';
 
 const meta = {
-  title: 'Components/SliderGlass',
+  title: 'Glass UI/Form/SliderGlass',
   component: SliderGlass,
   parameters: {
     layout: 'centered',

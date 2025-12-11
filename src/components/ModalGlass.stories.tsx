@@ -1,20 +1,20 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useState } from "react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { fn, expect, userEvent, within } from "storybook/test";
-import { ModalGlass } from "./glass/ui/modal-glass";
-import { ButtonGlass } from "./glass/ui/button-glass";
+import { useState } from 'react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { fn, expect, userEvent, within } from 'storybook/test';
+import { ModalGlass } from './glass/ui/modal-glass';
+import { ButtonGlass } from './glass/ui/button-glass';
 
 const meta = {
-  title: "Components/ModalGlass",
+  title: 'Glass UI/Overlay/ModalGlass',
   parameters: {
-    layout: "fullscreen",
+    layout: 'fullscreen',
     snapshot: {
       // Enable visual snapshot testing
       disable: false,
     },
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
 } satisfies Meta;
 
 export default meta;
@@ -42,12 +42,12 @@ export const Default: Story = {
         <ModalGlass.Body>
           <div className="space-y-4">
             <p className="leading-relaxed">
-              This is a modal dialog with glassmorphism styling. It features
-              beautiful blur effects, gradient backgrounds, and smooth animations.
+              This is a modal dialog with glassmorphism styling. It features beautiful blur effects,
+              gradient backgrounds, and smooth animations.
             </p>
             <p className="leading-relaxed text-white/60">
-              The modal automatically locks body scroll, closes on Escape key, and
-              handles click outside behavior.
+              The modal automatically locks body scroll, closes on Escape key, and handles click
+              outside behavior.
             </p>
           </div>
         </ModalGlass.Body>
@@ -73,9 +73,7 @@ export const Small: Story = {
           <ModalGlass.Close />
         </ModalGlass.Header>
         <ModalGlass.Body>
-          <p className="leading-relaxed">
-            This is a small modal. Great for simple confirmations.
-          </p>
+          <p className="leading-relaxed">This is a small modal. Great for simple confirmations.</p>
         </ModalGlass.Body>
       </ModalGlass.Content>
     </ModalGlass.Root>
@@ -124,8 +122,8 @@ export const Large: Story = {
               This is a large modal. It provides more space for complex content.
             </p>
             <p className="leading-relaxed text-white/60">
-              Use this size when you need to display forms, detailed information, or
-              multiple sections of content.
+              Use this size when you need to display forms, detailed information, or multiple
+              sections of content.
             </p>
           </div>
         </ModalGlass.Body>
@@ -149,9 +147,7 @@ export const ExtraLarge: Story = {
         </ModalGlass.Header>
         <ModalGlass.Body>
           <div className="space-y-4">
-            <p className="leading-relaxed">
-              This is an extra large modal for complex workflows.
-            </p>
+            <p className="leading-relaxed">This is an extra large modal for complex workflows.</p>
             <p className="leading-relaxed text-white/60">
               Perfect for multi-step forms, data tables, or rich content displays.
             </p>
@@ -181,8 +177,7 @@ export const Full: Story = {
               This is the maximum width modal. Use it for complex interfaces.
             </p>
             <p className="leading-relaxed text-white/60">
-              Ideal for dashboards, editors, or any content that needs maximum
-              screen real estate.
+              Ideal for dashboards, editors, or any content that needs maximum screen real estate.
             </p>
           </div>
         </ModalGlass.Body>
@@ -211,8 +206,7 @@ export const WithActions: Story = {
         <ModalGlass.Body>
           <div className="space-y-4">
             <p className="leading-relaxed">
-              Are you sure you want to proceed with this action? This cannot be
-              undone.
+              Are you sure you want to proceed with this action? This cannot be undone.
             </p>
             <div className="flex gap-3 justify-end pt-4">
               <ButtonGlass variant="text">Cancel</ButtonGlass>
@@ -242,9 +236,7 @@ export const WithForm: Story = {
         <ModalGlass.Body>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-white/80 mb-2">
-                Name
-              </label>
+              <label className="block text-sm font-medium text-white/80 mb-2">Name</label>
               <input
                 type="text"
                 placeholder="Enter name"
@@ -252,9 +244,7 @@ export const WithForm: Story = {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-white/80 mb-2">
-                Description
-              </label>
+              <label className="block text-sm font-medium text-white/80 mb-2">Description</label>
               <textarea
                 placeholder="Enter description"
                 rows={3}
@@ -289,24 +279,24 @@ export const WithLongContent: Story = {
         <ModalGlass.Body>
           <div className="space-y-4 max-h-[300px] overflow-y-auto">
             <p className="leading-relaxed">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua.
             </p>
             <p className="leading-relaxed">
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+              ea commodo consequat.
             </p>
             <p className="leading-relaxed">
-              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-              dolore eu fugiat nulla pariatur.
+              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              nulla pariatur.
             </p>
             <p className="leading-relaxed">
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-              officia deserunt mollit anim id est laborum.
+              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+              mollit anim id est laborum.
             </p>
             <p className="leading-relaxed">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque laudantium.
+              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+              laudantium.
             </p>
             <div className="flex gap-3 justify-end pt-4 sticky bottom-0 bg-transparent">
               <ButtonGlass variant="text">Decline</ButtonGlass>
@@ -408,9 +398,7 @@ export const GlassOverlayTest: Story = {
           <ModalGlass.Close />
         </ModalGlass.Header>
         <ModalGlass.Body>
-          <p className="leading-relaxed">
-            Testing the glass overlay effect with blur backdrop.
-          </p>
+          <p className="leading-relaxed">Testing the glass overlay effect with blur backdrop.</p>
         </ModalGlass.Body>
       </ModalGlass.Content>
     </ModalGlass.Root>
@@ -434,9 +422,7 @@ export const GlassGlowTest: Story = {
         </ModalGlass.Header>
         <ModalGlass.Body>
           <div className="space-y-4">
-            <p className="leading-relaxed">
-              Testing the purple glow effect around the modal.
-            </p>
+            <p className="leading-relaxed">Testing the purple glow effect around the modal.</p>
             <p className="leading-relaxed text-white/60">
               Box-shadow: 0 25px 80px rgba(168,85,247,0.35)
             </p>
@@ -463,9 +449,7 @@ export const CloseButtonTest: Story = {
           <ModalGlass.Close />
         </ModalGlass.Header>
         <ModalGlass.Body>
-          <p className="leading-relaxed">
-            Hover over the close button to see the hover effect.
-          </p>
+          <p className="leading-relaxed">Hover over the close button to see the hover effect.</p>
         </ModalGlass.Body>
       </ModalGlass.Content>
     </ModalGlass.Root>
@@ -489,15 +473,11 @@ export const TitleAndBodyText: Story = {
         </ModalGlass.Header>
         <ModalGlass.Body>
           <div className="space-y-4">
-            <p className="leading-relaxed">
-              This tests the title and body text colors.
-            </p>
+            <p className="leading-relaxed">This tests the title and body text colors.</p>
             <p className="leading-relaxed text-white/60">
               Body text should be rgba(255,255,255,0.70).
             </p>
-            <p className="font-semibold">
-              Title should be rgba(255,255,255,0.95).
-            </p>
+            <p className="font-semibold">Title should be rgba(255,255,255,0.95).</p>
           </div>
         </ModalGlass.Body>
       </ModalGlass.Content>
@@ -533,8 +513,7 @@ const InteractiveModalExample = () => {
           <ModalGlass.Body>
             <div className="space-y-4">
               <p className="leading-relaxed">
-                This is an interactive modal example. Click outside or press Escape
-                to close.
+                This is an interactive modal example. Click outside or press Escape to close.
               </p>
               <div className="flex gap-3 justify-end pt-4">
                 <ButtonGlass variant="text" onClick={() => setOpen(false)}>
@@ -557,7 +536,7 @@ export const Interactive: Story = {
   async play({ canvasElement }) {
     // Interactive test - Opens modal on button click
     const canvas = within(canvasElement);
-    const button = canvas.getByRole("button", { name: "Open Modal" });
+    const button = canvas.getByRole('button', { name: 'Open Modal' });
 
     // Click to open
     await userEvent.click(button);
@@ -566,7 +545,7 @@ export const Interactive: Story = {
     await new Promise((resolve) => setTimeout(resolve, 350));
 
     // Modal should be visible
-    await expect(canvas.getByRole("dialog")).toBeInTheDocument();
+    await expect(canvas.getByRole('dialog')).toBeInTheDocument();
   },
 };
 
@@ -574,14 +553,14 @@ export const InteractiveOpened: Story = {
   render: () => <InteractiveModalExample />,
   async play({ canvasElement }) {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole("button", { name: "Open Modal" });
+    const button = canvas.getByRole('button', { name: 'Open Modal' });
 
     // Open modal for snapshot
     await userEvent.click(button);
     await new Promise((resolve) => setTimeout(resolve, 350));
 
     // Visual snapshot test - Interactive modal in open state
-    await expect(canvas.getByRole("dialog")).toBeInTheDocument();
+    await expect(canvas.getByRole('dialog')).toBeInTheDocument();
   },
 };
 
@@ -599,9 +578,7 @@ export const AnimationTest: Story = {
           <ModalGlass.Close />
         </ModalGlass.Header>
         <ModalGlass.Body>
-          <p className="leading-relaxed">
-            This modal tests the open animation effect.
-          </p>
+          <p className="leading-relaxed">This modal tests the open animation effect.</p>
         </ModalGlass.Body>
       </ModalGlass.Content>
     </ModalGlass.Root>
@@ -621,16 +598,14 @@ export const AnimationTest: Story = {
 // ========================================
 
 export const CompoundBasic: Story = {
-  name: "Compound API - Basic",
+  name: 'Compound API - Basic',
   args: {},
   render: () => {
     const [open, setOpen] = useState(false);
 
     return (
       <>
-        <ButtonGlass onClick={() => setOpen(true)}>
-          Open Compound Modal
-        </ButtonGlass>
+        <ButtonGlass onClick={() => setOpen(true)}>Open Compound Modal</ButtonGlass>
 
         <ModalGlass.Root open={open} onOpenChange={setOpen}>
           <ModalGlass.Overlay />
@@ -641,8 +616,8 @@ export const CompoundBasic: Story = {
             </ModalGlass.Header>
             <ModalGlass.Body>
               <p className="leading-relaxed">
-                The new compound component API provides granular control over modal structure.
-                Each part can be customized independently.
+                The new compound component API provides granular control over modal structure. Each
+                part can be customized independently.
               </p>
             </ModalGlass.Body>
           </ModalGlass.Content>
@@ -653,16 +628,14 @@ export const CompoundBasic: Story = {
 };
 
 export const CompoundWithFooter: Story = {
-  name: "Compound API - With Footer",
+  name: 'Compound API - With Footer',
   args: {},
   render: () => {
     const [open, setOpen] = useState(false);
 
     return (
       <>
-        <ButtonGlass onClick={() => setOpen(true)}>
-          Open Modal with Footer
-        </ButtonGlass>
+        <ButtonGlass onClick={() => setOpen(true)}>Open Modal with Footer</ButtonGlass>
 
         <ModalGlass.Root open={open} onOpenChange={setOpen} size="lg">
           <ModalGlass.Overlay />
@@ -688,10 +661,13 @@ export const CompoundWithFooter: Story = {
               <ButtonGlass variant="ghost" onClick={() => setOpen(false)}>
                 Cancel
               </ButtonGlass>
-              <ButtonGlass variant="primary" onClick={() => {
-                console.log("Confirmed");
-                setOpen(false);
-              }}>
+              <ButtonGlass
+                variant="primary"
+                onClick={() => {
+                  console.log('Confirmed');
+                  setOpen(false);
+                }}
+              >
                 Confirm
               </ButtonGlass>
             </ModalGlass.Footer>
@@ -703,24 +679,20 @@ export const CompoundWithFooter: Story = {
 };
 
 export const CompoundCustomStyling: Story = {
-  name: "Compound API - Custom Styling",
+  name: 'Compound API - Custom Styling',
   args: {},
   render: () => {
     const [open, setOpen] = useState(false);
 
     return (
       <>
-        <ButtonGlass onClick={() => setOpen(true)}>
-          Open Custom Styled Modal
-        </ButtonGlass>
+        <ButtonGlass onClick={() => setOpen(true)}>Open Custom Styled Modal</ButtonGlass>
 
         <ModalGlass.Root open={open} onOpenChange={setOpen} size="md">
           <ModalGlass.Overlay className="bg-purple-900/40" />
           <ModalGlass.Content className="border-2 border-purple-500/30">
             <ModalGlass.Header className="border-b border-purple-500/20 pb-4">
-              <ModalGlass.Title className="text-purple-200">
-                Custom Styled Modal
-              </ModalGlass.Title>
+              <ModalGlass.Title className="text-purple-200">Custom Styled Modal</ModalGlass.Title>
               <ModalGlass.Description className="text-purple-300/70">
                 Each compound component accepts custom className for styling
               </ModalGlass.Description>
@@ -728,9 +700,8 @@ export const CompoundCustomStyling: Story = {
             </ModalGlass.Header>
             <ModalGlass.Body className="py-6">
               <p className="leading-relaxed text-purple-100/90">
-                The compound API gives you full control over styling while maintaining
-                the glassmorphism aesthetic. You can customize colors, spacing, borders,
-                and animations.
+                The compound API gives you full control over styling while maintaining the
+                glassmorphism aesthetic. You can customize colors, spacing, borders, and animations.
               </p>
             </ModalGlass.Body>
             <ModalGlass.Footer className="border-t border-purple-500/20 pt-4">
@@ -746,7 +717,7 @@ export const CompoundCustomStyling: Story = {
 };
 
 export const CompoundMultiStep: Story = {
-  name: "Compound API - Multi-Step Form",
+  name: 'Compound API - Multi-Step Form',
   args: {},
   render: () => {
     const [open, setOpen] = useState(false);
@@ -755,10 +726,12 @@ export const CompoundMultiStep: Story = {
 
     return (
       <>
-        <ButtonGlass onClick={() => {
-          setOpen(true);
-          setStep(1);
-        }}>
+        <ButtonGlass
+          onClick={() => {
+            setOpen(true);
+            setStep(1);
+          }}
+        >
           Open Multi-Step Modal
         </ButtonGlass>
 
@@ -776,9 +749,7 @@ export const CompoundMultiStep: Story = {
               {step === 1 && (
                 <div className="space-y-4">
                   <h3 className="font-semibold">Personal Information</h3>
-                  <p className="text-sm text-white/60">
-                    Enter your basic details to get started.
-                  </p>
+                  <p className="text-sm text-white/60">Enter your basic details to get started.</p>
                 </div>
               )}
               {step === 2 && (
@@ -804,7 +775,7 @@ export const CompoundMultiStep: Story = {
                   <div
                     key={i}
                     className={`h-1 flex-1 rounded-full transition-all ${
-                      i < step ? "bg-purple-500" : "bg-white/10"
+                      i < step ? 'bg-purple-500' : 'bg-white/10'
                     }`}
                   />
                 ))}

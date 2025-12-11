@@ -1,49 +1,50 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, fn } from "storybook/test";
-import { AlertGlass } from "./glass/ui/alert-glass";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, fn } from 'storybook/test';
+import { AlertGlass } from './glass/ui/alert-glass';
 
 const meta = {
-  title: "Components/AlertGlass",
+  title: 'Glass UI/Feedback/AlertGlass',
   component: AlertGlass,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     variant: {
-      control: "select",
-      options: ["default", "destructive", "success", "warning", "info", "error"],
-      description: "Alert variant (shadcn/ui compatible + Glass UI extended). Note: 'info' and 'error' are aliases.",
+      control: 'select',
+      options: ['default', 'destructive', 'success', 'warning', 'info', 'error'],
+      description:
+        "Alert variant (shadcn/ui compatible + Glass UI extended). Note: 'info' and 'error' are aliases.",
       table: {
         type: { summary: "'default' | 'destructive' | 'success' | 'warning' | 'info' | 'error'" },
-        defaultValue: { summary: "default" },
+        defaultValue: { summary: 'default' },
       },
     },
     dismissible: {
-      control: "boolean",
-      description: "Show dismiss button",
+      control: 'boolean',
+      description: 'Show dismiss button',
       table: {
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
       },
     },
     title: {
-      control: "text",
-      description: "Alert title",
+      control: 'text',
+      description: 'Alert title',
       table: {
-        type: { summary: "string" },
+        type: { summary: 'string' },
       },
     },
     children: {
-      control: "text",
-      description: "Alert message",
+      control: 'text',
+      description: 'Alert message',
       table: {
-        type: { summary: "ReactNode" },
+        type: { summary: 'ReactNode' },
       },
     },
   },
   args: {
-    className: "w-96",
+    className: 'w-96',
   },
 } satisfies Meta<typeof AlertGlass>;
 
@@ -52,9 +53,9 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    variant: "default",
-    title: "Information",
-    children: "This is an informational alert message.",
+    variant: 'default',
+    title: 'Information',
+    children: 'This is an informational alert message.',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -63,9 +64,9 @@ export const Default: Story = {
 
 export const Destructive: Story = {
   args: {
-    variant: "destructive",
-    title: "Error",
-    children: "An error occurred. Please try again.",
+    variant: 'destructive',
+    title: 'Error',
+    children: 'An error occurred. Please try again.',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -74,9 +75,9 @@ export const Destructive: Story = {
 
 export const Success: Story = {
   args: {
-    variant: "success",
-    title: "Success",
-    children: "Your action was completed successfully.",
+    variant: 'success',
+    title: 'Success',
+    children: 'Your action was completed successfully.',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -85,9 +86,9 @@ export const Success: Story = {
 
 export const Warning: Story = {
   args: {
-    variant: "warning",
-    title: "Warning",
-    children: "Please review your input before proceeding.",
+    variant: 'warning',
+    title: 'Warning',
+    children: 'Please review your input before proceeding.',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -96,9 +97,9 @@ export const Warning: Story = {
 
 export const Dismissible: Story = {
   args: {
-    variant: "default",
-    title: "Dismissible Alert",
-    children: "Click the X button to dismiss this alert.",
+    variant: 'default',
+    title: 'Dismissible Alert',
+    children: 'Click the X button to dismiss this alert.',
     dismissible: true,
     onDismiss: fn(),
   },
@@ -109,8 +110,8 @@ export const Dismissible: Story = {
 
 export const WithoutTitle: Story = {
   args: {
-    variant: "default",
-    children: "This alert has no title, just a message.",
+    variant: 'default',
+    children: 'This alert has no title, just a message.',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -119,7 +120,7 @@ export const WithoutTitle: Story = {
 
 export const AllVariants: Story = {
   args: {
-    children: "Alert message",
+    children: 'Alert message',
   },
   render: () => (
     <div className="flex flex-col gap-4 w-96">
@@ -144,7 +145,7 @@ export const AllVariants: Story = {
 
 export const AllDismissible: Story = {
   args: {
-    children: "Alert message",
+    children: 'Alert message',
   },
   render: () => (
     <div className="flex flex-col gap-4 w-96">

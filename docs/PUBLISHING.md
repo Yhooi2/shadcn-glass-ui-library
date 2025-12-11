@@ -21,6 +21,7 @@ npm run build
 ```
 
 This command runs:
+
 - TypeScript compilation (`tsc -b`)
 - Vite production build
 - Output: `dist/` directory with bundled JavaScript
@@ -34,6 +35,7 @@ npm run build:types
 ```
 
 This command:
+
 - Uses `tsc --project tsconfig.build.json`
 - Generates `.d.ts` files for all exported types (136 files)
 - Outputs to `dist/` directory alongside JavaScript files
@@ -41,6 +43,7 @@ This command:
 - Includes declaration maps for better IDE support
 
 **Example output:**
+
 ```
 dist/
 ├── index.js           # Main bundle
@@ -100,7 +103,7 @@ import { cn } from 'shadcn-glass-ui';
 
 All exported types include comprehensive JSDoc comments:
 
-```typescript
+````typescript
 /**
  * Props for ButtonGlass component
  *
@@ -122,9 +125,10 @@ All exported types include comprehensive JSDoc comments:
  * @see {@link ButtonGlassVariant} for available variants
  */
 export type ButtonGlassProps = { ... }
-```
+````
 
 **Benefits:**
+
 - ✅ VSCode IntelliSense shows examples
 - ✅ AI assistants (Copilot, Claude) get full context
 - ✅ API documentation can be auto-generated
@@ -133,12 +137,14 @@ export type ButtonGlassProps = { ... }
 ### Type Coverage
 
 **Statistics:**
+
 - 59 exported types
 - 60 exported components/functions
 - 64 JSDoc code examples
 - 50+ documented components
 
 **Categories:**
+
 1. **Theme System** - Theme, ThemeConfig, ThemeProvider
 2. **Core UI Components** - ButtonGlass, InputGlass, ModalGlass, etc.
 3. **Specialized Components** - ProgressGlass, StatusIndicatorGlass, etc.
@@ -168,10 +174,7 @@ The library is configured for proper TypeScript support:
       "import": "./dist/index.js"
     }
   },
-  "files": [
-    "dist",
-    "src"
-  ]
+  "files": ["dist", "src"]
 }
 ```
 
@@ -191,6 +194,7 @@ The library is configured for proper TypeScript support:
 The library uses strict TypeScript configuration:
 
 **tsconfig.json:**
+
 ```json
 {
   "compilerOptions": {
@@ -209,11 +213,13 @@ The library uses strict TypeScript configuration:
 ```
 
 **For publishing, use:**
+
 ```bash
 tsc --declaration --emitDeclarationOnly --outDir dist
 ```
 
 **Flags explained:**
+
 - `--declaration` - Generate `.d.ts` files
 - `--emitDeclarationOnly` - Only output declarations (no JS)
 - `--outDir dist` - Output to dist directory
@@ -239,6 +245,7 @@ ls -la dist/
 ```
 
 **Expected files:**
+
 - ✅ `dist/index.js` - Main JavaScript bundle
 - ✅ `dist/index.d.ts` - Main type declarations
 - ✅ `dist/**/*.d.ts` - Component type declarations
@@ -275,19 +282,51 @@ npm run test:all
 Update version in `package.json`:
 
 ```bash
-npm version patch  # 1.0.0 → 1.0.1
-npm version minor  # 1.0.0 → 1.1.0
-npm version major  # 1.0.0 → 2.0.0
+npm version patch  # 1.0.0 → 1.0.1 (bug fixes)
+npm version minor  # 1.0.0 → 1.1.0 (new features)
+npm version major  # 1.0.0 → 2.0.0 (breaking changes)
 ```
+
+**Version Guidance:**
+
+- **Patch (1.0.x)** - Bug fixes, documentation updates, internal refactoring
+- **Minor (1.x.0)** - New components, new features, backward-compatible changes
+- **Major (x.0.0)** - Breaking changes, removed APIs, renamed props
+
+**v2.0.0 Example (Breaking Changes):**
+
+```bash
+# Version 2.0.0 introduced breaking changes:
+# - Removed deprecated CSS variables (--metric-emerald-* → --metric-success-*)
+# - Introduced 3-layer token architecture
+# - Zero hardcoded OKLCH values
+
+npm version major  # 1.0.11 → 2.0.0
+```
+
+**Breaking Changes Checklist:**
+
+If releasing a major version with breaking changes:
+
+- [ ] Update [CHANGELOG.md](../CHANGELOG.md) with "⚠️ BREAKING CHANGES" section
+- [ ] Create migration guide in `docs/migration/` (e.g., CSS_VARIABLES_MIGRATION_2.0.md)
+- [ ] Update [README.md](../README.md) with breaking changes warning
+- [ ] Update [CLAUDE.md](../CLAUDE.md) with new patterns/APIs
+- [ ] Add deprecation warnings in previous minor version (if possible)
+- [ ] Test migration path with real-world projects
+- [ ] Document all removed/renamed APIs with replacements
+- [ ] Update Context7 rules in [context7.json](../context7.json)
 
 ### 5. Documentation Check
 
 Ensure documentation is up to date:
 
-- ✅ `README.md` - Updated examples
-- ✅ `CHANGELOG.md` - New version entry
-- ✅ `CLAUDE.md` - Architecture notes
+- ✅ `README.md` - Updated examples and version badges
+- ✅ `CHANGELOG.md` - New version entry with all changes
+- ✅ `CLAUDE.md` - Architecture notes and breaking changes
 - ✅ JSDoc comments - All types documented
+- ✅ Migration guides - Created for breaking changes (if applicable)
+- ✅ `context7.json` - Version and rules updated for AI assistants
 
 ### 6. Package Dry Run
 
@@ -313,6 +352,7 @@ import { ButtonGlass, type ButtonGlassProps } from 'shadcn-glass-ui';
 1. **Create npm account** at https://www.npmjs.com/signup
 
 2. **Login to npm:**
+
    ```bash
    npm login
    ```
@@ -331,6 +371,7 @@ import { ButtonGlass, type ButtonGlassProps } from 'shadcn-glass-ui';
 ### Publishing Process
 
 1. **Prepare release:**
+
    ```bash
    # Clean install
    rm -rf node_modules package-lock.json
@@ -345,16 +386,19 @@ import { ButtonGlass, type ButtonGlassProps } from 'shadcn-glass-ui';
    ```
 
 2. **Publish to npm:**
+
    ```bash
    npm publish
    ```
 
    Or for scoped package:
+
    ```bash
    npm publish --access public
    ```
 
 3. **Verify publication:**
+
    ```bash
    # Check on npm
    npm view @yourusername/shadcn-glass-ui
@@ -368,6 +412,7 @@ import { ButtonGlass, type ButtonGlassProps } from 'shadcn-glass-ui';
 The repository includes automated npm publishing workflow in `.github/workflows/publish.yml`.
 
 **Features:**
+
 - ✅ Publishes on GitHub release creation
 - ✅ Manual trigger with specific tag (workflow_dispatch)
 - ✅ Version verification (tag vs package.json)
@@ -393,6 +438,7 @@ The repository includes automated npm publishing workflow in `.github/workflows/
 **Publishing via GitHub Release:**
 
 1. **Create git tag:**
+
    ```bash
    git tag v1.0.0
    git push origin v1.0.0
@@ -419,6 +465,7 @@ gh workflow run publish.yml -f tag=v1.0.0
 ```
 
 **Important Notes:**
+
 - Tag version MUST match package.json version (e.g., `v1.0.0` → `1.0.0`)
 - Workflow includes provenance for supply chain security
 - Public access is automatic (configured in workflow)
@@ -431,6 +478,7 @@ gh workflow run publish.yml -f tag=v1.0.0
 **Issue:** TypeScript can't find types after installation
 
 **Solution:**
+
 ```json
 // Verify package.json exports
 {
@@ -448,6 +496,7 @@ gh workflow run publish.yml -f tag=v1.0.0
 **Issue:** Import errors in consuming projects
 
 **Solution:**
+
 ```json
 // Consumer's tsconfig.json
 {
@@ -463,6 +512,7 @@ gh workflow run publish.yml -f tag=v1.0.0
 **Issue:** JSDoc comments not showing in autocomplete
 
 **Solution:**
+
 - Ensure `--declaration` preserves comments
 - Verify `.d.ts` files contain `/** */` comments
 - Reload VSCode TypeScript server
@@ -472,6 +522,7 @@ gh workflow run publish.yml -f tag=v1.0.0
 **Issue:** TypeScript compilation fails
 
 **Solution:**
+
 ```bash
 # Check for type errors
 tsc --noEmit
@@ -487,6 +538,7 @@ npm run build:types
 ### 1. Semantic Versioning
 
 Follow [semver](https://semver.org/) strictly:
+
 - **Patch** (1.0.x) - Bug fixes, no API changes
 - **Minor** (1.x.0) - New features, backward compatible
 - **Major** (x.0.0) - Breaking changes
@@ -499,19 +551,23 @@ Update `CHANGELOG.md` for every release:
 ## [1.1.0] - 2025-01-15
 
 ### Added
+
 - New component: DatePickerGlass
 - ComboBoxGlass: Multi-select support
 
 ### Fixed
+
 - ButtonGlass: Focus ring visibility in Aurora theme
 
 ### Changed
+
 - InputGlass: Improved error state styling
 ```
 
 ### 3. Type Documentation
 
 Always include JSDoc for public APIs:
+
 - Component props
 - Variant types
 - Utility functions
@@ -520,6 +576,7 @@ Always include JSDoc for public APIs:
 ### 4. Testing Before Publish
 
 Never skip tests before publishing:
+
 ```bash
 npm run test:all && npm run build && npm run build:types && npm publish
 ```

@@ -320,7 +320,7 @@ const NotificationsCenter = ({
       <AnimatedBackground />
 
       {/* Content */}
-      <div className="relative z-10 p-6 max-w-3xl mx-auto">
+      <div className="relative z-10 p-6 min-w-screen mx-auto ">
         {/* Header with Notification Bell */}
         <div className="flex items-center justify-between mb-8">
           <div>
@@ -367,7 +367,7 @@ const NotificationsCenter = ({
         </div>
 
         {/* Main Content */}
-        <GlassCard intensity="high" className="p-6 max-w-6xl mx-auto">
+        <GlassCard intensity="high" className="p-6 max-w-2xl mx-auto">
           {/* Tabs for filtering */}
           <TabsGlass.Root
             value={activeFilter}

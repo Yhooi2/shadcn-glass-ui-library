@@ -1,19 +1,10 @@
 {
   "$schema": "https://context7.com/schema/context7.json",
   "projectTitle": "shadcn-glass-ui",
-  "description": "Glassmorphism UI library for React - AI-friendly with 57 components, strict TypeScript, and comprehensive docs",
+  "description": "Glassmorphism UI library for React - AI-friendly with 58 components, strict TypeScript, and comprehensive docs",
   "branch": "main",
   "folders": ["docs"],
-  "excludeFolders": [
-    "src",
-    "node_modules",
-    "dist",
-    ".storybook",
-    ".github",
-    "public",
-    "coverage",
-    "docs/api/_media"
-  ],
+  "excludeFolders": ["src", "node_modules", "dist", ".storybook", ".github", "public", "coverage"],
   "excludeFiles": ["package-lock.json", ".DS_Store"],
   "rules": [
     "Use 'variant' prop instead of 'type' for AlertGlass and NotificationGlass (v1.0 breaking change)",
@@ -43,10 +34,24 @@
     "YearCardGlass accepts optional sparklineData for monthly activity trends visualization",
     "YearCardGlass accepts optional insights array for displaying InsightCardGlass items with all 7 variants",
     "MetricCardGlass supports optional sparklineData for metric trend visualization alongside progress bars",
-    "When using sparklineData in cards, data array length should match your time period (e.g., 12 months = 12 values)"
+    "When using sparklineData in cards, data array length should match your time period (e.g., 12 months = 12 values)",
+    "Use 3-layer token system: Primitive → Semantic → Component tokens (v2.0.0+)",
+    "NEVER hardcode OKLCH values - use CSS variables from oklch-primitives.css",
+    "For custom styling, use semantic tokens: var(--semantic-primary), var(--semantic-surface)",
+    "CSS variables removed in v2.0.0: --metric-emerald-*, --metric-amber-*, --metric-blue-*, --metric-red-*",
+    "Use new semantic names: --metric-success-*, --metric-warning-*, --metric-default-*, --metric-destructive-*",
+    "Create new themes in 15 minutes using THEME_CREATION_GUIDE.md template",
+    "All 207 primitive tokens defined in src/styles/tokens/oklch-primitives.css",
+    "Reference TOKEN_ARCHITECTURE.md for complete token system documentation",
+    "StepperGlass component uses compound API: StepperGlass.Root, .Step, .Title, .Description, .Indicator",
+    "StepperGlass has 3 variants: numbered (default), icon, dots - use variant prop",
+    "StepperGlass orientation: horizontal (default) or vertical",
+    "StepperGlass supports linear mode (wizard pattern) - set linear prop to lock future steps",
+    "Use exported hooks: useFocus, useHover, useResponsive, useWallpaperTint for custom components"
   ],
   "previousVersions": [
-    { "tag": "v1.1.0", "title": "Version 1.1.0 (Latest)" },
+    { "tag": "v2.0.0", "title": "Version 2.0.0 (Latest - Token Architecture)" },
+    { "tag": "v1.1.0", "title": "Version 1.1.0" },
     { "tag": "v1.0.11", "title": "Version 1.0.11" },
     { "tag": "v1.0.0", "title": "Version 1.0.0 (Breaking Changes)" }
   ]

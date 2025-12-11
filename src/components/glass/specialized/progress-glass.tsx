@@ -29,17 +29,17 @@ export interface ProgressGlassProps
 // COMPONENT
 // ========================================
 
-// Gradient colors for the fill - CSS variable based
-const getGradientColors = (
+// Map gradient to existing metric color variables
+const getGradientColor = (
   gradient: ProgressGradient = 'violet'
-): { from: string; to: string; glowVar: string } => {
-  const gradients: Record<ProgressGradient, { from: string; to: string; glowVar: string }> = {
-    violet: { from: '#8b5cf6', to: '#a855f7', glowVar: '--progress-glow-violet' },
-    blue: { from: '#3b82f6', to: '#60a5fa', glowVar: '--progress-glow-blue' },
-    cyan: { from: '#06b6d4', to: '#22d3ee', glowVar: '--progress-glow-cyan' },
-    amber: { from: '#f59e0b', to: '#fbbf24', glowVar: '--progress-glow-amber' },
-    emerald: { from: '#10b981', to: '#34d399', glowVar: '--progress-glow-emerald' },
-    rose: { from: '#f43f5e', to: '#fb7185', glowVar: '--progress-glow-rose' },
+): { colorVar: string; glowVar: string } => {
+  const gradients: Record<ProgressGradient, { colorVar: string; glowVar: string }> = {
+    violet: { colorVar: '--metric-default-text', glowVar: '--progress-glow-violet' }, // Uses blue metric color
+    blue: { colorVar: '--metric-default-text', glowVar: '--progress-glow-blue' },
+    cyan: { colorVar: '--metric-secondary-text', glowVar: '--progress-glow-cyan' },
+    amber: { colorVar: '--metric-warning-text', glowVar: '--progress-glow-amber' },
+    emerald: { colorVar: '--metric-success-text', glowVar: '--progress-glow-emerald' },
+    rose: { colorVar: '--metric-destructive-text', glowVar: '--progress-glow-rose' },
   };
   return gradients[gradient] || gradients.violet;
 };
@@ -47,7 +47,7 @@ const getGradientColors = (
 export const ProgressGlass = forwardRef<HTMLDivElement, ProgressGlassProps>(
   ({ className, size = 'md', value = 0, gradient = 'violet', showLabel, ...props }, ref) => {
     const clampedValue = Math.min(100, Math.max(0, value));
-    const gradientColors = getGradientColors(gradient);
+    const { colorVar, glowVar } = getGradientColor(gradient);
 
     const trackStyles: CSSProperties = {
       background: 'var(--progress-bg)',
@@ -55,8 +55,8 @@ export const ProgressGlass = forwardRef<HTMLDivElement, ProgressGlassProps>(
 
     const fillStyles: CSSProperties = {
       width: `${clampedValue}%`,
-      background: `linear-gradient(90deg, ${gradientColors.from}, ${gradientColors.to})`,
-      boxShadow: `var(${gradientColors.glowVar})`,
+      background: `var(${colorVar})`,
+      boxShadow: `var(${glowVar})`,
     };
 
     return (

@@ -1,40 +1,40 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { fn, expect } from "storybook/test";
-import { NotificationGlass } from "./glass/ui/notification-glass";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { fn, expect } from 'storybook/test';
+import { NotificationGlass } from './glass/ui/notification-glass';
 
 const meta = {
-  title: "Components/NotificationGlass",
+  title: 'Glass UI/Feedback/NotificationGlass',
   component: NotificationGlass,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
     snapshot: {
       // Enable visual snapshot testing
       disable: false,
     },
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     variant: {
-      control: "select",
-      options: ["default", "destructive", "success", "warning"],
-      description: "Notification variant (shadcn/ui compatible)",
+      control: 'select',
+      options: ['default', 'destructive', 'success', 'warning'],
+      description: 'Notification variant (shadcn/ui compatible)',
       table: {
         type: { summary: "'default' | 'destructive' | 'success' | 'warning'" },
-        defaultValue: { summary: "default" },
+        defaultValue: { summary: 'default' },
       },
     },
     title: {
-      control: "text",
-      description: "The notification title",
+      control: 'text',
+      description: 'The notification title',
       table: {
-        type: { summary: "string" },
+        type: { summary: 'string' },
       },
     },
     message: {
-      control: "text",
-      description: "The notification message",
+      control: 'text',
+      description: 'The notification message',
       table: {
-        type: { summary: "string" },
+        type: { summary: 'string' },
       },
     },
   },
@@ -54,9 +54,9 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    variant: "default",
-    title: "New update available",
-    message: "Version 2.0 is ready to install with new features.",
+    variant: 'default',
+    title: 'New update available',
+    message: 'Version 2.0 is ready to install with new features.',
   },
   async play({ canvasElement }) {
     // Visual snapshot test - Default variant (info)
@@ -68,9 +68,9 @@ export const Default: Story = {
 
 export const Success: Story = {
   args: {
-    variant: "success",
-    title: "Payment successful",
-    message: "Your payment has been processed successfully.",
+    variant: 'success',
+    title: 'Payment successful',
+    message: 'Your payment has been processed successfully.',
   },
   async play({ canvasElement }) {
     // Visual snapshot test - Success variant
@@ -82,8 +82,8 @@ export const Success: Story = {
 
 export const Warning: Story = {
   args: {
-    variant: "warning",
-    title: "Storage almost full",
+    variant: 'warning',
+    title: 'Storage almost full',
     message: "You're using 90% of your available storage.",
   },
   async play({ canvasElement }) {
@@ -96,9 +96,9 @@ export const Warning: Story = {
 
 export const Destructive: Story = {
   args: {
-    variant: "destructive",
-    title: "Connection failed",
-    message: "Unable to connect to the server. Please try again.",
+    variant: 'destructive',
+    title: 'Connection failed',
+    message: 'Unable to connect to the server. Please try again.',
   },
   async play({ canvasElement }) {
     // Visual snapshot test - Destructive variant (error)
@@ -114,9 +114,9 @@ export const Destructive: Story = {
 
 export const ShortContent: Story = {
   args: {
-    variant: "default",
-    title: "Info",
-    message: "Short message",
+    variant: 'default',
+    title: 'Info',
+    message: 'Short message',
   },
   async play({ canvasElement }) {
     // Visual snapshot test - Short content
@@ -126,10 +126,10 @@ export const ShortContent: Story = {
 
 export const LongContent: Story = {
   args: {
-    variant: "default",
-    title: "Important Information About Your Account",
+    variant: 'default',
+    title: 'Important Information About Your Account',
     message:
-      "This is a longer notification message that spans multiple lines to test how the component handles text wrapping and maintains proper spacing and alignment.",
+      'This is a longer notification message that spans multiple lines to test how the component handles text wrapping and maintains proper spacing and alignment.',
   },
   async play({ canvasElement }) {
     // Visual snapshot test - Long content with text wrapping
@@ -171,9 +171,9 @@ export const AllVariants: Story = {
     </div>
   ),
   args: {
-    variant: "default",
-    title: "",
-    message: "",
+    variant: 'default',
+    title: '',
+    message: '',
   },
   async play({ canvasElement }) {
     // Visual snapshot test - All notification variants together
@@ -188,9 +188,9 @@ export const AllVariants: Story = {
 
 export const GlassBackgroundTest: Story = {
   args: {
-    variant: "default",
-    title: "Glass Effect Test",
-    message: "Testing the glassmorphism background, borders, and glow effects",
+    variant: 'default',
+    title: 'Glass Effect Test',
+    message: 'Testing the glassmorphism background, borders, and glow effects',
   },
   async play({ canvasElement }) {
     // Visual snapshot test - Glass effect
@@ -231,9 +231,9 @@ export const IconBackgroundsTest: Story = {
     </div>
   ),
   args: {
-    variant: "default",
-    title: "",
-    message: "",
+    variant: 'default',
+    title: '',
+    message: '',
   },
   async play({ canvasElement }) {
     // Visual snapshot test - All icon backgrounds with variant-specific colors

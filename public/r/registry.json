@@ -22,6 +22,12 @@
       "description": "TabsGlass Component (Compound API only)"
     },
     {
+      "name": "stepper-glass",
+      "type": "registry:ui",
+      "title": "Stepper Glass",
+      "description": "StepperGlass Component (Compound API)"
+    },
+    {
       "name": "slider-glass",
       "type": "registry:ui",
       "title": "Slider Glass",
@@ -277,7 +283,7 @@
       "name": "metric-card-glass",
       "type": "registry:block",
       "title": "Metric Card Glass",
-      "description": "Metric Card Glass component with glass effects"
+      "description": "Metric variant system (following AlertGlass, BadgeGlass pattern)"
     },
     {
       "name": "contribution-metrics-glass",

@@ -1,28 +1,28 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from "storybook/test";
-import { SkeletonGlass } from "./glass/ui/skeleton-glass";
-import { GlassCard } from "./glass/ui/glass-card";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
+import { SkeletonGlass } from './glass/ui/skeleton-glass';
+import { GlassCard } from './glass/ui/glass-card';
 
 const meta = {
-  title: "Components/SkeletonGlass",
+  title: 'Glass UI/Feedback/SkeletonGlass',
   component: SkeletonGlass,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     variant: {
-      control: "select",
-      options: ["text", "title", "avatar", "thumbnail", "card"],
-      description: "Skeleton variant",
+      control: 'select',
+      options: ['text', 'title', 'avatar', 'thumbnail', 'card'],
+      description: 'Skeleton variant',
     },
     width: {
-      control: "text",
-      description: "Custom width",
+      control: 'text',
+      description: 'Custom width',
     },
     height: {
-      control: "text",
-      description: "Custom height",
+      control: 'text',
+      description: 'Custom height',
     },
   },
 } satisfies Meta<typeof SkeletonGlass>;
@@ -32,8 +32,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Text: Story = {
   args: {
-    variant: "text",
-    width: "200px",
+    variant: 'text',
+    width: '200px',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -42,8 +42,8 @@ export const Text: Story = {
 
 export const Title: Story = {
   args: {
-    variant: "title",
-    width: "250px",
+    variant: 'title',
+    width: '250px',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -52,7 +52,7 @@ export const Title: Story = {
 
 export const Avatar: Story = {
   args: {
-    variant: "avatar",
+    variant: 'avatar',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -61,8 +61,8 @@ export const Avatar: Story = {
 
 export const Thumbnail: Story = {
   args: {
-    variant: "thumbnail",
-    width: "300px",
+    variant: 'thumbnail',
+    width: '300px',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -71,8 +71,8 @@ export const Thumbnail: Story = {
 
 export const Card: Story = {
   args: {
-    variant: "card",
-    width: "300px",
+    variant: 'card',
+    width: '300px',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -81,8 +81,8 @@ export const Card: Story = {
 
 export const CustomSize: Story = {
   args: {
-    width: "150px",
-    height: "20px",
+    width: '150px',
+    height: '20px',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -93,23 +93,33 @@ export const AllVariants: Story = {
   render: () => (
     <div className="flex flex-col gap-6 w-80">
       <div>
-        <span className="text-xs mb-2 block" style={{ color: "var(--text-muted)" }}>Text</span>
+        <span className="text-xs mb-2 block" style={{ color: 'var(--text-muted)' }}>
+          Text
+        </span>
         <SkeletonGlass variant="text" />
       </div>
       <div>
-        <span className="text-xs mb-2 block" style={{ color: "var(--text-muted)" }}>Title</span>
+        <span className="text-xs mb-2 block" style={{ color: 'var(--text-muted)' }}>
+          Title
+        </span>
         <SkeletonGlass variant="title" />
       </div>
       <div>
-        <span className="text-xs mb-2 block" style={{ color: "var(--text-muted)" }}>Avatar</span>
+        <span className="text-xs mb-2 block" style={{ color: 'var(--text-muted)' }}>
+          Avatar
+        </span>
         <SkeletonGlass variant="avatar" />
       </div>
       <div>
-        <span className="text-xs mb-2 block" style={{ color: "var(--text-muted)" }}>Thumbnail</span>
+        <span className="text-xs mb-2 block" style={{ color: 'var(--text-muted)' }}>
+          Thumbnail
+        </span>
         <SkeletonGlass variant="thumbnail" />
       </div>
       <div>
-        <span className="text-xs mb-2 block" style={{ color: "var(--text-muted)" }}>Card</span>
+        <span className="text-xs mb-2 block" style={{ color: 'var(--text-muted)' }}>
+          Card
+        </span>
         <SkeletonGlass variant="card" />
       </div>
     </div>

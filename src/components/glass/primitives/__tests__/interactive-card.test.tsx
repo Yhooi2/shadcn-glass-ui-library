@@ -44,9 +44,7 @@ describe('InteractiveCard', () => {
   });
 
   it('should apply custom blur level', () => {
-    const { container } = render(
-      <InteractiveCard blur="xl">Content</InteractiveCard>
-    );
+    const { container } = render(<InteractiveCard blur="xl">Content</InteractiveCard>);
 
     const card = container.firstChild as HTMLElement;
     expect(card.style.backdropFilter).toBe('blur(var(--blur-xl))');
@@ -61,11 +59,11 @@ describe('InteractiveCard', () => {
 
   it('should apply custom base background', () => {
     const { container } = render(
-      <InteractiveCard baseBg="var(--metric-emerald-bg)">Content</InteractiveCard>
+      <InteractiveCard baseBg="var(--metric-success-bg)">Content</InteractiveCard>
     );
 
     const card = container.firstChild as HTMLElement;
-    expect(card.style.background).toBe('var(--metric-emerald-bg)');
+    expect(card.style.background).toBe('var(--metric-success-bg)');
   });
 
   it('should apply default border color', () => {
@@ -92,9 +90,7 @@ describe('InteractiveCard', () => {
   });
 
   it('should apply custom rounded class', () => {
-    const { container } = render(
-      <InteractiveCard rounded="rounded-3xl">Content</InteractiveCard>
-    );
+    const { container } = render(<InteractiveCard rounded="rounded-3xl">Content</InteractiveCard>);
 
     const card = container.firstChild as HTMLElement;
     expect(card).toHaveClass('rounded-3xl');
@@ -133,9 +129,7 @@ describe('InteractiveCard', () => {
   });
 
   it('should merge custom className with rounded class', () => {
-    const { container } = render(
-      <InteractiveCard className="p-6">Content</InteractiveCard>
-    );
+    const { container } = render(<InteractiveCard className="p-6">Content</InteractiveCard>);
 
     const card = container.firstChild as HTMLElement;
     expect(card).toHaveClass('p-6');
@@ -176,9 +170,7 @@ describe('InteractiveCard', () => {
 
   it('should merge custom styles with card styles', () => {
     const { container } = render(
-      <InteractiveCard style={{ padding: '24px', color: 'red' }}>
-        Content
-      </InteractiveCard>
+      <InteractiveCard style={{ padding: '24px', color: 'red' }}>Content</InteractiveCard>
     );
 
     const card = container.firstChild as HTMLElement;
@@ -191,9 +183,7 @@ describe('InteractiveCard', () => {
     const blurLevels: Array<'sm' | 'md' | 'lg' | 'xl'> = ['sm', 'md', 'lg', 'xl'];
 
     blurLevels.forEach((blur) => {
-      const { container } = render(
-        <InteractiveCard blur={blur}>Content</InteractiveCard>
-      );
+      const { container } = render(<InteractiveCard blur={blur}>Content</InteractiveCard>);
 
       const card = container.firstChild as HTMLElement;
       expect(card.style.backdropFilter).toBe(`blur(var(--blur-${blur}))`);
@@ -208,9 +198,7 @@ describe('InteractiveCard', () => {
     ];
 
     roundedVariants.forEach((rounded) => {
-      const { container } = render(
-        <InteractiveCard rounded={rounded}>Content</InteractiveCard>
-      );
+      const { container } = render(<InteractiveCard rounded={rounded}>Content</InteractiveCard>);
 
       const card = container.firstChild as HTMLElement;
       expect(card).toHaveClass(rounded);
@@ -218,9 +206,7 @@ describe('InteractiveCard', () => {
   });
 
   it('should not apply hover lift when hoverLift is false', () => {
-    const { container } = render(
-      <InteractiveCard hoverLift={false}>Content</InteractiveCard>
-    );
+    const { container } = render(<InteractiveCard hoverLift={false}>Content</InteractiveCard>);
 
     const card = container.firstChild as HTMLElement;
     expect(card.style.transform).toBe('translateY(0)');
@@ -235,9 +221,7 @@ describe('InteractiveCard', () => {
   });
 
   it('should render with disabled state', () => {
-    const { container } = render(
-      <InteractiveCard disabled>Content</InteractiveCard>
-    );
+    const { container } = render(<InteractiveCard disabled>Content</InteractiveCard>);
 
     const card = container.firstChild as HTMLElement;
     expect(card.style.transform).toBe('translateY(0)');

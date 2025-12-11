@@ -1,52 +1,52 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from "storybook/test";
-import { ProgressGlass } from "./glass/specialized/progress-glass";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
+import { ProgressGlass } from './glass/specialized/progress-glass';
 
 const meta = {
-  title: "Components/ProgressGlass",
+  title: 'Glass UI/Progress/ProgressGlass',
   component: ProgressGlass,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     value: {
-      control: { type: "range", min: 0, max: 100 },
-      description: "Progress value (0-100)",
+      control: { type: 'range', min: 0, max: 100 },
+      description: 'Progress value (0-100)',
       table: {
-        type: { summary: "number" },
-        defaultValue: { summary: "0" },
+        type: { summary: 'number' },
+        defaultValue: { summary: '0' },
       },
     },
     gradient: {
-      control: "select",
-      options: ["violet", "blue", "cyan", "amber", "emerald", "rose"],
-      description: "Gradient color",
+      control: 'select',
+      options: ['violet', 'blue', 'cyan', 'amber', 'emerald', 'rose'],
+      description: 'Gradient color',
       table: {
         type: { summary: "'violet' | 'blue' | 'cyan' | 'amber' | 'emerald' | 'rose'" },
-        defaultValue: { summary: "violet" },
+        defaultValue: { summary: 'violet' },
       },
     },
     showLabel: {
-      control: "boolean",
-      description: "Show percentage label",
+      control: 'boolean',
+      description: 'Show percentage label',
       table: {
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
       },
     },
     size: {
-      control: "select",
-      options: ["sm", "md", "lg", "xl"],
-      description: "Progress bar height",
+      control: 'select',
+      options: ['sm', 'md', 'lg', 'xl'],
+      description: 'Progress bar height',
       table: {
         type: { summary: "'sm' | 'md' | 'lg' | 'xl'" },
-        defaultValue: { summary: "md" },
+        defaultValue: { summary: 'md' },
       },
     },
   },
   args: {
-    className: "w-80",
+    className: 'w-80',
   },
 } satisfies Meta<typeof ProgressGlass>;
 
@@ -75,7 +75,7 @@ export const WithLabel: Story = {
 export const VioletGradient: Story = {
   args: {
     value: 70,
-    gradient: "violet",
+    gradient: 'violet',
     showLabel: true,
   },
   async play({ canvasElement }) {
@@ -86,7 +86,7 @@ export const VioletGradient: Story = {
 export const BlueGradient: Story = {
   args: {
     value: 70,
-    gradient: "blue",
+    gradient: 'blue',
     showLabel: true,
   },
   async play({ canvasElement }) {
@@ -97,7 +97,7 @@ export const BlueGradient: Story = {
 export const CyanGradient: Story = {
   args: {
     value: 70,
-    gradient: "cyan",
+    gradient: 'cyan',
     showLabel: true,
   },
   async play({ canvasElement }) {
@@ -108,7 +108,7 @@ export const CyanGradient: Story = {
 export const AmberGradient: Story = {
   args: {
     value: 70,
-    gradient: "amber",
+    gradient: 'amber',
     showLabel: true,
   },
   async play({ canvasElement }) {
@@ -119,7 +119,7 @@ export const AmberGradient: Story = {
 export const EmeraldGradient: Story = {
   args: {
     value: 70,
-    gradient: "emerald",
+    gradient: 'emerald',
     showLabel: true,
   },
   async play({ canvasElement }) {
@@ -130,7 +130,7 @@ export const EmeraldGradient: Story = {
 export const RoseGradient: Story = {
   args: {
     value: 70,
-    gradient: "rose",
+    gradient: 'rose',
     showLabel: true,
   },
   async play({ canvasElement }) {
@@ -145,27 +145,39 @@ export const AllGradients: Story = {
   render: () => (
     <div className="flex flex-col gap-4 w-80">
       <div>
-        <span className="text-sm" style={{ color: "var(--text-secondary)" }}>Violet</span>
+        <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+          Violet
+        </span>
         <ProgressGlass value={80} gradient="violet" />
       </div>
       <div>
-        <span className="text-sm" style={{ color: "var(--text-secondary)" }}>Blue</span>
+        <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+          Blue
+        </span>
         <ProgressGlass value={70} gradient="blue" />
       </div>
       <div>
-        <span className="text-sm" style={{ color: "var(--text-secondary)" }}>Cyan</span>
+        <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+          Cyan
+        </span>
         <ProgressGlass value={60} gradient="cyan" />
       </div>
       <div>
-        <span className="text-sm" style={{ color: "var(--text-secondary)" }}>Amber</span>
+        <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+          Amber
+        </span>
         <ProgressGlass value={50} gradient="amber" />
       </div>
       <div>
-        <span className="text-sm" style={{ color: "var(--text-secondary)" }}>Emerald</span>
+        <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+          Emerald
+        </span>
         <ProgressGlass value={90} gradient="emerald" />
       </div>
       <div>
-        <span className="text-sm" style={{ color: "var(--text-secondary)" }}>Rose</span>
+        <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+          Rose
+        </span>
         <ProgressGlass value={40} gradient="rose" />
       </div>
     </div>
@@ -182,23 +194,33 @@ export const ProgressSteps: Story = {
   render: () => (
     <div className="flex flex-col gap-4 w-80">
       <div>
-        <span className="text-sm" style={{ color: "var(--text-secondary)" }}>0%</span>
+        <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+          0%
+        </span>
         <ProgressGlass value={0} />
       </div>
       <div>
-        <span className="text-sm" style={{ color: "var(--text-secondary)" }}>25%</span>
+        <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+          25%
+        </span>
         <ProgressGlass value={25} />
       </div>
       <div>
-        <span className="text-sm" style={{ color: "var(--text-secondary)" }}>50%</span>
+        <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+          50%
+        </span>
         <ProgressGlass value={50} />
       </div>
       <div>
-        <span className="text-sm" style={{ color: "var(--text-secondary)" }}>75%</span>
+        <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+          75%
+        </span>
         <ProgressGlass value={75} />
       </div>
       <div>
-        <span className="text-sm" style={{ color: "var(--text-secondary)" }}>100%</span>
+        <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+          100%
+        </span>
         <ProgressGlass value={100} />
       </div>
     </div>
@@ -215,19 +237,27 @@ export const AllSizes: Story = {
   render: () => (
     <div className="flex flex-col gap-4 w-80">
       <div>
-        <span className="text-sm" style={{ color: "var(--text-secondary)" }}>Small</span>
+        <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+          Small
+        </span>
         <ProgressGlass value={70} size="sm" />
       </div>
       <div>
-        <span className="text-sm" style={{ color: "var(--text-secondary)" }}>Medium</span>
+        <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+          Medium
+        </span>
         <ProgressGlass value={70} size="md" />
       </div>
       <div>
-        <span className="text-sm" style={{ color: "var(--text-secondary)" }}>Large</span>
+        <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+          Large
+        </span>
         <ProgressGlass value={70} size="lg" />
       </div>
       <div>
-        <span className="text-sm" style={{ color: "var(--text-secondary)" }}>XL</span>
+        <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+          XL
+        </span>
         <ProgressGlass value={70} size="xl" />
       </div>
     </div>

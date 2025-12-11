@@ -1,6 +1,9 @@
 # Component Catalog
 
-Searchable index of all **57 components** in shadcn-glass-ui.
+Searchable index of all **58 components** in shadcn-glass-ui.
+
+**v2.0.0 Update:** All components now use the 3-layer token system with semantic CSS variables. Zero
+hardcoded OKLCH values across all components.
 
 ## Quick Reference Table
 

@@ -1,42 +1,42 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from "storybook/test";
-import { AvatarGlass } from "./glass/ui/avatar-glass";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
+import { AvatarGlass } from './glass/ui/avatar-glass';
 
 const meta = {
-  title: "Components/AvatarGlass",
+  title: 'Glass UI/Display/AvatarGlass',
   component: AvatarGlass,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
     snapshot: {
       // Enable visual snapshot testing
       disable: false,
     },
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     name: {
-      control: "text",
-      description: "The name to display initials from",
+      control: 'text',
+      description: 'The name to display initials from',
       table: {
-        type: { summary: "string" },
+        type: { summary: 'string' },
       },
     },
     size: {
-      control: "select",
-      options: ["sm", "md", "lg", "xl"],
-      description: "The size of the avatar",
+      control: 'select',
+      options: ['sm', 'md', 'lg', 'xl'],
+      description: 'The size of the avatar',
       table: {
         type: { summary: "'sm' | 'md' | 'lg' | 'xl'" },
-        defaultValue: { summary: "md" },
+        defaultValue: { summary: 'md' },
       },
     },
     status: {
-      control: "select",
-      options: [undefined, "online", "offline", "busy", "away"],
-      description: "The status indicator",
+      control: 'select',
+      options: [undefined, 'online', 'offline', 'busy', 'away'],
+      description: 'The status indicator',
       table: {
         type: { summary: "'online' | 'offline' | 'busy' | 'away' | undefined" },
-        defaultValue: { summary: "undefined" },
+        defaultValue: { summary: 'undefined' },
       },
     },
   },
@@ -53,7 +53,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    name: "John Doe",
+    name: 'John Doe',
   },
   async play({ canvasElement }) {
     // Visual snapshot test - Default avatar without status
@@ -72,8 +72,8 @@ export const Default: Story = {
 
 export const WithOnlineStatus: Story = {
   args: {
-    name: "Jane Smith",
-    status: "online",
+    name: 'Jane Smith',
+    status: 'online',
   },
   async play({ canvasElement }) {
     // Visual snapshot test - Online status
@@ -84,8 +84,8 @@ export const WithOnlineStatus: Story = {
 
 export const WithBusyStatus: Story = {
   args: {
-    name: "Bob Johnson",
-    status: "busy",
+    name: 'Bob Johnson',
+    status: 'busy',
   },
   async play({ canvasElement }) {
     // Visual snapshot test - Busy status
@@ -96,8 +96,8 @@ export const WithBusyStatus: Story = {
 
 export const WithAwayStatus: Story = {
   args: {
-    name: "Alice Brown",
-    status: "away",
+    name: 'Alice Brown',
+    status: 'away',
   },
   async play({ canvasElement }) {
     // Visual snapshot test - Away status
@@ -108,8 +108,8 @@ export const WithAwayStatus: Story = {
 
 export const WithOfflineStatus: Story = {
   args: {
-    name: "Charlie Wilson",
-    status: "offline",
+    name: 'Charlie Wilson',
+    status: 'offline',
   },
   async play({ canvasElement }) {
     // Visual snapshot test - Offline status
@@ -128,9 +128,9 @@ export const WithOfflineStatus: Story = {
 
 export const Small: Story = {
   args: {
-    name: "Small User",
-    size: "sm",
-    status: "online",
+    name: 'Small User',
+    size: 'sm',
+    status: 'online',
   },
   async play({ canvasElement }) {
     // Visual snapshot test - Small size: w-8 h-8 text-xs
@@ -140,9 +140,9 @@ export const Small: Story = {
 
 export const Medium: Story = {
   args: {
-    name: "Medium User",
-    size: "md",
-    status: "online",
+    name: 'Medium User',
+    size: 'md',
+    status: 'online',
   },
   async play({ canvasElement }) {
     // Visual snapshot test - Medium size: w-10 h-10 text-sm
@@ -152,9 +152,9 @@ export const Medium: Story = {
 
 export const Large: Story = {
   args: {
-    name: "Large User",
-    size: "lg",
-    status: "online",
+    name: 'Large User',
+    size: 'lg',
+    status: 'online',
   },
   async play({ canvasElement }) {
     // Visual snapshot test - Large size: w-12 h-12 text-base
@@ -164,9 +164,9 @@ export const Large: Story = {
 
 export const ExtraLarge: Story = {
   args: {
-    name: "Extra Large",
-    size: "xl",
-    status: "online",
+    name: 'Extra Large',
+    size: 'xl',
+    status: 'online',
   },
   async play({ canvasElement }) {
     // Visual snapshot test - Extra large size: w-16 h-16 text-lg
@@ -180,7 +180,7 @@ export const ExtraLarge: Story = {
 
 export const AllSizes: Story = {
   args: {
-    name: "User",
+    name: 'User',
   },
   render: () => (
     <div className="flex items-end gap-6">
@@ -211,7 +211,7 @@ export const AllSizes: Story = {
 
 export const AllStatuses: Story = {
   args: {
-    name: "User",
+    name: 'User',
   },
   render: () => (
     <div className="flex items-center gap-6">
@@ -250,8 +250,8 @@ export const AllStatuses: Story = {
 
 export const SingleCharName: Story = {
   args: {
-    name: "A",
-    size: "lg",
+    name: 'A',
+    size: 'lg',
   },
   async play({ canvasElement }) {
     // Visual snapshot test - Single character name
@@ -261,8 +261,8 @@ export const SingleCharName: Story = {
 
 export const EmptyName: Story = {
   args: {
-    name: "",
-    size: "lg",
+    name: '',
+    size: 'lg',
   },
   async play({ canvasElement }) {
     // Visual snapshot test - Empty name shows "?"
@@ -272,8 +272,8 @@ export const EmptyName: Story = {
 
 export const LongName: Story = {
   args: {
-    name: "John Michael Smith",
-    size: "lg",
+    name: 'John Michael Smith',
+    size: 'lg',
   },
   async play({ canvasElement }) {
     // Visual snapshot test - Long name (should show "JM")
@@ -287,7 +287,7 @@ export const LongName: Story = {
 
 export const GlassGradientTest: Story = {
   args: {
-    name: "User",
+    name: 'User',
   },
   render: () => (
     <div className="flex items-center gap-4">
@@ -306,7 +306,7 @@ export const GlassGradientTest: Story = {
 
 export const StatusGlowsTest: Story = {
   args: {
-    name: "User",
+    name: 'User',
   },
   render: () => (
     <div className="flex items-center gap-8">
@@ -324,7 +324,7 @@ export const StatusGlowsTest: Story = {
 
 export const AllSizesWithAllStatuses: Story = {
   args: {
-    name: "User",
+    name: 'User',
   },
   render: () => (
     <div className="flex flex-col gap-6">

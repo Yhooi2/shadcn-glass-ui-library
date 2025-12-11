@@ -13,21 +13,21 @@ export interface InsightCardGlassProps
   extends
     Omit<React.HTMLAttributes<HTMLDivElement>, 'style'>,
     VariantProps<typeof insightCardVariants> {
-  /** Эмодзи для инсайта */
+  /** Emoji icon for the insight */
   readonly emoji?: string;
-  /** Основной текст инсайта */
+  /** Main insight text */
   readonly text: string;
-  /** Дополнительная информация */
+  /** Additional details */
   readonly detail?: string;
-  /** Тип инсайта */
+  /** Insight type variant */
   readonly variant?: InsightVariant;
-  /** Inline отображение */
+  /** Inline display mode */
   readonly inline?: boolean;
-  /** Кликабельный */
+  /** Click handler (makes the insight clickable) */
   readonly onClick?: () => void;
-  /** Показать стрелку */
+  /** Show arrow indicator */
   readonly showArrow?: boolean;
-  /** Анимация появления */
+  /** Fade-in animation */
   readonly animated?: boolean;
 }
 

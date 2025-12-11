@@ -5,17 +5,14 @@ import { ThemeProvider } from '@/lib/theme-context';
 import '@/glass-theme.css';
 
 const meta: Meta<typeof SortDropdownGlass> = {
-  title: 'Glass/Atomic/SortDropdownGlass',
+  title: 'Glass UI/Atomic/SortDropdownGlass',
   component: SortDropdownGlass,
   decorators: [
     (Story, context) => {
       const theme = context.globals.theme || 'glass';
       return (
         <ThemeProvider defaultTheme={theme}>
-          <div
-            className="p-8 min-h-[200px]"
-            style={{ background: 'var(--bg-gradient)' }}
-          >
+          <div className="p-8 min-h-[200px]" style={{ background: 'var(--bg-gradient)' }}>
             <Story />
           </div>
         </ThemeProvider>
@@ -119,9 +116,7 @@ export const Compact: Story = {
  * Limited options - only commits and stars available
  */
 export const LimitedOptions: Story = {
-  render: () => (
-    <InteractiveSortDropdown options={['commits', 'stars']} />
-  ),
+  render: () => <InteractiveSortDropdown options={['commits', 'stars']} />,
 };
 
 /**

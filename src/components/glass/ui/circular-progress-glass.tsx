@@ -209,7 +209,7 @@ export const CircularProgressGlass = forwardRef<HTMLDivElement, CircularProgress
           <div className="absolute inset-0 flex items-center justify-center">
             <span
               className="text-sm font-semibold tabular-nums"
-              style={{ color: labelColor || 'var(--text-primary)' }}
+              style={{ color: labelColor || gradientColors.to }}
             >
               {label || (variant === 'determinate' ? `${clampedValue}%` : '')}
             </span>

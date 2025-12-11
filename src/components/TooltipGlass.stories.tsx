@@ -1,25 +1,25 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from "storybook/test";
-import { TooltipGlass } from "./glass/ui/tooltip-glass";
-import { ButtonGlass } from "./glass/ui/button-glass";
-import { Info, HelpCircle, Settings } from "lucide-react";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
+import { TooltipGlass } from './glass/ui/tooltip-glass';
+import { ButtonGlass } from './glass/ui/button-glass';
+import { Info, HelpCircle, Settings } from 'lucide-react';
 
 const meta = {
-  title: "Components/TooltipGlass",
+  title: 'Glass UI/Feedback/TooltipGlass',
   component: TooltipGlass,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     position: {
-      control: "select",
-      options: ["top", "bottom", "left", "right"],
-      description: "Tooltip position",
+      control: 'select',
+      options: ['top', 'bottom', 'left', 'right'],
+      description: 'Tooltip position',
     },
     content: {
-      control: "text",
-      description: "Tooltip content",
+      control: 'text',
+      description: 'Tooltip content',
     },
   },
 } satisfies Meta<typeof TooltipGlass>;
@@ -29,7 +29,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    content: "This is a tooltip",
+    content: 'This is a tooltip',
     children: <ButtonGlass>Hover me</ButtonGlass>,
   },
   async play({ canvasElement }) {
@@ -39,8 +39,8 @@ export const Default: Story = {
 
 export const Top: Story = {
   args: {
-    position: "top",
-    content: "Tooltip on top",
+    position: 'top',
+    content: 'Tooltip on top',
     children: <ButtonGlass>Top</ButtonGlass>,
   },
   async play({ canvasElement }) {
@@ -50,8 +50,8 @@ export const Top: Story = {
 
 export const Bottom: Story = {
   args: {
-    position: "bottom",
-    content: "Tooltip on bottom",
+    position: 'bottom',
+    content: 'Tooltip on bottom',
     children: <ButtonGlass>Bottom</ButtonGlass>,
   },
   async play({ canvasElement }) {
@@ -61,8 +61,8 @@ export const Bottom: Story = {
 
 export const Left: Story = {
   args: {
-    position: "left",
-    content: "Tooltip on left",
+    position: 'left',
+    content: 'Tooltip on left',
     children: <ButtonGlass>Left</ButtonGlass>,
   },
   async play({ canvasElement }) {
@@ -72,8 +72,8 @@ export const Left: Story = {
 
 export const Right: Story = {
   args: {
-    position: "right",
-    content: "Tooltip on right",
+    position: 'right',
+    content: 'Tooltip on right',
     children: <ButtonGlass>Right</ButtonGlass>,
   },
   async play({ canvasElement }) {
@@ -83,9 +83,9 @@ export const Right: Story = {
 
 export const WithIcon: Story = {
   args: {
-    content: "Click for more information",
+    content: 'Click for more information',
     children: (
-      <button className="p-2 rounded-lg" style={{ color: "var(--text-secondary)" }}>
+      <button className="p-2 rounded-lg" style={{ color: 'var(--text-secondary)' }}>
         <Info className="w-5 h-5" />
       </button>
     ),
@@ -97,7 +97,7 @@ export const WithIcon: Story = {
 
 export const AllPositions: Story = {
   args: {
-    content: "Tooltip",
+    content: 'Tooltip',
     children: <ButtonGlass>Hover</ButtonGlass>,
   },
   render: () => (
@@ -131,7 +131,7 @@ export const AllPositions: Story = {
 
 export const WithDifferentTriggers: Story = {
   args: {
-    content: "Tooltip",
+    content: 'Tooltip',
     children: <ButtonGlass>Hover</ButtonGlass>,
   },
   render: () => (

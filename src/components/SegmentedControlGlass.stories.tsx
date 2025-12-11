@@ -1,24 +1,24 @@
-import { useState } from "react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from "storybook/test";
-import { SegmentedControlGlass } from "./glass/specialized/segmented-control-glass";
+import { useState } from 'react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
+import { SegmentedControlGlass } from './glass/specialized/segmented-control-glass';
 
 const meta = {
-  title: "Glass/Composite/SegmentedControlGlass",
+  title: 'Glass UI/Navigation/SegmentedControlGlass',
   component: SegmentedControlGlass,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     options: {
-      description: "Array of segment options",
+      description: 'Array of segment options',
     },
     value: {
-      description: "Currently selected value",
+      description: 'Currently selected value',
     },
     onChange: {
-      description: "Callback when selection changes",
+      description: 'Callback when selection changes',
     },
   },
 } satisfies Meta<typeof SegmentedControlGlass>;
@@ -29,10 +29,10 @@ type Story = StoryObj<typeof meta>;
 export const TwoSegments: Story = {
   args: {
     options: [
-      { value: "left", label: "Left" },
-      { value: "right", label: "Right" },
+      { value: 'left', label: 'Left' },
+      { value: 'right', label: 'Right' },
     ],
-    value: "left",
+    value: 'left',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -42,11 +42,11 @@ export const TwoSegments: Story = {
 export const ThreeSegments: Story = {
   args: {
     options: [
-      { value: "overview", label: "Overview" },
-      { value: "repos", label: "Repositories" },
-      { value: "activity", label: "Activity" },
+      { value: 'overview', label: 'Overview' },
+      { value: 'repos', label: 'Repositories' },
+      { value: 'activity', label: 'Activity' },
     ],
-    value: "overview",
+    value: 'overview',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -56,12 +56,12 @@ export const ThreeSegments: Story = {
 export const FourSegments: Story = {
   args: {
     options: [
-      { value: "all", label: "All" },
-      { value: "active", label: "Active" },
-      { value: "pending", label: "Pending" },
-      { value: "completed", label: "Completed" },
+      { value: 'all', label: 'All' },
+      { value: 'active', label: 'Active' },
+      { value: 'pending', label: 'Pending' },
+      { value: 'completed', label: 'Completed' },
     ],
-    value: "all",
+    value: 'all',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -71,28 +71,26 @@ export const FourSegments: Story = {
 export const Interactive: Story = {
   args: {
     options: [
-      { value: "overview", label: "Overview" },
-      { value: "repos", label: "Repositories" },
-      { value: "activity", label: "Activity" },
+      { value: 'overview', label: 'Overview' },
+      { value: 'repos', label: 'Repositories' },
+      { value: 'activity', label: 'Activity' },
     ],
-    value: "overview",
+    value: 'overview',
   },
   render: function InteractiveSegmented() {
-    const [value, setValue] = useState("overview");
+    const [value, setValue] = useState('overview');
     return (
       <div className="flex flex-col gap-4 items-center">
         <SegmentedControlGlass
           options={[
-            { value: "overview", label: "Overview" },
-            { value: "repos", label: "Repositories" },
-            { value: "activity", label: "Activity" },
+            { value: 'overview', label: 'Overview' },
+            { value: 'repos', label: 'Repositories' },
+            { value: 'activity', label: 'Activity' },
           ]}
           value={value}
           onChange={setValue}
         />
-        <span style={{ color: "var(--text-muted)", fontSize: "12px" }}>
-          Selected: {value}
-        </span>
+        <span style={{ color: 'var(--text-muted)', fontSize: '12px' }}>Selected: {value}</span>
       </div>
     );
   },

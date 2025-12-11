@@ -45,6 +45,10 @@ git commit -m "feat: message"    # Husky runs lint-staged + screenshot check
 #   feat: -> minor version bump (1.0.0 -> 1.1.0)
 #   fix:  -> patch version bump (1.0.0 -> 1.0.1)
 #   BREAKING CHANGE or !: -> major version bump (1.0.0 -> 2.0.0)
+
+# Token System (v2.0.0+)
+npm run test:compliance:run      # Verify token usage
+grep -r "oklch(" src/styles/themes/  # Find hardcoded OKLCH (should be 0)
 ```
 
 ## Project Overview
@@ -240,9 +244,130 @@ npm run test:visual:update       # ⚠️ DO NOT USE on macOS
 
 **⚠️ CRITICAL:** Never commit screenshots from macOS. Reference images MUST be generated on Linux.
 
-**Statistics:** 582 visual tests, 99.5% pass rate in CI
+**Statistics:** 802 visual tests, 99.5% pass rate in CI
 
 See [docs/visual-testing-guide.md](docs/visual-testing-guide.md) for complete guide.
+
+## Token System (v2.0.0+)
+
+### 3-Layer Architecture
+
+```
+Layer 3: Component Tokens  (--btn-primary-bg, --input-border, --modal-bg)
+             ↓ references
+Layer 2: Semantic Tokens   (--semantic-primary, --semantic-surface, --semantic-text)
+             ↓ references
+Layer 1: Primitive Tokens  (--oklch-purple-500, --oklch-white-8, --oklch-slate-800)
+```
+
+**Purpose:**
+
+- **Layer 1 (Primitives)**: Single source of truth for all OKLCH colors (207 tokens)
+- **Layer 2 (Semantic)**: Role-based tokens that describe usage, not appearance
+- **Layer 3 (Component)**: Component-specific tokens that reference semantic tokens
+
+### Quick Reference
+
+- **207 primitive tokens** in `src/styles/tokens/oklch-primitives.css`
+- **Zero hardcoded OKLCH** in theme files (glass.css, light.css, aurora.css)
+- **15-minute theme creation** (was 2-3 hours before refactor)
+- **296+ CSS variables per theme** with complete semantic coverage
+
+### Usage Examples
+
+```css
+/* ✅ DO: Use semantic tokens in components */
+.my-component {
+  background: var(--semantic-surface);
+  color: var(--semantic-text);
+  border: 1px solid var(--semantic-border);
+}
+
+.my-component:hover {
+  background: var(--semantic-surface-elevated);
+  border-color: var(--semantic-primary);
+}
+
+/* ✅ DO: Use primitive tokens for specific effects */
+.my-component-glow {
+  box-shadow: 0 0 20px var(--oklch-purple-500-40);
+}
+
+/* ❌ DON'T: Hardcode OKLCH values */
+.my-component {
+  background: oklch(66.6% 0.159 303); /* NEVER do this */
+}
+```
+
+### Breaking Changes (v2.0.0)
+
+**Removed CSS Variables:**
+
+| Removed (v1.x)       | Replacement (v2.0+)      | Semantic Meaning |
+| -------------------- | ------------------------ | ---------------- |
+| `--metric-emerald-*` | `--metric-success-*`     | Success states   |
+| `--metric-amber-*`   | `--metric-warning-*`     | Warning states   |
+| `--metric-blue-*`    | `--metric-default-*`     | Neutral/default  |
+| `--metric-red-*`     | `--metric-destructive-*` | Error/danger     |
+
+**Total removed:** 16 variables (4 color families × 4 properties: -bg, -text, -border, -glow)
+
+**Why this change?**
+
+- Aligns with shadcn/ui naming conventions (success, warning, destructive)
+- Improves semantic clarity (color names → semantic roles)
+- Consistent with component variant props (AlertGlass, BadgeGlass, ButtonGlass)
+- Part of 3-layer token architecture migration
+
+**Migration Guide:**
+[docs/migration/CSS_VARIABLES_MIGRATION_2.0.md](docs/migration/CSS_VARIABLES_MIGRATION_2.0.md)
+
+**Automated Migration:**
+
+```bash
+# macOS/Linux
+find src/ -type f \( -name "*.tsx" -o -name "*.css" \) -exec sed -i '' \
+  -e 's/--metric-emerald-/--metric-success-/g' \
+  -e 's/--metric-amber-/--metric-warning-/g' \
+  -e 's/--metric-blue-/--metric-default-/g' \
+  -e 's/--metric-red-/--metric-destructive-/g' \
+  {} +
+```
+
+### Creating New Themes
+
+**Before (v1.x):** 2-3 hours, 500+ lines of hardcoded OKLCH values **After (v2.0.0):** 10-15
+minutes, ~50 lines of semantic mappings
+
+```css
+/* Example: Creating "neon" theme */
+[data-theme='neon'] {
+  /* Define ~15 semantic tokens */
+  --semantic-primary: var(--oklch-cyan-400);
+  --semantic-surface: var(--oklch-black-90);
+  --semantic-text: var(--oklch-white-95);
+  /* ... ~12 more tokens */
+
+  /* Component tokens inherited automatically! */
+}
+```
+
+See [THEME_CREATION_GUIDE.md](docs/THEME_CREATION_GUIDE.md) for step-by-step tutorial.
+
+### Documentation
+
+- [TOKEN_ARCHITECTURE.md](docs/TOKEN_ARCHITECTURE.md) - Complete 3-layer system guide (365 lines)
+- [THEME_CREATION_GUIDE.md](docs/THEME_CREATION_GUIDE.md) - Create themes in 15 minutes (455 lines)
+- [CSS_VARIABLES_AUDIT.md](docs/CSS_VARIABLES_AUDIT.md) - Complete audit of 296+ variables per theme
+- [PRIMITIVE_MAPPING.md](docs/PRIMITIVE_MAPPING.md) - OKLCH primitive reference
+
+### Benefits
+
+1. **Single Source of Truth**: Change a color once in primitives, affects all themes
+2. **Rapid Theme Creation**: 90% faster (2-3 hours → 10-15 minutes)
+3. **Type Safety**: Semantic names prevent confusion
+4. **Maintainability**: Zero hardcoded values, 100% CSS variable coverage
+5. **Consistency**: All components using `--semantic-primary` stay in sync
 
 ## Architecture Decisions
 

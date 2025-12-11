@@ -22,6 +22,7 @@ import { TooltipGlass } from '../glass/ui/tooltip-glass';
 import { ModalGlass } from '../glass/ui/modal-glass';
 import { DropdownGlass } from '../glass/ui/dropdown-glass';
 import { TabsGlass } from '../glass/ui/tabs-glass';
+import { StepperGlass } from '../glass/ui/stepper-glass';
 import { AvatarGlass } from '../glass/ui/avatar-glass';
 import { SkeletonGlass } from '../glass/ui/skeleton-glass';
 import { ProgressGlass } from '../glass/specialized/progress-glass';
@@ -49,7 +50,7 @@ function renderWithTheme(component: React.ReactNode, theme: Theme) {
 
 // Wait for animations to settle
 async function waitForStability(ms = 100) {
-  await new Promise(resolve => setTimeout(resolve, ms));
+  await new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 describe('Visual Regression Tests', () => {
@@ -59,7 +60,6 @@ describe('Visual Regression Tests', () => {
   });
 
   describe.each(THEMES)('Theme: %s', (theme) => {
-
     test(`ButtonGlass primary - ${theme}`, async () => {
       renderWithTheme(
         <ButtonGlass variant="primary" data-testid="button">
@@ -73,10 +73,7 @@ describe('Visual Regression Tests', () => {
     });
 
     test(`InputGlass default - ${theme}`, async () => {
-      renderWithTheme(
-        <InputGlass placeholder="Enter text..." data-testid="input" />,
-        theme
-      );
+      renderWithTheme(<InputGlass placeholder="Enter text..." data-testid="input" />, theme);
       await waitForStability();
       const input = page.getByTestId('input');
       await expect(input).toMatchScreenshot(`input-default-${theme}`);
@@ -95,10 +92,7 @@ describe('Visual Regression Tests', () => {
     });
 
     test(`BadgeGlass default - ${theme}`, async () => {
-      renderWithTheme(
-        <BadgeGlass data-testid="badge">Badge</BadgeGlass>,
-        theme
-      );
+      renderWithTheme(<BadgeGlass data-testid="badge">Badge</BadgeGlass>, theme);
       await waitForStability();
       const badge = page.getByTestId('badge');
       await expect(badge).toMatchScreenshot(`badge-default-${theme}`);
@@ -169,6 +163,61 @@ describe('Visual Regression Tests', () => {
       await expect(tabs).toMatchScreenshot(`tabs-default-${theme}`, {
         timeout: 10000,
       });
+    });
+
+    test(`StepperGlass horizontal - ${theme}`, async () => {
+      renderWithTheme(
+        <div data-testid="stepper-container" style={{ width: '500px' }}>
+          <StepperGlass.Root value="step2">
+            <StepperGlass.List>
+              <StepperGlass.Step value="step1" label="Step 1" />
+              <StepperGlass.Step value="step2" label="Step 2" />
+              <StepperGlass.Step value="step3" label="Step 3" />
+            </StepperGlass.List>
+          </StepperGlass.Root>
+        </div>,
+        theme
+      );
+      await waitForStability();
+      const container = page.getByTestId('stepper-container');
+      await expect(container).toMatchScreenshot(`stepper-horizontal-${theme}`);
+    });
+
+    test(`StepperGlass vertical - ${theme}`, async () => {
+      renderWithTheme(
+        <div data-testid="stepper-vertical" style={{ width: '300px' }}>
+          <StepperGlass.Root value="step2" orientation="vertical">
+            <StepperGlass.List>
+              <StepperGlass.Step value="step1" label="Step 1" description="First step" />
+              <StepperGlass.Step value="step2" label="Step 2" description="Second step" />
+              <StepperGlass.Step value="step3" label="Step 3" description="Third step" />
+            </StepperGlass.List>
+          </StepperGlass.Root>
+        </div>,
+        theme
+      );
+      await waitForStability();
+      const container = page.getByTestId('stepper-vertical');
+      await expect(container).toMatchScreenshot(`stepper-vertical-${theme}`);
+    });
+
+    test(`StepperGlass dots - ${theme}`, async () => {
+      renderWithTheme(
+        <div data-testid="stepper-dots" style={{ width: '300px' }}>
+          <StepperGlass.Root value="step2" variant="dots">
+            <StepperGlass.List>
+              <StepperGlass.Step value="step1" label="" />
+              <StepperGlass.Step value="step2" label="" />
+              <StepperGlass.Step value="step3" label="" />
+              <StepperGlass.Step value="step4" label="" />
+            </StepperGlass.List>
+          </StepperGlass.Root>
+        </div>,
+        theme
+      );
+      await waitForStability();
+      const container = page.getByTestId('stepper-dots');
+      await expect(container).toMatchScreenshot(`stepper-dots-${theme}`);
     });
 
     test(`AvatarGlass md online - ${theme}`, async () => {
@@ -304,7 +353,9 @@ describe('Visual Regression Tests', () => {
     // BadgeGlass variants
     test(`BadgeGlass success - ${theme}`, async () => {
       renderWithTheme(
-        <BadgeGlass variant="success" data-testid="badge">Success</BadgeGlass>,
+        <BadgeGlass variant="success" data-testid="badge">
+          Success
+        </BadgeGlass>,
         theme
       );
       await waitForStability();
@@ -314,7 +365,9 @@ describe('Visual Regression Tests', () => {
 
     test(`BadgeGlass warning - ${theme}`, async () => {
       renderWithTheme(
-        <BadgeGlass variant="warning" data-testid="badge">Warning</BadgeGlass>,
+        <BadgeGlass variant="warning" data-testid="badge">
+          Warning
+        </BadgeGlass>,
         theme
       );
       await waitForStability();
@@ -324,7 +377,9 @@ describe('Visual Regression Tests', () => {
 
     test(`BadgeGlass destructive - ${theme}`, async () => {
       renderWithTheme(
-        <BadgeGlass variant="destructive" data-testid="badge">Destructive</BadgeGlass>,
+        <BadgeGlass variant="destructive" data-testid="badge">
+          Destructive
+        </BadgeGlass>,
         theme
       );
       await waitForStability();
@@ -334,7 +389,9 @@ describe('Visual Regression Tests', () => {
 
     test(`BadgeGlass info - ${theme}`, async () => {
       renderWithTheme(
-        <BadgeGlass variant="info" data-testid="badge">Info</BadgeGlass>,
+        <BadgeGlass variant="info" data-testid="badge">
+          Info
+        </BadgeGlass>,
         theme
       );
       await waitForStability();
@@ -442,7 +499,12 @@ describe('Visual Regression Tests', () => {
     // CheckboxGlass unchecked state
     test(`CheckboxGlass unchecked - ${theme}`, async () => {
       renderWithTheme(
-        <CheckboxGlass checked={false} onChange={() => {}} label="Unchecked" data-testid="checkbox" />,
+        <CheckboxGlass
+          checked={false}
+          onChange={() => {}}
+          label="Unchecked"
+          data-testid="checkbox"
+        />,
         theme
       );
       await waitForStability();
@@ -476,7 +538,10 @@ describe('Visual Regression Tests', () => {
   describe.each(THEMES)('Overlay components - Theme: %s', (theme) => {
     test(`ModalGlass opened - ${theme}`, async () => {
       renderWithTheme(
-        <div data-testid="modal-container" style={{ width: '600px', height: '400px', position: 'relative' }}>
+        <div
+          data-testid="modal-container"
+          style={{ width: '600px', height: '400px', position: 'relative' }}
+        >
           <ModalGlass.Root open={true} onOpenChange={() => {}}>
             <ModalGlass.Overlay />
             <ModalGlass.Content>
@@ -581,7 +646,13 @@ describe('Visual Regression Tests', () => {
 
     test(`CheckboxGlass disabled checked - ${theme}`, async () => {
       renderWithTheme(
-        <CheckboxGlass checked={true} onChange={() => {}} disabled label="Disabled Checked" data-testid="checkbox" />,
+        <CheckboxGlass
+          checked={true}
+          onChange={() => {}}
+          disabled
+          label="Disabled Checked"
+          data-testid="checkbox"
+        />,
         theme
       );
       await waitForStability();
@@ -591,7 +662,13 @@ describe('Visual Regression Tests', () => {
 
     test(`CheckboxGlass disabled unchecked - ${theme}`, async () => {
       renderWithTheme(
-        <CheckboxGlass checked={false} onChange={() => {}} disabled label="Disabled Unchecked" data-testid="checkbox" />,
+        <CheckboxGlass
+          checked={false}
+          onChange={() => {}}
+          disabled
+          label="Disabled Unchecked"
+          data-testid="checkbox"
+        />,
         theme
       );
       await waitForStability();
@@ -656,30 +733,21 @@ describe('Visual Regression Tests', () => {
 
     // AvatarGlass sizes
     test(`AvatarGlass size sm - ${theme}`, async () => {
-      renderWithTheme(
-        <AvatarGlass size="sm" name="Small Avatar" data-testid="avatar" />,
-        theme
-      );
+      renderWithTheme(<AvatarGlass size="sm" name="Small Avatar" data-testid="avatar" />, theme);
       await waitForStability();
       const avatar = page.getByTestId('avatar');
       await expect(avatar).toMatchScreenshot(`avatar-size-sm-${theme}`);
     });
 
     test(`AvatarGlass size lg - ${theme}`, async () => {
-      renderWithTheme(
-        <AvatarGlass size="lg" name="Large Avatar" data-testid="avatar" />,
-        theme
-      );
+      renderWithTheme(<AvatarGlass size="lg" name="Large Avatar" data-testid="avatar" />, theme);
       await waitForStability();
       const avatar = page.getByTestId('avatar');
       await expect(avatar).toMatchScreenshot(`avatar-size-lg-${theme}`);
     });
 
     test(`AvatarGlass size xl - ${theme}`, async () => {
-      renderWithTheme(
-        <AvatarGlass size="xl" name="XL Avatar" data-testid="avatar" />,
-        theme
-      );
+      renderWithTheme(<AvatarGlass size="xl" name="XL Avatar" data-testid="avatar" />, theme);
       await waitForStability();
       const avatar = page.getByTestId('avatar');
       await expect(avatar).toMatchScreenshot(`avatar-size-xl-${theme}`);
@@ -725,7 +793,10 @@ describe('Visual Regression Tests', () => {
     // ModalGlass sizes
     test(`ModalGlass size sm - ${theme}`, async () => {
       renderWithTheme(
-        <div data-testid="modal-container" style={{ width: '600px', height: '400px', position: 'relative' }}>
+        <div
+          data-testid="modal-container"
+          style={{ width: '600px', height: '400px', position: 'relative' }}
+        >
           <ModalGlass.Root open={true} onOpenChange={() => {}}>
             <ModalGlass.Overlay />
             <ModalGlass.Content size="sm">
@@ -748,7 +819,10 @@ describe('Visual Regression Tests', () => {
 
     test(`ModalGlass size lg - ${theme}`, async () => {
       renderWithTheme(
-        <div data-testid="modal-container" style={{ width: '800px', height: '500px', position: 'relative' }}>
+        <div
+          data-testid="modal-container"
+          style={{ width: '800px', height: '500px', position: 'relative' }}
+        >
           <ModalGlass.Root open={true} onOpenChange={() => {}}>
             <ModalGlass.Overlay />
             <ModalGlass.Content size="lg">
@@ -819,10 +893,7 @@ describe('Visual Regression Tests', () => {
     test(`PopoverGlass with form - ${theme}`, async () => {
       renderWithTheme(
         <div data-testid="popover-form-container">
-          <PopoverGlass
-            trigger={<ButtonGlass variant="primary">Settings</ButtonGlass>}
-            open={true}
-          >
+          <PopoverGlass trigger={<ButtonGlass variant="primary">Settings</ButtonGlass>} open={true}>
             <div className="w-72 space-y-4">
               <h3 className="font-semibold text-white mb-2">Quick Settings</h3>
               <InputGlass label="Username" placeholder="Enter username" size="sm" />
@@ -847,9 +918,7 @@ describe('Visual Regression Tests', () => {
           >
             <div className="w-64">
               <h3 className="font-semibold text-white mb-2">No Arrow</h3>
-              <p className="text-sm text-white/70">
-                Popover without arrow pointer.
-              </p>
+              <p className="text-sm text-white/70">Popover without arrow pointer.</p>
             </div>
           </PopoverGlass>
         </div>,

@@ -1,32 +1,32 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from "storybook/test";
-import { ProfileAvatarGlass } from "./glass/specialized/profile-avatar-glass";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
+import { ProfileAvatarGlass } from './glass/specialized/profile-avatar-glass';
 
 const meta = {
-  title: "Glass/Composite/ProfileAvatarGlass",
+  title: 'Glass UI/Composite/ProfileAvatarGlass',
   component: ProfileAvatarGlass,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     initials: {
-      control: "text",
-      description: "User initials to display",
+      control: 'text',
+      description: 'User initials to display',
     },
     size: {
-      control: "select",
-      options: ["sm", "md", "lg", "xl"],
-      description: "Avatar size",
+      control: 'select',
+      options: ['sm', 'md', 'lg', 'xl'],
+      description: 'Avatar size',
     },
     status: {
-      control: "select",
-      options: ["online", "offline", "busy", "away"],
-      description: "User status indicator",
+      control: 'select',
+      options: ['online', 'offline', 'busy', 'away'],
+      description: 'User status indicator',
     },
     glowing: {
-      control: "boolean",
-      description: "Enable glow pulse animation",
+      control: 'boolean',
+      description: 'Enable glow pulse animation',
     },
   },
 } satisfies Meta<typeof ProfileAvatarGlass>;
@@ -36,9 +36,9 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    initials: "JD",
-    size: "lg",
-    status: "online",
+    initials: 'JD',
+    size: 'lg',
+    status: 'online',
     glowing: true,
   },
   async play({ canvasElement }) {
@@ -48,9 +48,9 @@ export const Default: Story = {
 
 export const Small: Story = {
   args: {
-    initials: "AB",
-    size: "sm",
-    status: "online",
+    initials: 'AB',
+    size: 'sm',
+    status: 'online',
     glowing: true,
   },
   async play({ canvasElement }) {
@@ -60,9 +60,9 @@ export const Small: Story = {
 
 export const Medium: Story = {
   args: {
-    initials: "CD",
-    size: "md",
-    status: "away",
+    initials: 'CD',
+    size: 'md',
+    status: 'away',
     glowing: true,
   },
   async play({ canvasElement }) {
@@ -72,9 +72,9 @@ export const Medium: Story = {
 
 export const ExtraLarge: Story = {
   args: {
-    initials: "XL",
-    size: "xl",
-    status: "online",
+    initials: 'XL',
+    size: 'xl',
+    status: 'online',
     glowing: true,
   },
   async play({ canvasElement }) {
@@ -84,9 +84,9 @@ export const ExtraLarge: Story = {
 
 export const OnlineStatus: Story = {
   args: {
-    initials: "OK",
-    size: "lg",
-    status: "online",
+    initials: 'OK',
+    size: 'lg',
+    status: 'online',
     glowing: true,
   },
   async play({ canvasElement }) {
@@ -96,9 +96,9 @@ export const OnlineStatus: Story = {
 
 export const OfflineStatus: Story = {
   args: {
-    initials: "OF",
-    size: "lg",
-    status: "offline",
+    initials: 'OF',
+    size: 'lg',
+    status: 'offline',
     glowing: true,
   },
   async play({ canvasElement }) {
@@ -108,9 +108,9 @@ export const OfflineStatus: Story = {
 
 export const BusyStatus: Story = {
   args: {
-    initials: "BS",
-    size: "lg",
-    status: "busy",
+    initials: 'BS',
+    size: 'lg',
+    status: 'busy',
     glowing: true,
   },
   async play({ canvasElement }) {
@@ -120,9 +120,9 @@ export const BusyStatus: Story = {
 
 export const AwayStatus: Story = {
   args: {
-    initials: "AW",
-    size: "lg",
-    status: "away",
+    initials: 'AW',
+    size: 'lg',
+    status: 'away',
     glowing: true,
   },
   async play({ canvasElement }) {
@@ -132,9 +132,9 @@ export const AwayStatus: Story = {
 
 export const WithoutGlow: Story = {
   args: {
-    initials: "NG",
-    size: "lg",
-    status: "online",
+    initials: 'NG',
+    size: 'lg',
+    status: 'online',
     glowing: false,
   },
   async play({ canvasElement }) {
@@ -144,8 +144,8 @@ export const WithoutGlow: Story = {
 
 export const WithoutStatus: Story = {
   args: {
-    initials: "NS",
-    size: "lg",
+    initials: 'NS',
+    size: 'lg',
     glowing: true,
   },
   async play({ canvasElement }) {
@@ -155,7 +155,7 @@ export const WithoutStatus: Story = {
 
 export const AllSizes: Story = {
   args: {
-    initials: "SZ",
+    initials: 'SZ',
   },
   render: () => (
     <div className="flex items-center gap-6">
@@ -172,25 +172,25 @@ export const AllSizes: Story = {
 
 export const AllStatuses: Story = {
   args: {
-    initials: "ST",
+    initials: 'ST',
   },
   render: () => (
     <div className="flex items-center gap-6">
       <div className="flex flex-col items-center gap-2">
         <ProfileAvatarGlass initials="ON" size="lg" status="online" />
-        <span style={{ fontSize: "10px", color: "var(--text-muted)" }}>Online</span>
+        <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>Online</span>
       </div>
       <div className="flex flex-col items-center gap-2">
         <ProfileAvatarGlass initials="OF" size="lg" status="offline" />
-        <span style={{ fontSize: "10px", color: "var(--text-muted)" }}>Offline</span>
+        <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>Offline</span>
       </div>
       <div className="flex flex-col items-center gap-2">
         <ProfileAvatarGlass initials="BS" size="lg" status="busy" />
-        <span style={{ fontSize: "10px", color: "var(--text-muted)" }}>Busy</span>
+        <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>Busy</span>
       </div>
       <div className="flex flex-col items-center gap-2">
         <ProfileAvatarGlass initials="AW" size="lg" status="away" />
-        <span style={{ fontSize: "10px", color: "var(--text-muted)" }}>Away</span>
+        <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>Away</span>
       </div>
     </div>
   ),

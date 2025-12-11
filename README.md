@@ -13,20 +13,24 @@
 [![GitHub Copilot](https://img.shields.io/badge/GitHub-Copilot-181717?logo=github)](docs/AI_USAGE.md)
 [![Context7](https://img.shields.io/badge/Context7-Indexed-00D4AA)](https://context7.com/yhooi2/shadcn-glass-ui-library)
 
-Glassmorphism UI library for React - AI-friendly with 57 components, strict TypeScript, and
+Glassmorphism UI library for React - AI-friendly with 58 components, strict TypeScript, and
 comprehensive docs.
 
 ## ✨ Highlights
 
-- 🎨 **57 Components** - Core UI (18) + Atomic (7) + Composite (13) + Sections (7) + Specialized
-  (9) + Primitives (3)
+- 🎨 **58 Components** - Core UI (18) + Atomic (7) + Composite (13) + Sections (7) + Specialized
+  (10) + Primitives (3)
+- 🪜 **StepperGlass** - NEW compound stepper component with 3 variants (numbered, icon, dots)
 - 🌈 **3 Themes** - Glass (dark glassmorphism), Light (clean minimal), Aurora (gradient glow)
+- 🎨 **3-Layer Token System** - 207 primitive tokens, zero hardcoded colors, 15-minute theme
+  creation
 - 🤖 **AI-Friendly** - Optimized for Claude Code, Copilot, GPT with comprehensive docs
-- 🔮 **Advanced Patterns** - asChild polymorphic rendering, Compound components (Modal, Tabs)
+- 🔮 **Advanced Patterns** - asChild polymorphic rendering, Compound components (Modal, Tabs,
+  Stepper)
 - ♿ **WCAG 2.1 AA** - Full accessibility compliance with automated testing
 - 📱 **Touch Optimized** - 44×44px minimum touch targets (Apple HIG)
 - ⚡ **Modern Stack** - React 19, Tailwind v4, Vitest 4, Storybook 10, Vite 7
-- 🧪 **1355+ Tests** - 650+ compliance + 580 visual regression + 125 unit tests
+- 🧪 **~1570+ Tests** - 650+ compliance + 802 visual regression + 125 unit tests
 - 📦 **shadcn Compatible** - Works seamlessly with existing shadcn/ui projects
 - 🎯 **Design System** - Comprehensive [UI_DESIGN.md](docs/design-system/UI_DESIGN.md)
   specifications
@@ -43,6 +47,18 @@ comprehensive docs.
 - **Vitest 4.0** - Browser mode testing with visual regression
 
 See [DEPENDENCIES.md](DEPENDENCIES.md) for detailed dependency documentation.
+
+## 🎨 Design System
+
+- **Token Architecture** - [3-layer CSS token system](docs/TOKEN_ARCHITECTURE.md) with 207 OKLCH
+  primitives
+- **Theme Creation** - Create production-ready themes in [15 minutes](docs/THEME_CREATION_GUIDE.md)
+- **Zero Hardcoded Colors** - 100% CSS variable coverage across all components
+- **Rapid Theming** - 90% faster theme creation (2-3 hours → 10-15 minutes)
+- **Complete Documentation** - [CSS Variables Audit](docs/CSS_VARIABLES_AUDIT.md) with 296+
+  variables per theme
+- **Migration Support** - [Automated migration tools](docs/migration/CSS_VARIABLES_MIGRATION_2.0.md)
+  for v2.0.0
 
 ## 🤖 AI Assistant Support
 
@@ -63,6 +79,25 @@ ChatGPT:
 
 [**→ Read AI Usage Guide**](docs/AI_USAGE.md) |
 [**→ Component Catalog**](docs/COMPONENTS_CATALOG.md)
+
+## 🤖 AI Tools Integration
+
+This library is indexed and optimized for multiple AI development tools:
+
+- **[Context7](https://context7.com/yhooi2/shadcn-glass-ui-library)** - MCP server integration with
+  59 AI-specific rules
+- **Claude Code** - Optimized with [CLAUDE.md](CLAUDE.md) and project-specific instructions
+- **GitHub Copilot** - TypeScript strict mode + comprehensive JSDoc annotations
+- **ChatGPT/GPT-4** - Machine-readable [EXPORTS_MAP.json](docs/EXPORTS_MAP.json) with component
+  metadata
+
+**Features for AI assistants:**
+
+- 🎯 Decision trees for installation methods ([AI_USAGE.md](docs/AI_USAGE.md))
+- 📋 59 Context7 rules covering breaking changes, compound APIs, token system
+- 🔍 Searchable component catalog with fuzzy matching support
+- 📦 Machine-readable exports with props, variants, and keywords
+- 🧪 Test coverage metadata for quality assurance
 
 ## 🖥️ CLI
 
@@ -136,7 +171,7 @@ npx shadcn@latest add @shadcn-glass-ui/button-glass --deps
 - ✅ Automatic dependency installation
 - ✅ Type-safe CLI workflow
 - ✅ Compatible with existing shadcn/ui projects
-- ✅ 57 components available
+- ✅ 58 components available
 
 **[→ Full Registry Documentation](docs/REGISTRY_USAGE.md)**
 
@@ -249,6 +284,99 @@ import { ModalGlass, TabsGlass } from 'shadcn-glass-ui';
   </TabsGlass.Content>
 </TabsGlass.Root>
 ```
+
+## ⚠️ Breaking Changes (v2.0.0)
+
+**v2.0.0 removes deprecated CSS variables.** This is a major version bump due to breaking changes in
+theming.
+
+### Removed CSS Variables
+
+The following CSS variable names have been **REMOVED** in v2.0.0:
+
+| Removed (v1.x)       | Replacement (v2.0+)      | Semantic Meaning                  |
+| -------------------- | ------------------------ | --------------------------------- |
+| `--metric-emerald-*` | `--metric-success-*`     | Success states (positive metrics) |
+| `--metric-amber-*`   | `--metric-warning-*`     | Warning states (attention needed) |
+| `--metric-blue-*`    | `--metric-default-*`     | Neutral/default states            |
+| `--metric-red-*`     | `--metric-destructive-*` | Error/danger states (critical)    |
+
+**Total removed:** 16 variables (4 color families × 4 properties each: bg, text, border, glow)
+
+### Why This Change?
+
+- **Semantic Clarity**: Color names (emerald, amber, blue, red) → semantic roles (success, warning,
+  default, destructive)
+- **shadcn/ui Compatibility**: Aligns with shadcn/ui variant naming conventions
+- **Consistency**: Matches AlertGlass/BadgeGlass/ButtonGlass variant prop values
+- **Token Architecture**: Part of the 3-layer token system migration
+
+### Migration Guide
+
+**Automated Migration (Recommended):**
+
+```bash
+# macOS/BSD
+find src/ -type f \( -name "*.tsx" -o -name "*.ts" -o -name "*.css" \) -exec sed -i '' \
+  -e 's/--metric-emerald-/--metric-success-/g' \
+  -e 's/--metric-amber-/--metric-warning-/g' \
+  -e 's/--metric-blue-/--metric-default-/g' \
+  -e 's/--metric-red-/--metric-destructive-/g' \
+  {} +
+
+# Linux
+find src/ -type f \( -name "*.tsx" -o -name "*.ts" -o -name "*.css" \) -exec sed -i \
+  -e 's/--metric-emerald-/--metric-success-/g' \
+  -e 's/--metric-amber-/--metric-warning-/g' \
+  -e 's/--metric-blue-/--metric-default-/g' \
+  -e 's/--metric-red-/--metric-destructive-/g' \
+  {} +
+```
+
+**Example:**
+
+```css
+/* ❌ v1.x (REMOVED in v2.0) */
+.metric-card-success {
+  background: var(--metric-emerald-bg);
+  color: var(--metric-emerald-text);
+}
+
+/* ✅ v2.0+ */
+.metric-card-success {
+  background: var(--metric-success-bg);
+  color: var(--metric-success-text);
+}
+```
+
+**[→ Complete Migration Guide](docs/migration/CSS_VARIABLES_MIGRATION_2.0.md)** - Includes manual
+examples, troubleshooting, and affected components.
+
+### New in v2.0.0
+
+**Token Architecture:**
+
+- **3-Layer System**: Primitive → Semantic → Component tokens
+- **207 Primitive Tokens**: Complete OKLCH color palette in `oklch-primitives.css`
+- **Zero Hardcoded Colors**: 100% migration to CSS variables (98→0 in glass.css)
+- **Theme Creation**: 90% faster (2-3 hours → 10-15 minutes)
+
+**New Components:**
+
+- **StepperGlass** - Compound stepper with 3 variants (numbered, icon, dots), 2 orientations, linear
+  mode
+
+**Custom Hooks (Exported):**
+
+- `useFocus`, `useHover`, `useResponsive`, `useWallpaperTint`
+
+**Documentation:**
+
+- [TOKEN_ARCHITECTURE.md](docs/TOKEN_ARCHITECTURE.md) - Complete token system guide (365 lines)
+- [THEME_CREATION_GUIDE.md](docs/THEME_CREATION_GUIDE.md) - Create themes in 15 minutes (455 lines)
+- [CSS_VARIABLES_AUDIT.md](docs/CSS_VARIABLES_AUDIT.md) - Complete audit of 296+ variables per theme
+
+---
 
 ## ⚠️ Breaking Changes (v1.0.0)
 
@@ -420,7 +548,7 @@ Pre-built complex components combining multiple elements:
 
 [View all Composite components →](src/components/glass/composite/)
 
-### Specialized Components (9 components)
+### Specialized Components (10 components)
 
 Advanced specialized components for specific use cases:
 
@@ -433,6 +561,7 @@ Advanced specialized components for specific use cases:
 - **ProgressGlass** - Enhanced progress bar
 - **BaseProgressGlass** - Base progress component
 - **SparklineGlass** - Compact bar chart for time series visualization with height/gap variants
+- **StepperGlass** - Compound stepper for multi-step workflows (numbered, icon, dots variants)
 
 [View all Specialized components →](src/components/glass/specialized/)
 
@@ -471,7 +600,7 @@ individual components from the categories above.
 
 Complete application examples showcasing all components:
 
-- **ComponentShowcase** - Interactive demo of all 57 components with theme switching
+- **ComponentShowcase** - Interactive demo of all 58 components with theme switching
 - **DesktopShowcase** - GitHub Analytics desktop application mockup with glassmorphism design
 - **MobileShowcase** - Mobile-optimized GitHub profile view with responsive layout
 
@@ -643,14 +772,14 @@ Comprehensive test coverage across multiple layers:
 ### Test Suites
 
 ```bash
-# All tests (1,355+ total)
+# All tests (~1,570+ total)
 npm test
 
 # Design system compliance (650+ tests)
 npm run test:compliance:run          # jsdom tests
 npm run test:compliance:browser:run  # browser tests
 
-# Visual regression (580 screenshots)
+# Visual regression (802 screenshots)
 npm run test:visual:ci              # Run visual tests
 npm run test:visual:update          # Update baselines
 
@@ -663,12 +792,12 @@ npm run test:coverage
 
 ### Test Categories
 
-| Category                     | Tests      | Coverage          |
-| ---------------------------- | ---------- | ----------------- |
-| **Design System Compliance** | 650+       | 100%              |
-| **Visual Regression**        | 580        | All components    |
-| **Unit Tests**               | 125        | Core utilities    |
-| **Total**                    | **1,355+** | **Comprehensive** |
+| Category                     | Tests       | Coverage          |
+| ---------------------------- | ----------- | ----------------- |
+| **Design System Compliance** | 650+        | 100%              |
+| **Visual Regression**        | 802         | All components    |
+| **Unit Tests**               | 125         | Core utilities    |
+| **Total**                    | **~1,570+** | **Comprehensive** |
 
 ## 🛠️ Development
 

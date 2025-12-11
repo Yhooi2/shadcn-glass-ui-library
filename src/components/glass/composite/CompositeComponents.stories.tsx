@@ -9,7 +9,7 @@ import { RepositoryMetadataGlass } from './repository-metadata-glass';
 import { ContributionMetricsGlass } from './contribution-metrics-glass';
 
 const meta = {
-  title: 'Glass/Composite Components',
+  title: 'Glass UI/Composite Components',
   parameters: {
     layout: 'centered',
   },
@@ -276,7 +276,12 @@ export const AllCompositeComponents: StoryObj = {
 
       <div className="space-y-4">
         <h3 className="text-lg font-semibold text-white/90">Repository</h3>
-        <RepositoryHeaderGlass name="shadcn-glass-ui" flagType="green" stars={1234} abbreviatedStars />
+        <RepositoryHeaderGlass
+          name="shadcn-glass-ui"
+          flagType="green"
+          stars={1234}
+          abbreviatedStars
+        />
         <RepositoryMetadataGlass
           languages="TypeScript, React, Tailwind CSS"
           commits={500}

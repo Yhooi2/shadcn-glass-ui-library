@@ -1,6 +1,7 @@
 # Contributing to shadcn-glass-ui
 
-Thank you for your interest in contributing to shadcn-glass-ui! We welcome contributions from the community.
+Thank you for your interest in contributing to shadcn-glass-ui! We welcome contributions from the
+community.
 
 ## 📋 Table of Contents
 
@@ -15,7 +16,8 @@ Thank you for your interest in contributing to shadcn-glass-ui! We welcome contr
 
 ## Code of Conduct
 
-This project and everyone participating in it is governed by our Code of Conduct. By participating, you are expected to uphold this code. Please report unacceptable behavior to [maintainer@email.com].
+This project and everyone participating in it is governed by our Code of Conduct. By participating,
+you are expected to uphold this code. Please report unacceptable behavior to [maintainer@email.com].
 
 ## Getting Started
 
@@ -64,7 +66,8 @@ This project and everyone participating in it is governed by our Code of Conduct
 
 1. **Read the design system**
 
-   Familiarize yourself with [UI_DESIGN.md](docs/design-system/UI_DESIGN.md) for design specifications:
+   Familiarize yourself with [UI_DESIGN.md](docs/design-system/UI_DESIGN.md) for design
+   specifications:
    - Spacing: 8px base grid
    - Typography: 16px minimum for inputs (iOS)
    - Touch targets: 44×44px minimum (Apple HIG)
@@ -121,23 +124,21 @@ This project and everyone participating in it is governed by our Code of Conduct
    );
 
    export interface YourComponentGlassProps
-     extends React.HTMLAttributes<HTMLDivElement>,
-       VariantProps<typeof yourComponentVariants> {
+     extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof yourComponentVariants> {
      // Add component-specific props
    }
 
-   const YourComponentGlass = React.forwardRef<
-     HTMLDivElement,
-     YourComponentGlassProps
-   >(({ className, variant, size, ...props }, ref) => {
-     return (
-       <div
-         ref={ref}
-         className={cn(yourComponentVariants({ variant, size }), className)}
-         {...props}
-       />
-     );
-   });
+   const YourComponentGlass = React.forwardRef<HTMLDivElement, YourComponentGlassProps>(
+     ({ className, variant, size, ...props }, ref) => {
+       return (
+         <div
+           ref={ref}
+           className={cn(yourComponentVariants({ variant, size }), className)}
+           {...props}
+         />
+       );
+     }
+   );
 
    YourComponentGlass.displayName = 'YourComponentGlass';
 
@@ -193,9 +194,7 @@ This project and everyone participating in it is governed by our Code of Conduct
          </div>
        `);
 
-       await expect(page).toMatchScreenshot(
-         'your-component-default-glass.png'
-       );
+       await expect(page).toMatchScreenshot('your-component-default-glass.png');
      });
    });
    ```
@@ -238,11 +237,9 @@ export interface ButtonProps {
 
 ```tsx
 // ✅ Good
-const ButtonGlass = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  (props, ref) => {
-    return <button ref={ref} {...props} />;
-  }
-);
+const ButtonGlass = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
+  return <button ref={ref} {...props} />;
+});
 ButtonGlass.displayName = 'ButtonGlass';
 
 // ❌ Bad
@@ -268,6 +265,76 @@ import { buttonVariants } from '@/lib/variants/button-glass-variants';
 // ❌ Bad
 <button className={`custom-button ${variant} ${size}`} />
 ```
+
+### Token System (v2.0.0+)
+
+**CRITICAL:** Never hardcode OKLCH values. Always use CSS variables from the 3-layer token system.
+
+**3-Layer Architecture:**
+
+```
+Layer 3: Component Tokens  (--btn-primary-bg, --input-border, --modal-bg)
+         ↓ references
+Layer 2: Semantic Tokens   (--semantic-primary, --semantic-surface, --semantic-text)
+         ↓ references
+Layer 1: Primitive Tokens  (--oklch-purple-500, --oklch-white-8, --oklch-slate-800)
+```
+
+**Token Usage Rules:**
+
+```css
+/* ✅ GOOD: Use semantic tokens in components */
+.my-component {
+  background: var(--semantic-surface);
+  color: var(--semantic-text);
+  border: 1px solid var(--semantic-border);
+}
+
+.my-component:hover {
+  background: var(--semantic-surface-elevated);
+  border-color: var(--semantic-primary);
+}
+
+/* ✅ GOOD: Use primitive tokens for specific effects */
+.my-component-glow {
+  box-shadow: 0 0 20px var(--oklch-purple-500-40);
+}
+
+/* ❌ BAD: Never hardcode OKLCH values */
+.my-component {
+  background: oklch(66.6% 0.159 303); /* NEVER do this */
+  color: oklch(100% 0 0 / 0.9);
+}
+```
+
+**v2.0.0 Breaking Changes - Removed Variables:**
+
+```css
+/* ❌ REMOVED in v2.0.0 */
+--metric-emerald-*   /* Use --metric-success-* instead */
+--metric-amber-*     /* Use --metric-warning-* instead */
+--metric-blue-*      /* Use --metric-default-* instead */
+--metric-red-*       /* Use --metric-destructive-* instead */
+
+/* ✅ Use semantic replacements */
+background: var(--metric-success-bg);    /* was --metric-emerald-bg */
+color: var(--metric-warning-text);       /* was --metric-amber-text */
+border: var(--metric-default-border);    /* was --metric-blue-border */
+box-shadow: var(--metric-destructive-glow); /* was --metric-red-glow */
+```
+
+**Quick Reference:**
+
+- **207 primitive tokens** in `src/styles/tokens/oklch-primitives.css`
+- **Zero hardcoded OKLCH** in all theme files (glass.css, light.css, aurora.css)
+- **Semantic tokens** defined per theme in `src/styles/themes/*.css`
+- **Component tokens** reference semantic tokens, never primitives directly
+
+**Documentation:**
+
+- [TOKEN_ARCHITECTURE.md](docs/TOKEN_ARCHITECTURE.md) - Complete 3-layer system guide
+- [THEME_CREATION_GUIDE.md](docs/THEME_CREATION_GUIDE.md) - Create themes in 15 minutes
+- [CSS_VARIABLES_MIGRATION_2.0.md](docs/migration/CSS_VARIABLES_MIGRATION_2.0.md) - Migration guide
 
 ### Accessibility
 
@@ -423,7 +490,6 @@ asdf
    ```
 
 3. **Update documentation**
-
    - Add/update MDX docs
    - Update README if adding major features
    - Add examples to Storybook
@@ -552,16 +618,19 @@ This package is published to two registries:
 
 ### Publishing Workflow
 
-Publishing is automated via GitHub Actions. See [docs/GITHUB_PACKAGES.md](docs/GITHUB_PACKAGES.md) for detailed instructions.
+Publishing is automated via GitHub Actions. See [docs/GITHUB_PACKAGES.md](docs/GITHUB_PACKAGES.md)
+for detailed instructions.
 
 **For Maintainers:**
 
 1. **Update version** in package.json:
+
    ```bash
    npm version patch  # or minor, or major
    ```
 
 2. **Create git tag**:
+
    ```bash
    git tag v1.0.1
    git push && git push --tags
@@ -593,7 +662,8 @@ npm publish --registry=https://npm.pkg.github.com
 
 ## Questions?
 
-- **Discussions**: [GitHub Discussions](https://github.com/Yhooi2/shadcn-glass-ui-library/discussions)
+- **Discussions**:
+  [GitHub Discussions](https://github.com/Yhooi2/shadcn-glass-ui-library/discussions)
 - **Issues**: [Report a bug](https://github.com/Yhooi2/shadcn-glass-ui-library/issues)
 - **GitHub Packages**: [Installation Guide](docs/GITHUB_PACKAGES.md)
 

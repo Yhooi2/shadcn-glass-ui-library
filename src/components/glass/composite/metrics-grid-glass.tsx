@@ -6,13 +6,13 @@
 
 import { forwardRef, type HTMLAttributes } from 'react';
 import { cn } from '@/lib/utils';
-import { MetricCardGlass, type MetricColor } from './metric-card-glass';
+import { MetricCardGlass, type MetricVariant } from './metric-card-glass';
 import '@/glass-theme.css';
 
 export interface MetricData {
-  readonly label: string;
-  readonly value: number;
-  readonly color: MetricColor;
+  readonly title: string;
+  readonly value: string | number;
+  readonly variant: MetricVariant;
 }
 
 export interface MetricsGridGlassProps extends HTMLAttributes<HTMLDivElement> {
@@ -53,10 +53,10 @@ export const MetricsGridGlass = forwardRef<HTMLDivElement, MetricsGridGlassProps
       >
         {metrics.map((metric) => (
           <MetricCardGlass
-            key={metric.label}
-            label={metric.label}
+            key={metric.title}
+            title={metric.title}
             value={metric.value}
-            color={metric.color}
+            variant={metric.variant}
           />
         ))}
       </div>

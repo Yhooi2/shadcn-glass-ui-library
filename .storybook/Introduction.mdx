@@ -6,18 +6,21 @@ import LinkTo from '@storybook/addon-links/react';
 <div className="docs-hero">
   <h1>shadcn-glass-ui</h1>
   <p>
-    Glassmorphism UI library for React - AI-friendly with 57 components, strict TypeScript, and
-    comprehensive docs. Fully compatible with shadcn/ui.
+    Glassmorphism UI library for React - AI-friendly with 58 components, strict TypeScript, and
+    comprehensive docs. Fully compatible with shadcn/ui. Now with 3-layer token architecture for
+    15-minute theme creation.
   </p>
 </div>
 
 ## What is shadcn-glass-ui?
 
-A comprehensive library of **57 glassmorphism components** built on React 19, TypeScript 5.9, and Tailwind CSS v4. Fully compatible with shadcn/ui and designed for modern web applications.
+A comprehensive library of **58 glassmorphism components** built on React 19, TypeScript 5.9, and Tailwind CSS v4. Fully compatible with shadcn/ui and designed for modern web applications.
+
+**⚡ NEW in v2.0.0:** 3-layer CSS token system with 207 primitives, semantic tokens, and zero hardcoded OKLCH values. Create custom themes in 10-15 minutes (was 2-3 hours).
 
 <div className="docs-stats-grid">
   <div className="docs-stat-card">
-    <div className="docs-stat-number">57</div>
+    <div className="docs-stat-number">58</div>
     <div className="docs-stat-label">Components</div>
   </div>
   <div className="docs-stat-card">
@@ -25,7 +28,7 @@ A comprehensive library of **57 glassmorphism components** built on React 19, Ty
     <div className="docs-stat-label">Themes</div>
   </div>
   <div className="docs-stat-card">
-    <div className="docs-stat-number">2100+</div>
+    <div className="docs-stat-number">3000+</div>
     <div className="docs-stat-label">Tests</div>
   </div>
   <div className="docs-stat-card">
@@ -80,7 +83,15 @@ A comprehensive library of **57 glassmorphism components** built on React 19, Ty
 <div className="docs-feature-card">
   <div className="docs-feature-icon">🧪</div>
   <div className="docs-feature-title">Comprehensive Testing</div>
-  <div className="docs-feature-desc">650+ compliance + 580 visual regression + 125 unit tests</div>
+  <div className="docs-feature-desc">650+ compliance + 800+ visual regression + 125 unit tests</div>
+</div>
+
+<div className="docs-feature-card">
+  <div className="docs-feature-icon">🎨</div>
+  <div className="docs-feature-title">3-Layer Token System</div>
+  <div className="docs-feature-desc">
+    207 primitives, semantic tokens, zero hardcoded OKLCH — 90% faster theme creation
+  </div>
 </div>
 
   <div className="docs-feature-card">
@@ -103,6 +114,7 @@ A comprehensive library of **57 glassmorphism components** built on React 19, Ty
       <li><LinkTo kind="Components/TabsGlass" story="docs">TabsGlass</LinkTo>, <LinkTo kind="Components/DropdownGlass" story="docs">DropdownGlass</LinkTo></li>
       <li><LinkTo kind="Components/BadgeGlass" story="docs">BadgeGlass</LinkTo>, <LinkTo kind="Components/AlertGlass" story="docs">AlertGlass</LinkTo></li>
       <li><LinkTo kind="Components/ProgressGlass" story="docs">ProgressGlass</LinkTo>, <LinkTo kind="Components/SliderGlass" story="docs">SliderGlass</LinkTo></li>
+      <li>🆕 <LinkTo kind="Glass/Specialized/StepperGlass" story="docs">StepperGlass</LinkTo> - Multi-step workflows</li>
     </ul>
   </div>
 
@@ -250,6 +262,41 @@ A comprehensive library of **57 glassmorphism components** built on React 19, Ty
   </div>
 </div>
 
+## What's New in v2.0.0
+
+### 🎨 3-Layer Token Architecture
+
+Create custom themes **90% faster** (10-15 minutes vs 2-3 hours):
+
+- **Layer 1**: 207 primitive OKLCH tokens (`--oklch-purple-500`, `--oklch-white-95`)
+- **Layer 2**: Semantic tokens (`--semantic-primary`, `--semantic-surface`)
+- **Layer 3**: Component tokens (`--btn-primary-bg`, `--modal-bg`)
+
+**Zero hardcoded OKLCH values** in all themes. See [TOKEN_ARCHITECTURE.md](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/main/docs/TOKEN_ARCHITECTURE.md) for details.
+
+### 🆕 New Components
+
+- **StepperGlass** - Compound stepper for multi-step workflows (numbered, icon, dots variants)
+
+### 🪝 Exported Hooks
+
+Now available for your custom components:
+
+```tsx
+import { useFocus, useHover, useResponsive, useWallpaperTint } from 'shadcn-glass-ui';
+```
+
+### ⚠️ Breaking Changes
+
+**CSS Variables Renamed** (semantic naming):
+
+- `--metric-emerald-*` → `--metric-success-*`
+- `--metric-amber-*` → `--metric-warning-*`
+- `--metric-blue-*` → `--metric-default-*`
+- `--metric-red-*` → `--metric-destructive-*`
+
+See [Migration Guide](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/main/docs/migration/CSS_VARIABLES_MIGRATION_2.0.md).
+
 ## Quick Start
 
 ```tsx
@@ -319,6 +366,13 @@ Use the **Controls** panel at the bottom to:
     NPM
   </a>
 </div>
+
+### 🆕 v2.0.0 Documentation
+
+- [Token Architecture Guide](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/main/docs/TOKEN_ARCHITECTURE.md) - 3-layer token system
+- [Theme Creation Guide](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/main/docs/THEME_CREATION_GUIDE.md) - Create themes in 15 minutes
+- [CSS Variables Audit](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/main/docs/CSS_VARIABLES_AUDIT.md) - Complete variable reference
+- [Migration Guide v2.0](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/main/docs/migration/CSS_VARIABLES_MIGRATION_2.0.md) - Upgrade from v1.x
 
 ## Tech Stack
 

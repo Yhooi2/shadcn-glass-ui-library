@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ButtonGlass } from './button-glass';
-import { Check, Download, ArrowRight, ExternalLink } from 'lucide-react';
+import { BadgeGlass } from './badge-glass';
+import { Check, Download, ArrowRight, ExternalLink, Bell, ShoppingCart, Mail } from 'lucide-react';
 
 const meta = {
   title: 'Glass UI/Buttons/ButtonGlass',
@@ -164,6 +165,94 @@ export const AsLink: Story = {
       <p className="text-xs text-muted-foreground mt-2">
         Note: In real apps, replace with Next.js Link or React Router Link
       </p>
+    </div>
+  ),
+};
+
+// With Badge - Notification pattern
+export const WithBadge: Story = {
+  name: 'With Badge (Notifications)',
+  render: () => (
+    <div className="flex flex-col gap-6">
+      <p className="text-sm text-muted-foreground mb-2">
+        Icon buttons with notification badges - perfect for headers and navigation:
+      </p>
+
+      <div className="flex flex-wrap gap-6 items-start">
+        {/* Notifications */}
+        <div className="flex flex-col items-center gap-2">
+          <div className="relative inline-flex">
+            <ButtonGlass variant="ghost" size="lg" aria-label="Notifications. 3 unread">
+              <Bell className="w-5 h-5" />
+            </ButtonGlass>
+            <BadgeGlass
+              variant="destructive"
+              className="absolute -top-1 -right-1 h-5 min-w-5 flex items-center justify-center px-1.5"
+            >
+              3
+            </BadgeGlass>
+          </div>
+          <span className="text-xs text-muted-foreground">Notifications</span>
+        </div>
+
+        {/* Shopping Cart */}
+        <div className="flex flex-col items-center gap-2">
+          <div className="relative inline-flex">
+            <ButtonGlass variant="ghost" size="lg" aria-label="Shopping cart. 12 items">
+              <ShoppingCart className="w-5 h-5" />
+            </ButtonGlass>
+            <BadgeGlass
+              variant="default"
+              className="absolute -top-1 -right-1 h-5 min-w-5 flex items-center justify-center px-1.5"
+            >
+              12
+            </BadgeGlass>
+          </div>
+          <span className="text-xs text-muted-foreground">Cart</span>
+        </div>
+
+        {/* Unread Messages */}
+        <div className="flex flex-col items-center gap-2">
+          <div className="relative inline-flex">
+            <ButtonGlass variant="ghost" size="lg" aria-label="Messages. 99+ unread">
+              <Mail className="w-5 h-5" />
+            </ButtonGlass>
+            <BadgeGlass
+              variant="destructive"
+              className="absolute -top-1 -right-1 h-5 min-w-5 flex items-center justify-center px-1.5"
+            >
+              99+
+            </BadgeGlass>
+          </div>
+          <span className="text-xs text-muted-foreground">Messages</span>
+        </div>
+
+        {/* Ghost Button with Badge and Text */}
+        <div className="flex flex-col items-center gap-2">
+          <div className="relative inline-flex">
+            <ButtonGlass variant="ghost" size="lg">
+              <Bell className="w-5 h-5 mr-2" />
+              Notifications
+            </ButtonGlass>
+            <BadgeGlass
+              variant="destructive"
+              className="absolute -top-1 -right-1 h-5 min-w-5 flex items-center justify-center px-1.5"
+            >
+              5
+            </BadgeGlass>
+          </div>
+          <span className="text-xs text-muted-foreground">With Text</span>
+        </div>
+      </div>
+
+      <div className="mt-4 p-4 bg-muted/50 rounded-lg">
+        <p className="text-xs text-muted-foreground">
+          <strong>Pattern:</strong> Wrap button in a container with{' '}
+          <code>relative inline-flex</code>, then add badge as a sibling with absolute positioning.
+          This prevents clipping and ensures the badge is fully visible outside the button
+          boundaries.
+        </p>
+      </div>
     </div>
   ),
 };

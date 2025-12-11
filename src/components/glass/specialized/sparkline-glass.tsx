@@ -261,9 +261,3 @@ export const SparklineGlass = forwardRef<HTMLDivElement, SparklineGlassProps>(
 );
 
 SparklineGlass.displayName = 'SparklineGlass';
-
-// ========================================
-// RE-EXPORT RECHARTS FOR DIRECT ACCESS
-// ========================================
-
-export { Bar, BarChart, Cell, ResponsiveContainer } from 'recharts';

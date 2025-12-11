@@ -12,13 +12,13 @@
 
 ### Components Available
 
-- **Total**: 57 components
+- **Total**: 58 components
 - **Categories**:
   - Core UI (18)
   - Atomic (7)
   - Composite (13)
   - Sections (7)
-  - Specialized (9)
+  - Specialized (10)
   - Primitives (3)
 
 ### Installation Namespace
@@ -40,7 +40,7 @@ npx shadcn@latest add @shadcn-glass-ui/button-glass
 
 | Metric          | Value                    |
 | --------------- | ------------------------ |
-| Components      | 55+                      |
+| Components      | 58                       |
 | Registry Schema | v4.0                     |
 | TypeScript      | ✅ Full support          |
 | Dependencies    | Auto-installed           |

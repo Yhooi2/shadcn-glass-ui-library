@@ -16,13 +16,13 @@
 [![Claude Code](https://img.shields.io/badge/Claude-Code-5865F2?logo=anthropic)](docs/AI_USAGE.md)
 [![GitHub Copilot](https://img.shields.io/badge/GitHub-Copilot-181717?logo=github)](docs/AI_USAGE.md)
 
-Glassmorphism UI library for React - AI-friendly with 57 components, strict TypeScript, and
+Glassmorphism UI library for React - AI-friendly with 58 components, strict TypeScript, and
 comprehensive docs.
 
 ## ✨ Highlights
 
-- 🎨 **57 Components** - Core UI (18) + Atomic (7) + Composite (13) + Sections (7) + Specialized
-  (9) + Primitives (3)
+- 🎨 **58 Components** - Core UI (18) + Atomic (7) + Composite (13) + Sections (7) + Specialized
+  (10) + Primitives (3)
 - 🌈 **3 Themes** - Glass (dark glassmorphism), Light (clean minimal), Aurora (gradient glow)
 - 🤖 **AI-Friendly** - Optimized for Claude Code, Copilot, GPT with comprehensive docs
 - 🔮 **Advanced Patterns** - asChild polymorphic rendering, Compound components (Modal, Tabs)
@@ -31,7 +31,7 @@ comprehensive docs.
 - ⚡ **Modern Stack** - React 19, Tailwind v4, Vitest 4, Storybook 10, Vite 7
 - 🧪 **1355+ Tests** - 650+ compliance + 580 visual regression + 125 unit tests
 - 📦 **shadcn Compatible** - Works seamlessly with existing shadcn/ui projects
-- 🎯 **Design System** - Comprehensive [UI_DESIGN.md](_media/UI_DESIGN.md) specifications
+- 🎯 **Design System** - Comprehensive [UI_DESIGN.md](../design-system/UI_DESIGN.md) specifications
 - 📦 **Bundle Size** - ~110KB gzipped (production build)
 
 ## Tech Stack
@@ -50,31 +50,32 @@ See [DEPENDENCIES.md](DEPENDENCIES.md) for detailed dependency documentation.
 This library is **optimized for AI coding assistants** including Claude Code, GitHub Copilot, and
 ChatGPT:
 
-- 📖 **Dedicated AI Guide** - [AI_USAGE.md](_media/AI_USAGE.md) with decision trees and workflows
+- 📖 **Dedicated AI Guide** - [AI_USAGE.md](../../docs/AI_USAGE.md) with decision trees and
+  workflows
 - 🎯 **TypeScript Strict Mode** - Full type inference for autocomplete
 - 📝 **Rich JSDoc** - Every component documented with @example, @accessibility
-- 🗂️ **Component Catalog** - [COMPONENTS_CATALOG.md](_media/COMPONENTS_CATALOG.md) with searchable
-  index
-- 🔍 **Exports Map** - Machine-readable [EXPORTS_MAP.json](_media/EXPORTS_MAP.json)
+- 🗂️ **Component Catalog** - [COMPONENTS_CATALOG.md](../../docs/COMPONENTS_CATALOG.md) with
+  searchable index
+- 🔍 **Exports Map** - Machine-readable [EXPORTS_MAP.json](../../docs/EXPORTS_MAP.json)
 - 🧪 **Real-World Examples** - Use-case based Storybook stories
 - 📦 **shadcn CLI Compatible** - Install components via
   `npx shadcn add @shadcn-glass-ui/button-glass`
 
-[**→ Read AI Usage Guide**](_media/AI_USAGE.md) |
-[**→ Component Catalog**](_media/COMPONENTS_CATALOG.md)
+[**→ Read AI Usage Guide**](../../docs/AI_USAGE.md) |
+[**→ Component Catalog**](../../docs/COMPONENTS_CATALOG.md)
 
 ## 📚 Documentation
 
 - **[Live Storybook](https://yhooi2.github.io/shadcn-glass-ui-library/)** - Interactive component
   demos
 - **[npm Package](https://www.npmjs.com/package/shadcn-glass-ui)** - Public npm registry
-- **[Getting Started Guide](_media/GETTING_STARTED.md)** - Setup tutorial
+- **[Getting Started Guide](../../docs/GETTING_STARTED.md)** - Setup tutorial
 - **[GitHub](https://github.com/Yhooi2/shadcn-glass-ui-library)** - Source code
 - [Component Documentation](https://yhooi2.github.io/shadcn-glass-ui-library/?path=/docs) - Detailed
   API references
-- [Registry Usage Guide](_media/REGISTRY_USAGE.md) - shadcn CLI installation guide
-- [Design System](_media/UI_DESIGN.md) - Comprehensive UI specifications
-- [Migration Guides](_media/migration) - Upgrade and API changes
+- [Registry Usage Guide](../../docs/REGISTRY_USAGE.md) - shadcn CLI installation guide
+- [Design System](../design-system/UI_DESIGN.md) - Comprehensive UI specifications
+- [Migration Guides](../../docs/migration) - Upgrade and API changes
 
 ## 📦 Installation
 
@@ -279,27 +280,30 @@ support.
 
 ### Migration Guides
 
-Detailed migration guides are available in the [docs/migration/](_media/migration) directory:
+Detailed migration guides are available in the [docs/migration/](../../docs/migration) directory:
 
-- **[ModalGlass Compound API](_media/modal-glass-compound-api.md)** - Legacy → Compound API
-- **[TabsGlass Compound API](_media/tabs-glass-compound-api.md)** - Legacy → Compound API
+- **[ModalGlass Compound API](../../docs/migration/modal-glass-compound-api.md)** - Legacy →
+  Compound API
+- **[TabsGlass Compound API](../../docs/migration/tabs-glass-compound-api.md)** - Legacy → Compound
+  API
 
 ### Changelog
 
-See [CHANGELOG.md](_media/CHANGELOG.md) for complete version history and breaking changes.
+See [CHANGELOG.md](../../CHANGELOG.md) for complete version history and breaking changes.
 
 ## 📚 Full Documentation
 
-- **[Getting Started Guide](_media/GETTING_STARTED.md)** - Comprehensive setup tutorial
-- **[AI Usage Guide](_media/AI_USAGE.md)** - Using library with AI assistants (Copilot, Claude, GPT)
-- **[Publishing Guide](_media/PUBLISHING.md)** - Build and publish with TypeScript declarations
+- **[Getting Started Guide](../../docs/GETTING_STARTED.md)** - Comprehensive setup tutorial
+- **[AI Usage Guide](../../docs/AI_USAGE.md)** - Using library with AI assistants (Copilot, Claude,
+  GPT)
+- **[Publishing Guide](../../docs/PUBLISHING.md)** - Build and publish with TypeScript declarations
 - **[Storybook](https://yhooi2.github.io/shadcn-glass-ui-library/)** - Live component demos
-- **[UI Design System](_media/UI_DESIGN.md)** - Complete design specifications
-- **[Visual Testing Guide](_media/visual-testing-guide.md)** - Screenshot update workflow
+- **[UI Design System](../design-system/UI_DESIGN.md)** - Complete design specifications
+- **[Visual Testing Guide](../../docs/visual-testing-guide.md)** - Screenshot update workflow
 - **[Migration Guide](MIGRATION_GUIDE.md)** - Upgrading from v1
 - **[Breaking Changes](BREAKING_CHANGES.md)** - API changes log
 - **[Dependencies](DEPENDENCIES.md)** - Detailed dependency docs
-- **[Contributing](_media/CONTRIBUTING.md)** - Development guidelines
+- **[Contributing](../../CONTRIBUTING.md)** - Development guidelines
 
 ## 🎯 Component Categories
 
@@ -315,7 +319,7 @@ Essential building blocks for any application:
   ProgressGlass, CircularProgressGlass
 - **Media**: AvatarGlass
 
-[View all Core UI components →](_media/ui)
+[View all Core UI components →](https://yhooi2.github.io/shadcn-glass-ui-library/?path=/docs)
 
 ### Level 2: Atomic (6 components)
 
@@ -328,7 +332,7 @@ Small, specialized components for specific use cases:
 - **StatItemGlass** - Individual stat display
 - **IconButtonGlass** - Icon-only button variant
 
-[View all Atomic components →](_media/atomic)
+[View all Atomic components →](https://yhooi2.github.io/shadcn-glass-ui-library/?path=/docs)
 
 ### Level 3: Composite (13 components)
 
@@ -348,7 +352,7 @@ Pre-built complex components combining multiple elements:
 - **ContributionMetricsGlass** - Contribution metrics display
 - **MetricsGridGlass** - Grid layout for metrics
 
-[View all Composite components →](_media/composite)
+[View all Composite components →](https://yhooi2.github.io/shadcn-glass-ui-library/?path=/docs)
 
 ### Specialized Components (8 components)
 
@@ -363,7 +367,7 @@ Advanced specialized components for specific use cases:
 - **ProgressGlass** - Enhanced progress bar
 - **BaseProgressGlass** - Base progress component
 
-[View all Specialized components →](_media/specialized)
+[View all Specialized components →](https://yhooi2.github.io/shadcn-glass-ui-library/?path=/docs)
 
 ### Level 4: Sections (7 components)
 
@@ -377,7 +381,7 @@ Full-page sections ready to use in your application:
 - **ProjectsListGlass** - Projects list with filtering and sorting
 - **HeaderBrandingGlass** - Branded header with logo and navigation
 
-[View all Section components →](_media/sections)
+[View all Section components →](https://yhooi2.github.io/shadcn-glass-ui-library/?path=/docs)
 
 ### Blocks (6 ready-to-use demo sections)
 
@@ -400,7 +404,7 @@ individual components from the categories above.
 
 Complete application examples showcasing all components:
 
-- **ComponentShowcase** - Interactive demo of all 57 components with theme switching
+- **ComponentShowcase** - Interactive demo of all 58 components with theme switching
 - **DesktopShowcase** - GitHub Analytics desktop application mockup with glassmorphism design
 - **MobileShowcase** - Mobile-optimized GitHub profile view with responsive layout
 
@@ -672,7 +676,7 @@ shadcn-glass-ui/
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see [CONTRIBUTING.md](_media/CONTRIBUTING.md) for guidelines.
+We welcome contributions! Please see [CONTRIBUTING.md](../../CONTRIBUTING.md) for guidelines.
 
 ### Quick Contribution Guide
 
@@ -683,13 +687,13 @@ We welcome contributions! Please see [CONTRIBUTING.md](_media/CONTRIBUTING.md) f
 5. Commit with conventional commits: `feat(ui): add DatePickerGlass component`
 6. Push and create a Pull Request
 
-See [CONTRIBUTING.md](_media/CONTRIBUTING.md) for detailed guidelines.
+See [CONTRIBUTING.md](../../CONTRIBUTING.md) for detailed guidelines.
 
 ## 📝 License
 
 MIT License
 
-This project is open source under the MIT license. See [LICENSE](_media/LICENSE) for details.
+This project is open source under the MIT license. See [LICENSE](../../LICENSE) for details.
 
 ## 🙏 Credits
 

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { CircularMetricGlass } from './circular-metric-glass';
 
 const meta = {
-  title: 'Glass/Composite/CircularMetricGlass',
+  title: 'Glass UI/Composite/CircularMetricGlass',
   component: CircularMetricGlass,
   parameters: {
     layout: 'centered',
@@ -45,7 +45,7 @@ export const Default: Story = {
 // All colors
 export const AllColors: Story = {
   args: {
-    label: "Metric",
+    label: 'Metric',
     value: 84,
   },
   render: () => (
@@ -61,7 +61,7 @@ export const AllColors: Story = {
 // Mobile Grid (2x2 layout at 390px)
 export const MobileGrid: Story = {
   args: {
-    label: "Metric",
+    label: 'Metric',
     value: 84,
   },
   parameters: {
@@ -82,7 +82,7 @@ export const MobileGrid: Story = {
 // Size comparison
 export const Sizes: Story = {
   args: {
-    label: "Metric",
+    label: 'Metric',
     value: 75,
   },
   render: () => (
@@ -102,7 +102,7 @@ export const Sizes: Story = {
 // Progress values
 export const ProgressValues: Story = {
   args: {
-    label: "Metric",
+    label: 'Metric',
     value: 15,
   },
   render: () => (

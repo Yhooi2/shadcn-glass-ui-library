@@ -141,9 +141,7 @@ function ComboBoxGlassInner<T = string>(
   const filteredOptions = useMemo(() => {
     if (!search) return options;
     const searchLower = search.toLowerCase();
-    return options.filter((opt) =>
-      opt.label.toLowerCase().includes(searchLower)
-    );
+    return options.filter((opt) => opt.label.toLowerCase().includes(searchLower));
   }, [options, search]);
 
   // Handle option selection
@@ -228,7 +226,7 @@ function ComboBoxGlassInner<T = string>(
               className="text-[var(--text-primary)] placeholder:text-[var(--text-muted)] h-10 font-medium"
             />
           )}
-          <CommandList className="p-1.5">
+          <CommandList className="p-1.5 scrollbar-hide">
             <CommandEmpty className="text-[var(--text-muted)] py-4">{emptyText}</CommandEmpty>
             <CommandGroup className="text-[var(--text-primary)] p-0">
               {filteredOptions.map((option) => {
@@ -242,11 +240,12 @@ function ComboBoxGlassInner<T = string>(
                     disabled={option.disabled}
                     onSelect={() => handleSelect(option.value)}
                     className={cn(
-                      'w-full px-3 py-2.5 text-sm flex items-center gap-2 rounded-none',
+                      'w-full px-3 py-2.5 text-sm flex items-center gap-2 rounded-lg',
                       'cursor-pointer transition-colors duration-150',
                       'text-[var(--dropdown-item-text)]',
                       'data-[selected=true]:bg-[var(--dropdown-item-hover)]',
-                      isSelected && 'bg-[var(--select-item-selected-bg)] text-[var(--select-item-selected-text)]',
+                      isSelected &&
+                        'bg-[var(--select-item-selected-bg)] text-[var(--select-item-selected-text)]',
                       option.disabled && 'cursor-not-allowed opacity-50'
                     )}
                   >
@@ -257,7 +256,11 @@ function ComboBoxGlassInner<T = string>(
                         isSelected ? 'opacity-100 text-[var(--text-accent)]' : 'opacity-0'
                       )}
                     />
-                    {OptionIcon && <OptionIcon className={cn(ICON_SIZES.md, 'shrink-0 text-[var(--dropdown-icon)]')} />}
+                    {OptionIcon && (
+                      <OptionIcon
+                        className={cn(ICON_SIZES.md, 'shrink-0 text-[var(--dropdown-icon)]')}
+                      />
+                    )}
                     <span className="truncate">{option.label}</span>
                   </CommandItem>
                 );

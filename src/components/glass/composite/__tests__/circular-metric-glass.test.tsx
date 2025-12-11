@@ -24,9 +24,7 @@ describe('CircularMetricGlass', () => {
     });
 
     it('has flex column layout', () => {
-      const { container } = render(
-        <CircularMetricGlass label="Reg" value={84} />
-      );
+      const { container } = render(<CircularMetricGlass label="Reg" value={84} />);
       expect(container.firstChild).toHaveClass('flex', 'flex-col', 'items-center');
     });
   });
@@ -40,25 +38,25 @@ describe('CircularMetricGlass', () => {
     it('maps emerald color', () => {
       render(<CircularMetricGlass label="Reg" value={84} color="emerald" />);
       const label = screen.getByText('Reg');
-      expect(label).toHaveStyle({ color: 'var(--metric-emerald-text)' });
+      expect(label).toHaveStyle({ color: 'var(--metric-success-text)' });
     });
 
     it('maps amber color', () => {
       render(<CircularMetricGlass label="Imp" value={45} color="amber" />);
       const label = screen.getByText('Imp');
-      expect(label).toHaveStyle({ color: 'var(--metric-amber-text)' });
+      expect(label).toHaveStyle({ color: 'var(--metric-warning-text)' });
     });
 
     it('maps blue color', () => {
       render(<CircularMetricGlass label="Div" value={78} color="blue" />);
       const label = screen.getByText('Div');
-      expect(label).toHaveStyle({ color: 'var(--metric-blue-text)' });
+      expect(label).toHaveStyle({ color: 'var(--metric-default-text)' });
     });
 
     it('maps red color to rose gradient', () => {
       render(<CircularMetricGlass label="Collab" value={12} color="red" />);
       const label = screen.getByText('Collab');
-      expect(label).toHaveStyle({ color: 'var(--metric-red-text)' });
+      expect(label).toHaveStyle({ color: 'var(--metric-destructive-text)' });
     });
   });
 
@@ -94,9 +92,7 @@ describe('CircularMetricGlass', () => {
 
   describe('Label Display', () => {
     it('renders label below the circle', () => {
-      render(
-        <CircularMetricGlass label="Reg" value={84} />
-      );
+      render(<CircularMetricGlass label="Reg" value={84} />);
       const label = screen.getByText('Reg');
       expect(label).toHaveClass('text-xs', 'font-medium');
     });
@@ -150,9 +146,7 @@ describe('CircularMetricGlass', () => {
       ];
 
       colors.forEach((color) => {
-        const { unmount } = render(
-          <CircularMetricGlass label="Test" value={50} color={color} />
-        );
+        const { unmount } = render(<CircularMetricGlass label="Test" value={50} color={color} />);
         expect(screen.getByText('Test')).toBeInTheDocument();
         unmount();
       });

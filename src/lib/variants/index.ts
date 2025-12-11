@@ -21,6 +21,7 @@ export * from './skeleton-glass-variants';
 export * from './sparkline-glass-variants';
 export * from './toggle-glass-variants';
 export * from './tooltip-glass-variants';
+export * from './stepper-glass-variants';
 
 // shadcn/ui Component Variants (with aliases to avoid conflicts)
 export { alertVariants as shadcnAlertVariants } from './alert-variants';

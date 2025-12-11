@@ -1,24 +1,24 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from "storybook/test";
-import { StatusIndicatorGlass } from "./glass/specialized/status-indicator-glass";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
+import { StatusIndicatorGlass } from './glass/specialized/status-indicator-glass';
 
 const meta = {
-  title: "Glass/Composite/StatusIndicatorGlass",
+  title: 'Glass UI/Composite/StatusIndicatorGlass',
   component: StatusIndicatorGlass,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     type: {
-      control: "select",
-      options: ["green", "yellow", "red"],
-      description: "Status type (color)",
+      control: 'select',
+      options: ['green', 'yellow', 'red'],
+      description: 'Status type (color)',
     },
     size: {
-      control: "select",
-      options: ["normal", "large"],
-      description: "Indicator size",
+      control: 'select',
+      options: ['normal', 'large'],
+      description: 'Indicator size',
     },
   },
 } satisfies Meta<typeof StatusIndicatorGlass>;
@@ -28,8 +28,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Green: Story = {
   args: {
-    type: "green",
-    size: "normal",
+    type: 'green',
+    size: 'normal',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -38,8 +38,8 @@ export const Green: Story = {
 
 export const Yellow: Story = {
   args: {
-    type: "yellow",
-    size: "normal",
+    type: 'yellow',
+    size: 'normal',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -48,8 +48,8 @@ export const Yellow: Story = {
 
 export const Red: Story = {
   args: {
-    type: "red",
-    size: "normal",
+    type: 'red',
+    size: 'normal',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -58,8 +58,8 @@ export const Red: Story = {
 
 export const LargeGreen: Story = {
   args: {
-    type: "green",
-    size: "large",
+    type: 'green',
+    size: 'large',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -68,8 +68,8 @@ export const LargeGreen: Story = {
 
 export const LargeYellow: Story = {
   args: {
-    type: "yellow",
-    size: "large",
+    type: 'yellow',
+    size: 'large',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -78,8 +78,8 @@ export const LargeYellow: Story = {
 
 export const LargeRed: Story = {
   args: {
-    type: "red",
-    size: "large",
+    type: 'red',
+    size: 'large',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -92,17 +92,17 @@ export const AllStatuses: Story = {
       <div className="flex flex-col items-center gap-2">
         <StatusIndicatorGlass type="green" size="normal" />
         <StatusIndicatorGlass type="green" size="large" />
-        <span style={{ color: "var(--text-muted)", fontSize: "12px" }}>Green</span>
+        <span style={{ color: 'var(--text-muted)', fontSize: '12px' }}>Green</span>
       </div>
       <div className="flex flex-col items-center gap-2">
         <StatusIndicatorGlass type="yellow" size="normal" />
         <StatusIndicatorGlass type="yellow" size="large" />
-        <span style={{ color: "var(--text-muted)", fontSize: "12px" }}>Yellow</span>
+        <span style={{ color: 'var(--text-muted)', fontSize: '12px' }}>Yellow</span>
       </div>
       <div className="flex flex-col items-center gap-2">
         <StatusIndicatorGlass type="red" size="normal" />
         <StatusIndicatorGlass type="red" size="large" />
-        <span style={{ color: "var(--text-muted)", fontSize: "12px" }}>Red</span>
+        <span style={{ color: 'var(--text-muted)', fontSize: '12px' }}>Red</span>
       </div>
     </div>
   ),

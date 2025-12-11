@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { ToggleGlass } from './glass/ui/toggle-glass';
 
 const meta = {
-  title: 'Components/ToggleGlass',
+  title: 'Glass UI/Form/ToggleGlass',
   component: ToggleGlass,
   parameters: {
     layout: 'centered',

@@ -1,39 +1,39 @@
-import React from "react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within } from "storybook/test";
-import { Info, Settings, HelpCircle } from "lucide-react";
-import { PopoverGlass } from "./popover-glass";
-import { ButtonGlass } from "./button-glass";
-import { InputGlass } from "./input-glass";
+import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within } from 'storybook/test';
+import { Info, Settings, HelpCircle } from 'lucide-react';
+import { PopoverGlass } from './popover-glass';
+import { ButtonGlass } from './button-glass';
+import { InputGlass } from './input-glass';
 
 const meta = {
-  title: "Components/PopoverGlass",
+  title: 'Glass UI/Overlay/PopoverGlass',
   component: PopoverGlass,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
     snapshot: {
       disable: false,
     },
-    tags: ["autodocs"],
+    tags: ['autodocs'],
   },
   argTypes: {
     side: {
-      control: "select",
-      options: ["top", "right", "bottom", "left"],
-      description: "The preferred side of the trigger to render against",
+      control: 'select',
+      options: ['top', 'right', 'bottom', 'left'],
+      description: 'The preferred side of the trigger to render against',
     },
     align: {
-      control: "select",
-      options: ["start", "center", "end"],
-      description: "The preferred alignment against the trigger",
+      control: 'select',
+      options: ['start', 'center', 'end'],
+      description: 'The preferred alignment against the trigger',
     },
     sideOffset: {
-      control: "number",
-      description: "The distance in pixels from the trigger",
+      control: 'number',
+      description: 'The distance in pixels from the trigger',
     },
     showArrow: {
-      control: "boolean",
-      description: "Whether to show the arrow pointer",
+      control: 'boolean',
+      description: 'Whether to show the arrow pointer',
     },
   },
   decorators: [
@@ -57,14 +57,16 @@ export const Default: Story = {
     trigger: <ButtonGlass variant="secondary">Open Popover</ButtonGlass>,
     children: (
       <div className="w-64 p-4">
-        <h3 className="font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>Popover Title</h3>
+        <h3 className="font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
+          Popover Title
+        </h3>
         <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
           This is a simple popover with glass-themed styling.
         </p>
       </div>
     ),
-    side: "bottom",
-    align: "center",
+    side: 'bottom',
+    align: 'center',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -81,18 +83,11 @@ export const WithForm: Story = {
     ),
     children: (
       <div className="w-72 space-y-4">
-        <h3 className="font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>Quick Settings</h3>
-        <InputGlass
-          label="Username"
-          placeholder="Enter username"
-          size="sm"
-        />
-        <InputGlass
-          label="Email"
-          type="email"
-          placeholder="Enter email"
-          size="sm"
-        />
+        <h3 className="font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
+          Quick Settings
+        </h3>
+        <InputGlass label="Username" placeholder="Enter username" size="sm" />
+        <InputGlass label="Email" type="email" placeholder="Enter email" size="sm" />
         <div className="flex gap-2">
           <ButtonGlass size="sm" variant="primary" className="flex-1">
             Save
@@ -103,8 +98,8 @@ export const WithForm: Story = {
         </div>
       </div>
     ),
-    side: "bottom",
-    align: "center",
+    side: 'bottom',
+    align: 'center',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -122,39 +117,35 @@ export const Positions: Story = {
   },
   render: () => (
     <div className="grid grid-cols-2 gap-16">
-      <PopoverGlass
-        trigger={<ButtonGlass variant="ghost">Top</ButtonGlass>}
-        side="top"
-      >
+      <PopoverGlass trigger={<ButtonGlass variant="ghost">Top</ButtonGlass>} side="top">
         <div className="p-2">
-          <p className="text-sm" style={{ color: 'var(--text-primary)' }}>Top position</p>
+          <p className="text-sm" style={{ color: 'var(--text-primary)' }}>
+            Top position
+          </p>
         </div>
       </PopoverGlass>
 
-      <PopoverGlass
-        trigger={<ButtonGlass variant="ghost">Right</ButtonGlass>}
-        side="right"
-      >
+      <PopoverGlass trigger={<ButtonGlass variant="ghost">Right</ButtonGlass>} side="right">
         <div className="p-2">
-          <p className="text-sm" style={{ color: 'var(--text-primary)' }}>Right position</p>
+          <p className="text-sm" style={{ color: 'var(--text-primary)' }}>
+            Right position
+          </p>
         </div>
       </PopoverGlass>
 
-      <PopoverGlass
-        trigger={<ButtonGlass variant="ghost">Bottom</ButtonGlass>}
-        side="bottom"
-      >
+      <PopoverGlass trigger={<ButtonGlass variant="ghost">Bottom</ButtonGlass>} side="bottom">
         <div className="p-2">
-          <p className="text-sm" style={{ color: 'var(--text-primary)' }}>Bottom position</p>
+          <p className="text-sm" style={{ color: 'var(--text-primary)' }}>
+            Bottom position
+          </p>
         </div>
       </PopoverGlass>
 
-      <PopoverGlass
-        trigger={<ButtonGlass variant="ghost">Left</ButtonGlass>}
-        side="left"
-      >
+      <PopoverGlass trigger={<ButtonGlass variant="ghost">Left</ButtonGlass>} side="left">
         <div className="p-2">
-          <p className="text-sm" style={{ color: 'var(--text-primary)' }}>Left position</p>
+          <p className="text-sm" style={{ color: 'var(--text-primary)' }}>
+            Left position
+          </p>
         </div>
       </PopoverGlass>
     </div>
@@ -188,7 +179,9 @@ export const Alignments: Story = {
         align="start"
       >
         <div className="w-48 p-2">
-          <p className="text-sm" style={{ color: 'var(--text-primary)' }}>Aligned to start</p>
+          <p className="text-sm" style={{ color: 'var(--text-primary)' }}>
+            Aligned to start
+          </p>
         </div>
       </PopoverGlass>
 
@@ -198,7 +191,9 @@ export const Alignments: Story = {
         align="center"
       >
         <div className="w-48 p-2">
-          <p className="text-sm" style={{ color: 'var(--text-primary)' }}>Aligned to center</p>
+          <p className="text-sm" style={{ color: 'var(--text-primary)' }}>
+            Aligned to center
+          </p>
         </div>
       </PopoverGlass>
 
@@ -208,7 +203,9 @@ export const Alignments: Story = {
         align="end"
       >
         <div className="w-48 p-2">
-          <p className="text-sm" style={{ color: 'var(--text-primary)' }}>Aligned to end</p>
+          <p className="text-sm" style={{ color: 'var(--text-primary)' }}>
+            Aligned to end
+          </p>
         </div>
       </PopoverGlass>
     </div>
@@ -238,22 +235,20 @@ export const Controlled: Story = {
           onOpenChange={setOpen}
         >
           <div className="w-64">
-            <h3 className="font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>Controlled State</h3>
+            <h3 className="font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
+              Controlled State
+            </h3>
             <p className="text-sm mb-4" style={{ color: 'var(--text-secondary)' }}>
               This popover is controlled by external state.
             </p>
-            <ButtonGlass
-              size="sm"
-              variant="ghost"
-              onClick={() => setOpen(false)}
-            >
+            <ButtonGlass size="sm" variant="ghost" onClick={() => setOpen(false)}>
               Close
             </ButtonGlass>
           </div>
         </PopoverGlass>
 
         <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
-          Open: {open ? "true" : "false"}
+          Open: {open ? 'true' : 'false'}
         </p>
       </div>
     );
@@ -272,14 +267,16 @@ export const NoArrow: Story = {
     trigger: <ButtonGlass variant="ghost">No Arrow</ButtonGlass>,
     children: (
       <div className="w-64">
-        <h3 className="font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>No Arrow</h3>
+        <h3 className="font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
+          No Arrow
+        </h3>
         <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
           This popover has no arrow pointer.
         </p>
       </div>
     ),
-    side: "bottom",
-    align: "center",
+    side: 'bottom',
+    align: 'center',
     showArrow: false,
   },
   async play({ canvasElement }) {
@@ -296,14 +293,16 @@ export const OpenedDefault: Story = {
     trigger: <ButtonGlass variant="ghost">Open Popover</ButtonGlass>,
     children: (
       <div className="w-64">
-        <h3 className="font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>Glass Popover</h3>
+        <h3 className="font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
+          Glass Popover
+        </h3>
         <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
           Glass background with backdrop blur effect.
         </p>
       </div>
     ),
-    side: "bottom",
-    align: "center",
+    side: 'bottom',
+    align: 'center',
   },
   parameters: {
     a11y: {
@@ -316,7 +315,7 @@ export const OpenedDefault: Story = {
     const canvas = within(canvasElement);
     const body = within(document.body);
 
-    const trigger = canvas.getByText("Open Popover");
+    const trigger = canvas.getByText('Open Popover');
     await userEvent.click(trigger);
     await new Promise((resolve) => setTimeout(resolve, 300));
 
@@ -325,7 +324,7 @@ export const OpenedDefault: Story = {
     // Border: 1px solid rgba(255,255,255,0.15)
     // Box-shadow: 0 15px 50px rgba(168,85,247,0.25)
     // Backdrop-filter: blur(16px)
-    await expect(body.getByRole("dialog")).toBeInTheDocument();
+    await expect(body.getByRole('dialog')).toBeInTheDocument();
   },
 };
 
@@ -339,14 +338,14 @@ export const OpenedWithForm: Story = {
     ),
     children: (
       <div className="w-80 space-y-4">
-        <h3 className="font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>Need Help?</h3>
-        <InputGlass
-          label="Subject"
-          placeholder="What do you need help with?"
-          size="sm"
-        />
+        <h3 className="font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
+          Need Help?
+        </h3>
+        <InputGlass label="Subject" placeholder="What do you need help with?" size="sm" />
         <div className="space-y-2">
-          <label className="text-sm" style={{ color: 'var(--text-secondary)' }}>Message</label>
+          <label className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+            Message
+          </label>
           <textarea
             className="w-full px-3 py-2 rounded-lg text-sm focus:outline-none resize-none"
             style={{
@@ -363,8 +362,8 @@ export const OpenedWithForm: Story = {
         </ButtonGlass>
       </div>
     ),
-    side: "bottom",
-    align: "center",
+    side: 'bottom',
+    align: 'center',
   },
   parameters: {
     a11y: {
@@ -377,11 +376,11 @@ export const OpenedWithForm: Story = {
     const canvas = within(canvasElement);
     const body = within(document.body);
 
-    const trigger = canvas.getByText("Help");
+    const trigger = canvas.getByText('Help');
     await userEvent.click(trigger);
     await new Promise((resolve) => setTimeout(resolve, 300));
 
-    await expect(body.getByRole("dialog")).toBeInTheDocument();
+    await expect(body.getByRole('dialog')).toBeInTheDocument();
   },
 };
 
@@ -392,15 +391,17 @@ export const OpenedTopPosition: Story = {
       <div className="w-56">
         <div className="flex items-center gap-2 mb-2">
           <Info className="w-4 h-4" style={{ color: 'var(--text-accent)' }} />
-          <h3 className="font-semibold" style={{ color: 'var(--text-primary)' }}>Info</h3>
+          <h3 className="font-semibold" style={{ color: 'var(--text-primary)' }}>
+            Info
+          </h3>
         </div>
         <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
           Popover positioned above trigger.
         </p>
       </div>
     ),
-    side: "top",
-    align: "center",
+    side: 'top',
+    align: 'center',
   },
   parameters: {
     a11y: {
@@ -420,10 +421,10 @@ export const OpenedTopPosition: Story = {
     const canvas = within(canvasElement);
     const body = within(document.body);
 
-    const trigger = canvas.getByText("Open Top");
+    const trigger = canvas.getByText('Open Top');
     await userEvent.click(trigger);
     await new Promise((resolve) => setTimeout(resolve, 300));
 
-    await expect(body.getByRole("dialog")).toBeInTheDocument();
+    await expect(body.getByRole('dialog')).toBeInTheDocument();
   },
 };

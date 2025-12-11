@@ -1,26 +1,26 @@
-import { useState } from "react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from "storybook/test";
-import { fn } from "storybook/test";
-import { HeaderNavGlass } from "./glass/sections/header-nav-glass";
+import { useState } from 'react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
+import { fn } from 'storybook/test';
+import { HeaderNavGlass } from './glass/sections/header-nav-glass';
 
 const meta = {
-  title: "Glass/Composite/HeaderNavGlass",
+  title: 'Glass/Sections/HeaderNavGlass',
   component: HeaderNavGlass,
   parameters: {
-    layout: "fullscreen",
+    layout: 'fullscreen',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     username: {
-      control: "text",
-      description: "Default username for search input",
+      control: 'text',
+      description: 'Default username for search input',
     },
     onSearch: {
-      description: "Callback when search is triggered",
+      description: 'Callback when search is triggered',
     },
     onThemeToggle: {
-      description: "Callback when theme toggle is clicked",
+      description: 'Callback when theme toggle is clicked',
     },
   },
 } satisfies Meta<typeof HeaderNavGlass>;
@@ -30,7 +30,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    username: "Yhooi2",
+    username: 'Yhooi2',
     onSearch: fn(),
     onThemeToggle: fn(),
   },
@@ -41,7 +41,7 @@ export const Default: Story = {
 
 export const CustomUsername: Story = {
   args: {
-    username: "octocat",
+    username: 'octocat',
     onSearch: fn(),
     onThemeToggle: fn(),
   },
@@ -52,7 +52,7 @@ export const CustomUsername: Story = {
 
 export const EmptySearch: Story = {
   args: {
-    username: "",
+    username: '',
     onSearch: fn(),
     onThemeToggle: fn(),
   },
@@ -63,9 +63,9 @@ export const EmptySearch: Story = {
 
 export const WithCallbacks: Story = {
   args: {
-    username: "Yhooi2",
-    onSearch: fn((value) => console.log("Search:", value)),
-    onThemeToggle: fn(() => console.log("Theme toggled")),
+    username: 'Yhooi2',
+    onSearch: fn((value) => console.log('Search:', value)),
+    onThemeToggle: fn(() => console.log('Theme toggled')),
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -74,29 +74,29 @@ export const WithCallbacks: Story = {
 
 export const Interactive: Story = {
   args: {
-    username: "Yhooi2",
+    username: 'Yhooi2',
   },
   render: function InteractiveHeader() {
-    const [searchValue, setSearchValue] = useState("Yhooi2");
+    const [searchValue, setSearchValue] = useState('Yhooi2');
     const [searchResults, setSearchResults] = useState<string[]>([]);
 
     const handleSearch = (value: string) => {
       setSearchValue(value);
-      setSearchResults([...searchResults, `Searched: ${value} at ${new Date().toLocaleTimeString()}`]);
+      setSearchResults([
+        ...searchResults,
+        `Searched: ${value} at ${new Date().toLocaleTimeString()}`,
+      ]);
     };
 
     return (
       <div className="flex flex-col">
-        <HeaderNavGlass
-          username={searchValue}
-          onSearch={handleSearch}
-        />
+        <HeaderNavGlass username={searchValue} onSearch={handleSearch} />
         {searchResults.length > 0 && (
           <div className="mt-4 p-4">
-            <p style={{ color: "var(--text-primary)", fontSize: "12px", marginBottom: "8px" }}>
+            <p style={{ color: 'var(--text-primary)', fontSize: '12px', marginBottom: '8px' }}>
               Search history:
             </p>
-            <ul style={{ fontSize: "10px", color: "var(--text-muted)" }}>
+            <ul style={{ fontSize: '10px', color: 'var(--text-muted)' }}>
               {searchResults.map((result, i) => (
                 <li key={i}>{result}</li>
               ))}

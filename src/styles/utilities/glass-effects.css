@@ -253,6 +253,18 @@
   @apply bg-muted-foreground/50;
 }
 
+/* Hide scrollbar completely */
+.scrollbar-hide {
+  /* Chrome, Safari, Edge, Opera */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  /* Firefox */
+  scrollbar-width: none;
+  /* IE and Edge */
+  -ms-overflow-style: none;
+}
+
 /* ========================================
    TEXT UTILITIES
    ======================================== */

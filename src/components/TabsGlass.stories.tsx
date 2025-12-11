@@ -6,7 +6,7 @@ import { TabsGlass } from './glass/ui/tabs-glass';
 import { GlassCard } from './glass/ui/glass-card';
 
 const meta = {
-  title: 'Components/TabsGlass',
+  title: 'Glass UI/Navigation/TabsGlass',
   parameters: {
     layout: 'centered',
   },

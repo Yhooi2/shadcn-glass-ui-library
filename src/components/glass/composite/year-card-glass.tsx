@@ -135,7 +135,7 @@ export const YearCardGlass = forwardRef<HTMLDivElement, YearCardGlassProps>(
         hoverGlow="var(--year-card-hover-glow)"
         hoverLift
         rounded="rounded-xl"
-        className={cn('p-2.5 md:p-3 cursor-pointer', className)}
+        className={cn('w-full max-w-2xl p-2.5 md:p-3 cursor-pointer', className)}
         onClick={onClick}
         role="button"
         tabIndex={0}

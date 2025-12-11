@@ -1,8 +1,8 @@
 {
   "name": "shadcn-glass-ui",
   "private": false,
-  "version": "1.0.11",
-  "description": "Glassmorphism UI library for React - AI-friendly with 57 components, strict TypeScript, and comprehensive docs",
+  "version": "2.0.0",
+  "description": "Glassmorphism UI library for React - AI-friendly with 58 components, strict TypeScript, and comprehensive docs",
   "author": "Yhooi2",
   "license": "MIT",
   "keywords": [
@@ -13,6 +13,9 @@
     "tailwind",
     "components",
     "design-system",
+    "design-tokens",
+    "oklch",
+    "css-variables",
     "typescript",
     "ai-friendly",
     "claude-code",
@@ -94,6 +97,7 @@
   "files": [
     "dist",
     "docs",
+    "context7.json",
     "README.md",
     "LICENSE",
     "CHANGELOG.md"

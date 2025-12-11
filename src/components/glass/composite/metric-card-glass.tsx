@@ -209,15 +209,6 @@ const colorToVariant: Record<MetricColor, MetricVariant> = {
   red: 'destructive',
 };
 
-/** @deprecated Use variantToGradient instead */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const colorToGradient: Record<MetricColor, ProgressGradient> = {
-  emerald: 'emerald',
-  amber: 'amber',
-  blue: 'blue',
-  red: 'rose',
-};
-
 // Trend direction colors - using existing alert CSS variables
 const trendColors: Record<TrendDirection, string> = {
   up: 'text-[var(--alert-success-text)]',

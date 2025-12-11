@@ -1,49 +1,52 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from "storybook/test";
-import { BadgeGlass } from "./glass/ui/badge-glass";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
+import { BadgeGlass } from './glass/ui/badge-glass';
 
 const meta = {
-  title: "Components/BadgeGlass",
+  title: 'Glass UI/Display/BadgeGlass',
   component: BadgeGlass,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     variant: {
-      control: "select",
-      options: ["default", "secondary", "destructive", "outline", "success", "warning", "info"],
-      description: "Badge color variant (shadcn/ui compatible + Glass UI extended)",
+      control: 'select',
+      options: ['default', 'secondary', 'destructive', 'outline', 'success', 'warning', 'info'],
+      description: 'Badge color variant (shadcn/ui compatible + Glass UI extended)',
       table: {
-        type: { summary: "'default' | 'secondary' | 'destructive' | 'outline' | 'success' | 'warning' | 'info'" },
-        defaultValue: { summary: "default" },
+        type: {
+          summary:
+            "'default' | 'secondary' | 'destructive' | 'outline' | 'success' | 'warning' | 'info'",
+        },
+        defaultValue: { summary: 'default' },
       },
     },
     dot: {
-      control: "boolean",
-      description: "Show animated dot indicator",
+      control: 'boolean',
+      description: 'Show animated dot indicator',
       table: {
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
       },
     },
     size: {
-      control: "select",
-      options: ["sm", "md", "lg"],
-      description: "Badge size",
+      control: 'select',
+      options: ['sm', 'md', 'lg'],
+      description: 'Badge size',
       table: {
         type: { summary: "'sm' | 'md' | 'lg'" },
-        defaultValue: { summary: "md" },
+        defaultValue: { summary: 'md' },
       },
     },
     children: {
       table: {
-        type: { summary: "ReactNode" },
+        type: { summary: 'ReactNode' },
       },
     },
   },
   args: {
-    children: "Badge",
+    children: 'Badge',
   },
 } satisfies Meta<typeof BadgeGlass>;
 
@@ -52,8 +55,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    variant: "default",
-    children: "Default",
+    variant: 'default',
+    children: 'Default',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -62,8 +65,8 @@ export const Default: Story = {
 
 export const Success: Story = {
   args: {
-    variant: "success",
-    children: "Success",
+    variant: 'success',
+    children: 'Success',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -72,8 +75,8 @@ export const Success: Story = {
 
 export const Warning: Story = {
   args: {
-    variant: "warning",
-    children: "Warning",
+    variant: 'warning',
+    children: 'Warning',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -82,8 +85,8 @@ export const Warning: Story = {
 
 export const Secondary: Story = {
   args: {
-    variant: "secondary",
-    children: "Secondary",
+    variant: 'secondary',
+    children: 'Secondary',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -92,8 +95,8 @@ export const Secondary: Story = {
 
 export const Destructive: Story = {
   args: {
-    variant: "destructive",
-    children: "Destructive",
+    variant: 'destructive',
+    children: 'Destructive',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -102,8 +105,8 @@ export const Destructive: Story = {
 
 export const Outline: Story = {
   args: {
-    variant: "outline",
-    children: "Outline",
+    variant: 'outline',
+    children: 'Outline',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -112,8 +115,8 @@ export const Outline: Story = {
 
 export const Info: Story = {
   args: {
-    variant: "info",
-    children: "Info",
+    variant: 'info',
+    children: 'Info',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -122,9 +125,9 @@ export const Info: Story = {
 
 export const WithDot: Story = {
   args: {
-    variant: "info",
+    variant: 'info',
     dot: true,
-    children: "Active",
+    children: 'Active',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -133,7 +136,7 @@ export const WithDot: Story = {
 
 export const AllVariants: Story = {
   args: {
-    children: "Badge",
+    children: 'Badge',
   },
   render: () => (
     <div className="flex flex-wrap gap-3">
@@ -153,17 +156,31 @@ export const AllVariants: Story = {
 
 export const AllWithDot: Story = {
   args: {
-    children: "Badge",
+    children: 'Badge',
   },
   render: () => (
     <div className="flex flex-wrap gap-3">
-      <BadgeGlass variant="default" dot>Default</BadgeGlass>
-      <BadgeGlass variant="secondary" dot>Secondary</BadgeGlass>
-      <BadgeGlass variant="destructive" dot>Destructive</BadgeGlass>
-      <BadgeGlass variant="outline" dot>Outline</BadgeGlass>
-      <BadgeGlass variant="success" dot>Success</BadgeGlass>
-      <BadgeGlass variant="warning" dot>Warning</BadgeGlass>
-      <BadgeGlass variant="info" dot>Info</BadgeGlass>
+      <BadgeGlass variant="default" dot>
+        Default
+      </BadgeGlass>
+      <BadgeGlass variant="secondary" dot>
+        Secondary
+      </BadgeGlass>
+      <BadgeGlass variant="destructive" dot>
+        Destructive
+      </BadgeGlass>
+      <BadgeGlass variant="outline" dot>
+        Outline
+      </BadgeGlass>
+      <BadgeGlass variant="success" dot>
+        Success
+      </BadgeGlass>
+      <BadgeGlass variant="warning" dot>
+        Warning
+      </BadgeGlass>
+      <BadgeGlass variant="info" dot>
+        Info
+      </BadgeGlass>
     </div>
   ),
   async play({ canvasElement }) {
@@ -173,13 +190,19 @@ export const AllWithDot: Story = {
 
 export const AllSizes: Story = {
   args: {
-    children: "Badge",
+    children: 'Badge',
   },
   render: () => (
     <div className="flex items-center gap-3">
-      <BadgeGlass size="sm" variant="info">Small</BadgeGlass>
-      <BadgeGlass size="md" variant="info">Medium</BadgeGlass>
-      <BadgeGlass size="lg" variant="info">Large</BadgeGlass>
+      <BadgeGlass size="sm" variant="info">
+        Small
+      </BadgeGlass>
+      <BadgeGlass size="md" variant="info">
+        Medium
+      </BadgeGlass>
+      <BadgeGlass size="lg" variant="info">
+        Large
+      </BadgeGlass>
     </div>
   ),
   async play({ canvasElement }) {

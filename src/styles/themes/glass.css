@@ -116,24 +116,6 @@
   --semantic-glass-bg-strong: var(--oklch-white-22);
 
   /* ========================================
-     LEGACY TOKENS (backward compatibility)
-     TODO Phase 5: Remove after full migration
-     ======================================== */
-  --color-primary: var(--semantic-primary);
-  --color-primary-muted: var(--semantic-primary-muted);
-  --color-primary-subtle: var(--semantic-primary-subtle);
-  --color-primary-text: var(--semantic-primary-text);
-  --color-secondary: var(--semantic-secondary);
-  --color-surface: var(--semantic-surface);
-  --color-surface-muted: var(--semantic-surface-muted);
-  --color-border: var(--semantic-border);
-  --color-border-muted: var(--semantic-border-muted);
-  --color-text: var(--semantic-text);
-  --color-text-muted: var(--semantic-text-muted);
-  --color-text-subtle: var(--semantic-text-subtle);
-  --color-text-disabled: var(--semantic-text-disabled);
-
-  /* ========================================
      GLASS EFFECTS (using semantic tokens)
      Per UI_DESIGN.md: sweet spot 15-25% for standard cards, border 18%
      ======================================== */
@@ -517,24 +499,6 @@
   --metric-destructive-text: var(--oklch-rose-400);
   --metric-destructive-border: transparent;
   --metric-destructive-glow: 0 0 12px var(--oklch-rose-400-40);
-
-  /* DEPRECATED: Old color system (backward compatibility) */
-  --metric-emerald-bg: var(--metric-success-bg);
-  --metric-emerald-text: var(--metric-success-text);
-  --metric-emerald-border: var(--metric-success-border);
-  --metric-emerald-glow: var(--metric-success-glow);
-  --metric-amber-bg: var(--metric-warning-bg);
-  --metric-amber-text: var(--metric-warning-text);
-  --metric-amber-border: var(--metric-warning-border);
-  --metric-amber-glow: var(--metric-warning-glow);
-  --metric-blue-bg: var(--metric-default-bg);
-  --metric-blue-text: var(--metric-default-text);
-  --metric-blue-border: var(--metric-default-border);
-  --metric-blue-glow: var(--metric-default-glow);
-  --metric-red-bg: var(--metric-destructive-bg);
-  --metric-red-text: var(--metric-destructive-text);
-  --metric-red-border: var(--metric-destructive-border);
-  --metric-red-glow: var(--metric-destructive-glow);
 
   /* ========================================
      PROFILE AVATAR VARIABLES (using primitive tokens)
