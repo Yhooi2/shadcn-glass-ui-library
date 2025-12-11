@@ -1,0 +1,23 @@
+# Dependencies
+node_modules
+dist
+build
+
+# Generated files
+.next
+.nuxt
+.cache
+.turbo
+coverage
+
+# Storybook
+.storybook-static
+.storybook/Introduction.mdx
+
+# Visual test screenshots
+src/components/__visual__/__screenshots__
+
+# Lock files
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
