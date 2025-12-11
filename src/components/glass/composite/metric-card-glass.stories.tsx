@@ -1,16 +1,49 @@
+/**
+ * MetricCardGlass Component
+ *
+ * A metric display card with optional progress bar, sparkline chart, and trend indicator.
+ * Follows shadcn/ui Card pattern with Glass UI extensions.
+ *
+ * ## New API (v1.x)
+ * - `title` instead of `label`
+ * - `variant` instead of `color` (default, secondary, success, warning, destructive)
+ * - `change` instead of `trend` (supports string "+12.5%" or detailed object)
+ * - `description` instead of `valueSuffix`
+ * - `value` accepts string or number (format before passing, no `valueFormatter`)
+ * - `progress` separate from display value
+ *
+ * ## Backward Compatibility
+ * Old props (`label`, `color`, `trend`, etc.) still work but show deprecation warnings in console.
+ */
+
 import type { Meta, StoryObj } from '@storybook/react';
-import { Activity, Zap, TrendingUp, AlertTriangle } from 'lucide-react';
+import { Activity, TrendingUp, AlertTriangle, DollarSign, Users } from 'lucide-react';
 import { MetricCardGlass } from './metric-card-glass';
 
 const meta = {
   title: 'Glass UI/Composite/MetricCardGlass',
   component: MetricCardGlass,
-  parameters: { layout: 'centered' },
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        component:
+          'A metric display card following shadcn/ui patterns with Glass UI extensions for progress, sparkline, and trends.',
+      },
+    },
+  },
   tags: ['autodocs'],
   argTypes: {
+    variant: {
+      control: 'select',
+      options: ['default', 'secondary', 'success', 'warning', 'destructive'],
+      description: 'Semantic variant (shadcn/ui compatible)',
+    },
+    // Legacy prop for backward compatibility
     color: {
       control: 'select',
       options: ['emerald', 'amber', 'blue', 'red'],
+      description: '⚠️ DEPRECATED: Use `variant` instead',
     },
   },
   decorators: [
@@ -25,7 +58,146 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
+// ========================================
+// NEW API EXAMPLES (v1.x)
+// ========================================
+
+/** Simple metric with new API */
+export const SimpleMetric: Story = {
+  args: {
+    title: 'Total Revenue',
+    value: '$45,231',
+    variant: 'success',
+    icon: <DollarSign className="w-4 h-4" />,
+  },
+};
+
+/** Metric with string change indicator */
+export const WithStringChange: Story = {
+  args: {
+    title: 'Active Users',
+    value: '8,459',
+    change: '+12.5%',
+    variant: 'default',
+    icon: <Users className="w-4 h-4" />,
+  },
+};
+
+/** Metric with detailed change object */
+export const WithDetailedChange: Story = {
+  args: {
+    title: 'Conversion Rate',
+    value: '3.24%',
+    description: 'Goal: 3.5%',
+    change: {
+      value: 12.5,
+      direction: 'up',
+      period: 'vs last month',
+    },
+    variant: 'success',
+    icon: <TrendingUp className="w-4 h-4" />,
+  },
+};
+
+/** Metric with progress bar */
+export const WithProgress: Story = {
+  args: {
+    title: 'Project Progress',
+    value: '85%',
+    description: '17 of 20 tasks',
+    progress: 85,
+    variant: 'success',
+    showProgress: true,
+  },
+};
+
+/** Metric with sparkline chart */
+export const WithSparkline: Story = {
+  args: {
+    title: 'Performance',
+    value: '92',
+    description: 'Weekly average',
+    variant: 'default',
+    sparklineData: [70, 75, 78, 82, 86, 90, 92],
+    showSparkline: true,
+  },
+};
+
+/** Full-featured metric card */
+export const FullFeatured: Story = {
+  args: {
+    title: 'Activity Index',
+    value: '94%',
+    description: 'Excellent performance',
+    change: { value: 15.2, direction: 'up', period: 'vs last month' },
+    variant: 'success',
+    icon: <Activity className="w-4 h-4" />,
+    sparklineData: [70, 75, 80, 85, 88, 90, 94],
+    progress: 94,
+    showProgress: true,
+    showSparkline: true,
+  },
+};
+
+/** All variant types showcase */
+export const AllVariants: Story = {
+  render: () => (
+    <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 w-auto p-4">
+      <MetricCardGlass
+        title="Default"
+        value="$12,345"
+        change="+8.2%"
+        variant="default"
+        icon={<DollarSign className="w-4 h-4" />}
+        sparklineData={[60, 65, 70, 75, 80, 85, 90]}
+        progress={75}
+      />
+      <MetricCardGlass
+        title="Secondary"
+        value="2,458"
+        change="+3.1%"
+        variant="secondary"
+        icon={<Users className="w-4 h-4" />}
+        sparklineData={[50, 55, 58, 62, 65, 68, 70]}
+        progress={68}
+      />
+      <MetricCardGlass
+        title="Success"
+        value="98.5%"
+        change={{ value: 12, direction: 'up' }}
+        variant="success"
+        icon={<TrendingUp className="w-4 h-4" />}
+        sparklineData={[85, 88, 90, 92, 94, 96, 98]}
+        progress={98}
+      />
+      <MetricCardGlass
+        title="Warning"
+        value="67%"
+        change={{ value: 5, direction: 'down' }}
+        variant="warning"
+        icon={<AlertTriangle className="w-4 h-4" />}
+        sparklineData={[80, 77, 74, 71, 69, 68, 67]}
+        progress={67}
+      />
+      <MetricCardGlass
+        title="Destructive"
+        value="23%"
+        change={{ value: 18, direction: 'down', period: 'critical' }}
+        variant="destructive"
+        icon={<AlertTriangle className="w-4 h-4" />}
+        sparklineData={[45, 40, 35, 30, 28, 25, 23]}
+        progress={23}
+      />
+    </div>
+  ),
+};
+
+// ========================================
+// LEGACY API EXAMPLES (Backward Compatibility)
+// These examples use deprecated props and will show console warnings
+// ========================================
+
+export const LegacyDefault: Story = {
   args: {
     label: 'Completion',
     value: 75,
@@ -33,216 +205,13 @@ export const Default: Story = {
   },
 };
 
-export const WithSparkline: Story = {
+/** @deprecated Use new API examples above */
+export const LegacyWithSparkline: Story = {
+  name: '🔴 Legacy: With Sparkline',
   args: {
     label: 'Performance',
     value: 82,
     color: 'emerald',
     sparklineData: [65, 68, 72, 75, 78, 80, 82],
   },
-};
-
-// NEW: With Icon
-export const WithIcon: Story = {
-  args: {
-    label: 'Activity Score',
-    value: 85,
-    color: 'blue',
-    icon: <Activity className="w-4 h-4" />,
-    sparklineData: [70, 75, 78, 80, 82, 84, 85],
-  },
-};
-
-// NEW: With Trend Up
-export const WithTrendUp: Story = {
-  args: {
-    label: 'Growth Rate',
-    value: 94,
-    color: 'emerald',
-    icon: <TrendingUp className="w-4 h-4" />,
-    trend: {
-      value: 12,
-      direction: 'up',
-      label: 'vs last month',
-    },
-    sparklineData: [75, 80, 84, 88, 90, 92, 94],
-  },
-};
-
-// NEW: With Trend Down
-export const WithTrendDown: Story = {
-  args: {
-    label: 'Error Rate',
-    value: 23,
-    color: 'red',
-    icon: <AlertTriangle className="w-4 h-4" />,
-    trend: {
-      value: 8,
-      direction: 'down',
-      label: 'vs last week',
-    },
-    sparklineData: [45, 40, 35, 30, 28, 25, 23],
-  },
-};
-
-// NEW: With Custom Formatter
-export const WithValueFormatter: Story = {
-  args: {
-    label: 'Performance',
-    value: 8750,
-    color: 'blue',
-    valueFormatter: (v) => `${(v / 1000).toFixed(1)}k`,
-    valueSuffix: 'requests/sec',
-    showProgress: false,
-  },
-};
-
-// NEW: With Value Suffix
-export const WithValueSuffix: Story = {
-  args: {
-    label: 'Trust Score',
-    value: 85,
-    color: 'emerald',
-    icon: <Zap className="w-4 h-4" />,
-    valueSuffix: 'of 100',
-    sparklineData: [75, 78, 80, 82, 83, 84, 85],
-  },
-};
-
-// NEW: Full Featured
-export const FullFeatured: Story = {
-  args: {
-    label: 'Activity Index',
-    value: 92,
-    color: 'emerald',
-    icon: <Activity className="w-4 h-4" />,
-    trend: {
-      value: 15,
-      direction: 'up',
-    },
-    sparklineData: [70, 75, 80, 85, 88, 90, 92],
-  },
-};
-
-// NEW: Without Progress Bar
-export const WithoutProgress: Story = {
-  args: {
-    label: 'Simple Display',
-    value: 42,
-    color: 'blue',
-    showProgress: false,
-    valueFormatter: (v) => String(v),
-  },
-};
-
-export const EmeraldWithTrend: Story = {
-  args: {
-    label: 'Success Rate',
-    value: 94,
-    color: 'emerald',
-    sparklineData: [85, 87, 89, 90, 91, 93, 94],
-  },
-};
-
-export const AmberWarning: Story = {
-  args: {
-    label: 'Warning Level',
-    value: 67,
-    color: 'amber',
-    sparklineData: [72, 70, 68, 67, 66, 66, 67],
-  },
-};
-
-export const RedAlert: Story = {
-  args: {
-    label: 'Critical',
-    value: 23,
-    color: 'red',
-    sparklineData: [45, 40, 35, 30, 28, 25, 23],
-  },
-};
-
-export const BlueProgress: Story = {
-  args: {
-    label: 'Progress',
-    value: 58,
-    color: 'blue',
-    sparklineData: [30, 35, 40, 45, 50, 54, 58],
-  },
-};
-
-export const WithoutSparkline: Story = {
-  args: {
-    label: 'Simple Metric',
-    value: 88,
-    color: 'emerald',
-    showSparkline: false,
-  },
-};
-
-export const SparklineDisabled: Story = {
-  args: {
-    label: 'No Trend',
-    value: 45,
-    color: 'amber',
-    sparklineData: [40, 42, 44, 45, 46, 45, 45],
-    showSparkline: false,
-  },
-};
-
-export const HighValue: Story = {
-  args: {
-    label: 'Excellence',
-    value: 98,
-    color: 'emerald',
-    sparklineData: [92, 93, 94, 95, 96, 97, 98],
-  },
-};
-
-export const LowValue: Story = {
-  args: {
-    label: 'Needs Attention',
-    value: 12,
-    color: 'red',
-    sparklineData: [25, 22, 20, 18, 15, 13, 12],
-  },
-};
-
-export const AllColors: Story = {
-  render: () => (
-    <div className="grid grid-cols-2 gap-4 w-auto p-4">
-      <MetricCardGlass
-        label="Emerald"
-        value={85}
-        color="emerald"
-        icon={<Activity className="w-4 h-4" />}
-        trend={{ value: 12, direction: 'up' }}
-        sparklineData={[70, 75, 78, 80, 82, 84, 85]}
-      />
-      <MetricCardGlass
-        label="Amber"
-        value={65}
-        color="amber"
-        icon={<AlertTriangle className="w-4 h-4" />}
-        trend={{ value: 5, direction: 'down' }}
-        sparklineData={[72, 70, 68, 66, 65, 65, 65]}
-      />
-      <MetricCardGlass
-        label="Blue"
-        value={78}
-        color="blue"
-        icon={<Zap className="w-4 h-4" />}
-        trend={{ value: 3, direction: 'neutral' }}
-        sparklineData={[60, 65, 70, 73, 75, 77, 78]}
-      />
-      <MetricCardGlass
-        label="Red"
-        value={28}
-        color="red"
-        icon={<TrendingUp className="w-4 h-4" />}
-        trend={{ value: 18, direction: 'down' }}
-        sparklineData={[45, 40, 37, 33, 30, 29, 28]}
-      />
-    </div>
-  ),
 };
