@@ -214,30 +214,30 @@
   --btn-success-glow: 0 0 30px var(--oklch-emerald-400-50);
 
   /* ========================================
-     BADGE VARIABLES (OKLCH)
+     BADGE VARIABLES (using semantic tokens)
      ======================================== */
   /* shadcn/ui compatible variants */
-  --badge-default-bg: oklch(100% 0 0 / 0.2);
-  --badge-default-text: oklch(100% 0 0 / 0.9);
+  --badge-default-bg: var(--oklch-white-20);
+  --badge-default-text: var(--semantic-text);
   --badge-default-border: transparent;
-  --badge-secondary-bg: oklch(70.4% 0.034 256 / 0.2); /* slate-400 */
-  --badge-secondary-text: oklch(86.9% 0.022 252); /* slate-300 */
+  --badge-secondary-bg: var(--oklch-slate-400-20);
+  --badge-secondary-text: var(--oklch-slate-300);
   --badge-secondary-border: transparent;
-  --badge-destructive-bg: oklch(71.2% 0.161 12 / 0.2); /* rose-400 */
-  --badge-destructive-text: oklch(81% 0.105 11); /* rose-300 */
+  --badge-destructive-bg: var(--semantic-error-subtle);
+  --badge-destructive-text: var(--semantic-error-text);
   --badge-destructive-border: transparent;
   --badge-outline-bg: transparent;
-  --badge-outline-text: oklch(100% 0 0 / 0.9);
-  --badge-outline-border: oklch(100% 0 0 / 0.3);
+  --badge-outline-text: var(--semantic-text);
+  --badge-outline-border: var(--oklch-white-30);
   /* Glass UI extended variants */
-  --badge-success-bg: oklch(76.5% 0.147 163 / 0.2); /* emerald-400 */
-  --badge-success-text: oklch(84.5% 0.127 163); /* emerald-300 */
+  --badge-success-bg: var(--semantic-success-subtle);
+  --badge-success-text: var(--semantic-success-text);
   --badge-success-border: transparent;
-  --badge-warning-bg: oklch(82.8% 0.157 84 / 0.2); /* amber-400 */
-  --badge-warning-text: oklch(87.9% 0.15 91); /* amber-300 */
+  --badge-warning-bg: var(--semantic-warning-subtle);
+  --badge-warning-text: var(--semantic-warning-text);
   --badge-warning-border: transparent;
-  --badge-info-bg: oklch(70.7% 0.143 250 / 0.2); /* blue-400 */
-  --badge-info-text: oklch(79.2% 0.108 251); /* blue-300 */
+  --badge-info-bg: var(--semantic-info-subtle);
+  --badge-info-text: var(--semantic-info-text);
   --badge-info-border: transparent;
 
   /* ========================================
