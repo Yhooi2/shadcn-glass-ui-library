@@ -325,9 +325,9 @@
   /* ========================================
      TOOLTIP VARIABLES (OKLCH)
      ======================================== */
-  --tooltip-bg: oklch(56.507% 0.14944 303.026 / 0.85);
-  --tooltip-text: oklch(100% 0 0 / 0.9);
-  --tooltip-border: oklch(100% 0 0 / 0.15);
+  --tooltip-bg: oklch(56.507% 0.14944 303.026 / 0.95);
+  --tooltip-text: oklch(100% 0 0 / 0.95);
+  --tooltip-border: oklch(100% 0 0 / 0.2);
   --tooltip-shadow: 0 8px 24px oklch(0% 0 0 / 0.3);
 
   /* ========================================
@@ -371,23 +371,53 @@
 
   /* ========================================
      METRIC CARD VARIABLES (OKLCH)
+     Variant system following AlertGlass, BadgeGlass pattern
      ======================================== */
-  --metric-emerald-bg: transparent;
-  --metric-emerald-text: oklch(76.5% 0.147 163);
-  --metric-emerald-border: transparent;
-  --metric-emerald-glow: 0 0 12px oklch(76.5% 0.147 163 / 0.4);
-  --metric-amber-bg: transparent;
-  --metric-amber-text: oklch(82.8% 0.157 84);
-  --metric-amber-border: transparent;
-  --metric-amber-glow: 0 0 12px oklch(82.8% 0.157 84 / 0.4);
-  --metric-blue-bg: transparent;
-  --metric-blue-text: oklch(70.7% 0.143 250);
-  --metric-blue-border: transparent;
-  --metric-blue-glow: 0 0 12px oklch(70.7% 0.143 250 / 0.4);
-  --metric-red-bg: transparent;
-  --metric-red-text: oklch(71.2% 0.161 12);
-  --metric-red-border: transparent;
-  --metric-red-glow: 0 0 12px oklch(71.2% 0.161 12 / 0.4);
+
+  /* shadcn/ui compatible variants */
+  --metric-default-bg: transparent;
+  --metric-default-text: oklch(70.7% 0.143 250); /* blue-400 */
+  --metric-default-border: transparent;
+  --metric-default-glow: 0 0 12px oklch(70.7% 0.143 250 / 0.4);
+
+  --metric-secondary-bg: transparent;
+  --metric-secondary-text: oklch(86.9% 0.022 252); /* slate-300 */
+  --metric-secondary-border: transparent;
+  --metric-secondary-glow: 0 0 12px oklch(86.9% 0.022 252 / 0.3);
+
+  /* Glass UI extended variants */
+  --metric-success-bg: transparent;
+  --metric-success-text: oklch(76.5% 0.147 163); /* emerald-400 */
+  --metric-success-border: transparent;
+  --metric-success-glow: 0 0 12px oklch(76.5% 0.147 163 / 0.4);
+
+  --metric-warning-bg: transparent;
+  --metric-warning-text: oklch(82.8% 0.157 84); /* amber-400 */
+  --metric-warning-border: transparent;
+  --metric-warning-glow: 0 0 12px oklch(82.8% 0.157 84 / 0.4);
+
+  --metric-destructive-bg: transparent;
+  --metric-destructive-text: oklch(71.2% 0.161 12); /* rose-400 */
+  --metric-destructive-border: transparent;
+  --metric-destructive-glow: 0 0 12px oklch(71.2% 0.161 12 / 0.4);
+
+  /* DEPRECATED: Old color system (backward compatibility) */
+  --metric-emerald-bg: var(--metric-success-bg);
+  --metric-emerald-text: var(--metric-success-text);
+  --metric-emerald-border: var(--metric-success-border);
+  --metric-emerald-glow: var(--metric-success-glow);
+  --metric-amber-bg: var(--metric-warning-bg);
+  --metric-amber-text: var(--metric-warning-text);
+  --metric-amber-border: var(--metric-warning-border);
+  --metric-amber-glow: var(--metric-warning-glow);
+  --metric-blue-bg: var(--metric-default-bg);
+  --metric-blue-text: var(--metric-default-text);
+  --metric-blue-border: var(--metric-default-border);
+  --metric-blue-glow: var(--metric-default-glow);
+  --metric-red-bg: var(--metric-destructive-bg);
+  --metric-red-text: var(--metric-destructive-text);
+  --metric-red-border: var(--metric-destructive-border);
+  --metric-red-glow: var(--metric-destructive-glow);
 
   /* ========================================
      PROFILE AVATAR VARIABLES (OKLCH)

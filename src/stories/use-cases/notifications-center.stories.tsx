@@ -338,7 +338,7 @@ const NotificationsCenter = ({
               {unreadCount > 0 && (
                 <BadgeGlass
                   variant="destructive"
-                  className="absolute -top-1 -right-1 min-w-[20px] h-5 flex items-center justify-center px-1"
+                  className="absolute -top-1 -right-1 min-w-6 h-6 flex items-center justify-center px-1.5 text-xs font-semibold"
                 >
                   {unreadCount > 99 ? '99+' : unreadCount}
                 </BadgeGlass>
