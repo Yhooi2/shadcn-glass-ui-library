@@ -238,6 +238,7 @@
   --oklch-slate-100-50: oklch(96.8% 0.007 247 / 0.5);
   --oklch-slate-100-80: oklch(96.8% 0.007 247 / 0.8);
   --oklch-slate-100-90: oklch(96.8% 0.007 247 / 0.9);
+  --oklch-slate-100-95: oklch(96.8% 0.007 247 / 0.95);
 
   --oklch-slate-200-40: oklch(92.9% 0.013 255 / 0.4);
   --oklch-slate-200-50: oklch(92.9% 0.013 255 / 0.5);
@@ -248,6 +249,8 @@
   --oklch-slate-400-60: oklch(70.4% 0.034 256 / 0.6);
 
   --oklch-slate-500-80: oklch(55.4% 0.046 257 / 0.8);
+
+  --oklch-slate-600-80: oklch(44.6% 0.043 257 / 0.8);
 
   --oklch-slate-700-20: oklch(37.2% 0.044 257 / 0.2);
   --oklch-slate-700-30: oklch(37.2% 0.044 257 / 0.3);
@@ -266,10 +269,12 @@
 
   --oklch-slate-900-50: oklch(20.8% 0.042 265 / 0.5);
   --oklch-slate-900-90: oklch(20.8% 0.042 265 / 0.9);
+  --oklch-slate-900-98: oklch(20.8% 0.042 265 / 0.98);
 
   /* EMERALD ALPHA VARIANTS (success states) */
   --oklch-emerald-400-10: oklch(76.5% 0.147 163 / 0.1);
   --oklch-emerald-400-20: oklch(76.5% 0.147 163 / 0.2);
+  --oklch-emerald-400-25: oklch(76.5% 0.147 163 / 0.25);
   --oklch-emerald-400-30: oklch(76.5% 0.147 163 / 0.3);
   --oklch-emerald-400-40: oklch(76.5% 0.147 163 / 0.4);
   --oklch-emerald-400-50: oklch(76.5% 0.147 163 / 0.5);
@@ -280,6 +285,7 @@
   /* AMBER ALPHA VARIANTS (warning states) */
   --oklch-amber-400-10: oklch(82.8% 0.157 84 / 0.1);
   --oklch-amber-400-20: oklch(82.8% 0.157 84 / 0.2);
+  --oklch-amber-400-25: oklch(82.8% 0.157 84 / 0.25);
   --oklch-amber-400-30: oklch(82.8% 0.157 84 / 0.3);
   --oklch-amber-400-40: oklch(82.8% 0.157 84 / 0.4);
   --oklch-amber-400-50: oklch(82.8% 0.157 84 / 0.5);
@@ -289,6 +295,7 @@
   /* ROSE ALPHA VARIANTS (error/destructive states) */
   --oklch-rose-400-10: oklch(71.2% 0.161 12 / 0.1);
   --oklch-rose-400-20: oklch(71.2% 0.161 12 / 0.2);
+  --oklch-rose-400-25: oklch(71.2% 0.161 12 / 0.25);
   --oklch-rose-400-30: oklch(71.2% 0.161 12 / 0.3);
   --oklch-rose-400-40: oklch(71.2% 0.161 12 / 0.4);
   --oklch-rose-400-50: oklch(71.2% 0.161 12 / 0.5);
