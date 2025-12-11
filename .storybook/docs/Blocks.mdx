@@ -26,7 +26,7 @@ Blocks are ready-made demonstration sections showing various component use cases
 
 <div className="docs-category-grid">
   <div className="docs-category-card">
-    <h3><LinkTo kind="Glass/Blocks" story="docs">🔘 ButtonsBlock</LinkTo></h3>
+    <h3><LinkTo kind="Glass/Blocks" story="Default">🔘 ButtonsBlock</LinkTo></h3>
     <p>Demonstration of all button variants.</p>
     <ul>
       <li>All variants (primary, secondary, destructive...)</li>
@@ -38,7 +38,7 @@ Blocks are ready-made demonstration sections showing various component use cases
 
 <div className="docs-category-card">
   <h3>
-    <LinkTo kind="Glass/Blocks" story="docs">
+    <LinkTo kind="Glass/Blocks" story="Default">
       📝 FormElementsBlock
     </LinkTo>
   </h3>
@@ -53,7 +53,7 @@ Blocks are ready-made demonstration sections showing various component use cases
 
 <div className="docs-category-card">
   <h3>
-    <LinkTo kind="Glass/Blocks" story="docs">
+    <LinkTo kind="Glass/Blocks" story="Default">
       📊 ProgressBlock
     </LinkTo>
   </h3>
@@ -67,7 +67,7 @@ Blocks are ready-made demonstration sections showing various component use cases
 
 <div className="docs-category-card">
   <h3>
-    <LinkTo kind="Glass/Blocks" story="docs">
+    <LinkTo kind="Glass/Blocks" story="Default">
       👥 AvatarGalleryBlock
     </LinkTo>
   </h3>
@@ -81,7 +81,7 @@ Blocks are ready-made demonstration sections showing various component use cases
 
 <div className="docs-category-card">
   <h3>
-    <LinkTo kind="Glass/Blocks" story="docs">
+    <LinkTo kind="Glass/Blocks" story="Default">
       🏷️ BadgesBlock
     </LinkTo>
   </h3>
@@ -94,7 +94,7 @@ Blocks are ready-made demonstration sections showing various component use cases
 </div>
 
   <div className="docs-category-card">
-    <h3><LinkTo kind="Glass/Blocks" story="docs">🔔 NotificationsBlock</LinkTo></h3>
+    <h3><LinkTo kind="Glass/Blocks" story="Default">🔔 NotificationsBlock</LinkTo></h3>
     <p>Notifications and alerts.</p>
     <ul>
       <li>NotificationGlass types</li>
@@ -147,7 +147,7 @@ Blocks are used in demo pages:
       <li>Organized by category</li>
       <li>Interactive examples</li>
     </ul>
-    <LinkTo kind="Demo/ComponentShowcase" className="docs-link-button" style={{ marginTop: '1rem' }}>
+    <LinkTo kind="Demo/ComponentShowcase" story="Default" className="docs-link-button" style={{ marginTop: '1rem' }}>
       Open Demo
     </LinkTo>
   </div>
@@ -160,7 +160,7 @@ Blocks are used in demo pages:
       <li>Section components</li>
       <li>Fullscreen mode</li>
     </ul>
-    <LinkTo kind="Demo/DesktopShowcase" className="docs-link-button" style={{ marginTop: '1rem' }}>
+    <LinkTo kind="Demo/DesktopShowcase" story="Default" className="docs-link-button" style={{ marginTop: '1rem' }}>
       Open Demo
     </LinkTo>
   </div>
@@ -197,13 +197,13 @@ export function MyCustomBlock({ title = 'My Block', className }: MyCustomBlockPr
 ## Next Steps
 
 <div className="docs-links-section">
-  <LinkTo kind="Demo/ComponentShowcase" className="docs-link-button">
+  <LinkTo kind="Demo/ComponentShowcase" story="Default" className="docs-link-button">
     ComponentShowcase
   </LinkTo>
-  <LinkTo kind="Demo/DesktopShowcase" className="docs-link-button">
+  <LinkTo kind="Demo/DesktopShowcase" story="Default" className="docs-link-button">
     DesktopShowcase
   </LinkTo>
-  <LinkTo kind="Introduction" className="docs-link-button">
+  <LinkTo kind="Introduction" story="docs" className="docs-link-button">
     Home
   </LinkTo>
 </div>

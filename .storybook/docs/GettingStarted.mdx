@@ -34,6 +34,7 @@ Wrap your application with ThemeProvider:
 
 function App() {
 return (
+
 <ThemeProvider defaultTheme="glass">
 <YourApp />
 </ThemeProvider>
@@ -61,6 +62,7 @@ import 'shadcn-glass-ui/dist/styles.css';`}
 
 function MyComponent() {
 return (
+
 <GlassCard variant="glass" intensity="medium">
 <h2>Hello, Glass UI!</h2>
 <InputGlass
@@ -127,6 +129,7 @@ function ThemeSwitcher() {
 const { theme, setTheme, cycleTheme } = useTheme();
 
 return (
+
 <div>
 <p>Current theme: {theme}</p>
 <ButtonGlass onClick={() => setTheme('aurora')}>
@@ -190,13 +193,13 @@ Glass UI is fully compatible with shadcn/ui API:
 ## Next Steps
 
 <div className="docs-links-section">
-  <LinkTo kind="Design System" className="docs-link-button">
+  <LinkTo kind="Design System" story="docs" className="docs-link-button">
     Design System
   </LinkTo>
-  <LinkTo kind="Components/Core" className="docs-link-button">
+  <LinkTo kind="Components/Core" story="docs" className="docs-link-button">
     Core Components
   </LinkTo>
-  <LinkTo kind="Glass UI/Buttons/ButtonGlass" className="docs-link-button">
+  <LinkTo kind="Glass UI/Buttons/ButtonGlass" story="Default" className="docs-link-button">
     ButtonGlass Demo
   </LinkTo>
 </div>
