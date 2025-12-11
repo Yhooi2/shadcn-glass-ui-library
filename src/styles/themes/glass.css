@@ -278,16 +278,16 @@
   --alert-danger-text: var(--alert-destructive-text);
 
   /* ========================================
-     TOGGLE/CHECKBOX VARIABLES (OKLCH)
+     TOGGLE/CHECKBOX VARIABLES (using semantic tokens)
      ======================================== */
-  --toggle-bg: oklch(100% 0 0 / 0.15);
-  --toggle-active-bg: linear-gradient(135deg, oklch(66.6% 0.159 303), oklch(62.7% 0.159 291));
-  --toggle-knob: oklch(100% 0 0);
-  --toggle-glow: 0 0 20px oklch(66.6% 0.159 303 / 0.6);
-  --checkbox-bg: oklch(100% 0 0 / 0.08);
-  --checkbox-border: oklch(100% 0 0 / 0.25);
-  --checkbox-checked-bg: oklch(66.6% 0.159 303);
-  --checkbox-glow: 0 0 0 3px oklch(66.6% 0.159 303 / 0.25);
+  --toggle-bg: var(--semantic-border);
+  --toggle-active-bg: linear-gradient(135deg, var(--semantic-primary), var(--semantic-secondary));
+  --toggle-knob: var(--oklch-white);
+  --toggle-glow: 0 0 20px var(--oklch-purple-500-60);
+  --checkbox-bg: var(--semantic-surface);
+  --checkbox-border: var(--semantic-border-strong);
+  --checkbox-checked-bg: var(--semantic-primary);
+  --checkbox-glow: 0 0 0 3px var(--semantic-primary-subtle);
 
   /* ========================================
      TABS VARIABLES (OKLCH)
