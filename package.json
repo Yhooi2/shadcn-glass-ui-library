@@ -167,6 +167,7 @@
     "lucide-react": "^0.555.0",
     "next-themes": "^0.4.6",
     "postcss": "^8.5.6",
+    "recharts": "^3.5.1",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "^4.0.0"
