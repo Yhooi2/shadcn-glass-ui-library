@@ -321,7 +321,7 @@ const NotificationsCenter = ({
   return (
     <div className="min-h-screen p-6">
       {/* Header with Notification Bell */}
-      <div className="flex items-center justify-between mb-8 max-w-6xl mx-auto">
+      <div className="flex items-center justify-between mb-8 max-w-xl mx-auto">
         <div>
           <h1 className="text-3xl font-bold text-white mb-2">Notifications</h1>
           <p className="text-white/70">Manage your alerts and updates</p>
@@ -338,7 +338,7 @@ const NotificationsCenter = ({
               {unreadCount > 0 && (
                 <BadgeGlass
                   variant="destructive"
-                  className="absolute -top-1 -right-1 min-w-6 h-6 flex items-center justify-center px-1.5 text-xs font-semibold"
+                  className="absolute -top-1 -right-1 min-w-7 h-7 flex items-center justify-center px-2 text-xs font-bold"
                 >
                   {unreadCount > 99 ? '99+' : unreadCount}
                 </BadgeGlass>
