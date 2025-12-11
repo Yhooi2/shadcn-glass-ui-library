@@ -305,20 +305,20 @@
   --stepper-step-disabled-bg: var(--color-surface-muted);
   /* Step indicator borders */
   --stepper-step-border: var(--color-border);
-  --stepper-step-active-border: oklch(54.1% 0.175 293 / 0.6);
+  --stepper-step-active-border: var(--oklch-violet-600-60);
   --stepper-step-completed-border: var(--color-primary);
   --stepper-step-disabled-border: var(--color-border-muted);
   /* Step indicator text */
   --stepper-step-text: var(--color-text-muted);
   --stepper-step-active-text: var(--color-primary-text);
-  --stepper-step-completed-text: oklch(100% 0 0);
+  --stepper-step-completed-text: var(--oklch-white);
   --stepper-step-disabled-text: var(--color-text-disabled);
   /* Connector lines */
   --stepper-connector-bg: var(--color-border);
   --stepper-connector-active-bg: var(--color-primary);
   /* Glow effects */
   --stepper-step-glow: none;
-  --stepper-step-active-glow: 0 0 12px oklch(54.1% 0.175 293 / 0.25);
+  --stepper-step-active-glow: 0 0 12px var(--oklch-violet-600-25);
   /* Label colors */
   --stepper-label-text: var(--color-text);
   --stepper-description-text: var(--color-text-subtle);
