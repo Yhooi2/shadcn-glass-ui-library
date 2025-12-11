@@ -134,18 +134,18 @@
   --color-text-disabled: var(--semantic-text-disabled);
 
   /* ========================================
-     GLASS EFFECTS (OKLCH)
+     GLASS EFFECTS (using semantic tokens)
      Per UI_DESIGN.md: sweet spot 15-25% for standard cards, border 18%
      ======================================== */
-  --glass-bg: oklch(100% 0 0 / 0.05); /* Decorative */
-  --glass-bg-subtle: oklch(100% 0 0 / 0.03); /* Ultra-subtle */
-  --glass-bg-medium: oklch(100% 0 0 / 0.15); /* Standard cards - SWEET SPOT */
-  --glass-bg-strong: oklch(100% 0 0 / 0.22); /* Prominent cards */
+  --glass-bg: var(--semantic-glass-bg); /* Decorative - 5% */
+  --glass-bg-subtle: var(--semantic-glass-bg-subtle); /* Ultra-subtle - 3% */
+  --glass-bg-medium: var(--semantic-glass-bg-medium); /* Standard cards - SWEET SPOT - 15% */
+  --glass-bg-strong: var(--semantic-glass-bg-strong); /* Prominent cards - 22% */
 
-  --glass-border: oklch(100% 0 0 / 0.18); /* UI_DESIGN spec */
-  --glass-border-subtle: oklch(100% 0 0 / 0.05); /* Ultra-subtle */
-  --glass-border-medium: oklch(100% 0 0 / 0.18); /* UI_DESIGN spec */
-  --glass-border-strong: oklch(100% 0 0 / 0.25); /* Strong */
+  --glass-border: var(--oklch-white-18); /* UI_DESIGN spec */
+  --glass-border-subtle: var(--semantic-border-subtle); /* Ultra-subtle - 5% */
+  --glass-border-medium: var(--oklch-white-18); /* UI_DESIGN spec */
+  --glass-border-strong: var(--semantic-border-strong); /* Strong - 25% */
 
   /* ========================================
      BLUR LEVELS (theme-specific overrides)
@@ -164,28 +164,28 @@
   --shadow-xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
 
   /* ========================================
-     SEMANTIC GLOWS (OKLCH)
+     SEMANTIC GLOWS (using semantic tokens)
      ======================================== */
-  --glow-primary: 0 0 30px oklch(66.6% 0.159 303 / 0.6); /* purple-500 */
-  --glow-secondary: 0 0 20px oklch(62.3% 0.18 255 / 0.4); /* blue-500 */
-  --glow-success: 0 0 20px oklch(76.5% 0.147 163 / 0.4); /* emerald-400 */
-  --glow-warning: 0 0 20px oklch(82.8% 0.157 84 / 0.4); /* amber-400 */
-  --glow-error: 0 0 20px oklch(71.2% 0.161 12 / 0.4); /* rose-400 */
+  --glow-primary: 0 0 30px var(--oklch-purple-500-60);
+  --glow-secondary: 0 0 20px var(--oklch-blue-500-40);
+  --glow-success: 0 0 20px var(--oklch-emerald-400-40);
+  --glow-warning: 0 0 20px var(--oklch-amber-400-40);
+  --glow-error: 0 0 20px var(--oklch-rose-400-40);
 
-  /* Additional color glows (OKLCH) */
-  --glow-blue: 0 0 20px oklch(62.3% 0.18 255 / 0.4); /* blue-500 */
-  --glow-violet: 0 0 20px oklch(62.7% 0.159 291 / 0.4); /* violet-500 */
-  --glow-cyan: 0 0 20px oklch(71.5% 0.132 195 / 0.4); /* cyan-500 */
-  --glow-neutral: 0 4px 15px oklch(0% 0 0 / 0.2); /* black */
+  /* Additional color glows (using primitives) */
+  --glow-blue: 0 0 20px var(--oklch-blue-500-40);
+  --glow-violet: 0 0 20px var(--oklch-violet-500-40);
+  --glow-cyan: 0 0 20px var(--oklch-cyan-500-40);
+  --glow-neutral: 0 4px 15px var(--oklch-black-20);
 
   /* ========================================
-     BACKGROUND ORBS (OKLCH)
+     BACKGROUND ORBS (using primitives)
      ======================================== */
-  --orb-1: oklch(66.6% 0.159 303 / 0.3); /* purple-500 */
-  --orb-2: oklch(62.3% 0.18 255 / 0.2); /* blue-500 */
-  --orb-3: oklch(64.5% 0.17 354 / 0.2); /* pink-500 */
-  --orb-4: oklch(71.5% 0.132 195 / 0.2); /* cyan-500 */
-  --orb-5: oklch(62.7% 0.159 291 / 0.1); /* violet-500 */
+  --orb-1: var(--oklch-purple-500-30);
+  --orb-2: var(--oklch-blue-500-20);
+  --orb-3: var(--oklch-pink-500-20);
+  --orb-4: var(--oklch-cyan-500-20);
+  --orb-5: var(--oklch-violet-500-10);
 
   /* ========================================
      BUTTON VARIABLES (using semantic tokens)
@@ -301,7 +301,7 @@
   --tab-container-border: var(--semantic-border-subtle);
 
   /* ========================================
-     STEPPER VARIABLES (using primitive tokens)
+     STEPPER VARIABLES (using semantic tokens)
      ======================================== */
   /* Step indicator backgrounds */
   --stepper-step-bg: var(--color-surface);
@@ -310,20 +310,20 @@
   --stepper-step-disabled-bg: var(--color-surface-muted);
   /* Step indicator borders */
   --stepper-step-border: var(--color-border);
-  --stepper-step-active-border: oklch(66.6% 0.159 303 / 0.5);
+  --stepper-step-active-border: var(--oklch-purple-500-50);
   --stepper-step-completed-border: var(--color-primary);
   --stepper-step-disabled-border: var(--color-border-muted);
   /* Step indicator text */
   --stepper-step-text: var(--color-text-muted);
   --stepper-step-active-text: var(--color-primary-text);
-  --stepper-step-completed-text: oklch(100% 0 0);
+  --stepper-step-completed-text: var(--oklch-white);
   --stepper-step-disabled-text: var(--color-text-disabled);
   /* Connector lines */
   --stepper-connector-bg: var(--color-border);
   --stepper-connector-active-bg: var(--color-primary);
   /* Glow effects */
-  --stepper-step-glow: 0 0 20px oklch(66.6% 0.159 303 / 0.4);
-  --stepper-step-active-glow: 0 0 25px oklch(66.6% 0.159 303 / 0.5);
+  --stepper-step-glow: 0 0 20px var(--oklch-purple-500-40);
+  --stepper-step-active-glow: 0 0 25px var(--oklch-purple-500-50);
   /* Label colors */
   --stepper-label-text: var(--color-text);
   --stepper-description-text: var(--color-text-subtle);
