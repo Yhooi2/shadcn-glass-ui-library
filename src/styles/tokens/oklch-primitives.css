@@ -135,6 +135,7 @@
   --oklch-red-400: oklch(70.4% 0.191 31); /* #f87171 */
   --oklch-red-500: oklch(62.8% 0.225 29); /* #ef4444 */
   --oklch-red-600: oklch(55.4% 0.23 27); /* #dc2626 */
+  --oklch-red-700: oklch(48.2% 0.21 24); /* #b91c1c */
 
   /* ========================================
      SLATE FAMILY (Neutral)
@@ -187,9 +188,11 @@
   --oklch-white-85: oklch(100% 0 0 / 0.85);
   --oklch-white-90: oklch(100% 0 0 / 0.9);
   --oklch-white-95: oklch(100% 0 0 / 0.95);
+  --oklch-white-98: oklch(100% 0 0 / 0.98);
 
   /* BLACK ALPHA VARIANTS */
   --oklch-black-5: oklch(0% 0 0 / 0.05);
+  --oklch-black-8: oklch(0% 0 0 / 0.08);
   --oklch-black-10: oklch(0% 0 0 / 0.1);
   --oklch-black-15: oklch(0% 0 0 / 0.15);
   --oklch-black-20: oklch(0% 0 0 / 0.2);
@@ -234,11 +237,17 @@
   --oklch-slate-100-40: oklch(96.8% 0.007 247 / 0.4);
   --oklch-slate-100-50: oklch(96.8% 0.007 247 / 0.5);
   --oklch-slate-100-80: oklch(96.8% 0.007 247 / 0.8);
+  --oklch-slate-100-90: oklch(96.8% 0.007 247 / 0.9);
 
   --oklch-slate-200-40: oklch(92.9% 0.013 255 / 0.4);
   --oklch-slate-200-50: oklch(92.9% 0.013 255 / 0.5);
   --oklch-slate-200-60: oklch(92.9% 0.013 255 / 0.6);
   --oklch-slate-200-80: oklch(92.9% 0.013 255 / 0.8);
+  --oklch-slate-200-90: oklch(92.9% 0.013 255 / 0.9);
+
+  --oklch-slate-400-60: oklch(70.4% 0.034 256 / 0.6);
+
+  --oklch-slate-500-80: oklch(55.4% 0.046 257 / 0.8);
 
   --oklch-slate-700-20: oklch(37.2% 0.044 257 / 0.2);
   --oklch-slate-700-30: oklch(37.2% 0.044 257 / 0.3);
@@ -254,6 +263,9 @@
   --oklch-slate-800-60: oklch(27.9% 0.041 260 / 0.6);
   --oklch-slate-800-80: oklch(27.9% 0.041 260 / 0.8);
   --oklch-slate-800-98: oklch(27.9% 0.041 260 / 0.98);
+
+  --oklch-slate-900-50: oklch(20.8% 0.042 265 / 0.5);
+  --oklch-slate-900-90: oklch(20.8% 0.042 265 / 0.9);
 
   /* EMERALD ALPHA VARIANTS (success states) */
   --oklch-emerald-400-10: oklch(76.5% 0.147 163 / 0.1);

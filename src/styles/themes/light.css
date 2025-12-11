@@ -134,40 +134,41 @@
   --color-text-disabled: var(--semantic-text-disabled);
 
   /* ========================================
-     GLASS EFFECTS (OKLCH)
+     GLASS EFFECTS (Layer 3 Component Tokens)
+     Using semantic tokens from Layer 2
      ======================================== */
-  --glass-bg: oklch(100% 0 0 / 0.6);
-  --glass-bg-subtle: oklch(100% 0 0 / 0.4);
-  --glass-bg-medium: oklch(100% 0 0 / 0.7);
-  --glass-bg-strong: oklch(100% 0 0 / 0.85);
+  --glass-bg: var(--semantic-glass-bg);
+  --glass-bg-subtle: var(--semantic-glass-bg-subtle);
+  --glass-bg-medium: var(--semantic-glass-bg-medium);
+  --glass-bg-strong: var(--semantic-glass-bg-strong);
 
-  --glass-border: oklch(92.9% 0.013 255 / 0.6);
-  --glass-border-subtle: oklch(92.9% 0.013 255 / 0.4);
-  --glass-border-medium: oklch(92.9% 0.013 255 / 0.7);
-  --glass-border-strong: oklch(92.9% 0.013 255 / 0.9);
+  --glass-border: var(--oklch-slate-200-60);
+  --glass-border-subtle: var(--oklch-slate-200-40);
+  --glass-border-medium: var(--oklch-slate-200-80);
+  --glass-border-strong: var(--oklch-slate-200-90);
 
   /* ========================================
-     SEMANTIC GLOWS (OKLCH)
+     SEMANTIC GLOWS (Layer 3 Component Tokens)
      ======================================== */
-  --glow-primary: 0 0 20px oklch(54.1% 0.175 293 / 0.3);
-  --glow-secondary: 0 0 15px oklch(62.3% 0.18 255 / 0.25);
-  --glow-success: 0 0 15px oklch(69.6% 0.155 163 / 0.3);
-  --glow-warning: 0 0 15px oklch(76.9% 0.169 75 / 0.3);
-  --glow-error: 0 0 15px oklch(62.8% 0.225 29 / 0.3);
+  --glow-primary: 0 0 20px var(--oklch-violet-600-30);
+  --glow-secondary: 0 0 15px var(--oklch-blue-500-25);
+  --glow-success: 0 0 15px var(--oklch-emerald-500-30);
+  --glow-warning: 0 0 15px var(--oklch-amber-500-30);
+  --glow-error: 0 0 15px var(--oklch-red-500-30);
 
-  /* Additional color glows (OKLCH) */
-  --glow-blue: 0 0 15px oklch(62.3% 0.18 255 / 0.25);
-  --glow-violet: 0 0 15px oklch(62.7% 0.159 291 / 0.25);
-  --glow-cyan: 0 0 15px oklch(71.5% 0.132 195 / 0.25);
-  --glow-neutral: 0 4px 12px oklch(0% 0 0 / 0.08);
+  /* Additional color glows */
+  --glow-blue: 0 0 15px var(--oklch-blue-500-25);
+  --glow-violet: 0 0 15px var(--oklch-violet-500-25);
+  --glow-cyan: 0 0 15px var(--oklch-cyan-500-25);
+  --glow-neutral: 0 4px 12px var(--oklch-black-8);
 
   /* ========================================
-     BACKGROUND ORBS (OKLCH)
+     BACKGROUND ORBS (Layer 3 Component Tokens)
      ======================================== */
-  --orb-1: oklch(70.7% 0.143 250 / 0.2);
-  --orb-2: oklch(71.4% 0.138 291 / 0.15);
-  --orb-3: oklch(78.9% 0.118 195 / 0.15);
-  --orb-4: oklch(64% 0.14 275 / 0.1);
+  --orb-1: var(--oklch-blue-400-20);
+  --orb-2: var(--oklch-violet-400-15);
+  --orb-3: var(--oklch-cyan-400-15);
+  --orb-4: var(--oklch-violet-600-10);
   --orb-5: transparent;
 
   /* ========================================
@@ -180,113 +181,119 @@
   --shadow-xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
 
   /* ========================================
-     BUTTON VARIABLES (OKLCH)
+     BUTTON VARIABLES (Layer 3 Component Tokens)
+     Using semantic and primitive tokens
      ======================================== */
-  --btn-primary-bg: linear-gradient(135deg, oklch(54.1% 0.175 293), oklch(62.7% 0.159 291));
-  --btn-primary-text: oklch(100% 0 0);
-  --btn-primary-hover-bg: linear-gradient(135deg, oklch(46% 0.195 293), oklch(54.1% 0.175 293));
-  --btn-primary-glow: 0 0 20px oklch(54.1% 0.175 293 / 0.4), 0 0 40px oklch(54.1% 0.175 293 / 0.2);
-  --btn-secondary-bg: oklch(100% 0 0 / 0.8);
-  --btn-secondary-text: oklch(37.2% 0.044 257);
-  --btn-secondary-border: oklch(92.9% 0.013 255);
-  --btn-secondary-hover-bg: oklch(96.8% 0.007 247);
-  --btn-secondary-glow: 0 4px 20px oklch(0% 0 0 / 0.08);
+  --btn-primary-bg: linear-gradient(135deg, var(--semantic-primary), var(--semantic-secondary));
+  --btn-primary-text: var(--semantic-text-inverse);
+  --btn-primary-hover-bg: linear-gradient(135deg, var(--oklch-violet-700), var(--semantic-primary));
+  --btn-primary-glow: 0 0 20px var(--oklch-violet-600-40), 0 0 40px var(--oklch-violet-600-20);
+  --btn-secondary-bg: var(--oklch-white-80);
+  --btn-secondary-text: var(--oklch-slate-700);
+  --btn-secondary-border: var(--semantic-border);
+  --btn-secondary-hover-bg: var(--oklch-slate-100);
+  --btn-secondary-glow: 0 4px 20px var(--oklch-black-8);
   --btn-ghost-bg: transparent;
-  --btn-ghost-text: oklch(55.4% 0.046 257);
-  --btn-ghost-hover-bg: oklch(96.8% 0.007 247 / 0.8);
-  --btn-destructive-bg: linear-gradient(135deg, oklch(62.8% 0.225 29), oklch(71.5% 0.179 27));
-  --btn-destructive-text: oklch(100% 0 0);
-  --btn-destructive-glow: 0 0 20px oklch(62.8% 0.225 29 / 0.4);
-  --btn-success-bg: linear-gradient(135deg, oklch(69.6% 0.155 163), oklch(76.5% 0.147 163));
-  --btn-success-text: oklch(100% 0 0);
-  --btn-success-glow: 0 0 20px oklch(69.6% 0.155 163 / 0.4);
+  --btn-ghost-text: var(--oklch-slate-500);
+  --btn-ghost-hover-bg: var(--oklch-slate-100-80);
+  --btn-destructive-bg: linear-gradient(135deg, var(--semantic-error), var(--oklch-rose-400));
+  --btn-destructive-text: var(--semantic-text-inverse);
+  --btn-destructive-glow: 0 0 20px var(--oklch-red-500-40);
+  --btn-success-bg: linear-gradient(135deg, var(--semantic-success), var(--oklch-emerald-400));
+  --btn-success-text: var(--semantic-text-inverse);
+  --btn-success-glow: 0 0 20px var(--oklch-emerald-500-40);
 
   /* ========================================
-     BADGE VARIABLES (OKLCH)
+     BADGE VARIABLES (Layer 3 Component Tokens)
+     Using semantic and primitive tokens
      ======================================== */
   /* shadcn/ui compatible variants */
-  --badge-default-bg: oklch(55.4% 0.046 257 / 0.1);
-  --badge-default-text: oklch(44.6% 0.043 257);
-  --badge-default-border: oklch(92.9% 0.013 255);
-  --badge-secondary-bg: oklch(70.4% 0.034 256 / 0.1);
-  --badge-secondary-text: oklch(55.4% 0.046 257);
-  --badge-secondary-border: oklch(92.9% 0.013 255);
-  --badge-destructive-bg: oklch(62.8% 0.225 29 / 0.1);
-  --badge-destructive-text: oklch(44.4% 0.177 26);
-  --badge-destructive-border: oklch(86% 0.058 16);
+  --badge-default-bg: var(--oklch-slate-500-10);
+  --badge-default-text: var(--oklch-slate-700);
+  --badge-default-border: var(--semantic-border);
+  --badge-secondary-bg: var(--oklch-slate-400-10);
+  --badge-secondary-text: var(--oklch-slate-500);
+  --badge-secondary-border: var(--semantic-border);
+  --badge-destructive-bg: var(--semantic-error-subtle);
+  --badge-destructive-text: var(--oklch-red-700);
+  --badge-destructive-border: var(--oklch-rose-200);
   --badge-outline-bg: transparent;
-  --badge-outline-text: oklch(44.6% 0.043 257);
-  --badge-outline-border: oklch(86.9% 0.022 252);
+  --badge-outline-text: var(--oklch-slate-700);
+  --badge-outline-border: var(--oklch-slate-300);
   /* Glass UI extended variants */
-  --badge-success-bg: oklch(69.6% 0.155 163 / 0.1);
-  --badge-success-text: oklch(51.5% 0.14 163);
-  --badge-success-border: oklch(87.5% 0.099 163);
-  --badge-warning-bg: oklch(76.9% 0.169 75 / 0.1);
-  --badge-warning-text: oklch(57% 0.14 55);
-  --badge-warning-border: oklch(90.5% 0.112 95);
-  --badge-info-bg: oklch(62.3% 0.18 255 / 0.1);
-  --badge-info-text: oklch(51.2% 0.18 260);
-  --badge-info-border: oklch(86.5% 0.08 250);
+  --badge-success-bg: var(--semantic-success-subtle);
+  --badge-success-text: var(--oklch-emerald-700);
+  --badge-success-border: var(--oklch-emerald-200);
+  --badge-warning-bg: var(--semantic-warning-subtle);
+  --badge-warning-text: var(--oklch-amber-700);
+  --badge-warning-border: var(--oklch-amber-200);
+  --badge-info-bg: var(--semantic-info-subtle);
+  --badge-info-text: var(--oklch-blue-700);
+  --badge-info-border: var(--oklch-blue-200);
 
   /* ========================================
-     INPUT VARIABLES (OKLCH)
+     INPUT VARIABLES (Layer 3 Component Tokens)
+     Using semantic and primitive tokens
      ======================================== */
-  --input-bg: oklch(100% 0 0 / 0.9);
-  --input-border: oklch(92.9% 0.013 255);
-  --input-text: oklch(27.9% 0.041 260);
-  --input-placeholder: oklch(70.4% 0.034 256);
-  --input-focus-border: oklch(54.1% 0.175 293);
+  --input-bg: var(--oklch-white-90);
+  --input-border: var(--semantic-border);
+  --input-text: var(--oklch-slate-900);
+  --input-placeholder: var(--oklch-slate-400);
+  --input-focus-border: var(--semantic-primary);
 
   /* ========================================
-     FOCUS RING VARIABLES (OKLCH)
-     Unified focus glow for all components - darker purple ring + soft glow (light theme)
+     FOCUS RING VARIABLES (Layer 3 Component Tokens)
+     Unified focus glow for all components
      ======================================== */
-  --focus-glow: 0 0 0 2px oklch(54.1% 0.175 293 / 0.8), 0 0 12px oklch(54.1% 0.175 293 / 0.3);
+  --focus-glow: 0 0 0 2px var(--oklch-violet-600-80), 0 0 12px var(--oklch-violet-600-30);
 
   /* ========================================
-     ALERT VARIABLES (OKLCH)
+     ALERT VARIABLES (Layer 3 Component Tokens)
+     Using semantic and primitive tokens
      ======================================== */
   /* shadcn/ui compatible variants */
-  --alert-default-bg: oklch(62.3% 0.18 255 / 0.05);
-  --alert-default-border: oklch(86.5% 0.08 250 / 0.6);
-  --alert-default-text: oklch(51.2% 0.18 260);
-  --alert-destructive-bg: oklch(62.8% 0.225 29 / 0.05);
-  --alert-destructive-border: oklch(86% 0.058 16 / 0.6);
-  --alert-destructive-text: oklch(44.4% 0.177 26);
+  --alert-default-bg: var(--semantic-info-subtle);
+  --alert-default-border: var(--oklch-blue-200-60);
+  --alert-default-text: var(--oklch-blue-700);
+  --alert-destructive-bg: var(--semantic-error-subtle);
+  --alert-destructive-border: var(--oklch-rose-200-60);
+  --alert-destructive-text: var(--oklch-red-700);
   /* Glass UI extended variants */
-  --alert-success-bg: oklch(69.6% 0.155 163 / 0.05);
-  --alert-success-border: oklch(87.5% 0.099 163 / 0.6);
-  --alert-success-text: oklch(51.5% 0.14 163);
-  --alert-warning-bg: oklch(76.9% 0.169 75 / 0.05);
-  --alert-warning-border: oklch(90.5% 0.112 95 / 0.6);
-  --alert-warning-text: oklch(57% 0.14 55);
+  --alert-success-bg: var(--semantic-success-subtle);
+  --alert-success-border: var(--oklch-emerald-200-60);
+  --alert-success-text: var(--oklch-emerald-700);
+  --alert-warning-bg: var(--semantic-warning-subtle);
+  --alert-warning-border: var(--oklch-amber-200-60);
+  --alert-warning-text: var(--oklch-amber-700);
   /* Alias for FlagAlertGlass danger type */
   --alert-danger-bg: var(--alert-destructive-bg);
   --alert-danger-border: var(--alert-destructive-border);
   --alert-danger-text: var(--alert-destructive-text);
 
   /* ========================================
-     TOGGLE/CHECKBOX VARIABLES (OKLCH)
+     TOGGLE/CHECKBOX VARIABLES (Layer 3 Component Tokens)
+     Using semantic and primitive tokens
      ======================================== */
-  --toggle-bg: oklch(92.9% 0.013 255);
-  --toggle-active-bg: linear-gradient(135deg, oklch(54.1% 0.175 293), oklch(62.7% 0.159 291));
-  --toggle-knob: oklch(100% 0 0);
-  --toggle-glow: 0 0 12px oklch(54.1% 0.175 293 / 0.4);
-  --checkbox-bg: oklch(100% 0 0);
-  --checkbox-border: oklch(86.9% 0.022 252);
-  --checkbox-checked-bg: oklch(54.1% 0.175 293);
-  --checkbox-glow: 0 0 0 3px oklch(54.1% 0.175 293 / 0.15);
+  --toggle-bg: var(--semantic-border);
+  --toggle-active-bg: linear-gradient(135deg, var(--semantic-primary), var(--semantic-secondary));
+  --toggle-knob: var(--oklch-white);
+  --toggle-glow: 0 0 12px var(--oklch-violet-600-40);
+  --checkbox-bg: var(--oklch-white);
+  --checkbox-border: var(--oklch-slate-300);
+  --checkbox-checked-bg: var(--semantic-primary);
+  --checkbox-glow: 0 0 0 3px var(--oklch-violet-600-15);
 
   /* ========================================
-     TABS VARIABLES (OKLCH)
+     TABS VARIABLES (Layer 3 Component Tokens)
+     Using semantic and primitive tokens
      ======================================== */
   --tab-bg: transparent;
-  --tab-active-bg: oklch(54.1% 0.175 293 / 0.1);
-  --tab-active-text: oklch(54.1% 0.175 293);
-  --tab-border: oklch(92.9% 0.013 255);
-  --tab-indicator: oklch(54.1% 0.175 293);
-  --tab-container-bg: oklch(96.8% 0.007 247 / 0.5);
-  --tab-container-border: oklch(92.9% 0.013 255);
+  --tab-active-bg: var(--semantic-primary-subtle);
+  --tab-active-text: var(--semantic-primary);
+  --tab-border: var(--semantic-border);
+  --tab-indicator: var(--semantic-primary);
+  --tab-container-bg: var(--oklch-slate-100-50);
+  --tab-container-border: var(--semantic-border);
 
   /* ========================================
      STEPPER VARIABLES (using primitive tokens)
@@ -317,184 +324,195 @@
   --stepper-description-text: var(--color-text-subtle);
 
   /* ========================================
-     MODAL/DROPDOWN VARIABLES (OKLCH)
+     MODAL/DROPDOWN VARIABLES (Layer 3 Component Tokens)
+     Using semantic and primitive tokens
      ======================================== */
-  --modal-bg: oklch(100% 0 0 / 0.98);
-  --modal-border: oklch(92.9% 0.013 255 / 0.8);
-  --modal-overlay: oklch(20.8% 0.042 265 / 0.5);
-  --modal-glow: 0 25px 50px oklch(0% 0 0 / 0.15);
+  --modal-bg: var(--oklch-white-98);
+  --modal-border: var(--oklch-slate-200-80);
+  --modal-overlay: var(--oklch-slate-900-50);
+  --modal-glow: 0 25px 50px var(--oklch-black-15);
   --modal-glow-effect: none;
-  --modal-close-btn-bg: oklch(96.8% 0.007 247 / 0.8);
+  --modal-close-btn-bg: var(--oklch-slate-100-80);
   --modal-close-btn-border: none;
-  --modal-close-btn-hover-glow: 0 0 10px oklch(54.1% 0.175 293 / 0.2);
-  --dropdown-bg: oklch(100% 0 0 / 0.98);
-  --dropdown-border: oklch(92.9% 0.013 255);
-  --dropdown-item-hover: oklch(96.8% 0.007 247 / 0.9);
-  --dropdown-item-text: oklch(44.6% 0.043 257);
-  --dropdown-icon: oklch(70.4% 0.034 256);
-  --dropdown-icon-hover: oklch(54.1% 0.175 293);
-  --dropdown-divider: oklch(92.9% 0.013 255);
-  --dropdown-glow: 0 10px 40px oklch(0% 0 0 / 0.1);
+  --modal-close-btn-hover-glow: 0 0 10px var(--oklch-violet-600-20);
+  --dropdown-bg: var(--oklch-white-98);
+  --dropdown-border: var(--semantic-border);
+  --dropdown-item-hover: var(--oklch-slate-100-90);
+  --dropdown-item-text: var(--oklch-slate-700);
+  --dropdown-icon: var(--oklch-slate-400);
+  --dropdown-icon-hover: var(--semantic-primary);
+  --dropdown-divider: var(--semantic-border);
+  --dropdown-glow: 0 10px 40px var(--oklch-black-10);
 
-  /* Popover Variables (OKLCH) */
-  --popover-bg: oklch(100% 0 0 / 0.98);
-  --popover-border: oklch(92.9% 0.013 255);
-  --popover-shadow: 0 10px 40px oklch(0% 0 0 / 0.1);
-  --popover-arrow-bg: oklch(100% 0 0 / 0.98);
+  /* Popover Variables */
+  --popover-bg: var(--oklch-white-98);
+  --popover-border: var(--semantic-border);
+  --popover-shadow: 0 10px 40px var(--oklch-black-10);
+  --popover-arrow-bg: var(--oklch-white-98);
 
-  /* Select Variables (OKLCH) - Used by ComboBoxGlass */
-  --select-item-hover-bg: oklch(96.8% 0.007 247 / 0.9);
-  --select-item-selected-bg: oklch(54.1% 0.175 293 / 0.1);
-  --select-item-selected-text: oklch(54.1% 0.175 293);
-
-  /* ========================================
-     TEXT VARIABLES (OKLCH)
-     ======================================== */
-  --text-primary: oklch(20.8% 0.042 265 / 0.9); /* slate-900 */
-  --text-secondary: oklch(37.2% 0.044 257 / 0.7); /* slate-700 */
-  --text-muted: oklch(55.4% 0.046 257 / 0.8); /* slate-500 */
-  --text-accent: oklch(54.1% 0.175 293); /* violet-600 */
-  --text-inverse: oklch(100% 0 0);
+  /* Select Variables - Used by ComboBoxGlass */
+  --select-item-hover-bg: var(--oklch-slate-100-90);
+  --select-item-selected-bg: var(--semantic-primary-subtle);
+  --select-item-selected-text: var(--semantic-primary);
 
   /* ========================================
-     SLIDER VARIABLES (OKLCH)
+     TEXT VARIABLES (Layer 3 Component Tokens)
+     Using semantic and primitive tokens
      ======================================== */
-  --slider-track: oklch(92.9% 0.013 255);
-  --slider-fill: oklch(54.1% 0.175 293);
+  --text-primary: var(--oklch-slate-900-90);
+  --text-secondary: var(--oklch-slate-700-70);
+  --text-muted: var(--oklch-slate-500-80);
+  --text-accent: var(--semantic-primary);
+  --text-inverse: var(--oklch-white);
+
+  /* ========================================
+     SLIDER VARIABLES (Layer 3 Component Tokens)
+     Using semantic and primitive tokens
+     ======================================== */
+  --slider-track: var(--semantic-border);
+  --slider-fill: var(--semantic-primary);
   --slider-fill-glow: none;
-  --slider-thumb: oklch(100% 0 0);
-  --slider-thumb-border: oklch(54.1% 0.175 293);
-  --slider-thumb-glow: 0 0 8px oklch(54.1% 0.175 293 / 0.4);
-  --slider-thumb-shadow: 0 2px 4px oklch(0% 0 0 / 0.1);
+  --slider-thumb: var(--oklch-white);
+  --slider-thumb-border: var(--semantic-primary);
+  --slider-thumb-glow: 0 0 8px var(--oklch-violet-600-40);
+  --slider-thumb-shadow: 0 2px 4px var(--oklch-black-10);
 
   /* ========================================
-     AVATAR VARIABLES (OKLCH)
+     AVATAR VARIABLES (Layer 3 Component Tokens)
+     Using semantic and primitive tokens
      ======================================== */
-  --avatar-bg: linear-gradient(135deg, oklch(62.7% 0.159 291), oklch(54.1% 0.175 293));
-  --avatar-border: oklch(100% 0 0);
-  --avatar-shadow: 0 4px 12px oklch(54.1% 0.175 293 / 0.2);
-  --avatar-hover-glow: 0 8px 24px oklch(54.1% 0.175 293 / 0.3);
-  --avatar-glow: 0 8px 24px oklch(54.1% 0.175 293 / 0.25);
-  --online-border: oklch(100% 0 0);
+  --avatar-bg: linear-gradient(135deg, var(--semantic-secondary), var(--semantic-primary));
+  --avatar-border: var(--oklch-white);
+  --avatar-shadow: 0 4px 12px var(--oklch-violet-600-20);
+  --avatar-hover-glow: 0 8px 24px var(--oklch-violet-600-30);
+  --avatar-glow: 0 8px 24px var(--oklch-violet-600-25);
+  --online-border: var(--oklch-white);
 
   /* ========================================
-     STATUS COLORS (Semantic Naming)
-     Use semantic names for better clarity:
+     STATUS COLORS (Layer 3 Component Tokens)
+     Semantic naming for clarity:
      - online: Available/Success (green)
      - away: Idle/Warning (yellow)
      - busy: Unavailable/Error (red)
      ======================================== */
-  --status-online: oklch(69.6% 0.155 163);
+  --status-online: var(--semantic-success);
   --status-online-glow: none;
-  --status-offline: oklch(70.4% 0.034 256);
-  --status-busy: oklch(62.8% 0.225 29);
+  --status-offline: var(--oklch-slate-400);
+  --status-busy: var(--semantic-error);
   --status-busy-glow: none;
-  --status-away: oklch(76.9% 0.169 75);
+  --status-away: var(--semantic-warning);
   --status-away-glow: none;
 
   /* ========================================
-     SEGMENTED CONTROL VARIABLES (OKLCH)
+     SEGMENTED CONTROL VARIABLES (Layer 3 Component Tokens)
+     Using semantic and primitive tokens
      ======================================== */
-  --segmented-container-bg: oklch(96.8% 0.007 247);
-  --segmented-container-border: oklch(92.9% 0.013 255);
-  --segmented-active-bg: oklch(27.9% 0.041 260);
-  --segmented-active-text: oklch(100% 0 0);
-  --segmented-inactive-text: oklch(55.4% 0.046 257);
+  --segmented-container-bg: var(--oklch-slate-100);
+  --segmented-container-border: var(--semantic-border);
+  --segmented-active-bg: var(--oklch-slate-900);
+  --segmented-active-text: var(--oklch-white);
+  --segmented-inactive-text: var(--oklch-slate-500);
 
   /* ========================================
-     RAINBOW PROGRESS VARIABLES (OKLCH)
+     RAINBOW PROGRESS VARIABLES (Layer 3 Component Tokens)
      ======================================== */
-  --rainbow-glow: inset 0 1px 2px oklch(0% 0 0 / 0.1);
+  --rainbow-glow: inset 0 1px 2px var(--oklch-black-10);
   --rainbow-animation: none;
 
   /* ========================================
-     SKELETON VARIABLES (OKLCH)
+     SKELETON VARIABLES (Layer 3 Component Tokens)
+     Using semantic and primitive tokens
      ======================================== */
-  --skeleton-bg: oklch(92.9% 0.013 255);
-  --skeleton-shine: oklch(100% 0 0 / 0.6);
+  --skeleton-bg: var(--semantic-border);
+  --skeleton-shine: var(--oklch-white-60);
 
   /* ========================================
-     NOTIFICATION VARIABLES (OKLCH)
+     NOTIFICATION VARIABLES (Layer 3 Component Tokens)
+     Using semantic and primitive tokens
      ======================================== */
-  --notification-bg: oklch(100% 0 0 / 0.98);
-  --notification-border: oklch(92.9% 0.013 255 / 0.8);
-  --notification-shadow: 0 10px 40px oklch(0% 0 0 / 0.08);
-  --notification-info-color: oklch(62.3% 0.18 255);
-  --notification-info-glow: 0 0 15px oklch(62.3% 0.18 255 / 0.2);
-  --notification-info-icon-bg: oklch(62.3% 0.18 255 / 0.1);
-  --notification-success-color: oklch(69.6% 0.155 163);
-  --notification-success-glow: 0 0 15px oklch(69.6% 0.155 163 / 0.2);
-  --notification-success-icon-bg: oklch(69.6% 0.155 163 / 0.1);
-  --notification-warning-color: oklch(76.9% 0.169 75);
-  --notification-warning-glow: 0 0 15px oklch(76.9% 0.169 75 / 0.2);
-  --notification-warning-icon-bg: oklch(76.9% 0.169 75 / 0.1);
-  --notification-error-color: oklch(62.8% 0.225 29);
-  --notification-error-glow: 0 0 15px oklch(62.8% 0.225 29 / 0.2);
-  --notification-error-icon-bg: oklch(62.8% 0.225 29 / 0.1);
+  --notification-bg: var(--oklch-white-98);
+  --notification-border: var(--oklch-slate-200-80);
+  --notification-shadow: 0 10px 40px var(--oklch-black-8);
+  --notification-info-color: var(--semantic-info);
+  --notification-info-glow: 0 0 15px var(--oklch-blue-500-20);
+  --notification-info-icon-bg: var(--semantic-info-subtle);
+  --notification-success-color: var(--semantic-success);
+  --notification-success-glow: 0 0 15px var(--oklch-emerald-500-20);
+  --notification-success-icon-bg: var(--semantic-success-subtle);
+  --notification-warning-color: var(--semantic-warning);
+  --notification-warning-glow: 0 0 15px var(--oklch-amber-500-20);
+  --notification-warning-icon-bg: var(--semantic-warning-subtle);
+  --notification-error-color: var(--semantic-error);
+  --notification-error-glow: 0 0 15px var(--oklch-red-500-20);
+  --notification-error-icon-bg: var(--semantic-error-subtle);
 
   /* ========================================
-     TOOLTIP VARIABLES (OKLCH)
+     TOOLTIP VARIABLES (Layer 3 Component Tokens)
+     Using semantic and primitive tokens
      ======================================== */
-  --tooltip-bg: oklch(27.9% 0.041 260);
-  --tooltip-text: oklch(98.4% 0.003 247);
-  --tooltip-border: oklch(100% 0 0 / 0.15);
-  --tooltip-shadow: 0 4px 12px oklch(0% 0 0 / 0.15);
+  --tooltip-bg: var(--oklch-slate-900);
+  --tooltip-text: var(--oklch-slate-50);
+  --tooltip-border: var(--oklch-white-15);
+  --tooltip-shadow: 0 4px 12px var(--oklch-black-15);
 
   /* ========================================
-     CARD VARIABLES (OKLCH)
+     CARD VARIABLES (Layer 3 Component Tokens)
+     Using semantic and primitive tokens
      ======================================== */
-  --card-bg: oklch(100% 0 0 / 0.6);
-  --card-border: oklch(92.9% 0.013 255 / 0.6);
-  --card-hover-bg: oklch(100% 0 0 / 0.8);
-  --card-hover-border: oklch(92.9% 0.013 255 / 0.8);
-  --card-hover-glow: 0 8px 24px oklch(54.1% 0.175 293 / 0.15);
-  --card-subtle-bg: oklch(100% 0 0 / 0.4);
-  --card-subtle-border: oklch(92.9% 0.013 255 / 0.4);
-  --card-medium-bg: oklch(100% 0 0 / 0.6);
-  --card-medium-border: oklch(92.9% 0.013 255 / 0.6);
-  --card-strong-bg: oklch(100% 0 0 / 0.8);
-  --card-strong-border: oklch(92.9% 0.013 255 / 0.8);
-  --expanded-bg: oklch(100% 0 0 / 0.7);
-  --expanded-border: oklch(62.7% 0.159 291 / 0.5);
+  --card-bg: var(--semantic-glass-bg);
+  --card-border: var(--oklch-slate-200-60);
+  --card-hover-bg: var(--oklch-white-80);
+  --card-hover-border: var(--oklch-slate-200-80);
+  --card-hover-glow: 0 8px 24px var(--oklch-violet-600-15);
+  --card-subtle-bg: var(--semantic-glass-bg-subtle);
+  --card-subtle-border: var(--oklch-slate-200-40);
+  --card-medium-bg: var(--semantic-glass-bg);
+  --card-medium-border: var(--oklch-slate-200-60);
+  --card-strong-bg: var(--oklch-white-80);
+  --card-strong-border: var(--oklch-slate-200-80);
+  --expanded-bg: var(--semantic-glass-bg-medium);
+  --expanded-border: var(--oklch-violet-500-50);
 
   /* ========================================
-     PROGRESS VARIABLES (OKLCH)
+     PROGRESS VARIABLES (Layer 3 Component Tokens)
+     Using semantic and primitive tokens
      ======================================== */
-  --progress-bg: oklch(92.9% 0.013 255 / 0.6);
-  --progress-glow: 0 0 8px oklch(54.1% 0.175 293 / 0.3);
-  --progress-glow-violet: 0 0 8px oklch(62.7% 0.159 291 / 0.3);
-  --progress-glow-blue: 0 0 8px oklch(62.3% 0.18 255 / 0.3);
-  --progress-glow-cyan: 0 0 8px oklch(71.5% 0.132 195 / 0.3);
-  --progress-glow-amber: 0 0 8px oklch(76.9% 0.169 75 / 0.3);
-  --progress-glow-emerald: 0 0 8px oklch(69.6% 0.155 163 / 0.3);
-  --progress-glow-rose: 0 0 8px oklch(64.5% 0.195 12 / 0.3);
+  --progress-bg: var(--oklch-slate-200-60);
+  --progress-glow: 0 0 8px var(--oklch-violet-600-30);
+  --progress-glow-violet: 0 0 8px var(--oklch-violet-500-30);
+  --progress-glow-blue: 0 0 8px var(--oklch-blue-500-30);
+  --progress-glow-cyan: 0 0 8px var(--oklch-cyan-500-30);
+  --progress-glow-amber: 0 0 8px var(--oklch-amber-500-30);
+  --progress-glow-emerald: 0 0 8px var(--oklch-emerald-500-30);
+  --progress-glow-rose: 0 0 8px var(--oklch-rose-400-30);
 
   /* ========================================
-     METRIC CARD VARIABLES (OKLCH)
+     METRIC CARD VARIABLES (Layer 3 Component Tokens)
+     Using semantic and primitive tokens
      ======================================== */
-  /* NEW: shadcn/ui compatible variants */
+  /* shadcn/ui compatible variants */
   --metric-default-bg: transparent;
-  --metric-default-text: oklch(62.3% 0.18 255); /* blue-500 */
+  --metric-default-text: var(--semantic-info);
   --metric-default-border: transparent;
   --metric-default-glow: none;
 
   --metric-secondary-bg: transparent;
-  --metric-secondary-text: oklch(55.4% 0.046 257); /* slate-500 */
+  --metric-secondary-text: var(--oklch-slate-500);
   --metric-secondary-border: transparent;
   --metric-secondary-glow: none;
 
   --metric-success-bg: transparent;
-  --metric-success-text: oklch(69.6% 0.155 163); /* emerald-500 */
+  --metric-success-text: var(--semantic-success);
   --metric-success-border: transparent;
   --metric-success-glow: none;
 
   --metric-warning-bg: transparent;
-  --metric-warning-text: oklch(76.9% 0.169 75); /* amber-500 */
+  --metric-warning-text: var(--semantic-warning);
   --metric-warning-border: transparent;
   --metric-warning-glow: none;
 
   --metric-destructive-bg: transparent;
-  --metric-destructive-text: oklch(62.8% 0.225 29); /* rose-500 */
+  --metric-destructive-text: var(--semantic-error);
   --metric-destructive-border: transparent;
   --metric-destructive-glow: none;
 
@@ -520,51 +538,56 @@
   --metric-red-glow: var(--metric-destructive-glow);
 
   /* ========================================
-     PROFILE AVATAR VARIABLES (OKLCH)
+     PROFILE AVATAR VARIABLES (Layer 3 Component Tokens)
+     Using semantic and primitive tokens
      ======================================== */
-  --profile-avatar-border: oklch(100% 0 0);
-  --profile-avatar-glow: 0 8px 24px oklch(54.1% 0.175 293 / 0.3);
+  --profile-avatar-border: var(--oklch-white);
+  --profile-avatar-glow: 0 8px 24px var(--oklch-violet-600-30);
 
   /* ========================================
-     YEAR CARD VARIABLES (OKLCH)
+     YEAR CARD VARIABLES (Layer 3 Component Tokens)
+     Using semantic and primitive tokens
      ======================================== */
-  --year-card-bg: oklch(100% 0 0 / 0.6);
-  --year-card-border: oklch(92.9% 0.013 255 / 0.6);
+  --year-card-bg: var(--semantic-glass-bg);
+  --year-card-border: var(--oklch-slate-200-60);
   --year-card-hover-glow: none;
 
   /* ========================================
-     AI CARD VARIABLES (OKLCH)
+     AI CARD VARIABLES (Layer 3 Component Tokens)
+     Using semantic and primitive tokens
      ======================================== */
-  --ai-card-bg: oklch(100% 0 0 / 0.8);
-  --ai-card-border: oklch(92.9% 0.013 255 / 0.6);
-  --ai-card-hover-glow: 0 8px 24px oklch(54.1% 0.175 293 / 0.15);
+  --ai-card-bg: var(--oklch-white-80);
+  --ai-card-border: var(--oklch-slate-200-60);
+  --ai-card-hover-glow: 0 8px 24px var(--oklch-violet-600-15);
 
   /* ========================================
-     HEADER VARIABLES (OKLCH)
+     HEADER VARIABLES (Layer 3 Component Tokens)
+     Using semantic and primitive tokens
      ======================================== */
-  --header-bg: oklch(100% 0 0 / 0.6);
-  --header-border: oklch(100% 0 0 / 0.8);
-  --icon-btn-from: oklch(27.9% 0.041 260);
-  --icon-btn-to: oklch(20.8% 0.042 265);
-  --icon-btn-shadow: 0 4px 12px oklch(0% 0 0 / 0.15);
-  --icon-btn-text: oklch(100% 0 0);
-  --search-bg: oklch(100% 0 0 / 0.8);
-  --search-border: oklch(92.9% 0.013 255 / 0.8);
-  --search-btn-bg: oklch(27.9% 0.041 260);
-  --search-btn-text: oklch(100% 0 0);
+  --header-bg: var(--semantic-glass-bg);
+  --header-border: var(--oklch-white-80);
+  --icon-btn-from: var(--oklch-slate-900);
+  --icon-btn-to: var(--oklch-slate-900);
+  --icon-btn-shadow: 0 4px 12px var(--oklch-black-15);
+  --icon-btn-text: var(--oklch-white);
+  --search-bg: var(--oklch-white-80);
+  --search-border: var(--oklch-slate-200-80);
+  --search-btn-bg: var(--oklch-slate-900);
+  --search-btn-text: var(--oklch-white);
 
   /* ========================================
-     REPO CARD VARIABLES (OKLCH)
+     REPO CARD VARIABLES (Layer 3 Component Tokens)
      ======================================== */
   --repo-card-hover-glow: none;
 
   /* ========================================
-     BACKGROUND VARIABLES (OKLCH)
+     BACKGROUND VARIABLES (Layer 3 Component Tokens)
+     Using primitive tokens
      ======================================== */
-  --bg-from: oklch(96.8% 0.007 247);
-  --bg-via: oklch(97.4% 0.012 250);
-  --bg-to: oklch(97% 0.015 295);
-  --grid-color: oklch(0% 0 0 / 0.1);
+  --bg-from: var(--oklch-slate-100);
+  --bg-via: var(--oklch-slate-100);
+  --bg-to: var(--oklch-slate-100);
+  --grid-color: var(--oklch-black-10);
   --grid-opacity: 0.015;
-  --footer-text: oklch(70.4% 0.034 256 / 0.6);
+  --footer-text: var(--oklch-slate-400-60);
 }
