@@ -1,6 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { Activity } from 'lucide-react';
 import { MetricCardGlass } from '../metric-card-glass';
 
 describe('MetricCardGlass', () => {
@@ -246,6 +247,158 @@ describe('MetricCardGlass', () => {
       const { container } = render(<MetricCardGlass label="Test" value={50} color="red" />);
       const card = container.firstChild as HTMLElement;
       expect(card.style.background).toContain('var(--metric-red-bg)');
+    });
+  });
+
+  describe('Icon Support', () => {
+    it('renders icon when provided', () => {
+      render(
+        <MetricCardGlass
+          label="Activity"
+          value={85}
+          icon={<Activity data-testid="activity-icon" className="w-4 h-4" />}
+        />
+      );
+      expect(screen.getByTestId('activity-icon')).toBeInTheDocument();
+    });
+
+    it('does not render icon container when no icon provided', () => {
+      const { container } = render(<MetricCardGlass label="Test" value={50} />);
+      // Icon wrapper has aria-hidden="true"
+      expect(container.querySelector('[aria-hidden="true"]')).not.toBeInTheDocument();
+    });
+  });
+
+  describe('Trend Indicator', () => {
+    it('renders trend up indicator', () => {
+      render(<MetricCardGlass label="Growth" value={85} trend={{ value: 12, direction: 'up' }} />);
+      expect(screen.getByText('+12%')).toBeInTheDocument();
+    });
+
+    it('renders trend down indicator with negative sign', () => {
+      render(
+        <MetricCardGlass label="Error Rate" value={23} trend={{ value: 8, direction: 'down' }} />
+      );
+      expect(screen.getByText('-8%')).toBeInTheDocument();
+    });
+
+    it('renders neutral trend indicator', () => {
+      render(
+        <MetricCardGlass label="Steady" value={50} trend={{ value: 0, direction: 'neutral' }} />
+      );
+      expect(screen.getByText('+0%')).toBeInTheDocument();
+    });
+
+    it('renders trend label when provided', () => {
+      render(
+        <MetricCardGlass
+          label="Growth"
+          value={85}
+          trend={{ value: 12, direction: 'up', label: 'vs last month' }}
+        />
+      );
+      expect(screen.getByText('vs last month')).toBeInTheDocument();
+    });
+
+    it('does not render trend when not provided', () => {
+      render(<MetricCardGlass label="Test" value={50} />);
+      // Trend indicator shows +X% or -X% text - check that no trend percentage is shown
+      expect(screen.queryByText(/^[+-]\d+%$/)).not.toBeInTheDocument();
+    });
+  });
+
+  describe('Value Formatter', () => {
+    it('uses custom valueFormatter', () => {
+      render(
+        <MetricCardGlass
+          label="Performance"
+          value={8750}
+          valueFormatter={(v) => `${(v / 1000).toFixed(1)}k`}
+        />
+      );
+      expect(screen.getByText('8.8k')).toBeInTheDocument();
+    });
+
+    it('uses default formatter (%) when not provided', () => {
+      render(<MetricCardGlass label="Test" value={85} />);
+      expect(screen.getByText('85%')).toBeInTheDocument();
+    });
+  });
+
+  describe('Value Suffix', () => {
+    it('renders value suffix', () => {
+      render(<MetricCardGlass label="Trust Score" value={85} valueSuffix="of 100" />);
+      expect(screen.getByText('of 100')).toBeInTheDocument();
+    });
+
+    it('does not render suffix when not provided', () => {
+      render(<MetricCardGlass label="Test" value={50} />);
+      expect(screen.queryByText('of 100')).not.toBeInTheDocument();
+    });
+  });
+
+  describe('Show Progress', () => {
+    it('renders progress bar by default', () => {
+      render(<MetricCardGlass label="Test" value={75} />);
+      expect(screen.getByRole('progressbar')).toBeInTheDocument();
+    });
+
+    it('hides progress bar when showProgress=false', () => {
+      render(<MetricCardGlass label="Test" value={75} showProgress={false} />);
+      expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+    });
+
+    it('shows progress bar with sparkline when both are enabled', () => {
+      const sparklineData = [10, 20, 30, 40, 50];
+      render(
+        <MetricCardGlass
+          label="Test"
+          value={75}
+          showProgress={true}
+          sparklineData={sparklineData}
+        />
+      );
+      expect(screen.getByRole('progressbar')).toBeInTheDocument();
+      expect(screen.getByRole('img', { name: /test trend/i })).toBeInTheDocument();
+    });
+
+    it('hides progress bar but shows sparkline', () => {
+      const sparklineData = [10, 20, 30, 40, 50];
+      render(
+        <MetricCardGlass
+          label="Test"
+          value={75}
+          showProgress={false}
+          sparklineData={sparklineData}
+        />
+      );
+      expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+      expect(screen.getByRole('img', { name: /test trend/i })).toBeInTheDocument();
+    });
+  });
+
+  describe('Full Featured', () => {
+    it('renders all features together', () => {
+      render(
+        <MetricCardGlass
+          label="Activity Score"
+          value={92}
+          color="emerald"
+          icon={<Activity data-testid="icon" className="w-4 h-4" />}
+          trend={{ value: 15, direction: 'up', label: 'vs last week' }}
+          valueSuffix="points"
+          sparklineData={[70, 75, 80, 85, 90, 92]}
+        />
+      );
+
+      expect(screen.getByText('Activity Score')).toBeInTheDocument();
+      expect(screen.getByText('92%')).toBeInTheDocument();
+      expect(screen.getByTestId('icon')).toBeInTheDocument();
+      expect(screen.getByText('+15%')).toBeInTheDocument();
+      expect(screen.getByText('vs last week')).toBeInTheDocument();
+      expect(screen.getByText('points')).toBeInTheDocument();
+      expect(screen.getByRole('progressbar')).toBeInTheDocument();
+      expect(screen.getByRole('img', { name: /activity score trend/i })).toBeInTheDocument();
     });
   });
 });

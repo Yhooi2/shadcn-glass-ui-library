@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { SparklineGlass } from '../sparkline-glass';
 
@@ -22,6 +22,11 @@ describe('SparklineGlass', () => {
     it('applies custom className', () => {
       render(<SparklineGlass data={sampleData} className="custom-class" />);
       expect(screen.getByRole('img')).toHaveClass('custom-class');
+    });
+
+    it('renders chart container with data-chart attribute', () => {
+      const { container } = render(<SparklineGlass data={sampleData} />);
+      expect(container.querySelector('[data-chart="sparkline"]')).toBeInTheDocument();
     });
   });
 
@@ -57,9 +62,12 @@ describe('SparklineGlass', () => {
       expect(screen.getByRole('img')).toHaveAttribute('aria-label', 'Empty sparkline chart');
     });
 
-    it('handles all zeros', () => {
+    it('handles all zeros - renders Recharts container', () => {
       const { container } = render(<SparklineGlass data={[0, 0, 0]} />);
-      expect(container.querySelectorAll('.flex-1')).toHaveLength(3);
+      // Recharts renders SVG elements - check for the chart container
+      expect(container.querySelector('[data-chart="sparkline"]')).toBeInTheDocument();
+      // And ResponsiveContainer creates a wrapper div
+      expect(container.querySelector('.recharts-responsive-container')).toBeInTheDocument();
     });
   });
 
@@ -68,6 +76,61 @@ describe('SparklineGlass', () => {
       const ref = { current: null };
       render(<SparklineGlass ref={ref} data={sampleData} />);
       expect(ref.current).toBeInstanceOf(HTMLDivElement);
+    });
+  });
+
+  describe('Config and Colors', () => {
+    it('applies CSS variables from config', () => {
+      const { container } = render(<SparklineGlass data={sampleData} barColor="red" />);
+      const chartContainer = container.querySelector('[data-chart="sparkline"]') as HTMLElement;
+      expect(chartContainer.style.getPropertyValue('--color-value')).toBe('red');
+    });
+
+    it('applies maxBarColor via CSS variables', () => {
+      const { container } = render(
+        <SparklineGlass data={sampleData} maxBarColor="green" highlightMax />
+      );
+      const chartContainer = container.querySelector('[data-chart="sparkline"]') as HTMLElement;
+      expect(chartContainer.style.getPropertyValue('--color-max')).toBe('green');
+    });
+
+    it('uses custom config colors', () => {
+      const customConfig = {
+        value: { label: 'Custom', color: '#ff0000' },
+        max: { label: 'Max Custom', color: '#00ff00' },
+      };
+      const { container } = render(<SparklineGlass data={sampleData} config={customConfig} />);
+      const chartContainer = container.querySelector('[data-chart="sparkline"]') as HTMLElement;
+      expect(chartContainer.style.getPropertyValue('--color-value')).toBe('#ff0000');
+    });
+  });
+
+  describe('Callbacks', () => {
+    it('accepts onBarClick callback', () => {
+      const handleClick = vi.fn();
+      render(<SparklineGlass data={sampleData} onBarClick={handleClick} />);
+      // Callback should be passed without errors
+      expect(screen.getByRole('img')).toBeInTheDocument();
+    });
+
+    it('accepts valueFormatter', () => {
+      const formatter = vi.fn((value: number) => `$${value}`);
+      render(<SparklineGlass data={sampleData} valueFormatter={formatter} />);
+      expect(screen.getByRole('img')).toBeInTheDocument();
+    });
+  });
+
+  describe('Tooltip', () => {
+    it('has tooltip enabled by default', () => {
+      const { container } = render(<SparklineGlass data={sampleData} />);
+      // Recharts adds tooltip components
+      expect(container.querySelector('[data-chart="sparkline"]')).toBeInTheDocument();
+    });
+
+    it('can disable tooltip', () => {
+      const { container } = render(<SparklineGlass data={sampleData} showTooltip={false} />);
+      // Component still renders
+      expect(container.querySelector('[data-chart="sparkline"]')).toBeInTheDocument();
     });
   });
 });

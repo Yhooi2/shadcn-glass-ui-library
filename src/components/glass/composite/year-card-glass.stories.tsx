@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { GitCommit, GitPullRequest, FolderGit, Star, TrendingUp } from 'lucide-react';
 import { YearCardGlass } from './year-card-glass';
+import { BadgeGlass } from '../ui/badge-glass';
 
 const meta = {
   title: 'Glass UI/Composite/YearCardGlass',
@@ -180,5 +182,191 @@ export const HighProgressExpanded: Story = {
       },
     ],
     onShowYear: () => console.log('Show year clicked'),
+  },
+};
+
+// NEW: With Month Labels
+export const WithSparklineLabels: Story = {
+  args: {
+    year: 2024,
+    emoji: '📊',
+    label: 'Analytics',
+    commits: '1,890 commits',
+    progress: 78,
+    gradient: 'blue',
+    isExpanded: true,
+    prs: 156,
+    repos: 12,
+    sparklineData: [89, 112, 134, 156, 178, 201, 223, 245, 267, 289, 312, 334],
+    sparklineLabels: [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ],
+    showSparklineCollapsed: false,
+    onShowYear: () => console.log('Show year clicked'),
+  },
+};
+
+// NEW: With Custom Stats
+export const WithCustomStats: Story = {
+  args: {
+    year: 2024,
+    emoji: '⭐',
+    label: 'Star Year',
+    commits: '2,567 commits',
+    progress: 85,
+    gradient: 'purple',
+    isExpanded: true,
+    sparklineData: [112, 134, 156, 178, 201, 223, 245, 267, 289, 312, 334, 356],
+    stats: [
+      { label: 'Commits', value: '2,567', icon: <GitCommit className="w-4 h-4" /> },
+      { label: 'PRs Merged', value: 234, icon: <GitPullRequest className="w-4 h-4" /> },
+      { label: 'Repos', value: 18, icon: <FolderGit className="w-4 h-4" /> },
+      { label: 'Stars', value: '1.2k', icon: <Star className="w-4 h-4" /> },
+    ],
+    onShowYear: () => console.log('Show year clicked'),
+  },
+};
+
+// NEW: With Custom Action Label
+export const WithCustomActionLabel: Story = {
+  args: {
+    year: 2023,
+    emoji: '🔍',
+    label: 'Explore',
+    commits: '1,456 commits',
+    progress: 72,
+    gradient: 'green',
+    isExpanded: true,
+    prs: 189,
+    repos: 15,
+    actionLabel: 'View detailed analytics',
+    onShowYear: () => console.log('View analytics clicked'),
+  },
+};
+
+// NEW: With Value Formatter
+export const WithValueFormatter: Story = {
+  args: {
+    year: 2024,
+    emoji: '💹',
+    label: 'Metrics',
+    commits: '3456',
+    progress: 92,
+    gradient: 'emerald',
+    sparklineData: [200, 234, 267, 301, 334, 367, 401, 434, 467, 501, 534, 567],
+    valueFormatter: (commits) =>
+      `${(parseInt(commits.replace(/,/g, '')) / 1000).toFixed(1)}k commits`,
+  },
+};
+
+// NEW: With Children Content
+export const WithChildrenContent: Story = {
+  args: {
+    year: 2024,
+    emoji: '🎨',
+    label: 'Creative',
+    commits: '1,789 commits',
+    progress: 80,
+    gradient: 'pink',
+    isExpanded: true,
+    prs: 167,
+    repos: 14,
+    sparklineData: [100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320],
+    children: (
+      <div className="flex flex-wrap gap-2 mt-2">
+        <BadgeGlass variant="success">TypeScript</BadgeGlass>
+        <BadgeGlass variant="info">React</BadgeGlass>
+        <BadgeGlass variant="warning">Python</BadgeGlass>
+        <BadgeGlass>Go</BadgeGlass>
+      </div>
+    ),
+    onShowYear: () => console.log('Show year clicked'),
+  },
+};
+
+// NEW: Sparkline in Collapsed Only
+export const SparklineInExpandedOnly: Story = {
+  args: {
+    year: 2024,
+    emoji: '📈',
+    label: 'Trending',
+    commits: '2,123 commits',
+    progress: 83,
+    gradient: 'blue',
+    isExpanded: false,
+    showSparklineCollapsed: false,
+    sparklineData: [134, 156, 178, 201, 223, 245, 267, 289, 312, 334, 356, 378],
+    sparklineLabels: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
+  },
+};
+
+// NEW: Full Featured (All New Props)
+export const CompleteExample: Story = {
+  args: {
+    year: 2024,
+    emoji: '🏅',
+    label: 'Best Year',
+    commits: '4567',
+    progress: 95,
+    gradient: 'gold',
+    isExpanded: true,
+    sparklineData: [250, 280, 310, 340, 370, 400, 430, 460, 490, 520, 550, 580],
+    sparklineLabels: [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ],
+    showSparklineCollapsed: false,
+    valueFormatter: (commits) => `${(parseInt(commits) / 1000).toFixed(1)}k`,
+    stats: [
+      { label: 'Commits', value: '4.6k', icon: <GitCommit className="w-4 h-4" /> },
+      { label: 'PRs', value: 456, icon: <GitPullRequest className="w-4 h-4" /> },
+      { label: 'Repos', value: 28, icon: <FolderGit className="w-4 h-4" /> },
+      { label: 'Growth', value: '+47%', icon: <TrendingUp className="w-4 h-4" /> },
+    ],
+    insights: [
+      {
+        variant: 'growth',
+        emoji: '🚀',
+        text: 'Record Breaking',
+        detail: 'Most productive year ever',
+      },
+      {
+        variant: 'highlight',
+        emoji: '⭐',
+        text: 'Top Contributor',
+        detail: 'Ranked #1 in your team',
+      },
+    ],
+    actionLabel: 'Explore 2024 in detail',
+    children: (
+      <div className="flex flex-wrap gap-2 mt-2">
+        <BadgeGlass variant="success">Top Languages</BadgeGlass>
+        <BadgeGlass>TypeScript 65%</BadgeGlass>
+        <BadgeGlass>Python 20%</BadgeGlass>
+        <BadgeGlass>Go 15%</BadgeGlass>
+      </div>
+    ),
+    onShowYear: () => console.log('Explore 2024'),
   },
 };

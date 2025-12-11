@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { SparklineGlass } from './sparkline-glass';
+import { SparklineGlass, type SparklineConfig } from './sparkline-glass';
 
 const sampleData = [10, 25, 45, 80, 60, 30, 40, 55, 70, 50, 35, 20];
 const monthLabels = ['Я', 'Ф', 'М', 'А', 'М', 'И', 'И', 'А', 'С', 'О', 'Н', 'Д'];
@@ -15,6 +15,7 @@ const meta = {
     highlightMax: { control: 'boolean' },
     showLabels: { control: 'boolean' },
     animated: { control: 'boolean' },
+    showTooltip: { control: 'boolean' },
   },
   decorators: [
     (Story) => (
@@ -45,8 +46,8 @@ export const Animated: Story = {
 export const CustomColors: Story = {
   args: {
     data: sampleData,
-    barColor: 'var(--glass-accent-warning)',
-    maxBarColor: 'var(--glass-accent-danger)',
+    barColor: 'var(--alert-warning-text)',
+    maxBarColor: 'var(--alert-destructive-text)',
     highlightMax: true,
   },
 };
@@ -54,9 +55,68 @@ export const CustomColors: Story = {
 export const Sizes: Story = {
   render: () => (
     <div className="space-y-4 w-64">
+      <div className="text-xs text-[var(--text-muted)] mb-1">Small (16px)</div>
       <SparklineGlass data={sampleData} height="sm" />
+      <div className="text-xs text-[var(--text-muted)] mb-1">Medium (24px)</div>
       <SparklineGlass data={sampleData} height="md" />
+      <div className="text-xs text-[var(--text-muted)] mb-1">Large (32px)</div>
       <SparklineGlass data={sampleData} height="lg" />
+    </div>
+  ),
+};
+
+// NEW: Recharts-based features
+export const WithTooltip: Story = {
+  args: {
+    data: sampleData,
+    labels: monthLabels,
+    showTooltip: true,
+    valueFormatter: (value, index) => `${monthLabels[index]}: ${value} commits`,
+  },
+};
+
+export const WithClickHandler: Story = {
+  args: {
+    data: sampleData,
+    labels: monthLabels,
+    onBarClick: (value, index) => alert(`Clicked: ${monthLabels[index]} = ${value}`),
+  },
+};
+
+export const WithChartConfig: Story = {
+  args: {
+    data: sampleData,
+    highlightMax: true,
+    config: {
+      value: {
+        label: 'Activity',
+        color: 'oklch(70% 0.2 250)',
+      },
+      max: {
+        label: 'Peak',
+        color: 'oklch(70% 0.25 142)',
+      },
+    } satisfies SparklineConfig,
+  },
+};
+
+export const FullFeatured: Story = {
+  render: () => (
+    <div className="space-y-4 w-80">
+      <div className="text-sm font-medium text-[var(--text-primary)] mb-2">
+        Monthly Activity 2024
+      </div>
+      <SparklineGlass
+        data={sampleData}
+        labels={monthLabels}
+        showLabels
+        highlightMax
+        animated
+        height="lg"
+        showTooltip
+        valueFormatter={(value) => `${value} commits`}
+      />
+      <div className="text-xs text-[var(--text-muted)]">Peak: April (80 commits)</div>
     </div>
   ),
 };

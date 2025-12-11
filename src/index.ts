@@ -149,7 +149,42 @@ export type {
 export type { InsightCardGlassProps } from './components/glass/atomic/insight-card-glass';
 
 // Specialized component types
-export type { SparklineGlassProps } from './components/glass/specialized/sparkline-glass';
+export type {
+  SparklineGlassProps,
+  SparklineConfig,
+} from './components/glass/specialized/sparkline-glass';
+
+// Composite component types
+export type {
+  MetricCardGlassProps,
+  MetricColor,
+  MetricTrend,
+  TrendDirection,
+} from './components/glass/composite/metric-card-glass';
+
+export type {
+  YearCardGlassProps,
+  YearCardGlassInsight,
+  YearCardGlassStat,
+} from './components/glass/composite/year-card-glass';
+
+// ========================================
+// CHART UTILITIES (shadcn/ui pattern)
+// ========================================
+export {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  ChartLegend,
+  ChartLegendContent,
+  ChartStyle,
+  useChart,
+} from './components/ui/chart';
+
+export type { ChartConfig } from './components/ui/chart';
+
+// Re-export Recharts for direct access (unwrapped pattern)
+export { Bar, BarChart, Cell, ResponsiveContainer } from 'recharts';
 
 // ========================================
 // VARIANTS (CVA)

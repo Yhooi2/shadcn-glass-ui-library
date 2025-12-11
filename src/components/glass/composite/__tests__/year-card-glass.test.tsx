@@ -1,6 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { GitCommit, GitPullRequest } from 'lucide-react';
 import { YearCardGlass } from '../year-card-glass';
 
 describe('YearCardGlass', () => {
@@ -260,6 +261,238 @@ describe('YearCardGlass', () => {
 
       expect(screen.getByRole('img', { name: /activity trend/i })).toBeInTheDocument();
       expect(screen.getByText('Growing')).toBeInTheDocument();
+    });
+  });
+
+  describe('Custom Stats', () => {
+    it('renders custom stats when provided', () => {
+      const customStats = [
+        { label: 'Commits', value: '2,567' },
+        { label: 'PRs', value: 234 },
+        { label: 'Stars', value: '1.2k' },
+      ];
+      render(<YearCardGlass {...defaultProps} isExpanded stats={customStats} />);
+
+      expect(screen.getByText('2,567')).toBeInTheDocument();
+      expect(screen.getByText('234')).toBeInTheDocument();
+      expect(screen.getByText('1.2k')).toBeInTheDocument();
+    });
+
+    it('renders stats with icons', () => {
+      const statsWithIcons = [
+        {
+          label: 'Commits',
+          value: '2,567',
+          icon: <GitCommit data-testid="commit-icon" className="w-4 h-4" />,
+        },
+        {
+          label: 'PRs',
+          value: 234,
+          icon: <GitPullRequest data-testid="pr-icon" className="w-4 h-4" />,
+        },
+      ];
+      render(<YearCardGlass {...defaultProps} isExpanded stats={statsWithIcons} />);
+
+      expect(screen.getByTestId('commit-icon')).toBeInTheDocument();
+      expect(screen.getByTestId('pr-icon')).toBeInTheDocument();
+    });
+
+    it('uses default stats when custom stats not provided', () => {
+      render(<YearCardGlass {...defaultProps} isExpanded prs={50} repos={10} />);
+
+      expect(screen.getByText('Commits')).toBeInTheDocument();
+      expect(screen.getByText('PRs')).toBeInTheDocument();
+      expect(screen.getByText('Repos')).toBeInTheDocument();
+    });
+  });
+
+  describe('Sparkline Labels', () => {
+    const monthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+    const sparklineData = [100, 120, 140, 160, 180, 200];
+
+    it('passes labels to sparkline in expanded view', () => {
+      render(
+        <YearCardGlass
+          {...defaultProps}
+          isExpanded
+          sparklineData={sparklineData}
+          sparklineLabels={monthLabels}
+          showSparklineCollapsed={false}
+        />
+      );
+
+      // Sparkline should be rendered (check by aria-label)
+      expect(screen.getByRole('img', { name: /monthly activity/i })).toBeInTheDocument();
+    });
+  });
+
+  describe('Show Sparkline Collapsed', () => {
+    const sparklineData = [100, 120, 140, 160, 180, 200];
+
+    it('shows sparkline in collapsed view by default', () => {
+      render(<YearCardGlass {...defaultProps} sparklineData={sparklineData} />);
+
+      expect(screen.getByRole('img', { name: /activity trend/i })).toBeInTheDocument();
+    });
+
+    it('hides sparkline in collapsed view when showSparklineCollapsed=false', () => {
+      render(
+        <YearCardGlass
+          {...defaultProps}
+          sparklineData={sparklineData}
+          showSparklineCollapsed={false}
+        />
+      );
+
+      // Collapsed view should not show sparkline
+      expect(screen.queryByRole('img', { name: /activity trend/i })).not.toBeInTheDocument();
+    });
+
+    it('shows sparkline in expanded view when showSparklineCollapsed=false', () => {
+      render(
+        <YearCardGlass
+          {...defaultProps}
+          isExpanded
+          sparklineData={sparklineData}
+          sparklineLabels={['J', 'F', 'M', 'A', 'M', 'J']}
+          showSparklineCollapsed={false}
+        />
+      );
+
+      // Expanded view should show sparkline
+      expect(screen.getByRole('img', { name: /monthly activity/i })).toBeInTheDocument();
+    });
+  });
+
+  describe('Custom Action Label', () => {
+    it('renders custom action label', () => {
+      render(
+        <YearCardGlass
+          {...defaultProps}
+          isExpanded
+          actionLabel="View detailed analytics"
+          onShowYear={vi.fn()}
+        />
+      );
+
+      expect(screen.getByRole('button', { name: /view detailed analytics/i })).toBeInTheDocument();
+    });
+
+    it('uses default action label when not provided', () => {
+      render(<YearCardGlass {...defaultProps} isExpanded onShowYear={vi.fn()} />);
+
+      expect(screen.getByRole('button', { name: /show repos from 2023/i })).toBeInTheDocument();
+    });
+  });
+
+  describe('Value Formatter', () => {
+    it('formats commits display with custom formatter', () => {
+      render(
+        <YearCardGlass
+          {...defaultProps}
+          commits="3456"
+          valueFormatter={(commits) => `${(parseInt(commits) / 1000).toFixed(1)}k commits`}
+        />
+      );
+
+      expect(screen.getByText('3.5k commits')).toBeInTheDocument();
+    });
+
+    it('uses raw value when no formatter provided', () => {
+      render(<YearCardGlass {...defaultProps} commits="1,234" />);
+
+      expect(screen.getByText('1,234')).toBeInTheDocument();
+    });
+  });
+
+  describe('Children Content', () => {
+    it('renders children in expanded view', () => {
+      render(
+        <YearCardGlass {...defaultProps} isExpanded>
+          <div data-testid="custom-content">Custom Content</div>
+        </YearCardGlass>
+      );
+
+      expect(screen.getByTestId('custom-content')).toBeInTheDocument();
+      expect(screen.getByText('Custom Content')).toBeInTheDocument();
+    });
+
+    it('does not render children when collapsed', () => {
+      render(
+        <YearCardGlass {...defaultProps}>
+          <div data-testid="custom-content">Custom Content</div>
+        </YearCardGlass>
+      );
+
+      expect(screen.queryByTestId('custom-content')).not.toBeInTheDocument();
+    });
+  });
+
+  describe('Full Featured Extended', () => {
+    it('renders all new features together', () => {
+      const customStats = [
+        {
+          label: 'Commits',
+          value: '4.6k',
+          icon: <GitCommit data-testid="commit-icon" className="w-4 h-4" />,
+        },
+        {
+          label: 'PRs',
+          value: 456,
+          icon: <GitPullRequest data-testid="pr-icon" className="w-4 h-4" />,
+        },
+      ];
+
+      render(
+        <YearCardGlass
+          year={2024}
+          emoji="🏅"
+          label="Best Year"
+          commits="4567"
+          progress={95}
+          gradient="gold"
+          isExpanded
+          sparklineData={[250, 280, 310, 340, 370, 400]}
+          sparklineLabels={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']}
+          showSparklineCollapsed={false}
+          valueFormatter={(commits) => `${(parseInt(commits) / 1000).toFixed(1)}k`}
+          stats={customStats}
+          insights={[
+            { variant: 'growth', text: 'Record Breaking', detail: 'Most productive year' },
+          ]}
+          actionLabel="Explore 2024"
+          onShowYear={vi.fn()}
+        >
+          <div data-testid="languages">TypeScript, Python, Go</div>
+        </YearCardGlass>
+      );
+
+      // Check year and badge
+      expect(screen.getByText('2024')).toBeInTheDocument();
+      expect(screen.getByText(/🏅 Best Year/)).toBeInTheDocument();
+
+      // Check formatted value in header (valueFormatter is applied there)
+      // and in stats grid (custom stats have value '4.6k')
+      // Use getAllByText since both places show '4.6k'
+      const formattedValues = screen.getAllByText('4.6k');
+      expect(formattedValues.length).toBeGreaterThanOrEqual(1);
+
+      // Check custom stats with icons
+      expect(screen.getByTestId('commit-icon')).toBeInTheDocument();
+      expect(screen.getByTestId('pr-icon')).toBeInTheDocument();
+
+      // Check insights
+      expect(screen.getByText('Record Breaking')).toBeInTheDocument();
+      expect(screen.getByText('Most productive year')).toBeInTheDocument();
+
+      // Check custom action label
+      expect(screen.getByRole('button', { name: /explore 2024/i })).toBeInTheDocument();
+
+      // Check children
+      expect(screen.getByTestId('languages')).toBeInTheDocument();
+
+      // Check sparkline in expanded view
+      expect(screen.getByRole('img', { name: /monthly activity/i })).toBeInTheDocument();
     });
   });
 });
