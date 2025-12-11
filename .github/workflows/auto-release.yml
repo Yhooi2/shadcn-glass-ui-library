@@ -173,7 +173,7 @@ jobs:
         run: |
           NEW_VERSION="${{ needs.check-release.outputs.new_version }}"
           git add package.json package-lock.json
-          git commit -m "chore(release): v${NEW_VERSION} [skip ci]"
+          git commit --no-verify -m "chore(release): v${NEW_VERSION} [skip ci]"
           git push
 
       - name: Create and push tag

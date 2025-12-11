@@ -131,7 +131,7 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add public/r/
-          git commit -m "chore: auto-update registry files [skip ci]"
+          git commit --no-verify -m "chore: auto-update registry files [skip ci]"
           git push
 
       - name: Upload registry artifact
