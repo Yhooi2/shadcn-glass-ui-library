@@ -33,7 +33,8 @@
 
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState, useMemo } from 'react';
-import { ThemeProvider } from '@/lib/theme-context';
+import { useTheme, type ThemeName } from '@/lib/theme-context';
+import { AnimatedBackground } from '@/components/AnimatedBackground';
 import {
   GlassCard,
   InputGlass,
@@ -57,6 +58,9 @@ import {
   Filter,
   ChevronLeft,
   ChevronRight,
+  Sun,
+  Moon,
+  Palette,
 } from 'lucide-react';
 
 // ========================================
@@ -79,6 +83,18 @@ const meta: Meta = {
 
 export default meta;
 type Story = StoryObj;
+
+// ========================================
+// THEME CONFIG
+// ========================================
+
+const themes: ThemeName[] = ['light', 'aurora', 'glass'];
+
+const themeConfig: Record<ThemeName, { label: string; icon: typeof Sun }> = {
+  light: { label: 'Light', icon: Sun },
+  aurora: { label: 'Aurora', icon: Moon },
+  glass: { label: 'Glass', icon: Palette },
+};
 
 // ========================================
 // TYPES
@@ -208,7 +224,11 @@ const DataTable = ({
   initialData?: User[];
   isLoading?: boolean;
 }) => {
+  const { theme, cycleTheme } = useTheme();
   const [users, setUsers] = useState<User[]>(initialData);
+
+  const nextTheme = themes[(themes.indexOf(theme) + 1) % themes.length];
+  const NextIcon = themeConfig[nextTheme].icon;
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [searchQuery, setSearchQuery] = useState('');
   const [sortField, setSortField] = useState<SortField>('name');
@@ -329,13 +349,23 @@ const DataTable = ({
   ];
 
   return (
-    <ThemeProvider defaultTheme="glass">
-      <div className="min-h-screen p-6">
+    <div className="min-h-screen font-sans">
+      <AnimatedBackground />
+
+      {/* Content */}
+      <div className="relative z-10 p-6">
         <GlassCard intensity="high" className="p-6">
           {/* Header */}
-          <div className="mb-6">
-            <h1 className="text-2xl font-bold text-white mb-2">User Management</h1>
-            <p className="text-white/70 text-sm">Manage users, roles, and permissions</p>
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
+                User Management
+              </h1>
+              <p style={{ color: 'var(--text-secondary)' }}>Manage users, roles, and permissions</p>
+            </div>
+            <ButtonGlass variant="secondary" size="sm" icon={NextIcon} onClick={cycleTheme}>
+              {themeConfig[nextTheme].label}
+            </ButtonGlass>
           </div>
 
           {/* Actions Bar */}
@@ -367,7 +397,9 @@ const DataTable = ({
             >
               <div className="w-64 p-4 space-y-4">
                 <div>
-                  <h3 className="text-white font-semibold mb-2">Status</h3>
+                  <h3 className="font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
+                    Status
+                  </h3>
                   <div className="space-y-2">
                     {['active', 'inactive', 'pending'].map((status) => (
                       <CheckboxGlass
@@ -386,7 +418,9 @@ const DataTable = ({
                   </div>
                 </div>
                 <div>
-                  <h3 className="text-white font-semibold mb-2">Role</h3>
+                  <h3 className="font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
+                    Role
+                  </h3>
                   <div className="space-y-2">
                     {['admin', 'editor', 'viewer'].map((role) => (
                       <CheckboxGlass
@@ -456,7 +490,8 @@ const DataTable = ({
                     />
                   </th>
                   <th
-                    className="text-left p-3 text-white/80 text-sm font-medium cursor-pointer hover:text-white transition-colors"
+                    className="text-left p-3 text-sm font-medium cursor-pointer transition-colors"
+                    style={{ color: 'var(--text-secondary)' }}
                     onClick={() => handleSort('name')}
                     aria-sort={
                       sortField === 'name'
@@ -472,7 +507,8 @@ const DataTable = ({
                     </div>
                   </th>
                   <th
-                    className="text-left p-3 text-white/80 text-sm font-medium cursor-pointer hover:text-white transition-colors"
+                    className="text-left p-3 text-sm font-medium cursor-pointer transition-colors"
+                    style={{ color: 'var(--text-secondary)' }}
                     onClick={() => handleSort('email')}
                     aria-sort={
                       sortField === 'email'
@@ -488,7 +524,8 @@ const DataTable = ({
                     </div>
                   </th>
                   <th
-                    className="text-left p-3 text-white/80 text-sm font-medium cursor-pointer hover:text-white transition-colors"
+                    className="text-left p-3 text-sm font-medium cursor-pointer transition-colors"
+                    style={{ color: 'var(--text-secondary)' }}
                     onClick={() => handleSort('role')}
                     aria-sort={
                       sortField === 'role'
@@ -504,7 +541,8 @@ const DataTable = ({
                     </div>
                   </th>
                   <th
-                    className="text-left p-3 text-white/80 text-sm font-medium cursor-pointer hover:text-white transition-colors"
+                    className="text-left p-3 text-sm font-medium cursor-pointer transition-colors"
+                    style={{ color: 'var(--text-secondary)' }}
                     onClick={() => handleSort('status')}
                     aria-sort={
                       sortField === 'status'
@@ -524,7 +562,8 @@ const DataTable = ({
                     </div>
                   </th>
                   <th
-                    className="text-left p-3 text-white/80 text-sm font-medium cursor-pointer hover:text-white transition-colors"
+                    className="text-left p-3 text-sm font-medium cursor-pointer transition-colors"
+                    style={{ color: 'var(--text-secondary)' }}
                     onClick={() => handleSort('lastActive')}
                     aria-sort={
                       sortField === 'lastActive'
@@ -544,7 +583,8 @@ const DataTable = ({
                     </div>
                   </th>
                   <th
-                    className="text-left p-3 text-white/80 text-sm font-medium cursor-pointer hover:text-white transition-colors"
+                    className="text-left p-3 text-sm font-medium cursor-pointer transition-colors"
+                    style={{ color: 'var(--text-secondary)' }}
                     onClick={() => handleSort('projects')}
                     aria-sort={
                       sortField === 'projects'
@@ -563,7 +603,12 @@ const DataTable = ({
                       />
                     </div>
                   </th>
-                  <th className="text-left p-3 text-white/80 text-sm font-medium">Actions</th>
+                  <th
+                    className="text-left p-3 text-sm font-medium"
+                    style={{ color: 'var(--text-secondary)' }}
+                  >
+                    Actions
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -580,7 +625,7 @@ const DataTable = ({
                   // Empty state
                   <tr>
                     <td colSpan={8} className="p-8 text-center">
-                      <div className="text-white/60">
+                      <div style={{ color: 'var(--text-secondary)' }}>
                         <p className="mb-2">No users found</p>
                         <ButtonGlass
                           variant="ghost"
@@ -611,8 +656,12 @@ const DataTable = ({
                           aria-label={`Select ${user.name}`}
                         />
                       </td>
-                      <td className="p-3 text-white font-medium">{user.name}</td>
-                      <td className="p-3 text-white/80 text-sm">{user.email}</td>
+                      <td className="p-3 font-medium" style={{ color: 'var(--text-primary)' }}>
+                        {user.name}
+                      </td>
+                      <td className="p-3 text-sm" style={{ color: 'var(--text-secondary)' }}>
+                        {user.email}
+                      </td>
                       <td className="p-3">
                         <BadgeGlass
                           variant={
@@ -639,8 +688,12 @@ const DataTable = ({
                           {user.status}
                         </BadgeGlass>
                       </td>
-                      <td className="p-3 text-white/80 text-sm">{user.lastActive}</td>
-                      <td className="p-3 text-white/80 text-sm">{user.projects}</td>
+                      <td className="p-3 text-sm" style={{ color: 'var(--text-secondary)' }}>
+                        {user.lastActive}
+                      </td>
+                      <td className="p-3 text-sm" style={{ color: 'var(--text-secondary)' }}>
+                        {user.projects}
+                      </td>
                       <td className="p-3">
                         <DropdownGlass
                           trigger={
@@ -665,7 +718,7 @@ const DataTable = ({
           {/* Pagination */}
           {!isLoading && paginatedUsers.length > 0 && (
             <div className="flex items-center justify-between mt-6 pt-6 border-t border-white/10">
-              <div className="text-white/60 text-sm">
+              <div className="text-sm" style={{ color: 'var(--text-secondary)' }}>
                 Showing {(currentPage - 1) * itemsPerPage + 1} to{' '}
                 {Math.min(currentPage * itemsPerPage, filteredAndSortedUsers.length)} of{' '}
                 {filteredAndSortedUsers.length} users
@@ -738,7 +791,7 @@ const DataTable = ({
           </ModalGlass.Root>
         )}
       </div>
-    </ThemeProvider>
+    </div>
   );
 };
 
@@ -761,17 +814,28 @@ export const Default: Story = {
 export const WithSelection: Story = {
   render: () => {
     const TableWithSelection = () => {
+      const { theme, cycleTheme } = useTheme();
+      const nextTheme = themes[(themes.indexOf(theme) + 1) % themes.length];
+      const NextIcon = themeConfig[nextTheme].icon;
       const selectedIds = new Set(['1', '3', '5']);
 
       return (
-        <ThemeProvider defaultTheme="glass">
-          <div className="min-h-screen p-6">
+        <div className="min-h-screen font-sans">
+          <AnimatedBackground />
+          <div className="relative z-10 p-6">
             <GlassCard intensity="high" className="p-6">
-              <div className="mb-6">
-                <h1 className="text-2xl font-bold text-white mb-2">User Management</h1>
-                <AlertGlass variant="info" title="Selection Active">
-                  {selectedIds.size} users selected. Bulk actions available.
-                </AlertGlass>
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
+                    User Management
+                  </h1>
+                  <AlertGlass variant="info" title="Selection Active">
+                    {selectedIds.size} users selected. Bulk actions available.
+                  </AlertGlass>
+                </div>
+                <ButtonGlass variant="secondary" size="sm" icon={NextIcon} onClick={cycleTheme}>
+                  {themeConfig[nextTheme].label}
+                </ButtonGlass>
               </div>
               <div className="flex gap-2 mb-6">
                 <ButtonGlass variant="ghost" size="sm">
@@ -789,7 +853,7 @@ export const WithSelection: Story = {
               </div>
             </GlassCard>
           </div>
-        </ThemeProvider>
+        </div>
       );
     };
     return <TableWithSelection />;
@@ -822,26 +886,4 @@ export const LoadingState: Story = {
  */
 export const EmptyState: Story = {
   render: () => <DataTable initialData={[]} />,
-};
-
-/**
- * Light theme variant of the data table.
- */
-export const LightTheme: Story = {
-  render: () => (
-    <ThemeProvider defaultTheme="light">
-      <DataTable />
-    </ThemeProvider>
-  ),
-};
-
-/**
- * Aurora theme variant with gradient effects.
- */
-export const AuroraTheme: Story = {
-  render: () => (
-    <ThemeProvider defaultTheme="aurora">
-      <DataTable />
-    </ThemeProvider>
-  ),
 };

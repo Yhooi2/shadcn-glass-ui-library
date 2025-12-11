@@ -29,7 +29,8 @@
 
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { ThemeProvider, type Theme } from '@/lib/theme-context';
+import { useTheme, type ThemeName } from '@/lib/theme-context';
+import { AnimatedBackground } from '@/components/AnimatedBackground';
 import {
   ProfileHeaderGlass,
   CareerStatsGlass,
@@ -42,26 +43,14 @@ import {
   InputGlass,
 } from '@/index';
 import type { Repository } from '@/components/glass/sections/projects-list-glass';
-import { Edit, Save, X } from 'lucide-react';
+import { Edit, Save, X, Sun, Moon, Palette } from 'lucide-react';
 
 // ========================================
 // META
 // ========================================
 
-// Extend story args to include theme
-type StoryArgs = {
-  theme: Theme;
-};
-
-const meta: Meta<StoryArgs> = {
+const meta: Meta = {
   title: 'Use Cases/User Profile Page',
-  decorators: [
-    (Story, context) => (
-      <ThemeProvider defaultTheme={context.args.theme || 'glass'}>
-        <Story />
-      </ThemeProvider>
-    ),
-  ],
   parameters: {
     layout: 'fullscreen',
     docs: {
@@ -71,22 +60,23 @@ const meta: Meta<StoryArgs> = {
       },
     },
   },
-  argTypes: {
-    theme: {
-      control: { type: 'select' },
-      options: ['glass', 'light', 'aurora'],
-      description: 'Theme variant for the user profile',
-      table: {
-        type: { summary: 'ThemeName' },
-        defaultValue: { summary: 'glass' },
-      },
-    },
-  },
   tags: ['use-case', 'profile', 'dashboard'],
 };
 
 export default meta;
-type Story = StoryObj<StoryArgs>;
+type Story = StoryObj;
+
+// ========================================
+// THEME CONFIG
+// ========================================
+
+const themes: ThemeName[] = ['light', 'aurora', 'glass'];
+
+const themeConfig: Record<ThemeName, { label: string; icon: typeof Sun }> = {
+  light: { label: 'Light', icon: Sun },
+  aurora: { label: 'Aurora', icon: Moon },
+  glass: { label: 'Glass', icon: Palette },
+};
 
 // ========================================
 // DEMO DATA
@@ -167,12 +157,16 @@ const demoLanguages = [
 // ========================================
 
 const UserProfile = () => {
+  const { theme, cycleTheme } = useTheme();
   const [activeTab, setActiveTab] = useState('overview');
   const [isEditing, setIsEditing] = useState(false);
   const [bio, setBio] = useState(
     'Senior Software Engineer passionate about building scalable systems and elegant user experiences. Open source contributor and tech community advocate.'
   );
   const [editedBio, setEditedBio] = useState(bio);
+
+  const nextTheme = themes[(themes.indexOf(theme) + 1) % themes.length];
+  const NextIcon = themeConfig[nextTheme].icon;
 
   const handleSave = () => {
     setBio(editedBio);
@@ -185,241 +179,313 @@ const UserProfile = () => {
   };
 
   return (
-    <div className="min-h-screen p-6">
-      {/* Profile Header */}
-      <ProfileHeaderGlass
-        username="alexdev"
-        bio={bio}
-        avatarUrl="https://api.dicebear.com/7.x/avataaars/svg?seed=alex"
-        joinDate="Joined March 2020"
-        stats={{
-          repositories: 42,
-          contributions: 2847,
-          followers: 1234,
-          following: 567,
-        }}
-        languages={demoLanguages}
-      />
+    <div className="min-h-screen font-sans">
+      <AnimatedBackground />
 
-      {/* Main Content Tabs */}
-      <div className="mt-8">
-        <TabsGlass.Root value={activeTab} onValueChange={setActiveTab}>
-          <TabsGlass.List aria-label="Profile sections">
-            <TabsGlass.Trigger value="overview">Overview</TabsGlass.Trigger>
-            <TabsGlass.Trigger value="repositories">
-              Repositories ({demoRepositories.length})
-            </TabsGlass.Trigger>
-            <TabsGlass.Trigger value="career">Career Timeline</TabsGlass.Trigger>
-            <TabsGlass.Trigger value="about">About</TabsGlass.Trigger>
-          </TabsGlass.List>
+      {/* Content */}
+      <div className="relative z-10 p-6">
+        {/* Theme Toggle */}
+        <div className="flex justify-end mb-6">
+          <ButtonGlass variant="secondary" size="sm" icon={NextIcon} onClick={cycleTheme}>
+            {themeConfig[nextTheme].label}
+          </ButtonGlass>
+        </div>
 
-          {/* Overview Tab */}
-          <TabsGlass.Content value="overview" className="mt-6 space-y-6">
-            {/* Pinned Repositories */}
-            <div>
-              <h2 className="text-xl font-semibold text-white mb-4">Pinned Repositories</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {demoRepositories.slice(0, 4).map((repo) => (
-                  <GlassCard key={repo.name} intensity="medium" className="p-4">
-                    <div className="flex items-start justify-between mb-2">
-                      <h3 className="text-white font-semibold">{repo.name}</h3>
-                      <BadgeGlass
-                        variant={
-                          repo.flagType === 'green'
-                            ? 'success'
-                            : repo.flagType === 'yellow'
-                              ? 'warning'
-                              : 'destructive'
-                        }
+        {/* Profile Header */}
+        <ProfileHeaderGlass
+          username="alexdev"
+          bio={bio}
+          avatarUrl="https://api.dicebear.com/7.x/avataaars/svg?seed=alex"
+          joinDate="Joined March 2020"
+          stats={{
+            repositories: 42,
+            contributions: 2847,
+            followers: 1234,
+            following: 567,
+          }}
+          languages={demoLanguages}
+        />
+
+        {/* Main Content Tabs */}
+        <div className="mt-8">
+          <TabsGlass.Root value={activeTab} onValueChange={setActiveTab}>
+            <TabsGlass.List aria-label="Profile sections">
+              <TabsGlass.Trigger value="overview">Overview</TabsGlass.Trigger>
+              <TabsGlass.Trigger value="repositories">
+                Repositories ({demoRepositories.length})
+              </TabsGlass.Trigger>
+              <TabsGlass.Trigger value="career">Career Timeline</TabsGlass.Trigger>
+              <TabsGlass.Trigger value="about">About</TabsGlass.Trigger>
+            </TabsGlass.List>
+
+            {/* Overview Tab */}
+            <TabsGlass.Content value="overview" className="mt-6 space-y-6">
+              {/* Pinned Repositories */}
+              <div>
+                <h2 className="text-xl font-semibold mb-4" style={{ color: 'var(--text-primary)' }}>
+                  Pinned Repositories
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {demoRepositories.slice(0, 4).map((repo) => (
+                    <GlassCard key={repo.name} intensity="medium" className="p-4">
+                      <div className="flex items-start justify-between mb-2">
+                        <h3 className="font-semibold" style={{ color: 'var(--text-primary)' }}>
+                          {repo.name}
+                        </h3>
+                        <BadgeGlass
+                          variant={
+                            repo.flagType === 'green'
+                              ? 'success'
+                              : repo.flagType === 'yellow'
+                                ? 'warning'
+                                : 'destructive'
+                          }
+                        >
+                          {repo.flagType}
+                        </BadgeGlass>
+                      </div>
+                      <p className="text-sm mb-3" style={{ color: 'var(--text-secondary)' }}>
+                        {repo.languages}
+                      </p>
+                      <div
+                        className="flex items-center gap-4 text-sm"
+                        style={{ color: 'var(--text-secondary)' }}
                       >
-                        {repo.flagType}
-                      </BadgeGlass>
-                    </div>
-                    <p className="text-white/70 text-sm mb-3">{repo.languages}</p>
-                    <div className="flex items-center gap-4 text-white/60 text-sm">
-                      <span>⭐ {repo.stars}</span>
-                      <span>📝 {repo.commits} commits</span>
-                      <span>{repo.contribution}%</span>
-                    </div>
-                  </GlassCard>
-                ))}
-              </div>
-            </div>
-
-            {/* Activity Overview */}
-            <div>
-              <h2 className="text-xl font-semibold text-white mb-4">Activity Overview</h2>
-              <GlassCard intensity="medium" className="p-6">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div>
-                    <div className="text-3xl font-bold text-white mb-1">142</div>
-                    <div className="text-white/60 text-sm">Contributions this month</div>
-                  </div>
-                  <div>
-                    <div className="text-3xl font-bold text-white mb-1">18</div>
-                    <div className="text-white/60 text-sm">Pull requests merged</div>
-                  </div>
-                  <div>
-                    <div className="text-3xl font-bold text-white mb-1">5</div>
-                    <div className="text-white/60 text-sm">Active projects</div>
-                  </div>
-                </div>
-              </GlassCard>
-            </div>
-
-            {/* Language Proficiency */}
-            <div>
-              <h2 className="text-xl font-semibold text-white mb-4">Language Proficiency</h2>
-              <GlassCard intensity="medium" className="p-6">
-                <div className="space-y-4">
-                  {demoLanguages.map((lang) => (
-                    <LanguageBarGlass
-                      key={lang.name}
-                      language={lang.name}
-                      percentage={lang.percentage}
-                      color={lang.color}
-                    />
+                        <span>⭐ {repo.stars}</span>
+                        <span>📝 {repo.commits} commits</span>
+                        <span>{repo.contribution}%</span>
+                      </div>
+                    </GlassCard>
                   ))}
                 </div>
-              </GlassCard>
-            </div>
-          </TabsGlass.Content>
+              </div>
 
-          {/* Repositories Tab */}
-          <TabsGlass.Content value="repositories" className="mt-6">
-            <ProjectsListGlass repositories={demoRepositories} />
-          </TabsGlass.Content>
+              {/* Activity Overview */}
+              <div>
+                <h2 className="text-xl font-semibold mb-4" style={{ color: 'var(--text-primary)' }}>
+                  Activity Overview
+                </h2>
+                <GlassCard intensity="medium" className="p-6">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                      <div
+                        className="text-3xl font-bold mb-1"
+                        style={{ color: 'var(--text-primary)' }}
+                      >
+                        142
+                      </div>
+                      <div className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+                        Contributions this month
+                      </div>
+                    </div>
+                    <div>
+                      <div
+                        className="text-3xl font-bold mb-1"
+                        style={{ color: 'var(--text-primary)' }}
+                      >
+                        18
+                      </div>
+                      <div className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+                        Pull requests merged
+                      </div>
+                    </div>
+                    <div>
+                      <div
+                        className="text-3xl font-bold mb-1"
+                        style={{ color: 'var(--text-primary)' }}
+                      >
+                        5
+                      </div>
+                      <div className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+                        Active projects
+                      </div>
+                    </div>
+                  </div>
+                </GlassCard>
+              </div>
 
-          {/* Career Timeline Tab */}
-          <TabsGlass.Content value="career" className="mt-6">
-            <CareerStatsGlass
-              totalExperience="8 years 6 months"
-              years={[
-                {
-                  year: '2024',
-                  contributions: 847,
-                  repositories: 12,
-                  issues: ['Consistent activity', 'High quality commits'],
-                },
-                {
-                  year: '2023',
-                  contributions: 1234,
-                  repositories: 15,
-                  issues: [],
-                },
-                {
-                  year: '2022',
-                  contributions: 956,
-                  repositories: 10,
-                  issues: ['Uneven activity in Q3'],
-                },
-                {
-                  year: '2021',
-                  contributions: 678,
-                  repositories: 8,
-                  issues: [],
-                },
-              ]}
-            />
-          </TabsGlass.Content>
+              {/* Language Proficiency */}
+              <div>
+                <h2 className="text-xl font-semibold mb-4" style={{ color: 'var(--text-primary)' }}>
+                  Language Proficiency
+                </h2>
+                <GlassCard intensity="medium" className="p-6">
+                  <div className="space-y-4">
+                    {demoLanguages.map((lang) => (
+                      <LanguageBarGlass
+                        key={lang.name}
+                        language={lang.name}
+                        percentage={lang.percentage}
+                        color={lang.color}
+                      />
+                    ))}
+                  </div>
+                </GlassCard>
+              </div>
+            </TabsGlass.Content>
 
-          {/* About Tab */}
-          <TabsGlass.Content value="about" className="mt-6">
-            <GlassCard intensity="medium" className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-semibold text-white">About</h2>
-                {!isEditing ? (
-                  <ButtonGlass
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setIsEditing(true)}
-                    aria-label="Edit bio"
-                  >
-                    <Edit className="w-4 h-4 mr-2" />
-                    Edit
-                  </ButtonGlass>
-                ) : (
-                  <div className="flex gap-2">
-                    <ButtonGlass
-                      variant="success"
-                      size="sm"
-                      onClick={handleSave}
-                      aria-label="Save changes"
-                    >
-                      <Save className="w-4 h-4 mr-2" />
-                      Save
-                    </ButtonGlass>
+            {/* Repositories Tab */}
+            <TabsGlass.Content value="repositories" className="mt-6">
+              <ProjectsListGlass repositories={demoRepositories} />
+            </TabsGlass.Content>
+
+            {/* Career Timeline Tab */}
+            <TabsGlass.Content value="career" className="mt-6">
+              <CareerStatsGlass
+                totalExperience="8 years 6 months"
+                years={[
+                  {
+                    year: '2024',
+                    contributions: 847,
+                    repositories: 12,
+                    issues: ['Consistent activity', 'High quality commits'],
+                  },
+                  {
+                    year: '2023',
+                    contributions: 1234,
+                    repositories: 15,
+                    issues: [],
+                  },
+                  {
+                    year: '2022',
+                    contributions: 956,
+                    repositories: 10,
+                    issues: ['Uneven activity in Q3'],
+                  },
+                  {
+                    year: '2021',
+                    contributions: 678,
+                    repositories: 8,
+                    issues: [],
+                  },
+                ]}
+              />
+            </TabsGlass.Content>
+
+            {/* About Tab */}
+            <TabsGlass.Content value="about" className="mt-6">
+              <GlassCard intensity="medium" className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-xl font-semibold" style={{ color: 'var(--text-primary)' }}>
+                    About
+                  </h2>
+                  {!isEditing ? (
                     <ButtonGlass
                       variant="ghost"
                       size="sm"
-                      onClick={handleCancel}
-                      aria-label="Cancel editing"
+                      onClick={() => setIsEditing(true)}
+                      aria-label="Edit bio"
                     >
-                      <X className="w-4 h-4 mr-2" />
-                      Cancel
+                      <Edit className="w-4 h-4 mr-2" />
+                      Edit
                     </ButtonGlass>
-                  </div>
+                  ) : (
+                    <div className="flex gap-2">
+                      <ButtonGlass
+                        variant="success"
+                        size="sm"
+                        onClick={handleSave}
+                        aria-label="Save changes"
+                      >
+                        <Save className="w-4 h-4 mr-2" />
+                        Save
+                      </ButtonGlass>
+                      <ButtonGlass
+                        variant="ghost"
+                        size="sm"
+                        onClick={handleCancel}
+                        aria-label="Cancel editing"
+                      >
+                        <X className="w-4 h-4 mr-2" />
+                        Cancel
+                      </ButtonGlass>
+                    </div>
+                  )}
+                </div>
+
+                {isEditing ? (
+                  <InputGlass
+                    value={editedBio}
+                    onChange={(e) => setEditedBio(e.target.value)}
+                    placeholder="Tell us about yourself..."
+                    className="w-full"
+                    aria-label="Edit bio"
+                  />
+                ) : (
+                  <p className="leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                    {bio}
+                  </p>
                 )}
-              </div>
 
-              {isEditing ? (
-                <InputGlass
-                  value={editedBio}
-                  onChange={(e) => setEditedBio(e.target.value)}
-                  placeholder="Tell us about yourself..."
-                  className="w-full"
-                  aria-label="Edit bio"
-                />
-              ) : (
-                <p className="text-white/80 leading-relaxed">{bio}</p>
-              )}
-
-              <div className="mt-6 pt-6 border-t border-white/10">
-                <h3 className="text-lg font-semibold text-white mb-3">Interests</h3>
-                <div className="flex flex-wrap gap-2">
-                  <BadgeGlass variant="info">Cloud Architecture</BadgeGlass>
-                  <BadgeGlass variant="info">DevOps</BadgeGlass>
-                  <BadgeGlass variant="info">Machine Learning</BadgeGlass>
-                  <BadgeGlass variant="info">Open Source</BadgeGlass>
-                  <BadgeGlass variant="info">Web Performance</BadgeGlass>
-                </div>
-              </div>
-
-              <div className="mt-6 pt-6 border-t border-white/10">
-                <h3 className="text-lg font-semibold text-white mb-3">Achievements</h3>
-                <div className="space-y-3">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-yellow-500/20 flex items-center justify-center">
-                      <span className="text-2xl">🏆</span>
-                    </div>
-                    <div>
-                      <div className="text-white font-medium">Top Contributor</div>
-                      <div className="text-white/60 text-sm">Most contributions in 2023</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center">
-                      <span className="text-2xl">⭐</span>
-                    </div>
-                    <div>
-                      <div className="text-white font-medium">1000+ Stars</div>
-                      <div className="text-white/60 text-sm">Across all repositories</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
-                      <span className="text-2xl">🚀</span>
-                    </div>
-                    <div>
-                      <div className="text-white font-medium">Early Adopter</div>
-                      <div className="text-white/60 text-sm">Member since 2020</div>
-                    </div>
+                <div className="mt-6 pt-6 border-t border-white/10">
+                  <h3
+                    className="text-lg font-semibold mb-3"
+                    style={{ color: 'var(--text-primary)' }}
+                  >
+                    Interests
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    <BadgeGlass variant="info">Cloud Architecture</BadgeGlass>
+                    <BadgeGlass variant="info">DevOps</BadgeGlass>
+                    <BadgeGlass variant="info">Machine Learning</BadgeGlass>
+                    <BadgeGlass variant="info">Open Source</BadgeGlass>
+                    <BadgeGlass variant="info">Web Performance</BadgeGlass>
                   </div>
                 </div>
-              </div>
-            </GlassCard>
-          </TabsGlass.Content>
-        </TabsGlass.Root>
+
+                <div className="mt-6 pt-6 border-t border-white/10">
+                  <h3
+                    className="text-lg font-semibold mb-3"
+                    style={{ color: 'var(--text-primary)' }}
+                  >
+                    Achievements
+                  </h3>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-yellow-500/20 flex items-center justify-center">
+                        <span className="text-2xl">🏆</span>
+                      </div>
+                      <div>
+                        <div className="font-medium" style={{ color: 'var(--text-primary)' }}>
+                          Top Contributor
+                        </div>
+                        <div className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+                          Most contributions in 2023
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center">
+                        <span className="text-2xl">⭐</span>
+                      </div>
+                      <div>
+                        <div className="font-medium" style={{ color: 'var(--text-primary)' }}>
+                          1000+ Stars
+                        </div>
+                        <div className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+                          Across all repositories
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
+                        <span className="text-2xl">🚀</span>
+                      </div>
+                      <div>
+                        <div className="font-medium" style={{ color: 'var(--text-primary)' }}>
+                          Early Adopter
+                        </div>
+                        <div className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+                          Member since 2020
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </GlassCard>
+            </TabsGlass.Content>
+          </TabsGlass.Root>
+        </div>
       </div>
     </div>
   );
@@ -434,9 +500,6 @@ const UserProfile = () => {
  * activity stats, and language proficiency.
  */
 export const Default: Story = {
-  args: {
-    theme: 'glass',
-  },
   render: () => <UserProfile />,
 };
 
@@ -445,60 +508,75 @@ export const Default: Story = {
  * Demonstrates form editing with save/cancel actions.
  */
 export const EditMode: Story = {
-  args: {
-    theme: 'glass',
-  },
   render: () => {
     const EditModeProfile = () => {
+      const { theme, cycleTheme } = useTheme();
       const [activeTab, setActiveTab] = useState('about');
       const [bio, setBio] = useState(
         'Senior Software Engineer passionate about building scalable systems and elegant user experiences.'
       );
 
+      const nextTheme = themes[(themes.indexOf(theme) + 1) % themes.length];
+      const NextIcon = themeConfig[nextTheme].icon;
+
       return (
-        <div className="min-h-screen p-6">
-          <ProfileHeaderGlass
-            username="alexdev"
-            bio={bio}
-            avatarUrl="https://api.dicebear.com/7.x/avataaars/svg?seed=alex"
-            joinDate="Joined March 2020"
-            stats={{
-              repositories: 42,
-              contributions: 2847,
-              followers: 1234,
-              following: 567,
-            }}
-            languages={demoLanguages}
-          />
-          <div className="mt-8">
-            <TabsGlass.Root value={activeTab} onValueChange={setActiveTab}>
-              <TabsGlass.List>
-                <TabsGlass.Trigger value="about">About</TabsGlass.Trigger>
-              </TabsGlass.List>
-              <TabsGlass.Content value="about" className="mt-6">
-                <GlassCard intensity="medium" className="p-6">
-                  <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-xl font-semibold text-white">About</h2>
-                    <div className="flex gap-2">
-                      <ButtonGlass variant="success" size="sm">
-                        <Save className="w-4 h-4 mr-2" />
-                        Save
-                      </ButtonGlass>
-                      <ButtonGlass variant="ghost" size="sm">
-                        <X className="w-4 h-4 mr-2" />
-                        Cancel
-                      </ButtonGlass>
+        <div className="min-h-screen font-sans">
+          <AnimatedBackground />
+          <div className="relative z-10 p-6">
+            {/* Theme Toggle */}
+            <div className="flex justify-end mb-6">
+              <ButtonGlass variant="secondary" size="sm" icon={NextIcon} onClick={cycleTheme}>
+                {themeConfig[nextTheme].label}
+              </ButtonGlass>
+            </div>
+            <ProfileHeaderGlass
+              username="alexdev"
+              bio={bio}
+              avatarUrl="https://api.dicebear.com/7.x/avataaars/svg?seed=alex"
+              joinDate="Joined March 2020"
+              stats={{
+                repositories: 42,
+                contributions: 2847,
+                followers: 1234,
+                following: 567,
+              }}
+              languages={demoLanguages}
+            />
+            <div className="mt-8">
+              <TabsGlass.Root value={activeTab} onValueChange={setActiveTab}>
+                <TabsGlass.List>
+                  <TabsGlass.Trigger value="about">About</TabsGlass.Trigger>
+                </TabsGlass.List>
+                <TabsGlass.Content value="about" className="mt-6">
+                  <GlassCard intensity="medium" className="p-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <h2
+                        className="text-xl font-semibold"
+                        style={{ color: 'var(--text-primary)' }}
+                      >
+                        About
+                      </h2>
+                      <div className="flex gap-2">
+                        <ButtonGlass variant="success" size="sm">
+                          <Save className="w-4 h-4 mr-2" />
+                          Save
+                        </ButtonGlass>
+                        <ButtonGlass variant="ghost" size="sm">
+                          <X className="w-4 h-4 mr-2" />
+                          Cancel
+                        </ButtonGlass>
+                      </div>
                     </div>
-                  </div>
-                  <InputGlass
-                    value={bio}
-                    onChange={(e) => setBio(e.target.value)}
-                    placeholder="Tell us about yourself..."
-                    className="w-full"
-                  />
-                </GlassCard>
-              </TabsGlass.Content>
-            </TabsGlass.Root>
+                    <InputGlass
+                      value={bio}
+                      onChange={(e) => setBio(e.target.value)}
+                      placeholder="Tell us about yourself..."
+                      className="w-full"
+                    />
+                  </GlassCard>
+                </TabsGlass.Content>
+              </TabsGlass.Root>
+            </div>
           </div>
         </div>
       );
@@ -512,43 +590,55 @@ export const EditMode: Story = {
  * Shows what other users see when viewing this profile.
  */
 export const PublicView: Story = {
-  args: {
-    theme: 'glass',
-  },
   render: () => {
     const PublicProfile = () => {
+      const { theme, cycleTheme } = useTheme();
       const [activeTab, setActiveTab] = useState('overview');
 
+      const nextTheme = themes[(themes.indexOf(theme) + 1) % themes.length];
+      const NextIcon = themeConfig[nextTheme].icon;
+
       return (
-        <div className="min-h-screen p-6">
-          <ProfileHeaderGlass
-            username="alexdev"
-            bio="Senior Software Engineer passionate about building scalable systems and elegant user experiences. Open source contributor and tech community advocate."
-            avatarUrl="https://api.dicebear.com/7.x/avataaars/svg?seed=alex"
-            joinDate="Joined March 2020"
-            stats={{
-              repositories: 42,
-              contributions: 2847,
-              followers: 1234,
-              following: 567,
-            }}
-            languages={demoLanguages}
-          />
-          <div className="mt-8">
-            <TabsGlass.Root value={activeTab} onValueChange={setActiveTab}>
-              <TabsGlass.List>
-                <TabsGlass.Trigger value="overview">Overview</TabsGlass.Trigger>
-                <TabsGlass.Trigger value="repositories">Repositories</TabsGlass.Trigger>
-              </TabsGlass.List>
-              <TabsGlass.Content value="overview" className="mt-6">
-                <GlassCard intensity="medium" className="p-6 text-center">
-                  <p className="text-white/70">Public view - Edit controls hidden</p>
-                </GlassCard>
-              </TabsGlass.Content>
-              <TabsGlass.Content value="repositories" className="mt-6">
-                <ProjectsListGlass repositories={demoRepositories} />
-              </TabsGlass.Content>
-            </TabsGlass.Root>
+        <div className="min-h-screen font-sans">
+          <AnimatedBackground />
+          <div className="relative z-10 p-6">
+            {/* Theme Toggle */}
+            <div className="flex justify-end mb-6">
+              <ButtonGlass variant="secondary" size="sm" icon={NextIcon} onClick={cycleTheme}>
+                {themeConfig[nextTheme].label}
+              </ButtonGlass>
+            </div>
+            <ProfileHeaderGlass
+              username="alexdev"
+              bio="Senior Software Engineer passionate about building scalable systems and elegant user experiences. Open source contributor and tech community advocate."
+              avatarUrl="https://api.dicebear.com/7.x/avataaars/svg?seed=alex"
+              joinDate="Joined March 2020"
+              stats={{
+                repositories: 42,
+                contributions: 2847,
+                followers: 1234,
+                following: 567,
+              }}
+              languages={demoLanguages}
+            />
+            <div className="mt-8">
+              <TabsGlass.Root value={activeTab} onValueChange={setActiveTab}>
+                <TabsGlass.List>
+                  <TabsGlass.Trigger value="overview">Overview</TabsGlass.Trigger>
+                  <TabsGlass.Trigger value="repositories">Repositories</TabsGlass.Trigger>
+                </TabsGlass.List>
+                <TabsGlass.Content value="overview" className="mt-6">
+                  <GlassCard intensity="medium" className="p-6 text-center">
+                    <p style={{ color: 'var(--text-secondary)' }}>
+                      Public view - Edit controls hidden
+                    </p>
+                  </GlassCard>
+                </TabsGlass.Content>
+                <TabsGlass.Content value="repositories" className="mt-6">
+                  <ProjectsListGlass repositories={demoRepositories} />
+                </TabsGlass.Content>
+              </TabsGlass.Root>
+            </div>
           </div>
         </div>
       );
@@ -562,9 +652,6 @@ export const PublicView: Story = {
  * Tabs stack vertically, cards are full-width.
  */
 export const MobileView: Story = {
-  args: {
-    theme: 'glass',
-  },
   render: () => <UserProfile />,
   parameters: {
     viewport: {
@@ -577,24 +664,4 @@ export const MobileView: Story = {
       },
     },
   },
-};
-
-/**
- * Light theme variant of the user profile.
- */
-export const LightTheme: Story = {
-  args: {
-    theme: 'light',
-  },
-  render: () => <UserProfile />,
-};
-
-/**
- * Aurora theme variant with gradient effects.
- */
-export const AuroraTheme: Story = {
-  args: {
-    theme: 'aurora',
-  },
-  render: () => <UserProfile />,
 };
