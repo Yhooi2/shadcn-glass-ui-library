@@ -290,15 +290,15 @@
   --checkbox-glow: 0 0 0 3px var(--semantic-primary-subtle);
 
   /* ========================================
-     TABS VARIABLES (OKLCH)
+     TABS VARIABLES (using semantic tokens)
      ======================================== */
   --tab-bg: transparent;
-  --tab-active-bg: oklch(66.6% 0.159 303 / 0.2);
-  --tab-active-text: oklch(79.5% 0.103 293);
-  --tab-border: oklch(100% 0 0 / 0.1);
-  --tab-indicator: oklch(79.5% 0.103 293);
-  --tab-container-bg: oklch(100% 0 0 / 0.05);
-  --tab-container-border: oklch(100% 0 0 / 0.1);
+  --tab-active-bg: var(--semantic-primary-subtle);
+  --tab-active-text: var(--semantic-primary-text);
+  --tab-border: var(--semantic-border-subtle);
+  --tab-indicator: var(--semantic-primary-text);
+  --tab-container-bg: var(--semantic-surface-muted);
+  --tab-container-border: var(--semantic-border-subtle);
 
   /* ========================================
      STEPPER VARIABLES (using primitive tokens)
