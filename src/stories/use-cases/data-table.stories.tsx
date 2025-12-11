@@ -330,7 +330,7 @@ const DataTable = ({
 
   return (
     <ThemeProvider defaultTheme="glass">
-      <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-6">
+      <div className="min-h-screen p-6">
         <GlassCard intensity="high" className="p-6">
           {/* Header */}
           <div className="mb-6">
@@ -765,7 +765,7 @@ export const WithSelection: Story = {
 
       return (
         <ThemeProvider defaultTheme="glass">
-          <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-6">
+          <div className="min-h-screen p-6">
             <GlassCard intensity="high" className="p-6">
               <div className="mb-6">
                 <h1 className="text-2xl font-bold text-white mb-2">User Management</h1>

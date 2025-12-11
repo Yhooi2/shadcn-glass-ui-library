@@ -185,257 +185,243 @@ const UserProfile = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-6">
-        {/* Profile Header */}
-        <ProfileHeaderGlass
-          username="alexdev"
-          bio={bio}
-          avatarUrl="https://api.dicebear.com/7.x/avataaars/svg?seed=alex"
-          joinDate="Joined March 2020"
-          stats={{
-            repositories: 42,
-            contributions: 2847,
-            followers: 1234,
-            following: 567,
-          }}
-          languages={demoLanguages}
-        />
+    <div className="min-h-screen p-6">
+      {/* Profile Header */}
+      <ProfileHeaderGlass
+        username="alexdev"
+        bio={bio}
+        avatarUrl="https://api.dicebear.com/7.x/avataaars/svg?seed=alex"
+        joinDate="Joined March 2020"
+        stats={{
+          repositories: 42,
+          contributions: 2847,
+          followers: 1234,
+          following: 567,
+        }}
+        languages={demoLanguages}
+      />
 
-        {/* Main Content Tabs */}
-        <div className="mt-8">
-          <TabsGlass.Root value={activeTab} onValueChange={setActiveTab}>
-            <TabsGlass.List aria-label="Profile sections">
-              <TabsGlass.Trigger value="overview">Overview</TabsGlass.Trigger>
-              <TabsGlass.Trigger value="repositories">
-                Repositories ({demoRepositories.length})
-              </TabsGlass.Trigger>
-              <TabsGlass.Trigger value="career">Career Timeline</TabsGlass.Trigger>
-              <TabsGlass.Trigger value="about">About</TabsGlass.Trigger>
-            </TabsGlass.List>
+      {/* Main Content Tabs */}
+      <div className="mt-8">
+        <TabsGlass.Root value={activeTab} onValueChange={setActiveTab}>
+          <TabsGlass.List aria-label="Profile sections">
+            <TabsGlass.Trigger value="overview">Overview</TabsGlass.Trigger>
+            <TabsGlass.Trigger value="repositories">
+              Repositories ({demoRepositories.length})
+            </TabsGlass.Trigger>
+            <TabsGlass.Trigger value="career">Career Timeline</TabsGlass.Trigger>
+            <TabsGlass.Trigger value="about">About</TabsGlass.Trigger>
+          </TabsGlass.List>
 
-            {/* Overview Tab */}
-            <TabsGlass.Content value="overview" className="mt-6 space-y-6">
-              {/* Pinned Repositories */}
-              <div>
-                <h2 className="text-xl font-semibold text-white mb-4">
-                  Pinned Repositories
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {demoRepositories.slice(0, 4).map((repo) => (
-                    <GlassCard key={repo.name} intensity="medium" className="p-4">
-                      <div className="flex items-start justify-between mb-2">
-                        <h3 className="text-white font-semibold">{repo.name}</h3>
-                        <BadgeGlass
-                          variant={
-                            repo.flagType === 'green'
-                              ? 'success'
-                              : repo.flagType === 'yellow'
+          {/* Overview Tab */}
+          <TabsGlass.Content value="overview" className="mt-6 space-y-6">
+            {/* Pinned Repositories */}
+            <div>
+              <h2 className="text-xl font-semibold text-white mb-4">Pinned Repositories</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {demoRepositories.slice(0, 4).map((repo) => (
+                  <GlassCard key={repo.name} intensity="medium" className="p-4">
+                    <div className="flex items-start justify-between mb-2">
+                      <h3 className="text-white font-semibold">{repo.name}</h3>
+                      <BadgeGlass
+                        variant={
+                          repo.flagType === 'green'
+                            ? 'success'
+                            : repo.flagType === 'yellow'
                               ? 'warning'
                               : 'destructive'
-                          }
-                        >
-                          {repo.flagType}
-                        </BadgeGlass>
-                      </div>
-                      <p className="text-white/70 text-sm mb-3">{repo.languages}</p>
-                      <div className="flex items-center gap-4 text-white/60 text-sm">
-                        <span>⭐ {repo.stars}</span>
-                        <span>📝 {repo.commits} commits</span>
-                        <span>{repo.contribution}%</span>
-                      </div>
-                    </GlassCard>
-                  ))}
-                </div>
-              </div>
-
-              {/* Activity Overview */}
-              <div>
-                <h2 className="text-xl font-semibold text-white mb-4">
-                  Activity Overview
-                </h2>
-                <GlassCard intensity="medium" className="p-6">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div>
-                      <div className="text-3xl font-bold text-white mb-1">142</div>
-                      <div className="text-white/60 text-sm">Contributions this month</div>
+                        }
+                      >
+                        {repo.flagType}
+                      </BadgeGlass>
                     </div>
-                    <div>
-                      <div className="text-3xl font-bold text-white mb-1">18</div>
-                      <div className="text-white/60 text-sm">Pull requests merged</div>
+                    <p className="text-white/70 text-sm mb-3">{repo.languages}</p>
+                    <div className="flex items-center gap-4 text-white/60 text-sm">
+                      <span>⭐ {repo.stars}</span>
+                      <span>📝 {repo.commits} commits</span>
+                      <span>{repo.contribution}%</span>
                     </div>
-                    <div>
-                      <div className="text-3xl font-bold text-white mb-1">5</div>
-                      <div className="text-white/60 text-sm">Active projects</div>
-                    </div>
-                  </div>
-                </GlassCard>
+                  </GlassCard>
+                ))}
               </div>
+            </div>
 
-              {/* Language Proficiency */}
-              <div>
-                <h2 className="text-xl font-semibold text-white mb-4">
-                  Language Proficiency
-                </h2>
-                <GlassCard intensity="medium" className="p-6">
-                  <div className="space-y-4">
-                    {demoLanguages.map((lang) => (
-                      <LanguageBarGlass
-                        key={lang.name}
-                        language={lang.name}
-                        percentage={lang.percentage}
-                        color={lang.color}
-                      />
-                    ))}
-                  </div>
-                </GlassCard>
-              </div>
-            </TabsGlass.Content>
-
-            {/* Repositories Tab */}
-            <TabsGlass.Content value="repositories" className="mt-6">
-              <ProjectsListGlass repositories={demoRepositories} />
-            </TabsGlass.Content>
-
-            {/* Career Timeline Tab */}
-            <TabsGlass.Content value="career" className="mt-6">
-              <CareerStatsGlass
-                totalExperience="8 years 6 months"
-                years={[
-                  {
-                    year: '2024',
-                    contributions: 847,
-                    repositories: 12,
-                    issues: ['Consistent activity', 'High quality commits'],
-                  },
-                  {
-                    year: '2023',
-                    contributions: 1234,
-                    repositories: 15,
-                    issues: [],
-                  },
-                  {
-                    year: '2022',
-                    contributions: 956,
-                    repositories: 10,
-                    issues: ['Uneven activity in Q3'],
-                  },
-                  {
-                    year: '2021',
-                    contributions: 678,
-                    repositories: 8,
-                    issues: [],
-                  },
-                ]}
-              />
-            </TabsGlass.Content>
-
-            {/* About Tab */}
-            <TabsGlass.Content value="about" className="mt-6">
+            {/* Activity Overview */}
+            <div>
+              <h2 className="text-xl font-semibold text-white mb-4">Activity Overview</h2>
               <GlassCard intensity="medium" className="p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-xl font-semibold text-white">About</h2>
-                  {!isEditing ? (
-                    <ButtonGlass
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => setIsEditing(true)}
-                      aria-label="Edit bio"
-                    >
-                      <Edit className="w-4 h-4 mr-2" />
-                      Edit
-                    </ButtonGlass>
-                  ) : (
-                    <div className="flex gap-2">
-                      <ButtonGlass
-                        variant="success"
-                        size="sm"
-                        onClick={handleSave}
-                        aria-label="Save changes"
-                      >
-                        <Save className="w-4 h-4 mr-2" />
-                        Save
-                      </ButtonGlass>
-                      <ButtonGlass
-                        variant="ghost"
-                        size="sm"
-                        onClick={handleCancel}
-                        aria-label="Cancel editing"
-                      >
-                        <X className="w-4 h-4 mr-2" />
-                        Cancel
-                      </ButtonGlass>
-                    </div>
-                  )}
-                </div>
-
-                {isEditing ? (
-                  <InputGlass
-                    value={editedBio}
-                    onChange={(e) => setEditedBio(e.target.value)}
-                    placeholder="Tell us about yourself..."
-                    className="w-full"
-                    aria-label="Edit bio"
-                  />
-                ) : (
-                  <p className="text-white/80 leading-relaxed">{bio}</p>
-                )}
-
-                <div className="mt-6 pt-6 border-t border-white/10">
-                  <h3 className="text-lg font-semibold text-white mb-3">Interests</h3>
-                  <div className="flex flex-wrap gap-2">
-                    <BadgeGlass variant="info">Cloud Architecture</BadgeGlass>
-                    <BadgeGlass variant="info">DevOps</BadgeGlass>
-                    <BadgeGlass variant="info">Machine Learning</BadgeGlass>
-                    <BadgeGlass variant="info">Open Source</BadgeGlass>
-                    <BadgeGlass variant="info">Web Performance</BadgeGlass>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div>
+                    <div className="text-3xl font-bold text-white mb-1">142</div>
+                    <div className="text-white/60 text-sm">Contributions this month</div>
                   </div>
-                </div>
-
-                <div className="mt-6 pt-6 border-t border-white/10">
-                  <h3 className="text-lg font-semibold text-white mb-3">
-                    Achievements
-                  </h3>
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-yellow-500/20 flex items-center justify-center">
-                        <span className="text-2xl">🏆</span>
-                      </div>
-                      <div>
-                        <div className="text-white font-medium">Top Contributor</div>
-                        <div className="text-white/60 text-sm">
-                          Most contributions in 2023
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center">
-                        <span className="text-2xl">⭐</span>
-                      </div>
-                      <div>
-                        <div className="text-white font-medium">1000+ Stars</div>
-                        <div className="text-white/60 text-sm">
-                          Across all repositories
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
-                        <span className="text-2xl">🚀</span>
-                      </div>
-                      <div>
-                        <div className="text-white font-medium">Early Adopter</div>
-                        <div className="text-white/60 text-sm">
-                          Member since 2020
-                        </div>
-                      </div>
-                    </div>
+                  <div>
+                    <div className="text-3xl font-bold text-white mb-1">18</div>
+                    <div className="text-white/60 text-sm">Pull requests merged</div>
+                  </div>
+                  <div>
+                    <div className="text-3xl font-bold text-white mb-1">5</div>
+                    <div className="text-white/60 text-sm">Active projects</div>
                   </div>
                 </div>
               </GlassCard>
-            </TabsGlass.Content>
-          </TabsGlass.Root>
-        </div>
+            </div>
+
+            {/* Language Proficiency */}
+            <div>
+              <h2 className="text-xl font-semibold text-white mb-4">Language Proficiency</h2>
+              <GlassCard intensity="medium" className="p-6">
+                <div className="space-y-4">
+                  {demoLanguages.map((lang) => (
+                    <LanguageBarGlass
+                      key={lang.name}
+                      language={lang.name}
+                      percentage={lang.percentage}
+                      color={lang.color}
+                    />
+                  ))}
+                </div>
+              </GlassCard>
+            </div>
+          </TabsGlass.Content>
+
+          {/* Repositories Tab */}
+          <TabsGlass.Content value="repositories" className="mt-6">
+            <ProjectsListGlass repositories={demoRepositories} />
+          </TabsGlass.Content>
+
+          {/* Career Timeline Tab */}
+          <TabsGlass.Content value="career" className="mt-6">
+            <CareerStatsGlass
+              totalExperience="8 years 6 months"
+              years={[
+                {
+                  year: '2024',
+                  contributions: 847,
+                  repositories: 12,
+                  issues: ['Consistent activity', 'High quality commits'],
+                },
+                {
+                  year: '2023',
+                  contributions: 1234,
+                  repositories: 15,
+                  issues: [],
+                },
+                {
+                  year: '2022',
+                  contributions: 956,
+                  repositories: 10,
+                  issues: ['Uneven activity in Q3'],
+                },
+                {
+                  year: '2021',
+                  contributions: 678,
+                  repositories: 8,
+                  issues: [],
+                },
+              ]}
+            />
+          </TabsGlass.Content>
+
+          {/* About Tab */}
+          <TabsGlass.Content value="about" className="mt-6">
+            <GlassCard intensity="medium" className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xl font-semibold text-white">About</h2>
+                {!isEditing ? (
+                  <ButtonGlass
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setIsEditing(true)}
+                    aria-label="Edit bio"
+                  >
+                    <Edit className="w-4 h-4 mr-2" />
+                    Edit
+                  </ButtonGlass>
+                ) : (
+                  <div className="flex gap-2">
+                    <ButtonGlass
+                      variant="success"
+                      size="sm"
+                      onClick={handleSave}
+                      aria-label="Save changes"
+                    >
+                      <Save className="w-4 h-4 mr-2" />
+                      Save
+                    </ButtonGlass>
+                    <ButtonGlass
+                      variant="ghost"
+                      size="sm"
+                      onClick={handleCancel}
+                      aria-label="Cancel editing"
+                    >
+                      <X className="w-4 h-4 mr-2" />
+                      Cancel
+                    </ButtonGlass>
+                  </div>
+                )}
+              </div>
+
+              {isEditing ? (
+                <InputGlass
+                  value={editedBio}
+                  onChange={(e) => setEditedBio(e.target.value)}
+                  placeholder="Tell us about yourself..."
+                  className="w-full"
+                  aria-label="Edit bio"
+                />
+              ) : (
+                <p className="text-white/80 leading-relaxed">{bio}</p>
+              )}
+
+              <div className="mt-6 pt-6 border-t border-white/10">
+                <h3 className="text-lg font-semibold text-white mb-3">Interests</h3>
+                <div className="flex flex-wrap gap-2">
+                  <BadgeGlass variant="info">Cloud Architecture</BadgeGlass>
+                  <BadgeGlass variant="info">DevOps</BadgeGlass>
+                  <BadgeGlass variant="info">Machine Learning</BadgeGlass>
+                  <BadgeGlass variant="info">Open Source</BadgeGlass>
+                  <BadgeGlass variant="info">Web Performance</BadgeGlass>
+                </div>
+              </div>
+
+              <div className="mt-6 pt-6 border-t border-white/10">
+                <h3 className="text-lg font-semibold text-white mb-3">Achievements</h3>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-yellow-500/20 flex items-center justify-center">
+                      <span className="text-2xl">🏆</span>
+                    </div>
+                    <div>
+                      <div className="text-white font-medium">Top Contributor</div>
+                      <div className="text-white/60 text-sm">Most contributions in 2023</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center">
+                      <span className="text-2xl">⭐</span>
+                    </div>
+                    <div>
+                      <div className="text-white font-medium">1000+ Stars</div>
+                      <div className="text-white/60 text-sm">Across all repositories</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
+                      <span className="text-2xl">🚀</span>
+                    </div>
+                    <div>
+                      <div className="text-white font-medium">Early Adopter</div>
+                      <div className="text-white/60 text-sm">Member since 2020</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </GlassCard>
+          </TabsGlass.Content>
+        </TabsGlass.Root>
       </div>
+    </div>
   );
 };
 
@@ -470,7 +456,7 @@ export const EditMode: Story = {
       );
 
       return (
-        <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-6">
+        <div className="min-h-screen p-6">
           <ProfileHeaderGlass
             username="alexdev"
             bio={bio}
@@ -498,10 +484,7 @@ export const EditMode: Story = {
                         <Save className="w-4 h-4 mr-2" />
                         Save
                       </ButtonGlass>
-                      <ButtonGlass
-                        variant="ghost"
-                        size="sm"
-                      >
+                      <ButtonGlass variant="ghost" size="sm">
                         <X className="w-4 h-4 mr-2" />
                         Cancel
                       </ButtonGlass>
@@ -537,7 +520,7 @@ export const PublicView: Story = {
       const [activeTab, setActiveTab] = useState('overview');
 
       return (
-        <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-6">
+        <div className="min-h-screen p-6">
           <ProfileHeaderGlass
             username="alexdev"
             bio="Senior Software Engineer passionate about building scalable systems and elegant user experiences. Open source contributor and tech community advocate."
@@ -555,15 +538,11 @@ export const PublicView: Story = {
             <TabsGlass.Root value={activeTab} onValueChange={setActiveTab}>
               <TabsGlass.List>
                 <TabsGlass.Trigger value="overview">Overview</TabsGlass.Trigger>
-                <TabsGlass.Trigger value="repositories">
-                  Repositories
-                </TabsGlass.Trigger>
+                <TabsGlass.Trigger value="repositories">Repositories</TabsGlass.Trigger>
               </TabsGlass.List>
               <TabsGlass.Content value="overview" className="mt-6">
                 <GlassCard intensity="medium" className="p-6 text-center">
-                  <p className="text-white/70">
-                    Public view - Edit controls hidden
-                  </p>
+                  <p className="text-white/70">Public view - Edit controls hidden</p>
                 </GlassCard>
               </TabsGlass.Content>
               <TabsGlass.Content value="repositories" className="mt-6">

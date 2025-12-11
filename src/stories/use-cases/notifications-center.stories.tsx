@@ -200,9 +200,7 @@ const NotificationsCenter = ({
 }: {
   initialNotifications?: Notification[];
 }) => {
-  const [notifications, setNotifications] = useState<Notification[]>(
-    initialNotifications
-  );
+  const [notifications, setNotifications] = useState<Notification[]>(initialNotifications);
   const [toastNotifications, setToastNotifications] = useState<Notification[]>([]);
   const [activeFilter, setActiveFilter] = useState<NotificationFilter>('all');
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
@@ -267,15 +265,11 @@ const NotificationsCenter = ({
 
   // Actions
   const markAsRead = (id: string) => {
-    setNotifications((prev) =>
-      prev.map((n) => (n.id === id ? { ...n, read: true } : n))
-    );
+    setNotifications((prev) => prev.map((n) => (n.id === id ? { ...n, read: true } : n)));
   };
 
   const markAllAsRead = () => {
-    setNotifications((prev) =>
-      prev.map((n) => (n.archived ? n : { ...n, read: true }))
-    );
+    setNotifications((prev) => prev.map((n) => (n.archived ? n : { ...n, read: true })));
   };
 
   const deleteNotification = (id: string) => {
@@ -315,9 +309,7 @@ const NotificationsCenter = ({
 
   const bulkArchive = () => {
     setNotifications((prev) =>
-      prev.map((n) =>
-        selectedIds.has(n.id) ? { ...n, archived: true, read: true } : n
-      )
+      prev.map((n) => (selectedIds.has(n.id) ? { ...n, archived: true, read: true } : n))
     );
     setSelectedIds(new Set());
   };
@@ -327,340 +319,301 @@ const NotificationsCenter = ({
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-6">
+    <div className="min-h-screen p-6">
       {/* Header with Notification Bell */}
-      <div className="flex items-center justify-between mb-8">
-          <div>
-            <h1 className="text-3xl font-bold text-white mb-2">Notifications</h1>
-            <p className="text-white/70">Manage your alerts and updates</p>
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="relative">
-              <ButtonGlass
-                variant="ghost"
-                size="lg"
-                onClick={() => setIsCenterOpen(!isCenterOpen)}
-                aria-label={`Notifications. ${unreadCount} unread`}
-              >
-                <Bell className="w-5 h-5" />
-                {unreadCount > 0 && (
-                  <BadgeGlass
-                    variant="destructive"
-                    className="absolute -top-1 -right-1 min-w-[20px] h-5 flex items-center justify-center px-1"
-                  >
-                    {unreadCount > 99 ? '99+' : unreadCount}
-                  </BadgeGlass>
-                )}
-              </ButtonGlass>
-            </div>
-            <DropdownGlass
-              trigger={
-                <ButtonGlass variant="ghost" aria-label="Notification settings">
-                  <Settings className="w-5 h-5" />
-                </ButtonGlass>
-              }
-              items={[
-                { label: 'Notification Preferences', onClick: () => setShowSettings(true) },
-                { label: 'Mark All as Read', onClick: markAllAsRead },
-                { label: 'Clear All', onClick: clearAllNotifications },
-              ]}
-            />
-          </div>
+      <div className="flex items-center justify-between mb-8 max-w-6xl mx-auto">
+        <div>
+          <h1 className="text-3xl font-bold text-white mb-2">Notifications</h1>
+          <p className="text-white/70">Manage your alerts and updates</p>
         </div>
-
-        {/* Main Content */}
-        <GlassCard intensity="high" className="p-6">
-          {/* Tabs for filtering */}
-          <TabsGlass.Root value={activeFilter} onValueChange={(v) => setActiveFilter(v as NotificationFilter)}>
-            <TabsGlass.List aria-label="Filter notifications">
-              <TabsGlass.Trigger value="all">
-                All
-                {notifications.filter(n => !n.archived).length > 0 && (
-                  <BadgeGlass variant="default" className="ml-2">
-                    {notifications.filter(n => !n.archived).length}
-                  </BadgeGlass>
-                )}
-              </TabsGlass.Trigger>
-              <TabsGlass.Trigger value="unread">
-                Unread
-                {unreadCount > 0 && (
-                  <BadgeGlass variant="destructive" className="ml-2">
-                    {unreadCount}
-                  </BadgeGlass>
-                )}
-              </TabsGlass.Trigger>
-              <TabsGlass.Trigger value="archived">
-                Archived
-                {notifications.filter(n => n.archived).length > 0 && (
-                  <BadgeGlass variant="default" className="ml-2">
-                    {notifications.filter(n => n.archived).length}
-                  </BadgeGlass>
-                )}
-              </TabsGlass.Trigger>
-            </TabsGlass.List>
-
-            {/* Bulk Actions */}
-            {selectedIds.size > 0 && (
-              <div className="mt-4 flex gap-2">
-                <AlertGlass variant="info" title="Selection Active">
-                  {selectedIds.size} notification{selectedIds.size > 1 ? 's' : ''} selected
-                </AlertGlass>
-                <div className="ml-auto flex gap-2">
-                  <ButtonGlass variant="ghost" size="sm" onClick={bulkArchive}>
-                    <Archive className="w-4 h-4 mr-2" />
-                    Archive
-                  </ButtonGlass>
-                  <ButtonGlass variant="destructive" size="sm" onClick={bulkDelete}>
-                    <Trash2 className="w-4 h-4 mr-2" />
-                    Delete
-                  </ButtonGlass>
-                </div>
-              </div>
-            )}
-
-            {/* All Tab */}
-            <TabsGlass.Content value="all" className="mt-6 space-y-3">
-              {filteredNotifications.length === 0 ? (
-                <div className="text-center py-12">
-                  <Bell className="w-12 h-12 text-white/30 mx-auto mb-4" />
-                  <p className="text-white/60 text-lg mb-2">No notifications</p>
-                  <p className="text-white/40 text-sm">
-                    You're all caught up! Check back later for updates.
-                  </p>
-                </div>
-              ) : (
-                filteredNotifications.map((notification) => (
-                  <GlassCard
-                    key={notification.id}
-                    intensity="medium"
-                    className={`p-4 transition-all ${
-                      !notification.read ? 'border-l-4 border-blue-400' : ''
-                    } ${selectedIds.has(notification.id) ? 'ring-2 ring-blue-400' : ''}`}
-                  >
-                    <div className="flex items-start gap-4">
-                      <CheckboxGlass
-                        checked={selectedIds.has(notification.id)}
-                        onCheckedChange={() => toggleSelection(notification.id)}
-                        aria-label={`Select ${notification.title}`}
-                      />
-                      <div className="flex-shrink-0 mt-1">
-                        {getNotificationIcon(notification.type)}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-start justify-between gap-2 mb-1">
-                          <h3 className="text-white font-semibold">
-                            {notification.title}
-                          </h3>
-                          <span className="text-white/50 text-xs whitespace-nowrap">
-                            {formatTimestamp(notification.timestamp)}
-                          </span>
-                        </div>
-                        <p className="text-white/70 text-sm mb-2">
-                          {notification.message}
-                        </p>
-                        <div className="flex items-center gap-2">
-                          {!notification.read && (
-                            <ButtonGlass
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => markAsRead(notification.id)}
-                              aria-label="Mark as read"
-                            >
-                              <Check className="w-3 h-3 mr-1" />
-                              Mark as read
-                            </ButtonGlass>
-                          )}
-                          <ButtonGlass
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => archiveNotification(notification.id)}
-                            aria-label="Archive notification"
-                          >
-                            <Archive className="w-3 h-3 mr-1" />
-                            Archive
-                          </ButtonGlass>
-                          <ButtonGlass
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => deleteNotification(notification.id)}
-                            aria-label="Delete notification"
-                          >
-                            <Trash2 className="w-3 h-3 mr-1" />
-                            Delete
-                          </ButtonGlass>
-                        </div>
-                      </div>
-                    </div>
-                  </GlassCard>
-                ))
+        <div className="flex items-center gap-4">
+          <div className="relative">
+            <ButtonGlass
+              variant="ghost"
+              size="lg"
+              onClick={() => setIsCenterOpen(!isCenterOpen)}
+              aria-label={`Notifications. ${unreadCount} unread`}
+            >
+              <Bell className="w-5 h-5" />
+              {unreadCount > 0 && (
+                <BadgeGlass
+                  variant="destructive"
+                  className="absolute -top-1 -right-1 min-w-[20px] h-5 flex items-center justify-center px-1"
+                >
+                  {unreadCount > 99 ? '99+' : unreadCount}
+                </BadgeGlass>
               )}
-            </TabsGlass.Content>
+            </ButtonGlass>
+          </div>
+          <DropdownGlass
+            trigger={
+              <ButtonGlass variant="ghost" aria-label="Notification settings">
+                <Settings className="w-5 h-5" />
+              </ButtonGlass>
+            }
+            items={[
+              { label: 'Notification Preferences', onClick: () => setShowSettings(true) },
+              { label: 'Mark All as Read', onClick: markAllAsRead },
+              { label: 'Clear All', onClick: clearAllNotifications },
+            ]}
+          />
+        </div>
+      </div>
 
-            {/* Unread Tab */}
-            <TabsGlass.Content value="unread" className="mt-6 space-y-3">
-              {filteredNotifications.length === 0 ? (
-                <div className="text-center py-12">
-                  <CheckCircle className="w-12 h-12 text-green-400/50 mx-auto mb-4" />
-                  <p className="text-white/60 text-lg mb-2">All caught up!</p>
-                  <p className="text-white/40 text-sm">
-                    You have no unread notifications.
-                  </p>
-                </div>
-              ) : (
-                filteredNotifications.map((notification) => (
-                  <GlassCard
-                    key={notification.id}
-                    intensity="medium"
-                    className="p-4 border-l-4 border-blue-400"
-                  >
-                    <div className="flex items-start gap-4">
-                      <div className="flex-shrink-0">
-                        {getNotificationIcon(notification.type)}
+      {/* Main Content */}
+      <GlassCard intensity="high" className="p-6 max-w-6xl mx-auto">
+        {/* Tabs for filtering */}
+        <TabsGlass.Root
+          value={activeFilter}
+          onValueChange={(v) => setActiveFilter(v as NotificationFilter)}
+        >
+          <TabsGlass.List aria-label="Filter notifications">
+            <TabsGlass.Trigger value="all">
+              All
+              {notifications.filter((n) => !n.archived).length > 0 && (
+                <BadgeGlass variant="default" className="ml-2">
+                  {notifications.filter((n) => !n.archived).length}
+                </BadgeGlass>
+              )}
+            </TabsGlass.Trigger>
+            <TabsGlass.Trigger value="unread">
+              Unread
+              {unreadCount > 0 && (
+                <BadgeGlass variant="destructive" className="ml-2">
+                  {unreadCount}
+                </BadgeGlass>
+              )}
+            </TabsGlass.Trigger>
+            <TabsGlass.Trigger value="archived">
+              Archived
+              {notifications.filter((n) => n.archived).length > 0 && (
+                <BadgeGlass variant="default" className="ml-2">
+                  {notifications.filter((n) => n.archived).length}
+                </BadgeGlass>
+              )}
+            </TabsGlass.Trigger>
+          </TabsGlass.List>
+
+          {/* Bulk Actions */}
+          {selectedIds.size > 0 && (
+            <div className="mt-4 flex gap-2">
+              <AlertGlass variant="info" title="Selection Active">
+                {selectedIds.size} notification{selectedIds.size > 1 ? 's' : ''} selected
+              </AlertGlass>
+              <div className="ml-auto flex gap-2">
+                <ButtonGlass variant="ghost" size="sm" onClick={bulkArchive}>
+                  <Archive className="w-4 h-4 mr-2" />
+                  Archive
+                </ButtonGlass>
+                <ButtonGlass variant="destructive" size="sm" onClick={bulkDelete}>
+                  <Trash2 className="w-4 h-4 mr-2" />
+                  Delete
+                </ButtonGlass>
+              </div>
+            </div>
+          )}
+
+          {/* All Tab */}
+          <TabsGlass.Content value="all" className="mt-6 space-y-3">
+            {filteredNotifications.length === 0 ? (
+              <div className="text-center py-12">
+                <Bell className="w-12 h-12 text-white/30 mx-auto mb-4" />
+                <p className="text-white/60 text-lg mb-2">No notifications</p>
+                <p className="text-white/40 text-sm">
+                  You're all caught up! Check back later for updates.
+                </p>
+              </div>
+            ) : (
+              filteredNotifications.map((notification) => (
+                <GlassCard
+                  key={notification.id}
+                  intensity="medium"
+                  className={`p-4 transition-all ${
+                    !notification.read ? 'border-l-4 border-blue-400' : ''
+                  } ${selectedIds.has(notification.id) ? 'ring-2 ring-blue-400' : ''}`}
+                >
+                  <div className="flex items-start gap-4">
+                    <CheckboxGlass
+                      checked={selectedIds.has(notification.id)}
+                      onCheckedChange={() => toggleSelection(notification.id)}
+                      aria-label={`Select ${notification.title}`}
+                    />
+                    <div className="flex-shrink-0 mt-1">
+                      {getNotificationIcon(notification.type)}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-start justify-between gap-2 mb-1">
+                        <h3 className="text-white font-semibold">{notification.title}</h3>
+                        <span className="text-white/50 text-xs whitespace-nowrap">
+                          {formatTimestamp(notification.timestamp)}
+                        </span>
                       </div>
-                      <div className="flex-1">
-                        <div className="flex items-start justify-between gap-2 mb-1">
-                          <h3 className="text-white font-semibold">
-                            {notification.title}
-                          </h3>
-                          <span className="text-white/50 text-xs">
-                            {formatTimestamp(notification.timestamp)}
-                          </span>
-                        </div>
-                        <p className="text-white/70 text-sm mb-2">
-                          {notification.message}
-                        </p>
+                      <p className="text-white/70 text-sm mb-2">{notification.message}</p>
+                      <div className="flex items-center gap-2">
+                        {!notification.read && (
+                          <ButtonGlass
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => markAsRead(notification.id)}
+                            aria-label="Mark as read"
+                          >
+                            <Check className="w-3 h-3 mr-1" />
+                            Mark as read
+                          </ButtonGlass>
+                        )}
                         <ButtonGlass
                           variant="ghost"
                           size="sm"
-                          onClick={() => markAsRead(notification.id)}
+                          onClick={() => archiveNotification(notification.id)}
+                          aria-label="Archive notification"
                         >
-                          <Check className="w-3 h-3 mr-1" />
-                          Mark as read
+                          <Archive className="w-3 h-3 mr-1" />
+                          Archive
                         </ButtonGlass>
-                      </div>
-                    </div>
-                  </GlassCard>
-                ))
-              )}
-            </TabsGlass.Content>
-
-            {/* Archived Tab */}
-            <TabsGlass.Content value="archived" className="mt-6 space-y-3">
-              {filteredNotifications.length === 0 ? (
-                <div className="text-center py-12">
-                  <Archive className="w-12 h-12 text-white/30 mx-auto mb-4" />
-                  <p className="text-white/60 text-lg mb-2">No archived notifications</p>
-                  <p className="text-white/40 text-sm">
-                    Archived notifications will appear here.
-                  </p>
-                </div>
-              ) : (
-                filteredNotifications.map((notification) => (
-                  <GlassCard
-                    key={notification.id}
-                    intensity="low"
-                    className="p-4 opacity-75"
-                  >
-                    <div className="flex items-start gap-4">
-                      <div className="flex-shrink-0">
-                        {getNotificationIcon(notification.type)}
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-start justify-between gap-2 mb-1">
-                          <h3 className="text-white font-semibold">
-                            {notification.title}
-                          </h3>
-                          <span className="text-white/50 text-xs">
-                            {formatTimestamp(notification.timestamp)}
-                          </span>
-                        </div>
-                        <p className="text-white/70 text-sm mb-2">
-                          {notification.message}
-                        </p>
                         <ButtonGlass
                           variant="ghost"
                           size="sm"
                           onClick={() => deleteNotification(notification.id)}
+                          aria-label="Delete notification"
                         >
                           <Trash2 className="w-3 h-3 mr-1" />
-                          Delete permanently
+                          Delete
                         </ButtonGlass>
                       </div>
                     </div>
-                  </GlassCard>
-                ))
-              )}
-            </TabsGlass.Content>
-          </TabsGlass.Root>
-        </GlassCard>
+                  </div>
+                </GlassCard>
+              ))
+            )}
+          </TabsGlass.Content>
 
-        {/* Toast Notifications (bottom-right) */}
-        <div
-          className="fixed bottom-6 right-6 space-y-3 max-w-md z-50"
-          role="region"
-          aria-label="Notifications"
-          aria-live="polite"
-        >
-          {toastNotifications.slice(0, 3).map((notification) => (
-            <NotificationGlass
-              key={notification.id}
-              variant={notification.type}
-              title={notification.title}
-              message={notification.message}
-              onClose={() => removeToast(notification.id)}
-            />
-          ))}
-        </div>
+          {/* Unread Tab */}
+          <TabsGlass.Content value="unread" className="mt-6 space-y-3">
+            {filteredNotifications.length === 0 ? (
+              <div className="text-center py-12">
+                <CheckCircle className="w-12 h-12 text-green-400/50 mx-auto mb-4" />
+                <p className="text-white/60 text-lg mb-2">All caught up!</p>
+                <p className="text-white/40 text-sm">You have no unread notifications.</p>
+              </div>
+            ) : (
+              filteredNotifications.map((notification) => (
+                <GlassCard
+                  key={notification.id}
+                  intensity="medium"
+                  className="p-4 border-l-4 border-blue-400"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0">{getNotificationIcon(notification.type)}</div>
+                    <div className="flex-1">
+                      <div className="flex items-start justify-between gap-2 mb-1">
+                        <h3 className="text-white font-semibold">{notification.title}</h3>
+                        <span className="text-white/50 text-xs">
+                          {formatTimestamp(notification.timestamp)}
+                        </span>
+                      </div>
+                      <p className="text-white/70 text-sm mb-2">{notification.message}</p>
+                      <ButtonGlass
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => markAsRead(notification.id)}
+                      >
+                        <Check className="w-3 h-3 mr-1" />
+                        Mark as read
+                      </ButtonGlass>
+                    </div>
+                  </div>
+                </GlassCard>
+              ))
+            )}
+          </TabsGlass.Content>
 
-        {/* Settings Modal */}
-        {showSettings && (
-          <ModalGlass.Root open={showSettings} onOpenChange={setShowSettings}>
-            <ModalGlass.Overlay />
-            <ModalGlass.Content>
-              <ModalGlass.Header>
-                <ModalGlass.Title>Notification Preferences</ModalGlass.Title>
-                <ModalGlass.Description>
-                  Customize how you receive notifications
-                </ModalGlass.Description>
-              </ModalGlass.Header>
-              <ModalGlass.Body>
-                <div className="space-y-4">
-                  <CheckboxGlass
-                    checked={true}
-                    label="Email notifications"
-                  />
-                  <CheckboxGlass
-                    checked={true}
-                    label="Push notifications"
-                  />
-                  <CheckboxGlass
-                    checked={false}
-                    label="SMS notifications"
-                  />
-                  <CheckboxGlass
-                    checked={true}
-                    label="In-app notifications"
-                  />
-                </div>
-              </ModalGlass.Body>
-              <ModalGlass.Footer>
-                <ButtonGlass
-                  variant="ghost"
-                  onClick={() => setShowSettings(false)}
-                >
-                  Cancel
-                </ButtonGlass>
-                <ButtonGlass
-                  variant="primary"
-                  onClick={() => setShowSettings(false)}
-                >
-                  Save Preferences
-                </ButtonGlass>
-              </ModalGlass.Footer>
-            </ModalGlass.Content>
-          </ModalGlass.Root>
-        )}
+          {/* Archived Tab */}
+          <TabsGlass.Content value="archived" className="mt-6 space-y-3">
+            {filteredNotifications.length === 0 ? (
+              <div className="text-center py-12">
+                <Archive className="w-12 h-12 text-white/30 mx-auto mb-4" />
+                <p className="text-white/60 text-lg mb-2">No archived notifications</p>
+                <p className="text-white/40 text-sm">Archived notifications will appear here.</p>
+              </div>
+            ) : (
+              filteredNotifications.map((notification) => (
+                <GlassCard key={notification.id} intensity="low" className="p-4 opacity-75">
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0">{getNotificationIcon(notification.type)}</div>
+                    <div className="flex-1">
+                      <div className="flex items-start justify-between gap-2 mb-1">
+                        <h3 className="text-white font-semibold">{notification.title}</h3>
+                        <span className="text-white/50 text-xs">
+                          {formatTimestamp(notification.timestamp)}
+                        </span>
+                      </div>
+                      <p className="text-white/70 text-sm mb-2">{notification.message}</p>
+                      <ButtonGlass
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => deleteNotification(notification.id)}
+                      >
+                        <Trash2 className="w-3 h-3 mr-1" />
+                        Delete permanently
+                      </ButtonGlass>
+                    </div>
+                  </div>
+                </GlassCard>
+              ))
+            )}
+          </TabsGlass.Content>
+        </TabsGlass.Root>
+      </GlassCard>
+
+      {/* Toast Notifications (bottom-right) */}
+      <div
+        className="fixed bottom-6 right-6 space-y-3 max-w-md z-50"
+        role="region"
+        aria-label="Notifications"
+        aria-live="polite"
+      >
+        {toastNotifications.slice(0, 3).map((notification) => (
+          <NotificationGlass
+            key={notification.id}
+            variant={notification.type}
+            title={notification.title}
+            message={notification.message}
+            onClose={() => removeToast(notification.id)}
+          />
+        ))}
       </div>
+
+      {/* Settings Modal */}
+      {showSettings && (
+        <ModalGlass.Root open={showSettings} onOpenChange={setShowSettings}>
+          <ModalGlass.Overlay />
+          <ModalGlass.Content>
+            <ModalGlass.Header>
+              <ModalGlass.Title>Notification Preferences</ModalGlass.Title>
+              <ModalGlass.Description>
+                Customize how you receive notifications
+              </ModalGlass.Description>
+            </ModalGlass.Header>
+            <ModalGlass.Body>
+              <div className="space-y-4">
+                <CheckboxGlass checked={true} label="Email notifications" />
+                <CheckboxGlass checked={true} label="Push notifications" />
+                <CheckboxGlass checked={false} label="SMS notifications" />
+                <CheckboxGlass checked={true} label="In-app notifications" />
+              </div>
+            </ModalGlass.Body>
+            <ModalGlass.Footer>
+              <ButtonGlass variant="ghost" onClick={() => setShowSettings(false)}>
+                Cancel
+              </ButtonGlass>
+              <ButtonGlass variant="primary" onClick={() => setShowSettings(false)}>
+                Save Preferences
+              </ButtonGlass>
+            </ModalGlass.Footer>
+          </ModalGlass.Content>
+        </ModalGlass.Root>
+      )}
+    </div>
   );
 };
 
@@ -719,9 +672,7 @@ export const ManyNotifications: Story = {
       id: `notif-${i}`,
       title: `Notification ${i + 1}`,
       message: `This is notification message number ${i + 1}. It contains important information.`,
-      type: (['default', 'success', 'warning', 'destructive'] as const)[
-        i % 4
-      ],
+      type: (['default', 'success', 'warning', 'destructive'] as const)[i % 4],
       timestamp: new Date(Date.now() - i * 10 * 60 * 1000),
       read: i > 5,
       archived: i > 15,
