@@ -375,14 +375,14 @@
   --slider-thumb-shadow: 0 2px 8px var(--oklch-black-30);
 
   /* ========================================
-     AVATAR VARIABLES (OKLCH)
+     AVATAR VARIABLES (using semantic tokens)
      ======================================== */
-  --avatar-bg: linear-gradient(135deg, oklch(66.6% 0.159 303 / 0.8), oklch(62.7% 0.159 291 / 0.8));
-  --avatar-border: oklch(100% 0 0 / 0.2);
-  --avatar-shadow: 0 4px 20px oklch(66.6% 0.159 303 / 0.3);
-  --avatar-hover-glow: 0 0 30px oklch(66.6% 0.159 303 / 0.5), inset 0 1px 0 oklch(100% 0 0 / 0.2);
-  --avatar-glow: 0 0 24px oklch(58% 0.2 293 / 0.5);
-  --online-border: oklch(20.8% 0.042 265);
+  --avatar-bg: linear-gradient(135deg, var(--oklch-purple-500-80), var(--oklch-violet-500-80));
+  --avatar-border: var(--oklch-white-20);
+  --avatar-shadow: 0 4px 20px var(--oklch-purple-500-30);
+  --avatar-hover-glow: 0 0 30px var(--oklch-purple-500-50), inset 0 1px 0 var(--oklch-white-20);
+  --avatar-glow: 0 0 24px var(--oklch-violet-600-50);
+  --online-border: var(--oklch-slate-900);
 
   /* ========================================
      STATUS COLORS (Semantic Naming)
