@@ -130,27 +130,27 @@
   --glass-border-strong: var(--oklch-slate-700-70);
 
   /* ========================================
-     SEMANTIC GLOWS (Layer 3 Component Tokens)
+     SEMANTIC GLOWS (original RGBA values)
      ======================================== */
-  --glow-primary: 0 0 25px var(--oklch-violet-500-40);
-  --glow-secondary: 0 0 20px var(--oklch-blue-500-20);
-  --glow-success: 0 0 20px var(--oklch-emerald-400-40);
-  --glow-warning: 0 0 20px var(--oklch-amber-400-40);
-  --glow-error: 0 0 20px var(--oklch-rose-400-40);
+  --glow-primary: 0 0 25px rgba(139, 92, 246, 0.4);
+  --glow-secondary: 0 0 20px rgba(59, 130, 246, 0.3);
+  --glow-success: 0 0 20px rgba(52, 211, 153, 0.4);
+  --glow-warning: 0 0 20px rgba(251, 191, 36, 0.4);
+  --glow-error: 0 0 20px rgba(248, 113, 113, 0.4);
 
   /* Additional color glows */
-  --glow-blue: 0 0 18px var(--oklch-blue-500-20);
-  --glow-violet: 0 0 18px var(--oklch-violet-500-30);
-  --glow-cyan: 0 0 18px var(--oklch-cyan-500-20);
-  --glow-neutral: 0 4px 12px var(--oklch-black-15);
+  --glow-blue: 0 0 18px rgba(59, 130, 246, 0.3);
+  --glow-violet: 0 0 18px rgba(139, 92, 246, 0.3);
+  --glow-cyan: 0 0 18px rgba(6, 182, 212, 0.3);
+  --glow-neutral: 0 4px 12px rgba(0, 0, 0, 0.15);
 
   /* ========================================
-     BACKGROUND ORBS (Layer 3 Component Tokens)
+     BACKGROUND ORBS (original RGBA values)
      ======================================== */
-  --orb-1: var(--oklch-blue-600);
-  --orb-2: var(--oklch-violet-600);
-  --orb-3: var(--oklch-cyan-600);
-  --orb-4: var(--oklch-violet-700);
+  --orb-1: rgba(37, 99, 235, 0.1);
+  --orb-2: rgba(124, 58, 237, 0.08);
+  --orb-3: rgba(8, 145, 178, 0.08);
+  --orb-4: rgba(79, 70, 229, 0.06);
   --orb-5: transparent;
 
   /* ========================================

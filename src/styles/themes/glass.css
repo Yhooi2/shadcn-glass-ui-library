@@ -146,28 +146,28 @@
   --shadow-xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
 
   /* ========================================
-     SEMANTIC GLOWS (using semantic tokens)
+     SEMANTIC GLOWS (original RGBA values)
      ======================================== */
-  --glow-primary: 0 0 30px var(--oklch-purple-500-60);
-  --glow-secondary: 0 0 20px var(--oklch-blue-500-40);
-  --glow-success: 0 0 20px var(--oklch-emerald-400-40);
-  --glow-warning: 0 0 20px var(--oklch-amber-400-40);
-  --glow-error: 0 0 20px var(--oklch-rose-400-40);
+  --glow-primary: 0 0 30px rgba(168, 85, 247, 0.6);
+  --glow-secondary: 0 0 20px rgba(59, 130, 246, 0.4);
+  --glow-success: 0 0 20px rgba(52, 211, 153, 0.4);
+  --glow-warning: 0 0 20px rgba(251, 191, 36, 0.4);
+  --glow-error: 0 0 20px rgba(251, 113, 133, 0.4);
 
-  /* Additional color glows (using primitives) */
-  --glow-blue: 0 0 20px var(--oklch-blue-500-40);
-  --glow-violet: 0 0 20px var(--oklch-violet-500-40);
-  --glow-cyan: 0 0 20px var(--oklch-cyan-500-40);
-  --glow-neutral: 0 4px 15px var(--oklch-black-20);
+  /* Additional color glows */
+  --glow-blue: 0 0 20px rgba(59, 130, 246, 0.4);
+  --glow-violet: 0 0 20px rgba(139, 92, 246, 0.4);
+  --glow-cyan: 0 0 20px rgba(6, 182, 212, 0.4);
+  --glow-neutral: 0 4px 15px rgba(0, 0, 0, 0.2);
 
   /* ========================================
-     BACKGROUND ORBS (using primitives)
+     BACKGROUND ORBS (original RGBA values)
      ======================================== */
-  --orb-1: var(--oklch-purple-500-30);
-  --orb-2: var(--oklch-blue-500-20);
-  --orb-3: var(--oklch-pink-500-20);
-  --orb-4: var(--oklch-cyan-500-20);
-  --orb-5: var(--oklch-violet-500-10);
+  --orb-1: rgba(168, 85, 247, 0.3);
+  --orb-2: rgba(59, 130, 246, 0.2);
+  --orb-3: rgba(236, 72, 153, 0.2);
+  --orb-4: rgba(6, 182, 212, 0.2);
+  --orb-5: rgba(139, 92, 246, 0.1);
 
   /* ========================================
      BUTTON VARIABLES (using semantic tokens)
