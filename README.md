@@ -2,13 +2,11 @@
 
 <div align="center">
 
-![Glass Theme Preview](src/components/__visual__/__screenshots__/componentshowcase.visual.test.tsx/componentshowcase-full-glass-chromium.png)
-
 **Glassmorphism UI components for React** — drop-in shadcn/ui compatible, AI-optimized
 
-[Live Demo](https://yhooi2.github.io/shadcn-glass-ui-library/) |
-[Storybook](https://yhooi2.github.io/shadcn-glass-ui-library/) |
-[npm](https://www.npmjs.com/package/shadcn-glass-ui)
+**[🎨 View Live Demo](https://yhooi2.github.io/shadcn-glass-ui-library/)** |
+**[📚 Interactive Storybook](https://yhooi2.github.io/shadcn-glass-ui-library/)** |
+**[📦 npm Package](https://www.npmjs.com/package/shadcn-glass-ui)**
 
 </div>
 
@@ -86,13 +84,23 @@ function App() {
 
 ## Components
 
-| Core UI                                                                                                                              | Composite                                                                                                        | Specialized                                                                                                                            |
-| ------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| ![Buttons](src/components/__visual__/__screenshots__/componentshowcase.visual.test.tsx/componentshowcase-buttons-glass-chromium.png) | ![Metrics](src/components/__visual__/__screenshots__/desktop.visual.test.tsx/desktop-ai-card-glass-chromium.png) | ![Progress](src/components/__visual__/__screenshots__/componentshowcase.visual.test.tsx/componentshowcase-progress-glass-chromium.png) |
-| ButtonGlass, InputGlass, ModalGlass, TabsGlass...                                                                                    | MetricCardGlass, AICardGlass, YearCardGlass...                                                                   | SparklineGlass, StepperGlass, RainbowProgressGlass...                                                                                  |
+### 58 Components Across 5 Categories
 
-[View All 58 Components](docs/COMPONENTS_CATALOG.md) |
-[Interactive Storybook](https://yhooi2.github.io/shadcn-glass-ui-library/)
+**Core UI (18):** ButtonGlass, InputGlass, ModalGlass, TabsGlass, CheckboxGlass, ToggleGlass,
+SliderGlass, DropdownGlass, TooltipGlass, AlertGlass, NotificationGlass, BadgeGlass, AvatarGlass,
+GlassCard, ProgressGlass, CircularProgressGlass, SkeletonGlass, ComboBoxGlass
+
+**Composite (13):** MetricCardGlass, YearCardGlass, AICardGlass, RepositoryCardGlass,
+TrustScoreDisplayGlass, CircularMetricGlass, UserStatsLineGlass, UserInfoGlass,
+CareerStatsHeaderGlass, ContributionMetricsGlass, MetricsGridGlass, RepositoryHeaderGlass,
+RepositoryMetadataGlass
+
+**Specialized (10):** StatusIndicatorGlass, SegmentedControlGlass, RainbowProgressGlass,
+LanguageBarGlass, ProfileAvatarGlass, FlagAlertGlass, BaseProgressGlass, SparklineGlass,
+StepperGlass (compound API with 3 variants)
+
+**[View All 58 Components →](docs/COMPONENTS_CATALOG.md)** |
+**[Try in Interactive Storybook →](https://yhooi2.github.io/shadcn-glass-ui-library/)**
 
 ---
 
@@ -161,10 +169,11 @@ with 3 variants)
 
 ## Themes
 
-| Glass (Dark)                                                                                                                    | Light                                                                                                                           | Aurora                                                                                                                            |
-| ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| ![Glass](src/components/__visual__/__screenshots__/componentshowcase.visual.test.tsx/componentshowcase-full-glass-chromium.png) | ![Light](src/components/__visual__/__screenshots__/componentshowcase.visual.test.tsx/componentshowcase-full-light-chromium.png) | ![Aurora](src/components/__visual__/__screenshots__/componentshowcase.visual.test.tsx/componentshowcase-full-aurora-chromium.png) |
-| Frosted glass effects                                                                                                           | Clean minimal                                                                                                                   | Gradient glow                                                                                                                     |
+Three built-in themes with seamless switching:
+
+- **Glass (Dark)** — Frosted glass effects with purple accents, blur + glow, perfect for dashboards
+- **Light** — Clean minimal design with subtle glass effects for landing pages
+- **Aurora** — Gradient glow with aurora borealis-inspired colors for creative projects
 
 ```tsx
 import { ThemeProvider, useTheme } from 'shadcn-glass-ui';
@@ -175,7 +184,8 @@ function ThemeSwitcher() {
 }
 ```
 
-[Theme Creation Guide](docs/THEME_CREATION_GUIDE.md) — Create custom themes in 15 minutes
+**[Theme Creation Guide →](docs/THEME_CREATION_GUIDE.md)** — Create custom themes in 15 minutes
+**[View All Themes in Storybook →](https://yhooi2.github.io/shadcn-glass-ui-library/)**
 
 ---
 
