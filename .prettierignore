@@ -12,7 +12,7 @@ coverage
 
 # Storybook
 .storybook-static
-.storybook/Introduction.mdx
+.storybook/**/*.mdx
 
 # Visual test screenshots
 src/components/__visual__/__screenshots__

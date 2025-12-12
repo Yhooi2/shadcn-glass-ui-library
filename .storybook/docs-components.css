@@ -196,6 +196,17 @@
   font-size: 1.1rem;
 }
 
+.docs-category-card h3 a {
+  color: #a78bfa;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.docs-category-card h3 a:hover {
+  color: #c4b5fd;
+  text-decoration: underline;
+}
+
 .docs-category-card ul {
   list-style: none;
   padding: 0;
@@ -454,6 +465,14 @@
 
 [data-theme='light'] .docs-category-card h3 {
   color: #1e293b;
+}
+
+[data-theme='light'] .docs-category-card h3 a {
+  color: #7c3aed;
+}
+
+[data-theme='light'] .docs-category-card h3 a:hover {
+  color: #6d28d9;
 }
 
 [data-theme='light'] .docs-category-card p {
