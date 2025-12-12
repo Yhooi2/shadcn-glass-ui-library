@@ -70,10 +70,16 @@
       "description": "Glass-themed container with:"
     },
     {
+      "name": "dropdown-menu-glass",
+      "type": "registry:ui",
+      "title": "Dropdown Menu Glass",
+      "description": "DropdownMenuGlass - Compound Component"
+    },
+    {
       "name": "dropdown-glass",
       "type": "registry:ui",
       "title": "Dropdown Glass",
-      "description": "Glass-themed dropdown menu based on Radix UI with:"
+      "description": "Glass-themed dropdown menu with two APIs:\n *\n * 1. **Simple API** (items prop) - Quick setup for basic menus\n * 2. **Compound API** (DropdownMenuGlass.*) - Full shadcn/ui pattern for complex menus\n *\n * @example Simple API (recommended for basic dropdowns)\n * ```tsx\n * import { DropdownGlass } from '@/components/glass/ui/dropdown-glass';\n *\n * <DropdownGlass\n *   trigger={<button><MoreVertical /></button>}\n *   items={[\n *     { label: 'Edit', icon: Edit, onClick: handleEdit },\n *     { divider: true },\n *     { label: 'Delete', icon: Trash, onClick: handleDelete, danger: true }\n *   ]}\n * />\n * ```\n *\n * @example Compound API (for complex dropdowns)\n * ```tsx\n * import {\n *   DropdownMenuGlass,\n *   DropdownMenuGlassTrigger,\n *   DropdownMenuGlassContent,\n *   DropdownMenuGlassItem,\n *   DropdownMenuGlassSeparator,\n * } from '@/components/glass/ui/dropdown-menu-glass';\n *\n * <DropdownMenuGlass>\n *   <DropdownMenuGlassTrigger asChild>\n *     <Button>Open Menu</Button>\n *   </DropdownMenuGlassTrigger>\n *   <DropdownMenuGlassContent>\n *     <DropdownMenuGlassItem>Edit</DropdownMenuGlassItem>\n *     <DropdownMenuGlassSeparator />\n *     <DropdownMenuGlassItem variant=\"destructive\">Delete</DropdownMenuGlassItem>\n *   </DropdownMenuGlassContent>\n * </DropdownMenuGlass>\n * ```\n *\n * @see ./dropdown-menu-glass.tsx for compound component exports"
     },
     {
       "name": "combobox-glass",
@@ -325,7 +331,7 @@
       "name": "sort-dropdown-glass",
       "type": "registry:component",
       "title": "Sort Dropdown Glass",
-      "description": "Atomic component for sorting controls with:"
+      "description": "Atomic component for sorting controls built on DropdownMenuGlass primitives.\n *\n * Features:"
     },
     {
       "name": "search-box-glass",
