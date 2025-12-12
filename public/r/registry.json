@@ -157,7 +157,7 @@
       "name": "language-bar-glass",
       "type": "registry:component",
       "title": "Language Bar Glass",
-      "description": "Language Bar Glass component with glass effects"
+      "description": "Custom color for the language segment."
     },
     {
       "name": "flag-alert-glass",
