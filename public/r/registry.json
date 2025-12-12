@@ -238,48 +238,6 @@
       "description": "Unified wrapper for form controls with label, validation states, and messages.\n * Eliminates code duplication across InputGlass, SliderGlass, ComboBoxGlass, etc.\n *\n * Handles:"
     },
     {
-      "name": "theme-toggle-glass",
-      "type": "registry:component",
-      "title": "Theme Toggle Glass",
-      "description": "Theme Toggle Glass component with glass effects"
-    },
-    {
-      "name": "stat-item-glass",
-      "type": "registry:component",
-      "title": "Stat Item Glass",
-      "description": "Stat Item Glass component with glass effects"
-    },
-    {
-      "name": "sort-dropdown-glass",
-      "type": "registry:component",
-      "title": "Sort Dropdown Glass",
-      "description": "Atomic component for sorting controls built on DropdownMenuGlass primitives.\n *\n * Features:"
-    },
-    {
-      "name": "search-box-glass",
-      "type": "registry:component",
-      "title": "Search Box Glass",
-      "description": "Search Box Glass component with glass effects"
-    },
-    {
-      "name": "insight-card-glass",
-      "type": "registry:component",
-      "title": "Insight Card Glass",
-      "description": "Insight Card Glass component with glass effects"
-    },
-    {
-      "name": "icon-button-glass",
-      "type": "registry:component",
-      "title": "Icon Button Glass",
-      "description": "Icon Button Glass component with glass effects"
-    },
-    {
-      "name": "expandable-header-glass",
-      "type": "registry:component",
-      "title": "Expandable Header Glass",
-      "description": "Expandable Header Glass component with glass effects"
-    },
-    {
       "name": "year-card-glass",
       "type": "registry:block",
       "title": "Year Card Glass",
@@ -356,6 +314,48 @@
       "type": "registry:block",
       "title": "Ai Card Glass",
       "description": "Ai Card Glass component with glass effects"
+    },
+    {
+      "name": "theme-toggle-glass",
+      "type": "registry:component",
+      "title": "Theme Toggle Glass",
+      "description": "Theme Toggle Glass component with glass effects"
+    },
+    {
+      "name": "stat-item-glass",
+      "type": "registry:component",
+      "title": "Stat Item Glass",
+      "description": "Stat Item Glass component with glass effects"
+    },
+    {
+      "name": "sort-dropdown-glass",
+      "type": "registry:component",
+      "title": "Sort Dropdown Glass",
+      "description": "Atomic component for sorting controls built on DropdownMenuGlass primitives.\n *\n * Features:"
+    },
+    {
+      "name": "search-box-glass",
+      "type": "registry:component",
+      "title": "Search Box Glass",
+      "description": "Search Box Glass component with glass effects"
+    },
+    {
+      "name": "insight-card-glass",
+      "type": "registry:component",
+      "title": "Insight Card Glass",
+      "description": "Insight Card Glass component with glass effects"
+    },
+    {
+      "name": "icon-button-glass",
+      "type": "registry:component",
+      "title": "Icon Button Glass",
+      "description": "Icon Button Glass component with glass effects"
+    },
+    {
+      "name": "expandable-header-glass",
+      "type": "registry:component",
+      "title": "Expandable Header Glass",
+      "description": "Expandable Header Glass component with glass effects"
     }
   ]
 }
