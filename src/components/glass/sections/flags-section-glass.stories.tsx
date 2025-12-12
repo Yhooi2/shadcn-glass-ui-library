@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect } from 'storybook/test';
-import { fn } from 'storybook/test';
 import { FlagsSectionGlass } from './flags-section-glass';
 
 const meta = {
@@ -17,12 +16,27 @@ const meta = {
     },
     expanded: {
       control: 'boolean',
-      description: 'Whether the section is expanded',
+      description: 'Whether the section is expanded (controlled by parent)',
     },
     onToggle: {
       description: 'Callback when toggle button is clicked',
     },
   },
+  decorators: [
+    (Story, context) => {
+      const [expanded, setExpanded] = useState(context.args.expanded ?? false);
+
+      return (
+        <Story
+          args={{
+            ...context.args,
+            expanded,
+            onToggle: () => setExpanded(!expanded),
+          }}
+        />
+      );
+    },
+  ],
 } satisfies Meta<typeof FlagsSectionGlass>;
 
 export default meta;
@@ -43,7 +57,6 @@ export const Collapsed: Story = {
       },
     ],
     expanded: false,
-    onToggle: fn(),
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -65,7 +78,6 @@ export const Expanded: Story = {
       },
     ],
     expanded: true,
-    onToggle: fn(),
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -76,7 +88,6 @@ export const SingleFlag: Story = {
   args: {
     flags: [{ type: 'warning', title: 'API rate limit approaching' }],
     expanded: true,
-    onToggle: fn(),
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -101,7 +112,6 @@ export const ManyFlags: Story = {
       },
     ],
     expanded: true,
-    onToggle: fn(),
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -116,7 +126,6 @@ export const OnlyWarnings: Story = {
       { type: 'warning', title: 'Test coverage low', description: 'Coverage below 80% threshold' },
     ],
     expanded: true,
-    onToggle: fn(),
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -131,7 +140,6 @@ export const OnlyDangers: Story = {
       { type: 'danger', title: 'Data breach detected', description: 'Unauthorized access attempt' },
     ],
     expanded: true,
-    onToggle: fn(),
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -142,7 +150,6 @@ export const NoFlags: Story = {
   args: {
     flags: [],
     expanded: false,
-    onToggle: fn(),
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -164,37 +171,7 @@ export const Interactive: Story = {
       },
       { type: 'warning', title: 'API rate limit approaching', description: '80% of quota used' },
     ],
-  },
-  render: function InteractiveFlagsSection() {
-    const [expanded, setExpanded] = useState(false);
-    return (
-      <div className="flex flex-col gap-4">
-        <FlagsSectionGlass
-          flags={[
-            {
-              type: 'warning',
-              title: 'High activity detected',
-              description: 'Unusual number of contributions',
-            },
-            {
-              type: 'danger',
-              title: 'Security issue detected',
-              description: 'Multiple failed login attempts',
-            },
-            {
-              type: 'warning',
-              title: 'API rate limit approaching',
-              description: '80% of quota used',
-            },
-          ]}
-          expanded={expanded}
-          onToggle={() => setExpanded(!expanded)}
-        />
-        <span style={{ color: 'var(--text-muted)', fontSize: '12px', textAlign: 'center' }}>
-          Click to {expanded ? 'collapse' : 'expand'}
-        </span>
-      </div>
-    );
+    expanded: false,
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();

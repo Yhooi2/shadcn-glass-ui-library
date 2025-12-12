@@ -223,7 +223,7 @@ export function DesktopShowcase() {
               <div data-testid="section-flags">
                 <FlagsSectionGlass
                   flags={flags}
-                  expanded={false}
+                  expanded={flagsExpanded}
                   onToggle={() => setFlagsExpanded(!flagsExpanded)}
                 />
               </div>
