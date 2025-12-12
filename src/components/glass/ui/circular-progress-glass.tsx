@@ -19,13 +19,13 @@ import '@/glass-theme.css';
 // VARIANTS
 // ========================================
 
-const circularProgressVariants = cva('relative inline-flex items-center justify-center p-2', {
+const circularProgressVariants = cva('relative inline-flex items-center justify-center p-4', {
   variants: {
     size: {
-      sm: 'w-16 h-16',
-      md: 'w-24 h-24',
-      lg: 'w-32 h-32',
-      xl: 'w-40 h-40',
+      sm: 'w-20 h-20',
+      md: 'w-28 h-28',
+      lg: 'w-36 h-36',
+      xl: 'w-44 h-44',
     },
   },
   defaultVariants: {

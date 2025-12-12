@@ -89,11 +89,11 @@ export const Sizes: Story = {
     <div className="flex gap-8 items-end">
       <div className="text-center">
         <CircularMetricGlass label="Small" value={75} color="blue" size="sm" />
-        <p className="text-xs text-white/60 mt-2">sm (64px)</p>
+        <p className="text-xs text-white/60 mt-2">sm (80px)</p>
       </div>
       <div className="text-center">
         <CircularMetricGlass label="Medium" value={75} color="blue" size="md" />
-        <p className="text-xs text-white/60 mt-2">md (96px)</p>
+        <p className="text-xs text-white/60 mt-2">md (112px)</p>
       </div>
     </div>
   ),
