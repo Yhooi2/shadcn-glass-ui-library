@@ -1,63 +1,55 @@
 /* ========================================
    PRIMITIVE TOKENS
    Design scales for spacing, blur, radius, opacity, and transitions
+
+   Architecture for Tailwind v4:
+   - ALL values in :root (to override Tailwind defaults)
+   - @theme only for registering custom utilities
+
+   Tailwind v4 generates default --radius-*, --blur-* etc.
+   in @layer theme. To override them, we MUST define our
+   values in :root which has higher specificity.
    ======================================== */
 
-@theme {
-  /* ========================================
-     BLUR SCALE (per UI_DESIGN.md)
-     Standard blur values: sm(8px), md(16px), lg(24px), xl(32px)
-     Base blur system - change --blur to adjust all blur levels globally
-     Default: --blur: 16px (medium glass effect)
+/* ========================================
+   ALL CSS VARIABLES
+   Defined in :root to ensure they override Tailwind defaults.
 
-     Blur progression follows 8px increments:
-     - sm: 8px (subtle glass effect)
-     - md: 16px (standard cards/panels)
-     - lg: 24px (overlays/modals)
-     - xl: 32px (heavy background treatment)
-     ======================================== */
-  --blur: 16px; /* Base value - controls all derived blur levels */
-  --blur-sm: calc(var(--blur) * 0.5); /* base * 0.5 = 8px */
-  --blur-md: var(--blur); /* base = 16px */
-  --blur-lg: calc(var(--blur) * 1.5); /* base * 1.5 = 24px */
-  --blur-xl: calc(var(--blur) * 2); /* base * 2 = 32px */
-  --blur-glass: var(--blur-lg); /* Default for glass components */
-
+   To customize, edit the base values:
+   - --radius: 0.5rem (8px - compact)
+   - --radius: 0.75rem (12px - balanced, default)
+   - --radius: 1rem (16px - Apple-style)
+   - --radius: 1.25rem (20px - extra rounded)
+   ======================================== */
+:root {
   /* ========================================
      RADIUS SCALE
-     Base radius system - change --radius to adjust all corners globally
-     Default: --radius: 0.75rem (12px) - optimized for glassmorphism
-     Per 2025 best practices: 12-16px is the sweet spot (NN/G, Apple Liquid Glass)
-
-     Examples:
-     - Compact: --radius: 0.5rem (8px - minimum for glass effects)
-     - Balanced (current): --radius: 0.75rem (12px - recommended)
-     - Premium: --radius: 1rem (16px - Apple-style liquid glass)
-     - Extra rounded: --radius: 1.25rem (20px - modern, soft aesthetic)
      ======================================== */
-  --radius: 0.75rem; /* Base value - controls all derived radii */
-  --radius-sm: calc(var(--radius) - 0.125rem); /* base - 2px = 10px (badges, small chips) */
-  --radius-md: var(--radius); /* base = 12px (buttons, inputs, tooltips) */
-  --radius-lg: calc(var(--radius) + 0.25rem); /* base + 4px = 16px (cards, dropdowns) */
-  --radius-xl: calc(var(--radius) + 0.5rem); /* base + 8px = 20px (modals, glass panels) */
-  --radius-2xl: calc(var(--radius) + 1rem); /* base + 16px = 28px (hero cards, features) */
+  --radius: 1rem; /* Base value - 16px, Apple-style liquid glass */
+  --radius-sm: calc(var(--radius) - 4px); /* badges, small chips */
+  --radius-md: calc(var(--radius) - 2px); /* buttons, inputs */
+  --radius-lg: var(--radius); /* cards, dropdowns (matches base) */
+  --radius-xl: calc(var(--radius) + 4px); /* modals, glass panels */
+  --radius-2xl: calc(var(--radius) + 8px); /* hero cards, features */
   --radius-full: 9999px; /* Always circular */
 
   /* ========================================
-     TRANSITION DURATIONS
-     Base duration system - change --duration to adjust all animation speeds globally
-     Default: --duration: 200ms (balanced animation speed)
-
-     Examples:
-     - Snappy: --duration: 150ms (faster animations)
-     - Balanced (current): --duration: 200ms
-     - Smooth: --duration: 300ms (slower, more elegant)
-     - Slow-mo: --duration: 500ms (very slow for emphasis)
+     BLUR SCALE (per UI_DESIGN.md)
      ======================================== */
-  --duration: 200ms; /* Base value - controls all derived durations */
-  --duration-fast: calc(var(--duration) * 0.75); /* base * 0.75 = 150ms default */
-  --duration-base: var(--duration); /* base = 200ms default */
-  --duration-slow: calc(var(--duration) * 1.5); /* base * 1.5 = 300ms default */
+  --blur: 16px; /* Base value - medium glass effect */
+  --blur-sm: calc(var(--blur) * 0.5); /* 8px - subtle glass effect */
+  --blur-md: var(--blur); /* 16px - standard cards/panels */
+  --blur-lg: calc(var(--blur) * 1.5); /* 24px - overlays/modals */
+  --blur-xl: calc(var(--blur) * 2); /* 32px - heavy background treatment */
+  --blur-glass: var(--blur-lg); /* Default for glass components */
+
+  /* ========================================
+     TRANSITION DURATIONS
+     ======================================== */
+  --duration: 200ms; /* Base value - balanced animation speed */
+  --duration-fast: calc(var(--duration) * 0.75); /* 150ms */
+  --duration-base: var(--duration); /* 200ms */
+  --duration-slow: calc(var(--duration) * 1.5); /* 300ms */
 
   /* Backward compatibility aliases */
   --transition-fast: var(--duration-fast);
@@ -66,46 +58,64 @@
 
   /* ========================================
      GLOW INTENSITY SCALE
-     Base glow system - change --glow to adjust all glow effects globally
-     Default: --glow: 16px (medium glow intensity)
-
-     Examples:
-     - Subtle: --glow: 8px (soft glow)
-     - Medium (current): --glow: 16px
-     - Strong: --glow: 24px (bright glow)
-     - Intense: --glow: 32px (very bright glow)
      ======================================== */
-  --glow: 16px; /* Base value - controls all derived glow intensities */
-  --glow-sm: calc(var(--glow) * 0.5); /* base * 0.5 = 8px default */
-  --glow-md: var(--glow); /* base = 16px default */
-  --glow-lg: calc(var(--glow) * 1.5); /* base * 1.5 = 24px default */
-  --glow-xl: calc(var(--glow) * 2.5); /* base * 2.5 = 40px default */
+  --glow: 16px; /* Base value - medium glow intensity */
+  --glow-sm: calc(var(--glow) * 0.5); /* 8px */
+  --glow-md: var(--glow); /* 16px */
+  --glow-lg: calc(var(--glow) * 1.5); /* 24px */
+  --glow-xl: calc(var(--glow) * 2.5); /* 40px */
 
   /* ========================================
      OPACITY SCALE
-     Base opacity system - change --opacity to adjust all glass transparency globally
-     Default: --opacity: 0.08 (medium glass transparency)
-     Per glassmorphism best practices 2025: minimum 5% opacity for visibility
-
-     Examples:
-     - Transparent: --opacity: 0.05 (minimum recommended for glass effects)
-     - Medium (current): --opacity: 0.08
-     - Opaque: --opacity: 0.12 (less see-through)
-     - Solid: --opacity: 0.20 (almost solid)
+     Per glassmorphism best practices 2025: minimum 5% opacity
      ======================================== */
-  --opacity: 0.08; /* Base value - controls all derived opacity levels */
-  --opacity-subtle: calc(
-    var(--opacity) * 0.625
-  ); /* base * 0.625 = 0.05 default (minimum per best practices) */
-  --opacity-light: calc(var(--opacity) * 0.875); /* base * 0.875 = 0.07 default */
-  --opacity-medium: var(--opacity); /* base = 0.08 default */
-  --opacity-strong: calc(var(--opacity) * 1.875); /* base * 1.875 = 0.15 default */
-  --opacity-solid: calc(var(--opacity) * 3.125); /* base * 3.125 = 0.25 default */
+  --opacity: 0.08; /* Base value - medium glass transparency */
+  --opacity-subtle: calc(var(--opacity) * 0.625); /* ~0.05 (minimum) */
+  --opacity-light: calc(var(--opacity) * 0.875); /* ~0.07 */
+  --opacity-medium: var(--opacity); /* 0.08 */
+  --opacity-strong: calc(var(--opacity) * 1.875); /* ~0.15 */
+  --opacity-solid: calc(var(--opacity) * 3.125); /* ~0.25 */
 
   /* ========================================
-     SHADOW ALIASES FOR @theme
-     Maps semantic shadows to glow variables (defined in themes)
+     FONT SIZE SCALE
      ======================================== */
+  --font-size: 0.875rem; /* Base value - 14px standard body text */
+  --font-size-2xs: calc(var(--font-size) * 0.714); /* ~10px - compact labels */
+  --font-size-xs: calc(var(--font-size) * 0.857); /* ~12px - small text */
+  --font-size-sm: var(--font-size); /* 14px - default body */
+  --font-size-base: calc(var(--font-size) * 1.143); /* ~16px - larger body */
+  --font-size-lg: calc(var(--font-size) * 1.286); /* ~18px - headings */
+  --font-size-xl: calc(var(--font-size) * 1.429); /* ~20px - large headings */
+
+  /* ========================================
+     TEXT SHADOW FOR GLASS
+     Improves text readability on glass surfaces
+     ======================================== */
+  --text-shadow-glass: 0 1px 2px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* ========================================
+   @theme REGISTRATION
+   Register custom utilities with Tailwind.
+   Values are inherited from :root above.
+   ======================================== */
+@theme {
+  /* Blur utilities */
+  --blur-sm: var(--blur-sm);
+  --blur-md: var(--blur-md);
+  --blur-lg: var(--blur-lg);
+  --blur-xl: var(--blur-xl);
+  --blur-glass: var(--blur-glass);
+
+  /* Radius utilities - reference :root values */
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --radius-2xl: var(--radius-2xl);
+  --radius-full: var(--radius-full);
+
+  /* Shadow aliases */
   --shadow-glass-sm: var(--shadow-sm);
   --shadow-glass: var(--shadow);
   --shadow-glass-md: var(--shadow-md);
@@ -117,34 +127,6 @@
   --shadow-glow-warning: var(--glow-warning);
   --shadow-glow-error: var(--glow-error);
 
-  /* ========================================
-     TEXT SHADOW FOR GLASS
-     Improves text readability on glass surfaces
-     Per UI_DESIGN.md glassmorphism guidelines
-     ======================================== */
-  --text-shadow-glass: 0 1px 2px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.2);
-
-  /* ========================================
-     FONT SIZE SCALE
-     Base font size system - change --font-size to adjust typography globally
-     Default: --font-size: 0.875rem (14px) - standard body text
-
-     Tailwind defaults:
-     - xs: 0.75rem (12px)
-     - sm: 0.875rem (14px)
-     - base: 1rem (16px)
-     - lg: 1.125rem (18px)
-
-     Examples:
-     - Compact: --font-size: 0.8125rem (13px - denser UI)
-     - Balanced (current): --font-size: 0.875rem (14px)
-     - Readable: --font-size: 1rem (16px - larger text)
-     ======================================== */
-  --font-size: 0.875rem; /* Base value = 14px (text-sm) */
-  --font-size-2xs: calc(var(--font-size) * 0.714); /* ~10px - compact labels */
-  --font-size-xs: calc(var(--font-size) * 0.857); /* ~12px - small text */
-  --font-size-sm: var(--font-size); /* 14px - default body */
-  --font-size-base: calc(var(--font-size) * 1.143); /* ~16px - larger body */
-  --font-size-lg: calc(var(--font-size) * 1.286); /* ~18px - headings */
-  --font-size-xl: calc(var(--font-size) * 1.429); /* ~20px - large headings */
+  /* Text shadow */
+  --text-shadow-glass: var(--text-shadow-glass);
 }

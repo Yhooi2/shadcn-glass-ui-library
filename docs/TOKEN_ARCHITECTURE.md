@@ -340,6 +340,106 @@ src/styles/
 
 ---
 
+## Tailwind CSS v4: Base vs Derived Values
+
+### The Problem
+
+In Tailwind CSS v4, variables defined inside `@theme` are **overwritten by Tailwind's defaults**.
+This means custom base values like `--radius` get replaced.
+
+```css
+/* ❌ WRONG: Tailwind will overwrite --radius with its default (0.25rem) */
+@theme {
+  --radius: 0.75rem;
+  --radius-lg: var(--radius);
+}
+```
+
+### The Solution (Glass UI Pattern)
+
+Put **ALL values** (base AND derived) in `:root`, use `@theme` only for registration:
+
+```css
+/* ✅ CORRECT: ALL values in :root, @theme only references them */
+
+:root {
+  /* Base value - editable */
+  --radius: 0.75rem;
+
+  /* Derived values - MUST also be in :root to override Tailwind defaults */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@theme {
+  /* Registration only - references :root values */
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+}
+```
+
+**Why derived values MUST be in `:root`:**
+
+Tailwind v4 generates defaults like `--radius-xl: 0.75rem` in `@layer theme`. If you put your
+derived values in `@theme`, Tailwind's defaults will override them because `@layer theme` is
+processed after `@theme`.
+
+### Why This Works
+
+1. **`:root` has higher specificity** than Tailwind's `@layer theme`
+2. **ALL values are preserved** - both base and derived override Tailwind defaults
+3. **Derived values reference base** - they update automatically when base changes
+4. **`@theme` registers utilities** - makes values available as Tailwind classes
+5. **Single point of control** - change `--radius` once, affects all `--radius-*`
+
+### File Structure
+
+```
+src/styles/tokens/primitives.css
+├── :root { }           ← ALL VALUES (base + derived)
+│   ├── --radius (base)
+│   ├── --radius-sm, --radius-md, --radius-lg, ... (derived)
+│   ├── --blur (base)
+│   ├── --blur-sm, --blur-md, --blur-lg, ... (derived)
+│   └── ... all other scales
+│
+└── @theme { }          ← REGISTRATION ONLY (references)
+    ├── --radius-sm: var(--radius-sm);
+    ├── --blur-lg: var(--blur-lg);
+    └── ... references to :root values
+```
+
+### Customization Examples
+
+To change the global border radius:
+
+```css
+/* In your custom CSS (after importing Glass UI) */
+:root {
+  --radius: 1rem; /* 16px - Apple-style liquid glass */
+}
+```
+
+All `rounded-*` utilities will automatically update:
+
+| `--radius` Value | `rounded-sm` | `rounded-md` | `rounded-lg` | `rounded-xl` |
+| ---------------- | ------------ | ------------ | ------------ | ------------ |
+| `0.5rem` (8px)   | 4px          | 6px          | 8px          | 12px         |
+| `0.75rem` (12px) | 8px          | 10px         | 12px         | 16px         |
+| `1rem` (16px)    | 12px         | 14px         | 16px         | 20px         |
+| `1.25rem` (20px) | 16px         | 18px         | 20px         | 24px         |
+
+### References
+
+- [Tailwind v4 - shadcn/ui](https://ui.shadcn.com/docs/tailwind-v4)
+- [Theming shadcn with Tailwind v4](https://www.shadcnblocks.com/blog/tailwind4-shadcn-themeing/)
+
+---
+
 ## Browser Compatibility
 
 **Primitive Tokens:** Universal support (CSS custom properties)
