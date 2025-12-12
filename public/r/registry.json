@@ -151,7 +151,7 @@
       "name": "profile-avatar-glass",
       "type": "registry:component",
       "title": "Profile Avatar Glass",
-      "description": "Profile Avatar Glass component with glass effects"
+      "description": "Profile-specific size classes (larger than standard AvatarGlass)"
     },
     {
       "name": "language-bar-glass",
