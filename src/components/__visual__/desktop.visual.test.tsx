@@ -9,7 +9,7 @@ import { describe, test, expect, afterEach } from 'vitest';
 import { render, cleanup } from '@testing-library/react';
 import { page } from '@vitest/browser/context';
 
-import { DesktopShowcase } from '../DesktopShowcase';
+import { DesktopShowcase } from '../demos/DesktopShowcase';
 import { ThemeProvider } from '@/lib/theme-context';
 import type { Theme } from '@/lib/theme-context';
 
@@ -28,7 +28,7 @@ function renderShowcase(theme: Theme) {
 
 // Wait for animations to settle
 async function waitForStability(ms = 300) {
-  await new Promise(resolve => setTimeout(resolve, ms));
+  await new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 describe('DesktopShowcase Visual Tests', () => {

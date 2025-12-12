@@ -623,9 +623,15 @@ Ready-to-use demo sections (shadcn/ui pattern):
 
 ### Demo Pages
 
-- [ComponentShowcase.tsx](src/components/ComponentShowcase.tsx) - Core components demo (uses Blocks)
-- [DesktopShowcase.tsx](src/components/DesktopShowcase.tsx) - Full desktop analytics app (uses
+Located in `src/components/demos/`:
+
+- [ComponentShowcase.tsx](src/components/demos/ComponentShowcase.tsx) - Core components demo (uses
+  Blocks)
+- [DesktopShowcase.tsx](src/components/demos/DesktopShowcase.tsx) - Full desktop analytics app (uses
   Blocks + Sections)
+- [MobileShowcase.tsx](src/components/demos/MobileShowcase.tsx) - Mobile-optimized showcase
+- [AnimatedBackground.tsx](src/components/demos/AnimatedBackground.tsx) - Animated gradient
+  background
 
 ### Themes
 

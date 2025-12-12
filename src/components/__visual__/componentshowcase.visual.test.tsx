@@ -9,7 +9,7 @@ import { describe, test, expect, afterEach } from 'vitest';
 import { render, cleanup } from '@testing-library/react';
 import { page } from '@vitest/browser/context';
 
-import { ComponentShowcase } from '../ComponentShowcase';
+import { ComponentShowcase } from '../demos/ComponentShowcase';
 import { ThemeProvider } from '@/lib/theme-context';
 import type { Theme } from '@/lib/theme-context';
 
@@ -28,7 +28,7 @@ function renderShowcase(theme: Theme) {
 
 // Wait for animations to settle
 async function waitForStability(ms = 300) {
-  await new Promise(resolve => setTimeout(resolve, ms));
+  await new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 describe('ComponentShowcase Visual Tests', () => {
@@ -186,7 +186,9 @@ describe('ComponentShowcase Visual Tests', () => {
       const checkboxLabel = page.getByText('Accept terms and conditions');
 
       // Take screenshot in unchecked state (default is unchecked in FormElementsBlock)
-      await expect(checkboxLabel).toMatchScreenshot(`componentshowcase-checkbox-unchecked-${theme}`);
+      await expect(checkboxLabel).toMatchScreenshot(
+        `componentshowcase-checkbox-unchecked-${theme}`
+      );
 
       // Click the label to toggle
       await checkboxLabel.click();

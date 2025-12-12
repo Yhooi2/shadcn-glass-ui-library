@@ -634,8 +634,9 @@ Read [UI_DESIGN.md](design-system/UI_DESIGN.md) to understand:
 ### Browse Examples
 
 - [Storybook](https://yhooi2.github.io/shadcn-glass-ui-library/) - Live component demos
-- [ComponentShowcase](../src/components/ComponentShowcase.tsx) - All components in one page
-- [DesktopShowcase](../src/components/DesktopShowcase.tsx) - Full application example
+- [ComponentShowcase](../src/components/demos/ComponentShowcase.tsx) - All components in one page
+- [DesktopShowcase](../src/components/demos/DesktopShowcase.tsx) - Full application example
+- [MobileShowcase](../src/components/demos/MobileShowcase.tsx) - Mobile-optimized showcase
 
 ### Customize
 
