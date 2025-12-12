@@ -1,7 +1,7 @@
 {
   "name": "shadcn-glass-ui",
   "private": false,
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "Glassmorphism UI components for React — drop-in shadcn/ui compatible, AI-optimized. 58 components, 3 themes, WCAG 2.1 AA.",
   "author": "Yhooi2",
   "license": "MIT",
