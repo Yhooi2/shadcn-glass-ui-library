@@ -4,7 +4,7 @@ import { YearCardGlass } from './year-card-glass';
 import { BadgeGlass } from '../ui/badge-glass';
 
 const meta = {
-  title: 'Glass UI/Composite/YearCardGlass',
+  title: 'Components/Composite/YearCardGlass',
   component: YearCardGlass,
   parameters: { layout: 'centered' },
   tags: ['autodocs'],

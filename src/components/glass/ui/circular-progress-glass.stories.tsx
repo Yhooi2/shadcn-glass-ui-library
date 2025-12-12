@@ -3,7 +3,7 @@ import { expect } from 'storybook/test';
 import { CircularProgressGlass } from './circular-progress-glass';
 
 const meta = {
-  title: 'Glass UI/Progress/CircularProgressGlass',
+  title: 'Components/Feedback/CircularProgressGlass',
   component: CircularProgressGlass,
   parameters: {
     layout: 'centered',

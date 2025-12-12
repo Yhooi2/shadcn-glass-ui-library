@@ -5,7 +5,7 @@ import { ThemeProvider } from '@/lib/theme-context';
 import '@/glass-theme.css';
 
 const meta: Meta<typeof SortDropdownGlass> = {
-  title: 'Glass UI/Atomic/SortDropdownGlass',
+  title: 'Components/Atomic/SortDropdownGlass',
   component: SortDropdownGlass,
   decorators: [
     (Story, context) => {

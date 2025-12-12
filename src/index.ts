@@ -6,25 +6,76 @@
 // ========================================
 // CORE UI COMPONENTS (Level 1 - 18 components)
 // ========================================
-export { AlertGlass } from './components/glass/ui/alert-glass';
-export { AvatarGlass } from './components/glass/ui/avatar-glass';
+
+// AlertGlass - Compound Components
+export {
+  AlertGlass,
+  AlertGlassTitle,
+  AlertGlassDescription,
+} from './components/glass/ui/alert-glass';
+
+// AvatarGlass - Compound Components + Simple Wrapper
+export {
+  AvatarGlass,
+  AvatarGlassImage,
+  AvatarGlassFallback,
+  AvatarGlassSimple,
+} from './components/glass/ui/avatar-glass';
+
 export { BadgeGlass } from './components/glass/ui/badge-glass';
 export { ButtonGlass } from './components/glass/ui/button-glass';
 export { CheckboxGlass } from './components/glass/ui/checkbox-glass';
 export { CircularProgressGlass } from './components/glass/ui/circular-progress-glass';
 export { ComboBoxGlass } from './components/glass/ui/combobox-glass';
+
+// DropdownGlass - Simple API + Compound Components
 export { DropdownGlass } from './components/glass/ui/dropdown-glass';
+export {
+  DropdownMenuGlass,
+  DropdownMenuGlassTrigger,
+  DropdownMenuGlassContent,
+  DropdownMenuGlassItem,
+  DropdownMenuGlassCheckboxItem,
+  DropdownMenuGlassRadioItem,
+  DropdownMenuGlassLabel,
+  DropdownMenuGlassSeparator,
+  DropdownMenuGlassShortcut,
+  DropdownMenuGlassGroup,
+  DropdownMenuGlassPortal,
+  DropdownMenuGlassSub,
+  DropdownMenuGlassSubContent,
+  DropdownMenuGlassSubTrigger,
+  DropdownMenuGlassRadioGroup,
+} from './components/glass/ui/dropdown-menu-glass';
+
 export { GlassCard } from './components/glass/ui/glass-card';
 export { InputGlass } from './components/glass/ui/input-glass';
 export { ModalGlass } from './components/glass/ui/modal-glass';
 export { NotificationGlass } from './components/glass/ui/notification-glass';
-export { PopoverGlass } from './components/glass/ui/popover-glass';
+
+// PopoverGlass - Compound Components + Legacy Wrapper
+export {
+  PopoverGlass,
+  PopoverGlassTrigger,
+  PopoverGlassContent,
+  PopoverGlassAnchor,
+  PopoverGlassLegacy,
+} from './components/glass/ui/popover-glass';
+
 export { SkeletonGlass } from './components/glass/ui/skeleton-glass';
 export { SliderGlass } from './components/glass/ui/slider-glass';
 export { StepperGlass } from './components/glass/ui/stepper-glass';
 export { TabsGlass } from './components/glass/ui/tabs-glass';
 export { ToggleGlass } from './components/glass/ui/toggle-glass';
-export { TooltipGlass } from './components/glass/ui/tooltip-glass';
+
+// TooltipGlass - Compound Components + Simple Wrapper
+export {
+  TooltipGlassProvider,
+  TooltipGlass,
+  TooltipGlassTrigger,
+  TooltipGlassContent,
+  TooltipGlassSimple,
+} from './components/glass/ui/tooltip-glass';
 
 // ========================================
 // ATOMIC COMPONENTS (Level 2 - 7 components)
@@ -120,7 +171,7 @@ export type {
   ButtonGlassProps,
   NotificationGlassProps,
   NotificationType,
-  AvatarGlassProps,
+  // AvatarGlass is now Radix-based compound component - no props
   AvatarStatus,
   AvatarSize,
   DropdownGlassProps,
@@ -138,8 +189,7 @@ export type {
   AlertType,
   ToggleGlassProps,
   CheckboxGlassProps,
-  TooltipGlassProps,
-  TooltipPosition,
+  // TooltipGlass is now Radix-based compound component - no props
   TabItem,
   SkeletonGlassProps,
   SkeletonVariant,

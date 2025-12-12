@@ -21,7 +21,7 @@ import { Activity, TrendingUp, AlertTriangle, DollarSign, Users } from 'lucide-r
 import { MetricCardGlass } from './metric-card-glass';
 
 const meta = {
-  title: 'Glass UI/Composite/MetricCardGlass',
+  title: 'Components/Composite/MetricCardGlass',
   component: MetricCardGlass,
   parameters: {
     layout: 'centered',

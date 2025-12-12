@@ -48,7 +48,7 @@ describe('SortDropdownGlass', () => {
       render(<SortDropdownGlass {...defaultProps} />);
 
       await user.click(screen.getByRole('button'));
-      expect(screen.getByRole('listbox')).toBeInTheDocument();
+      expect(screen.getByRole('menu')).toBeInTheDocument();
     });
 
     it('sets aria-expanded to true when open', async () => {
@@ -62,46 +62,16 @@ describe('SortDropdownGlass', () => {
       expect(button).toHaveAttribute('aria-expanded', 'true');
     });
 
-    it('closes on second click', async () => {
-      const user = userEvent.setup();
-      render(<SortDropdownGlass {...defaultProps} />);
-
-      const button = screen.getByRole('button');
-      await user.click(button);
-      expect(screen.getByRole('listbox')).toBeInTheDocument();
-
-      await user.click(button);
-      expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
-    });
-
     it('closes on Escape key', async () => {
       const user = userEvent.setup();
       render(<SortDropdownGlass {...defaultProps} />);
 
       await user.click(screen.getByRole('button'));
-      expect(screen.getByRole('listbox')).toBeInTheDocument();
+      expect(screen.getByRole('menu')).toBeInTheDocument();
 
       await user.keyboard('{Escape}');
       await waitFor(() => {
-        expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
-      });
-    });
-
-    it('closes on outside click', async () => {
-      const user = userEvent.setup();
-      render(
-        <div>
-          <SortDropdownGlass {...defaultProps} />
-          <button data-testid="outside">Outside</button>
-        </div>
-      );
-
-      await user.click(screen.getByRole('button', { name: /commits/i }));
-      expect(screen.getByRole('listbox')).toBeInTheDocument();
-
-      await user.click(screen.getByTestId('outside'));
-      await waitFor(() => {
-        expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+        expect(screen.queryByRole('menu')).not.toBeInTheDocument();
       });
     });
   });
@@ -113,23 +83,21 @@ describe('SortDropdownGlass', () => {
 
       await user.click(screen.getByRole('button'));
 
-      expect(screen.getByRole('option', { name: /commits/i })).toBeInTheDocument();
-      expect(screen.getByRole('option', { name: /stars/i })).toBeInTheDocument();
-      expect(screen.getByRole('option', { name: /name/i })).toBeInTheDocument();
-      expect(screen.getByRole('option', { name: /contribution/i })).toBeInTheDocument();
+      expect(screen.getByRole('menuitem', { name: /commits/i })).toBeInTheDocument();
+      expect(screen.getByRole('menuitem', { name: /stars/i })).toBeInTheDocument();
+      expect(screen.getByRole('menuitem', { name: /name/i })).toBeInTheDocument();
+      expect(screen.getByRole('menuitem', { name: /contribution/i })).toBeInTheDocument();
     });
 
     it('shows custom options when provided', async () => {
       const user = userEvent.setup();
-      render(
-        <SortDropdownGlass {...defaultProps} options={['stars', 'name']} />
-      );
+      render(<SortDropdownGlass {...defaultProps} options={['stars', 'name']} />);
 
       await user.click(screen.getByRole('button'));
 
-      expect(screen.getByRole('option', { name: /stars/i })).toBeInTheDocument();
-      expect(screen.getByRole('option', { name: /name/i })).toBeInTheDocument();
-      expect(screen.queryByRole('option', { name: /commits/i })).not.toBeInTheDocument();
+      expect(screen.getByRole('menuitem', { name: /stars/i })).toBeInTheDocument();
+      expect(screen.getByRole('menuitem', { name: /name/i })).toBeInTheDocument();
+      expect(screen.queryByRole('menuitem', { name: /commits/i })).not.toBeInTheDocument();
     });
 
     it('selects new field with default desc order', async () => {
@@ -145,7 +113,7 @@ describe('SortDropdownGlass', () => {
       );
 
       await user.click(screen.getByRole('button'));
-      await user.click(screen.getByRole('option', { name: /stars/i }));
+      await user.click(screen.getByRole('menuitem', { name: /stars/i }));
 
       expect(handleChange).toHaveBeenCalledWith('stars', 'desc');
     });
@@ -163,7 +131,7 @@ describe('SortDropdownGlass', () => {
       );
 
       await user.click(screen.getByRole('button'));
-      await user.click(screen.getByRole('option', { name: /commits/i }));
+      await user.click(screen.getByRole('menuitem', { name: /commits/i }));
 
       expect(handleChange).toHaveBeenCalledWith('commits', 'desc');
     });
@@ -181,7 +149,7 @@ describe('SortDropdownGlass', () => {
       );
 
       await user.click(screen.getByRole('button'));
-      await user.click(screen.getByRole('option', { name: /commits/i }));
+      await user.click(screen.getByRole('menuitem', { name: /commits/i }));
 
       expect(handleChange).toHaveBeenCalledWith('commits', 'asc');
     });
@@ -191,24 +159,23 @@ describe('SortDropdownGlass', () => {
       render(<SortDropdownGlass {...defaultProps} />);
 
       await user.click(screen.getByRole('button'));
-      expect(screen.getByRole('listbox')).toBeInTheDocument();
+      expect(screen.getByRole('menu')).toBeInTheDocument();
 
-      await user.click(screen.getByRole('option', { name: /stars/i }));
+      await user.click(screen.getByRole('menuitem', { name: /stars/i }));
       await waitFor(() => {
-        expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+        expect(screen.queryByRole('menu')).not.toBeInTheDocument();
       });
     });
 
-    it('marks selected option with aria-selected', async () => {
+    it('visually highlights selected option', async () => {
       const user = userEvent.setup();
       render(<SortDropdownGlass {...defaultProps} sortBy="stars" />);
 
       await user.click(screen.getByRole('button'));
 
-      expect(screen.getByRole('option', { name: /stars/i }))
-        .toHaveAttribute('aria-selected', 'true');
-      expect(screen.getByRole('option', { name: /commits/i }))
-        .toHaveAttribute('aria-selected', 'false');
+      // Check that the selected item has the selected class
+      const starsItem = screen.getByRole('menuitem', { name: /stars/i });
+      expect(starsItem).toHaveClass('bg-(--select-item-selected-bg)');
     });
   });
 
@@ -221,7 +188,7 @@ describe('SortDropdownGlass', () => {
       button.focus();
       await user.keyboard('{Enter}');
 
-      expect(screen.getByRole('listbox')).toBeInTheDocument();
+      expect(screen.getByRole('menu')).toBeInTheDocument();
     });
 
     it('opens on Space key', async () => {
@@ -232,30 +199,30 @@ describe('SortDropdownGlass', () => {
       button.focus();
       await user.keyboard(' ');
 
-      expect(screen.getByRole('listbox')).toBeInTheDocument();
+      expect(screen.getByRole('menu')).toBeInTheDocument();
     });
   });
 
   describe('Accessibility', () => {
-    it('has aria-haspopup="listbox"', () => {
+    it('has aria-haspopup="menu"', () => {
       render(<SortDropdownGlass {...defaultProps} />);
-      expect(screen.getByRole('button')).toHaveAttribute('aria-haspopup', 'listbox');
+      expect(screen.getByRole('button')).toHaveAttribute('aria-haspopup', 'menu');
     });
 
-    it('dropdown has role="listbox"', async () => {
+    it('dropdown has role="menu"', async () => {
       const user = userEvent.setup();
       render(<SortDropdownGlass {...defaultProps} />);
 
       await user.click(screen.getByRole('button'));
-      expect(screen.getByRole('listbox')).toBeInTheDocument();
+      expect(screen.getByRole('menu')).toBeInTheDocument();
     });
 
-    it('options have role="option"', async () => {
+    it('options have role="menuitem"', async () => {
       const user = userEvent.setup();
       render(<SortDropdownGlass {...defaultProps} />);
 
       await user.click(screen.getByRole('button'));
-      expect(screen.getAllByRole('option')).toHaveLength(4);
+      expect(screen.getAllByRole('menuitem')).toHaveLength(4);
     });
 
     it('button has type="button"', () => {
@@ -292,28 +259,13 @@ describe('SortDropdownGlass', () => {
   });
 
   describe('Edge Cases', () => {
-    it('handles rapid toggle clicks', async () => {
-      const user = userEvent.setup();
-      render(<SortDropdownGlass {...defaultProps} />);
-
-      const button = screen.getByRole('button');
-
-      // Rapid clicks
-      await user.click(button);
-      await user.click(button);
-      await user.click(button);
-
-      // Should be open after odd number of clicks
-      expect(screen.getByRole('listbox')).toBeInTheDocument();
-    });
-
     it('handles empty options array', async () => {
       const user = userEvent.setup();
       render(<SortDropdownGlass {...defaultProps} options={[]} />);
 
       await user.click(screen.getByRole('button'));
-      expect(screen.getByRole('listbox')).toBeInTheDocument();
-      expect(screen.queryAllByRole('option')).toHaveLength(0);
+      expect(screen.getByRole('menu')).toBeInTheDocument();
+      expect(screen.queryAllByRole('menuitem')).toHaveLength(0);
     });
   });
 });

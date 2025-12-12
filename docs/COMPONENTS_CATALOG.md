@@ -380,76 +380,130 @@ onValueChange | (value: string) => void | - | Change handler |
 
 #### DropdownGlass
 
-**File:** `src/components/glass/ui/dropdown-glass.tsx` **Features:** Radix UI based, submenu
-support, keyboard navigation **Usage:**
+**File:** `src/components/glass/ui/dropdown-glass.tsx` + `dropdown-menu-glass.tsx` **Features:**
+Radix UI based, submenu support, keyboard navigation **API:** Simple API (items prop) + Compound
+components (DropdownMenuGlass.\*)
+
+**Simple API (recommended for basic dropdowns):**
 
 ```tsx
 <DropdownGlass
   trigger={<ButtonGlass>Menu</ButtonGlass>}
   items={[
-    { label: 'Profile', onClick: () => {} },
-    { label: 'Settings', onClick: () => {} },
-    { separator: true },
-    { label: 'Logout', onClick: () => {} },
+    { label: 'Profile', icon: User, onClick: () => {} },
+    { label: 'Settings', icon: Settings, onClick: () => {} },
+    { divider: true },
+    { label: 'Logout', icon: LogOut, onClick: () => {}, danger: true },
   ]}
 />
 ```
 
+**Compound API (for complex dropdowns with full control):**
+
+```tsx
+<DropdownMenuGlass>
+  <DropdownMenuGlassTrigger asChild>
+    <ButtonGlass>Open Menu</ButtonGlass>
+  </DropdownMenuGlassTrigger>
+  <DropdownMenuGlassContent>
+    <DropdownMenuGlassLabel>My Account</DropdownMenuGlassLabel>
+    <DropdownMenuGlassSeparator />
+    <DropdownMenuGlassGroup>
+      <DropdownMenuGlassItem>
+        <User className="mr-2 h-4 w-4" />
+        Profile
+      </DropdownMenuGlassItem>
+      <DropdownMenuGlassItem>
+        <Settings className="mr-2 h-4 w-4" />
+        Settings
+      </DropdownMenuGlassItem>
+    </DropdownMenuGlassGroup>
+    <DropdownMenuGlassSeparator />
+    <DropdownMenuGlassItem variant="destructive">
+      <LogOut className="mr-2 h-4 w-4" />
+      Logout
+    </DropdownMenuGlassItem>
+  </DropdownMenuGlassContent>
+</DropdownMenuGlass>
+```
+
+**Available Compound Components:**
+
+- `DropdownMenuGlass` - Root container
+- `DropdownMenuGlassTrigger` - Trigger button (use `asChild`)
+- `DropdownMenuGlassContent` - Menu content container
+- `DropdownMenuGlassItem` - Menu item (supports `variant="destructive"`)
+- `DropdownMenuGlassLabel` - Section label
+- `DropdownMenuGlassSeparator` - Divider
+- `DropdownMenuGlassGroup` - Group items
+- `DropdownMenuGlassCheckboxItem` - Checkbox menu item
+- `DropdownMenuGlassRadioGroup` + `DropdownMenuGlassRadioItem` - Radio menu items
+- `DropdownMenuGlassSub` + `DropdownMenuGlassSubTrigger` + `DropdownMenuGlassSubContent` - Submenu
+
 #### AlertGlass
 
 **File:** `src/components/glass/ui/alert-glass.tsx` **Variants:** default, destructive, success,
-warning **Features:** Icon, title, description, dismissable, custom icons
+warning **Features:** Compound component (Title, Description), icon, dismissable **API:** Compound
+component pattern (shadcn/ui compatible)
 
 **Default Alert:**
 
 ```tsx
-<AlertGlass variant="default" title="Information">
-  This is an informational message.
+<AlertGlass variant="default">
+  <AlertGlassTitle>Information</AlertGlassTitle>
+  <AlertGlassDescription>This is an informational message.</AlertGlassDescription>
 </AlertGlass>
 ```
 
 **Destructive Alert:**
 
 ```tsx
-<AlertGlass variant="destructive" title="Error">
-  Something went wrong. Please try again.
+<AlertGlass variant="destructive">
+  <AlertGlassTitle>Error</AlertGlassTitle>
+  <AlertGlassDescription>Something went wrong. Please try again.</AlertGlassDescription>
 </AlertGlass>
 ```
 
 **Success Alert:**
 
 ```tsx
-<AlertGlass variant="success" title="Success!">
-  Your changes have been saved successfully.
+<AlertGlass variant="success">
+  <AlertGlassTitle>Success!</AlertGlassTitle>
+  <AlertGlassDescription>Your changes have been saved successfully.</AlertGlassDescription>
 </AlertGlass>
 ```
 
 **Warning Alert:**
 
 ```tsx
-<AlertGlass variant="warning" title="Warning">
-  This action may have unintended consequences.
+<AlertGlass variant="warning">
+  <AlertGlassTitle>Warning</AlertGlassTitle>
+  <AlertGlassDescription>This action may have unintended consequences.</AlertGlassDescription>
 </AlertGlass>
 ```
 
 **Dismissable Alert:**
 
 ```tsx
-<AlertGlass
-  variant="warning"
-  title="Session Expiring"
-  dismissable
-  onDismiss={() => console.log('dismissed')}
->
-  Your session will expire in 5 minutes.
+<AlertGlass variant="warning" dismissable onDismiss={() => console.log('dismissed')}>
+  <AlertGlassTitle>Session Expiring</AlertGlassTitle>
+  <AlertGlassDescription>Your session will expire in 5 minutes.</AlertGlassDescription>
 </AlertGlass>
 ```
 
-**Props:** | Prop | Type | Default | Description | |------|------|---------|-------------| | variant
-| default \| destructive \| success \| warning | default | Visual style | | title | string | - |
-Alert title | | children | ReactNode | - | Alert description | | icon | LucideIcon | - | Custom icon
-(auto-selected by variant) | | dismissable | boolean | false | Show dismiss button | | onDismiss |
-() => void | - | Dismiss callback |
+**Props (AlertGlass):**
+
+| Prop        | Type                                         | Default | Description                             |
+| ----------- | -------------------------------------------- | ------- | --------------------------------------- |
+| variant     | default \| destructive \| success \| warning | default | Visual style variant                    |
+| children    | ReactNode                                    | -       | AlertGlassTitle + AlertGlassDescription |
+| dismissable | boolean                                      | false   | Show dismiss button                     |
+| onDismiss   | () => void                                   | -       | Dismiss callback                        |
+
+**Sub-components:**
+
+- `AlertGlassTitle` - Alert title (inherits color from variant)
+- `AlertGlassDescription` - Alert description text (inherits color, 80% opacity)
 
 #### BadgeGlass
 
@@ -497,10 +551,22 @@ className | string | - | Additional styles |
 #### AvatarGlass
 
 **File:** `src/components/glass/ui/avatar-glass.tsx` **Sizes:** sm (32px), md (48px), lg (64px), xl
-(96px) **Status:** online, offline, busy, away **Features:** asChild, fallback, image **Usage:**
+(96px) **Status:** online, offline, busy, away **Features:** Compound component (Radix UI),
+fallback, image **API:** Compound component + Simple wrapper
+
+**Compound API (recommended):**
 
 ```tsx
-<AvatarGlass name="John Doe" src="/avatar.jpg" status="online" size="lg" />
+<AvatarGlass size="lg" status="online">
+  <AvatarGlassImage src="/avatar.jpg" alt="John Doe" />
+  <AvatarGlassFallback>JD</AvatarGlassFallback>
+</AvatarGlass>
+```
+
+**Simple API (backward compatible):**
+
+```tsx
+<AvatarGlassSimple name="John Doe" size="lg" status="online" />
 ```
 
 #### GlassCard
@@ -713,24 +779,43 @@ button |
 #### TooltipGlass
 
 **File:** `src/components/glass/ui/tooltip-glass.tsx` **Sides:** top, bottom, left, right
-**Features:** Delay config, Radix UI based, accessible
+**Features:** Radix UI based, accessible, delay config **API:** Compound component + Simple wrapper
 
-**Basic Tooltip:**
+**Compound API (recommended):**
 
 ```tsx
-<TooltipGlass content="This is a tooltip" side="top">
-  <ButtonGlass>Hover me</ButtonGlass>
-</TooltipGlass>
+<TooltipGlassProvider>
+  <TooltipGlass>
+    <TooltipGlassTrigger asChild>
+      <ButtonGlass>Hover me</ButtonGlass>
+    </TooltipGlassTrigger>
+    <TooltipGlassContent side="top">
+      <p>This is a tooltip</p>
+    </TooltipGlassContent>
+  </TooltipGlass>
+</TooltipGlassProvider>
+```
+
+**Simple API (backward compatible):**
+
+```tsx
+<TooltipGlassProvider>
+  <TooltipGlassSimple content="This is a tooltip" side="top">
+    <ButtonGlass>Hover me</ButtonGlass>
+  </TooltipGlassSimple>
+</TooltipGlassProvider>
 ```
 
 **Tooltip on Icon Button (Accessibility):**
 
 ```tsx
-<TooltipGlass content="Delete item" side="bottom">
-  <ButtonGlass variant="ghost" size="icon" aria-label="Delete item">
-    <Trash className="h-4 w-4" />
-  </ButtonGlass>
-</TooltipGlass>
+<TooltipGlassProvider>
+  <TooltipGlassSimple content="Delete item" side="bottom">
+    <ButtonGlass variant="ghost" size="icon" aria-label="Delete item">
+      <Trash className="h-4 w-4" />
+    </ButtonGlass>
+  </TooltipGlassSimple>
+</TooltipGlassProvider>
 ```
 
 **Tooltip with Custom Delay:**
@@ -748,18 +833,28 @@ delayDuration | number | 200 | Show delay (ms) | | sideOffset | number | 4 | Dis
 
 #### PopoverGlass
 
-**File:** `src/components/glass/ui/popover-glass.tsx` **Features:** Trigger, content, Radix UI based
-**Usage:**
+**File:** `src/components/glass/ui/popover-glass.tsx` **Features:** Radix UI based, trigger,
+content, anchor **API:** Compound component + Legacy wrapper
+
+**Compound API (recommended):**
 
 ```tsx
 <PopoverGlass>
-  <PopoverGlass.Trigger asChild>
+  <PopoverGlassTrigger asChild>
     <ButtonGlass>Open</ButtonGlass>
-  </PopoverGlass.Trigger>
-  <PopoverGlass.Content>
+  </PopoverGlassTrigger>
+  <PopoverGlassContent side="bottom" align="center">
     <p>Popover content</p>
-  </PopoverGlass.Content>
+  </PopoverGlassContent>
 </PopoverGlass>
+```
+
+**Legacy API (backward compatible):**
+
+```tsx
+<PopoverGlassLegacy trigger={<ButtonGlass>Open</ButtonGlass>} side="bottom" align="center">
+  <p>Popover content</p>
+</PopoverGlassLegacy>
 ```
 
 ---

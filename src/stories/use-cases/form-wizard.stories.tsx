@@ -23,13 +23,15 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { useTheme, type ThemeName } from '@/lib/theme-context';
-import { AnimatedBackground } from '@/components/AnimatedBackground';
+import { AnimatedBackground } from '@/components/demos/AnimatedBackground';
 import {
   TabsGlass,
   InputGlass,
   CheckboxGlass,
   ButtonGlass,
   AlertGlass,
+  AlertGlassTitle,
+  AlertGlassDescription,
   ProgressGlass,
   GlassCard,
   BadgeGlass,
@@ -41,7 +43,7 @@ import { User, Briefcase, CreditCard, CheckCircle, Sun, Moon, Palette } from 'lu
 // ========================================
 
 const meta: Meta = {
-  title: 'Use Cases/Form Wizard',
+  title: 'Examples/Use Cases/Form Wizard',
   parameters: {
     layout: 'fullscreen',
     docs: {
@@ -286,8 +288,11 @@ const FormWizard = () => {
                 required
               />
               {Object.keys(errors).length > 0 && (
-                <AlertGlass variant="destructive" title="Validation Error">
-                  Please fix the errors above before continuing
+                <AlertGlass variant="destructive">
+                  <AlertGlassTitle>Validation Error</AlertGlassTitle>
+                  <AlertGlassDescription>
+                    Please fix the errors above before continuing
+                  </AlertGlassDescription>
                 </AlertGlass>
               )}
             </TabsGlass.Content>
@@ -335,16 +340,22 @@ const FormWizard = () => {
                 }
               />
               {Object.keys(errors).length > 0 && (
-                <AlertGlass variant="destructive" title="Validation Error">
-                  Please fix the errors above before continuing
+                <AlertGlass variant="destructive">
+                  <AlertGlassTitle>Validation Error</AlertGlassTitle>
+                  <AlertGlassDescription>
+                    Please fix the errors above before continuing
+                  </AlertGlassDescription>
                 </AlertGlass>
               )}
             </TabsGlass.Content>
 
             {/* Step 3: Billing Information */}
             <TabsGlass.Content value="step3" className="space-y-4 pt-6">
-              <AlertGlass variant="default" title="Secure Payment">
-                Your payment information is encrypted and secure
+              <AlertGlass variant="default">
+                <AlertGlassTitle>Secure Payment</AlertGlassTitle>
+                <AlertGlassDescription>
+                  Your payment information is encrypted and secure
+                </AlertGlassDescription>
               </AlertGlass>
               <InputGlass
                 label="Card Number"
@@ -415,8 +426,11 @@ const FormWizard = () => {
                     <BadgeGlass variant="success">Premium Member</BadgeGlass>
                     <BadgeGlass variant="info">Email Verified</BadgeGlass>
                   </div>
-                  <AlertGlass variant="success" title="Registration Complete">
-                    Check your email for account activation instructions
+                  <AlertGlass variant="success">
+                    <AlertGlassTitle>Registration Complete</AlertGlassTitle>
+                    <AlertGlassDescription>
+                      Check your email for account activation instructions
+                    </AlertGlassDescription>
                   </AlertGlass>
                 </div>
               )}

@@ -96,6 +96,17 @@ See [DEPENDENCIES.md](DEPENDENCIES.md) for detailed dependency documentation.
 - Add both legacy and compound examples to Storybook
 - Document migration in component JSDoc
 
+### Adding a new dropdown component
+
+- **Read first:** [docs/DROPDOWN_ARCHITECTURE.md](docs/DROPDOWN_ARCHITECTURE.md)
+- Use Radix UI primitives (`DropdownMenu` or `Popover`)
+- Import utilities from `src/lib/variants/dropdown-content-styles.ts`:
+  - `getDropdownContentStyles()` - Glass surface styling
+  - `dropdownContentClasses` - Container classes
+  - `getDropdownItemClasses()` - Menu item classes
+- Use CSS variables: `--dropdown-bg`, `--dropdown-border`, `--dropdown-glow`
+- Test component-specific logic, NOT Radix UI behavior
+
 ### Adding a new theme
 
 1. Add theme name to `Theme` type in `src/lib/theme-context.tsx`
@@ -109,23 +120,28 @@ See [DEPENDENCIES.md](DEPENDENCIES.md) for detailed dependency documentation.
 ```
 src/
 ├── components/
+│   ├── demos/                   # Demo pages + stories (colocated)
+│   │   ├── ComponentShowcase.tsx
+│   │   ├── DesktopShowcase.tsx
+│   │   ├── MobileShowcase.tsx
+│   │   ├── AnimatedBackground.tsx
+│   │   └── *.stories.tsx
 │   ├── glass/
-│   │   ├── primitives/          # Reusable foundations
+│   │   ├── primitives/          # Reusable foundations (no stories)
 │   │   │   ├── style-utils.ts   # Constants (ICON_SIZES, BLUR_VALUES)
-│   │   │   ├── touch-target.tsx # Touch-friendly wrapper
-│   │   │   ├── form-field-wrapper.tsx
-│   │   │   └── interactive-card.tsx
-│   │   └── ui/                  # Glass components
-│   │       ├── button-glass.tsx
-│   │       ├── input-glass.tsx
-│   │       └── __tests__/       # Unit tests
-│   ├── __visual__/              # Visual regression tests
-│   │   ├── components.visual.test.tsx
-│   │   ├── componentshowcase.visual.test.tsx
-│   │   ├── desktop.visual.test.tsx
-│   │   └── __screenshots__/     # ⚠️ Linux-only (603 files)
-│   ├── ComponentShowcase.tsx    # Core components demo
-│   └── DesktopShowcase.tsx      # Full desktop analytics demo
+│   │   │   ├── touch-target.tsx
+│   │   │   └── form-field-wrapper.tsx
+│   │   ├── ui/                  # Core components + stories (colocated)
+│   │   │   ├── button-glass.tsx + button-glass.stories.tsx
+│   │   │   ├── input-glass.tsx + input-glass.stories.tsx
+│   │   │   └── __tests__/       # Unit tests
+│   │   ├── atomic/              # Atomic components + stories
+│   │   ├── composite/           # Composite components + stories
+│   │   ├── specialized/         # Specialized components + stories
+│   │   └── sections/            # Section components + stories
+│   ├── blocks/                  # Ready-to-use blocks + stories
+│   └── __visual__/              # Visual regression tests
+│       └── __screenshots__/     # ⚠️ Linux-only (603 files)
 ├── lib/
 │   ├── variants/                # CVA variant definitions
 │   │   ├── button-glass-variants.ts
@@ -133,8 +149,32 @@ src/
 │   ├── theme-context.tsx        # Theme provider
 │   ├── themeStyles.ts           # Theme definitions
 │   └── utils.ts                 # cn() and utilities
-├── stories/                     # Storybook stories
+├── stories/use-cases/           # Real-world example stories
 └── glass-theme.css              # CSS variables
+```
+
+### Storybook Categories
+
+```
+Docs/
+  Introduction, Getting Started, Design System
+
+Components/
+  Core/           # ButtonGlass, InputGlass, GlassCard, AvatarGlass, etc.
+  Feedback/       # AlertGlass, NotificationGlass, TooltipGlass, ProgressGlass
+  Navigation/     # TabsGlass, StepperGlass, DropdownGlass
+  Overlay/        # ModalGlass, PopoverGlass, ComboBoxGlass
+  Composite/      # MetricCardGlass, AICardGlass, TrustScoreCardGlass
+  Atomic/         # InsightCardGlass, SortDropdownGlass
+  Sections/       # HeaderNavGlass, ProfileHeaderGlass, CareerStatsGlass
+  Visualization/  # SparklineGlass
+  Blocks/         # FormElements, Progress, AvatarGallery, Badges
+
+Examples/
+  Demos/          # ComponentShowcase, DesktopShowcase, MobileShowcase
+  Use Cases/      # Dashboard, UserProfile, DataTable, FormWizard
+
+Hooks/            # useWallpaperTint
 ```
 
 **Path resolution:**
@@ -503,7 +543,14 @@ Basic UI primitives. See [src/components/glass/ui/](src/components/glass/ui/) fo
 
 - ButtonGlass, InputGlass, GlassCard, ProgressGlass, BadgeGlass, AlertGlass
 - ToggleGlass, CheckboxGlass, TabsGlass, TooltipGlass, SliderGlass
-- SkeletonGlass, ModalGlass, DropdownGlass, AvatarGlass, NotificationGlass
+- SkeletonGlass, ModalGlass, DropdownGlass/DropdownMenuGlass, AvatarGlass, NotificationGlass
+
+**Dropdown Components:**
+
+- `DropdownGlass` - Simple API with items prop (quick setup)
+- `DropdownMenuGlass` - Compound component API (shadcn/ui pattern, full control)
+  - Sub-components: Trigger, Content, Item, Label, Separator, Group, CheckboxItem, RadioGroup, Sub,
+    etc.
 
 ### Atomic Components (4)
 
@@ -644,21 +691,25 @@ upgrading.
 
 #### 2. AlertGlass
 
-- **Removed:** `type` prop
-- **Replaced with:** `variant` prop
-- **Migration:**
-  - `type="info"` → `variant="default"`
-  - `type="error"` → `variant="destructive"`
-  - `type="success"` → `variant="success"`
-  - `type="warning"` → `variant="warning"`
+- **Changed:** Migrated to compound component API (v2.0+)
+- **Old API:** Single component with `title` prop
+- **New API:** Compound components (AlertGlassTitle, AlertGlassDescription)
 
 ```tsx
-// ❌ Removed in v1.0.0
-<AlertGlass type="error" title="Error">Message</AlertGlass>
-
-// ✅ Current API
+// ❌ Old API (v1.x)
 <AlertGlass variant="destructive" title="Error">Message</AlertGlass>
+
+// ✅ Current API (v2.0+)
+<AlertGlass variant="destructive">
+  <AlertGlassTitle>Error</AlertGlassTitle>
+  <AlertGlassDescription>Something went wrong</AlertGlassDescription>
+</AlertGlass>
 ```
+
+**Legacy migrations:**
+
+- v1.0.0: `type` prop → `variant` prop
+- v2.0.0: `title` prop → `<AlertGlassTitle>` subcomponent
 
 #### 3. NotificationGlass
 
@@ -705,18 +756,25 @@ upgrading.
 <BadgeGlass variant="success">Success</BadgeGlass>
 ```
 
-#### AlertGlass (Updated in v1.0.0)
+#### AlertGlass (Compound Component - v2.0+)
 
+- **API:** Compound component (shadcn/ui pattern)
 - **shadcn/ui variants:** `default`, `destructive`
 - **Extended variants:** `success`, `warning`
-- **Prop name:** `variant` (not `type`)
+- **Subcomponents:** `AlertGlassTitle`, `AlertGlassDescription`
 
 ```tsx
 // shadcn/ui compatible
-<AlertGlass variant="destructive" title="Error">Something went wrong</AlertGlass>
+<AlertGlass variant="destructive">
+  <AlertGlassTitle>Error</AlertGlassTitle>
+  <AlertGlassDescription>Something went wrong</AlertGlassDescription>
+</AlertGlass>
 
 // Glass UI extended
-<AlertGlass variant="success" title="Success">Operation completed</AlertGlass>
+<AlertGlass variant="success">
+  <AlertGlassTitle>Success</AlertGlassTitle>
+  <AlertGlassDescription>Operation completed successfully</AlertGlassDescription>
+</AlertGlass>
 ```
 
 #### NotificationGlass (Updated in v1.0.0)

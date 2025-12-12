@@ -4,7 +4,7 @@ import { BadgeGlass } from './badge-glass';
 import { Check, Download, ArrowRight, ExternalLink, Bell, ShoppingCart, Mail } from 'lucide-react';
 
 const meta = {
-  title: 'Glass UI/Buttons/ButtonGlass',
+  title: 'Components/Core/ButtonGlass',
   component: ButtonGlass,
   parameters: {
     layout: 'centered',

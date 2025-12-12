@@ -2,12 +2,12 @@ import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, within } from 'storybook/test';
 import { Info, Settings, HelpCircle } from 'lucide-react';
-import { PopoverGlass } from './popover-glass';
+import { PopoverGlassLegacy as PopoverGlass } from './popover-glass';
 import { ButtonGlass } from './button-glass';
 import { InputGlass } from './input-glass';
 
 const meta = {
-  title: 'Glass UI/Overlay/PopoverGlass',
+  title: 'Components/Overlay/PopoverGlass',
   component: PopoverGlass,
   parameters: {
     layout: 'centered',

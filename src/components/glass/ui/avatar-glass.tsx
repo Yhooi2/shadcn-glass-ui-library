@@ -7,11 +7,37 @@
  * - Optional glow-pulse animation
  * - Status indicator with glow
  * - Size variants
+ * - Built on Radix UI primitives
+ *
+ * @example Compound API (recommended)
+ * ```tsx
+ * <AvatarGlass size="md">
+ *   <AvatarGlassImage src="/avatar.jpg" alt="User" />
+ *   <AvatarGlassFallback>JD</AvatarGlassFallback>
+ * </AvatarGlass>
+ * ```
+ *
+ * @example With status indicator
+ * ```tsx
+ * <AvatarGlass size="lg" status="online">
+ *   <AvatarGlassImage src="/avatar.jpg" alt="User" />
+ *   <AvatarGlassFallback>JD</AvatarGlassFallback>
+ * </AvatarGlass>
+ * ```
+ *
+ * @example With glow animation
+ * ```tsx
+ * <AvatarGlass size="xl" glowing>
+ *   <AvatarGlassImage src="/avatar.jpg" alt="User" />
+ *   <AvatarGlassFallback>JD</AvatarGlassFallback>
+ * </AvatarGlass>
+ * ```
  */
 
-import { forwardRef, type CSSProperties } from 'react';
-import { Slot } from '@radix-ui/react-slot';
-import { type VariantProps } from 'class-variance-authority';
+'use client';
+
+import * as React from 'react';
+import * as AvatarPrimitive from '@radix-ui/react-avatar';
 import { cn } from '@/lib/utils';
 import { useHover } from '@/lib/hooks/use-hover';
 import { avatarSizes, statusSizes } from '@/lib/variants/avatar-glass-variants';
@@ -21,98 +47,13 @@ import '@/glass-theme.css';
 // TYPES
 // ========================================
 
-/**
- * Avatar status indicator type
- */
 export type AvatarStatus = 'online' | 'offline' | 'busy' | 'away';
-
-// ========================================
-// PROPS INTERFACE
-// ========================================
-
-/**
- * Props for the AvatarGlass component
- *
- * A glass-themed avatar component with status indicators and size variants.
- * Displays user initials with theme-aware styling and optional status badge.
- *
- * @example
- * ```tsx
- * // Basic avatar
- * <AvatarGlass name="John Doe" />
- *
- * // With status indicator
- * <AvatarGlass name="Jane Smith" status="online" size="lg" />
- *
- * // Different sizes
- * <AvatarGlass name="Alex" size="sm" />
- * <AvatarGlass name="Sam" size="xl" />
- *
- * // As a link (asChild pattern)
- * <AvatarGlass asChild name="Sarah Connor" status="online">
- *   <a href="/profile/sarah">View Profile</a>
- * </AvatarGlass>
- * ```
- */
-export interface AvatarGlassProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'style'>, VariantProps<typeof avatarSizes> {
-  /**
-   * Render as child element instead of div (polymorphic rendering).
-   * Useful for making avatars clickable links.
-   * @default false
-   * @example
-   * ```tsx
-   * <AvatarGlass asChild name="John">
-   *   <a href="/profile">View Profile</a>
-   * </AvatarGlass>
-   * ```
-   */
-  readonly asChild?: boolean;
-
-  /**
-   * Full name of the user. Automatically generates initials (first 2 letters).
-   * @example "John Doe" → "JD"
-   */
-  readonly name: string;
-
-  /**
-   * Optional status indicator with glow effect
-   * @default undefined
-   */
-  readonly status?: AvatarStatus;
-
-  /**
-   * Size variant of the avatar
-   * @default "md"
-   */
-  readonly size?: 'sm' | 'md' | 'lg' | 'xl';
-
-  /**
-   * Enable pulsing glow animation (like ProfileAvatarGlass)
-   * @default false
-   */
-  readonly glowing?: boolean;
-}
+export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl';
 
 // ========================================
 // HELPERS
 // ========================================
 
-const getInitials = (name: string): string => {
-  if (!name || name.trim().length === 0) return '?';
-  return name
-    .split(' ')
-    .map((part) => part[0])
-    .join('')
-    .toUpperCase()
-    .slice(0, 2);
-};
-
-// ========================================
-// COMPONENT
-// ========================================
-
-// Status colors mapping to CSS variables
 const getStatusVars = (statusType: AvatarStatus): { bg: string; glow: string } => {
   const statusVars: Record<AvatarStatus, { bg: string; glow: string }> = {
     online: { bg: 'var(--status-online)', glow: 'var(--status-online-glow)' },
@@ -123,42 +64,61 @@ const getStatusVars = (statusType: AvatarStatus): { bg: string; glow: string } =
   return statusVars[statusType];
 };
 
-export const AvatarGlass = forwardRef<HTMLDivElement, AvatarGlassProps>(
-  ({ asChild = false, name, size = 'md', status, glowing = false, className, ...props }, ref) => {
-    const { isHovered, hoverProps } = useHover();
+// ========================================
+// CONTEXT
+// ========================================
 
-    const avatarStyles: CSSProperties = {
-      background: 'var(--avatar-bg)',
-      border: '3px solid var(--avatar-border)',
-      boxShadow: isHovered ? 'var(--avatar-hover-glow)' : 'var(--avatar-shadow)',
-      color: 'var(--text-inverse)',
-    };
+interface AvatarGlassContextValue {
+  size: AvatarSize;
+  status?: AvatarStatus;
+  glowing?: boolean;
+}
 
-    const initials = getInitials(name);
+const AvatarGlassContext = React.createContext<AvatarGlassContextValue>({
+  size: 'md',
+});
 
-    // Polymorphic component - render as Slot when asChild is true
-    const Comp = asChild ? Slot : 'div';
+// ========================================
+// COMPOUND COMPONENT: ROOT
+// ========================================
 
-    return (
-      <Comp
-        ref={ref}
+interface AvatarGlassRootProps extends React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root> {
+  size?: AvatarSize;
+  status?: AvatarStatus;
+  glowing?: boolean;
+}
+
+const AvatarGlassRoot = React.forwardRef<
+  React.ElementRef<typeof AvatarPrimitive.Root>,
+  AvatarGlassRootProps
+>(({ className, size = 'md', status, glowing = false, children, ...props }, ref) => {
+  const { isHovered, hoverProps } = useHover();
+
+  const avatarStyles: React.CSSProperties = {
+    background: 'var(--avatar-bg)',
+    border: '3px solid var(--avatar-border)',
+    boxShadow: isHovered ? 'var(--avatar-hover-glow)' : 'var(--avatar-shadow)',
+    color: 'var(--text-inverse)',
+  };
+
+  return (
+    <AvatarGlassContext.Provider value={{ size, status, glowing }}>
+      <div
         className={cn('relative inline-flex', className)}
         onMouseEnter={hoverProps.onMouseEnter}
         onMouseLeave={hoverProps.onMouseLeave}
-        {...props}
       >
-        {/* Avatar circle */}
-        <div
+        <AvatarPrimitive.Root
+          ref={ref}
           className={cn(
             avatarSizes({ size }),
             glowing && 'animate-[glow-pulse_2s_ease-in-out_infinite]'
           )}
           style={avatarStyles}
-          role="img"
-          aria-label={`Avatar for ${name}`}
+          {...props}
         >
-          {initials}
-        </div>
+          {children}
+        </AvatarPrimitive.Root>
 
         {/* Status indicator */}
         {status && (
@@ -172,9 +132,105 @@ export const AvatarGlass = forwardRef<HTMLDivElement, AvatarGlassProps>(
             aria-label={`Status: ${status}`}
           />
         )}
-      </Comp>
-    );
-  }
-);
+      </div>
+    </AvatarGlassContext.Provider>
+  );
+});
 
-AvatarGlass.displayName = 'AvatarGlass';
+AvatarGlassRoot.displayName = 'AvatarGlass';
+
+// ========================================
+// COMPOUND COMPONENT: IMAGE
+// ========================================
+
+type AvatarGlassImageProps = React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image>;
+
+const AvatarGlassImage = React.forwardRef<
+  React.ElementRef<typeof AvatarPrimitive.Image>,
+  AvatarGlassImageProps
+>(({ className, ...props }, ref) => {
+  return (
+    <AvatarPrimitive.Image
+      ref={ref}
+      className={cn('aspect-square h-full w-full object-cover', className)}
+      {...props}
+    />
+  );
+});
+
+AvatarGlassImage.displayName = 'AvatarGlassImage';
+
+// ========================================
+// COMPOUND COMPONENT: FALLBACK
+// ========================================
+
+type AvatarGlassFallbackProps = React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback>;
+
+const AvatarGlassFallback = React.forwardRef<
+  React.ElementRef<typeof AvatarPrimitive.Fallback>,
+  AvatarGlassFallbackProps
+>(({ className, ...props }, ref) => {
+  return (
+    <AvatarPrimitive.Fallback
+      ref={ref}
+      className={cn(
+        'flex h-full w-full items-center justify-center font-semibold uppercase',
+        className
+      )}
+      {...props}
+    />
+  );
+});
+
+AvatarGlassFallback.displayName = 'AvatarGlassFallback';
+
+// ========================================
+// HELPER FUNCTION (for simple use cases)
+// ========================================
+
+const getInitials = (name: string): string => {
+  if (!name || name.trim().length === 0) return '?';
+  return name
+    .split(' ')
+    .map((part) => part[0])
+    .join('')
+    .toUpperCase()
+    .slice(0, 2);
+};
+
+// ========================================
+// SIMPLE WRAPPER (backward compatibility)
+// ========================================
+
+interface AvatarGlassSimpleProps {
+  name: string;
+  size?: AvatarSize;
+  status?: AvatarStatus;
+  glowing?: boolean;
+  className?: string;
+}
+
+const AvatarGlassSimple: React.FC<AvatarGlassSimpleProps> = ({
+  name,
+  size = 'md',
+  status,
+  glowing,
+  className,
+}) => {
+  return (
+    <AvatarGlassRoot size={size} status={status} glowing={glowing} className={className}>
+      <AvatarGlassFallback>{getInitials(name)}</AvatarGlassFallback>
+    </AvatarGlassRoot>
+  );
+};
+
+// ========================================
+// EXPORTS
+// ========================================
+
+// Compound API (shadcn/ui pattern)
+export const AvatarGlass = AvatarGlassRoot;
+export { AvatarGlassImage, AvatarGlassFallback };
+
+// Simple wrapper (backward compatibility)
+export { AvatarGlassSimple };

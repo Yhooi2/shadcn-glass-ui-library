@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { CircularMetricGlass } from './circular-metric-glass';
 
 const meta = {
-  title: 'Glass UI/Composite/CircularMetricGlass',
+  title: 'Components/Composite/CircularMetricGlass',
   component: CircularMetricGlass,
   parameters: {
     layout: 'centered',

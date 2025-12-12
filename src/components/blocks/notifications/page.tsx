@@ -8,7 +8,11 @@ import { forwardRef, type HTMLAttributes } from 'react';
 import { cn } from '@/lib/utils';
 import { GlassCard } from '@/components/glass/ui/glass-card';
 import { NotificationGlass } from '@/components/glass/ui/notification-glass';
-import { AlertGlass } from '@/components/glass/ui/alert-glass';
+import {
+  AlertGlass,
+  AlertGlassTitle,
+  AlertGlassDescription,
+} from '@/components/glass/ui/alert-glass';
 import '@/glass-theme.css';
 
 export interface NotificationsBlockProps extends HTMLAttributes<HTMLDivElement> {
@@ -27,10 +31,7 @@ export const NotificationsBlock = forwardRef<HTMLDivElement, NotificationsBlockP
         {...props}
       >
         {showTitle && (
-          <h2
-            className="text-xl font-bold mb-6"
-            style={{ color: 'var(--text-primary)' }}
-          >
+          <h2 className="text-xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>
             Notifications & Alerts
           </h2>
         )}
@@ -38,10 +39,7 @@ export const NotificationsBlock = forwardRef<HTMLDivElement, NotificationsBlockP
         <div className="space-y-6">
           {/* Notifications */}
           <div className="space-y-2">
-            <label
-              className="text-sm font-medium"
-              style={{ color: 'var(--text-secondary)' }}
-            >
+            <label className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
               Notifications
             </label>
             <div className="space-y-2">
@@ -68,36 +66,29 @@ export const NotificationsBlock = forwardRef<HTMLDivElement, NotificationsBlockP
 
           {/* Alerts */}
           <div className="space-y-2">
-            <label
-              className="text-sm font-medium"
-              style={{ color: 'var(--text-secondary)' }}
-            >
+            <label className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
               Alerts
             </label>
             <div className="space-y-2 flex flex-col items-start">
-              <AlertGlass
-                variant="default"
-                title="Information"
-              >
-                This is an informational alert message
+              <AlertGlass variant="default">
+                <AlertGlassTitle>Information</AlertGlassTitle>
+                <AlertGlassDescription>
+                  This is an informational alert message
+                </AlertGlassDescription>
               </AlertGlass>
-              <AlertGlass
-                variant="success"
-                title="Success"
-              >
-                Your operation completed successfully
+              <AlertGlass variant="success">
+                <AlertGlassTitle>Success</AlertGlassTitle>
+                <AlertGlassDescription>Your operation completed successfully</AlertGlassDescription>
               </AlertGlass>
-              <AlertGlass
-                variant="warning"
-                title="Warning"
-              >
-                Please review the following issues
+              <AlertGlass variant="warning">
+                <AlertGlassTitle>Warning</AlertGlassTitle>
+                <AlertGlassDescription>Please review the following issues</AlertGlassDescription>
               </AlertGlass>
-              <AlertGlass
-                variant="destructive"
-                title="Error"
-              >
-                An error occurred while processing your request
+              <AlertGlass variant="destructive">
+                <AlertGlassTitle>Error</AlertGlassTitle>
+                <AlertGlassDescription>
+                  An error occurred while processing your request
+                </AlertGlassDescription>
               </AlertGlass>
             </div>
           </div>

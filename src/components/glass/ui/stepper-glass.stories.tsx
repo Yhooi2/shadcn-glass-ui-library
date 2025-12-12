@@ -22,7 +22,7 @@ import { CheckCircle, User, Settings, CreditCard, Mail, Lock, Package, Truck } f
 // ========================================
 
 const meta: Meta<typeof StepperGlass.Root> = {
-  title: 'Glass UI/Navigation/StepperGlass',
+  title: 'Components/Navigation/StepperGlass',
   component: StepperGlass.Root,
   tags: ['autodocs'],
   parameters: {

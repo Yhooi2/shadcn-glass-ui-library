@@ -2,7 +2,7 @@ import type { Preview } from '@storybook/react-vite';
 import React, { useEffect } from 'react';
 import { create } from 'storybook/theming';
 import { ThemeProvider, type Theme } from '../src/lib/theme-context';
-import { AnimatedBackground } from '../src/components/AnimatedBackground';
+import { AnimatedBackground } from '../src/components/demos/AnimatedBackground';
 import '../src/index.css';
 import '../src/glass-theme.css';
 import './storybook.css';

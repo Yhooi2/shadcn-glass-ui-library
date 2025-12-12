@@ -1,5 +1,5 @@
-import { ThemeProvider } from "@/lib/theme-context";
-import { ComponentShowcase } from "./components/ComponentShowcase";
+import { ThemeProvider } from '@/lib/theme-context';
+import { ComponentShowcase } from './components/demos/ComponentShowcase';
 
 function App() {
   return (

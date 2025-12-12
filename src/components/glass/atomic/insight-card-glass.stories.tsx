@@ -3,7 +3,7 @@ import { fn } from 'storybook/test';
 import { InsightCardGlass } from './insight-card-glass';
 
 const meta = {
-  title: 'Glass UI/Atomic/InsightCardGlass',
+  title: 'Components/Atomic/InsightCardGlass',
   component: InsightCardGlass,
   parameters: { layout: 'centered' },
   tags: ['autodocs'],

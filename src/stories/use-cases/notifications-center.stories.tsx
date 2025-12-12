@@ -34,10 +34,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState, useEffect } from 'react';
 import { useTheme, type ThemeName } from '@/lib/theme-context';
-import { AnimatedBackground } from '@/components/AnimatedBackground';
+import { AnimatedBackground } from '@/components/demos/AnimatedBackground';
 import {
   NotificationGlass,
   AlertGlass,
+  AlertGlassTitle,
+  AlertGlassDescription,
   BadgeGlass,
   ButtonGlass,
   GlassCard,
@@ -66,7 +68,7 @@ import {
 // ========================================
 
 const meta: Meta = {
-  title: 'Use Cases/Notifications Center',
+  title: 'Examples/Use Cases/Notifications Center',
   parameters: {
     layout: 'fullscreen',
     docs: {
@@ -403,8 +405,11 @@ const NotificationsCenter = ({
             {/* Bulk Actions */}
             {selectedIds.size > 0 && (
               <div className="mt-4 flex gap-2">
-                <AlertGlass variant="info" title="Selection Active">
-                  {selectedIds.size} notification{selectedIds.size > 1 ? 's' : ''} selected
+                <AlertGlass variant="default">
+                  <AlertGlassTitle>Selection Active</AlertGlassTitle>
+                  <AlertGlassDescription>
+                    {selectedIds.size} notification{selectedIds.size > 1 ? 's' : ''} selected
+                  </AlertGlassDescription>
                 </AlertGlass>
                 <div className="ml-auto flex gap-2">
                   <ButtonGlass variant="ghost" size="sm" onClick={bulkArchive}>

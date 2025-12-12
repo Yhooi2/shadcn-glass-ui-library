@@ -71,6 +71,9 @@
   --semantic-surface-elevated: var(--oklch-slate-800-60);
   --semantic-surface-overlay: var(--oklch-slate-800-25);
   --semantic-surface-strong: var(--oklch-slate-800-80);
+  /* Surface hover states (slate-700 for hover/interactive elements) */
+  --semantic-surface-medium: var(--oklch-slate-700-50);
+  --semantic-surface-intense: var(--oklch-slate-700-60);
 
   /* Border Colors (Slate-700) */
   --semantic-border: var(--oklch-slate-700-40);
@@ -180,14 +183,14 @@
     var(--semantic-primary-hover)
   );
   --btn-primary-glow: var(--glow-primary);
-  --btn-secondary-bg: var(--semantic-surface-elevated);
+  --btn-secondary-bg: var(--semantic-surface-intense);
   --btn-secondary-text: var(--semantic-text);
   --btn-secondary-border: var(--semantic-border);
   --btn-secondary-hover-bg: var(--semantic-surface-strong);
   --btn-secondary-glow: var(--glow-neutral);
   --btn-ghost-bg: transparent;
   --btn-ghost-text: var(--semantic-text-muted);
-  --btn-ghost-hover-bg: var(--semantic-surface-elevated);
+  --btn-ghost-hover-bg: var(--semantic-surface-medium);
   --btn-destructive-bg: linear-gradient(135deg, var(--semantic-error), var(--semantic-error-text));
   --btn-destructive-text: var(--semantic-text-inverse);
   --btn-destructive-glow: var(--glow-error);
@@ -205,27 +208,27 @@
      Using semantic and primitive tokens
      ======================================== */
   /* shadcn/ui compatible variants */
-  --badge-default-bg: var(--semantic-surface-elevated);
+  --badge-default-bg: var(--oklch-slate-600-30);
   --badge-default-text: var(--semantic-text);
   --badge-default-border: var(--semantic-border);
   --badge-secondary-bg: var(--semantic-surface-muted);
   --badge-secondary-text: var(--semantic-text-muted);
   --badge-secondary-border: var(--semantic-border-muted);
   --badge-destructive-bg: var(--semantic-error-muted);
-  --badge-destructive-text: var(--semantic-error);
+  --badge-destructive-text: var(--semantic-error-text);
   --badge-destructive-border: var(--semantic-error-subtle);
   --badge-outline-bg: transparent;
   --badge-outline-text: var(--semantic-text);
   --badge-outline-border: var(--semantic-border-strong);
   /* Glass UI extended variants */
   --badge-success-bg: var(--semantic-success-muted);
-  --badge-success-text: var(--semantic-success);
+  --badge-success-text: var(--semantic-success-text);
   --badge-success-border: var(--semantic-success-subtle);
   --badge-warning-bg: var(--semantic-warning-muted);
   --badge-warning-text: var(--semantic-warning);
   --badge-warning-border: var(--semantic-warning-subtle);
   --badge-info-bg: var(--semantic-info-muted);
-  --badge-info-text: var(--semantic-info);
+  --badge-info-text: var(--semantic-info-text);
   --badge-info-border: var(--semantic-info-subtle);
 
   /* ========================================
@@ -326,33 +329,33 @@
      ======================================== */
   --modal-bg: var(--semantic-surface-strong);
   --modal-border: var(--semantic-border);
-  --modal-overlay: var(--semantic-text-disabled);
-  --modal-glow: 0 25px 50px var(--semantic-text-disabled);
+  --modal-overlay: var(--oklch-black-70);
+  --modal-glow: 0 25px 50px var(--semantic-shadow);
   --modal-glow-effect: radial-gradient(
     ellipse at top,
     var(--semantic-primary-subtle) 0%,
     transparent 50%
   );
-  --modal-close-btn-bg: var(--semantic-surface-elevated);
+  --modal-close-btn-bg: var(--semantic-surface-medium);
   --modal-close-btn-border: none;
   --modal-close-btn-hover-glow: 0 0 15px var(--semantic-primary-muted);
   --dropdown-bg: var(--semantic-surface-strong);
   --dropdown-border: var(--semantic-border);
-  --dropdown-item-hover: var(--semantic-surface-elevated);
+  --dropdown-item-hover: var(--oklch-slate-700-70);
   --dropdown-item-text: var(--semantic-text);
   --dropdown-icon: var(--semantic-text-muted);
   --dropdown-icon-hover: var(--semantic-primary-hover);
   --dropdown-divider: var(--semantic-border);
-  --dropdown-glow: 0 10px 40px var(--semantic-text-disabled);
+  --dropdown-glow: 0 10px 40px var(--semantic-shadow);
 
   /* Popover Variables */
   --popover-bg: var(--semantic-surface-strong);
   --popover-border: var(--semantic-border);
-  --popover-shadow: 0 10px 40px var(--semantic-text-disabled);
+  --popover-shadow: 0 10px 40px var(--semantic-shadow);
   --popover-arrow-bg: var(--semantic-surface-strong);
 
   /* Select Variables - Used by ComboBoxGlass */
-  --select-item-hover-bg: var(--semantic-surface-elevated);
+  --select-item-hover-bg: var(--oklch-slate-700-70);
   --select-item-selected-bg: var(--semantic-primary-muted);
   --select-item-selected-text: var(--semantic-primary-hover);
 

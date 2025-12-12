@@ -31,7 +31,11 @@ import {
 } from '@/components/ui/command';
 import { FormFieldWrapper } from '../primitives/form-field-wrapper';
 import { inputVariants, type InputGlassSize } from '@/lib/variants/input-glass-variants';
-import { getDropdownContentStyles } from '@/lib/variants/dropdown-content-styles';
+import {
+  getDropdownContentStyles,
+  dropdownContentClasses,
+  getDropdownItemClasses,
+} from '@/lib/variants/dropdown-content-styles';
 import { ICON_SIZES } from '../primitives/style-utils';
 import '@/glass-theme.css';
 
@@ -201,7 +205,8 @@ function ComboBoxGlassInner<T = string>(
         side={side}
         align={align}
         className={cn(
-          'w-[--radix-popover-trigger-width] p-0 rounded-2xl overflow-hidden border-0',
+          dropdownContentClasses,
+          'w-[--radix-popover-trigger-width] p-0 border-0',
           getGlassClass(),
           popoverClassName
         )}
@@ -240,12 +245,7 @@ function ComboBoxGlassInner<T = string>(
                     disabled={option.disabled}
                     onSelect={() => handleSelect(option.value)}
                     className={cn(
-                      'w-full px-3 py-2.5 text-sm flex items-center gap-2 rounded-lg',
-                      'cursor-pointer transition-colors duration-150',
-                      'text-[var(--dropdown-item-text)]',
-                      'data-[selected=true]:bg-[var(--dropdown-item-hover)]',
-                      isSelected &&
-                        'bg-[var(--select-item-selected-bg)] text-[var(--select-item-selected-text)]',
+                      getDropdownItemClasses({ selected: isSelected }),
                       option.disabled && 'cursor-not-allowed opacity-50'
                     )}
                   >

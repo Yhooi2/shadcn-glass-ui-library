@@ -7,7 +7,7 @@
 import { forwardRef, type HTMLAttributes } from 'react';
 import { cn } from '@/lib/utils';
 import { GlassCard } from '@/components/glass/ui/glass-card';
-import { AvatarGlass } from '@/components/glass/ui/avatar-glass';
+import { AvatarGlassSimple } from '@/components/glass/ui/avatar-glass';
 import { ProfileAvatarGlass } from '@/components/glass/specialized/profile-avatar-glass';
 import { StatusIndicatorGlass } from '@/components/glass/specialized/status-indicator-glass';
 import '@/glass-theme.css';
@@ -28,10 +28,7 @@ export const AvatarGalleryBlock = forwardRef<HTMLDivElement, AvatarGalleryBlockP
         {...props}
       >
         {showTitle && (
-          <h2
-            className="text-xl font-bold mb-6"
-            style={{ color: 'var(--text-primary)' }}
-          >
+          <h2 className="text-xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>
             Avatar Gallery
           </h2>
         )}
@@ -39,25 +36,19 @@ export const AvatarGalleryBlock = forwardRef<HTMLDivElement, AvatarGalleryBlockP
         <div className="space-y-6">
           {/* Standard Avatars */}
           <div className="space-y-2">
-            <label
-              className="text-sm font-medium"
-              style={{ color: 'var(--text-secondary)' }}
-            >
+            <label className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
               Avatar Sizes
             </label>
             <div className="flex items-center gap-4">
-              <AvatarGlass name="AS" size="sm" />
-              <AvatarGlass name="AS" size="md" />
-              <AvatarGlass name="AS" size="lg" />
+              <AvatarGlassSimple name="AS" size="sm" />
+              <AvatarGlassSimple name="AS" size="md" />
+              <AvatarGlassSimple name="AS" size="lg" />
             </div>
           </div>
 
           {/* Profile Avatars with Glow */}
           <div className="space-y-2">
-            <label
-              className="text-sm font-medium"
-              style={{ color: 'var(--text-secondary)' }}
-            >
+            <label className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
               Profile Avatars with Status
             </label>
             <div className="flex items-center gap-4">
@@ -69,10 +60,7 @@ export const AvatarGalleryBlock = forwardRef<HTMLDivElement, AvatarGalleryBlockP
 
           {/* Status Indicators */}
           <div className="space-y-2">
-            <label
-              className="text-sm font-medium"
-              style={{ color: 'var(--text-secondary)' }}
-            >
+            <label className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
               Status Indicators
             </label>
             <div className="flex items-center gap-4">

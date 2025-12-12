@@ -71,6 +71,9 @@
   --semantic-surface-elevated: var(--oklch-white);
   --semantic-surface-overlay: var(--oklch-slate-100-40);
   --semantic-surface-strong: var(--oklch-white);
+  /* Surface hover states (slate-100 for hover/interactive elements) */
+  --semantic-surface-medium: var(--oklch-slate-100-80);
+  --semantic-surface-intense: var(--oklch-slate-100-90);
 
   /* Border Colors (Slate-200) */
   --semantic-border: var(--oklch-slate-200);
@@ -186,7 +189,7 @@
   --btn-secondary-glow: var(--glow-neutral);
   --btn-ghost-bg: transparent;
   --btn-ghost-text: var(--semantic-text-muted);
-  --btn-ghost-hover-bg: var(--semantic-surface-muted);
+  --btn-ghost-hover-bg: var(--semantic-surface-medium);
   --btn-destructive-bg: linear-gradient(135deg, var(--semantic-error), var(--semantic-error-text));
   --btn-destructive-text: var(--semantic-text-inverse);
   --btn-destructive-glow: var(--glow-error);
@@ -325,29 +328,29 @@
      ======================================== */
   --modal-bg: var(--semantic-surface-strong);
   --modal-border: var(--semantic-border);
-  --modal-overlay: var(--semantic-text-disabled);
-  --modal-glow: 0 25px 50px var(--semantic-text-disabled);
+  --modal-overlay: var(--oklch-black-50);
+  --modal-glow: 0 25px 50px var(--semantic-shadow);
   --modal-glow-effect: none;
   --modal-close-btn-bg: var(--semantic-surface-muted);
   --modal-close-btn-border: none;
   --modal-close-btn-hover-glow: 0 0 10px var(--semantic-primary-muted);
   --dropdown-bg: var(--semantic-surface-strong);
   --dropdown-border: var(--semantic-border);
-  --dropdown-item-hover: var(--semantic-surface-muted);
+  --dropdown-item-hover: var(--semantic-surface-intense);
   --dropdown-item-text: var(--semantic-text);
   --dropdown-icon: var(--semantic-text-muted);
   --dropdown-icon-hover: var(--semantic-primary);
   --dropdown-divider: var(--semantic-border);
-  --dropdown-glow: 0 10px 40px var(--semantic-text-disabled);
+  --dropdown-glow: 0 10px 40px var(--semantic-shadow);
 
   /* Popover Variables */
   --popover-bg: var(--semantic-surface-strong);
   --popover-border: var(--semantic-border);
-  --popover-shadow: 0 10px 40px var(--semantic-text-disabled);
+  --popover-shadow: 0 10px 40px var(--semantic-shadow);
   --popover-arrow-bg: var(--semantic-surface-strong);
 
   /* Select Variables - Used by ComboBoxGlass */
-  --select-item-hover-bg: var(--semantic-surface-muted);
+  --select-item-hover-bg: var(--semantic-surface-intense);
   --select-item-selected-bg: var(--semantic-primary-subtle);
   --select-item-selected-text: var(--semantic-primary);
 
@@ -445,7 +448,7 @@
      Using semantic and primitive tokens
      ======================================== */
   --tooltip-bg: var(--semantic-surface-strong);
-  --tooltip-text: var(--semantic-text-inverse);
+  --tooltip-text: var(--semantic-text);
   --tooltip-border: var(--semantic-border);
   --tooltip-shadow: 0 4px 12px var(--semantic-shadow);
 

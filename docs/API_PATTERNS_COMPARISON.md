@@ -9,19 +9,20 @@ new `MetricCardGlass` API.
 
 ## 📊 Comparison Table: Core UI Components
 
-| Component             | Title/Label Prop           | Value Prop        | Variant System                                                                                        | Children       | Icon Support               | Notes                    |
-| --------------------- | -------------------------- | ----------------- | ----------------------------------------------------------------------------------------------------- | -------------- | -------------------------- | ------------------------ |
-| **shadcn/ui Card**    | `CardTitle` (subcomponent) | —                 | —                                                                                                     | ✅ Composition | —                          | Compound component       |
-| **AlertGlass**        | `title?: string`           | —                 | `variant: 'default' \| 'destructive' \| 'success' \| 'warning'`                                       | ✅ `children`  | ✅ Auto (variant-based)    | **shadcn/ui compatible** |
-| **BadgeGlass**        | —                          | —                 | `variant: 'default' \| 'secondary' \| 'destructive' \| 'outline' \| 'success' \| 'warning' \| 'info'` | ✅ `children`  | ❌                         | **shadcn/ui + extended** |
-| **ButtonGlass**       | —                          | —                 | `variant: 'primary' \| 'secondary' \| 'ghost' \| 'destructive' \| 'success' \| 'text'`                | ✅ `children`  | ✅ `iconLeft`, `iconRight` | **shadcn/ui-like**       |
-| **GlassCard**         | —                          | —                 | `intensity: 'low' \| 'medium' \| 'high'`                                                              | ✅ `children`  | ❌                         | Custom Glass prop        |
-| **NotificationGlass** | `title: string` (required) | `message: string` | `variant: 'default' \| 'destructive' \| 'success' \| 'warning'`                                       | ❌             | ✅ Auto (variant-based)    | **shadcn/ui compatible** |
+| Component             | Title/Label Prop                 | Value Prop        | Variant System                                                                                        | Children       | Icon Support               | Notes                    |
+| --------------------- | -------------------------------- | ----------------- | ----------------------------------------------------------------------------------------------------- | -------------- | -------------------------- | ------------------------ |
+| **shadcn/ui Card**    | `CardTitle` (subcomponent)       | —                 | —                                                                                                     | ✅ Composition | —                          | Compound component       |
+| **AlertGlass**        | `AlertGlassTitle` (subcomponent) | —                 | `variant: 'default' \| 'destructive' \| 'success' \| 'warning'`                                       | ✅ Composition | ✅ Auto (variant-based)    | **Compound component**   |
+| **BadgeGlass**        | —                                | —                 | `variant: 'default' \| 'secondary' \| 'destructive' \| 'outline' \| 'success' \| 'warning' \| 'info'` | ✅ `children`  | ❌                         | **shadcn/ui + extended** |
+| **ButtonGlass**       | —                                | —                 | `variant: 'primary' \| 'secondary' \| 'ghost' \| 'destructive' \| 'success' \| 'text'`                | ✅ `children`  | ✅ `iconLeft`, `iconRight` | **shadcn/ui-like**       |
+| **GlassCard**         | —                                | —                 | `intensity: 'low' \| 'medium' \| 'high'`                                                              | ✅ `children`  | ❌                         | Custom Glass prop        |
+| **NotificationGlass** | `title: string` (required)       | `message: string` | `variant: 'default' \| 'destructive' \| 'success' \| 'warning'`                                       | ❌             | ✅ Auto (variant-based)    | **shadcn/ui compatible** |
 
 ### Insights from Core UI:
 
 1. **✅ Variant System** - all use `variant` prop (except GlassCard with `intensity`)
-2. **✅ Title vs Label** - `title` is used in AlertGlass, NotificationGlass
+2. **✅ Compound Components** - AlertGlass follows shadcn/ui pattern with subcomponents
+   (AlertGlassTitle, AlertGlassDescription)
 3. **✅ shadcn/ui variants** - base variants: `default`, `secondary`, `destructive`, `outline`
 4. **✅ Glass UI extensions** - extended variants: `success`, `warning`, `info`
 5. **✅ Icon handling** - automatic icons based on `variant` (AlertGlass, NotificationGlass)

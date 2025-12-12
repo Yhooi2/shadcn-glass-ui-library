@@ -8,11 +8,20 @@
  */
 
 // UI Components
-export { AlertGlass } from './alert-glass';
-export type { AlertGlassProps } from './alert-glass';
+export { AlertGlass, AlertGlassTitle, AlertGlassDescription } from './alert-glass';
+export type {
+  AlertGlassProps,
+  AlertGlassTitleProps,
+  AlertGlassDescriptionProps,
+} from './alert-glass';
 
-export { AvatarGlass } from './avatar-glass';
-export type { AvatarGlassProps, AvatarStatus } from './avatar-glass';
+export {
+  AvatarGlass,
+  AvatarGlassImage,
+  AvatarGlassFallback,
+  AvatarGlassSimple,
+} from './avatar-glass';
+export type { AvatarStatus, AvatarSize } from './avatar-glass';
 
 export { BadgeGlass } from './badge-glass';
 export type { BadgeGlassProps } from './badge-glass';
@@ -43,8 +52,14 @@ export { ModalGlass } from './modal-glass';
 export { NotificationGlass } from './notification-glass';
 export type { NotificationGlassProps } from './notification-glass';
 
-export { PopoverGlass } from './popover-glass';
-export type { PopoverGlassProps } from './popover-glass';
+export {
+  PopoverGlass,
+  PopoverGlassTrigger,
+  PopoverGlassContent,
+  PopoverGlassAnchor,
+  PopoverGlassLegacy,
+} from './popover-glass';
+export type { PopoverGlassLegacyProps } from './popover-glass';
 
 export { SkeletonGlass } from './skeleton-glass';
 export type { SkeletonGlassProps } from './skeleton-glass';
@@ -57,5 +72,10 @@ export { TabsGlass } from './tabs-glass';
 export { ToggleGlass } from './toggle-glass';
 export type { ToggleGlassProps } from './toggle-glass';
 
-export { TooltipGlass } from './tooltip-glass';
-export type { TooltipGlassProps } from './tooltip-glass';
+export {
+  TooltipGlass,
+  TooltipGlassProvider,
+  TooltipGlassTrigger,
+  TooltipGlassContent,
+  TooltipGlassSimple,
+} from './tooltip-glass';

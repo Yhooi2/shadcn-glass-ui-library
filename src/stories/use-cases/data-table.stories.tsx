@@ -34,7 +34,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState, useMemo } from 'react';
 import { useTheme, type ThemeName } from '@/lib/theme-context';
-import { AnimatedBackground } from '@/components/AnimatedBackground';
+import { AnimatedBackground } from '@/components/demos/AnimatedBackground';
 import {
   GlassCard,
   InputGlass,
@@ -46,6 +46,8 @@ import {
   SkeletonGlass,
   ModalGlass,
   AlertGlass,
+  AlertGlassTitle,
+  AlertGlassDescription,
 } from '@/index';
 import {
   Search,
@@ -68,7 +70,7 @@ import {
 // ========================================
 
 const meta: Meta = {
-  title: 'Use Cases/Data Table with Actions',
+  title: 'Examples/Use Cases/Data Table',
   parameters: {
     layout: 'fullscreen',
     docs: {
@@ -774,8 +776,11 @@ const DataTable = ({
                 </ModalGlass.Description>
               </ModalGlass.Header>
               <ModalGlass.Body>
-                <AlertGlass variant="destructive" title="Warning">
-                  This will permanently delete the selected users and all their associated data.
+                <AlertGlass variant="destructive">
+                  <AlertGlassTitle>Warning</AlertGlassTitle>
+                  <AlertGlassDescription>
+                    This will permanently delete the selected users and all their associated data.
+                  </AlertGlassDescription>
                 </AlertGlass>
               </ModalGlass.Body>
               <ModalGlass.Footer>
@@ -829,8 +834,11 @@ export const WithSelection: Story = {
                   <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
                     User Management
                   </h1>
-                  <AlertGlass variant="info" title="Selection Active">
-                    {selectedIds.size} users selected. Bulk actions available.
+                  <AlertGlass variant="default">
+                    <AlertGlassTitle>Selection Active</AlertGlassTitle>
+                    <AlertGlassDescription>
+                      {selectedIds.size} users selected. Bulk actions available.
+                    </AlertGlassDescription>
                   </AlertGlass>
                 </div>
                 <ButtonGlass variant="secondary" size="sm" icon={NextIcon} onClick={cycleTheme}>

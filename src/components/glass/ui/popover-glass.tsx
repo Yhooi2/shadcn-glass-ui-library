@@ -9,20 +9,33 @@
  * - Focus trap for accessibility
  * - All position/alignment options (top/right/bottom/left × start/center/end)
  *
- * @example
+ * @example Compound API (recommended)
  * ```tsx
- * <PopoverGlass
- *   trigger={<ButtonGlass>Open</ButtonGlass>}
- *   side="top"
- *   align="center"
- * >
- *   <div className="p-4">
- *     <h3 style={{ color: 'var(--text-primary)' }}>Title</h3>
- *     <p style={{ color: 'var(--text-secondary)' }}>Content</p>
- *   </div>
+ * <PopoverGlass>
+ *   <PopoverGlassTrigger asChild>
+ *     <ButtonGlass>Open</ButtonGlass>
+ *   </PopoverGlassTrigger>
+ *   <PopoverGlassContent side="top">
+ *     <div className="p-4">
+ *       <h3 style={{ color: 'var(--text-primary)' }}>Title</h3>
+ *       <p style={{ color: 'var(--text-secondary)' }}>Content</p>
+ *     </div>
+ *   </PopoverGlassContent>
  * </PopoverGlass>
  * ```
+ *
+ * @example Legacy API (backward compatible)
+ * ```tsx
+ * <PopoverGlassLegacy
+ *   trigger={<ButtonGlass>Open</ButtonGlass>}
+ *   side="top"
+ * >
+ *   <div className="p-4">Content</div>
+ * </PopoverGlassLegacy>
+ * ```
  */
+
+'use client';
 
 import * as React from 'react';
 import * as PopoverPrimitive from '@radix-ui/react-popover';
@@ -30,10 +43,93 @@ import { cn } from '@/lib/utils';
 import '@/glass-theme.css';
 
 // ========================================
-// PROPS INTERFACE
+// COMPOUND COMPONENT: ROOT
 // ========================================
 
-export interface PopoverGlassProps {
+const PopoverGlassRoot = PopoverPrimitive.Root;
+
+// ========================================
+// COMPOUND COMPONENT: TRIGGER
+// ========================================
+
+const PopoverGlassTrigger = PopoverPrimitive.Trigger;
+
+// ========================================
+// COMPOUND COMPONENT: ANCHOR
+// ========================================
+
+const PopoverGlassAnchor = PopoverPrimitive.Anchor;
+
+// ========================================
+// COMPOUND COMPONENT: CONTENT
+// ========================================
+
+interface PopoverGlassContentProps extends React.ComponentPropsWithoutRef<
+  typeof PopoverPrimitive.Content
+> {
+  /** Whether to show the arrow pointer */
+  showArrow?: boolean;
+}
+
+const PopoverGlassContent = React.forwardRef<
+  React.ElementRef<typeof PopoverPrimitive.Content>,
+  PopoverGlassContentProps
+>(({ className, align = 'center', sideOffset = 8, showArrow = true, children, ...props }, ref) => {
+  // Popover content styles with CSS variables
+  const popoverStyles: React.CSSProperties = {
+    background: 'var(--popover-bg)',
+    border: '1px solid var(--popover-border)',
+    boxShadow: 'var(--popover-shadow)',
+    backdropFilter: 'blur(var(--blur-md))',
+    WebkitBackdropFilter: 'blur(var(--blur-md))',
+  };
+
+  // Arrow styles
+  const arrowStyles: React.CSSProperties = {
+    fill: 'var(--popover-arrow-bg)',
+  };
+
+  return (
+    <PopoverPrimitive.Portal>
+      <PopoverPrimitive.Content
+        ref={ref}
+        align={align}
+        sideOffset={sideOffset}
+        className={cn(
+          'z-50003 rounded-2xl',
+          'animate-in fade-in-0 zoom-in-95 duration-200',
+          'data-[side=bottom]:slide-in-from-top-2',
+          'data-[side=top]:slide-in-from-bottom-2',
+          'data-[side=right]:slide-in-from-left-2',
+          'data-[side=left]:slide-in-from-right-2',
+          'outline-none',
+          className
+        )}
+        style={popoverStyles}
+        {...props}
+      >
+        {children}
+
+        {showArrow && (
+          <PopoverPrimitive.Arrow
+            className="fill-current"
+            style={arrowStyles}
+            width={16}
+            height={8}
+          />
+        )}
+      </PopoverPrimitive.Content>
+    </PopoverPrimitive.Portal>
+  );
+});
+
+PopoverGlassContent.displayName = 'PopoverGlassContent';
+
+// ========================================
+// LEGACY API (backward compatible)
+// ========================================
+
+export interface PopoverGlassLegacyProps {
   /** The trigger element that opens the popover */
   readonly trigger: React.ReactNode;
   /** The content to display inside the popover */
@@ -54,14 +150,7 @@ export interface PopoverGlassProps {
   readonly className?: string;
 }
 
-// ========================================
-// COMPONENT
-// ========================================
-
-export const PopoverGlass = React.forwardRef<
-  HTMLDivElement,
-  PopoverGlassProps
->(
+const PopoverGlassLegacy = React.forwardRef<HTMLDivElement, PopoverGlassLegacyProps>(
   (
     {
       trigger,
@@ -76,59 +165,36 @@ export const PopoverGlass = React.forwardRef<
     },
     ref
   ) => {
-    // Popover content styles with CSS variables
-    const popoverStyles: React.CSSProperties = {
-      background: 'var(--popover-bg)',
-      border: '1px solid var(--popover-border)',
-      boxShadow: 'var(--popover-shadow)',
-      backdropFilter: 'blur(var(--blur-md))', // 16px - standard popover blur
-      WebkitBackdropFilter: 'blur(var(--blur-md))',
-    };
-
-    // Arrow styles
-    const arrowStyles: React.CSSProperties = {
-      fill: 'var(--popover-arrow-bg)',
-    };
-
     return (
-      <PopoverPrimitive.Root open={open} onOpenChange={onOpenChange}>
-        <PopoverPrimitive.Trigger asChild>{trigger}</PopoverPrimitive.Trigger>
-
-        <PopoverPrimitive.Portal>
-          <PopoverPrimitive.Content
-            ref={ref}
-            side={side}
-            align={align}
-            sideOffset={sideOffset}
-            className={cn(
-              'z-[50003] rounded-2xl',
-              'animate-in fade-in-0 zoom-in-95 duration-200',
-              'data-[side=bottom]:slide-in-from-top-2',
-              'data-[side=top]:slide-in-from-bottom-2',
-              'data-[side=right]:slide-in-from-left-2',
-              'data-[side=left]:slide-in-from-right-2',
-              'outline-none',
-              className
-            )}
-            style={popoverStyles}
-            role="dialog"
-            aria-modal="false"
-          >
-            {children}
-
-            {showArrow && (
-              <PopoverPrimitive.Arrow
-                className="fill-current"
-                style={arrowStyles}
-                width={16}
-                height={8}
-              />
-            )}
-          </PopoverPrimitive.Content>
-        </PopoverPrimitive.Portal>
-      </PopoverPrimitive.Root>
+      <PopoverGlassRoot open={open} onOpenChange={onOpenChange}>
+        <PopoverGlassTrigger asChild>{trigger}</PopoverGlassTrigger>
+        <PopoverGlassContent
+          ref={ref}
+          side={side}
+          align={align}
+          sideOffset={sideOffset}
+          showArrow={showArrow}
+          className={className}
+        >
+          {children}
+        </PopoverGlassContent>
+      </PopoverGlassRoot>
     );
   }
 );
 
-PopoverGlass.displayName = 'PopoverGlass';
+PopoverGlassLegacy.displayName = 'PopoverGlassLegacy';
+
+// ========================================
+// EXPORTS
+// ========================================
+
+// Compound API (shadcn/ui pattern)
+export const PopoverGlass = PopoverGlassRoot;
+export { PopoverGlassTrigger, PopoverGlassContent, PopoverGlassAnchor };
+
+// Legacy API (backward compatible)
+export { PopoverGlassLegacy };
+
+// For backward compatibility, also export as default
+export { PopoverGlassLegacy as default };

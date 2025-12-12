@@ -8,7 +8,7 @@ import { forwardRef, type HTMLAttributes } from 'react';
 import { cn } from '@/lib/utils';
 import { GlassCard } from '@/components/glass/ui/glass-card';
 import { BadgeGlass } from '@/components/glass/ui/badge-glass';
-import { TooltipGlass } from '@/components/glass/ui/tooltip-glass';
+import { TooltipGlassProvider, TooltipGlassSimple } from '@/components/glass/ui/tooltip-glass';
 import '@/glass-theme.css';
 
 export interface BadgesBlockProps extends HTMLAttributes<HTMLDivElement> {
@@ -27,10 +27,7 @@ export const BadgesBlock = forwardRef<HTMLDivElement, BadgesBlockProps>(
         {...props}
       >
         {showTitle && (
-          <h2
-            className="text-xl font-bold mb-6"
-            style={{ color: 'var(--text-primary)' }}
-          >
+          <h2 className="text-xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>
             Badges & Tooltips
           </h2>
         )}
@@ -38,10 +35,7 @@ export const BadgesBlock = forwardRef<HTMLDivElement, BadgesBlockProps>(
         <div className="space-y-6">
           {/* Badge Variants */}
           <div className="space-y-2">
-            <label
-              className="text-sm font-medium"
-              style={{ color: 'var(--text-secondary)' }}
-            >
+            <label className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
               Badge Variants
             </label>
             <div className="flex items-center gap-2 flex-wrap">
@@ -57,10 +51,7 @@ export const BadgesBlock = forwardRef<HTMLDivElement, BadgesBlockProps>(
 
           {/* Badge Sizes */}
           <div className="space-y-2">
-            <label
-              className="text-sm font-medium"
-              style={{ color: 'var(--text-secondary)' }}
-            >
+            <label className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
               Badge Sizes
             </label>
             <div className="flex items-center gap-2">
@@ -72,23 +63,22 @@ export const BadgesBlock = forwardRef<HTMLDivElement, BadgesBlockProps>(
 
           {/* Tooltips */}
           <div className="space-y-2">
-            <label
-              className="text-sm font-medium"
-              style={{ color: 'var(--text-secondary)' }}
-            >
+            <label className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
               Tooltips
             </label>
-            <div className="flex items-center gap-4">
-              <TooltipGlass content="This is a helpful tooltip">
-                <BadgeGlass>Hover me</BadgeGlass>
-              </TooltipGlass>
-              <TooltipGlass content="Another tooltip example" position="top">
-                <BadgeGlass variant="info">Top tooltip</BadgeGlass>
-              </TooltipGlass>
-              <TooltipGlass content="Bottom tooltip" position="bottom">
-                <BadgeGlass variant="success">Bottom tooltip</BadgeGlass>
-              </TooltipGlass>
-            </div>
+            <TooltipGlassProvider>
+              <div className="flex items-center gap-4">
+                <TooltipGlassSimple content="This is a helpful tooltip">
+                  <BadgeGlass>Hover me</BadgeGlass>
+                </TooltipGlassSimple>
+                <TooltipGlassSimple content="Another tooltip example" side="top">
+                  <BadgeGlass variant="info">Top tooltip</BadgeGlass>
+                </TooltipGlassSimple>
+                <TooltipGlassSimple content="Bottom tooltip" side="bottom">
+                  <BadgeGlass variant="success">Bottom tooltip</BadgeGlass>
+                </TooltipGlassSimple>
+              </div>
+            </TooltipGlassProvider>
           </div>
         </div>
       </GlassCard>

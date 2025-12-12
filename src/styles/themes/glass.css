@@ -318,7 +318,7 @@
      ======================================== */
   --modal-bg: var(--semantic-surface-overlay);
   --modal-border: var(--semantic-border-muted);
-  --modal-overlay: var(--semantic-text-disabled);
+  --modal-overlay: var(--oklch-black-60);
   --modal-glow: 0 25px 80px var(--semantic-primary-muted), inset 0 1px 0 var(--semantic-border);
   --modal-glow-effect: radial-gradient(
     ellipse at top,

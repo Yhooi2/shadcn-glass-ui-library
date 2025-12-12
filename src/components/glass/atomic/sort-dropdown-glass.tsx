@@ -1,17 +1,36 @@
 /**
  * SortDropdownGlass Component
  *
- * Atomic component for sorting controls with:
- * - Theme-aware glass styling
+ * Atomic component for sorting controls built on DropdownMenuGlass primitives.
+ *
+ * Features:
+ * - Theme-aware glass styling (unified with DropdownMenuGlass)
  * - Responsive design (compact/full mode)
  * - Sort field selection (commits, stars, name, contribution)
  * - Sort order toggle (asc/desc)
+ * - Built on shadcn/ui compound component pattern
+ *
+ * @example
+ * ```tsx
+ * <SortDropdownGlass
+ *   sortBy="commits"
+ *   sortOrder="desc"
+ *   onSortChange={(field, order) => console.log(field, order)}
+ * />
+ * ```
  */
 
-import { forwardRef, useState, useRef, useEffect, useCallback, useMemo, type CSSProperties } from 'react';
+'use client';
+
+import * as React from 'react';
 import { ChevronDown, ArrowUp, ArrowDown, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { getDropdownContentStyles } from '@/lib/variants/dropdown-content-styles';
+import {
+  DropdownMenuGlass,
+  DropdownMenuGlassTrigger,
+  DropdownMenuGlassContent,
+  DropdownMenuGlassItem,
+} from '@/components/glass/ui/dropdown-menu-glass';
 import { ICON_SIZES } from '../primitives/style-utils';
 import '@/glass-theme.css';
 
@@ -37,7 +56,10 @@ const fieldLabels: Record<SortField, string> = {
 // PROPS INTERFACE
 // ========================================
 
-export interface SortDropdownGlassProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
+export interface SortDropdownGlassProps extends Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  'onChange'
+> {
   /** Current sort field */
   readonly sortBy: SortField;
   /** Current sort order */
@@ -54,7 +76,7 @@ export interface SortDropdownGlassProps extends Omit<React.HTMLAttributes<HTMLDi
 // COMPONENT
 // ========================================
 
-export const SortDropdownGlass = forwardRef<HTMLDivElement, SortDropdownGlassProps>(
+export const SortDropdownGlass = React.forwardRef<HTMLDivElement, SortDropdownGlassProps>(
   (
     {
       sortBy,
@@ -67,172 +89,94 @@ export const SortDropdownGlass = forwardRef<HTMLDivElement, SortDropdownGlassPro
     },
     ref
   ) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const internalRef = useRef<HTMLDivElement>(null);
-
-    // Close on click outside or escape
-    useEffect(() => {
-      if (!isOpen) return;
-
-      const handleClickOutside = (event: MouseEvent): void => {
-        if (internalRef.current && !internalRef.current.contains(event.target as Node)) {
-          setIsOpen(false);
+    const handleFieldSelect = React.useCallback(
+      (field: SortField) => {
+        if (field === sortBy) {
+          // Toggle order if same field
+          onSortChange(field, sortOrder === 'asc' ? 'desc' : 'asc');
+        } else {
+          // New field, default to desc
+          onSortChange(field, 'desc');
         }
-      };
-
-      const handleEscape = (event: KeyboardEvent): void => {
-        if (event.key === 'Escape') {
-          setIsOpen(false);
-        }
-      };
-
-      document.addEventListener('mousedown', handleClickOutside);
-      document.addEventListener('keydown', handleEscape);
-
-      return () => {
-        document.removeEventListener('mousedown', handleClickOutside);
-        document.removeEventListener('keydown', handleEscape);
-      };
-    }, [isOpen]);
-
-    const handleToggle = useCallback(() => {
-      setIsOpen((prev) => !prev);
-    }, []);
-
-    const handleFieldSelect = useCallback((field: SortField) => {
-      if (field === sortBy) {
-        // Toggle order if same field
-        onSortChange(field, sortOrder === 'asc' ? 'desc' : 'asc');
-      } else {
-        // New field, default to desc
-        onSortChange(field, 'desc');
-      }
-      setIsOpen(false);
-    }, [sortBy, sortOrder, onSortChange]);
-
-    const handleKeyDown = (e: React.KeyboardEvent): void => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        handleToggle();
-      }
-    };
-
-    // Styles
-    const buttonStyles: CSSProperties = useMemo(() => ({
-      background: 'var(--segmented-container-bg)',
-      border: '1px solid var(--segmented-container-border)',
-      color: 'var(--text-primary)',
-    }), []);
-
-    const dropdownStyles: CSSProperties = useMemo(() => ({
-      ...getDropdownContentStyles(),
-      animation: 'dropdownFadeIn 0.2s ease-out',
-    }), []);
+      },
+      [sortBy, sortOrder, onSortChange]
+    );
 
     const SortIcon = sortOrder === 'asc' ? ArrowUp : ArrowDown;
 
     return (
-      <div
-        ref={(node) => {
-          // Handle both refs
-          (internalRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
-          if (typeof ref === 'function') {
-            ref(node);
-          } else if (ref) {
-            (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
-          }
-        }}
-        className={cn('relative inline-block', className)}
-        style={{ zIndex: isOpen ? 50000 : 'auto' }}
-        {...props}
-      >
-        {/* Trigger Button */}
-        <button
-          type="button"
-          onClick={handleToggle}
-          onKeyDown={handleKeyDown}
-          className={cn(
-            'flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all duration-200',
-            'hover:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
-            'sm:gap-2 sm:px-4 sm:py-2 sm:text-sm'
-          )}
-          style={buttonStyles}
-          aria-expanded={isOpen}
-          aria-haspopup="listbox"
-        >
-          {compact ? (
-            <>
-              <span>Sort</span>
-              <SortIcon className={ICON_SIZES.sm} style={{ color: 'var(--text-accent)' }} />
-            </>
-          ) : (
-            <>
-              <span className="hidden sm:inline" style={{ color: 'var(--text-muted)' }}>Sort:</span>
-              <span>{fieldLabels[sortBy]}</span>
-              <SortIcon className={ICON_SIZES.sm} style={{ color: 'var(--text-accent)' }} />
-              <ChevronDown
-                className={cn(
-                  ICON_SIZES.sm,
-                  'transition-transform duration-200',
-                  isOpen && 'rotate-180'
-                )}
-                style={{ color: 'var(--text-muted)' }}
-              />
-            </>
-          )}
-        </button>
-
-        {/* Dropdown Menu */}
-        {isOpen && (
-          <>
-            {/* Backdrop */}
-            <div
-              className="fixed inset-0"
-              style={{ zIndex: 50001 }}
-              onClick={() => setIsOpen(false)}
-            />
-            {/* Menu */}
-            <div
-              className="absolute left-0 mt-2 min-w-[140px] py-1.5 rounded-xl overflow-hidden"
-              style={{ ...dropdownStyles, zIndex: 50002 }}
-              role="listbox"
-              aria-label="Sort options"
+      <div ref={ref} className={cn('relative inline-block', className)} {...props}>
+        <DropdownMenuGlass>
+          <DropdownMenuGlassTrigger asChild>
+            <button
+              type="button"
+              className={cn(
+                // Layout
+                'flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium',
+                'sm:gap-2 sm:px-4 sm:py-2 sm:text-sm',
+                // Glass surface
+                'bg-(--dropdown-bg) border border-(--dropdown-border)',
+                'backdrop-blur-md',
+                // Transitions
+                'transition-all duration-200',
+                // Hover
+                'hover:opacity-90 hover:shadow-(--dropdown-glow)',
+                // Focus
+                'focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
+                'focus-visible:ring-(--text-accent)',
+                // Text color
+                'text-(--dropdown-item-text)'
+              )}
+              aria-haspopup="menu"
             >
-              {options.map((field) => {
-                const isSelected = field === sortBy;
-                return (
-                  <button
-                    key={field}
-                    type="button"
-                    onClick={() => handleFieldSelect(field)}
+              {compact ? (
+                <>
+                  <span>Sort</span>
+                  <SortIcon className={cn(ICON_SIZES.sm, 'text-(--text-accent)')} />
+                </>
+              ) : (
+                <>
+                  <span className="hidden sm:inline text-(--text-muted)">Sort:</span>
+                  <span>{fieldLabels[sortBy]}</span>
+                  <SortIcon className={cn(ICON_SIZES.sm, 'text-(--text-accent)')} />
+                  <ChevronDown
                     className={cn(
-                      'w-full px-3 py-2 text-xs sm:text-sm text-left flex items-center justify-between gap-2',
-                      'transition-colors duration-150 hover:bg-white/5'
+                      ICON_SIZES.sm,
+                      'text-(--text-muted)',
+                      'transition-transform duration-200',
+                      'group-data-[state=open]:rotate-180'
                     )}
-                    style={{
-                      color: isSelected ? 'var(--text-accent)' : 'var(--text-primary)',
-                      background: isSelected ? 'var(--dropdown-item-hover)' : 'transparent',
-                    }}
-                    role="option"
-                    aria-selected={isSelected}
-                  >
-                    <span className="font-medium">{fieldLabels[field]}</span>
-                    {isSelected && (
-                      <div className="flex items-center gap-1">
-                        {sortOrder === 'asc' ? (
-                          <ArrowUp className={ICON_SIZES.sm} />
-                        ) : (
-                          <ArrowDown className={ICON_SIZES.sm} />
-                        )}
-                        <Check className={ICON_SIZES.sm} />
-                      </div>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-          </>
-        )}
+                  />
+                </>
+              )}
+            </button>
+          </DropdownMenuGlassTrigger>
+
+          <DropdownMenuGlassContent align="start" aria-label="Sort options">
+            {options.map((field) => {
+              const isSelected = field === sortBy;
+              return (
+                <DropdownMenuGlassItem
+                  key={field}
+                  onSelect={() => handleFieldSelect(field)}
+                  className={cn('justify-between', isSelected && 'bg-(--select-item-selected-bg)')}
+                >
+                  <span className="font-medium">{fieldLabels[field]}</span>
+                  {isSelected && (
+                    <div className="flex items-center gap-1 text-(--text-accent)">
+                      {sortOrder === 'asc' ? (
+                        <ArrowUp className={ICON_SIZES.sm} />
+                      ) : (
+                        <ArrowDown className={ICON_SIZES.sm} />
+                      )}
+                      <Check className={ICON_SIZES.sm} />
+                    </div>
+                  )}
+                </DropdownMenuGlassItem>
+              );
+            })}
+          </DropdownMenuGlassContent>
+        </DropdownMenuGlass>
       </div>
     );
   }

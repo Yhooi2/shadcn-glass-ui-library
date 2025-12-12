@@ -5,7 +5,7 @@ const sampleData = [10, 25, 45, 80, 60, 30, 40, 55, 70, 50, 35, 20];
 const monthLabels = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'];
 
 const meta = {
-  title: 'Glass UI/Visualization/SparklineGlass',
+  title: 'Components/Visualization/SparklineGlass',
   component: SparklineGlass,
   parameters: { layout: 'centered' },
   tags: ['autodocs'],

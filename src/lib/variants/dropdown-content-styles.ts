@@ -110,33 +110,34 @@ export interface DropdownItemClassesOptions {
  * <div className={getDropdownItemClasses({ selected: true })}>Active</div>
  * ```
  */
-export function getDropdownItemClasses(
-  options?: DropdownItemClassesOptions
-): string {
+export function getDropdownItemClasses(options?: DropdownItemClassesOptions): string {
   const { danger, selected, highlighted } = options ?? {};
 
   return cn(
-    // Base layout
-    'w-full px-3 py-2 md:px-4 md:py-2.5',
-    'text-xs md:text-sm text-left',
-    'flex items-center gap-2 md:gap-3',
+    // Base layout - matching ComboBoxGlass exactly
+    'w-full px-3 py-2.5',
+    'text-sm text-left',
+    'flex items-center gap-2',
+
+    // Shape - rounded-lg matching ComboBoxGlass (эталон)
+    'rounded-lg',
 
     // Interaction
-    'outline-none cursor-default select-none',
-    'transition-colors duration-200 ease-out',
+    'outline-none cursor-pointer select-none',
+    'transition-colors duration-150',
 
-    // Hover/highlight state
-    highlighted && 'bg-[var(--dropdown-item-hover)]',
-    'data-[highlighted]:bg-[var(--dropdown-item-hover)]',
+    // Hover/highlight state (data-[selected] for cmdk, data-[highlighted] for Radix)
+    highlighted && 'bg-(--dropdown-item-hover)',
+    'data-[highlighted]:bg-(--dropdown-item-hover)',
+    'data-[selected=true]:bg-(--dropdown-item-hover)',
 
     // Selected state
-    selected &&
-      'bg-[var(--select-item-selected-bg)] text-[var(--select-item-selected-text)]',
+    selected && 'bg-(--select-item-selected-bg) text-(--select-item-selected-text)',
 
     // Danger state
     danger
-      ? 'text-[var(--alert-danger-text)] data-[highlighted]:text-[var(--alert-danger-text)]'
-      : 'text-[var(--dropdown-item-text)]'
+      ? 'text-(--alert-danger-text) data-[highlighted]:text-(--alert-danger-text)'
+      : 'text-(--dropdown-item-text)'
   );
 }
 
@@ -164,9 +165,7 @@ export interface DropdownIconClassesOptions {
  * <Trash className={getDropdownIconClasses({ danger: true })} />
  * ```
  */
-export function getDropdownIconClasses(
-  options?: DropdownIconClassesOptions
-): string {
+export function getDropdownIconClasses(options?: DropdownIconClassesOptions): string {
   return cn(
     // Size
     ICON_SIZES.md,
@@ -193,10 +192,7 @@ export function getDropdownIconClasses(
  * <DropdownMenuSeparator className={dropdownSeparatorClasses} />
  * ```
  */
-export const dropdownSeparatorClasses = cn(
-  'h-px my-1',
-  'bg-[var(--dropdown-border)]'
-);
+export const dropdownSeparatorClasses = cn('h-px my-1', 'bg-[var(--dropdown-border)]');
 
 // ============================================
 // DROPDOWN LABEL CLASSES

@@ -10,10 +10,12 @@
 
 .glass-story-container {
   background: var(--story-bg, linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%));
-  display: inline-block;
+  display: block;
   border-radius: 12px;
   width: 100%;
-  min-width: 70vw;
+  min-width: 60vw;
+  max-width: 90vw;
+  margin: 0 auto;
   overflow: hidden;
   position: relative;
   padding: 2rem;

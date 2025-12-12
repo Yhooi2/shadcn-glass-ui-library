@@ -6,11 +6,10 @@ import { BadgesBlock } from './badges';
 import { NotificationsBlock } from './notifications';
 
 const meta = {
-  title: 'Glass/Blocks',
+  title: 'Components/Blocks',
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
 } satisfies Meta;
 
 export default meta;
@@ -59,9 +58,7 @@ export const NotificationsWithoutTitle: StoryObj = {
 export const AllBlocks: StoryObj = {
   render: () => (
     <div className="flex flex-col gap-6 p-6 max-w-4xl">
-      <h2 className="text-2xl font-bold text-white mb-4">
-        Glass UI Blocks
-      </h2>
+      <h2 className="text-2xl font-bold text-white mb-4">Glass UI Blocks</h2>
 
       <FormElementsBlock />
       <ProgressBlock />
@@ -89,9 +86,7 @@ export const BlocksGrid: StoryObj = {
 export const BlocksWithoutTitles: StoryObj = {
   render: () => (
     <div className="flex flex-col gap-6 p-6 max-w-4xl">
-      <h2 className="text-2xl font-bold text-white mb-4">
-        Glass UI Blocks (No Titles)
-      </h2>
+      <h2 className="text-2xl font-bold text-white mb-4">Glass UI Blocks (No Titles)</h2>
 
       <FormElementsBlock showTitle={false} />
       <ProgressBlock showTitle={false} />

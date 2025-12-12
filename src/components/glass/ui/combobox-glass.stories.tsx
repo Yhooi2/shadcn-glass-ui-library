@@ -7,7 +7,7 @@ import { ThemeProvider } from '@/lib/theme-context';
 import '@/glass-theme.css';
 
 const meta = {
-  title: 'Glass UI/Form/ComboBoxGlass',
+  title: 'Components/Overlay/ComboBoxGlass',
   component: ComboBoxGlass,
   parameters: {
     layout: 'centered',

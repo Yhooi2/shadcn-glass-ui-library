@@ -30,7 +30,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { useTheme, type ThemeName } from '@/lib/theme-context';
-import { AnimatedBackground } from '@/components/AnimatedBackground';
+import { AnimatedBackground } from '@/components/demos/AnimatedBackground';
 import {
   ProfileHeaderGlass,
   CareerStatsGlass,
@@ -50,7 +50,7 @@ import { Edit, Save, X, Sun, Moon, Palette } from 'lucide-react';
 // ========================================
 
 const meta: Meta = {
-  title: 'Use Cases/User Profile Page',
+  title: 'Examples/Use Cases/User Profile',
   parameters: {
     layout: 'fullscreen',
     docs: {

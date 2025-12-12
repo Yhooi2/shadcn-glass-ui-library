@@ -21,7 +21,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { useTheme, type ThemeName } from '@/lib/theme-context';
-import { AnimatedBackground } from '@/components/AnimatedBackground';
+import { AnimatedBackground } from '@/components/demos/AnimatedBackground';
 import {
   HeaderNavGlass,
   MetricCardGlass,
@@ -48,7 +48,7 @@ import {
 // ========================================
 
 const meta: Meta = {
-  title: 'Use Cases/Dashboard Application',
+  title: 'Examples/Use Cases/Dashboard',
   parameters: {
     layout: 'fullscreen',
     docs: {
