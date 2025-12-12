@@ -2,6 +2,7 @@ import type { Preview } from '@storybook/react-vite';
 import React, { useEffect } from 'react';
 import { create } from 'storybook/theming';
 import { ThemeProvider, type Theme } from '../src/lib/theme-context';
+import { AnimatedBackground } from '../src/components/AnimatedBackground';
 import '../src/index.css';
 import '../src/glass-theme.css';
 import './storybook.css';
@@ -62,12 +63,12 @@ const THEME_BACKGROUNDS = {
   },
   aurora: {
     background: 'linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e1b4b 100%)',
-    orb1: 'rgba(37, 99, 235, 0.1)',
-    orb2: 'rgba(124, 58, 237, 0.08)',
+    orb1: 'rgba(37, 99, 235, 0.2)',
+    orb2: 'rgba(124, 58, 237, 0.2)',
   },
 } as const;
 
-// Theme decorator component
+// Theme decorator component - uses AnimatedBackground like DesktopShowcase
 function ThemeDecorator({
   children,
   theme,
@@ -84,9 +85,29 @@ function ThemeDecorator({
     };
   }, [theme]);
 
-  const themeConfig = THEME_BACKGROUNDS[theme] || THEME_BACKGROUNDS.glass;
-  const containerClass = isFullscreen ? 'glass-story-fullscreen' : 'glass-story-container';
+  const containerClass = isFullscreen
+    ? 'min-h-screen min-w-full relative'
+    : 'glass-story-container';
 
+  // For fullscreen, use AnimatedBackground exactly like DesktopShowcase
+  if (isFullscreen) {
+    return React.createElement(
+      ThemeProvider,
+      { defaultTheme: theme },
+      React.createElement(
+        'div',
+        {
+          className: containerClass,
+          'data-theme': theme,
+        },
+        React.createElement(AnimatedBackground),
+        React.createElement('div', { className: 'relative z-10' }, children)
+      )
+    );
+  }
+
+  // For centered layout, use simpler container with CSS orbs
+  const themeConfig = THEME_BACKGROUNDS[theme] || THEME_BACKGROUNDS.glass;
   return React.createElement(
     ThemeProvider,
     { defaultTheme: theme },
@@ -153,7 +174,11 @@ const preview: Preview = {
       const theme = (context.globals.theme || 'glass') as Theme;
       const isFullscreen = context.parameters?.layout === 'fullscreen';
 
-      return React.createElement(ThemeDecorator, { theme, isFullscreen }, React.createElement(Story));
+      return React.createElement(
+        ThemeDecorator,
+        { theme, isFullscreen },
+        React.createElement(Story)
+      );
     },
   ],
 };

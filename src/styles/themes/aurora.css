@@ -146,11 +146,12 @@
 
   /* ========================================
      BACKGROUND ORBS (Layer 3 Component Tokens)
+     Aurora theme: subtle, ethereal orbs with low opacity
      ======================================== */
-  --orb-1: var(--oklch-blue-600);
-  --orb-2: var(--oklch-violet-600);
-  --orb-3: var(--oklch-cyan-600);
-  --orb-4: var(--oklch-violet-700);
+  --orb-1: var(--oklch-blue-500-20);
+  --orb-2: var(--oklch-violet-600-20);
+  --orb-3: var(--oklch-cyan-500-20);
+  --orb-4: var(--oklch-violet-600-15);
   --orb-5: transparent;
 
   /* ========================================
