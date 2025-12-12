@@ -8,16 +8,9 @@
 
 import { describe, test, expect, afterEach } from 'vitest';
 import { render, cleanup } from '@testing-library/react';
-import { page } from '@vitest/browser/context';
+import { page } from 'vitest/browser';
 import type { ReactNode } from 'react';
-import {
-  Github,
-  Search,
-  AlertTriangle,
-  Flag,
-  FolderGit2,
-  Users,
-} from 'lucide-react';
+import { Github, Search, AlertTriangle, Flag, FolderGit2, Users } from 'lucide-react';
 
 // Atomic components
 import { IconButtonGlass } from '../glass/atomic/icon-button-glass';
@@ -78,34 +71,11 @@ describe('Phase 2 Components Visual Regression Tests', () => {
     // IconButtonGlass tests
     test(`IconButtonGlass sizes - ${theme}`, async () => {
       renderWithTheme(
-        <div
-          data-testid="icon-button-sizes"
-          className="flex items-center gap-4 p-4"
-        >
-          <IconButtonGlass
-            icon={Github}
-            size="sm"
-            variant="gradient"
-            aria-label="Small"
-          />
-          <IconButtonGlass
-            icon={Github}
-            size="md"
-            variant="gradient"
-            aria-label="Medium"
-          />
-          <IconButtonGlass
-            icon={Github}
-            size="lg"
-            variant="gradient"
-            aria-label="Large"
-          />
-          <IconButtonGlass
-            icon={Github}
-            size="touch"
-            variant="gradient"
-            aria-label="Touch"
-          />
+        <div data-testid="icon-button-sizes" className="flex items-center gap-4 p-4">
+          <IconButtonGlass icon={Github} size="sm" variant="gradient" aria-label="Small" />
+          <IconButtonGlass icon={Github} size="md" variant="gradient" aria-label="Medium" />
+          <IconButtonGlass icon={Github} size="lg" variant="gradient" aria-label="Large" />
+          <IconButtonGlass icon={Github} size="touch" variant="gradient" aria-label="Touch" />
         </div>,
         theme
       );
@@ -116,60 +86,25 @@ describe('Phase 2 Components Visual Regression Tests', () => {
 
     test(`IconButtonGlass variants - ${theme}`, async () => {
       renderWithTheme(
-        <div
-          data-testid="icon-button-variants"
-          className="flex items-center gap-4 p-4"
-        >
-          <IconButtonGlass
-            icon={Github}
-            variant="gradient"
-            aria-label="Gradient"
-          />
-          <IconButtonGlass
-            icon={Search}
-            variant="subtle"
-            aria-label="Subtle"
-          />
-          <IconButtonGlass
-            icon={AlertTriangle}
-            variant="ghost"
-            aria-label="Ghost"
-          />
+        <div data-testid="icon-button-variants" className="flex items-center gap-4 p-4">
+          <IconButtonGlass icon={Github} variant="gradient" aria-label="Gradient" />
+          <IconButtonGlass icon={Search} variant="subtle" aria-label="Subtle" />
+          <IconButtonGlass icon={AlertTriangle} variant="ghost" aria-label="Ghost" />
         </div>,
         theme
       );
       await waitForStability();
       const container = page.getByTestId('icon-button-variants');
-      await expect(container).toMatchScreenshot(
-        `icon-button-variants-${theme}`
-      );
+      await expect(container).toMatchScreenshot(`icon-button-variants-${theme}`);
     });
 
     // StatItemGlass tests
     test(`StatItemGlass sizes - ${theme}`, async () => {
       renderWithTheme(
-        <div
-          data-testid="stat-item-sizes"
-          className="flex flex-col gap-4 p-4"
-        >
-          <StatItemGlass
-            icon={FolderGit2}
-            value={42}
-            label="repos"
-            size="sm"
-          />
-          <StatItemGlass
-            icon={FolderGit2}
-            value={42}
-            label="repos"
-            size="md"
-          />
-          <StatItemGlass
-            icon={FolderGit2}
-            value={42}
-            label="repos"
-            size="lg"
-          />
+        <div data-testid="stat-item-sizes" className="flex flex-col gap-4 p-4">
+          <StatItemGlass icon={FolderGit2} value={42} label="repos" size="sm" />
+          <StatItemGlass icon={FolderGit2} value={42} label="repos" size="md" />
+          <StatItemGlass icon={FolderGit2} value={42} label="repos" size="lg" />
         </div>,
         theme
       );
@@ -180,22 +115,9 @@ describe('Phase 2 Components Visual Regression Tests', () => {
 
     test(`StatItemGlass layouts - ${theme}`, async () => {
       renderWithTheme(
-        <div
-          data-testid="stat-item-layouts"
-          className="flex flex-col gap-4 p-4"
-        >
-          <StatItemGlass
-            icon={Users}
-            value={1234}
-            label="followers"
-            layout="horizontal"
-          />
-          <StatItemGlass
-            icon={Users}
-            value={1234}
-            label="followers"
-            layout="vertical"
-          />
+        <div data-testid="stat-item-layouts" className="flex flex-col gap-4 p-4">
+          <StatItemGlass icon={Users} value={1234} label="followers" layout="horizontal" />
+          <StatItemGlass icon={Users} value={1234} label="followers" layout="vertical" />
         </div>,
         theme
       );
@@ -206,30 +128,15 @@ describe('Phase 2 Components Visual Regression Tests', () => {
 
     test(`StatItemGlass abbreviated - ${theme}`, async () => {
       renderWithTheme(
-        <div
-          data-testid="stat-item-abbreviated"
-          className="flex flex-col gap-4 p-4"
-        >
-          <StatItemGlass
-            icon={Users}
-            value={1234567}
-            label="followers"
-            abbreviated={false}
-          />
-          <StatItemGlass
-            icon={Users}
-            value={1234567}
-            label="followers"
-            abbreviated={true}
-          />
+        <div data-testid="stat-item-abbreviated" className="flex flex-col gap-4 p-4">
+          <StatItemGlass icon={Users} value={1234567} label="followers" abbreviated={false} />
+          <StatItemGlass icon={Users} value={1234567} label="followers" abbreviated={true} />
         </div>,
         theme
       );
       await waitForStability();
       const container = page.getByTestId('stat-item-abbreviated');
-      await expect(container).toMatchScreenshot(
-        `stat-item-abbreviated-${theme}`
-      );
+      await expect(container).toMatchScreenshot(`stat-item-abbreviated-${theme}`);
     });
 
     // SearchBoxGlass tests
@@ -259,25 +166,16 @@ describe('Phase 2 Components Visual Regression Tests', () => {
 
     test(`SearchBoxGlass all variants - ${theme}`, async () => {
       renderWithTheme(
-        <div
-          data-testid="search-box-variants"
-          className="flex flex-col gap-4 p-4"
-        >
+        <div data-testid="search-box-variants" className="flex flex-col gap-4 p-4">
           <SearchBoxGlass variant="default" placeholder="Default variant" />
           <SearchBoxGlass variant="compact" placeholder="Compact" />
-          <SearchBoxGlass
-            variant="default"
-            value="with value"
-            onChange={() => {}}
-          />
+          <SearchBoxGlass variant="default" value="with value" onChange={() => {}} />
         </div>,
         theme
       );
       await waitForStability();
       const container = page.getByTestId('search-box-variants');
-      await expect(container).toMatchScreenshot(
-        `search-box-variants-${theme}`
-      );
+      await expect(container).toMatchScreenshot(`search-box-variants-${theme}`);
     });
 
     // ThemeToggleGlass tests
@@ -290,9 +188,7 @@ describe('Phase 2 Components Visual Regression Tests', () => {
       );
       await waitForStability();
       const container = page.getByTestId('theme-toggle-icon');
-      await expect(container).toMatchScreenshot(
-        `theme-toggle-icon-only-${theme}`
-      );
+      await expect(container).toMatchScreenshot(`theme-toggle-icon-only-${theme}`);
     });
 
     test(`ThemeToggleGlass with label - ${theme}`, async () => {
@@ -304,19 +200,13 @@ describe('Phase 2 Components Visual Regression Tests', () => {
       );
       await waitForStability();
       const container = page.getByTestId('theme-toggle-label');
-      await expect(container).toMatchScreenshot(
-        `theme-toggle-with-label-${theme}`
-      );
+      await expect(container).toMatchScreenshot(`theme-toggle-with-label-${theme}`);
     });
 
     // ExpandableHeaderGlass tests
     test(`ExpandableHeaderGlass collapsed - ${theme}`, async () => {
       renderWithTheme(
-        <div
-          data-testid="expandable-collapsed"
-          className="p-4"
-          style={{ width: '300px' }}
-        >
+        <div data-testid="expandable-collapsed" className="p-4" style={{ width: '300px' }}>
           <ExpandableHeaderGlass
             title="Collapsed Header"
             expanded={false}
@@ -328,18 +218,12 @@ describe('Phase 2 Components Visual Regression Tests', () => {
       );
       await waitForStability();
       const container = page.getByTestId('expandable-collapsed');
-      await expect(container).toMatchScreenshot(
-        `expandable-header-collapsed-${theme}`
-      );
+      await expect(container).toMatchScreenshot(`expandable-header-collapsed-${theme}`);
     });
 
     test(`ExpandableHeaderGlass expanded - ${theme}`, async () => {
       renderWithTheme(
-        <div
-          data-testid="expandable-expanded"
-          className="p-4"
-          style={{ width: '300px' }}
-        >
+        <div data-testid="expandable-expanded" className="p-4" style={{ width: '300px' }}>
           <ExpandableHeaderGlass
             title="Expanded Header"
             expanded={true}
@@ -351,9 +235,7 @@ describe('Phase 2 Components Visual Regression Tests', () => {
       );
       await waitForStability();
       const container = page.getByTestId('expandable-expanded');
-      await expect(container).toMatchScreenshot(
-        `expandable-header-expanded-${theme}`
-      );
+      await expect(container).toMatchScreenshot(`expandable-header-expanded-${theme}`);
     });
 
     test(`ExpandableHeaderGlass states - ${theme}`, async () => {
@@ -363,28 +245,15 @@ describe('Phase 2 Components Visual Regression Tests', () => {
           className="flex flex-col gap-2 p-4"
           style={{ width: '300px' }}
         >
-          <ExpandableHeaderGlass
-            title="With Icon Collapsed"
-            expanded={false}
-            icon={Flag}
-          />
-          <ExpandableHeaderGlass
-            title="With Icon Expanded"
-            expanded={true}
-            icon={Flag}
-          />
-          <ExpandableHeaderGlass
-            title="Without Icon"
-            expanded={false}
-          />
+          <ExpandableHeaderGlass title="With Icon Collapsed" expanded={false} icon={Flag} />
+          <ExpandableHeaderGlass title="With Icon Expanded" expanded={true} icon={Flag} />
+          <ExpandableHeaderGlass title="Without Icon" expanded={false} />
         </div>,
         theme
       );
       await waitForStability();
       const container = page.getByTestId('expandable-states');
-      await expect(container).toMatchScreenshot(
-        `expandable-header-states-${theme}`
-      );
+      await expect(container).toMatchScreenshot(`expandable-header-states-${theme}`);
     });
   });
 
@@ -397,12 +266,7 @@ describe('Phase 2 Components Visual Regression Tests', () => {
     test(`UserInfoGlass vertical - ${theme}`, async () => {
       renderWithTheme(
         <div data-testid="user-info-vertical" className="p-4">
-          <UserInfoGlass
-            name="John Doe"
-            username="johndoe"
-            joinDate="Jan 2020"
-            layout="vertical"
-          />
+          <UserInfoGlass name="John Doe" username="johndoe" joinDate="Jan 2020" layout="vertical" />
         </div>,
         theme
       );
@@ -425,9 +289,7 @@ describe('Phase 2 Components Visual Regression Tests', () => {
       );
       await waitForStability();
       const container = page.getByTestId('user-info-horizontal');
-      await expect(container).toMatchScreenshot(
-        `user-info-horizontal-${theme}`
-      );
+      await expect(container).toMatchScreenshot(`user-info-horizontal-${theme}`);
     });
 
     // UserStatsLineGlass tests
@@ -440,51 +302,31 @@ describe('Phase 2 Components Visual Regression Tests', () => {
       );
       await waitForStability();
       const container = page.getByTestId('user-stats-default');
-      await expect(container).toMatchScreenshot(
-        `user-stats-line-default-${theme}`
-      );
+      await expect(container).toMatchScreenshot(`user-stats-line-default-${theme}`);
     });
 
     test(`UserStatsLineGlass abbreviated - ${theme}`, async () => {
       renderWithTheme(
         <div data-testid="user-stats-abbreviated" className="p-4">
-          <UserStatsLineGlass
-            repos={42}
-            followers={150000}
-            following={20000}
-            abbreviated
-          />
+          <UserStatsLineGlass repos={42} followers={150000} following={20000} abbreviated />
         </div>,
         theme
       );
       await waitForStability();
       const container = page.getByTestId('user-stats-abbreviated');
-      await expect(container).toMatchScreenshot(
-        `user-stats-line-abbreviated-${theme}`
-      );
+      await expect(container).toMatchScreenshot(`user-stats-line-abbreviated-${theme}`);
     });
 
     test(`UserStatsLineGlass wrapped - ${theme}`, async () => {
       renderWithTheme(
-        <div
-          data-testid="user-stats-wrapped"
-          className="p-4"
-          style={{ width: '200px' }}
-        >
-          <UserStatsLineGlass
-            repos={42}
-            followers={1500}
-            following={200}
-            wrap
-          />
+        <div data-testid="user-stats-wrapped" className="p-4" style={{ width: '200px' }}>
+          <UserStatsLineGlass repos={42} followers={1500} following={200} wrap />
         </div>,
         theme
       );
       await waitForStability();
       const container = page.getByTestId('user-stats-wrapped');
-      await expect(container).toMatchScreenshot(
-        `user-stats-line-wrapped-${theme}`
-      );
+      await expect(container).toMatchScreenshot(`user-stats-line-wrapped-${theme}`);
     });
 
     // TrustScoreDisplayGlass tests
@@ -503,9 +345,7 @@ describe('Phase 2 Components Visual Regression Tests', () => {
       );
       await waitForStability(200); // Extra time for pulse animation
       const container = page.getByTestId('trust-score-sizes');
-      await expect(container).toMatchScreenshot(
-        `trust-score-sizes-${theme}`
-      );
+      await expect(container).toMatchScreenshot(`trust-score-sizes-${theme}`);
     });
 
     test(`TrustScoreDisplayGlass values - ${theme}`, async () => {
@@ -523,19 +363,13 @@ describe('Phase 2 Components Visual Regression Tests', () => {
       );
       await waitForStability(200);
       const container = page.getByTestId('trust-score-values');
-      await expect(container).toMatchScreenshot(
-        `trust-score-values-${theme}`
-      );
+      await expect(container).toMatchScreenshot(`trust-score-values-${theme}`);
     });
 
     // MetricsGridGlass tests
     test(`MetricsGridGlass 4 columns - ${theme}`, async () => {
       renderWithTheme(
-        <div
-          data-testid="metrics-grid-4col"
-          className="p-4"
-          style={{ width: '600px' }}
-        >
+        <div data-testid="metrics-grid-4col" className="p-4" style={{ width: '600px' }}>
           <MetricsGridGlass
             columns={4}
             metrics={[
@@ -550,18 +384,12 @@ describe('Phase 2 Components Visual Regression Tests', () => {
       );
       await waitForStability();
       const container = page.getByTestId('metrics-grid-4col');
-      await expect(container).toMatchScreenshot(
-        `metrics-grid-4col-${theme}`
-      );
+      await expect(container).toMatchScreenshot(`metrics-grid-4col-${theme}`);
     });
 
     test(`MetricsGridGlass 2 columns - ${theme}`, async () => {
       renderWithTheme(
-        <div
-          data-testid="metrics-grid-2col"
-          className="p-4"
-          style={{ width: '400px' }}
-        >
+        <div data-testid="metrics-grid-2col" className="p-4" style={{ width: '400px' }}>
           <MetricsGridGlass
             columns={2}
             metrics={[
@@ -574,55 +402,32 @@ describe('Phase 2 Components Visual Regression Tests', () => {
       );
       await waitForStability();
       const container = page.getByTestId('metrics-grid-2col');
-      await expect(container).toMatchScreenshot(
-        `metrics-grid-2col-${theme}`
-      );
+      await expect(container).toMatchScreenshot(`metrics-grid-2col-${theme}`);
     });
 
     // CareerStatsHeaderGlass tests
     test(`CareerStatsHeaderGlass default - ${theme}`, async () => {
       renderWithTheme(
-        <div
-          data-testid="career-stats-header"
-          className="p-4"
-          style={{ width: '500px' }}
-        >
-          <CareerStatsHeaderGlass
-            totalCommits={15420}
-            totalPRs={342}
-            totalRepos={87}
-          />
+        <div data-testid="career-stats-header" className="p-4" style={{ width: '500px' }}>
+          <CareerStatsHeaderGlass totalCommits={15420} totalPRs={342} totalRepos={87} />
         </div>,
         theme
       );
       await waitForStability();
       const container = page.getByTestId('career-stats-header');
-      await expect(container).toMatchScreenshot(
-        `career-stats-header-default-${theme}`
-      );
+      await expect(container).toMatchScreenshot(`career-stats-header-default-${theme}`);
     });
 
     test(`CareerStatsHeaderGlass wrapped - ${theme}`, async () => {
       renderWithTheme(
-        <div
-          data-testid="career-stats-wrapped"
-          className="p-4"
-          style={{ width: '250px' }}
-        >
-          <CareerStatsHeaderGlass
-            totalCommits={15420}
-            totalPRs={342}
-            totalRepos={87}
-            wrapStats
-          />
+        <div data-testid="career-stats-wrapped" className="p-4" style={{ width: '250px' }}>
+          <CareerStatsHeaderGlass totalCommits={15420} totalPRs={342} totalRepos={87} wrapStats />
         </div>,
         theme
       );
       await waitForStability();
       const container = page.getByTestId('career-stats-wrapped');
-      await expect(container).toMatchScreenshot(
-        `career-stats-header-wrapped-${theme}`
-      );
+      await expect(container).toMatchScreenshot(`career-stats-header-wrapped-${theme}`);
     });
 
     // RepositoryHeaderGlass tests
@@ -645,30 +450,19 @@ describe('Phase 2 Components Visual Regression Tests', () => {
             stars={567}
             expanded={false}
           />
-          <RepositoryHeaderGlass
-            name="critical-issues"
-            flagType="red"
-            stars={89}
-            expanded={true}
-          />
+          <RepositoryHeaderGlass name="critical-issues" flagType="red" stars={89} expanded={true} />
         </div>,
         theme
       );
       await waitForStability();
       const container = page.getByTestId('repo-header-states');
-      await expect(container).toMatchScreenshot(
-        `repo-header-states-${theme}`
-      );
+      await expect(container).toMatchScreenshot(`repo-header-states-${theme}`);
     });
 
     // RepositoryMetadataGlass tests
     test(`RepositoryMetadataGlass default - ${theme}`, async () => {
       renderWithTheme(
-        <div
-          data-testid="repo-metadata-default"
-          className="p-4"
-          style={{ width: '400px' }}
-        >
+        <div data-testid="repo-metadata-default" className="p-4" style={{ width: '400px' }}>
           <RepositoryMetadataGlass
             languages="TypeScript, JavaScript, CSS"
             commits={342}
@@ -679,18 +473,12 @@ describe('Phase 2 Components Visual Regression Tests', () => {
       );
       await waitForStability();
       const container = page.getByTestId('repo-metadata-default');
-      await expect(container).toMatchScreenshot(
-        `repo-metadata-default-${theme}`
-      );
+      await expect(container).toMatchScreenshot(`repo-metadata-default-${theme}`);
     });
 
     test(`RepositoryMetadataGlass stacked - ${theme}`, async () => {
       renderWithTheme(
-        <div
-          data-testid="repo-metadata-stacked"
-          className="p-4"
-          style={{ width: '200px' }}
-        >
+        <div data-testid="repo-metadata-stacked" className="p-4" style={{ width: '200px' }}>
           <RepositoryMetadataGlass
             languages="TypeScript, JavaScript"
             commits={342}
@@ -702,54 +490,32 @@ describe('Phase 2 Components Visual Regression Tests', () => {
       );
       await waitForStability();
       const container = page.getByTestId('repo-metadata-stacked');
-      await expect(container).toMatchScreenshot(
-        `repo-metadata-stacked-${theme}`
-      );
+      await expect(container).toMatchScreenshot(`repo-metadata-stacked-${theme}`);
     });
 
     // ContributionMetricsGlass tests
     test(`ContributionMetricsGlass 2 columns - ${theme}`, async () => {
       renderWithTheme(
-        <div
-          data-testid="contribution-2col"
-          className="p-4"
-          style={{ width: '400px' }}
-        >
-          <ContributionMetricsGlass
-            userCommits={156}
-            userContribution={28}
-            columns={2}
-          />
+        <div data-testid="contribution-2col" className="p-4" style={{ width: '400px' }}>
+          <ContributionMetricsGlass userCommits={156} userContribution={28} columns={2} />
         </div>,
         theme
       );
       await waitForStability();
       const container = page.getByTestId('contribution-2col');
-      await expect(container).toMatchScreenshot(
-        `contribution-metrics-2col-${theme}`
-      );
+      await expect(container).toMatchScreenshot(`contribution-metrics-2col-${theme}`);
     });
 
     test(`ContributionMetricsGlass 1 column - ${theme}`, async () => {
       renderWithTheme(
-        <div
-          data-testid="contribution-1col"
-          className="p-4"
-          style={{ width: '200px' }}
-        >
-          <ContributionMetricsGlass
-            userCommits={156}
-            userContribution={28}
-            columns={1}
-          />
+        <div data-testid="contribution-1col" className="p-4" style={{ width: '200px' }}>
+          <ContributionMetricsGlass userCommits={156} userContribution={28} columns={1} />
         </div>,
         theme
       );
       await waitForStability();
       const container = page.getByTestId('contribution-1col');
-      await expect(container).toMatchScreenshot(
-        `contribution-metrics-1col-${theme}`
-      );
+      await expect(container).toMatchScreenshot(`contribution-metrics-1col-${theme}`);
     });
   });
 
@@ -761,176 +527,126 @@ describe('Phase 2 Components Visual Regression Tests', () => {
     // FormElementsBlock tests
     test(`FormElementsBlock default - ${theme}`, async () => {
       renderWithTheme(
-        <div
-          data-testid="form-block-default"
-          style={{ width: '400px' }}
-        >
+        <div data-testid="form-block-default" style={{ width: '400px' }}>
           <FormElementsBlock showTitle />
         </div>,
         theme
       );
       await waitForStability(200);
       const container = page.getByTestId('form-block-default');
-      await expect(container).toMatchScreenshot(
-        `form-elements-block-default-${theme}`
-      );
+      await expect(container).toMatchScreenshot(`form-elements-block-default-${theme}`);
     });
 
     test(`FormElementsBlock no title - ${theme}`, async () => {
       renderWithTheme(
-        <div
-          data-testid="form-block-no-title"
-          style={{ width: '400px' }}
-        >
+        <div data-testid="form-block-no-title" style={{ width: '400px' }}>
           <FormElementsBlock showTitle={false} />
         </div>,
         theme
       );
       await waitForStability(200);
       const container = page.getByTestId('form-block-no-title');
-      await expect(container).toMatchScreenshot(
-        `form-elements-block-no-title-${theme}`
-      );
+      await expect(container).toMatchScreenshot(`form-elements-block-no-title-${theme}`);
     });
 
     // ProgressBlock tests
     test(`ProgressBlock default - ${theme}`, async () => {
       renderWithTheme(
-        <div
-          data-testid="progress-block-default"
-          style={{ width: '400px' }}
-        >
+        <div data-testid="progress-block-default" style={{ width: '400px' }}>
           <ProgressBlock showTitle />
         </div>,
         theme
       );
       await waitForStability(200);
       const container = page.getByTestId('progress-block-default');
-      await expect(container).toMatchScreenshot(
-        `progress-block-default-${theme}`
-      );
+      await expect(container).toMatchScreenshot(`progress-block-default-${theme}`);
     });
 
     test(`ProgressBlock no title - ${theme}`, async () => {
       renderWithTheme(
-        <div
-          data-testid="progress-block-no-title"
-          style={{ width: '400px' }}
-        >
+        <div data-testid="progress-block-no-title" style={{ width: '400px' }}>
           <ProgressBlock showTitle={false} />
         </div>,
         theme
       );
       await waitForStability(200);
       const container = page.getByTestId('progress-block-no-title');
-      await expect(container).toMatchScreenshot(
-        `progress-block-no-title-${theme}`
-      );
+      await expect(container).toMatchScreenshot(`progress-block-no-title-${theme}`);
     });
 
     // AvatarGalleryBlock tests
     test(`AvatarGalleryBlock default - ${theme}`, async () => {
       renderWithTheme(
-        <div
-          data-testid="avatar-block-default"
-          style={{ width: '400px' }}
-        >
+        <div data-testid="avatar-block-default" style={{ width: '400px' }}>
           <AvatarGalleryBlock showTitle />
         </div>,
         theme
       );
       await waitForStability(200);
       const container = page.getByTestId('avatar-block-default');
-      await expect(container).toMatchScreenshot(
-        `avatar-gallery-block-default-${theme}`
-      );
+      await expect(container).toMatchScreenshot(`avatar-gallery-block-default-${theme}`);
     });
 
     test(`AvatarGalleryBlock no title - ${theme}`, async () => {
       renderWithTheme(
-        <div
-          data-testid="avatar-block-no-title"
-          style={{ width: '400px' }}
-        >
+        <div data-testid="avatar-block-no-title" style={{ width: '400px' }}>
           <AvatarGalleryBlock showTitle={false} />
         </div>,
         theme
       );
       await waitForStability(200);
       const container = page.getByTestId('avatar-block-no-title');
-      await expect(container).toMatchScreenshot(
-        `avatar-gallery-block-no-title-${theme}`
-      );
+      await expect(container).toMatchScreenshot(`avatar-gallery-block-no-title-${theme}`);
     });
 
     // BadgesBlock tests
     test(`BadgesBlock default - ${theme}`, async () => {
       renderWithTheme(
-        <div
-          data-testid="badges-block-default"
-          style={{ width: '400px' }}
-        >
+        <div data-testid="badges-block-default" style={{ width: '400px' }}>
           <BadgesBlock showTitle />
         </div>,
         theme
       );
       await waitForStability(200);
       const container = page.getByTestId('badges-block-default');
-      await expect(container).toMatchScreenshot(
-        `badges-block-default-${theme}`
-      );
+      await expect(container).toMatchScreenshot(`badges-block-default-${theme}`);
     });
 
     test(`BadgesBlock no title - ${theme}`, async () => {
       renderWithTheme(
-        <div
-          data-testid="badges-block-no-title"
-          style={{ width: '400px' }}
-        >
+        <div data-testid="badges-block-no-title" style={{ width: '400px' }}>
           <BadgesBlock showTitle={false} />
         </div>,
         theme
       );
       await waitForStability(200);
       const container = page.getByTestId('badges-block-no-title');
-      await expect(container).toMatchScreenshot(
-        `badges-block-no-title-${theme}`
-      );
+      await expect(container).toMatchScreenshot(`badges-block-no-title-${theme}`);
     });
 
     // NotificationsBlock tests
     test(`NotificationsBlock default - ${theme}`, async () => {
       renderWithTheme(
-        <div
-          data-testid="notifications-block-default"
-          style={{ width: '400px' }}
-        >
+        <div data-testid="notifications-block-default" style={{ width: '400px' }}>
           <NotificationsBlock showTitle />
         </div>,
         theme
       );
       await waitForStability(200);
       const container = page.getByTestId('notifications-block-default');
-      await expect(container).toMatchScreenshot(
-        `notifications-block-default-${theme}`
-      );
+      await expect(container).toMatchScreenshot(`notifications-block-default-${theme}`);
     });
 
     test(`NotificationsBlock no title - ${theme}`, async () => {
       renderWithTheme(
-        <div
-          data-testid="notifications-block-no-title"
-          style={{ width: '400px' }}
-        >
+        <div data-testid="notifications-block-no-title" style={{ width: '400px' }}>
           <NotificationsBlock showTitle={false} />
         </div>,
         theme
       );
       await waitForStability(200);
       const container = page.getByTestId('notifications-block-no-title');
-      await expect(container).toMatchScreenshot(
-        `notifications-block-no-title-${theme}`
-      );
+      await expect(container).toMatchScreenshot(`notifications-block-no-title-${theme}`);
     });
   });
 });

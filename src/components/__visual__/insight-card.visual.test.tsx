@@ -1,6 +1,6 @@
 import { describe, test, expect, afterEach } from 'vitest';
 import { render, cleanup } from '@testing-library/react';
-import { page } from '@vitest/browser/context';
+import { page } from 'vitest/browser';
 import { InsightCardGlass } from '../glass/atomic/insight-card-glass';
 
 // Wait for animations to settle

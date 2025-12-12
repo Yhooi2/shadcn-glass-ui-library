@@ -8,11 +8,15 @@
 
 import { describe, test, expect, afterEach } from 'vitest';
 import { render, cleanup } from '@testing-library/react';
-import { page } from '@vitest/browser/context';
+import { page } from 'vitest/browser';
 import { useState } from 'react';
 
 // Components
-import { SortDropdownGlass, type SortField, type SortOrder } from '../glass/atomic/sort-dropdown-glass';
+import {
+  SortDropdownGlass,
+  type SortField,
+  type SortOrder,
+} from '../glass/atomic/sort-dropdown-glass';
 import {
   ProjectsListGlass,
   type Repository,

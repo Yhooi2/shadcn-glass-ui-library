@@ -7,7 +7,7 @@
 
 import { describe, test, expect, afterEach } from 'vitest';
 import { render, cleanup } from '@testing-library/react';
-import { page } from '@vitest/browser/context';
+import { page } from 'vitest/browser';
 
 import { DesktopShowcase } from '../demos/DesktopShowcase';
 import { ThemeProvider } from '@/lib/theme-context';

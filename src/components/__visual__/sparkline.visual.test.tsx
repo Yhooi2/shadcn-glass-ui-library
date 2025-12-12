@@ -1,6 +1,6 @@
 import { describe, test, expect, afterEach } from 'vitest';
 import { render, cleanup } from '@testing-library/react';
-import { page } from '@vitest/browser/context';
+import { page } from 'vitest/browser';
 import { SparklineGlass } from '../glass/specialized/sparkline-glass';
 
 const data = [10, 25, 45, 80, 60, 30, 40, 55, 70, 50, 35, 20];

@@ -8,7 +8,7 @@
 
 import { describe, test, expect, afterEach } from 'vitest';
 import { render, cleanup } from '@testing-library/react';
-import { page } from '@vitest/browser/context';
+import { page } from 'vitest/browser';
 
 // Components
 import { ButtonGlass } from '../glass/ui/button-glass';
