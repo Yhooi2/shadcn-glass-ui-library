@@ -253,6 +253,34 @@ function Component() {
 3. Test all 3 themes in Storybook
 4. Add visual tests for theme switching
 
+### Tailwind CSS v4: CSS Variable Pattern
+
+**IMPORTANT:** In Tailwind v4, ALL values (base AND derived) must be in `:root`.
+
+```css
+/* ❌ WRONG: Tailwind's @layer theme overwrites @theme values */
+@theme {
+  --radius: 0.75rem;
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+/* ✅ CORRECT: ALL values in :root, @theme only references */
+:root {
+  --radius: 1rem; /* Base */
+  --radius-xl: calc(var(--radius) + 4px); /* Derived - ALSO in :root */
+}
+
+@theme {
+  --radius-xl: var(--radius-xl); /* Registration only */
+}
+```
+
+**Why:** `:root` has higher specificity than Tailwind's `@layer theme`, which generates defaults
+like `--radius-xl: 0.75rem`. Putting derived values in `@theme` gets overwritten.
+
+See [docs/TOKEN_ARCHITECTURE.md](docs/TOKEN_ARCHITECTURE.md#tailwind-css-v4-base-vs-derived-values)
+for details.
+
 ## Testing Strategy
 
 ### Quick Reference
