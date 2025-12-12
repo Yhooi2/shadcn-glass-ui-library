@@ -40,33 +40,27 @@ const getVariantStyles = (
 ): CSSProperties => {
   const baseStyles: Record<ButtonGlassVariant, CSSProperties> = {
     primary: {
-      background: isHovered
-        ? 'var(--btn-primary-hover-bg)'
-        : 'var(--btn-primary-bg)',
+      background: isHovered ? 'var(--btn-primary-hover-bg)' : 'var(--btn-primary-bg)',
       color: 'var(--btn-primary-text)',
       border: 'none',
       boxShadow: isFocusVisible
         ? 'var(--focus-glow)'
         : isHovered
-        ? 'var(--btn-primary-glow)'
-        : '0 4px 15px oklch(48.5% 0.26 283 / 0.25)',
+          ? 'var(--btn-primary-glow)'
+          : 'var(--btn-primary-shadow)',
     },
     secondary: {
-      background: isHovered
-        ? 'var(--btn-secondary-hover-bg)'
-        : 'var(--btn-secondary-bg)',
+      background: isHovered ? 'var(--btn-secondary-hover-bg)' : 'var(--btn-secondary-bg)',
       color: 'var(--btn-secondary-text)',
       border: '1px solid var(--btn-secondary-border)',
       boxShadow: isFocusVisible
         ? 'var(--focus-glow)'
         : isHovered
-        ? 'var(--btn-secondary-glow)'
-        : 'none',
+          ? 'var(--btn-secondary-glow)'
+          : 'none',
     },
     ghost: {
-      background: isHovered
-        ? 'var(--btn-ghost-hover-bg)'
-        : 'var(--btn-ghost-bg)',
+      background: isHovered ? 'var(--btn-ghost-hover-bg)' : 'var(--btn-ghost-bg)',
       color: 'var(--btn-ghost-text)',
       border: 'none',
       boxShadow: isFocusVisible ? 'var(--focus-glow)' : 'none',
@@ -78,8 +72,8 @@ const getVariantStyles = (
       boxShadow: isFocusVisible
         ? 'var(--focus-glow)'
         : isHovered
-        ? 'var(--btn-destructive-glow)'
-        : '0 4px 15px oklch(62.8% 0.225 29 / 0.25)',
+          ? 'var(--btn-destructive-glow)'
+          : 'var(--btn-destructive-shadow)',
     },
     success: {
       background: 'var(--btn-success-bg)',
@@ -88,8 +82,8 @@ const getVariantStyles = (
       boxShadow: isFocusVisible
         ? 'var(--focus-glow)'
         : isHovered
-        ? 'var(--btn-success-glow)'
-        : '0 4px 15px oklch(70.7% 0.143 167 / 0.25)',
+          ? 'var(--btn-success-glow)'
+          : 'var(--btn-success-shadow)',
     },
     text: {
       background: 'transparent',
@@ -155,7 +149,8 @@ const getVariantStyles = (
  * ```
  */
 export interface ButtonGlassProps
-  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'style'>,
+  extends
+    Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'style'>,
     VariantProps<typeof buttonGlassVariants> {
   /**
    * Render as child element instead of button (polymorphic rendering).
@@ -331,8 +326,7 @@ export const ButtonGlass = forwardRef<HTMLButtonElement, ButtonGlassProps>(
               <div
                 className="absolute inset-0 rounded-xl animate-glow-pulse pointer-events-none"
                 style={{
-                  background:
-                    'radial-gradient(circle, oklch(100% 0 0 / 0.1) 0%, transparent 70%)',
+                  background: 'var(--btn-glow-radial)',
                 }}
               />
             )}
@@ -341,17 +335,13 @@ export const ButtonGlass = forwardRef<HTMLButtonElement, ButtonGlassProps>(
             {loading && <RefreshCw className={cn(ICON_SIZES.md, 'animate-spin')} />}
 
             {/* Icon left */}
-            {!loading && Icon && iconPosition === 'left' && (
-              <Icon className={ICON_SIZES.md} />
-            )}
+            {!loading && Icon && iconPosition === 'left' && <Icon className={ICON_SIZES.md} />}
 
             {/* Content */}
             {!loading && children}
 
             {/* Icon right */}
-            {!loading && Icon && iconPosition === 'right' && (
-              <Icon className={ICON_SIZES.md} />
-            )}
+            {!loading && Icon && iconPosition === 'right' && <Icon className={ICON_SIZES.md} />}
           </>
         )}
       </Comp>

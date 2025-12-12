@@ -83,7 +83,7 @@
   --semantic-text-muted: var(--oklch-white-50);
   --semantic-text-subtle: var(--oklch-white-50);
   --semantic-text-disabled: var(--oklch-white-25);
-  --semantic-text-inverse: var(--oklch-slate-900);
+  --semantic-text-inverse: var(--oklch-white);
 
   /* Status Colors - Success (Emerald) */
   --semantic-success: var(--oklch-emerald-400);
@@ -128,6 +128,8 @@
   --glass-border-subtle: var(--semantic-border-subtle);
   --glass-border-medium: var(--oklch-slate-700-50);
   --glass-border-strong: var(--oklch-slate-700-70);
+
+  /* Note: --blur-sm/md/lg/xl defined in primitives.css */
 
   /* ========================================
      SEMANTIC GLOWS (Layer 3 Component Tokens)
@@ -189,6 +191,11 @@
   --btn-success-bg: linear-gradient(135deg, var(--oklch-emerald-500), var(--semantic-success));
   --btn-success-text: var(--semantic-text-inverse);
   --btn-success-glow: 0 0 25px var(--oklch-emerald-400-50);
+  /* Button shadow fallbacks (for non-hover state) */
+  --btn-primary-shadow: 0 4px 15px var(--oklch-violet-500-25);
+  --btn-destructive-shadow: 0 4px 15px var(--oklch-rose-400-25);
+  --btn-success-shadow: 0 4px 15px var(--oklch-emerald-400-25);
+  --btn-glow-radial: radial-gradient(circle, var(--oklch-white-10) 0%, transparent 70%);
 
   /* ========================================
      BADGE VARIABLES (Layer 3 Component Tokens)
@@ -372,12 +379,10 @@
      AVATAR VARIABLES (Layer 3 Component Tokens)
      Using semantic and primitive tokens
      ======================================== */
-  --avatar-bg: linear-gradient(135deg, var(--semantic-primary), var(--oklch-violet-600));
+  --avatar-bg: linear-gradient(135deg, var(--semantic-primary), var(--semantic-secondary));
   --avatar-border: var(--oklch-slate-700-60);
   --avatar-shadow: 0 4px 15px var(--oklch-violet-500-25);
   --avatar-hover-glow: 0 8px 24px var(--oklch-violet-500-40);
-  --avatar-glow: 0 8px 24px var(--oklch-violet-600-25);
-  --online-border: var(--oklch-slate-900);
 
   /* ========================================
      STATUS COLORS (Layer 3 Component Tokens)
@@ -513,6 +518,47 @@
      ======================================== */
   --profile-avatar-border: var(--oklch-slate-700-60);
   --profile-avatar-glow: 0 8px 24px var(--oklch-violet-500-40);
+
+  /* ========================================
+     SCORE GRADIENT (for TrustScoreCard, TrustScoreDisplay)
+     Rainbow gradient: amber → emerald → cyan
+     ======================================== */
+  --score-gradient: linear-gradient(
+    to right,
+    var(--oklch-amber-400),
+    var(--oklch-emerald-400),
+    var(--oklch-cyan-400)
+  );
+
+  /* ========================================
+     RAINBOW GRADIENT (for RainbowProgressGlass)
+     Full spectrum: amber → lime → green → teal → cyan → blue
+     ======================================== */
+  --rainbow-gradient: linear-gradient(
+    90deg,
+    var(--oklch-amber-500),
+    var(--oklch-amber-400),
+    var(--oklch-emerald-500),
+    var(--oklch-emerald-400),
+    var(--oklch-cyan-500),
+    var(--oklch-cyan-400),
+    var(--oklch-blue-500)
+  );
+
+  /* ========================================
+     LANGUAGE COLORS (for LanguageBarGlass)
+     Programming language brand colors
+     ======================================== */
+  --language-typescript: var(--oklch-blue-500);
+  --language-javascript: var(--oklch-amber-400);
+  --language-python: var(--oklch-emerald-500);
+  --language-html: var(--oklch-amber-500);
+  --language-css: var(--oklch-purple-500);
+  --language-java: var(--oklch-rose-500);
+  --language-go: var(--oklch-cyan-500);
+  --language-rust: var(--oklch-amber-500);
+  --language-ruby: var(--oklch-rose-500);
+  --language-php: var(--oklch-violet-500);
 
   /* ========================================
      YEAR CARD VARIABLES (Layer 3 Component Tokens)

@@ -22,10 +22,7 @@ export interface TrustScoreDisplayGlassProps extends HTMLAttributes<HTMLDivEleme
   readonly size?: 'sm' | 'md' | 'lg';
 }
 
-export const TrustScoreDisplayGlass = forwardRef<
-  HTMLDivElement,
-  TrustScoreDisplayGlassProps
->(
+export const TrustScoreDisplayGlass = forwardRef<HTMLDivElement, TrustScoreDisplayGlassProps>(
   (
     {
       score,
@@ -59,11 +56,7 @@ export const TrustScoreDisplayGlass = forwardRef<
     const sizes = sizeClasses[size];
 
     return (
-      <div
-        ref={ref}
-        className={cn('flex items-center justify-between', className)}
-        {...props}
-      >
+      <div ref={ref} className={cn('flex items-center justify-between', className)} {...props}>
         <h2
           className={cn('font-semibold flex items-center gap-2', sizes.title)}
           style={titleStyles}
@@ -73,10 +66,8 @@ export const TrustScoreDisplayGlass = forwardRef<
         </h2>
         <div className="flex items-center gap-2 animate-[score-pulse_2s_ease-in-out_infinite]">
           <span
-            className={cn(
-              sizes.score,
-              'font-bold bg-linear-to-r from-amber-400 via-emerald-400 to-cyan-400 bg-clip-text text-transparent'
-            )}
+            className={cn(sizes.score, 'font-bold bg-clip-text text-transparent')}
+            style={{ backgroundImage: 'var(--score-gradient)' }}
           >
             {score}
           </span>

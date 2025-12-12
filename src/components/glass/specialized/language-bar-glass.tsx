@@ -18,17 +18,18 @@ export interface LanguageBarGlassProps extends React.HTMLAttributes<HTMLDivEleme
   readonly showLegend?: boolean;
 }
 
+// CSS variable names for language colors (defined in themes)
 const defaultLangColors: Record<string, string> = {
-  TypeScript: 'bg-blue-500',
-  JavaScript: 'bg-yellow-400',
-  Python: 'bg-emerald-500',
-  HTML: 'bg-orange-500',
-  CSS: 'bg-purple-500',
-  Java: 'bg-red-500',
-  Go: 'bg-cyan-500',
-  Rust: 'bg-orange-600',
-  Ruby: 'bg-red-600',
-  PHP: 'bg-indigo-500',
+  TypeScript: 'var(--language-typescript)',
+  JavaScript: 'var(--language-javascript)',
+  Python: 'var(--language-python)',
+  HTML: 'var(--language-html)',
+  CSS: 'var(--language-css)',
+  Java: 'var(--language-java)',
+  Go: 'var(--language-go)',
+  Rust: 'var(--language-rust)',
+  Ruby: 'var(--language-ruby)',
+  PHP: 'var(--language-php)',
 };
 
 export const LanguageBarGlass = forwardRef<HTMLDivElement, LanguageBarGlassProps>(
@@ -54,9 +55,10 @@ export const LanguageBarGlass = forwardRef<HTMLDivElement, LanguageBarGlassProps
           aria-label="Language distribution"
         >
           {languages.map((lang, i) => {
-            const colorClass = lang.color ?? defaultLangColors[lang.name] ?? 'bg-slate-400';
+            const bgColor = lang.color ?? defaultLangColors[lang.name] ?? 'var(--oklch-slate-400)';
             const segmentStyles: CSSProperties = {
               width: `${lang.percent}%`,
+              backgroundColor: bgColor,
               opacity: hoveredLang !== null && hoveredLang !== i ? 0.5 : 1,
               transition: 'all 0.3s',
             };
@@ -64,7 +66,6 @@ export const LanguageBarGlass = forwardRef<HTMLDivElement, LanguageBarGlassProps
             return (
               <div
                 key={`bar-${lang.name}-${i}`}
-                className={cn(colorClass)}
                 style={segmentStyles}
                 role="progressbar"
                 aria-label={`${lang.name}: ${lang.percent}%`}
@@ -82,7 +83,8 @@ export const LanguageBarGlass = forwardRef<HTMLDivElement, LanguageBarGlassProps
         {showLegend && (
           <div className="flex items-center gap-3 md:gap-4 mt-1.5 md:mt-2 text-(length:--font-size-2xs) md:text-xs flex-wrap text-(--text-secondary)">
             {languages.map((lang, i) => {
-              const colorClass = lang.color ?? defaultLangColors[lang.name] ?? 'bg-slate-400';
+              const bgColor =
+                lang.color ?? defaultLangColors[lang.name] ?? 'var(--oklch-slate-400)';
 
               return (
                 <span
@@ -91,7 +93,10 @@ export const LanguageBarGlass = forwardRef<HTMLDivElement, LanguageBarGlassProps
                   onMouseEnter={() => setHoveredLang(i)}
                   onMouseLeave={() => setHoveredLang(null)}
                 >
-                  <span className={cn('w-2 h-2 md:w-2.5 md:h-2.5 rounded-full', colorClass)} />
+                  <span
+                    className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full"
+                    style={{ backgroundColor: bgColor }}
+                  />
                   {lang.name} {lang.percent}%
                 </span>
               );

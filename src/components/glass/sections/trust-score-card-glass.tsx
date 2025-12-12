@@ -42,7 +42,10 @@ export const TrustScoreCardGlass = forwardRef<HTMLDivElement, TrustScoreCardGlas
             Overall Trust Score
           </h2>
           <div className="flex items-center gap-1.5 md:gap-2 animate-[score-pulse_2s_ease-in-out_infinite]">
-            <span className="text-3xl md:text-4xl font-bold bg-linear-to-r from-amber-400 via-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+            <span
+              className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent"
+              style={{ backgroundImage: 'var(--score-gradient)' }}
+            >
               {score}
             </span>
             <span className="text-lg md:text-xl" style={{ color: 'var(--text-muted)' }}>

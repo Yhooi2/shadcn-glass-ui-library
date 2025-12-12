@@ -4,6 +4,7 @@
  * Glass-themed avatar with:
  * - Theme-aware styling (glass/light/aurora)
  * - Glow effect on hover
+ * - Optional glow-pulse animation
  * - Status indicator with glow
  * - Size variants
  */
@@ -85,6 +86,12 @@ export interface AvatarGlassProps
    * @default "md"
    */
   readonly size?: 'sm' | 'md' | 'lg' | 'xl';
+
+  /**
+   * Enable pulsing glow animation (like ProfileAvatarGlass)
+   * @default false
+   */
+  readonly glowing?: boolean;
 }
 
 // ========================================
@@ -117,12 +124,12 @@ const getStatusVars = (statusType: AvatarStatus): { bg: string; glow: string } =
 };
 
 export const AvatarGlass = forwardRef<HTMLDivElement, AvatarGlassProps>(
-  ({ asChild = false, name, size = 'md', status, className, ...props }, ref) => {
+  ({ asChild = false, name, size = 'md', status, glowing = false, className, ...props }, ref) => {
     const { isHovered, hoverProps } = useHover();
 
     const avatarStyles: CSSProperties = {
       background: 'var(--avatar-bg)',
-      border: '2px solid var(--avatar-border)',
+      border: '3px solid var(--avatar-border)',
       boxShadow: isHovered ? 'var(--avatar-hover-glow)' : 'var(--avatar-shadow)',
       color: 'var(--text-inverse)',
     };
@@ -142,7 +149,10 @@ export const AvatarGlass = forwardRef<HTMLDivElement, AvatarGlassProps>(
       >
         {/* Avatar circle */}
         <div
-          className={cn(avatarSizes({ size }))}
+          className={cn(
+            avatarSizes({ size }),
+            glowing && 'animate-[glow-pulse_2s_ease-in-out_infinite]'
+          )}
           style={avatarStyles}
           role="img"
           aria-label={`Avatar for ${name}`}

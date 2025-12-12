@@ -1,74 +1,88 @@
 // ========================================
-// PROFILE AVATAR GLASS COMPONENT
-// Large avatar with glow animation for profiles
+// PROFILE AVATAR GLASS - SPECIALIZED COMPONENT
+// Large profile avatar wrapper with custom sizing
+// Level 4: Specialized (wrapper over AvatarGlass)
 // ========================================
 
-import { forwardRef, useState, type CSSProperties } from "react";
-import { cn } from "@/lib/utils";
-import "@/glass-theme.css";
+import { forwardRef, type CSSProperties } from 'react';
+import { type AvatarStatus } from '@/components/glass/ui/avatar-glass';
+import { statusSizes } from '@/lib/variants/avatar-glass-variants';
+import { cn } from '@/lib/utils';
+import { useHover } from '@/lib/hooks/use-hover';
 
-export type ProfileAvatarSize = "sm" | "md" | "lg" | "xl";
-export type ProfileAvatarStatus = "online" | "offline" | "busy" | "away";
-
-const sizeClasses: Record<ProfileAvatarSize, string> = {
-  sm: "w-9 h-9 md:w-10 md:h-10 text-xs md:text-sm",
-  md: "w-12 h-12 md:w-14 md:h-14 text-base md:text-lg",
-  lg: "w-14 h-14 md:w-16 md:h-16 text-lg md:text-xl",
-  xl: "w-18 h-18 md:w-20 md:h-20 text-xl md:text-2xl",
-};
-
-const statusSizeClasses: Record<ProfileAvatarSize, string> = {
-  sm: "w-2.5 h-2.5 md:w-3 md:h-3",
-  md: "w-3 h-3 md:w-3.5 md:h-3.5",
-  lg: "w-3.5 h-3.5 md:w-4 md:h-4",
-  xl: "w-4 h-4 md:w-5 md:h-5",
-};
-
-const statusPositionClasses: Record<ProfileAvatarSize, string> = {
-  sm: "bottom-0 right-0",
-  md: "bottom-0 right-0",
-  lg: "-bottom-0.5 -right-0.5",
-  xl: "-bottom-1 -right-1",
-};
-
-// CSS variable maps for status colors (using semantic naming)
-const statusVarMap: Record<ProfileAvatarStatus, string> = {
-  online: "var(--status-online)",
-  offline: "var(--text-muted)",
-  busy: "var(--status-busy)",
-  away: "var(--status-away)",
-};
+export type ProfileAvatarSize = 'sm' | 'md' | 'lg' | 'xl';
 
 export interface ProfileAvatarGlassProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** User initials to display */
   readonly initials: string;
+  /** Size variant (profile-specific sizing - larger than AvatarGlass) */
   readonly size?: ProfileAvatarSize;
-  readonly status?: ProfileAvatarStatus;
+  /** Optional status indicator */
+  readonly status?: AvatarStatus;
+  /** Enable pulsing glow animation */
   readonly glowing?: boolean;
 }
 
+/**
+ * Profile-specific size classes (larger than standard AvatarGlass)
+ */
+const profileSizeClasses: Record<ProfileAvatarSize, string> = {
+  sm: 'w-9 h-9 md:w-10 md:h-10 text-xs md:text-sm',
+  md: 'w-12 h-12 md:w-14 md:h-14 text-base md:text-lg',
+  lg: 'w-14 h-14 md:w-16 md:h-16 text-lg md:text-xl',
+  xl: 'w-18 h-18 md:w-20 md:h-20 text-xl md:text-2xl',
+};
+
+/**
+ * Get CSS variables for status indicator colors
+ */
+const getStatusVars = (statusType: AvatarStatus): { bg: string; glow: string } => {
+  const statusVars: Record<AvatarStatus, { bg: string; glow: string }> = {
+    online: { bg: 'var(--status-online)', glow: 'var(--status-online-glow)' },
+    offline: { bg: 'var(--status-offline)', glow: 'none' },
+    busy: { bg: 'var(--status-busy)', glow: 'var(--status-busy-glow)' },
+    away: { bg: 'var(--status-away)', glow: 'var(--status-away-glow)' },
+  };
+  return statusVars[statusType];
+};
+
+/**
+ * ProfileAvatarGlass - Large profile avatar with bold styling
+ *
+ * Built on top of the same CSS variables as AvatarGlass but with
+ * profile-specific sizing and bold font weight.
+ *
+ * @example
+ * ```tsx
+ * <ProfileAvatarGlass initials="JD" size="lg" glowing />
+ * <ProfileAvatarGlass initials="AS" status="online" />
+ * ```
+ */
 export const ProfileAvatarGlass = forwardRef<HTMLDivElement, ProfileAvatarGlassProps>(
-  ({ initials, size = "lg", status, glowing = true, className, ...props }, ref) => {
-    const [isHovered, setIsHovered] = useState(false);
+  ({ initials, size = 'lg', status, glowing = true, className, ...props }, ref) => {
+    const { isHovered, hoverProps } = useHover();
 
     const avatarStyles: CSSProperties = {
-      boxShadow: isHovered ? "var(--profile-avatar-glow)" : "none",
-      border: "3px solid var(--profile-avatar-border)",
+      background: 'var(--avatar-bg)',
+      border: '3px solid var(--avatar-border)',
+      boxShadow: isHovered ? 'var(--avatar-hover-glow)' : 'var(--avatar-shadow)',
+      color: 'var(--text-inverse)',
     };
 
     return (
       <div
         ref={ref}
-        className={cn("relative inline-flex", className)}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        className={cn('relative inline-flex', className)}
+        onMouseEnter={hoverProps.onMouseEnter}
+        onMouseLeave={hoverProps.onMouseLeave}
         {...props}
       >
+        {/* Avatar circle */}
         <div
           className={cn(
-            "rounded-full bg-gradient-to-br from-blue-400 via-violet-500 to-indigo-500",
-            "flex items-center justify-center text-white font-bold transition-all duration-300",
-            sizeClasses[size],
-            glowing && "animate-[glow-pulse_2s_ease-in-out_infinite]"
+            'rounded-full flex items-center justify-center font-bold transition-all duration-300',
+            profileSizeClasses[size],
+            glowing && 'animate-[glow-pulse_2s_ease-in-out_infinite]'
           )}
           style={avatarStyles}
           role="img"
@@ -76,17 +90,14 @@ export const ProfileAvatarGlass = forwardRef<HTMLDivElement, ProfileAvatarGlassP
         >
           {initials}
         </div>
+
+        {/* Status indicator */}
         {status && (
           <span
-            className={cn(
-              "absolute rounded-full",
-              statusPositionClasses[size],
-              statusSizeClasses[size]
-            )}
+            className={cn(statusSizes({ size }), 'absolute -bottom-0.5 -right-0.5')}
             style={{
-              background: statusVarMap[status],
-              border: "none",
-              boxShadow: "none",
+              background: getStatusVars(status).bg,
+              boxShadow: getStatusVars(status).glow,
             }}
             role="status"
             aria-label={`Status: ${status}`}
@@ -97,4 +108,4 @@ export const ProfileAvatarGlass = forwardRef<HTMLDivElement, ProfileAvatarGlassP
   }
 );
 
-ProfileAvatarGlass.displayName = "ProfileAvatarGlass";
+ProfileAvatarGlass.displayName = 'ProfileAvatarGlass';
