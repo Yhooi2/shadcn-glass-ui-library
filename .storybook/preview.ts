@@ -49,20 +49,18 @@ const glassDocsTheme = create({
   fontCode: '"JetBrains Mono", monospace',
 });
 
-// Theme backgrounds for Storybook
-const THEME_BACKGROUNDS = {
+// Theme backgrounds for Storybook - use CSS variables from demo-tokens.css
+// These orb colors are fallbacks for non-fullscreen mode
+const THEME_ORBS = {
   glass: {
-    background: 'linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%)',
     orb1: 'rgba(168, 85, 247, 0.3)',
     orb2: 'rgba(59, 130, 246, 0.2)',
   },
   light: {
-    background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%)',
     orb1: 'rgba(96, 165, 250, 0.2)',
     orb2: 'rgba(167, 139, 250, 0.15)',
   },
   aurora: {
-    background: 'linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e1b4b 100%)',
     orb1: 'rgba(37, 99, 235, 0.2)',
     orb2: 'rgba(124, 58, 237, 0.2)',
   },
@@ -106,8 +104,8 @@ function ThemeDecorator({
     );
   }
 
-  // For centered layout, use simpler container with CSS orbs
-  const themeConfig = THEME_BACKGROUNDS[theme] || THEME_BACKGROUNDS.glass;
+  // For centered layout, use CSS variables from demo-tokens.css + orb fallbacks
+  const themeOrbs = THEME_ORBS[theme] || THEME_ORBS.glass;
   return React.createElement(
     ThemeProvider,
     { defaultTheme: theme },
@@ -117,9 +115,9 @@ function ThemeDecorator({
         className: containerClass,
         'data-theme': theme,
         style: {
-          '--story-bg': themeConfig.background,
-          '--story-orb-1': themeConfig.orb1,
-          '--story-orb-2': themeConfig.orb2,
+          '--story-bg': 'linear-gradient(135deg, var(--bg-from), var(--bg-via), var(--bg-to))',
+          '--story-orb-1': themeOrbs.orb1,
+          '--story-orb-2': themeOrbs.orb2,
         } as React.CSSProperties,
       },
       children

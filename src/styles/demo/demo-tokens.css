@@ -1,0 +1,117 @@
+/**
+ * Demo Component Tokens
+ *
+ * These tokens are for DEMO-SPECIFIC components that showcase the library.
+ * They are NOT part of the core UI component library.
+ *
+ * Components using these tokens:
+ * - YearCardGlass (career timeline demo)
+ * - AICardGlass (AI summary demo)
+ * - HeaderNavGlass (demo app header)
+ * - RepoCardGlass (repository card demo)
+ * - SparklineGlass (sparkline chart demo)
+ *
+ * These tokens reference Layer 2 (Semantic Tokens), so they automatically
+ * adapt to theme changes.
+ */
+
+/* ========================================
+   GLASS THEME (default dark glassmorphism)
+   ======================================== */
+[data-theme='glass'] {
+  /* YEAR CARD */
+  --year-card-bg: var(--semantic-surface-muted);
+  --year-card-border: var(--semantic-border-muted);
+  --year-card-hover-glow: 0 8px 32px var(--semantic-primary-subtle);
+
+  /* AI CARD */
+  --ai-card-bg: var(--semantic-surface-muted);
+  --ai-card-border: var(--semantic-border-muted);
+  --ai-card-hover-glow: 0 12px 40px var(--semantic-primary-muted);
+
+  /* HEADER NAV */
+  --header-bg: var(--semantic-surface-muted);
+  --header-border: var(--semantic-border-muted);
+  --icon-btn-from: var(--semantic-primary);
+  --icon-btn-to: var(--semantic-secondary);
+  --icon-btn-shadow: 0 4px 20px var(--semantic-primary-muted);
+  --icon-btn-text: var(--semantic-text-inverse);
+  --search-bg: var(--semantic-surface-muted);
+  --search-border: var(--semantic-border);
+  --search-btn-bg: var(--semantic-surface-elevated);
+  --search-btn-text: var(--semantic-text);
+
+  /* REPO CARD */
+  --repo-card-hover-glow: 0 8px 32px var(--semantic-primary-subtle);
+
+  /* SPARKLINE */
+  --sparkline-bar-bg: var(--semantic-surface-muted);
+  --sparkline-bar-fill: var(--semantic-primary);
+  --sparkline-bar-max: var(--semantic-success);
+  --sparkline-label-color: var(--semantic-text-muted);
+  --sparkline-label-size: 0.625rem;
+}
+
+/* ========================================
+   LIGHT THEME
+   ======================================== */
+[data-theme='light'] {
+  /* YEAR CARD */
+  --year-card-bg: var(--semantic-glass-bg);
+  --year-card-border: var(--semantic-border);
+  --year-card-hover-glow: none;
+
+  /* AI CARD */
+  --ai-card-bg: var(--semantic-surface-strong);
+  --ai-card-border: var(--semantic-border);
+  --ai-card-hover-glow: 0 8px 24px var(--semantic-primary-subtle);
+
+  /* HEADER NAV */
+  --header-bg: var(--semantic-glass-bg);
+  --header-border: var(--semantic-border);
+  --icon-btn-from: var(--semantic-text);
+  --icon-btn-to: var(--semantic-text);
+  --icon-btn-shadow: 0 4px 12px var(--semantic-shadow);
+  --icon-btn-text: var(--semantic-text-inverse);
+  --search-bg: var(--semantic-surface-strong);
+  --search-border: var(--semantic-border-strong);
+  --search-btn-bg: var(--semantic-text);
+  --search-btn-text: var(--semantic-text-inverse);
+
+  /* REPO CARD */
+  --repo-card-hover-glow: none;
+
+  /* SPARKLINE - inherits from glass theme defaults */
+}
+
+/* ========================================
+   AURORA THEME (dark with gradients)
+   ======================================== */
+[data-theme='aurora'] {
+  /* YEAR CARD */
+  --year-card-bg: var(--semantic-glass-bg);
+  --year-card-border: var(--semantic-border);
+  --year-card-hover-glow: 0 8px 24px var(--semantic-primary-muted);
+
+  /* AI CARD */
+  --ai-card-bg: var(--semantic-surface);
+  --ai-card-border: var(--semantic-border);
+  --ai-card-hover-glow: 0 10px 32px var(--semantic-primary-muted);
+
+  /* HEADER NAV */
+  --header-bg: var(--semantic-surface-muted);
+  --header-border: var(--semantic-border);
+  --icon-btn-from: var(--semantic-surface);
+  --icon-btn-to: var(--semantic-surface-strong);
+  --icon-btn-shadow: 0 4px 12px var(--semantic-shadow);
+  --icon-btn-text: var(--semantic-text);
+  --search-bg: var(--semantic-surface);
+  --search-border: var(--semantic-border);
+  --search-btn-bg: var(--semantic-text);
+  --search-btn-text: var(--semantic-surface-strong);
+
+  /* REPO CARD */
+  --repo-card-hover-glow: 0 8px 24px var(--semantic-primary-subtle);
+
+  /* SPARKLINE - inherits from glass theme defaults */
+}

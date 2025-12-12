@@ -1,0 +1,52 @@
+/**
+ * Brand Colors - Theme-Independent
+ *
+ * These colors are fixed brand identities and do NOT change between themes.
+ * They reference primitives directly because they represent external brand standards.
+ */
+
+:root {
+  /* ========================================
+     PROGRAMMING LANGUAGE BRAND COLORS
+     For LanguageBarGlass component
+     These are official/conventional language colors
+     ======================================== */
+  --language-typescript: var(--oklch-blue-500);
+  --language-javascript: var(--oklch-amber-400);
+  --language-python: var(--oklch-emerald-500);
+  --language-html: var(--oklch-amber-500);
+  --language-css: var(--oklch-purple-500);
+  --language-java: var(--oklch-rose-500);
+  --language-go: var(--oklch-cyan-500);
+  --language-rust: var(--oklch-amber-500);
+  --language-ruby: var(--oklch-rose-500);
+  --language-php: var(--oklch-violet-500);
+
+  /* ========================================
+     SCORE GRADIENT
+     For TrustScoreCard, TrustScoreDisplay
+     Rainbow gradient: amber → emerald → cyan
+     ======================================== */
+  --score-gradient: linear-gradient(
+    to right,
+    var(--oklch-amber-400),
+    var(--oklch-emerald-400),
+    var(--oklch-cyan-400)
+  );
+
+  /* ========================================
+     RAINBOW GRADIENT
+     For RainbowProgressGlass
+     Full spectrum: amber → lime → green → teal → cyan → blue
+     ======================================== */
+  --rainbow-gradient: linear-gradient(
+    90deg,
+    var(--oklch-amber-500),
+    var(--oklch-amber-400),
+    var(--oklch-emerald-500),
+    var(--oklch-emerald-400),
+    var(--oklch-cyan-500),
+    var(--oklch-cyan-400),
+    var(--oklch-blue-500)
+  );
+}

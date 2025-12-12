@@ -84,24 +84,33 @@ describe('LanguageBarGlass', () => {
 
   describe('Color Fallback', () => {
     it('uses provided custom color', () => {
-      const languages: LanguageData[] = [{ name: 'Custom', percent: 100, color: 'bg-pink-500' }];
+      const customColor = '#ec4899';
+      const languages: LanguageData[] = [{ name: 'Custom', percent: 100, color: customColor }];
       const { container } = render(<LanguageBarGlass languages={languages} />);
-      const segment = container.querySelector('.bg-pink-500');
-      expect(segment).toBeInTheDocument();
+      const segment = container.querySelector('[role="progressbar"]');
+      expect(segment).toHaveStyle({ backgroundColor: customColor });
+    });
+
+    it('uses CSS variable as custom color', () => {
+      const cssVar = 'var(--oklch-purple-500)';
+      const languages: LanguageData[] = [{ name: 'Custom', percent: 100, color: cssVar }];
+      const { container } = render(<LanguageBarGlass languages={languages} />);
+      const segment = container.querySelector('[role="progressbar"]');
+      expect(segment).toHaveStyle({ backgroundColor: cssVar });
     });
 
     it('falls back to default color for known languages', () => {
       const languages: LanguageData[] = [{ name: 'TypeScript', percent: 100 }];
       const { container } = render(<LanguageBarGlass languages={languages} />);
-      const segment = container.querySelector('.bg-blue-500');
-      expect(segment).toBeInTheDocument();
+      const segment = container.querySelector('[role="progressbar"]');
+      expect(segment).toHaveStyle({ backgroundColor: 'var(--language-typescript)' });
     });
 
     it('falls back to slate-400 for unknown languages', () => {
       const languages: LanguageData[] = [{ name: 'UnknownLang', percent: 100 }];
       const { container } = render(<LanguageBarGlass languages={languages} />);
-      const segment = container.querySelector('.bg-slate-400');
-      expect(segment).toBeInTheDocument();
+      const segment = container.querySelector('[role="progressbar"]');
+      expect(segment).toHaveStyle({ backgroundColor: 'var(--oklch-slate-400)' });
     });
   });
 

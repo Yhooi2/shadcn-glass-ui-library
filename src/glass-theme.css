@@ -5,15 +5,25 @@
    All styles are now organized in src/styles/
 
    Structure:
-   - tokens/primitives.css - Scales (blur, radius, opacity, duration)
-   - tokens/colors.css     - Color system (@theme)
-   - tokens/animations.css - Keyframes and animation utilities
-   - themes/glass.css      - Glass theme (default dark)
-   - themes/light.css      - Light theme
-   - themes/aurora.css     - Aurora theme
+   TOKENS (Layer 1 - Primitives)
+   - tokens/primitives.css      - Scales (blur, radius, opacity, duration)
+   - tokens/oklch-primitives.css - OKLCH color primitives
+   - tokens/colors.css          - Color system (@theme)
+   - tokens/animations.css      - Keyframes and animation utilities
+   - tokens/brand-colors.css    - Language colors, gradients (theme-independent)
+
+   THEMES (Layer 2 - Semantic + Layer 3 - Component)
+   - themes/glass.css           - Glass theme (default dark)
+   - themes/light.css           - Light theme
+   - themes/aurora.css          - Aurora theme
+
+   DEMO (Demo-specific components)
+   - demo/demo-tokens.css       - YearCard, AICard, Header, RepoCard, Sparkline
+
+   UTILITIES
    - utilities/glass-effects.css  - Glass utility classes
    - utilities/glass-variants.css - Glass/Frosted/Fluted/Crystal
    - utilities/glow-effects.css   - Glow utility classes
    ======================================== */
 
-@import "./styles/index.css";
+@import './styles/index.css';

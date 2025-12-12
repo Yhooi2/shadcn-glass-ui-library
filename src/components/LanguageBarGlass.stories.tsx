@@ -11,7 +11,10 @@ const meta = {
   tags: ['autodocs'],
   argTypes: {
     languages: {
-      description: 'Array of language data with name, percentage, and optional color',
+      description:
+        'Array of language data with name, percentage, and optional color. ' +
+        'Color accepts direct CSS values: oklch(...), #3b82f6, rgb(...), hsl(...). ' +
+        'Avoid CSS variables as they may be tree-shaken in production.',
     },
     showLegend: {
       control: 'boolean',
@@ -79,9 +82,10 @@ export const WithoutLegend: Story = {
 export const CustomColors: Story = {
   args: {
     languages: [
-      { name: 'Rust', percent: 40, color: 'bg-orange-600' },
-      { name: 'Go', percent: 35, color: 'bg-cyan-500' },
-      { name: 'Ruby', percent: 25, color: 'bg-red-600' },
+      { name: 'OKLCH', percent: 30, color: 'oklch(66.6% 0.159 303)' }, // purple
+      { name: 'Hex', percent: 25, color: '#3b82f6' }, // blue
+      { name: 'RGB', percent: 25, color: 'rgb(16, 185, 129)' }, // emerald
+      { name: 'HSL', percent: 20, color: 'hsl(45, 93%, 47%)' }, // amber
     ],
     showLegend: true,
   },

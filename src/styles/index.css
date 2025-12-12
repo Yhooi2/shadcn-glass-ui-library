@@ -14,6 +14,7 @@
 @import './tokens/oklch-primitives.css';
 @import './tokens/colors.css';
 @import './tokens/animations.css';
+@import './tokens/brand-colors.css'; /* Language colors, gradients (theme-independent) */
 
 /* ========================================
    THEMES
@@ -22,6 +23,13 @@
 @import './themes/glass.css';
 @import './themes/light.css';
 @import './themes/aurora.css';
+
+/* ========================================
+   DEMO TOKENS
+   Tokens for demo-specific components
+   (YearCard, AICard, Header, RepoCard, Sparkline)
+   ======================================== */
+@import './demo/demo-tokens.css';
 
 /* ========================================
    UTILITIES

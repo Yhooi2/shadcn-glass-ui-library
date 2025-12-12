@@ -146,10 +146,10 @@ const demoRepositories: Repository[] = [
 ];
 
 const demoLanguages = [
-  { name: 'TypeScript', percent: 45, color: 'bg-blue-500' },
-  { name: 'Python', percent: 25, color: 'bg-emerald-500' },
-  { name: 'Go', percent: 20, color: 'bg-cyan-500' },
-  { name: 'Rust', percent: 10, color: 'bg-orange-600' },
+  { name: 'TypeScript', percent: 45 }, // Uses default --language-typescript
+  { name: 'Python', percent: 25 }, // Uses default --language-python
+  { name: 'Go', percent: 20 }, // Uses default --language-go
+  { name: 'Rust', percent: 10 }, // Uses default --language-rust
 ];
 
 // ========================================

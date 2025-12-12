@@ -281,6 +281,7 @@
 
   --oklch-emerald-500-10: oklch(69.6% 0.155 163 / 0.1);
   --oklch-emerald-500-20: oklch(69.6% 0.155 163 / 0.2);
+  --oklch-emerald-500-50: oklch(69.6% 0.155 163 / 0.5);
 
   /* AMBER ALPHA VARIANTS (warning states) */
   --oklch-amber-400-10: oklch(82.8% 0.157 84 / 0.1);

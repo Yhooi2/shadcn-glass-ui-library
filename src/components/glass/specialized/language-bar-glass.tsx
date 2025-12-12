@@ -10,6 +10,19 @@ import '@/glass-theme.css';
 export interface LanguageData {
   readonly name: string;
   readonly percent: number;
+  /**
+   * Custom color for the language segment.
+   * Accepts any valid CSS color value:
+   * - OKLCH (recommended): `oklch(66.6% 0.159 303)`
+   * - Hex: `#3b82f6`
+   * - RGB: `rgb(59, 130, 246)`
+   * - HSL: `hsl(221, 83%, 53%)`
+   *
+   * **Note:** CSS variables like `var(--oklch-blue-500)` may not work if they're
+   * tree-shaken out in production builds. Use direct color values instead.
+   *
+   * If not provided, falls back to default language colors defined in `defaultLangColors`.
+   */
   readonly color?: string;
 }
 

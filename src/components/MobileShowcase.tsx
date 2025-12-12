@@ -42,10 +42,10 @@ const themeConfig: Record<ThemeName, { label: string; icon: typeof Sun }> = {
 
 // Demo data
 const languages: LanguageData[] = [
-  { name: 'TypeScript', percent: 56, color: 'bg-blue-500' },
-  { name: 'HTML', percent: 22, color: 'bg-orange-500' },
-  { name: 'JavaScript', percent: 13, color: 'bg-yellow-400' },
-  { name: 'Python', percent: 9, color: 'bg-emerald-500' },
+  { name: 'TypeScript', percent: 56 }, // Uses default --language-typescript
+  { name: 'HTML', percent: 22 }, // Uses default --language-html
+  { name: 'JavaScript', percent: 13 }, // Uses default --language-javascript
+  { name: 'Python', percent: 9 }, // Uses default --language-python
 ];
 
 const metrics: MetricData[] = [
