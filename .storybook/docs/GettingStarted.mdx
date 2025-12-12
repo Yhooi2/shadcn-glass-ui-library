@@ -11,8 +11,24 @@ Quick start guide for Glass UI.
 
 ### Via shadcn CLI (recommended)
 
+First, add the registry to your `components.json`:
+
 <Source
-  code={`npx shadcn@latest add https://shadcn-glass-ui.dev/r/button-glass`}
+  code={`{
+  "registries": {
+    "@shadcn-glass-ui": {
+      "url": "https://raw.githubusercontent.com/Yhooi2/shadcn-glass-ui-library/main/public/r"
+    }
+  }
+}`}
+  language="json"
+  dark
+/>
+
+Then install components:
+
+<Source
+  code={`npx shadcn@latest add @shadcn-glass-ui/button-glass`}
   language="bash"
   dark
 />

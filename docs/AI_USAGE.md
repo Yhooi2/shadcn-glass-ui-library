@@ -3,6 +3,37 @@
 This guide is specifically for **AI assistants** (Claude Code, GitHub Copilot, GPT-based tools)
 helping users integrate shadcn-glass-ui into their projects.
 
+## Badges & Integrations
+
+[![CI](https://github.com/Yhooi2/shadcn-glass-ui-library/workflows/CI%2FCD%20Pipeline/badge.svg)](https://github.com/Yhooi2/shadcn-glass-ui-library/actions)
+[![Bundle Size](https://img.shields.io/bundlephobia/minzip/shadcn-glass-ui)](https://bundlephobia.com/package/shadcn-glass-ui)
+[![React](https://img.shields.io/badge/React-19.2-blue)](https://reactjs.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.1-blue)](https://tailwindcss.com/)
+[![Claude Code](https://img.shields.io/badge/Claude-Code-5865F2?logo=anthropic)](docs/AI_USAGE.md)
+[![GitHub Copilot](https://img.shields.io/badge/GitHub-Copilot-181717?logo=github)](docs/AI_USAGE.md)
+[![Context7](https://img.shields.io/badge/Context7-Indexed-00D4AA)](https://context7.com/yhooi2/shadcn-glass-ui-library)
+
+### AI Tool Integration Status
+
+| Tool               | Status    | Integration                                                  |
+| ------------------ | --------- | ------------------------------------------------------------ |
+| **Claude Code**    | Optimized | [CLAUDE.md](../CLAUDE.md) with 500+ lines of project context |
+| **GitHub Copilot** | Supported | TypeScript strict mode + comprehensive JSDoc                 |
+| **ChatGPT/GPT-4**  | Supported | [EXPORTS_MAP.json](EXPORTS_MAP.json) with component metadata |
+| **Context7 MCP**   | Indexed   | [59 rules](../context7.json) covering breaking changes, APIs |
+| **Cursor**         | Supported | Full TypeScript inference                                    |
+
+### Library Identifiers
+
+| Identifier         | Value                             |
+| ------------------ | --------------------------------- |
+| npm package        | `shadcn-glass-ui`                 |
+| Registry namespace | `@shadcn-glass-ui`                |
+| Context7 ID        | `/yhooi2/shadcn-glass-ui-library` |
+| GitHub             | `Yhooi2/shadcn-glass-ui-library`  |
+
+---
+
 ## 🎯 Quick Decision Tree
 
 ### When a user asks "I want to use shadcn-glass-ui"
