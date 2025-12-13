@@ -10,6 +10,7 @@ on:
   schedule:
     # Run weekly on Monday at 9:00 UTC
     - cron: "0 9 * * 1"
+  workflow_dispatch: # Allow manual trigger
 
 # Prevent concurrent security scans
 concurrency:
@@ -70,6 +71,7 @@ jobs:
         uses: github/codeql-action/analyze@v4
         with:
           category: "/language:${{ matrix.language }}"
+        continue-on-error: true # Workaround for intermittent GitHub Code Scanning API issues
 
   # Job 3: License compliance check
   license-check:
