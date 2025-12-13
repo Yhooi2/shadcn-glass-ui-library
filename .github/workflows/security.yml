@@ -66,6 +66,8 @@ jobs:
           languages: ${{ matrix.language }}
           # Use extended security queries for more thorough analysis
           queries: security-extended
+          # Skip autobuild for JavaScript/TypeScript (not needed)
+          build-mode: none
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v4
