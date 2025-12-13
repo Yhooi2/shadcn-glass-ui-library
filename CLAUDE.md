@@ -67,7 +67,7 @@ A modern glassmorphism UI component library built with:
 - **Vitest 4.0** - Stable browser mode with visual regression testing via `toMatchScreenshot`,
   Playwright traces for CI debugging, and first-class viewport testing
 
-See [DEPENDENCIES.md](DEPENDENCIES.md) for detailed dependency documentation.
+See [DEPENDENCIES.md](docs/technical/DEPENDENCIES.md) for detailed dependency documentation.
 
 ## Common Tasks for AI
 
@@ -875,7 +875,8 @@ Components will be added to `src/components/ui/`. To create Glass variants, copy
 - `components.json` - shadcn/ui configuration (new-york style, neutral base)
 - `.storybook/` - Storybook configuration with a11y, docs, vitest addons
 - `vite.config.ts` - Vite + Vitest configuration with rolldown-vite
-- `package.json` - Dependencies and scripts (see DEPENDENCIES.md for details)
+- `package.json` - Dependencies and scripts (see
+  [docs/technical/DEPENDENCIES.md](docs/technical/DEPENDENCIES.md) for details)
 
 ## Technical Requirements
 

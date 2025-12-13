@@ -17,7 +17,8 @@ community.
 ## Code of Conduct
 
 This project and everyone participating in it is governed by our Code of Conduct. By participating,
-you are expected to uphold this code. Please report unacceptable behavior to [maintainer@email.com].
+you are expected to uphold this code. Please report unacceptable behavior via
+[GitHub Issues](https://github.com/Yhooi2/shadcn-glass-ui-library/issues).
 
 ## Getting Started
 

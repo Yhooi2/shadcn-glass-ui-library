@@ -18,7 +18,7 @@ import { BadgeGlass } from '../glass/ui/badge-glass';
 import { AlertGlass } from '../glass/ui/alert-glass';
 import { ToggleGlass } from '../glass/ui/toggle-glass';
 import { CheckboxGlass } from '../glass/ui/checkbox-glass';
-import { TooltipGlass } from '../glass/ui/tooltip-glass';
+import { TooltipGlassProvider, TooltipGlassSimple } from '../glass/ui/tooltip-glass';
 import { ModalGlass } from '../glass/ui/modal-glass';
 import { DropdownGlass } from '../glass/ui/dropdown-glass';
 import { TabsGlass } from '../glass/ui/tabs-glass';
@@ -41,9 +41,11 @@ const THEMES: Theme[] = ['glass', 'light', 'aurora'];
 function renderWithTheme(component: React.ReactNode, theme: Theme) {
   return render(
     <ThemeProvider defaultTheme={theme}>
-      <div data-testid="visual-test-container" data-theme={theme}>
-        {component}
-      </div>
+      <TooltipGlassProvider>
+        <div data-testid="visual-test-container" data-theme={theme}>
+          {component}
+        </div>
+      </TooltipGlassProvider>
     </ThemeProvider>
   );
 }
@@ -133,9 +135,9 @@ describe('Visual Regression Tests', () => {
     test(`TooltipGlass - ${theme}`, async () => {
       renderWithTheme(
         <div data-testid="tooltip-container" style={{ padding: '50px' }}>
-          <TooltipGlass content="Tooltip text" position="top">
+          <TooltipGlassSimple content="Tooltip text" side="top">
             <span data-testid="tooltip-trigger">Hover me</span>
-          </TooltipGlass>
+          </TooltipGlassSimple>
         </div>,
         theme
       );

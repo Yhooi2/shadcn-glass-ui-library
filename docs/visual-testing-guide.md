@@ -4,9 +4,12 @@ This guide explains how to work with visual regression tests in this project.
 
 ## Overview
 
-The project uses **Vitest 4.0 browser mode** with **Playwright** for visual regression testing. All reference screenshots are generated on **Linux (ubuntu-latest)** in CI to ensure consistency across environments.
+The project uses **Vitest 4.0 browser mode** with **Playwright** for visual regression testing. All
+reference screenshots are generated on **Linux (ubuntu-latest)** in CI to ensure consistency across
+environments.
 
 **Key Points:**
+
 - ✅ Reference screenshots are generated on Linux
 - ✅ All platforms use the same screenshot files (no `-darwin`/`-linux` suffixes)
 - ✅ Automatic workflow for updating screenshots
@@ -15,27 +18,34 @@ The project uses **Vitest 4.0 browser mode** with **Playwright** for visual regr
 ## Running Tests Locally
 
 ### Run all visual tests
+
 ```bash
 npm run test:visual:ci
 ```
 
 ### Update screenshots locally (for reference only)
+
 ```bash
 npm run test:visual:update
 ```
 
-**⚠️ IMPORTANT:** Do NOT commit screenshots generated on macOS. Always use the GitHub Actions workflow to generate production screenshots.
+**⚠️ IMPORTANT:** Do NOT commit screenshots generated on macOS. Always use the GitHub Actions
+workflow to generate production screenshots.
 
-**Cleaning local screenshots:**
-If you accidentally generated screenshots locally, use this script to remove them:
+**Cleaning local screenshots:** If you accidentally generated screenshots locally, use this script
+to remove them:
+
 ```bash
 ./scripts/clean-local-screenshots.sh
 ```
 
-**Protection:** A pre-commit hook automatically blocks commits of new screenshots from non-Linux platforms. If you see this error:
+**Protection:** A pre-commit hook automatically blocks commits of new screenshots from non-Linux
+platforms. If you see this error:
+
 ```
 ❌ ERROR: Cannot commit visual test screenshots from Darwin
 ```
+
 This is working as intended. Use the GitHub Actions workflow instead.
 
 ## Updating Reference Screenshots
@@ -43,23 +53,27 @@ This is working as intended. Use the GitHub Actions workflow instead.
 When you modify UI components and need to update screenshots:
 
 ### Option 1: Using GitHub CLI (Recommended)
+
 ```bash
 gh workflow run update-screenshots.yml
 ```
 
 ### Option 2: Via GitHub Web UI
+
 1. Go to **Actions** → **Update Visual Test Screenshots**
 2. Click **Run workflow**
 3. Optionally provide a custom commit message
 4. Click **Run workflow**
 
 The workflow will:
+
 1. Delete existing screenshots
 2. Generate new screenshots on Linux (ubuntu-latest)
 3. Commit and push changes automatically
 4. Upload screenshots as artifacts
 
 ### Monitoring Workflow Progress
+
 ```bash
 # Check workflow status
 gh run list --workflow=update-screenshots.yml --limit 1
@@ -82,6 +96,7 @@ comparatorOptions: {
 ```
 
 These tolerances account for:
+
 - Font rendering differences between macOS and Linux
 - Subpixel anti-aliasing variations
 - Minor layout shifts (1-2px height differences)
@@ -89,6 +104,7 @@ These tolerances account for:
 ### Screenshot Naming
 
 Screenshots use a unified naming pattern:
+
 ```
 {test-name}-{theme}-chromium.png
 ```
@@ -100,6 +116,7 @@ Example: `button-primary-glass-chromium.png`
 ## Test Structure
 
 ### Visual Test Locations
+
 ```
 src/components/__visual__/
 ├── components.visual.test.tsx       # Individual component tests
@@ -112,6 +129,7 @@ src/components/__visual__/
 ```
 
 ### Screenshot Organization
+
 ```
 src/components/__visual__/__screenshots__/
 ├── components.visual.test.tsx/
@@ -125,11 +143,13 @@ src/components/__visual__/__screenshots__/
 
 ## Git Pre-commit Hook
 
-The repository includes a pre-commit hook that prevents accidentally committing screenshots generated on non-Linux platforms.
+The repository includes a pre-commit hook that prevents accidentally committing screenshots
+generated on non-Linux platforms.
 
 **Setup (Automatic):**
 
-The hook is located at `.git/hooks/pre-commit` and should work automatically. If you encounter issues:
+The hook is located at `.git/hooks/pre-commit` and should work automatically. If you encounter
+issues:
 
 ```bash
 # Ensure Git is using the correct hooks directory
@@ -140,11 +160,13 @@ chmod +x .git/hooks/pre-commit
 ```
 
 **How it works:**
+
 - Blocks commits of new `.png` files in `__screenshots__/` directories
 - Only allows commits from Linux (CI environment)
 - Shows helpful error message with instructions
 
 **Bypassing the hook (not recommended):**
+
 ```bash
 git commit --no-verify  # Skip all git hooks
 ```
@@ -169,6 +191,7 @@ Visual tests run automatically on every push/PR:
 **File:** `.github/workflows/update-screenshots.yml`
 
 Workflow features:
+
 - ✅ Manual trigger only (`workflow_dispatch`)
 - ✅ Runs on Linux (ubuntu-latest)
 - ✅ Deletes old screenshots before regeneration
@@ -181,11 +204,13 @@ Workflow features:
 ### Tests Fail After Component Changes
 
 **Symptoms:**
+
 - CI shows screenshot mismatches
 - Error: "Screenshot does not match the stored reference"
 - Pixel ratio > 0.08 or dimension differences
 
 **Solution:**
+
 1. Review the changes to ensure they're intentional
 2. Run the screenshot update workflow:
    ```bash
@@ -201,15 +226,18 @@ Workflow features:
 ### Local Screenshots Don't Match CI
 
 **Symptoms:**
+
 - Tests pass locally but fail in CI
 - Opposite: tests fail locally but pass in CI
 
 **Cause:**
+
 - Platform differences (macOS vs Linux)
 - Font rendering variations
 - Different screenshot generation environment
 
 **Solution:**
+
 - **DO NOT** commit local screenshots from macOS
 - Always use the GitHub Actions workflow
 - Linux screenshots are the source of truth
@@ -217,13 +245,16 @@ Workflow features:
 ### Workflow Fails to Commit
 
 **Symptoms:**
+
 - Workflow succeeds but no new commit appears
 - Error: "Updates were rejected"
 
 **Cause:**
+
 - Race condition: new commits pushed while workflow was running
 
 **Solution:**
+
 - Workflow includes `git pull --rebase` before push
 - If still failing, manually re-run the workflow
 
@@ -232,12 +263,14 @@ Workflow features:
 ### When to Update Screenshots
 
 Update screenshots when:
+
 - ✅ Intentional UI changes (new features, design updates)
 - ✅ Component refactoring that affects rendering
 - ✅ Theme or styling changes
 - ✅ Breaking changes in dependencies (React, Tailwind, etc.)
 
 Do NOT update screenshots for:
+
 - ❌ Random pixel differences without code changes
 - ❌ Flaky tests (investigate root cause first)
 - ❌ Local development screenshots
@@ -268,6 +301,7 @@ test('MyComponent - default state - glass theme', async () => {
 ```
 
 **Naming convention:**
+
 - Use descriptive names: `{component}-{variant}-{theme}`
 - Include theme: `glass`, `light`, `aurora`
 - Use kebab-case
@@ -275,6 +309,7 @@ test('MyComponent - default state - glass theme', async () => {
 ## Statistics
 
 **Current Coverage:**
+
 - **582 visual tests** (as of v1.0.0)
 - **603 reference screenshots**
 - **99.5% pass rate** in CI
@@ -283,7 +318,7 @@ test('MyComponent - default state - glass theme', async () => {
 ## Related Documentation
 
 - [CLAUDE.md](../CLAUDE.md) - Project overview and architecture
-- [DEPENDENCIES.md](../DEPENDENCIES.md) - Tech stack details
+- [DEPENDENCIES.md](technical/DEPENDENCIES.md) - Tech stack details
 - [visual-tests-audit.md](./visual-tests-audit.md) - Detailed test audit
 - [Migration Guides](./migration/) - Component API changes
 
@@ -292,33 +327,36 @@ test('MyComponent - default state - glass theme', async () => {
 ### Update Screenshots Workflow
 
 **Trigger:**
+
 ```bash
 gh workflow run update-screenshots.yml
 ```
 
 **With custom message:**
+
 ```bash
 gh workflow run update-screenshots.yml -f commit_message="chore: update screenshots after AlertGlass refactor"
 ```
 
 **Check status:**
+
 ```bash
 gh run list --workflow=update-screenshots.yml --limit 1
 ```
 
 **View logs:**
+
 ```bash
 gh run view <run-id> --log
 ```
 
 **Download artifacts:**
+
 ```bash
 gh run download <run-id> -n visual-test-screenshots
 ```
 
 ---
 
-**Last Updated:** 2025-12-05
-**Vitest Version:** 4.0
-**Playwright Version:** Latest
-**Node Version:** 20.16+, 22.19+, or 24+
+**Last Updated:** 2025-12-05 **Vitest Version:** 4.0 **Playwright Version:** Latest **Node
+Version:** 20.16+, 22.19+, or 24+

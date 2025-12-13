@@ -28,9 +28,9 @@ Before starting, ensure you have:
 The easiest way to add components to an existing shadcn/ui project:
 
 ```bash
-npx shadcn@latest add @shadcn-glass-ui/button
-npx shadcn@latest add @shadcn-glass-ui/input
-npx shadcn@latest add @shadcn-glass-ui/modal
+npx shadcn@latest add @shadcn-glass-ui/button-glass
+npx shadcn@latest add @shadcn-glass-ui/input-glass
+npx shadcn@latest add @shadcn-glass-ui/modal-glass
 ```
 
 This will:

@@ -43,7 +43,7 @@ comprehensive docs.
 - **Storybook 10.1** - Component workshop with ESM-only architecture
 - **Vitest 4.0** - Browser mode testing with visual regression
 
-See [DEPENDENCIES.md](DEPENDENCIES.md) for detailed dependency documentation.
+See [DEPENDENCIES.md](../technical/DEPENDENCIES.md) for detailed dependency documentation.
 
 ## 🤖 AI Assistant Support
 
@@ -91,7 +91,7 @@ npm install shadcn-glass-ui
 
 - React 18.0+ or 19.0+
 - React-DOM 18.0+ or 19.0+
-- Tailwind CSS 4.0+
+- Tailwind CSS 4.1+
 
 ### Basic Usage
 
@@ -302,7 +302,7 @@ See [CHANGELOG.md](../../CHANGELOG.md) for complete version history and breaking
 - **[Visual Testing Guide](../../docs/visual-testing-guide.md)** - Screenshot update workflow
 - **[Migration Guide](MIGRATION_GUIDE.md)** - Upgrading from v1
 - **[Breaking Changes](BREAKING_CHANGES.md)** - API changes log
-- **[Dependencies](DEPENDENCIES.md)** - Detailed dependency docs
+- **[Dependencies](../technical/DEPENDENCIES.md)** - Detailed dependency docs
 - **[Contributing](../../CONTRIBUTING.md)** - Development guidelines
 
 ## 🎯 Component Categories

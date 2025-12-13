@@ -9,9 +9,6 @@
 **Glassmorphism UI components for React** — beautiful frosted glass effects, 58 production-ready
 components, 3 themes, drop-in compatible with shadcn/ui.
 
-<!-- TODO: Add your project example link here -->
-<!-- [🎬 See it in action →](https://your-project-url.com) -->
-
 **[Live Demo](https://yhooi2.github.io/shadcn-glass-ui-library/)** |
 **[Interactive Storybook](https://yhooi2.github.io/shadcn-glass-ui-library/)** |
 **[npm Package](https://www.npmjs.com/package/shadcn-glass-ui)**
@@ -40,7 +37,7 @@ components, 3 themes, drop-in compatible with shadcn/ui.
 
 ## Quick Start
 
-**Requirements:** React 18+, Tailwind CSS 4+
+**Requirements:** React 18+, Tailwind CSS 4.1+
 
 ### Install
 
@@ -244,7 +241,7 @@ CLI, same structure.
 
 - React 18.0+ or 19.0+
 - React-DOM 18.0+ or 19.0+
-- Tailwind CSS 4.0+
+- Tailwind CSS 4.1+
 - Node.js 20.16+
 
 </details>
