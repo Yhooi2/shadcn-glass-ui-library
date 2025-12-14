@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/addon-docs/blocks';
+introductionimport { Meta } from '@storybook/addon-docs/blocks';
 import LinkTo from '@storybook/addon-links/react';
 
 <Meta title="Introduction" />
@@ -6,20 +6,18 @@ import LinkTo from '@storybook/addon-links/react';
 <div className="docs-hero">
   <h1>shadcn-glass-ui</h1>
   <p>
-    Glassmorphism UI library for React - AI-friendly with 58 components, strict TypeScript, and
-    comprehensive docs. Fully compatible with shadcn/ui. 
+    Glassmorphism components for React — drop-in compatible with shadcn/ui.
+    <br />
+    57 components, 3 themes, zero migration.
+  </p>
+  <p style={{ opacity: 0.8, fontSize: '0.95em' }}>
+    Add glass effects to existing shadcn/ui projects without rewriting code.
   </p>
 </div>
 
-## What is shadcn-glass-ui?
-
-A comprehensive library of **58 glassmorphism components** built on React 19, TypeScript 5.9, and Tailwind CSS v4. Fully compatible with shadcn/ui and designed for modern web applications.
-
-**⚡ NEW in v2.0.0:** 3-layer CSS token system with 207 primitives, semantic tokens, and zero hardcoded OKLCH values. Quickly create custom themes..
-
 <div className="docs-stats-grid">
   <div className="docs-stat-card">
-    <div className="docs-stat-number">58</div>
+    <div className="docs-stat-number">57</div>
     <div className="docs-stat-label">Components</div>
   </div>
   <div className="docs-stat-card">
@@ -27,7 +25,7 @@ A comprehensive library of **58 glassmorphism components** built on React 19, Ty
     <div className="docs-stat-label">Themes</div>
   </div>
   <div className="docs-stat-card">
-    <div className="docs-stat-number">3000+</div>
+    <div className="docs-stat-number">1500+</div>
     <div className="docs-stat-label">Tests</div>
   </div>
   <div className="docs-stat-card">
@@ -36,270 +34,157 @@ A comprehensive library of **58 glassmorphism components** built on React 19, Ty
   </div>
 </div>
 
+## Quick Start
+
+```tsx
+import { ButtonGlass, ThemeProvider } from 'shadcn-glass-ui';
+import 'shadcn-glass-ui/dist/styles.css';
+
+export default function App() {
+  return (
+    <ThemeProvider defaultTheme="glass">
+      <ButtonGlass variant="default">Click me</ButtonGlass>
+    </ThemeProvider>
+  );
+}
+```
+
 ## Features
 
 <div className="docs-features-grid">
   <div className="docs-feature-card">
     <div className="docs-feature-icon">🔮</div>
-    <div className="docs-feature-title">
-      <LinkTo kind="Examples/Demos/GlassVariants" story="Default">3 Intensity Levels</LinkTo>
-    </div>
+    <div className="docs-feature-title">Glass Effects</div>
     <div className="docs-feature-desc">
-      Subtle, medium, and strong glass effects with configurable blur (8px, 16px, 24px)
+      3 intensity levels with configurable blur (8px, 16px, 24px)
     </div>
   </div>
 
-<div className="docs-feature-card">
-  <div className="docs-feature-icon">🌈</div>
-  <div className="docs-feature-title">3 Built-in Themes</div>
-  <div className="docs-feature-desc">
-    Glass (dark), Light, and Aurora (gradient) with smooth transitions
+  <div className="docs-feature-card">
+    <div className="docs-feature-icon">🌈</div>
+    <div className="docs-feature-title">3 Themes</div>
+    <div className="docs-feature-desc">
+      Glass (dark), Light, Aurora (gradient) with instant switching
+    </div>
   </div>
-</div>
 
-<div className="docs-feature-card">
-  <div className="docs-feature-icon">♿</div>
-  <div className="docs-feature-title">WCAG 2.1 AA</div>
-  <div className="docs-feature-desc">
-    Full accessibility with keyboard navigation and screen reader support
+  <div className="docs-feature-card">
+    <div className="docs-feature-icon">🔗</div>
+    <div className="docs-feature-title">shadcn/ui Compatible</div>
+    <div className="docs-feature-desc">
+      Same API, same CLI — works alongside existing components
+    </div>
   </div>
-</div>
 
-<div className="docs-feature-card">
-  <div className="docs-feature-icon">📱</div>
-  <div className="docs-feature-title">Touch Optimized</div>
-  <div className="docs-feature-desc">
-    Minimum 44×44px touch targets per Apple HIG recommendations
+  <div className="docs-feature-card">
+    <div className="docs-feature-icon">🎨</div>
+    <div className="docs-feature-title">Custom Themes</div>
+    <div className="docs-feature-desc">
+      Create new themes in ~15 lines CSS with 3-layer token system
+    </div>
   </div>
-</div>
 
-<div className="docs-feature-card">
-  <div className="docs-feature-icon">⚡</div>
-  <div className="docs-feature-title">High Performance</div>
-  <div className="docs-feature-desc">3-16x faster builds with Rolldown, 100x less memory usage</div>
-</div>
-
-<div className="docs-feature-card">
-  <div className="docs-feature-icon">🧪</div>
-  <div className="docs-feature-title">Comprehensive Testing</div>
-  <div className="docs-feature-desc">650+ compliance + 800+ visual regression + 125 unit tests</div>
-</div>
-
-<div className="docs-feature-card">
-  <div className="docs-feature-icon">🎨</div>
-  <div className="docs-feature-title">3-Layer Token System</div>
-  <div className="docs-feature-desc">
-    207 primitives, semantic tokens, zero hardcoded OKLCH — 90% faster theme creation
+  <div className="docs-feature-card">
+    <div className="docs-feature-icon">♿</div>
+    <div className="docs-feature-title">Accessible</div>
+    <div className="docs-feature-desc">
+      WCAG 2.1 AA, keyboard navigation, 44px touch targets
+    </div>
   </div>
-</div>
 
   <div className="docs-feature-card">
     <div className="docs-feature-icon">🤖</div>
-    <div className="docs-feature-title">AI-Friendly</div>
+    <div className="docs-feature-title">AI-Optimized</div>
     <div className="docs-feature-desc">
-      Optimized for Claude Code, GitHub Copilot, and ChatGPT with Context7 MCP integration, dedicated AI_USAGE.md guide, TypeScript strict mode, and rich JSDoc annotations
+      Context7 MCP, Claude Code, Copilot — AI understands this library
     </div>
   </div>
 </div>
 
-## Component Categories
+## Components
 
 <div className="docs-category-grid">
   <div className="docs-category-card">
-    <h3>Core UI Components (25)</h3>
+    <h3>Core UI (18)</h3>
     <ul>
-      <li><strong>Buttons:</strong> <LinkTo kind="Components/Core/ButtonGlass" story="Default">ButtonGlass</LinkTo></li>
-      <li><strong>Forms:</strong> <LinkTo kind="Components/Core/InputGlass" story="Default">InputGlass</LinkTo>, <LinkTo kind="Components/Core/CheckboxGlass" story="Default">CheckboxGlass</LinkTo>, <LinkTo kind="Components/Core/SliderGlass" story="Default">SliderGlass</LinkTo>, <LinkTo kind="Components/Core/ToggleGlass" story="Default">ToggleGlass</LinkTo>, <LinkTo kind="Components/Overlay/ComboBoxGlass" story="Default">ComboBoxGlass</LinkTo></li>
-      <li><strong>Display:</strong> <LinkTo kind="Components/Core/GlassCard" story="Default">GlassCard</LinkTo>, <LinkTo kind="Components/Core/AvatarGlass" story="Default">AvatarGlass</LinkTo>, <LinkTo kind="Components/Core/BadgeGlass" story="Default">BadgeGlass</LinkTo></li>
-      <li><strong>Navigation:</strong> <LinkTo kind="Components/Navigation/TabsGlass" story="Default">TabsGlass</LinkTo>, <LinkTo kind="Components/Navigation/SegmentedControlGlass" story="Default">SegmentedControlGlass</LinkTo></li>
-      <li><strong>Overlay:</strong> <LinkTo kind="Components/Overlay/ModalGlass" story="Default">ModalGlass</LinkTo>, <LinkTo kind="Components/Navigation/DropdownGlass" story="Default">DropdownGlass</LinkTo>, <LinkTo kind="Components/Overlay/PopoverGlass" story="Default">PopoverGlass</LinkTo></li>
-      <li><strong>Feedback:</strong> <LinkTo kind="Components/Feedback/AlertGlass" story="Default">AlertGlass</LinkTo>, <LinkTo kind="Components/Feedback/NotificationGlass" story="Default">NotificationGlass</LinkTo>, <LinkTo kind="Components/Feedback/TooltipGlass" story="Default">TooltipGlass</LinkTo>, <LinkTo kind="Components/Feedback/SkeletonGlass" story="Default">SkeletonGlass</LinkTo></li>
-      <li><strong>Progress:</strong> <LinkTo kind="Components/Feedback/ProgressGlass" story="Default">ProgressGlass</LinkTo>, <LinkTo kind="Components/Feedback/CircularProgressGlass" story="Default">CircularProgressGlass</LinkTo>, <LinkTo kind="Components/Feedback/RainbowProgressGlass" story="Default">RainbowProgressGlass</LinkTo></li>
-      <li>🆕 <LinkTo kind="Components/Navigation/StepperGlass" story="Default">StepperGlass</LinkTo> - Multi-step workflows</li>
+      <li><LinkTo kind="Components/Core/ButtonGlass" story="Default">ButtonGlass</LinkTo>, <LinkTo kind="Components/Core/InputGlass" story="Default">InputGlass</LinkTo></li>
+      <li><LinkTo kind="Components/Overlay/ModalGlass" story="Default">ModalGlass</LinkTo>, <LinkTo kind="Components/Navigation/TabsGlass" story="Default">TabsGlass</LinkTo></li>
+      <li><LinkTo kind="Components/Core/CheckboxGlass" story="Default">CheckboxGlass</LinkTo>, <LinkTo kind="Components/Core/SliderGlass" story="Default">SliderGlass</LinkTo></li>
+      <li><LinkTo kind="Components/Feedback/AlertGlass" story="Default">AlertGlass</LinkTo>, <LinkTo kind="Components/Feedback/ProgressGlass" story="Default">ProgressGlass</LinkTo></li>
     </ul>
   </div>
-
-<div className="docs-category-card">
-  <h3>Atomic Components (4)</h3>
-  <ul>
-    <li><LinkTo kind="Components/Atomic/InsightCardGlass" story="Default">InsightCardGlass</LinkTo></li>
-    <li><LinkTo kind="Components/Atomic/SortDropdownGlass" story="Default">SortDropdownGlass</LinkTo></li>
-    <li><LinkTo kind="Components/Composite/StatusIndicatorGlass" story="Default">StatusIndicatorGlass</LinkTo></li>
-    <li><LinkTo kind="Components/Composite/LanguageBarGlass" story="Default">LanguageBarGlass</LinkTo></li>
-  </ul>
-</div>
-
-<div className="docs-category-card">
-  <h3>Composite Components (10)</h3>
-  <ul>
-    <li><LinkTo kind="Components/Composite/CircularMetricGlass" story="Default">CircularMetricGlass</LinkTo></li>
-    <li><LinkTo kind="Components/Composite/MetricCardGlass" story="Default">MetricCardGlass</LinkTo></li>
-    <li><LinkTo kind="Components/Composite/ProfileAvatarGlass" story="Default">ProfileAvatarGlass</LinkTo></li>
-    <li><LinkTo kind="Components/Composite/FlagAlertGlass" story="Default">FlagAlertGlass</LinkTo></li>
-    <li><LinkTo kind="Components/Composite/YearCardGlass" story="Default">YearCardGlass</LinkTo></li>
-    <li><LinkTo kind="Components/Composite/AICardGlass" story="Default">AICardGlass</LinkTo></li>
-    <li><LinkTo kind="Components/Sections/TrustScoreCardGlass" story="Default">TrustScoreCardGlass</LinkTo></li>
-    <li><LinkTo kind="Components/Visualization/SparklineGlass" story="Default">SparklineGlass</LinkTo></li>
-  </ul>
-</div>
-
-<div className="docs-category-card">
-  <h3>Section Components (5)</h3>
-  <ul>
-    <li><LinkTo kind="Components/Sections/HeaderNavGlass" story="Default">HeaderNavGlass</LinkTo></li>
-    <li><LinkTo kind="Components/Sections/ProfileHeaderGlass" story="Default">ProfileHeaderGlass</LinkTo></li>
-    <li><LinkTo kind="Components/Sections/CareerStatsGlass" story="Default">CareerStatsGlass</LinkTo></li>
-    <li><LinkTo kind="Components/Sections/FlagsSectionGlass" story="Default">FlagsSectionGlass</LinkTo></li>
-    <li><LinkTo kind="Components/Sections/RepositoryCardGlass" story="Default">RepoCardGlass</LinkTo></li>
-  </ul>
-</div>
-
-<div className="docs-category-card">
-  <h3>Blocks & Demos (6)</h3>
-  <ul>
-    <li><LinkTo kind="Components/Blocks" story="FormElements">FormElementsBlock</LinkTo></li>
-    <li><LinkTo kind="Components/Blocks" story="Progress">ProgressBlock</LinkTo></li>
-    <li><LinkTo kind="Components/Blocks" story="AvatarGallery">AvatarGalleryBlock</LinkTo></li>
-    <li><LinkTo kind="Components/Blocks" story="Badges">BadgesBlock</LinkTo></li>
-    <li><LinkTo kind="Components/Blocks" story="Notifications">NotificationsBlock</LinkTo></li>
-    <li><LinkTo kind="Components/Blocks" story="AllBlocks">All Blocks</LinkTo></li>
-  </ul>
-</div>
 
   <div className="docs-category-card">
-    <h3>Demo Pages (3)</h3>
+    <h3>Composite (13)</h3>
     <ul>
-      <li><LinkTo kind="Examples/Demos/GlassVariants" story="Default">GlassVariantsDemo</LinkTo></li>
-      <li><LinkTo kind="Examples/Demos/ComponentShowcase" story="Default">ComponentShowcase</LinkTo></li>
-      <li><LinkTo kind="Examples/Demos/DesktopShowcase" story="Default">DesktopShowcase</LinkTo></li>
+      <li><LinkTo kind="Components/Composite/MetricCardGlass" story="Default">MetricCardGlass</LinkTo></li>
+      <li><LinkTo kind="Components/Composite/AICardGlass" story="Default">AICardGlass</LinkTo></li>
+      <li><LinkTo kind="Components/Sections/RepositoryCardGlass" story="Default">RepositoryCardGlass</LinkTo></li>
+      <li><LinkTo kind="Components/Visualization/SparklineGlass" story="Default">SparklineGlass</LinkTo></li>
+    </ul>
+  </div>
+
+  <div className="docs-category-card">
+    <h3>Specialized (10)</h3>
+    <ul>
+      <li><LinkTo kind="Components/Navigation/StepperGlass" story="Default">StepperGlass</LinkTo></li>
+      <li><LinkTo kind="Components/Feedback/RainbowProgressGlass" story="Default">RainbowProgressGlass</LinkTo></li>
+      <li><LinkTo kind="Components/Composite/LanguageBarGlass" story="Default">LanguageBarGlass</LinkTo></li>
+      <li><LinkTo kind="Components/Composite/StatusIndicatorGlass" story="Default">StatusIndicatorGlass</LinkTo></li>
+    </ul>
+  </div>
+
+  <div className="docs-category-card">
+    <h3>Sections (7)</h3>
+    <ul>
+      <li><LinkTo kind="Components/Sections/HeaderNavGlass" story="Default">HeaderNavGlass</LinkTo></li>
+      <li><LinkTo kind="Components/Sections/ProfileHeaderGlass" story="Default">ProfileHeaderGlass</LinkTo></li>
+      <li><LinkTo kind="Components/Sections/CareerStatsGlass" story="Default">CareerStatsGlass</LinkTo></li>
     </ul>
   </div>
 </div>
 
-## What's New in v2.0.0
+[**Browse all components →**](?path=/docs/components-core-buttonglass--docs)
 
-### 🎨 3-Layer Token Architecture
+## Themes
 
-Create custom themes **90% faster** (10-15 minutes vs 2-3 hours):
+Use the **theme switcher** in the toolbar:
 
-- **Layer 1**: 207 primitive OKLCH tokens (`--oklch-purple-500`, `--oklch-white-95`)
-- **Layer 2**: Semantic tokens (`--semantic-primary`, `--semantic-surface`)
-- **Layer 3**: Component tokens (`--btn-primary-bg`, `--modal-bg`)
-
-**Zero hardcoded OKLCH values** in all themes. See [TOKEN_ARCHITECTURE.md](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/main/docs/TOKEN_ARCHITECTURE.md) for details.
-
-### 🆕 New Components
-
-- **StepperGlass** - Compound stepper for multi-step workflows (numbered, icon, dots variants)
-
-### 🪝 Exported Hooks
-
-Now available for your custom components:
+- 🌑 **Glass** — dark glassmorphism with purple accents
+- ☀️ **Light** — clean minimal with subtle glass
+- 🌈 **Aurora** — gradient glow effects
 
 ```tsx
-import { useFocus, useHover, useResponsive, useWallpaperTint } from 'shadcn-glass-ui';
+const { theme, cycleTheme } = useTheme();
+<button onClick={cycleTheme}>Theme: {theme}</button>
 ```
 
-### ⚠️ Breaking Changes
+## Using This Storybook
 
-**CSS Variables Renamed** (semantic naming):
+1. **Browse** — Components organized by category in the sidebar
+2. **Interact** — Use Controls panel to change props live
+3. **Copy** — Code examples ready to use
+4. **Test** — Switch themes to see all variants
 
-- `--metric-emerald-*` → `--metric-success-*`
-- `--metric-amber-*` → `--metric-warning-*`
-- `--metric-blue-*` → `--metric-default-*`
-- `--metric-red-*` → `--metric-destructive-*`
-
-See [Migration Guide](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/main/docs/migration/CSS_VARIABLES_MIGRATION_2.0.md).
-
-## Quick Start
-
-```tsx
-import { ButtonGlass, InputGlass, GlassCard } from 'shadcn-glass-ui';
-
-export default function App() {
-  return (
-    <GlassCard variant="glass" intensity="medium">
-      <h2>Welcome</h2>
-      <InputGlass placeholder="Enter text..." />
-      <ButtonGlass variant="primary">Submit</ButtonGlass>
-    </GlassCard>
-  );
-}
-```
-
-## Using Storybook
-
-### Explore Components
-
-Browse the sidebar on the left — components are organized by category. Each component has:
-
-- **Interactive demos** with live controls
-- **API documentation** with all props
-- **Code examples** ready to copy
-- **Accessibility information**
-- **Visual examples** across all themes
-
-### Switch Themes
-
-Use the **theme switcher** in the toolbar to view components in:
-
-- 🌑 **Glass** — dark glassmorphism
-- ☀️ **Light** — clean minimalism
-- 🌈 **Aurora** — gradient glow
-
-### Test Interactivity
-
-Use the **Controls** panel at the bottom to:
-
-- Change props in real time
-- Test different variants and sizes
-- Experiment with states
-- Copy code examples
-
-## Documentation
+## Links
 
 <div className="docs-links-section">
-  <a
-    href="https://github.com/Yhooi2/shadcn-glass-ui-library"
-    className="docs-link-button"
-    target="_blank"
-  >
+  <a href="https://github.com/Yhooi2/shadcn-glass-ui-library" className="docs-link-button" target="_blank">
     GitHub
   </a>
-  <LinkTo kind="Getting Started" story="Docs" className="docs-link-button">
+  <a href="https://www.npmjs.com/package/shadcn-glass-ui" className="docs-link-button" target="_blank">
+    npm
+  </a>
+  <a href="https://github.com/Yhooi2/shadcn-glass-ui-library/blob/main/docs/GETTING_STARTED.md" className="docs-link-button" target="_blank">
     Getting Started
-  </LinkTo>
-  <LinkTo kind="Design System" story="Docs" className="docs-link-button">
-    Design System
-  </LinkTo>
-  <a
-    href="https://www.npmjs.com/package/shadcn-glass-ui"
-    className="docs-link-button"
-    target="_blank"
-  >
-    NPM
+  </a>
+  <a href="https://github.com/Yhooi2/shadcn-glass-ui-library/blob/main/docs/AI_USAGE.md" className="docs-link-button" target="_blank">
+    AI Guide
   </a>
 </div>
-
-### 🆕 v2.0.0 Documentation
-
-- [Token Architecture Guide](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/main/docs/TOKEN_ARCHITECTURE.md) - 3-layer token system
-- [Theme Creation Guide](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/main/docs/THEME_CREATION_GUIDE.md) - Create themes in 15 minutes
-- [CSS Variables Audit](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/main/docs/CSS_VARIABLES_AUDIT.md) - Complete variable reference
-- [Migration Guide v2.0](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/main/docs/migration/CSS_VARIABLES_MIGRATION_2.0.md) - Upgrade from v1.x
-
-## Tech Stack
-
-- **React 19.2** — Latest stable with Server Components
-- **TypeScript 5.9** — Strict type checking
-- **Tailwind CSS 4.1** — 5x faster builds, CSS-first
-- **Vite 7** (Rolldown) — 3-16x faster bundler
-- **Storybook 10.1** — Component workshop
-- **Vitest 4.0** — Browser mode testing
 
 <div className="docs-divider"></div>
 
-<div style={{ textAlign: 'center', padding: '2rem 0' }}>
-  <p style={{ color: 'var(--text-muted)' }}>Built with glassmorphism effects</p>
-  <p style={{ color: 'var(--text-secondary)' }}>Start exploring components in the sidebar →</p>
+<div style={{ textAlign: 'center', padding: '1rem 0', color: 'var(--text-muted)' }}>
+  Start exploring components in the sidebar →
 </div>
