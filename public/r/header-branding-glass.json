@@ -4,14 +4,21 @@
   "type": "registry:block",
   "title": "Header Branding Glass",
   "description": "Header Branding Glass component with glass effects",
-  "dependencies": ["lucide-react", "react"],
-  "registryDependencies": ["cn"],
+  "dependencies": [
+    "lucide-react",
+    "react"
+  ],
+  "registryDependencies": [
+    "cn"
+  ],
   "files": [
     {
       "path": "components/glass/sections/header-branding-glass.tsx",
       "type": "registry:component",
-      "content": "// ========================================\n// HEADER BRANDING GLASS - SECTION COMPONENT\n// Header branding with logo and subtitle\n// Level 4: Section (extracted from HeaderNavGlass)\n// ========================================\n\nimport { forwardRef, type HTMLAttributes, type CSSProperties } from 'react';\nimport { type LucideIcon } from 'lucide-react';\nimport { cn } from '@/lib/utils';\nimport { IconButtonGlass } from '../atomic/icon-button-glass';\nimport '@/glass-theme.css';\n\nexport interface HeaderBrandingGlassProps extends HTMLAttributes<HTMLDivElement> {\n  /** Logo icon component */\n  readonly logoIcon: LucideIcon;\n  /** Main title */\n  readonly title: string;\n  /** Subtitle (hidden on mobile) */\n  readonly subtitle?: string;\n  /** Logo click handler */\n  readonly onLogoClick?: () => void;\n  /** Logo aria label */\n  readonly logoAriaLabel?: string;\n}\n\nexport const HeaderBrandingGlass = forwardRef<HTMLDivElement, HeaderBrandingGlassProps>(\n  (\n    {\n      logoIcon,\n      title,\n      subtitle,\n      onLogoClick,\n      logoAriaLabel = 'Home',\n      className,\n      ...props\n    },\n    ref\n  ) => {\n    const titleStyles: CSSProperties = {\n      color: 'var(--text-primary)',\n    };\n\n    return (\n      <div\n        ref={ref}\n        className={cn('flex items-center gap-4', className)}\n        {...props}\n      >\n        <IconButtonGlass\n          icon={logoIcon}\n          aria-label={logoAriaLabel}\n          onClick={onLogoClick}\n          variant=\"gradient\"\n          size=\"default\"\n        />\n        <div className=\"flex flex-col sm:flex-row sm:items-center sm:gap-2\">\n          <span className=\"font-semibold text-base md:text-lg\" style={titleStyles}>\n            {title}\n          </span>\n          {subtitle && (\n            <span\n              className=\"hidden md:inline text-sm\"\n              style={{ color: 'var(--text-secondary)' }}\n            >\n              · {subtitle}\n            </span>\n          )}\n        </div>\n      </div>\n    );\n  }\n);\n\nHeaderBrandingGlass.displayName = 'HeaderBrandingGlass';\n"
+      "content": "// ========================================\n// HEADER BRANDING GLASS - SECTION COMPONENT\n// Header branding with logo and subtitle\n// Level 4: Section (extracted from HeaderNavGlass)\n// ========================================\n\nimport { forwardRef, type HTMLAttributes, type CSSProperties } from 'react';\nimport { type LucideIcon } from 'lucide-react';\nimport { cn } from '@/lib/utils';\nimport { IconButtonGlass } from '../atomic/icon-button-glass';\nimport '@/glass-theme.css';\n\nexport interface HeaderBrandingGlassProps extends HTMLAttributes<HTMLDivElement> {\n  /** Logo icon component */\n  readonly logoIcon: LucideIcon;\n  /** Main title */\n  readonly title: string;\n  /** Subtitle (hidden on mobile) */\n  readonly subtitle?: string;\n  /** Logo click handler */\n  readonly onLogoClick?: () => void;\n  /** Logo aria label */\n  readonly logoAriaLabel?: string;\n}\n\nexport const HeaderBrandingGlass = forwardRef<HTMLDivElement, HeaderBrandingGlassProps>(\n  (\n    {\n      logoIcon,\n      title,\n      subtitle,\n      onLogoClick,\n      logoAriaLabel = 'Home',\n      className,\n      ...props\n    },\n    ref\n  ) => {\n    const titleStyles: CSSProperties = {\n      color: 'var(--text-primary)',\n    };\n\n    return (\n      <div\n        ref={ref}\n        className={cn('flex items-center gap-4', className)}\n        {...props}\n      >\n        <IconButtonGlass\n          icon={logoIcon}\n          aria-label={logoAriaLabel}\n          onClick={onLogoClick}\n          variant=\"gradient\"\n          size=\"md\"\n        />\n        <div className=\"flex flex-col sm:flex-row sm:items-center sm:gap-2\">\n          <span className=\"font-semibold text-base md:text-lg\" style={titleStyles}>\n            {title}\n          </span>\n          {subtitle && (\n            <span\n              className=\"hidden md:inline text-sm\"\n              style={{ color: 'var(--text-secondary)' }}\n            >\n              · {subtitle}\n            </span>\n          )}\n        </div>\n      </div>\n    );\n  }\n);\n\nHeaderBrandingGlass.displayName = 'HeaderBrandingGlass';\n"
     }
   ],
-  "categories": ["sections"]
+  "categories": [
+    "sections"
+  ]
 }
