@@ -1,6 +1,6 @@
 # Component Catalog
 
-Searchable index of all **58 components** in shadcn-glass-ui.
+Searchable index of all **57 components** in shadcn-glass-ui.
 
 **v2.0.0 Update:** All components now use the 3-layer token system with semantic CSS variables. Zero
 hardcoded OKLCH values across all components.
@@ -1167,5 +1167,5 @@ import { TabsGlass, ButtonGlass } from 'shadcn-glass-ui';
 
 ---
 
-**Total Components:** 55 **Total Variants:** 100+ **Accessibility:** WCAG 2.1 AA compliant
+**Total Components:** 57 **Total Variants:** 100+ **Accessibility:** WCAG 2.1 AA compliant
 **TypeScript:** Full type definitions **Themes:** 3 (glass, light, aurora)

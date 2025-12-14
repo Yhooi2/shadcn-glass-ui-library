@@ -693,11 +693,11 @@ import {
 - **Level 3 (Specialized):** 10 components
 - **Level 4 (Composite):** 13 components
 - **Level 5 (Sections):** 7 components
-- **Total:** 58 components
+- **Total:** 57 components
 
 ### Export Categories
 
-- **Components:** 58 total
+- **Components:** 57 total
 - **Types:** 25+ prop types, 15+ variant types
 - **Utilities:** 1 function (`cn`)
 - **Hooks:** 4 custom hooks

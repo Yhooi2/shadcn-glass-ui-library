@@ -16,13 +16,13 @@
 [![Claude Code](https://img.shields.io/badge/Claude-Code-5865F2?logo=anthropic)](docs/AI_USAGE.md)
 [![GitHub Copilot](https://img.shields.io/badge/GitHub-Copilot-181717?logo=github)](docs/AI_USAGE.md)
 
-Glassmorphism UI library for React - AI-friendly with 58 components, strict TypeScript, and
+Glassmorphism UI library for React - AI-friendly with 57 components, strict TypeScript, and
 comprehensive docs.
 
 ## ✨ Highlights
 
-- 🎨 **58 Components** - Core UI (18) + Atomic (7) + Composite (13) + Sections (7) + Specialized
-  (10) + Primitives (3)
+- 🎨 **57 Components** - Core UI (18) + Atomic (7) + Composite (13) + Sections (7) + Specialized
+  (9) + Primitives (3)
 - 🌈 **3 Themes** - Glass (dark glassmorphism), Light (clean minimal), Aurora (gradient glow)
 - 🤖 **AI-Friendly** - Optimized for Claude Code, Copilot, GPT with comprehensive docs
 - 🔮 **Advanced Patterns** - asChild polymorphic rendering, Compound components (Modal, Tabs)
@@ -404,7 +404,7 @@ individual components from the categories above.
 
 Complete application examples showcasing all components:
 
-- **ComponentShowcase** - Interactive demo of all 58 components with theme switching
+- **ComponentShowcase** - Interactive demo of all 57 components with theme switching
 - **DesktopShowcase** - GitHub Analytics desktop application mockup with glassmorphism design
 - **MobileShowcase** - Mobile-optimized GitHub profile view with responsive layout
 

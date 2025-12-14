@@ -2,7 +2,7 @@
   "name": "shadcn-glass-ui",
   "private": false,
   "version": "2.0.12",
-  "description": "Glassmorphism UI library for React - AI-friendly with 58 components, strict TypeScript, and comprehensive docs",
+  "description": "Glassmorphism UI library for React - AI-friendly with 57 components, strict TypeScript, and comprehensive docs",
   "author": "Yhooi2",
   "license": "MIT",
   "keywords": [
@@ -26,7 +26,8 @@
     "wcag-2.1-aa",
     "typescript-strict",
     "visual-regression",
-    "storybook"
+    "storybook",
+    "context7"
   ],
   "repository": {
     "type": "git",

@@ -1046,7 +1046,7 @@ for details.
 - **Registry URL:** `https://raw.githubusercontent.com/Yhooi2/shadcn-glass-ui-library/main/public/r`
 - **Registry namespace:** `@shadcn-glass-ui`
 - **Context7 Library ID:** `/yhooi2/shadcn-glass-ui-library`
-- **Component count:** 58 (includes StepperGlass in v2.0.0+)
+- **Component count:** 57 (includes StepperGlass in v2.0.0+)
 - **React version:** 18.0+ or 19.0+
 - **Tailwind version:** 4.1+
 - **Node version:** 20.16+, 22.19+, or 24+

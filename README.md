@@ -6,7 +6,7 @@
 [![AI-Friendly](https://img.shields.io/badge/AI-Optimized-blueviolet)](docs/AI_USAGE.md)
 [![Bundle Size](https://img.shields.io/badge/gzip-372KB-success)](https://bundlephobia.com/package/shadcn-glass-ui)
 
-**Glassmorphism UI components for React** — beautiful frosted glass effects, 58 production-ready
+**Glassmorphism UI components for React** — beautiful frosted glass effects, 57 production-ready
 components, 3 themes, drop-in compatible with shadcn/ui.
 
 **[Live Demo](https://yhooi2.github.io/shadcn-glass-ui-library/)** |
@@ -27,15 +27,15 @@ components, 3 themes, drop-in compatible with shadcn/ui.
 | **Themes**           | 3 built-in (Glass/Light/Aurora)      | 1 base theme        |
 | **Glass Effects**    | Native blur, glow, transparency      | Manual CSS required |
 | **AI Documentation** | Optimized for Claude, Copilot, GPT   | Basic docs          |
-| **Components**       | 58 specialized glassmorphism         | ~40 base components |
-| **Token System**     | 207 OKLCH primitives, zero hardcoded | CSS variables       |
+| **Components**       | 57 specialized glassmorphism         | ~40 base components |
+| **Token System**     | 225 OKLCH primitives, zero hardcoded | CSS variables       |
 | **Accessibility**    | WCAG 2.1 AA + 44px touch targets     | Basic a11y          |
 
 **Key advantages:**
 
 - Works alongside existing shadcn/ui components — same patterns, same CLI
 - AI-first documentation with decision trees and Context7 integration
-- 1,570+ tests (visual regression, compliance, unit)
+- 1,500+ tests (visual regression, compliance, unit)
 - Create custom themes in 15 minutes with 3-layer token system
 
 ---
@@ -186,21 +186,106 @@ function ThemeSwitcher() {
 }
 ```
 
-**[Theme Creation Guide →](docs/THEME_CREATION_GUIDE.md)** — Create custom themes in 15 minutes
+**[Theme Creation Guide →](docs/THEME_CREATION_GUIDE.md)**
 
 ---
 
-## AI Support
+## 3-Layer Token System
 
-This library is optimized for AI coding assistants:
+Create custom themes in **15 minutes** instead of 2-3 hours.
 
-- **Claude Code** — Project-specific instructions in [CLAUDE.md](CLAUDE.md)
-- **Context7** — [Indexed](https://context7.com/yhooi2/shadcn-glass-ui-library) with 41 AI-specific
-  rules
-- **GitHub Copilot** — TypeScript strict mode + comprehensive JSDoc
-- **ChatGPT/GPT-4** — Machine-readable [EXPORTS_MAP.json](docs/EXPORTS_MAP.json)
+```
+┌─────────────────────────────────────────────────────────────┐
+│  Component Tokens   --btn-primary-bg, --modal-surface       │
+│         ↓                                                   │
+│  Semantic Tokens    --semantic-primary, --semantic-surface  │
+│         ↓                                                   │
+│  Primitive Tokens   --oklch-purple-500 (225 OKLCH colors)   │
+└─────────────────────────────────────────────────────────────┘
+```
 
-**[AI Usage Guide →](docs/AI_USAGE.md)**
+| Metric                  | Before (v1.x)  | After (v2.0)         |
+| ----------------------- | -------------- | -------------------- |
+| Hardcoded OKLCH values  | ~280 per theme | **0**                |
+| Theme creation time     | 2-3 hours      | **15 minutes**       |
+| CSS variables per theme | ~85            | **296+ (inherited)** |
+
+**How it works:**
+
+1. Define ~15 semantic tokens for your theme
+2. 280+ component tokens are inherited automatically
+3. All 57 components update instantly
+
+```css
+/* Create a "neon" theme in 15 minutes */
+[data-theme='neon'] {
+  --semantic-primary: var(--oklch-cyan-400);
+  --semantic-surface: var(--oklch-slate-950);
+  --semantic-text: var(--oklch-white-95);
+  /* ... ~12 more tokens */
+}
+```
+
+**[Token Architecture Guide →](docs/TOKEN_ARCHITECTURE.md)** |
+**[Theme Creation Guide →](docs/THEME_CREATION_GUIDE.md)**
+
+---
+
+## Full shadcn/ui Compatibility
+
+Drop-in replacement with **zero learning curve** — same patterns, same CLI, same structure.
+
+| Feature             | shadcn-glass-ui                                | Standard shadcn/ui      |
+| ------------------- | ---------------------------------------------- | ----------------------- |
+| CLI installation    | `npx shadcn add @shadcn-glass-ui/button-glass` | `npx shadcn add button` |
+| Component structure | Same compound APIs                             | Same                    |
+| Variant props       | `variant`, `size`                              | Same                    |
+| asChild pattern     | Full support                                   | Full support            |
+| TypeScript          | Strict mode                                    | Same                    |
+
+**Mix and match freely:**
+
+```tsx
+import { Button } from '@/components/ui/button'; // Standard shadcn/ui
+import { ButtonGlass } from '@/components/glass/ui/button-glass'; // Glass variant
+
+function App() {
+  return (
+    <>
+      <Button variant="outline">Standard</Button>
+      <ButtonGlass variant="primary">Glassmorphism</ButtonGlass>
+    </>
+  );
+}
+```
+
+**[Registry Documentation →](docs/REGISTRY_USAGE.md)**
+
+---
+
+## AI-First Documentation
+
+Built for AI coding assistants — Claude, Copilot, GPT understand this library perfectly.
+
+| AI Tool            | Integration                                                    | What it provides                           |
+| ------------------ | -------------------------------------------------------------- | ------------------------------------------ |
+| **Claude Code**    | [CLAUDE.md](CLAUDE.md)                                         | 365-line project context, all patterns     |
+| **Context7 MCP**   | [Indexed](https://context7.com/yhooi2/shadcn-glass-ui-library) | 41 rules, auto-fetched docs, version-aware |
+| **GitHub Copilot** | TypeScript strict + JSDoc                                      | Accurate completions, type inference       |
+| **ChatGPT/GPT-4**  | [EXPORTS_MAP.json](docs/EXPORTS_MAP.json)                      | Machine-readable component registry        |
+
+**Context7 MCP enables:**
+
+```
+AI: "Add a stepper component to my checkout flow"
+
+→ Context7 fetches StepperGlass docs automatically
+→ AI reads: "compound API, linear mode for wizards"
+→ AI generates correct code with all props
+```
+
+**[AI Usage Guide →](docs/AI_USAGE.md)** — Decision trees, migration scripts, component
+recommendations
 
 ---
 
@@ -234,14 +319,6 @@ find src/ -type f \( -name "*.tsx" -o -name "*.css" \) -exec sed -i '' \
 </details>
 
 <details>
-<summary><strong>Does it work with existing shadcn/ui components?</strong></summary>
-
-Yes! Glass components use the same patterns and can coexist with standard shadcn/ui components. Same
-CLI, same structure.
-
-</details>
-
-<details>
 <summary><strong>What are the requirements?</strong></summary>
 
 - React 18.0+ or 19.0+
@@ -257,24 +334,6 @@ CLI, same structure.
 - **[BREAKING_CHANGES.md](docs/BREAKING_CHANGES.md)** — v1.0 and v2.0 changes
 - **[CHANGELOG.md](CHANGELOG.md)** — Complete version history
 - **[Migration Guides](docs/migration/)** — Step-by-step migration
-
-</details>
-
-<details>
-<summary><strong>How do I create a custom theme?</strong></summary>
-
-Use the 3-layer token system. Define ~15 semantic tokens and component tokens are inherited
-automatically.
-
-```css
-[data-theme='custom'] {
-  --semantic-primary: var(--oklch-cyan-400);
-  --semantic-surface: var(--oklch-slate-900);
-  /* ... */
-}
-```
-
-**[Theme Creation Guide →](docs/THEME_CREATION_GUIDE.md)**
 
 </details>
 
@@ -306,7 +365,7 @@ automatically.
 | ------------------------------------------------------------------ | --------------------------- |
 | **[Storybook](https://yhooi2.github.io/shadcn-glass-ui-library/)** | Interactive component demos |
 | **[Getting Started](docs/GETTING_STARTED.md)**                     | Setup tutorial              |
-| **[Component Catalog](docs/COMPONENTS_CATALOG.md)**                | All 58 components           |
+| **[Component Catalog](docs/COMPONENTS_CATALOG.md)**                | All 57 components           |
 | **[AI Usage Guide](docs/AI_USAGE.md)**                             | For Claude, Copilot, GPT    |
 | **[Theme Guide](docs/THEME_CREATION_GUIDE.md)**                    | Create custom themes        |
 | **[Token Architecture](docs/TOKEN_ARCHITECTURE.md)**               | 3-layer CSS token system    |
