@@ -689,7 +689,7 @@ ButtonGlass, AvatarGlass, GlassCard support polymorphic rendering via Radix UI S
 
 ### Testing (Week 5)
 
-- Visual regression: 579/582 passing (99.5%) - See `docs/visual-tests-audit.md`
+- Visual regression: 582 tests, 99.5% pass rate in CI
 - Unit tests: 125 tests across primitives and utilities
 - Storybook: 8 new compound component stories demonstrating advanced usage
 
