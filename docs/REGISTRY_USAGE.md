@@ -76,7 +76,7 @@ function App() {
   return (
     <ThemeProvider defaultTheme="glass">
       <div className="p-8 space-y-4">
-        <ButtonGlass variant="primary">Click me</ButtonGlass>
+        <ButtonGlass variant="default">Click me</ButtonGlass>
         <InputGlass placeholder="Enter text..." />
       </div>
     </ThemeProvider>

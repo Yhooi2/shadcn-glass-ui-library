@@ -402,7 +402,7 @@ import { ButtonGlass } from 'shadcn-glass-ui';
 export default function Demo() {
   return (
     <div className="theme-glass p-8">
-      <ButtonGlass variant="primary" size="md" onClick={() => alert('Clicked!')}>
+      <ButtonGlass variant="default" size="default" onClick={() => alert('Clicked!')}>
         Click Me
       </ButtonGlass>
     </div>
@@ -476,7 +476,7 @@ export default function ProductCard() {
 
           <div className="flex items-center justify-between pt-4">
             <span className="text-2xl font-bold">$49</span>
-            <ButtonGlass variant="primary">Purchase</ButtonGlass>
+            <ButtonGlass variant="default">Purchase</ButtonGlass>
           </div>
         </div>
       </GlassCard>
@@ -500,7 +500,12 @@ export default function ModalDemo() {
     <div className="theme-glass p-8">
       <ButtonGlass onClick={() => setIsOpen(true)}>Open Modal</ButtonGlass>
 
-      <ModalGlass isOpen={isOpen} onClose={() => setIsOpen(false)} title="Confirm Action" size="md">
+      <ModalGlass
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        title="Confirm Action"
+        size="default"
+      >
         <p className="mb-6">Are you sure you want to proceed?</p>
 
         <div className="flex gap-3 justify-end">

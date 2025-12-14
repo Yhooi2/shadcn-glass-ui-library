@@ -249,7 +249,7 @@ All components now follow **exact shadcn/ui API conventions**:
 
 - `onChange` → `onValueChange` (Select, ComboBox, Slider)
 - `checked` → `pressed` (Toggle components)
-- `variant="primary"` → `variant="default"` (Button)
+- `variant="default"` → `variant="default"` (Button)
 - Array-based values for Slider (`number[]` instead of `number`)
 
 | Feature           | shadcn-glass-ui                                 | Standard shadcn/ui      |

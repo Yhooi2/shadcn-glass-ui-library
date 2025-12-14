@@ -112,7 +112,7 @@ All exported types include comprehensive JSDoc comments:
  *
  * @example
  * ```tsx
- * <ButtonGlass variant="primary" size="md">
+ * <ButtonGlass variant="default" size="default">
  *   Click me
  * </ButtonGlass>
  *

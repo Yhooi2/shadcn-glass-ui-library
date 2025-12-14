@@ -398,7 +398,7 @@ npm run test:coverage
 // Compliance test example
 describe('ButtonGlass Design System Compliance', () => {
   it('should have minimum 44px touch target for md size', () => {
-    render(<ButtonGlass size="md">Click</ButtonGlass>);
+    render(<ButtonGlass size="default">Click</ButtonGlass>);
     const button = screen.getByRole('button');
     const rect = button.getBoundingClientRect();
     expect(rect.height).toBeGreaterThanOrEqual(44);
@@ -409,7 +409,7 @@ describe('ButtonGlass Design System Compliance', () => {
 it('ButtonGlass primary variant - glass theme', async ({ page }) => {
   await page.setContent(`
     <div class="theme-glass p-8">
-      <button-glass variant="primary">Primary</button-glass>
+      <button-glass variant="default">Primary</button-glass>
     </div>
   `);
   await expect(page).toMatchScreenshot('button-primary-glass.png');

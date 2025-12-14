@@ -127,13 +127,13 @@ ripple effect, glow
 **Basic:**
 
 ```tsx
-<ButtonGlass variant="primary">Click me</ButtonGlass>
+<ButtonGlass variant="default">Click me</ButtonGlass>
 ```
 
 **With Loading State:**
 
 ```tsx
-<ButtonGlass variant="primary" loading={isLoading} disabled={isLoading}>
+<ButtonGlass variant="default" loading={isLoading} disabled={isLoading}>
   {isLoading ? 'Saving...' : 'Save Changes'}
 </ButtonGlass>
 ```
@@ -293,7 +293,7 @@ trap, scroll lock, click-outside-to-close
 ```tsx
 <ModalGlass.Root open={open} onOpenChange={setOpen}>
   <ModalGlass.Overlay />
-  <ModalGlass.Content size="md">
+  <ModalGlass.Content size="default">
     <ModalGlass.Header>
       <ModalGlass.Title>Create New Project</ModalGlass.Title>
       <ModalGlass.Description>Fill in the details below</ModalGlass.Description>
@@ -308,7 +308,7 @@ trap, scroll lock, click-outside-to-close
       <ButtonGlass variant="ghost" onClick={() => setOpen(false)}>
         Cancel
       </ButtonGlass>
-      <ButtonGlass variant="primary" onClick={handleSubmit}>
+      <ButtonGlass variant="default" onClick={handleSubmit}>
         Create
       </ButtonGlass>
     </ModalGlass.Footer>
@@ -868,7 +868,7 @@ Small, specialized components for specific use cases.
 **File:** `src/components/glass/atomic/icon-button-glass.tsx` **Sizes:** sm, md, lg, xl **Usage:**
 
 ```tsx
-<IconButtonGlass size="md" aria-label="Close">
+<IconButtonGlass size="default" aria-label="Close">
   <X />
 </IconButtonGlass>
 ```

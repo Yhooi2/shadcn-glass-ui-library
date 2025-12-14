@@ -1,17 +1,18 @@
 [**shadcn-glass-ui API Reference v1.0.7**](../README.md)
 
-***
+---
 
 [shadcn-glass-ui API Reference](../globals.md) / ButtonGlassProps
 
 # Interface: ButtonGlassProps
 
-Defined in: [src/components/glass/ui/button-glass.tsx:157](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/926c43a35b985ce0dee6d96ce88a1fc3d72f4d67/src/components/glass/ui/button-glass.tsx#L157)
+Defined in:
+[src/components/glass/ui/button-glass.tsx:157](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/926c43a35b985ce0dee6d96ce88a1fc3d72f4d67/src/components/glass/ui/button-glass.tsx#L157)
 
 Props for the ButtonGlass component
 
-A glass-themed button with ripple effects, loading states, and icon support.
-Features theme-aware styling and hover animations.
+A glass-themed button with ripple effects, loading states, and icon support. Features theme-aware
+styling and hover animations.
 
 ## Accessibility
 
@@ -27,7 +28,7 @@ Features theme-aware styling and hover animations.
 
 ```tsx
 // Basic button
-<ButtonGlass variant="primary">Click me</ButtonGlass>
+<ButtonGlass variant="default">Click me</ButtonGlass>
 
 // With icon and aria-label for icon-only buttons
 <ButtonGlass icon={Check} iconPosition="left">Save</ButtonGlass>
@@ -42,7 +43,7 @@ Features theme-aware styling and hover animations.
 <ButtonGlass variant="destructive">Delete</ButtonGlass>
 
 // As a link (asChild pattern) - maintains semantic HTML
-<ButtonGlass asChild variant="primary">
+<ButtonGlass asChild variant="default">
   <a href="/dashboard">Go to Dashboard</a>
 </ButtonGlass>
 
@@ -52,14 +53,15 @@ Features theme-aware styling and hover animations.
 </ButtonGlass>
 
 // Form submit button
-<ButtonGlass type="submit" variant="primary">
+<ButtonGlass type="submit" variant="default">
   Submit Form
 </ButtonGlass>
 ```
 
 ## Extends
 
-- `Omit`\<`React.ButtonHTMLAttributes`\<`HTMLButtonElement`\>, `"style"`\>.`VariantProps`\<*typeof* [`buttonGlassVariants`](../variables/buttonGlassVariants.md)\>
+- `Omit`\<`React.ButtonHTMLAttributes`\<`HTMLButtonElement`\>, `"style"`\>.`VariantProps`\<_typeof_
+  [`buttonGlassVariants`](../variables/buttonGlassVariants.md)\>
 
 ## Properties
 
@@ -67,19 +69,19 @@ Features theme-aware styling and hover animations.
 
 > `readonly` `optional` **asChild**: `boolean`
 
-Defined in: [src/components/glass/ui/button-glass.tsx:176](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/926c43a35b985ce0dee6d96ce88a1fc3d72f4d67/src/components/glass/ui/button-glass.tsx#L176)
+Defined in:
+[src/components/glass/ui/button-glass.tsx:176](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/926c43a35b985ce0dee6d96ce88a1fc3d72f4d67/src/components/glass/ui/button-glass.tsx#L176)
 
-Render as child element instead of button (polymorphic rendering).
-Useful for rendering buttons as links or other interactive elements.
+Render as child element instead of button (polymorphic rendering). Useful for rendering buttons as
+links or other interactive elements.
 
-**Note:** When using `asChild`, decorative effects (ripple, shine, glow)
-are disabled to maintain compatibility with Radix UI Slot.
-Only styles and event handlers are passed to the child element.
+**Note:** When using `asChild`, decorative effects (ripple, shine, glow) are disabled to maintain
+compatibility with Radix UI Slot. Only styles and event handlers are passed to the child element.
 
 #### Default
 
 ```ts
-false
+false;
 ```
 
 #### Example
@@ -90,88 +92,93 @@ false
 </ButtonGlass>
 ```
 
-***
+---
 
 ### variant?
 
 > `readonly` `optional` **variant**: [`ButtonGlassVariant`](../type-aliases/ButtonGlassVariant.md)
 
-Defined in: [src/components/glass/ui/button-glass.tsx:182](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/926c43a35b985ce0dee6d96ce88a1fc3d72f4d67/src/components/glass/ui/button-glass.tsx#L182)
+Defined in:
+[src/components/glass/ui/button-glass.tsx:182](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/926c43a35b985ce0dee6d96ce88a1fc3d72f4d67/src/components/glass/ui/button-glass.tsx#L182)
 
 Visual style variant of the button
 
 #### Default
 
 ```ts
-"primary"
+'primary';
 ```
 
 #### Overrides
 
 `VariantProps.variant`
 
-***
+---
 
 ### loading?
 
 > `readonly` `optional` **loading**: `boolean`
 
-Defined in: [src/components/glass/ui/button-glass.tsx:188](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/926c43a35b985ce0dee6d96ce88a1fc3d72f4d67/src/components/glass/ui/button-glass.tsx#L188)
+Defined in:
+[src/components/glass/ui/button-glass.tsx:188](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/926c43a35b985ce0dee6d96ce88a1fc3d72f4d67/src/components/glass/ui/button-glass.tsx#L188)
 
 Show loading spinner and disable interactions
 
 #### Default
 
 ```ts
-false
+false;
 ```
 
-***
+---
 
 ### icon?
 
 > `readonly` `optional` **icon**: `LucideIcon`
 
-Defined in: [src/components/glass/ui/button-glass.tsx:194](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/926c43a35b985ce0dee6d96ce88a1fc3d72f4d67/src/components/glass/ui/button-glass.tsx#L194)
+Defined in:
+[src/components/glass/ui/button-glass.tsx:194](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/926c43a35b985ce0dee6d96ce88a1fc3d72f4d67/src/components/glass/ui/button-glass.tsx#L194)
 
 Icon component from lucide-react to display
 
 #### Example
 
 ```ts
-icon={Check}
+icon = { Check };
 ```
 
-***
+---
 
 ### iconPosition?
 
 > `readonly` `optional` **iconPosition**: `"left"` \| `"right"`
 
-Defined in: [src/components/glass/ui/button-glass.tsx:200](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/926c43a35b985ce0dee6d96ce88a1fc3d72f4d67/src/components/glass/ui/button-glass.tsx#L200)
+Defined in:
+[src/components/glass/ui/button-glass.tsx:200](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/926c43a35b985ce0dee6d96ce88a1fc3d72f4d67/src/components/glass/ui/button-glass.tsx#L200)
 
 Position of the icon relative to button text
 
 #### Default
 
 ```ts
-"left"
+'left';
 ```
 
-***
+---
 
 ### size?
 
 > `readonly` `optional` **size**: `"sm"` \| `"md"` \| `"lg"` \| `"icon"`
 
-Defined in: [src/components/glass/ui/button-glass.tsx:206](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/926c43a35b985ce0dee6d96ce88a1fc3d72f4d67/src/components/glass/ui/button-glass.tsx#L206)
+Defined in:
+[src/components/glass/ui/button-glass.tsx:206](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/926c43a35b985ce0dee6d96ce88a1fc3d72f4d67/src/components/glass/ui/button-glass.tsx#L206)
 
 Size variant of the button
 
 #### Default
 
 ```ts
-"md"
+'md';
 ```
 
 #### Overrides

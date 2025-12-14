@@ -68,7 +68,7 @@ function MyModal() {
             <ButtonGlass variant="ghost" onClick={() => setOpen(false)}>
               Cancel
             </ButtonGlass>
-            <ButtonGlass variant="primary">Confirm</ButtonGlass>
+            <ButtonGlass variant="default">Confirm</ButtonGlass>
           </ModalGlass.Footer>
         </ModalGlass.Content>
       </ModalGlass.Root>
@@ -100,7 +100,7 @@ function MyModal() {
       <ButtonGlass variant="ghost" onClick={() => setOpen(false)}>
         Cancel
       </ButtonGlass>
-      <ButtonGlass variant="primary" type="submit">
+      <ButtonGlass variant="default" type="submit">
         Create Account
       </ButtonGlass>
     </ModalGlass.Footer>
@@ -115,7 +115,7 @@ function MyModal() {
 <ModalGlass.Content size="sm">
 
 // Default size
-<ModalGlass.Content size="md">
+<ModalGlass.Content size="default">
 
 // Large modal (forms, complex content)
 <ModalGlass.Content size="lg">
@@ -361,7 +361,7 @@ import Link from 'next/link';
 import { ButtonGlass } from 'shadcn-glass-ui';
 
 // Renders as <a> with ButtonGlass styles
-<ButtonGlass asChild variant="primary">
+<ButtonGlass asChild variant="default">
   <Link href="/dashboard">Go to Dashboard</Link>
 </ButtonGlass>;
 ```
@@ -420,7 +420,7 @@ import { GlassCard } from 'shadcn-glass-ui';
 ```tsx
 import { ExternalLink } from 'lucide-react';
 
-<ButtonGlass asChild variant="primary">
+<ButtonGlass asChild variant="default">
   <a href="https://docs.example.com" target="_blank">
     Documentation
     <ExternalLink className="w-4 h-4 ml-2" />
@@ -518,7 +518,7 @@ function SettingsModal({ open, onOpenChange }) {
           <ButtonGlass variant="ghost" onClick={() => onOpenChange(false)}>
             Cancel
           </ButtonGlass>
-          <ButtonGlass variant="primary">Save Changes</ButtonGlass>
+          <ButtonGlass variant="default">Save Changes</ButtonGlass>
         </ModalGlass.Footer>
       </ModalGlass.Content>
     </ModalGlass.Root>
@@ -575,8 +575,7 @@ function SettingsModal({ open, onOpenChange }) {
 
 ## Related Documentation
 
-- [ModalGlass Migration Guide](migration/modal-glass-compound-api.md)
-- [TabsGlass Migration Guide](migration/tabs-glass-compound-api.md)
+- [Compound Components Guide](migration/compound-components-v2.md)
 - [Component Catalog](COMPONENTS_CATALOG.md)
 - [Breaking Changes](BREAKING_CHANGES.md)
 

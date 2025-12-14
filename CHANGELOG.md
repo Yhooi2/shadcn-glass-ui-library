@@ -15,17 +15,17 @@ All 20 core components now follow shadcn/ui naming conventions and API patterns.
 
 #### ButtonGlass
 
-- **`variant="primary"`** → **`variant="default"`** (shadcn/ui standard)
-- **`variant="text"`** → **`variant="link"`** (shadcn/ui standard)
-- **`size="md"`** → **`size="default"`** (shadcn/ui standard)
+- **`variant="default"`** → **`variant="default"`** (shadcn/ui standard)
+- **`variant="link"`** → **`variant="link"`** (shadcn/ui standard)
+- **`size="default"`** → **`size="default"`** (shadcn/ui standard)
 - **Added**: `variant="outline"` with full theme support
 
 **Migration:**
 
 ```tsx
 // Before v2.0
-<ButtonGlass variant="primary" size="md">Click me</ButtonGlass>
-<ButtonGlass variant="text">Link</ButtonGlass>
+<ButtonGlass variant="default" size="default">Click me</ButtonGlass>
+<ButtonGlass variant="link">Link</ButtonGlass>
 
 // After v2.0
 <ButtonGlass variant="default" size="default">Click me</ButtonGlass>
@@ -36,7 +36,7 @@ All 20 core components now follow shadcn/ui naming conventions and API patterns.
 
 - **`checked`** → **`pressed`** (shadcn/ui Toggle API)
 - **`onChange`** → **`onPressedChange`** (shadcn/ui convention)
-- **`size="md"`** → **`size="default"`**
+- **`size="default"`** → **`size="default"`**
 - **Added**: `defaultPressed` prop for uncontrolled mode
 - **Added**: `variant` prop ('default' | 'outline')
 - **ARIA**: `aria-checked` → `aria-pressed` (correct semantics for toggle switches)
@@ -45,7 +45,7 @@ All 20 core components now follow shadcn/ui naming conventions and API patterns.
 
 ```tsx
 // Before v2.0
-<ToggleGlass checked={isOn} onChange={setIsOn} size="md" />
+<ToggleGlass checked={isOn} onChange={setIsOn} size="default" />
 
 // After v2.0 - Controlled
 <ToggleGlass pressed={isOn} onPressedChange={setIsOn} size="default" />
@@ -581,7 +581,7 @@ import { ButtonGlass, InputGlass } from 'shadcn-glass-ui';
   - **Old API:** `isOpen`, `onClose`, `title` props
   - **New API:** Compound API only (`ModalGlass.Root`, `.Overlay`, `.Content`, `.Header`, `.Body`,
     `.Footer`, `.Title`, `.Description`, `.Close`)
-  - **Migration:** See [ModalGlass Compound API guide](docs/migration/modal-glass-compound-api.md)
+  - **Migration:** See [Compound Components guide](docs/migration/compound-components-v2.md)
   - **Key Changes:**
     - `isOpen` → `open` (on ModalGlass.Root)
     - `onClose` → `onOpenChange` with new signature: `(open: boolean) => void`
@@ -591,7 +591,7 @@ import { ButtonGlass, InputGlass } from 'shadcn-glass-ui';
 - **TabsGlass:** Legacy props API completely removed
   - **Old API:** `tabs`, `activeTab`, `onChange` props
   - **New API:** Compound API only (`TabsGlass.Root`, `.List`, `.Trigger`, `.Content`)
-  - **Migration:** See [TabsGlass Compound API guide](docs/migration/tabs-glass-compound-api.md)
+  - **Migration:** See [Compound Components guide](docs/migration/compound-components-v2.md)
   - **Key Changes:**
     - `tabs` array prop removed → use individual `<TabsGlass.Trigger>` components
     - `activeTab` → `value` (on TabsGlass.Root)

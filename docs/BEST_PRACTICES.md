@@ -306,7 +306,7 @@ function LoginForm() {
         error={errors.password}
         placeholder="Enter password"
       />
-      <ButtonGlass type="submit" variant="primary" className="w-full">
+      <ButtonGlass type="submit" variant="default" className="w-full">
         Sign In
       </ButtonGlass>
     </form>
@@ -411,7 +411,7 @@ function CreateProjectModal({ open, onClose, onSubmit }) {
           <ButtonGlass variant="ghost" onClick={onClose}>
             Cancel
           </ButtonGlass>
-          <ButtonGlass variant="primary" onClick={handleSubmit}>
+          <ButtonGlass variant="default" onClick={handleSubmit}>
             Create
           </ButtonGlass>
         </ModalGlass.Footer>

@@ -103,7 +103,7 @@ function App() {
   return (
     <ThemeProvider defaultTheme="glass">
       <div className="p-8 space-y-4">
-        <ButtonGlass variant="primary" size="lg">
+        <ButtonGlass variant="default" size="lg">
           Click me
         </ButtonGlass>
         <InputGlass placeholder="Enter text..." />
@@ -131,7 +131,7 @@ import { Link } from 'react-router-dom';
 </ButtonGlass>
 
 // Render button as anchor
-<ButtonGlass asChild variant="primary">
+<ButtonGlass asChild variant="default">
   <a href="https://example.com" target="_blank">
     External Link
   </a>
@@ -163,7 +163,7 @@ import { ModalGlass, TabsGlass } from 'shadcn-glass-ui';
     </ModalGlass.Body>
     <ModalGlass.Footer>
       <ButtonGlass onClick={() => setOpen(false)}>Cancel</ButtonGlass>
-      <ButtonGlass variant="primary">Confirm</ButtonGlass>
+      <ButtonGlass variant="default">Confirm</ButtonGlass>
     </ModalGlass.Footer>
   </ModalGlass.Content>
 </ModalGlass.Root>
@@ -282,10 +282,10 @@ support.
 
 Detailed migration guides are available in the [docs/migration/](../../docs/migration) directory:
 
-- **[ModalGlass Compound API](../../docs/migration/modal-glass-compound-api.md)** - Legacy →
-  Compound API
-- **[TabsGlass Compound API](../../docs/migration/tabs-glass-compound-api.md)** - Legacy → Compound
-  API
+- **[Compound Components v2](../../docs/migration/compound-components-v2.md)** - Compound component
+  patterns
+- **[CSS Variables v2.0](../../docs/migration/CSS_VARIABLES_MIGRATION_2.0.md)** - Token migration
+  guide
 
 ### Changelog
 

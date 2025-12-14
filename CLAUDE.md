@@ -90,11 +90,11 @@ See [DEPENDENCIES.md](docs/technical/DEPENDENCIES.md) for detailed dependency do
 
 ### Migrating a component to compound API
 
-- See [docs/migration/modal-glass-compound-api.md](docs/migration/modal-glass-compound-api.md) for
+- See [docs/migration/compound-components-v2.md](docs/migration/compound-components-v2.md) for
   pattern
-- Maintain backward compatibility via Object.assign
-- Add both legacy and compound examples to Storybook
-- Document migration in component JSDoc
+- Use compound component API (ModalGlass.Root, ModalGlass.Content, etc.)
+- Add both usage patterns to Storybook
+- Document API in component JSDoc
 
 ### Adding a new dropdown component
 
@@ -699,82 +699,48 @@ ButtonGlass, AvatarGlass, GlassCard support polymorphic rendering via Radix UI S
 - Both legacy and compound APIs available simultaneously
 - Migration path documented in component JSDoc
 
-## shadcn/ui API Compatibility
+## shadcn/ui API Compatibility (v2.0.0)
 
-The library maintains full compatibility with shadcn/ui component APIs while providing extended
-Glass UI variants.
+The library achieves **100% compatibility with shadcn/ui** component APIs.
 
-### ⚠️ Breaking Changes (v1.0.0)
+### Component APIs
 
-**IMPORTANT:** The following legacy APIs have been removed in v1.0.0. Update your code before
-upgrading.
+#### ButtonGlass
 
-#### 1. ButtonGlass
-
-- **Removed:** `variant="danger"`
-- **Replaced with:** `variant="destructive"` (shadcn/ui standard)
-- **Migration:** Replace all `danger` → `destructive`
+- **Variants:** `default`, `secondary`, `destructive`, `outline`, `ghost`, `link`
+- **Sizes:** `default`, `sm`, `lg`, `icon`
 
 ```tsx
-// ❌ Removed in v1.0.0
-<ButtonGlass variant="danger">Delete</ButtonGlass>
-
-// ✅ Current API
+<ButtonGlass variant="default" size="default">Click me</ButtonGlass>
 <ButtonGlass variant="destructive">Delete</ButtonGlass>
+<ButtonGlass variant="link">Link</ButtonGlass>
 ```
 
-#### 2. AlertGlass
+#### ToggleGlass
 
-- **Changed:** Migrated to compound component API (v2.0+)
-- **Old API:** Single component with `title` prop
-- **New API:** Compound components (AlertGlassTitle, AlertGlassDescription)
+- **Props:** `pressed`, `defaultPressed`, `onPressedChange`
 
 ```tsx
-// ❌ Old API (v1.x)
-<AlertGlass variant="destructive" title="Error">Message</AlertGlass>
-
-// ✅ Current API (v2.0+)
-<AlertGlass variant="destructive">
-  <AlertGlassTitle>Error</AlertGlassTitle>
-  <AlertGlassDescription>Something went wrong</AlertGlassDescription>
-</AlertGlass>
+<ToggleGlass pressed={isOn} onPressedChange={(pressed) => setIsOn(pressed)} />
 ```
 
-**Legacy migrations:**
+#### SliderGlass
 
-- v1.0.0: `type` prop → `variant` prop
-- v2.0.0: `title` prop → `<AlertGlassTitle>` subcomponent
-
-#### 3. NotificationGlass
-
-- **Removed:** `type` prop
-- **Replaced with:** `variant` prop
-- **Same mapping as AlertGlass** (see above)
+- **Props:** `value: number[]`, `onValueChange`
+- **Supports range sliders**
 
 ```tsx
-// ❌ Removed in v1.0.0
-<NotificationGlass type="info" title="Info" message="..." onClose={() => {}} />
-
-// ✅ Current API
-<NotificationGlass variant="default" title="Info" message="..." onClose={() => {}} />
+<SliderGlass value={[50]} onValueChange={(val) => setValue(val[0])} />
+<SliderGlass value={[25, 75]} onValueChange={setRange} />
 ```
 
-#### 4. SelectGlass (Removed)
+#### ComboBoxGlass
 
-- **Status:** Removed in v1.0.0
-- **Migration:** Use `ComboBoxGlass` instead
+- **Props:** `options`, `value`, `onValueChange`
 
 ```tsx
-// ❌ Removed in v1.0.0
-<SelectGlass options={...} value={...} onChange={...} />
-
-// ✅ Use ComboBoxGlass
-<ComboBoxGlass options={...} value={...} onChange={...} />
+<ComboBoxGlass options={options} value={value} onValueChange={setValue} />
 ```
-
-**Migration Guide:** [docs/migration/select-to-combobox.md](docs/migration/select-to-combobox.md)
-
-### Current Component APIs
 
 #### BadgeGlass
 
@@ -782,40 +748,25 @@ upgrading.
 - **Extended variants:** `success`, `warning`, `info`
 
 ```tsx
-// shadcn/ui compatible
 <BadgeGlass variant="destructive">Error</BadgeGlass>
-<BadgeGlass variant="outline">Outlined</BadgeGlass>
-
-// Glass UI extended
 <BadgeGlass variant="success">Success</BadgeGlass>
 ```
 
-#### AlertGlass (Compound Component - v2.0+)
+#### AlertGlass (Compound Component)
 
-- **API:** Compound component (shadcn/ui pattern)
-- **shadcn/ui variants:** `default`, `destructive`
-- **Extended variants:** `success`, `warning`
+- **Variants:** `default`, `destructive`, `success`, `warning`
 - **Subcomponents:** `AlertGlassTitle`, `AlertGlassDescription`
 
 ```tsx
-// shadcn/ui compatible
 <AlertGlass variant="destructive">
   <AlertGlassTitle>Error</AlertGlassTitle>
   <AlertGlassDescription>Something went wrong</AlertGlassDescription>
 </AlertGlass>
-
-// Glass UI extended
-<AlertGlass variant="success">
-  <AlertGlassTitle>Success</AlertGlassTitle>
-  <AlertGlassDescription>Operation completed successfully</AlertGlassDescription>
-</AlertGlass>
 ```
 
-#### NotificationGlass (Updated in v1.0.0)
+#### NotificationGlass
 
-- **shadcn/ui variants:** `default`, `destructive`
-- **Extended variants:** `success`, `warning`
-- **Prop name:** `variant` (not `type`)
+- **Variants:** `default`, `destructive`, `success`, `warning`
 
 ```tsx
 <NotificationGlass
@@ -829,12 +780,9 @@ upgrading.
 ### Migration Resources
 
 - **[CHANGELOG.md](CHANGELOG.md)** - Complete version history
-- **[docs/migration/select-to-combobox.md](docs/migration/select-to-combobox.md)** - SelectGlass →
-  ComboBoxGlass
-- **[docs/migration/modal-glass-compound-api.md](docs/migration/modal-glass-compound-api.md)** -
-  ModalGlass compound API
-- **[docs/migration/tabs-glass-compound-api.md](docs/migration/tabs-glass-compound-api.md)** -
-  TabsGlass compound API
+- **[docs/BREAKING_CHANGES.md](docs/BREAKING_CHANGES.md)** - v2.0.0 breaking changes
+- **[docs/migration/compound-components-v2.md](docs/migration/compound-components-v2.md)** -
+  Compound component patterns
 
 ## Path Aliases
 

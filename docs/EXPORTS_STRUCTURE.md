@@ -210,7 +210,7 @@ import {
 
 ```tsx
 // Simple button
-<ButtonGlass variant="default" size="md">Click me</ButtonGlass>
+<ButtonGlass variant="default" size="default">Click me</ButtonGlass>
 
 // Compound Modal API
 <ModalGlass.Root open={open} onOpenChange={setOpen}>

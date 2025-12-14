@@ -1,24 +1,26 @@
 [**shadcn-glass-ui API Reference v1.0.7**](../README.md)
 
-***
+---
 
 [shadcn-glass-ui API Reference](../globals.md) / BadgeGlassProps
 
 # Interface: BadgeGlassProps
 
-Defined in: [src/components/glass/ui/badge-glass.tsx:141](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/926c43a35b985ce0dee6d96ce88a1fc3d72f4d67/src/components/glass/ui/badge-glass.tsx#L141)
+Defined in:
+[src/components/glass/ui/badge-glass.tsx:141](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/926c43a35b985ce0dee6d96ce88a1fc3d72f4d67/src/components/glass/ui/badge-glass.tsx#L141)
 
 Props for the BadgeGlass component
 
-A glass-themed badge with semantic variants and optional animated status dot.
-Features shadcn/ui compatible variants plus extended Glass UI variants.
+A glass-themed badge with semantic variants and optional animated status dot. Features shadcn/ui
+compatible variants plus extended Glass UI variants.
 
 ## Accessibility
 
 - **Keyboard Navigation:** Badges are non-interactive by default (display-only)
 - **Focus Management:** N/A - badges do not receive focus unless wrapped in interactive elements
 - **Screen Readers:** Semantic `<span>` element, content announced naturally
-- **Status Indicators:** Use `aria-label` to provide context for status badges (e.g., "Status: Active")
+- **Status Indicators:** Use `aria-label` to provide context for status badges (e.g., "Status:
+  Active")
 - **Animated Dot:** Pulse animation respects `prefers-reduced-motion` settings
 - **Touch Targets:** N/A for display badges, ensure 44x44px if wrapping in button/link (WCAG 2.5.5)
 - **Color Contrast:** All variant text meets WCAG AA contrast ratio 4.5:1 against badge background
@@ -56,7 +58,7 @@ Features shadcn/ui compatible variants plus extended Glass UI variants.
 
 // Size variants
 <BadgeGlass size="sm">Small</BadgeGlass>
-<BadgeGlass size="md">Medium</BadgeGlass>
+<BadgeGlass size="default">Medium</BadgeGlass>
 <BadgeGlass size="lg">Large</BadgeGlass>
 
 // Inside interactive elements (ensure accessible labels)
@@ -75,7 +77,8 @@ Features shadcn/ui compatible variants plus extended Glass UI variants.
 
 ## Extends
 
-- `Omit`\<`React.HTMLAttributes`\<`HTMLSpanElement`\>, `"style"`\>.`VariantProps`\<*typeof* [`badgeVariants`](../variables/badgeVariants.md)\>
+- `Omit`\<`React.HTMLAttributes`\<`HTMLSpanElement`\>, `"style"`\>.`VariantProps`\<_typeof_
+  [`badgeVariants`](../variables/badgeVariants.md)\>
 
 ## Properties
 
@@ -83,35 +86,39 @@ Features shadcn/ui compatible variants plus extended Glass UI variants.
 
 > `readonly` **children**: `ReactNode`
 
-Defined in: [src/components/glass/ui/badge-glass.tsx:144](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/926c43a35b985ce0dee6d96ce88a1fc3d72f4d67/src/components/glass/ui/badge-glass.tsx#L144)
+Defined in:
+[src/components/glass/ui/badge-glass.tsx:144](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/926c43a35b985ce0dee6d96ce88a1fc3d72f4d67/src/components/glass/ui/badge-glass.tsx#L144)
 
 #### Overrides
 
 `Omit.children`
 
-***
+---
 
 ### variant?
 
 > `readonly` `optional` **variant**: [`BadgeVariant`](../type-aliases/BadgeVariant.md)
 
-Defined in: [src/components/glass/ui/badge-glass.tsx:145](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/926c43a35b985ce0dee6d96ce88a1fc3d72f4d67/src/components/glass/ui/badge-glass.tsx#L145)
+Defined in:
+[src/components/glass/ui/badge-glass.tsx:145](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/926c43a35b985ce0dee6d96ce88a1fc3d72f4d67/src/components/glass/ui/badge-glass.tsx#L145)
 
-***
+---
 
 ### dot?
 
 > `readonly` `optional` **dot**: `boolean`
 
-Defined in: [src/components/glass/ui/badge-glass.tsx:146](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/926c43a35b985ce0dee6d96ce88a1fc3d72f4d67/src/components/glass/ui/badge-glass.tsx#L146)
+Defined in:
+[src/components/glass/ui/badge-glass.tsx:146](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/926c43a35b985ce0dee6d96ce88a1fc3d72f4d67/src/components/glass/ui/badge-glass.tsx#L146)
 
-***
+---
 
 ### size?
 
 > `optional` **size**: `"sm"` \| `"md"` \| `"lg"` \| `null`
 
-Defined in: [src/lib/variants/badge-glass-variants.ts:24](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/926c43a35b985ce0dee6d96ce88a1fc3d72f4d67/src/lib/variants/badge-glass-variants.ts#L24)
+Defined in:
+[src/lib/variants/badge-glass-variants.ts:24](https://github.com/Yhooi2/shadcn-glass-ui-library/blob/926c43a35b985ce0dee6d96ce88a1fc3d72f4d67/src/lib/variants/badge-glass-variants.ts#L24)
 
 #### Inherited from
 
