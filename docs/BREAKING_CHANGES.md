@@ -1,8 +1,11 @@
 # Breaking Changes
 
-This document lists breaking changes in shadcn-glass-ui v2.0.0.
+This document lists breaking changes in shadcn-glass-ui v2.0.0 and later.
 
-**Current Version:** 2.0.0 (2025-12-14)
+**Current Version:** 2.1.0 (2025-12-14)
+
+> **Note:** As of v2.1.0, all v2.0.0 migrations are complete across the entire codebase. All
+> components, examples, and documentation now use the new API.
 
 ---
 
