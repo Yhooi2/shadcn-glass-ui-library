@@ -39,7 +39,7 @@ const getVariantStyles = (
   isFocusVisible: boolean
 ): CSSProperties => {
   const baseStyles: Record<ButtonGlassVariant, CSSProperties> = {
-    primary: {
+    default: {
       background: isHovered ? 'var(--btn-primary-hover-bg)' : 'var(--btn-primary-bg)',
       color: 'var(--btn-primary-text)',
       border: 'none',
@@ -75,6 +75,16 @@ const getVariantStyles = (
           ? 'var(--btn-destructive-glow)'
           : 'var(--btn-destructive-shadow)',
     },
+    outline: {
+      background: isHovered ? 'var(--btn-outline-hover-bg)' : 'transparent',
+      color: 'var(--btn-outline-text)',
+      border: '1px solid var(--btn-outline-border)',
+      boxShadow: isFocusVisible
+        ? 'var(--focus-glow)'
+        : isHovered
+          ? 'var(--btn-outline-glow)'
+          : 'none',
+    },
     success: {
       background: 'var(--btn-success-bg)',
       color: 'var(--btn-success-text)',
@@ -85,11 +95,12 @@ const getVariantStyles = (
           ? 'var(--btn-success-glow)'
           : 'var(--btn-success-shadow)',
     },
-    text: {
+    link: {
       background: 'transparent',
-      color: 'var(--text-secondary)',
+      color: 'var(--btn-link-text)',
       border: 'none',
       boxShadow: isFocusVisible ? 'var(--focus-glow)' : 'none',
+      textDecoration: isHovered ? 'underline' : 'none',
     },
   };
 
@@ -106,6 +117,15 @@ const getVariantStyles = (
  * A glass-themed button with ripple effects, loading states, and icon support.
  * Features theme-aware styling and hover animations.
  *
+ * **shadcn/ui compatible variants:**
+ * - `default` - Primary action button with glow effects
+ * - `secondary` - Secondary action with border
+ * - `ghost` - Minimal visual presence
+ * - `destructive` - Dangerous/delete actions (red)
+ * - `outline` - Border with transparent background
+ * - `link` - Text-only button with underline on hover
+ * - `success` - Positive feedback (glass-ui extension)
+ *
  * @accessibility
  * - **Keyboard Navigation:** Fully keyboard accessible with native `<button>` element
  * - **Focus Management:** Visible focus ring using `--focus-glow` CSS variable (WCAG 2.4.7)
@@ -117,8 +137,9 @@ const getVariantStyles = (
  *
  * @example
  * ```tsx
- * // Basic button
- * <ButtonGlass variant="primary">Click me</ButtonGlass>
+ * // Basic button (default variant)
+ * <ButtonGlass>Click me</ButtonGlass>
+ * <ButtonGlass variant="default">Primary action</ButtonGlass>
  *
  * // With icon and aria-label for icon-only buttons
  * <ButtonGlass icon={Check} iconPosition="left">Save</ButtonGlass>
@@ -127,13 +148,16 @@ const getVariantStyles = (
  * // Loading state (automatically disables and shows spinner)
  * <ButtonGlass loading aria-live="polite">Processing...</ButtonGlass>
  *
- * // Different variants
+ * // Different variants (shadcn/ui compatible)
+ * <ButtonGlass variant="secondary">Secondary</ButtonGlass>
  * <ButtonGlass variant="ghost">Cancel</ButtonGlass>
- * <ButtonGlass variant="success">Confirm</ButtonGlass>
+ * <ButtonGlass variant="outline">Outline</ButtonGlass>
  * <ButtonGlass variant="destructive">Delete</ButtonGlass>
+ * <ButtonGlass variant="link">Learn more</ButtonGlass>
+ * <ButtonGlass variant="success">Confirm</ButtonGlass>
  *
  * // As a link (asChild pattern) - maintains semantic HTML
- * <ButtonGlass asChild variant="primary">
+ * <ButtonGlass asChild>
  *   <a href="/dashboard">Go to Dashboard</a>
  * </ButtonGlass>
  *
@@ -143,7 +167,7 @@ const getVariantStyles = (
  * </ButtonGlass>
  *
  * // Form submit button
- * <ButtonGlass type="submit" variant="primary">
+ * <ButtonGlass type="submit">
  *   Submit Form
  * </ButtonGlass>
  * ```
@@ -171,8 +195,8 @@ export interface ButtonGlassProps
   readonly asChild?: boolean;
 
   /**
-   * Visual style variant of the button
-   * @default "primary"
+   * Visual style variant of the button (shadcn/ui compatible)
+   * @default "default"
    */
   readonly variant?: ButtonGlassVariant;
 
@@ -195,10 +219,10 @@ export interface ButtonGlassProps
   readonly iconPosition?: 'left' | 'right';
 
   /**
-   * Size variant of the button
-   * @default "md"
+   * Size variant of the button (shadcn/ui compatible)
+   * @default "default"
    */
-  readonly size?: 'sm' | 'md' | 'lg' | 'icon';
+  readonly size?: 'default' | 'sm' | 'lg' | 'xl' | 'icon';
 }
 
 // ========================================
@@ -210,8 +234,8 @@ export const ButtonGlass = forwardRef<HTMLButtonElement, ButtonGlassProps>(
     {
       asChild = false,
       className,
-      variant = 'primary',
-      size = 'md',
+      variant = 'default',
+      size = 'default',
       children,
       loading = false,
       disabled,
@@ -293,8 +317,8 @@ export const ButtonGlass = forwardRef<HTMLButtonElement, ButtonGlassProps>(
           children
         ) : (
           <>
-            {/* Shine effect on hover for primary */}
-            {isHovered && variant === 'primary' && !isDisabled && (
+            {/* Shine effect on hover for default variant */}
+            {isHovered && variant === 'default' && !isDisabled && (
               <div
                 className="absolute inset-0 overflow-hidden pointer-events-none"
                 style={{ borderRadius: 'inherit' }}
@@ -322,7 +346,7 @@ export const ButtonGlass = forwardRef<HTMLButtonElement, ButtonGlassProps>(
             )}
 
             {/* Pulsing glow on hover */}
-            {isHovered && variant === 'primary' && !isDisabled && (
+            {isHovered && variant === 'default' && !isDisabled && (
               <div
                 className="absolute inset-0 rounded-xl animate-glow-pulse pointer-events-none"
                 style={{

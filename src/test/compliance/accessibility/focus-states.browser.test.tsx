@@ -171,7 +171,7 @@ describe('Focus States Compliance Tests', () => {
       it('toggle can receive focus', () => {
         render(
           <ThemeTestWrapper theme={theme}>
-            <ToggleGlass data-testid="test-toggle" checked={false} />
+            <ToggleGlass data-testid="test-toggle" pressed={false} />
           </ThemeTestWrapper>
         );
 
@@ -186,7 +186,7 @@ describe('Focus States Compliance Tests', () => {
 
         render(
           <ThemeTestWrapper theme={theme}>
-            <ToggleGlass data-testid="test-toggle" checked={false} onChange={onChange} />
+            <ToggleGlass data-testid="test-toggle" pressed={false} onPressedChange={onChange} />
           </ThemeTestWrapper>
         );
 

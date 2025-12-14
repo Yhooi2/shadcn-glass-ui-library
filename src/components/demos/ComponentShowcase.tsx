@@ -154,10 +154,10 @@ export const ComponentShowcase = () => {
                 outside behavior.
               </p>
               <div className="flex gap-3 justify-end pt-4">
-                <ButtonGlass variant="text" onClick={() => setModalOpen(false)}>
+                <ButtonGlass variant="link" onClick={() => setModalOpen(false)}>
                   Cancel
                 </ButtonGlass>
-                <ButtonGlass variant="primary" onClick={() => setModalOpen(false)}>
+                <ButtonGlass variant="default" onClick={() => setModalOpen(false)}>
                   Confirm
                 </ButtonGlass>
               </div>

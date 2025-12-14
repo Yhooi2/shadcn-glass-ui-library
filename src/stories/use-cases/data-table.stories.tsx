@@ -619,7 +619,7 @@ const DataTable = ({
                   Array.from({ length: 5 }).map((_, i) => (
                     <tr key={i} className="border-b border-white/5">
                       <td className="p-3" colSpan={8}>
-                        <SkeletonGlass variant="text" />
+                        <SkeletonGlass variant="link" />
                       </td>
                     </tr>
                   ))

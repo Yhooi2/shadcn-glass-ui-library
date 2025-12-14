@@ -12,11 +12,17 @@ const meta = {
   tags: ['autodocs'],
   argTypes: {
     value: {
-      control: { type: 'range', min: 0, max: 100 },
-      description: 'Slider value',
+      control: { type: 'object' },
+      description: 'Controlled value (array for range support)',
       table: {
-        type: { summary: 'number' },
-        defaultValue: { summary: '0' },
+        type: { summary: 'number[]' },
+      },
+    },
+    defaultValue: {
+      control: { type: 'object' },
+      description: 'Default value for uncontrolled usage (array for range support)',
+      table: {
+        type: { summary: 'number[]' },
       },
     },
     min: {
@@ -66,9 +72,18 @@ const meta = {
         defaultValue: { summary: 'false' },
       },
     },
+    orientation: {
+      control: { type: 'select' },
+      options: ['horizontal', 'vertical'],
+      description: 'Slider orientation',
+      table: {
+        type: { summary: "'horizontal' | 'vertical'" },
+        defaultValue: { summary: "'horizontal'" },
+      },
+    },
   },
   args: {
-    onChange: fn(),
+    onValueChange: fn(),
     className: 'w-80',
   },
 } satisfies Meta<typeof SliderGlass>;
@@ -76,14 +91,18 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+// ========================================
+// BASIC EXAMPLES
+// ========================================
+
 const DefaultDemo = () => {
-  const [value, setValue] = useState(50);
-  return <SliderGlass value={value} onChange={setValue} className="w-80" />;
+  const [value, setValue] = useState([50]);
+  return <SliderGlass value={value} onValueChange={setValue} className="w-80" />;
 };
 
 export const Default: Story = {
   args: {
-    value: 50,
+    defaultValue: [50],
   },
   render: () => <DefaultDemo />,
   async play({ canvasElement }) {
@@ -91,9 +110,20 @@ export const Default: Story = {
   },
 };
 
+export const Uncontrolled: Story = {
+  args: {
+    defaultValue: [50],
+    label: 'Uncontrolled Slider',
+    showValue: true,
+  },
+  async play({ canvasElement }) {
+    await expect(canvasElement).toBeInTheDocument();
+  },
+};
+
 export const WithLabel: Story = {
   args: {
-    value: 50,
+    defaultValue: [50],
     label: 'Volume',
   },
   async play({ canvasElement }) {
@@ -103,7 +133,7 @@ export const WithLabel: Story = {
 
 export const WithValue: Story = {
   args: {
-    value: 75,
+    defaultValue: [75],
     label: 'Brightness',
     showValue: true,
   },
@@ -112,9 +142,63 @@ export const WithValue: Story = {
   },
 };
 
+// ========================================
+// RANGE SLIDER (NEW!)
+// ========================================
+
+const RangeDemo = () => {
+  const [value, setValue] = useState([25, 75]);
+  return (
+    <SliderGlass
+      value={value}
+      onValueChange={setValue}
+      label="Price Range"
+      showValue
+      className="w-80"
+    />
+  );
+};
+
+export const RangeSlider: Story = {
+  args: {
+    defaultValue: [25, 75],
+  },
+  render: () => <RangeDemo />,
+  async play({ canvasElement }) {
+    await expect(canvasElement).toBeInTheDocument();
+  },
+};
+
+const MultipleThumbsDemo = () => {
+  const [value, setValue] = useState([20, 50, 80]);
+  return (
+    <SliderGlass
+      value={value}
+      onValueChange={setValue}
+      label="Multi-thumb"
+      showValue
+      className="w-80"
+    />
+  );
+};
+
+export const MultipleThumbs: Story = {
+  args: {
+    defaultValue: [20, 50, 80],
+  },
+  render: () => <MultipleThumbsDemo />,
+  async play({ canvasElement }) {
+    await expect(canvasElement).toBeInTheDocument();
+  },
+};
+
+// ========================================
+// CONFIGURATION OPTIONS
+// ========================================
+
 export const CustomRange: Story = {
   args: {
-    value: 25,
+    defaultValue: [25],
     min: 0,
     max: 50,
     label: 'Custom Range (0-50)',
@@ -127,7 +211,7 @@ export const CustomRange: Story = {
 
 export const WithStep: Story = {
   args: {
-    value: 20,
+    defaultValue: [20],
     min: 0,
     max: 100,
     step: 10,
@@ -141,7 +225,7 @@ export const WithStep: Story = {
 
 export const Disabled: Story = {
   args: {
-    value: 60,
+    defaultValue: [60],
     disabled: true,
     label: 'Disabled Slider',
   },
@@ -152,7 +236,7 @@ export const Disabled: Story = {
 
 export const MinValue: Story = {
   args: {
-    value: 0,
+    defaultValue: [0],
     label: 'Minimum (0)',
     showValue: true,
   },
@@ -163,7 +247,7 @@ export const MinValue: Story = {
 
 export const MaxValue: Story = {
   args: {
-    value: 100,
+    defaultValue: [100],
     label: 'Maximum (100)',
     showValue: true,
   },
@@ -172,33 +256,39 @@ export const MaxValue: Story = {
   },
 };
 
+// ========================================
+// ALL STATES SHOWCASE
+// ========================================
+
 const AllStatesDemo = () => {
-  const [empty, setEmpty] = useState(0);
-  const [quarter, setQuarter] = useState(25);
-  const [half, setHalf] = useState(50);
-  const [threeQuarters, setThreeQuarters] = useState(75);
-  const [full, setFull] = useState(100);
+  const [empty, setEmpty] = useState([0]);
+  const [quarter, setQuarter] = useState([25]);
+  const [half, setHalf] = useState([50]);
+  const [threeQuarters, setThreeQuarters] = useState([75]);
+  const [full, setFull] = useState([100]);
+  const [range, setRange] = useState([25, 75]);
 
   return (
     <div className="flex flex-col gap-6 w-80">
-      <SliderGlass value={empty} onChange={setEmpty} label="Empty" showValue />
-      <SliderGlass value={quarter} onChange={setQuarter} label="Quarter" showValue />
-      <SliderGlass value={half} onChange={setHalf} label="Half" showValue />
+      <SliderGlass value={empty} onValueChange={setEmpty} label="Empty" showValue />
+      <SliderGlass value={quarter} onValueChange={setQuarter} label="Quarter" showValue />
+      <SliderGlass value={half} onValueChange={setHalf} label="Half" showValue />
       <SliderGlass
         value={threeQuarters}
-        onChange={setThreeQuarters}
+        onValueChange={setThreeQuarters}
         label="Three quarters"
         showValue
       />
-      <SliderGlass value={full} onChange={setFull} label="Full" showValue />
-      <SliderGlass value={50} onChange={() => {}} label="Disabled" showValue disabled />
+      <SliderGlass value={full} onValueChange={setFull} label="Full" showValue />
+      <SliderGlass value={range} onValueChange={setRange} label="Range" showValue />
+      <SliderGlass defaultValue={[50]} label="Disabled" showValue disabled />
     </div>
   );
 };
 
 export const AllStates: Story = {
   args: {
-    value: 50,
+    defaultValue: [50],
   },
   render: () => <AllStatesDemo />,
   async play({ canvasElement }) {
@@ -206,23 +296,27 @@ export const AllStates: Story = {
   },
 };
 
+// ========================================
+// INTERACTIVE DEMOS
+// ========================================
+
 const InteractiveSliderDemo = () => {
-  const [volume, setVolume] = useState(50);
-  const [brightness, setBrightness] = useState(75);
-  const [contrast, setContrast] = useState(60);
+  const [volume, setVolume] = useState([50]);
+  const [brightness, setBrightness] = useState([75]);
+  const [contrast, setContrast] = useState([60]);
 
   return (
     <div className="flex flex-col gap-6 w-80">
-      <SliderGlass value={volume} onChange={setVolume} label="Volume" showValue />
-      <SliderGlass value={brightness} onChange={setBrightness} label="Brightness" showValue />
-      <SliderGlass value={contrast} onChange={setContrast} label="Contrast" showValue />
+      <SliderGlass value={volume} onValueChange={setVolume} label="Volume" showValue />
+      <SliderGlass value={brightness} onValueChange={setBrightness} label="Brightness" showValue />
+      <SliderGlass value={contrast} onValueChange={setContrast} label="Contrast" showValue />
     </div>
   );
 };
 
 export const Interactive: Story = {
   args: {
-    value: 50,
+    defaultValue: [50],
   },
   render: () => <InteractiveSliderDemo />,
   async play({ canvasElement }) {
@@ -231,13 +325,13 @@ export const Interactive: Story = {
 };
 
 const PreciseSliderDemo = () => {
-  const [value, setValue] = useState(5);
+  const [value, setValue] = useState([5]);
 
   return (
     <div className="w-80">
       <SliderGlass
         value={value}
-        onChange={setValue}
+        onValueChange={setValue}
         min={1}
         max={10}
         step={0.5}
@@ -250,9 +344,44 @@ const PreciseSliderDemo = () => {
 
 export const PreciseControl: Story = {
   args: {
-    value: 5,
+    defaultValue: [5],
   },
   render: () => <PreciseSliderDemo />,
+  async play({ canvasElement }) {
+    await expect(canvasElement).toBeInTheDocument();
+  },
+};
+
+// ========================================
+// PRICE RANGE USE CASE
+// ========================================
+
+const PriceRangeDemo = () => {
+  const [priceRange, setPriceRange] = useState([100, 500]);
+
+  return (
+    <div className="w-80 space-y-4">
+      <SliderGlass
+        value={priceRange}
+        onValueChange={setPriceRange}
+        min={0}
+        max={1000}
+        step={50}
+        label="Price Range ($)"
+        showValue
+      />
+      <div className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+        Selected: ${priceRange[0]} - ${priceRange[1]}
+      </div>
+    </div>
+  );
+};
+
+export const PriceRange: Story = {
+  args: {
+    defaultValue: [100, 500],
+  },
+  render: () => <PriceRangeDemo />,
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
   },

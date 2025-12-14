@@ -455,7 +455,7 @@ const FormWizard = () => {
               </ButtonGlass>
               <div className="flex gap-2">
                 {currentStep !== 'step3' ? (
-                  <ButtonGlass variant="primary" onClick={handleNext}>
+                  <ButtonGlass variant="default" onClick={handleNext}>
                     Next Step
                   </ButtonGlass>
                 ) : (

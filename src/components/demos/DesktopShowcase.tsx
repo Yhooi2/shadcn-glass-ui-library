@@ -357,7 +357,7 @@ export function DesktopShowcase() {
               <ButtonGlass variant="ghost" onClick={() => setModalOpen(false)}>
                 Cancel
               </ButtonGlass>
-              <ButtonGlass variant="primary" onClick={() => setModalOpen(false)}>
+              <ButtonGlass variant="default" onClick={() => setModalOpen(false)}>
                 Confirm
               </ButtonGlass>
             </div>

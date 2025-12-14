@@ -13,16 +13,33 @@ const meta = {
   argTypes: {
     size: {
       control: 'select',
-      options: ['sm', 'md', 'lg'],
-      description: 'Toggle size',
+      options: ['default', 'sm', 'lg'],
+      description: 'Toggle size (shadcn/ui compatible)',
       table: {
-        type: { summary: "'sm' | 'md' | 'lg'" },
-        defaultValue: { summary: 'md' },
+        type: { summary: "'default' | 'sm' | 'lg'" },
+        defaultValue: { summary: 'default' },
       },
     },
-    checked: {
+    variant: {
+      control: 'select',
+      options: ['default', 'outline'],
+      description: 'Toggle variant (shadcn/ui compatible)',
+      table: {
+        type: { summary: "'default' | 'outline'" },
+        defaultValue: { summary: 'default' },
+      },
+    },
+    pressed: {
       control: 'boolean',
-      description: 'Toggle state',
+      description: 'Toggle pressed state (shadcn/ui compatible)',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+    },
+    defaultPressed: {
+      control: 'boolean',
+      description: 'Default pressed state for uncontrolled usage',
       table: {
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
@@ -45,7 +62,7 @@ const meta = {
     },
   },
   args: {
-    onChange: fn(),
+    onPressedChange: fn(),
   },
 } satisfies Meta<typeof ToggleGlass>;
 
@@ -53,8 +70,8 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const DefaultDemo = () => {
-  const [checked, setChecked] = useState(false);
-  return <ToggleGlass checked={checked} onChange={setChecked} />;
+  const [pressed, setPressed] = useState(false);
+  return <ToggleGlass pressed={pressed} onPressedChange={setPressed} />;
 };
 
 export const Default: Story = {
@@ -64,9 +81,9 @@ export const Default: Story = {
   },
 };
 
-export const Checked: Story = {
+export const Pressed: Story = {
   args: {
-    checked: true,
+    pressed: true,
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -75,7 +92,7 @@ export const Checked: Story = {
 
 export const WithLabel: Story = {
   args: {
-    checked: false,
+    pressed: false,
     label: 'Enable notifications',
   },
   async play({ canvasElement }) {
@@ -86,7 +103,7 @@ export const WithLabel: Story = {
 export const Small: Story = {
   args: {
     size: 'sm',
-    checked: true,
+    pressed: true,
     label: 'Small toggle',
   },
   async play({ canvasElement }) {
@@ -94,11 +111,11 @@ export const Small: Story = {
   },
 };
 
-export const Medium: Story = {
+export const DefaultSize: Story = {
   args: {
-    size: 'md',
-    checked: true,
-    label: 'Medium toggle',
+    size: 'default',
+    pressed: true,
+    label: 'Default size toggle',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -108,8 +125,30 @@ export const Medium: Story = {
 export const Large: Story = {
   args: {
     size: 'lg',
-    checked: true,
+    pressed: true,
     label: 'Large toggle',
+  },
+  async play({ canvasElement }) {
+    await expect(canvasElement).toBeInTheDocument();
+  },
+};
+
+export const Outline: Story = {
+  args: {
+    variant: 'outline',
+    pressed: false,
+    label: 'Outline variant',
+  },
+  async play({ canvasElement }) {
+    await expect(canvasElement).toBeInTheDocument();
+  },
+};
+
+export const OutlinePressed: Story = {
+  args: {
+    variant: 'outline',
+    pressed: true,
+    label: 'Outline pressed',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -118,7 +157,7 @@ export const Large: Story = {
 
 export const Disabled: Story = {
   args: {
-    checked: false,
+    pressed: false,
     disabled: true,
     label: 'Disabled toggle',
   },
@@ -127,11 +166,11 @@ export const Disabled: Story = {
   },
 };
 
-export const DisabledChecked: Story = {
+export const DisabledPressed: Story = {
   args: {
-    checked: true,
+    pressed: true,
     disabled: true,
-    label: 'Disabled checked',
+    label: 'Disabled pressed',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
@@ -140,21 +179,21 @@ export const DisabledChecked: Story = {
 
 const AllSizesDemo = () => {
   const [sm, setSm] = useState(true);
-  const [md, setMd] = useState(true);
+  const [def, setDef] = useState(true);
   const [lg, setLg] = useState(true);
 
   return (
     <div className="flex flex-col gap-4">
-      <ToggleGlass size="sm" checked={sm} onChange={setSm} label="Small" />
-      <ToggleGlass size="md" checked={md} onChange={setMd} label="Medium" />
-      <ToggleGlass size="lg" checked={lg} onChange={setLg} label="Large" />
+      <ToggleGlass size="sm" pressed={sm} onPressedChange={setSm} label="Small" />
+      <ToggleGlass size="default" pressed={def} onPressedChange={setDef} label="Default" />
+      <ToggleGlass size="lg" pressed={lg} onPressedChange={setLg} label="Large" />
     </div>
   );
 };
 
 export const AllSizes: Story = {
   args: {
-    checked: true,
+    pressed: true,
   },
   render: () => <AllSizesDemo />,
   async play({ canvasElement }) {
@@ -162,23 +201,52 @@ export const AllSizes: Story = {
   },
 };
 
-const AllStatesDemo = () => {
-  const [unchecked, setUnchecked] = useState(false);
-  const [checked, setChecked] = useState(true);
+const AllVariantsDemo = () => {
+  const [def, setDef] = useState(true);
+  const [outline, setOutline] = useState(true);
 
   return (
     <div className="flex flex-col gap-4">
-      <ToggleGlass checked={unchecked} onChange={setUnchecked} label="Unchecked" />
-      <ToggleGlass checked={checked} onChange={setChecked} label="Checked" />
-      <ToggleGlass checked={false} disabled label="Disabled unchecked" />
-      <ToggleGlass checked={true} disabled label="Disabled checked" />
+      <ToggleGlass
+        variant="default"
+        pressed={def}
+        onPressedChange={setDef}
+        label="Default variant"
+      />
+      <ToggleGlass
+        variant="outline"
+        pressed={outline}
+        onPressedChange={setOutline}
+        label="Outline variant"
+      />
+    </div>
+  );
+};
+
+export const AllVariants: Story = {
+  render: () => <AllVariantsDemo />,
+  async play({ canvasElement }) {
+    await expect(canvasElement).toBeInTheDocument();
+  },
+};
+
+const AllStatesDemo = () => {
+  const [unpressed, setUnpressed] = useState(false);
+  const [pressed, setPressed] = useState(true);
+
+  return (
+    <div className="flex flex-col gap-4">
+      <ToggleGlass pressed={unpressed} onPressedChange={setUnpressed} label="Unpressed" />
+      <ToggleGlass pressed={pressed} onPressedChange={setPressed} label="Pressed" />
+      <ToggleGlass pressed={false} disabled label="Disabled unpressed" />
+      <ToggleGlass pressed={true} disabled label="Disabled pressed" />
     </div>
   );
 };
 
 export const AllStates: Story = {
   args: {
-    checked: false,
+    pressed: false,
   },
   render: () => <AllStatesDemo />,
   async play({ canvasElement }) {
@@ -187,16 +255,16 @@ export const AllStates: Story = {
 };
 
 const InteractiveToggleDemo = () => {
-  const [checked, setChecked] = useState(false);
+  const [pressed, setPressed] = useState(false);
   return (
     <div className="flex flex-col gap-4">
       <ToggleGlass
-        checked={checked}
-        onChange={setChecked}
-        label={checked ? 'Enabled' : 'Disabled'}
+        pressed={pressed}
+        onPressedChange={setPressed}
+        label={pressed ? 'Enabled' : 'Disabled'}
       />
       <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
-        Status: {checked ? 'ON' : 'OFF'}
+        Status: {pressed ? 'ON' : 'OFF'}
       </p>
     </div>
   );
@@ -204,9 +272,25 @@ const InteractiveToggleDemo = () => {
 
 export const Interactive: Story = {
   args: {
-    checked: false,
+    pressed: false,
   },
   render: () => <InteractiveToggleDemo />,
+  async play({ canvasElement }) {
+    await expect(canvasElement).toBeInTheDocument();
+  },
+};
+
+const UncontrolledDemo = () => {
+  return (
+    <div className="flex flex-col gap-4">
+      <ToggleGlass defaultPressed={false} label="Uncontrolled (default off)" />
+      <ToggleGlass defaultPressed={true} label="Uncontrolled (default on)" />
+    </div>
+  );
+};
+
+export const Uncontrolled: Story = {
+  render: () => <UncontrolledDemo />,
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
   },

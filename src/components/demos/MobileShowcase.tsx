@@ -401,7 +401,7 @@ export function MobileShowcase() {
                   </span>
                 </div>
               </div>
-              <ButtonGlass variant="primary" size="sm" icon={Sparkles}>
+              <ButtonGlass variant="default" size="sm" icon={Sparkles}>
                 Generate
               </ButtonGlass>
             </div>

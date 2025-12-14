@@ -3,22 +3,15 @@
 // Expandable repository card with metrics
 // ========================================
 
-import { forwardRef, type CSSProperties } from "react";
-import {
-  ChevronDown,
-  ChevronUp,
-  Star,
-  ExternalLink,
-  Sparkles,
-  AlertTriangle,
-} from "lucide-react";
-import { cn } from "@/lib/utils";
-import { StatusIndicatorGlass } from "../specialized/status-indicator-glass";
-import { ButtonGlass } from "../ui/button-glass";
-import { InteractiveCard } from "../primitives";
-import "@/glass-theme.css";
+import { forwardRef, type CSSProperties } from 'react';
+import { ChevronDown, ChevronUp, Star, ExternalLink, Sparkles, AlertTriangle } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { StatusIndicatorGlass } from '../specialized/status-indicator-glass';
+import { ButtonGlass } from '../ui/button-glass';
+import { InteractiveCard } from '../primitives';
+import '@/glass-theme.css';
 
-export type RepositoryFlagType = "green" | "yellow" | "red";
+export type RepositoryFlagType = 'green' | 'yellow' | 'red';
 
 export interface RepositoryCardGlassProps extends React.HTMLAttributes<HTMLDivElement> {
   readonly name: string;
@@ -42,7 +35,7 @@ export const RepositoryCardGlass = forwardRef<HTMLDivElement, RepositoryCardGlas
       commits,
       contribution,
       stars = 0,
-      flagType = "green",
+      flagType = 'green',
       issues = [],
       expanded = false,
       onToggle,
@@ -54,19 +47,18 @@ export const RepositoryCardGlass = forwardRef<HTMLDivElement, RepositoryCardGlas
     ref
   ) => {
     // Calculate total project commits from contribution percentage
-    const totalProjectCommits = contribution > 0
-      ? Math.round(commits / (contribution / 100))
-      : commits;
+    const totalProjectCommits =
+      contribution > 0 ? Math.round(commits / (contribution / 100)) : commits;
     const estimatedLines = Math.round(commits * 12);
 
     const expandedStyles: CSSProperties = {
-      background: "var(--expanded-bg)",
-      borderColor: "var(--card-border)",
+      background: 'var(--expanded-bg)',
+      borderColor: 'var(--card-border)',
     };
 
     const metricCardStyles: CSSProperties = {
-      background: "var(--card-bg)",
-      borderColor: "var(--card-border)",
+      background: 'var(--card-bg)',
+      borderColor: 'var(--card-border)',
     };
 
     return (
@@ -78,7 +70,7 @@ export const RepositoryCardGlass = forwardRef<HTMLDivElement, RepositoryCardGlas
         hoverLift={false}
         blur="sm"
         rounded="rounded-xl"
-        className={cn("overflow-hidden", className)}
+        className={cn('overflow-hidden', className)}
         {...props}
       >
         {/* Main Card Content */}
@@ -88,7 +80,7 @@ export const RepositoryCardGlass = forwardRef<HTMLDivElement, RepositoryCardGlas
           role="button"
           tabIndex={0}
           onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
+            if (e.key === 'Enter' || e.key === ' ') {
               e.preventDefault();
               onToggle?.();
             }
@@ -97,10 +89,7 @@ export const RepositoryCardGlass = forwardRef<HTMLDivElement, RepositoryCardGlas
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <span
-                className="font-medium text-sm"
-                style={{ color: "var(--text-primary)" }}
-              >
+              <span className="font-medium text-sm" style={{ color: 'var(--text-primary)' }}>
                 {name}
               </span>
               <StatusIndicatorGlass type={flagType} />
@@ -109,51 +98,42 @@ export const RepositoryCardGlass = forwardRef<HTMLDivElement, RepositoryCardGlas
               {stars > 0 && (
                 <span
                   className="flex items-center gap-1 text-xs"
-                  style={{ color: "var(--status-away)" }}
+                  style={{ color: 'var(--status-away)' }}
                 >
                   <Star className="w-3 h-3" />
                   {stars}
                 </span>
               )}
               {expanded ? (
-                <ChevronUp className="w-4 h-4" style={{ color: "var(--text-muted)" }} />
+                <ChevronUp className="w-4 h-4" style={{ color: 'var(--text-muted)' }} />
               ) : (
-                <ChevronDown className="w-4 h-4" style={{ color: "var(--text-muted)" }} />
+                <ChevronDown className="w-4 h-4" style={{ color: 'var(--text-muted)' }} />
               )}
             </div>
           </div>
-          <div
-            className="text-xs mt-1.5"
-            style={{ color: "var(--text-muted)" }}
-          >
+          <div className="text-xs mt-1.5" style={{ color: 'var(--text-muted)' }}>
             {languages}
           </div>
-          <div
-            className="text-xs mt-0.5"
-            style={{ color: "var(--text-secondary)" }}
-          >
+          <div className="text-xs mt-0.5" style={{ color: 'var(--text-secondary)' }}>
             {commits} commits · {contribution}%
           </div>
         </div>
 
         {/* Expanded Section */}
         {expanded && (
-          <div
-            className="border-t p-3.5 space-y-3"
-            style={expandedStyles}
-          >
+          <div className="border-t p-3.5 space-y-3" style={expandedStyles}>
             {/* Issues Alert */}
             {issues.length > 0 && (
               <div
                 className="p-3 rounded-xl border"
                 style={{
-                  background: "var(--alert-danger-bg)",
-                  borderColor: "var(--alert-danger-border)",
+                  background: 'var(--alert-danger-bg)',
+                  borderColor: 'var(--alert-danger-border)',
                 }}
               >
                 <div
                   className="text-xs font-semibold flex items-center gap-1.5 mb-1.5"
-                  style={{ color: "var(--alert-danger-text)" }}
+                  style={{ color: 'var(--alert-danger-text)' }}
                 >
                   <AlertTriangle className="w-3.5 h-3.5" />
                   Issues
@@ -162,7 +142,7 @@ export const RepositoryCardGlass = forwardRef<HTMLDivElement, RepositoryCardGlas
                   <div
                     key={index}
                     className="text-xs opacity-70"
-                    style={{ color: "var(--alert-danger-text)" }}
+                    style={{ color: 'var(--alert-danger-text)' }}
                   >
                     • {issue}
                   </div>
@@ -172,49 +152,25 @@ export const RepositoryCardGlass = forwardRef<HTMLDivElement, RepositoryCardGlas
 
             {/* Contribution Metrics */}
             <div className="grid grid-cols-2 gap-2">
-              <div
-                className="p-2.5 rounded-lg border"
-                style={metricCardStyles}
-              >
-                <div
-                  className="text-xs"
-                  style={{ color: "var(--text-muted)" }}
-                >
+              <div className="p-2.5 rounded-lg border" style={metricCardStyles}>
+                <div className="text-xs" style={{ color: 'var(--text-muted)' }}>
                   Your Contribution
                 </div>
-                <div
-                  className="font-semibold"
-                  style={{ color: "var(--text-primary)" }}
-                >
+                <div className="font-semibold" style={{ color: 'var(--text-primary)' }}>
                   {commits} commits
                 </div>
-                <div
-                  className="text-xs"
-                  style={{ color: "var(--text-muted)" }}
-                >
+                <div className="text-xs" style={{ color: 'var(--text-muted)' }}>
                   {contribution}%
                 </div>
               </div>
-              <div
-                className="p-2.5 rounded-lg border"
-                style={metricCardStyles}
-              >
-                <div
-                  className="text-xs"
-                  style={{ color: "var(--text-muted)" }}
-                >
+              <div className="p-2.5 rounded-lg border" style={metricCardStyles}>
+                <div className="text-xs" style={{ color: 'var(--text-muted)' }}>
                   Full Project
                 </div>
-                <div
-                  className="font-semibold"
-                  style={{ color: "var(--text-primary)" }}
-                >
+                <div className="font-semibold" style={{ color: 'var(--text-primary)' }}>
                   {totalProjectCommits} commits
                 </div>
-                <div
-                  className="text-xs"
-                  style={{ color: "var(--text-muted)" }}
-                >
+                <div className="text-xs" style={{ color: 'var(--text-muted)' }}>
                   ~{estimatedLines} lines
                 </div>
               </div>
@@ -235,7 +191,7 @@ export const RepositoryCardGlass = forwardRef<HTMLDivElement, RepositoryCardGlas
                 GitHub
               </ButtonGlass>
               <ButtonGlass
-                variant="primary"
+                variant="default"
                 size="sm"
                 icon={Sparkles}
                 onClick={(e) => {
@@ -254,4 +210,4 @@ export const RepositoryCardGlass = forwardRef<HTMLDivElement, RepositoryCardGlas
   }
 );
 
-RepositoryCardGlass.displayName = "RepositoryCardGlass";
+RepositoryCardGlass.displayName = 'RepositoryCardGlass';

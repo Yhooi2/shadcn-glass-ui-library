@@ -172,8 +172,8 @@ const Dashboard = () => {
             </h3>
             <div className="flex justify-around items-center">
               <CircularMetricGlass value={85} label="Overall" size="lg" />
-              <CircularMetricGlass value={92} label="Speed" size="md" />
-              <CircularMetricGlass value={78} label="SEO" size="md" />
+              <CircularMetricGlass value={92} label="Speed" size="default" />
+              <CircularMetricGlass value={78} label="SEO" size="default" />
             </div>
           </GlassCard>
 

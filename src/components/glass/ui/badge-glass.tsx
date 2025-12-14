@@ -121,7 +121,7 @@ const getBadgeStyles = (variant: BadgeVariant): CSSProperties => {
  *
  * // Size variants
  * <BadgeGlass size="sm">Small</BadgeGlass>
- * <BadgeGlass size="md">Medium</BadgeGlass>
+ * <BadgeGlass size="default">Medium</BadgeGlass>
  * <BadgeGlass size="lg">Large</BadgeGlass>
  *
  * // Inside interactive elements (ensure accessible labels)
@@ -139,8 +139,7 @@ const getBadgeStyles = (variant: BadgeVariant): CSSProperties => {
  * ```
  */
 export interface BadgeGlassProps
-  extends Omit<React.HTMLAttributes<HTMLSpanElement>, 'style'>,
-    VariantProps<typeof badgeVariants> {
+  extends Omit<React.HTMLAttributes<HTMLSpanElement>, 'style'>, VariantProps<typeof badgeVariants> {
   readonly children: ReactNode;
   readonly variant?: BadgeVariant;
   readonly dot?: boolean;
@@ -151,10 +150,7 @@ export interface BadgeGlassProps
 // ========================================
 
 export const BadgeGlass = forwardRef<HTMLSpanElement, BadgeGlassProps>(
-  (
-    { children, className, variant = 'default', size = 'md', dot, ...props },
-    ref
-  ) => {
+  ({ children, className, variant = 'default', size = 'md', dot, ...props }, ref) => {
     const v = variantStyles[variant];
 
     return (

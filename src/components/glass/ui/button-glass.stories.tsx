@@ -56,12 +56,12 @@ export const Default: Story = {
 export const Variants: Story = {
   render: () => (
     <div className="flex flex-wrap gap-4">
-      <ButtonGlass variant="primary">Primary</ButtonGlass>
+      <ButtonGlass variant="default">Primary</ButtonGlass>
       <ButtonGlass variant="secondary">Secondary</ButtonGlass>
       <ButtonGlass variant="ghost">Ghost</ButtonGlass>
       <ButtonGlass variant="destructive">Destructive</ButtonGlass>
       <ButtonGlass variant="success">Success</ButtonGlass>
-      <ButtonGlass variant="text">Text</ButtonGlass>
+      <ButtonGlass variant="link">Text</ButtonGlass>
     </div>
   ),
 };
@@ -70,16 +70,16 @@ export const Variants: Story = {
 export const Sizes: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-4">
-      <ButtonGlass size="sm" variant="primary">
+      <ButtonGlass size="sm" variant="default">
         Small
       </ButtonGlass>
-      <ButtonGlass size="md" variant="primary">
+      <ButtonGlass size="default" variant="default">
         Medium
       </ButtonGlass>
-      <ButtonGlass size="lg" variant="primary">
+      <ButtonGlass size="lg" variant="default">
         Large
       </ButtonGlass>
-      <ButtonGlass size="icon" variant="primary" icon={Check} />
+      <ButtonGlass size="icon" variant="default" icon={Check} />
     </div>
   ),
 };
@@ -91,7 +91,7 @@ export const WithIcons: Story = {
       <ButtonGlass icon={Check} iconPosition="left" variant="success">
         Confirm
       </ButtonGlass>
-      <ButtonGlass icon={Download} iconPosition="left" variant="primary">
+      <ButtonGlass icon={Download} iconPosition="left" variant="default">
         Download
       </ButtonGlass>
       <ButtonGlass icon={ArrowRight} iconPosition="right" variant="ghost">
@@ -108,7 +108,7 @@ export const WithIcons: Story = {
 export const Loading: Story = {
   render: () => (
     <div className="flex flex-wrap gap-4">
-      <ButtonGlass loading variant="primary">
+      <ButtonGlass loading variant="default">
         Processing...
       </ButtonGlass>
       <ButtonGlass loading variant="secondary">
@@ -125,7 +125,7 @@ export const Loading: Story = {
 export const Disabled: Story = {
   render: () => (
     <div className="flex flex-wrap gap-4">
-      <ButtonGlass disabled variant="primary">
+      <ButtonGlass disabled variant="default">
         Disabled Primary
       </ButtonGlass>
       <ButtonGlass disabled variant="secondary">
@@ -147,7 +147,7 @@ export const AsLink: Story = {
         Buttons rendered as anchor tags using the asChild pattern:
       </p>
       <div className="flex flex-wrap gap-4">
-        <ButtonGlass asChild variant="primary">
+        <ButtonGlass asChild variant="default">
           <a href="https://github.com" target="_blank" rel="noopener noreferrer">
             Visit GitHub
           </a>
@@ -265,12 +265,12 @@ export const CompleteShowcase: Story = {
       <div>
         <h3 className="text-sm font-medium mb-3">Variants</h3>
         <div className="flex flex-wrap gap-3">
-          <ButtonGlass variant="primary">Primary</ButtonGlass>
+          <ButtonGlass variant="default">Primary</ButtonGlass>
           <ButtonGlass variant="secondary">Secondary</ButtonGlass>
           <ButtonGlass variant="ghost">Ghost</ButtonGlass>
           <ButtonGlass variant="destructive">Destructive</ButtonGlass>
           <ButtonGlass variant="success">Success</ButtonGlass>
-          <ButtonGlass variant="text">Text</ButtonGlass>
+          <ButtonGlass variant="link">Text</ButtonGlass>
         </div>
       </div>
 
@@ -279,7 +279,7 @@ export const CompleteShowcase: Story = {
         <h3 className="text-sm font-medium mb-3">Sizes</h3>
         <div className="flex flex-wrap items-center gap-3">
           <ButtonGlass size="sm">Small</ButtonGlass>
-          <ButtonGlass size="md">Medium</ButtonGlass>
+          <ButtonGlass size="default">Medium</ButtonGlass>
           <ButtonGlass size="lg">Large</ButtonGlass>
           <ButtonGlass size="icon" icon={Check} />
         </div>
@@ -311,7 +311,7 @@ export const CompleteShowcase: Story = {
       <div>
         <h3 className="text-sm font-medium mb-3">asChild Pattern</h3>
         <div className="flex flex-wrap gap-3">
-          <ButtonGlass asChild variant="primary">
+          <ButtonGlass asChild variant="default">
             <a href="https://github.com" target="_blank" rel="noopener noreferrer">
               GitHub Link
             </a>

@@ -196,6 +196,13 @@
   --btn-success-bg: linear-gradient(135deg, var(--semantic-success), var(--semantic-success-text));
   --btn-success-text: var(--semantic-text-inverse);
   --btn-success-glow: var(--glow-success);
+  /* Outline variant (shadcn/ui compatible) */
+  --btn-outline-border: var(--semantic-border-strong);
+  --btn-outline-text: var(--semantic-text);
+  --btn-outline-hover-bg: var(--semantic-surface-muted);
+  --btn-outline-glow: none;
+  /* Link variant (shadcn/ui compatible) */
+  --btn-link-text: var(--semantic-primary);
   /* Button shadow fallbacks (for non-hover state) */
   --btn-primary-shadow: 0 4px 15px var(--semantic-primary-muted);
   --btn-destructive-shadow: 0 4px 15px var(--semantic-error-muted);
@@ -277,6 +284,10 @@
   --toggle-active-bg: linear-gradient(135deg, var(--semantic-primary), var(--semantic-secondary));
   --toggle-knob: var(--semantic-text-inverse);
   --toggle-glow: var(--glow-primary);
+  /* Toggle outline variant (shadcn/ui compatible) */
+  --toggle-outline-border: var(--semantic-border-strong);
+  --toggle-outline-active-border: var(--semantic-primary);
+  --toggle-outline-active-bg: var(--semantic-primary-subtle);
   --checkbox-bg: var(--semantic-surface-strong);
   --checkbox-border: var(--semantic-border-strong);
   --checkbox-checked-bg: var(--semantic-primary);

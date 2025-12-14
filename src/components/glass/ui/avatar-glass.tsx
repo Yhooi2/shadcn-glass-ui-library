@@ -11,7 +11,7 @@
  *
  * @example Compound API (recommended)
  * ```tsx
- * <AvatarGlass size="md">
+ * <AvatarGlass size="default">
  *   <AvatarGlassImage src="/avatar.jpg" alt="User" />
  *   <AvatarGlassFallback>JD</AvatarGlassFallback>
  * </AvatarGlass>

@@ -103,7 +103,7 @@ export const AllSizes: Story = {
       </div>
       <div>
         <span style={{ color: 'var(--text-muted)', fontSize: '12px' }}>Medium</span>
-        <RainbowProgressGlass value={72} size="md" />
+        <RainbowProgressGlass value={72} size="default" />
       </div>
       <div>
         <span style={{ color: 'var(--text-muted)', fontSize: '12px' }}>Large</span>

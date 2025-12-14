@@ -89,7 +89,7 @@ export const WithForm: Story = {
         <InputGlass label="Username" placeholder="Enter username" size="sm" />
         <InputGlass label="Email" type="email" placeholder="Enter email" size="sm" />
         <div className="flex gap-2">
-          <ButtonGlass size="sm" variant="primary" className="flex-1">
+          <ButtonGlass size="sm" variant="default" className="flex-1">
             Save
           </ButtonGlass>
           <ButtonGlass size="sm" variant="ghost" className="flex-1">
@@ -230,7 +230,7 @@ export const Controlled: Story = {
     return (
       <div className="flex flex-col items-center gap-4">
         <PopoverGlass
-          trigger={<ButtonGlass variant="primary">Controlled Popover</ButtonGlass>}
+          trigger={<ButtonGlass variant="default">Controlled Popover</ButtonGlass>}
           open={open}
           onOpenChange={setOpen}
         >
@@ -331,7 +331,7 @@ export const OpenedDefault: Story = {
 export const OpenedWithForm: Story = {
   args: {
     trigger: (
-      <ButtonGlass variant="primary">
+      <ButtonGlass variant="default">
         <HelpCircle className="w-4 h-4 mr-2" />
         Help
       </ButtonGlass>
@@ -357,7 +357,7 @@ export const OpenedWithForm: Story = {
             placeholder="Describe your issue..."
           />
         </div>
-        <ButtonGlass size="sm" variant="primary" className="w-full">
+        <ButtonGlass size="sm" variant="default" className="w-full">
           Submit
         </ButtonGlass>
       </div>

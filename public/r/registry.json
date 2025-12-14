@@ -13,7 +13,7 @@
       "name": "toggle-glass",
       "type": "registry:ui",
       "title": "Toggle Glass",
-      "description": "Glass-themed toggle switch with:"
+      "description": "Glass-themed toggle switch with shadcn/ui compatible API:"
     },
     {
       "name": "tabs-glass",
@@ -31,7 +31,7 @@
       "name": "slider-glass",
       "type": "registry:ui",
       "title": "Slider Glass",
-      "description": "Glass-themed range slider with:"
+      "description": "Glass-themed range slider built on Radix UI with shadcn/ui compatible API:"
     },
     {
       "name": "skeleton-glass",

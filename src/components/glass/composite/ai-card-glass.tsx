@@ -64,7 +64,7 @@ export const AICardGlass = forwardRef<HTMLDivElement, AICardGlassProps>(
             </li>
           ))}
         </ul>
-        <ButtonGlass variant="primary" size="sm" icon={Zap} onClick={onGenerate} className="w-full">
+        <ButtonGlass variant="default" size="sm" icon={Zap} onClick={onGenerate} className="w-full">
           Generate Report
         </ButtonGlass>
         <p className="text-(length:--font-size-2xs) md:text-xs mt-1.5 md:mt-2 text-center flex items-center justify-center gap-1 text-(--text-muted)">

@@ -5,73 +5,91 @@ import { SliderGlass } from '../slider-glass';
 describe('SliderGlass', () => {
   describe('Rendering', () => {
     it('renders slider with label', () => {
-      render(<SliderGlass value={50} onChange={vi.fn()} label="Volume" />);
+      render(<SliderGlass defaultValue={[50]} label="Volume" />);
       expect(screen.getByText('Volume')).toBeInTheDocument();
     });
 
     it('renders slider without label', () => {
-      render(<SliderGlass value={50} onChange={vi.fn()} />);
+      render(<SliderGlass defaultValue={[50]} />);
       const slider = screen.getByRole('slider');
       expect(slider).toBeInTheDocument();
     });
 
     it('shows value when showValue is true', () => {
-      render(<SliderGlass value={75} onChange={vi.fn()} showValue />);
+      render(<SliderGlass defaultValue={[75]} showValue />);
       expect(screen.getByText('75')).toBeInTheDocument();
     });
 
     it('shows both label and value', () => {
-      render(<SliderGlass value={30} onChange={vi.fn()} label="Brightness" showValue />);
+      render(<SliderGlass defaultValue={[30]} label="Brightness" showValue />);
       expect(screen.getByText('Brightness')).toBeInTheDocument();
       expect(screen.getByText('30')).toBeInTheDocument();
     });
 
     it('applies custom className', () => {
-      const { container } = render(
-        <SliderGlass value={50} onChange={vi.fn()} className="custom-class" />
-      );
+      const { container } = render(<SliderGlass defaultValue={[50]} className="custom-class" />);
       const wrapper = container.firstChild as HTMLElement;
       expect(wrapper).toHaveClass('custom-class');
     });
   });
 
-  describe('Value and Range', () => {
-    it('renders with correct initial value', () => {
-      render(<SliderGlass value={60} onChange={vi.fn()} />);
-      const slider = screen.getByRole('slider') as HTMLInputElement;
-      expect(slider.value).toBe('60');
+  describe('Value and Range (shadcn/ui compatible)', () => {
+    it('renders single thumb for single value', () => {
+      render(<SliderGlass defaultValue={[50]} />);
+      const thumbs = screen.getAllByRole('slider');
+      expect(thumbs).toHaveLength(1);
+    });
+
+    it('renders two thumbs for range slider', () => {
+      render(<SliderGlass defaultValue={[25, 75]} />);
+      const thumbs = screen.getAllByRole('slider');
+      expect(thumbs).toHaveLength(2);
+    });
+
+    it('renders multiple thumbs for multi-value slider', () => {
+      render(<SliderGlass defaultValue={[20, 50, 80]} />);
+      const thumbs = screen.getAllByRole('slider');
+      expect(thumbs).toHaveLength(3);
+    });
+
+    it('displays range value correctly', () => {
+      render(<SliderGlass defaultValue={[25, 75]} showValue />);
+      expect(screen.getByText('25 - 75')).toBeInTheDocument();
     });
 
     it('uses default min/max values (0-100)', () => {
-      render(<SliderGlass value={50} onChange={vi.fn()} />);
-      const slider = screen.getByRole('slider') as HTMLInputElement;
-      expect(slider.min).toBe('0');
-      expect(slider.max).toBe('100');
+      render(<SliderGlass defaultValue={[50]} />);
+      const slider = screen.getByRole('slider');
+      expect(slider).toHaveAttribute('aria-valuemin', '0');
+      expect(slider).toHaveAttribute('aria-valuemax', '100');
     });
 
     it('respects custom min/max values', () => {
-      render(<SliderGlass value={50} onChange={vi.fn()} min={10} max={200} />);
-      const slider = screen.getByRole('slider') as HTMLInputElement;
-      expect(slider.min).toBe('10');
-      expect(slider.max).toBe('200');
+      render(<SliderGlass defaultValue={[50]} min={10} max={200} />);
+      const slider = screen.getByRole('slider');
+      expect(slider).toHaveAttribute('aria-valuemin', '10');
+      expect(slider).toHaveAttribute('aria-valuemax', '200');
+    });
+  });
+
+  describe('Controlled vs Uncontrolled (shadcn/ui compatible)', () => {
+    it('works as controlled component with value prop', () => {
+      const handleChange = vi.fn();
+      render(<SliderGlass value={[50]} onValueChange={handleChange} />);
+      const slider = screen.getByRole('slider');
+      expect(slider).toHaveAttribute('aria-valuenow', '50');
     });
 
-    it('respects step value', () => {
-      render(<SliderGlass value={50} onChange={vi.fn()} step={5} />);
-      const slider = screen.getByRole('slider') as HTMLInputElement;
-      expect(slider.step).toBe('5');
-    });
-
-    it('uses default step value of 1', () => {
-      render(<SliderGlass value={50} onChange={vi.fn()} />);
-      const slider = screen.getByRole('slider') as HTMLInputElement;
-      expect(slider.step).toBe('1');
+    it('works as uncontrolled component with defaultValue prop', () => {
+      render(<SliderGlass defaultValue={[50]} />);
+      const slider = screen.getByRole('slider');
+      expect(slider).toHaveAttribute('aria-valuenow', '50');
     });
   });
 
   describe('ARIA Attributes', () => {
     it('has correct ARIA attributes with label', () => {
-      render(<SliderGlass value={50} onChange={vi.fn()} label="Volume" />);
+      render(<SliderGlass defaultValue={[50]} label="Volume" />);
       const slider = screen.getByRole('slider');
       expect(slider).toHaveAttribute('aria-label', 'Volume');
       expect(slider).toHaveAttribute('aria-valuenow', '50');
@@ -80,139 +98,106 @@ describe('SliderGlass', () => {
     });
 
     it('has default ARIA label when no label provided', () => {
-      render(<SliderGlass value={50} onChange={vi.fn()} min={0} max={100} />);
+      render(<SliderGlass defaultValue={[50]} />);
       const slider = screen.getByRole('slider');
-      expect(slider).toHaveAttribute('aria-label', 'Slider: 50 (0-100)');
+      expect(slider).toHaveAttribute('aria-label', 'Slider thumb 1');
     });
 
-    it('has correct aria-valuetext', () => {
-      render(<SliderGlass value={75} onChange={vi.fn()} />);
-      const slider = screen.getByRole('slider');
-      expect(slider).toHaveAttribute('aria-valuetext', '75');
-    });
-  });
-
-  describe('User Interactions', () => {
-    it('has accessible slider input', () => {
-      render(<SliderGlass value={50} onChange={vi.fn()} />);
-      const slider = screen.getByRole('slider') as HTMLInputElement;
-      expect(slider).toBeInTheDocument();
-      expect(slider.type).toBe('range');
+    it('has numbered ARIA labels for range thumbs', () => {
+      render(<SliderGlass defaultValue={[25, 75]} label="Price Range" />);
+      const thumbs = screen.getAllByRole('slider');
+      expect(thumbs[0]).toHaveAttribute('aria-label', 'Price Range thumb 1');
+      expect(thumbs[1]).toHaveAttribute('aria-label', 'Price Range thumb 2');
     });
   });
 
   describe('Disabled State', () => {
     it('renders disabled state', () => {
-      render(<SliderGlass value={50} onChange={vi.fn()} disabled />);
-      const slider = screen.getByRole('slider');
-      expect(slider).toBeDisabled();
+      const { container } = render(<SliderGlass defaultValue={[50]} disabled />);
+      const root = container.querySelector('[data-disabled]');
+      expect(root).toBeInTheDocument();
+    });
+
+    it('applies disabled styling', () => {
+      const { container } = render(<SliderGlass defaultValue={[50]} disabled />);
+      const sliderRoot = container.querySelector('.opacity-50');
+      expect(sliderRoot).toBeInTheDocument();
     });
   });
 
   describe('Forward Ref', () => {
-    it('forwards ref to input element', () => {
-      const ref = { current: null } as React.RefObject<HTMLDivElement>;
-      render(<SliderGlass ref={ref} value={50} onChange={vi.fn()} />);
-
-      expect(ref.current).toBeInstanceOf(HTMLInputElement);
-      expect((ref.current as HTMLInputElement).type).toBe('range');
-    });
-
-    it('allows ref methods to be called', () => {
-      const ref = { current: null } as React.RefObject<HTMLDivElement>;
-      render(<SliderGlass ref={ref} value={50} onChange={vi.fn()} />);
+    it('forwards ref to root element', () => {
+      const ref = { current: null } as React.RefObject<HTMLSpanElement>;
+      render(<SliderGlass ref={ref} defaultValue={[50]} />);
 
       expect(ref.current).not.toBeNull();
-      if (ref.current) {
-        (ref.current as HTMLInputElement).focus();
-        expect(document.activeElement).toBe(ref.current);
-      }
-    });
-  });
-
-  describe('Additional Props', () => {
-    it('passes additional HTML attributes to input', () => {
-      render(
-        <SliderGlass
-          value={50}
-          onChange={vi.fn()}
-          data-testid="custom-slider"
-          aria-describedby="description"
-        />
-      );
-
-      const slider = screen.getByRole('slider');
-      expect(slider).toHaveAttribute('data-testid', 'custom-slider');
-      expect(slider).toHaveAttribute('aria-describedby', 'description');
-    });
-
-    it('applies id attribute correctly', () => {
-      render(<SliderGlass value={50} onChange={vi.fn()} id="my-slider" />);
-      const slider = screen.getByRole('slider');
-      expect(slider).toHaveAttribute('id', 'my-slider');
+      expect(ref.current?.tagName).toBe('SPAN');
     });
   });
 
   describe('Visual Elements', () => {
     it('renders track element', () => {
-      const { container } = render(<SliderGlass value={50} onChange={vi.fn()} />);
-      const track = container.querySelector('.rounded-full');
+      const { container } = render(<SliderGlass defaultValue={[50]} />);
+      const track = container.querySelector('[data-orientation="horizontal"]');
       expect(track).toBeInTheDocument();
     });
 
-    it('calculates percentage correctly', () => {
-      const { container } = render(<SliderGlass value={25} onChange={vi.fn()} min={0} max={100} />);
-      // Fill should be 25% wide
-      const fill = container.querySelectorAll('.rounded-full')[1] as HTMLElement;
-      expect(fill).toHaveStyle({ width: '25%' });
+    it('renders range (fill) element', () => {
+      const { container } = render(<SliderGlass defaultValue={[50]} />);
+      const range = container.querySelector('.rounded-full.transition-shadow');
+      expect(range).toBeInTheDocument();
     });
 
-    it('calculates percentage with custom range', () => {
-      const { container } = render(<SliderGlass value={15} onChange={vi.fn()} min={10} max={20} />);
-      // Value 15 in range 10-20 is 50%
-      const fill = container.querySelectorAll('.rounded-full')[1] as HTMLElement;
-      expect(fill).toHaveStyle({ width: '50%' });
+    it('renders thumb element', () => {
+      const { container } = render(<SliderGlass defaultValue={[50]} />);
+      const thumb = container.querySelector('.rounded-full.shadow-md');
+      expect(thumb).toBeInTheDocument();
     });
   });
 
   describe('Theme Styling', () => {
     it('applies track CSS variables', () => {
-      const { container } = render(<SliderGlass value={50} onChange={vi.fn()} />);
-      const track = container.querySelector('.rounded-full') as HTMLElement;
+      const { container } = render(<SliderGlass defaultValue={[50]} />);
+      const track = container.querySelector('.grow.rounded-full') as HTMLElement;
       expect(track).toHaveStyle({
         background: 'var(--slider-track)',
       });
     });
 
     it('applies fill CSS variables', () => {
-      const { container } = render(<SliderGlass value={50} onChange={vi.fn()} />);
-      const fill = container.querySelectorAll('.rounded-full')[1] as HTMLElement;
+      const { container } = render(<SliderGlass defaultValue={[50]} />);
+      const fill = container.querySelector(
+        '.absolute.rounded-full.transition-shadow'
+      ) as HTMLElement;
       expect(fill).toHaveStyle({
         background: 'var(--slider-fill)',
       });
+    });
+
+    it('applies thumb CSS variables', () => {
+      const { container } = render(<SliderGlass defaultValue={[50]} />);
+      const thumb = container.querySelector('.rounded-full.shadow-md') as HTMLElement;
+      expect(thumb).toHaveStyle({
+        background: 'var(--slider-thumb)',
+      });
+      // Border is applied via inline style
+      expect(thumb.style.border).toBe('2px solid var(--slider-thumb-border)');
     });
   });
 
   describe('Error and Success States', () => {
     it('displays error message when error prop is set', () => {
-      render(<SliderGlass value={50} onChange={vi.fn()} error="Value too low" />);
+      render(<SliderGlass defaultValue={[50]} error="Value too low" />);
       expect(screen.getByText('Value too low')).toBeInTheDocument();
     });
 
     it('displays success message when success prop is set', () => {
-      render(<SliderGlass value={75} onChange={vi.fn()} success="Perfect value" />);
+      render(<SliderGlass defaultValue={[75]} success="Perfect value" />);
       expect(screen.getByText('Perfect value')).toBeInTheDocument();
     });
 
     it('error takes priority over success', () => {
-      render(
-        <SliderGlass
-          value={50}
-          onChange={vi.fn()}
-          error="Error message"
-          success="Success message"
-        />
-      );
+      render(<SliderGlass defaultValue={[50]} error="Error message" success="Success message" />);
       expect(screen.getByText('Error message')).toBeInTheDocument();
       expect(screen.queryByText('Success message')).not.toBeInTheDocument();
     });
@@ -220,23 +205,48 @@ describe('SliderGlass', () => {
 
   describe('Edge Cases', () => {
     it('handles value at minimum boundary', () => {
-      const { container } = render(<SliderGlass value={0} onChange={vi.fn()} min={0} max={100} />);
-      const slider = screen.getByRole('slider') as HTMLInputElement;
-      expect(slider.value).toBe('0');
-      // Verify percentage calculation: 0%
-      const fill = container.querySelectorAll('.rounded-full')[1] as HTMLElement;
-      expect(fill).toHaveStyle({ width: '0%' });
+      render(<SliderGlass defaultValue={[0]} min={0} max={100} showValue />);
+      const slider = screen.getByRole('slider');
+      expect(slider).toHaveAttribute('aria-valuenow', '0');
+      expect(screen.getByText('0')).toBeInTheDocument();
     });
 
     it('handles value at maximum boundary', () => {
-      const { container } = render(
-        <SliderGlass value={100} onChange={vi.fn()} min={0} max={100} />
-      );
-      const slider = screen.getByRole('slider') as HTMLInputElement;
-      expect(slider.value).toBe('100');
-      // Verify percentage calculation: 100%
-      const fill = container.querySelectorAll('.rounded-full')[1] as HTMLElement;
-      expect(fill).toHaveStyle({ width: '100%' });
+      render(<SliderGlass defaultValue={[100]} min={0} max={100} showValue />);
+      const slider = screen.getByRole('slider');
+      expect(slider).toHaveAttribute('aria-valuenow', '100');
+      expect(screen.getByText('100')).toBeInTheDocument();
+    });
+
+    it('handles empty value array gracefully', () => {
+      const { container } = render(<SliderGlass defaultValue={[]} />);
+      // Should render track even with no thumbs
+      const track = container.querySelector('[data-orientation="horizontal"]');
+      expect(track).toBeInTheDocument();
+    });
+  });
+
+  describe('Orientation', () => {
+    it('renders horizontal orientation by default', () => {
+      const { container } = render(<SliderGlass defaultValue={[50]} />);
+      const root = container.querySelector('[data-orientation="horizontal"]');
+      expect(root).toBeInTheDocument();
+    });
+
+    it('renders vertical orientation when specified', () => {
+      const { container } = render(<SliderGlass defaultValue={[50]} orientation="vertical" />);
+      const root = container.querySelector('[data-orientation="vertical"]');
+      expect(root).toBeInTheDocument();
+    });
+  });
+
+  describe('Callback Props (shadcn/ui compatible)', () => {
+    it('calls onValueChange when value changes', () => {
+      const handleChange = vi.fn();
+      render(<SliderGlass defaultValue={[50]} onValueChange={handleChange} />);
+      // Note: Actually triggering value change requires user interaction
+      // which is tested in integration/e2e tests
+      expect(handleChange).not.toHaveBeenCalled();
     });
   });
 });

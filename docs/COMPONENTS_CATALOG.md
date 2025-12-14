@@ -222,7 +222,7 @@ effect, accessible **Usage:**
 accessible, animated **Usage:**
 
 ```tsx
-<ToggleGlass checked={enabled} onCheckedChange={setEnabled} label="Enable notifications" />
+<ToggleGlass pressed={enabled} onPressedChange={setEnabled} label="Enable notifications" />
 ```
 
 #### SliderGlass

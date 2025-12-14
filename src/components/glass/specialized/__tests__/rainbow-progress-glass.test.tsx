@@ -22,9 +22,7 @@ describe('RainbowProgressGlass', () => {
     });
 
     it('applies custom className', () => {
-      const { container } = render(
-        <RainbowProgressGlass value={50} className="custom-class" />
-      );
+      const { container } = render(<RainbowProgressGlass value={50} className="custom-class" />);
       expect(container.firstChild).toHaveClass('custom-class');
     });
   });
@@ -86,7 +84,7 @@ describe('RainbowProgressGlass', () => {
     });
 
     it('applies md size', () => {
-      const { container } = render(<RainbowProgressGlass value={50} size="md" />);
+      const { container } = render(<RainbowProgressGlass value={50} size="default" />);
       expect(container.firstChild).toHaveClass('h-3.5');
     });
 
@@ -163,11 +161,7 @@ describe('RainbowProgressGlass', () => {
 
     it('spreads additional props', () => {
       render(
-        <RainbowProgressGlass
-          value={50}
-          data-testid="rainbow-progress"
-          aria-describedby="desc"
-        />
+        <RainbowProgressGlass value={50} data-testid="rainbow-progress" aria-describedby="desc" />
       );
       expect(screen.getByTestId('rainbow-progress')).toBeInTheDocument();
     });

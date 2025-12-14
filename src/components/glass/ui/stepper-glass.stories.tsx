@@ -90,7 +90,7 @@ export const Default: Story = {
             Back
           </ButtonGlass>
           <ButtonGlass
-            variant="primary"
+            variant="default"
             onClick={() =>
               setStep(step === 'step1' ? 'step2' : step === 'step2' ? 'step3' : 'step3')
             }
@@ -179,7 +179,7 @@ export const WithIcons: Story = {
             Back
           </ButtonGlass>
           <ButtonGlass
-            variant="primary"
+            variant="default"
             onClick={() => {
               const steps = ['step1', 'step2', 'step3', 'step4'];
               const idx = steps.indexOf(step);
@@ -279,7 +279,7 @@ export const LinearMode: Story = {
           <ButtonGlass variant="ghost" onClick={goBack} disabled={step === 'step1'}>
             Back
           </ButtonGlass>
-          <ButtonGlass variant="primary" onClick={goNext} disabled={step === 'step3'}>
+          <ButtonGlass variant="default" onClick={goNext} disabled={step === 'step3'}>
             {step === 'step2' ? 'Complete' : 'Next'}
           </ButtonGlass>
         </div>
@@ -312,7 +312,7 @@ export const Sizes: Story = {
         <p className="mb-4 text-sm" style={{ color: 'var(--text-secondary)' }}>
           Medium (default)
         </p>
-        <StepperGlass.Root value="step2" size="md">
+        <StepperGlass.Root value="step2" size="default">
           <StepperGlass.List>
             <StepperGlass.Step value="step1" label="Step 1" />
             <StepperGlass.Step value="step2" label="Step 2" />
@@ -455,7 +455,7 @@ export const FormWizardIntegration: Story = {
               Back
             </ButtonGlass>
             <ButtonGlass
-              variant="primary"
+              variant="default"
               onClick={() => setStep(step === 'account' ? 'profile' : 'security')}
             >
               {step === 'security' ? 'Create Account' : 'Continue'}

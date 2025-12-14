@@ -189,7 +189,7 @@ export const AllSizes: Story = {
         <p className="text-xs text-white/60 mt-2">Small</p>
       </div>
       <div className="text-center">
-        <AvatarGlass name="Jane Smith" size="md" status="online" />
+        <AvatarGlass name="Jane Smith" size="default" status="online" />
         <p className="text-xs text-white/60 mt-2">Medium</p>
       </div>
       <div className="text-center">
@@ -216,23 +216,23 @@ export const AllStatuses: Story = {
   render: () => (
     <div className="flex items-center gap-6">
       <div className="text-center">
-        <AvatarGlass name="Online User" size="md" status="online" />
+        <AvatarGlass name="Online User" size="default" status="online" />
         <p className="text-xs text-white/60 mt-2">Online</p>
       </div>
       <div className="text-center">
-        <AvatarGlass name="Busy User" size="md" status="busy" />
+        <AvatarGlass name="Busy User" size="default" status="busy" />
         <p className="text-xs text-white/60 mt-2">Busy</p>
       </div>
       <div className="text-center">
-        <AvatarGlass name="Away User" size="md" status="away" />
+        <AvatarGlass name="Away User" size="default" status="away" />
         <p className="text-xs text-white/60 mt-2">Away</p>
       </div>
       <div className="text-center">
-        <AvatarGlass name="Offline User" size="md" status="offline" />
+        <AvatarGlass name="Offline User" size="default" status="offline" />
         <p className="text-xs text-white/60 mt-2">Offline</p>
       </div>
       <div className="text-center">
-        <AvatarGlass name="No Status" size="md" />
+        <AvatarGlass name="No Status" size="default" />
         <p className="text-xs text-white/60 mt-2">No Status</p>
       </div>
     </div>
@@ -330,25 +330,25 @@ export const AllSizesWithAllStatuses: Story = {
     <div className="flex flex-col gap-6">
       <div className="flex items-end gap-4">
         <AvatarGlass name="SM Online" size="sm" status="online" />
-        <AvatarGlass name="MD Online" size="md" status="online" />
+        <AvatarGlass name="MD Online" size="default" status="online" />
         <AvatarGlass name="LG Online" size="lg" status="online" />
         <AvatarGlass name="XL Online" size="xl" status="online" />
       </div>
       <div className="flex items-end gap-4">
         <AvatarGlass name="SM Busy" size="sm" status="busy" />
-        <AvatarGlass name="MD Busy" size="md" status="busy" />
+        <AvatarGlass name="MD Busy" size="default" status="busy" />
         <AvatarGlass name="LG Busy" size="lg" status="busy" />
         <AvatarGlass name="XL Busy" size="xl" status="busy" />
       </div>
       <div className="flex items-end gap-4">
         <AvatarGlass name="SM Away" size="sm" status="away" />
-        <AvatarGlass name="MD Away" size="md" status="away" />
+        <AvatarGlass name="MD Away" size="default" status="away" />
         <AvatarGlass name="LG Away" size="lg" status="away" />
         <AvatarGlass name="XL Away" size="xl" status="away" />
       </div>
       <div className="flex items-end gap-4">
         <AvatarGlass name="SM Offline" size="sm" status="offline" />
-        <AvatarGlass name="MD Offline" size="md" status="offline" />
+        <AvatarGlass name="MD Offline" size="default" status="offline" />
         <AvatarGlass name="LG Offline" size="lg" status="offline" />
         <AvatarGlass name="XL Offline" size="xl" status="offline" />
       </div>

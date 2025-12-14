@@ -39,7 +39,7 @@ export const Default: Story = {
           </p>
           <div className="flex gap-3 justify-end">
             <ButtonGlass variant="ghost">Cancel</ButtonGlass>
-            <ButtonGlass variant="primary">Confirm</ButtonGlass>
+            <ButtonGlass variant="default">Confirm</ButtonGlass>
           </div>
         </ModalGlass.Body>
       </ModalGlass.Content>
@@ -72,7 +72,7 @@ export const Small: Story = {
 
 export const Medium: Story = {
   render: () => (
-    <ModalGlass.Root open={true} onOpenChange={fn()} size="md">
+    <ModalGlass.Root open={true} onOpenChange={fn()} size="default">
       <ModalGlass.Overlay />
       <ModalGlass.Content>
         <ModalGlass.Header>
@@ -166,7 +166,7 @@ export const Full: Story = {
 
 export const WithActions: Story = {
   render: () => (
-    <ModalGlass.Root open={true} onOpenChange={fn()} size="md">
+    <ModalGlass.Root open={true} onOpenChange={fn()} size="default">
       <ModalGlass.Overlay />
       <ModalGlass.Content>
         <ModalGlass.Header>
@@ -179,7 +179,7 @@ export const WithActions: Story = {
           </p>
           <div className="flex gap-3 justify-end">
             <ButtonGlass variant="ghost">Cancel</ButtonGlass>
-            <ButtonGlass variant="primary">Confirm</ButtonGlass>
+            <ButtonGlass variant="default">Confirm</ButtonGlass>
           </div>
         </ModalGlass.Body>
       </ModalGlass.Content>
@@ -192,7 +192,7 @@ export const WithActions: Story = {
 
 export const WithForm: Story = {
   render: () => (
-    <ModalGlass.Root open={true} onOpenChange={fn()} size="md">
+    <ModalGlass.Root open={true} onOpenChange={fn()} size="default">
       <ModalGlass.Overlay />
       <ModalGlass.Content>
         <ModalGlass.Header>
@@ -239,7 +239,7 @@ export const WithForm: Story = {
             </div>
             <div className="flex gap-3 justify-end pt-2">
               <ButtonGlass variant="ghost">Cancel</ButtonGlass>
-              <ButtonGlass variant="primary">Create</ButtonGlass>
+              <ButtonGlass variant="default">Create</ButtonGlass>
             </div>
           </div>
         </ModalGlass.Body>
@@ -253,7 +253,7 @@ export const WithForm: Story = {
 
 export const WithLongContent: Story = {
   render: () => (
-    <ModalGlass.Root open={true} onOpenChange={fn()} size="md">
+    <ModalGlass.Root open={true} onOpenChange={fn()} size="default">
       <ModalGlass.Overlay />
       <ModalGlass.Content>
         <ModalGlass.Header>
@@ -285,7 +285,7 @@ export const WithLongContent: Story = {
           </div>
           <div className="flex gap-3 justify-end pt-4">
             <ButtonGlass variant="ghost">Decline</ButtonGlass>
-            <ButtonGlass variant="primary">Accept</ButtonGlass>
+            <ButtonGlass variant="default">Accept</ButtonGlass>
           </div>
         </ModalGlass.Body>
       </ModalGlass.Content>
@@ -305,7 +305,7 @@ const InteractiveModalExample = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-8">
-      <ButtonGlass variant="primary" onClick={() => setOpen(true)}>
+      <ButtonGlass variant="default" onClick={() => setOpen(true)}>
         Open Modal
       </ButtonGlass>
       <ModalGlass.Root open={open} onOpenChange={setOpen} size="sm">
@@ -324,7 +324,7 @@ const InteractiveModalExample = () => {
               <ButtonGlass variant="ghost" onClick={() => setOpen(false)}>
                 Cancel
               </ButtonGlass>
-              <ButtonGlass variant="primary" onClick={() => setOpen(false)}>
+              <ButtonGlass variant="default" onClick={() => setOpen(false)}>
                 Confirm
               </ButtonGlass>
             </div>
@@ -360,7 +360,7 @@ export const CompoundBasic: Story = {
       <div className="min-h-screen flex items-center justify-center p-8">
         <ButtonGlass onClick={() => setOpen(true)}>Open Compound Modal</ButtonGlass>
 
-        <ModalGlass.Root open={open} onOpenChange={setOpen} size="md">
+        <ModalGlass.Root open={open} onOpenChange={setOpen} size="default">
           <ModalGlass.Overlay />
           <ModalGlass.Content>
             <ModalGlass.Header>
@@ -419,7 +419,7 @@ export const CompoundWithFooter: Story = {
               <ButtonGlass variant="ghost" onClick={() => setOpen(false)}>
                 Cancel
               </ButtonGlass>
-              <ButtonGlass variant="primary" onClick={() => setOpen(false)}>
+              <ButtonGlass variant="default" onClick={() => setOpen(false)}>
                 Confirm
               </ButtonGlass>
             </ModalGlass.Footer>
@@ -512,11 +512,11 @@ export const CompoundMultiStep: Story = {
               )}
               <div className="flex-1" />
               {step < totalSteps ? (
-                <ButtonGlass variant="primary" onClick={() => setStep(step + 1)}>
+                <ButtonGlass variant="default" onClick={() => setStep(step + 1)}>
                   Next
                 </ButtonGlass>
               ) : (
-                <ButtonGlass variant="primary" onClick={() => setOpen(false)}>
+                <ButtonGlass variant="default" onClick={() => setOpen(false)}>
                   Finish
                 </ButtonGlass>
               )}

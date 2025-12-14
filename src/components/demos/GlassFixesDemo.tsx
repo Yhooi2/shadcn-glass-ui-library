@@ -148,7 +148,7 @@ export const GlassFixesDemo = () => {
         {/* Modal Section */}
         <section>
           <h2 className="text-lg font-semibold text-white/80 mb-4">Modal</h2>
-          <ButtonGlass variant="primary" onClick={() => setModalOpen(true)}>
+          <ButtonGlass variant="default" onClick={() => setModalOpen(true)}>
             Open Modal
           </ButtonGlass>
 
@@ -170,10 +170,10 @@ export const GlassFixesDemo = () => {
                     click outside behavior.
                   </p>
                   <div className="flex gap-3 justify-end pt-4">
-                    <ButtonGlass variant="text" onClick={() => setModalOpen(false)}>
+                    <ButtonGlass variant="link" onClick={() => setModalOpen(false)}>
                       Cancel
                     </ButtonGlass>
-                    <ButtonGlass variant="primary" onClick={() => setModalOpen(false)}>
+                    <ButtonGlass variant="default" onClick={() => setModalOpen(false)}>
                       Confirm
                     </ButtonGlass>
                   </div>
@@ -187,18 +187,18 @@ export const GlassFixesDemo = () => {
         <section>
           <h2 className="text-lg font-semibold text-white/80 mb-4">Button Variants</h2>
           <div className="flex gap-4 flex-wrap">
-            <ButtonGlass variant="primary">Primary</ButtonGlass>
+            <ButtonGlass variant="default">Primary</ButtonGlass>
             <ButtonGlass variant="ghost">Ghost</ButtonGlass>
-            <ButtonGlass variant="text">Text</ButtonGlass>
+            <ButtonGlass variant="link">Text</ButtonGlass>
           </div>
           <div className="flex gap-4 flex-wrap mt-4">
-            <ButtonGlass variant="primary" size="sm">
+            <ButtonGlass variant="default" size="sm">
               Small
             </ButtonGlass>
-            <ButtonGlass variant="primary" size="md">
+            <ButtonGlass variant="default" size="default">
               Medium
             </ButtonGlass>
-            <ButtonGlass variant="primary" size="lg">
+            <ButtonGlass variant="default" size="lg">
               Large
             </ButtonGlass>
           </div>

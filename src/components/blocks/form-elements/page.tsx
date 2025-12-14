@@ -21,7 +21,7 @@ export interface FormElementsBlockProps extends HTMLAttributes<HTMLDivElement> {
 export const FormElementsBlock = forwardRef<HTMLDivElement, FormElementsBlockProps>(
   ({ showTitle = true, className, ...props }, ref) => {
     const [inputValue, setInputValue] = useState('');
-    const [sliderValue, setSliderValue] = useState(50);
+    const [sliderValue, setSliderValue] = useState([50]);
     const [toggleValue, setToggleValue] = useState(false);
     const [checkboxValue, setCheckboxValue] = useState(false);
 
@@ -34,10 +34,7 @@ export const FormElementsBlock = forwardRef<HTMLDivElement, FormElementsBlockPro
         {...props}
       >
         {showTitle && (
-          <h2
-            className="text-xl font-bold mb-6"
-            style={{ color: 'var(--text-primary)' }}
-          >
+          <h2 className="text-xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>
             Form Elements
           </h2>
         )}
@@ -45,10 +42,7 @@ export const FormElementsBlock = forwardRef<HTMLDivElement, FormElementsBlockPro
         <div className="space-y-6">
           {/* Input Demo */}
           <div className="space-y-2">
-            <label
-              className="text-sm font-medium"
-              style={{ color: 'var(--text-secondary)' }}
-            >
+            <label className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
               Text Input
             </label>
             <InputGlass
@@ -66,26 +60,18 @@ export const FormElementsBlock = forwardRef<HTMLDivElement, FormElementsBlockPro
             >
               <span>Slider</span>
               <span className="text-xs" style={{ color: 'var(--text-muted)' }}>
-                {sliderValue}%
+                {sliderValue[0]}%
               </span>
             </label>
-            <SliderGlass
-              value={sliderValue}
-              onChange={setSliderValue}
-              min={0}
-              max={100}
-            />
+            <SliderGlass value={sliderValue} onValueChange={setSliderValue} min={0} max={100} />
           </div>
 
           {/* Toggle Demo */}
           <div className="space-y-2">
-            <label
-              className="text-sm font-medium"
-              style={{ color: 'var(--text-secondary)' }}
-            >
+            <label className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
               Toggle Switch
             </label>
-            <ToggleGlass checked={toggleValue} onChange={setToggleValue} />
+            <ToggleGlass pressed={toggleValue} onPressedChange={setToggleValue} />
           </div>
 
           {/* Checkbox Demo */}

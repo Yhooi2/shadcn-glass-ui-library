@@ -542,16 +542,16 @@ export default function SettingsPanel() {
 
         <div className="space-y-4">
           <ToggleGlass
-            checked={settings.notifications}
-            onCheckedChange={(checked) =>
-              setSettings((prev) => ({ ...prev, notifications: checked }))
+            pressed={settings.notifications}
+            onPressedChange={(pressed) =>
+              setSettings((prev) => ({ ...prev, notifications: pressed }))
             }
             label="Push Notifications"
           />
 
           <ToggleGlass
-            checked={settings.darkMode}
-            onCheckedChange={(checked) => setSettings((prev) => ({ ...prev, darkMode: checked }))}
+            pressed={settings.darkMode}
+            onPressedChange={(pressed) => setSettings((prev) => ({ ...prev, darkMode: pressed }))}
             label="Dark Mode"
           />
 

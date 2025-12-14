@@ -160,7 +160,7 @@ export const AllSizes: Story = {
   render: () => (
     <div className="flex items-center gap-6">
       <ProfileAvatarGlass initials="SM" size="sm" status="online" />
-      <ProfileAvatarGlass initials="MD" size="md" status="away" />
+      <ProfileAvatarGlass initials="MD" size="default" status="away" />
       <ProfileAvatarGlass initials="LG" size="lg" status="busy" />
       <ProfileAvatarGlass initials="XL" size="xl" status="online" />
     </div>

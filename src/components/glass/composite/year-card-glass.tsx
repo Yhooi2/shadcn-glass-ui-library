@@ -260,7 +260,7 @@ export const YearCardGlass = forwardRef<HTMLDivElement, YearCardGlassProps>(
             {/* Show Year Button */}
             {onShowYear && (
               <ButtonGlass
-                variant="primary"
+                variant="default"
                 size="sm"
                 onClick={(e) => {
                   e.stopPropagation();

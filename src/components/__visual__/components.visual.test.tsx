@@ -64,7 +64,7 @@ describe('Visual Regression Tests', () => {
   describe.each(THEMES)('Theme: %s', (theme) => {
     test(`ButtonGlass primary - ${theme}`, async () => {
       renderWithTheme(
-        <ButtonGlass variant="primary" data-testid="button">
+        <ButtonGlass variant="default" data-testid="button">
           Primary Button
         </ButtonGlass>,
         theme
@@ -114,7 +114,7 @@ describe('Visual Regression Tests', () => {
 
     test(`ToggleGlass on - ${theme}`, async () => {
       renderWithTheme(
-        <ToggleGlass checked={true} onChange={() => {}} data-testid="toggle" />,
+        <ToggleGlass pressed={true} onPressedChange={() => {}} data-testid="toggle" />,
         theme
       );
       await waitForStability();
@@ -124,7 +124,12 @@ describe('Visual Regression Tests', () => {
 
     test(`CheckboxGlass checked - ${theme}`, async () => {
       renderWithTheme(
-        <CheckboxGlass checked={true} onChange={() => {}} label="Checked" data-testid="checkbox" />,
+        <CheckboxGlass
+          checked={true}
+          onPressedChange={() => {}}
+          label="Checked"
+          data-testid="checkbox"
+        />,
         theme
       );
       await waitForStability();
@@ -224,7 +229,7 @@ describe('Visual Regression Tests', () => {
 
     test(`AvatarGlass md online - ${theme}`, async () => {
       renderWithTheme(
-        <AvatarGlass size="md" status="online" name="John Doe" data-testid="avatar" />,
+        <AvatarGlass size="default" status="online" name="John Doe" data-testid="avatar" />,
         theme
       );
       await waitForStability();
@@ -235,7 +240,7 @@ describe('Visual Regression Tests', () => {
     test(`SkeletonGlass text - ${theme}`, async () => {
       renderWithTheme(
         <div data-testid="skeleton-container" style={{ width: '200px' }}>
-          <SkeletonGlass variant="text" />
+          <SkeletonGlass variant="link" />
         </div>,
         theme
       );
@@ -259,7 +264,7 @@ describe('Visual Regression Tests', () => {
     test(`SliderGlass 50% - ${theme}`, async () => {
       renderWithTheme(
         <div data-testid="slider-container" style={{ width: '200px' }}>
-          <SliderGlass value={50} onChange={() => {}} />
+          <SliderGlass defaultValue={[50]} />
         </div>,
         theme
       );
@@ -305,7 +310,7 @@ describe('Visual Regression Tests', () => {
 
     test(`ButtonGlass text - ${theme}`, async () => {
       renderWithTheme(
-        <ButtonGlass variant="text" data-testid="button">
+        <ButtonGlass variant="link" data-testid="button">
           Text Button
         </ButtonGlass>,
         theme
@@ -490,7 +495,7 @@ describe('Visual Regression Tests', () => {
     // ToggleGlass off state
     test(`ToggleGlass off - ${theme}`, async () => {
       renderWithTheme(
-        <ToggleGlass checked={false} onChange={() => {}} data-testid="toggle" />,
+        <ToggleGlass pressed={false} onPressedChange={() => {}} data-testid="toggle" />,
         theme
       );
       await waitForStability();
@@ -503,7 +508,7 @@ describe('Visual Regression Tests', () => {
       renderWithTheme(
         <CheckboxGlass
           checked={false}
-          onChange={() => {}}
+          onPressedChange={() => {}}
           label="Unchecked"
           data-testid="checkbox"
         />,
@@ -517,7 +522,7 @@ describe('Visual Regression Tests', () => {
     // AvatarGlass status variants
     test(`AvatarGlass offline - ${theme}`, async () => {
       renderWithTheme(
-        <AvatarGlass size="md" status="offline" name="Jane Doe" data-testid="avatar" />,
+        <AvatarGlass size="default" status="offline" name="Jane Doe" data-testid="avatar" />,
         theme
       );
       await waitForStability();
@@ -527,7 +532,7 @@ describe('Visual Regression Tests', () => {
 
     test(`AvatarGlass away - ${theme}`, async () => {
       renderWithTheme(
-        <AvatarGlass size="md" status="away" name="Bob Smith" data-testid="avatar" />,
+        <AvatarGlass size="default" status="away" name="Bob Smith" data-testid="avatar" />,
         theme
       );
       await waitForStability();
@@ -594,7 +599,7 @@ describe('Visual Regression Tests', () => {
   describe.each(THEMES)('Disabled States - Theme: %s', (theme) => {
     test(`ButtonGlass primary disabled - ${theme}`, async () => {
       renderWithTheme(
-        <ButtonGlass variant="primary" disabled data-testid="button">
+        <ButtonGlass variant="default" disabled data-testid="button">
           Disabled Primary
         </ButtonGlass>,
         theme
@@ -628,7 +633,7 @@ describe('Visual Regression Tests', () => {
 
     test(`ToggleGlass disabled on - ${theme}`, async () => {
       renderWithTheme(
-        <ToggleGlass checked={true} onChange={() => {}} disabled data-testid="toggle" />,
+        <ToggleGlass pressed={true} onPressedChange={() => {}} disabled data-testid="toggle" />,
         theme
       );
       await waitForStability();
@@ -638,7 +643,7 @@ describe('Visual Regression Tests', () => {
 
     test(`ToggleGlass disabled off - ${theme}`, async () => {
       renderWithTheme(
-        <ToggleGlass checked={false} onChange={() => {}} disabled data-testid="toggle" />,
+        <ToggleGlass pressed={false} onPressedChange={() => {}} disabled data-testid="toggle" />,
         theme
       );
       await waitForStability();
@@ -650,7 +655,7 @@ describe('Visual Regression Tests', () => {
       renderWithTheme(
         <CheckboxGlass
           checked={true}
-          onChange={() => {}}
+          onPressedChange={() => {}}
           disabled
           label="Disabled Checked"
           data-testid="checkbox"
@@ -666,7 +671,7 @@ describe('Visual Regression Tests', () => {
       renderWithTheme(
         <CheckboxGlass
           checked={false}
-          onChange={() => {}}
+          onPressedChange={() => {}}
           disabled
           label="Disabled Unchecked"
           data-testid="checkbox"
@@ -681,7 +686,7 @@ describe('Visual Regression Tests', () => {
     test(`SliderGlass disabled - ${theme}`, async () => {
       renderWithTheme(
         <div data-testid="slider-container" style={{ width: '200px' }}>
-          <SliderGlass value={50} onChange={() => {}} disabled />
+          <SliderGlass defaultValue={[50]} disabled />
         </div>,
         theme
       );
@@ -699,7 +704,7 @@ describe('Visual Regression Tests', () => {
     // ButtonGlass sizes
     test(`ButtonGlass size sm - ${theme}`, async () => {
       renderWithTheme(
-        <ButtonGlass variant="primary" size="sm" data-testid="button">
+        <ButtonGlass variant="default" size="sm" data-testid="button">
           Small
         </ButtonGlass>,
         theme
@@ -711,7 +716,7 @@ describe('Visual Regression Tests', () => {
 
     test(`ButtonGlass size lg - ${theme}`, async () => {
       renderWithTheme(
-        <ButtonGlass variant="primary" size="lg" data-testid="button">
+        <ButtonGlass variant="default" size="lg" data-testid="button">
           Large
         </ButtonGlass>,
         theme
@@ -723,7 +728,7 @@ describe('Visual Regression Tests', () => {
 
     test(`ButtonGlass size icon - ${theme}`, async () => {
       renderWithTheme(
-        <ButtonGlass variant="primary" size="icon" data-testid="button">
+        <ButtonGlass variant="default" size="icon" data-testid="button">
           +
         </ButtonGlass>,
         theme
@@ -895,7 +900,7 @@ describe('Visual Regression Tests', () => {
     test(`PopoverGlass with form - ${theme}`, async () => {
       renderWithTheme(
         <div data-testid="popover-form-container">
-          <PopoverGlass trigger={<ButtonGlass variant="primary">Settings</ButtonGlass>} open={true}>
+          <PopoverGlass trigger={<ButtonGlass variant="default">Settings</ButtonGlass>} open={true}>
             <div className="w-72 space-y-4">
               <h3 className="font-semibold text-white mb-2">Quick Settings</h3>
               <InputGlass label="Username" placeholder="Enter username" size="sm" />

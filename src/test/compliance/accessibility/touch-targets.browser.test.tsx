@@ -25,12 +25,17 @@ import { SliderGlass } from '@/components/glass/ui/slider-glass';
  * Helper to get element dimensions from computed styles + bounding rect
  * In browser mode, computed styles are more reliable than getBoundingClientRect alone
  */
-async function getElementDimensions(element: HTMLElement): Promise<{ width: number; height: number }> {
-  await waitFor(() => {
-    const rect = element.getBoundingClientRect();
-    expect(rect.width).toBeGreaterThan(0);
-    expect(rect.height).toBeGreaterThan(0);
-  }, { timeout: 3000 });
+async function getElementDimensions(
+  element: HTMLElement
+): Promise<{ width: number; height: number }> {
+  await waitFor(
+    () => {
+      const rect = element.getBoundingClientRect();
+      expect(rect.width).toBeGreaterThan(0);
+      expect(rect.height).toBeGreaterThan(0);
+    },
+    { timeout: 3000 }
+  );
 
   const rect = element.getBoundingClientRect();
   return { width: rect.width, height: rect.height };
@@ -146,7 +151,7 @@ describe('Touch Target Compliance Tests', () => {
       it('toggle switch meets touch target via wrapper', async () => {
         render(
           <ThemeTestWrapper theme={theme}>
-            <ToggleGlass data-testid="test-toggle" checked={false} />
+            <ToggleGlass data-testid="test-toggle" pressed={false} />
           </ThemeTestWrapper>
         );
 
@@ -207,7 +212,7 @@ describe('Touch Target Compliance Tests', () => {
       it('slider thumb has adequate touch area', async () => {
         render(
           <ThemeTestWrapper theme={theme}>
-            <SliderGlass value={50} onChange={() => {}} data-testid="test-slider" />
+            <SliderGlass defaultValue={[50]} data-testid="test-slider" />
           </ThemeTestWrapper>
         );
 

@@ -27,10 +27,7 @@ export const ButtonsBlock = forwardRef<HTMLDivElement, ButtonsBlockProps>(
         {...props}
       >
         {showTitle && (
-          <h2
-            className="text-xl font-bold mb-6"
-            style={{ color: 'var(--text-primary)' }}
-          >
+          <h2 className="text-xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>
             Buttons with Glow & Pulse
           </h2>
         )}
@@ -38,14 +35,11 @@ export const ButtonsBlock = forwardRef<HTMLDivElement, ButtonsBlockProps>(
         <div className="space-y-6">
           {/* Button Variants */}
           <div className="space-y-2">
-            <label
-              className="text-sm font-medium"
-              style={{ color: 'var(--text-secondary)' }}
-            >
+            <label className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
               Button Variants
             </label>
             <div className="flex flex-wrap gap-3">
-              <ButtonGlass variant="primary" icon={Sparkles}>
+              <ButtonGlass variant="default" icon={Sparkles}>
                 Primary
               </ButtonGlass>
               <ButtonGlass variant="secondary" icon={Settings}>
@@ -65,15 +59,12 @@ export const ButtonsBlock = forwardRef<HTMLDivElement, ButtonsBlockProps>(
 
           {/* Button Sizes & States */}
           <div className="space-y-2">
-            <label
-              className="text-sm font-medium"
-              style={{ color: 'var(--text-secondary)' }}
-            >
+            <label className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
               Sizes & States
             </label>
             <div className="flex flex-wrap gap-3">
               <ButtonGlass size="sm">Small</ButtonGlass>
-              <ButtonGlass size="md">Medium</ButtonGlass>
+              <ButtonGlass size="default">Medium</ButtonGlass>
               <ButtonGlass size="lg">Large</ButtonGlass>
               <ButtonGlass loading>Loading</ButtonGlass>
               <ButtonGlass disabled>Disabled</ButtonGlass>
@@ -82,10 +73,7 @@ export const ButtonsBlock = forwardRef<HTMLDivElement, ButtonsBlockProps>(
 
           {/* Icon Buttons */}
           <div className="space-y-2">
-            <label
-              className="text-sm font-medium"
-              style={{ color: 'var(--text-secondary)' }}
-            >
+            <label className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
               Icon Positions
             </label>
             <div className="flex flex-wrap gap-3">
@@ -95,7 +83,7 @@ export const ButtonsBlock = forwardRef<HTMLDivElement, ButtonsBlockProps>(
               <ButtonGlass icon={Sparkles} iconPosition="right">
                 Icon Right
               </ButtonGlass>
-              <ButtonGlass variant="primary" size="icon" icon={Sparkles} />
+              <ButtonGlass variant="default" size="icon" icon={Sparkles} />
             </div>
           </div>
         </div>

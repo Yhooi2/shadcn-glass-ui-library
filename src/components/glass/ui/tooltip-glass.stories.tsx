@@ -144,7 +144,7 @@ export const WithDifferentTriggers: Story = {
   render: () => (
     <div className="flex gap-4">
       <TooltipGlass content="Primary action">
-        <ButtonGlass variant="primary">Primary</ButtonGlass>
+        <ButtonGlass variant="default">Primary</ButtonGlass>
       </TooltipGlass>
       <TooltipGlass content="Secondary action">
         <ButtonGlass variant="ghost">Ghost</ButtonGlass>

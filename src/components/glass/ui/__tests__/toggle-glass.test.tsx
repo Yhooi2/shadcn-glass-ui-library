@@ -6,120 +6,145 @@ import { ToggleGlass } from '../toggle-glass';
 describe('ToggleGlass', () => {
   describe('Rendering', () => {
     it('renders toggle with label', () => {
-      render(<ToggleGlass checked={false} onChange={vi.fn()} label="Test Label" />);
+      render(<ToggleGlass pressed={false} onPressedChange={vi.fn()} label="Test Label" />);
       expect(screen.getByText('Test Label')).toBeInTheDocument();
     });
 
     it('renders toggle without label', () => {
-      render(<ToggleGlass checked={false} onChange={vi.fn()} />);
+      render(<ToggleGlass pressed={false} onPressedChange={vi.fn()} />);
       const toggle = screen.getByRole('switch');
       expect(toggle).toBeInTheDocument();
       expect(screen.queryByText(/test/i)).not.toBeInTheDocument();
     });
 
     it('applies custom className to toggle without label', () => {
-      render(<ToggleGlass checked={false} onChange={vi.fn()} className="custom-class" />);
+      render(<ToggleGlass pressed={false} onPressedChange={vi.fn()} className="custom-class" />);
       const toggle = screen.getByRole('switch');
       expect(toggle).toHaveClass('custom-class');
     });
 
     it('applies custom className to label wrapper when label is provided', () => {
       const { container } = render(
-        <ToggleGlass checked={false} onChange={vi.fn()} label="Label" className="custom-class" />
+        <ToggleGlass
+          pressed={false}
+          onPressedChange={vi.fn()}
+          label="Label"
+          className="custom-class"
+        />
       );
       const label = container.querySelector('label');
       expect(label).toHaveClass('custom-class');
     });
 
-    it('renders with correct ARIA attributes', () => {
-      render(<ToggleGlass checked={true} onChange={vi.fn()} label="Toggle" />);
+    it('renders with correct ARIA attributes (aria-pressed)', () => {
+      render(<ToggleGlass pressed={true} onPressedChange={vi.fn()} label="Toggle" />);
       const toggle = screen.getByRole('switch');
-      expect(toggle).toHaveAttribute('aria-checked', 'true');
+      expect(toggle).toHaveAttribute('aria-pressed', 'true');
       expect(toggle).toHaveAttribute('aria-label', 'Toggle');
     });
 
     it('uses aria-label from label prop', () => {
-      render(<ToggleGlass checked={false} onChange={vi.fn()} label="Custom Label" />);
+      render(<ToggleGlass pressed={false} onPressedChange={vi.fn()} label="Custom Label" />);
       const toggle = screen.getByRole('switch');
       expect(toggle).toHaveAttribute('aria-label', 'Custom Label');
     });
 
     it('has default aria-label when no label provided', () => {
-      render(<ToggleGlass checked={false} onChange={vi.fn()} />);
+      render(<ToggleGlass pressed={false} onPressedChange={vi.fn()} />);
       const toggle = screen.getByRole('switch');
       expect(toggle).toHaveAttribute('aria-label', 'Toggle switch');
     });
   });
 
-  describe('Checked State', () => {
-    it('renders unchecked state correctly', () => {
-      render(<ToggleGlass checked={false} onChange={vi.fn()} />);
+  describe('Pressed State (shadcn/ui compatible)', () => {
+    it('renders unpressed state correctly', () => {
+      render(<ToggleGlass pressed={false} onPressedChange={vi.fn()} />);
       const toggle = screen.getByRole('switch');
-      expect(toggle).toHaveAttribute('aria-checked', 'false');
+      expect(toggle).toHaveAttribute('aria-pressed', 'false');
     });
 
-    it('renders checked state correctly', () => {
-      render(<ToggleGlass checked={true} onChange={vi.fn()} />);
+    it('renders pressed state correctly', () => {
+      render(<ToggleGlass pressed={true} onPressedChange={vi.fn()} />);
       const toggle = screen.getByRole('switch');
-      expect(toggle).toHaveAttribute('aria-checked', 'true');
+      expect(toggle).toHaveAttribute('aria-pressed', 'true');
     });
 
-    it('displays knob in left position when unchecked', () => {
-      const { container } = render(<ToggleGlass checked={false} onChange={vi.fn()} />);
+    it('displays knob in left position when unpressed', () => {
+      const { container } = render(<ToggleGlass pressed={false} onPressedChange={vi.fn()} />);
       const knob = container.querySelector('button > div.rounded-full');
       expect(knob).not.toHaveClass('translate-x-5');
     });
 
-    it('displays knob in right position when checked', () => {
-      const { container } = render(<ToggleGlass checked={true} onChange={vi.fn()} />);
+    it('displays knob in right position when pressed', () => {
+      const { container } = render(<ToggleGlass pressed={true} onPressedChange={vi.fn()} />);
       const knob = container.querySelector('button > div.rounded-full');
       expect(knob).toHaveClass('translate-x-5');
     });
   });
 
-  describe('Size Variants', () => {
+  describe('Size Variants (shadcn/ui compatible)', () => {
     it('renders small size', () => {
-      render(<ToggleGlass checked={false} onChange={vi.fn()} size="sm" />);
+      render(<ToggleGlass pressed={false} onPressedChange={vi.fn()} size="sm" />);
       const toggle = screen.getByRole('switch');
       expect(toggle).toBeInTheDocument();
     });
 
-    it('renders medium size (default)', () => {
-      render(<ToggleGlass checked={false} onChange={vi.fn()} />);
+    it('renders default size', () => {
+      render(<ToggleGlass pressed={false} onPressedChange={vi.fn()} size="default" />);
       const toggle = screen.getByRole('switch');
       expect(toggle).toBeInTheDocument();
     });
 
     it('renders large size', () => {
-      render(<ToggleGlass checked={false} onChange={vi.fn()} size="lg" />);
+      render(<ToggleGlass pressed={false} onPressedChange={vi.fn()} size="lg" />);
       const toggle = screen.getByRole('switch');
       expect(toggle).toBeInTheDocument();
     });
 
-    it('applies correct knob translate for small size when checked', () => {
-      const { container } = render(<ToggleGlass checked={true} onChange={vi.fn()} size="sm" />);
+    it('applies correct knob translate for small size when pressed', () => {
+      const { container } = render(
+        <ToggleGlass pressed={true} onPressedChange={vi.fn()} size="sm" />
+      );
       const knob = container.querySelector('button > div.rounded-full');
       expect(knob).toHaveClass('translate-x-4');
     });
 
-    it('applies correct knob translate for medium size when checked', () => {
-      const { container } = render(<ToggleGlass checked={true} onChange={vi.fn()} size="md" />);
+    it('applies correct knob translate for default size when pressed', () => {
+      const { container } = render(
+        <ToggleGlass pressed={true} onPressedChange={vi.fn()} size="default" />
+      );
       const knob = container.querySelector('button > div.rounded-full');
       expect(knob).toHaveClass('translate-x-5');
     });
 
-    it('applies correct knob translate for large size when checked', () => {
-      const { container } = render(<ToggleGlass checked={true} onChange={vi.fn()} size="lg" />);
+    it('applies correct knob translate for large size when pressed', () => {
+      const { container } = render(
+        <ToggleGlass pressed={true} onPressedChange={vi.fn()} size="lg" />
+      );
       const knob = container.querySelector('button > div.rounded-full');
       expect(knob).toHaveClass('translate-x-7');
     });
   });
 
+  describe('Variant Types (shadcn/ui compatible)', () => {
+    it('renders default variant', () => {
+      render(<ToggleGlass pressed={false} onPressedChange={vi.fn()} variant="default" />);
+      const toggle = screen.getByRole('switch');
+      expect(toggle).toBeInTheDocument();
+    });
+
+    it('renders outline variant', () => {
+      render(<ToggleGlass pressed={false} onPressedChange={vi.fn()} variant="outline" />);
+      const toggle = screen.getByRole('switch');
+      expect(toggle).toHaveClass('border-2');
+    });
+  });
+
   describe('User Interactions', () => {
-    it('calls onChange with true when unchecked toggle is clicked', async () => {
+    it('calls onPressedChange with true when unpressed toggle is clicked', async () => {
       const user = userEvent.setup();
       const handleChange = vi.fn();
-      render(<ToggleGlass checked={false} onChange={handleChange} />);
+      render(<ToggleGlass pressed={false} onPressedChange={handleChange} />);
 
       const toggle = screen.getByRole('switch');
       await user.click(toggle);
@@ -128,10 +153,10 @@ describe('ToggleGlass', () => {
       expect(handleChange).toHaveBeenCalledWith(true);
     });
 
-    it('calls onChange with false when checked toggle is clicked', async () => {
+    it('calls onPressedChange with false when pressed toggle is clicked', async () => {
       const user = userEvent.setup();
       const handleChange = vi.fn();
-      render(<ToggleGlass checked={true} onChange={handleChange} />);
+      render(<ToggleGlass pressed={true} onPressedChange={handleChange} />);
 
       const toggle = screen.getByRole('switch');
       await user.click(toggle);
@@ -143,7 +168,7 @@ describe('ToggleGlass', () => {
     it('toggles when label is clicked', async () => {
       const user = userEvent.setup();
       const handleChange = vi.fn();
-      render(<ToggleGlass checked={false} onChange={handleChange} label="Click me" />);
+      render(<ToggleGlass pressed={false} onPressedChange={handleChange} label="Click me" />);
 
       const label = screen.getByText('Click me');
       await user.click(label);
@@ -154,16 +179,16 @@ describe('ToggleGlass', () => {
 
   describe('Disabled State', () => {
     it('renders disabled state correctly', () => {
-      render(<ToggleGlass checked={false} onChange={vi.fn()} disabled />);
+      render(<ToggleGlass pressed={false} onPressedChange={vi.fn()} disabled />);
       const toggle = screen.getByRole('switch');
       expect(toggle).toBeDisabled();
       expect(toggle).toHaveClass('opacity-50', 'cursor-not-allowed');
     });
 
-    it('does not call onChange when disabled and clicked', async () => {
+    it('does not call onPressedChange when disabled and clicked', async () => {
       const user = userEvent.setup();
       const handleChange = vi.fn();
-      render(<ToggleGlass checked={false} onChange={handleChange} disabled />);
+      render(<ToggleGlass pressed={false} onPressedChange={handleChange} disabled />);
 
       const toggle = screen.getByRole('switch');
       await user.click(toggle);
@@ -173,47 +198,64 @@ describe('ToggleGlass', () => {
 
     it('applies disabled styles to label wrapper when label is provided', () => {
       const { container } = render(
-        <ToggleGlass checked={false} onChange={vi.fn()} label="Label" disabled />
+        <ToggleGlass pressed={false} onPressedChange={vi.fn()} label="Label" disabled />
       );
       const label = container.querySelector('label');
       expect(label).toHaveClass('opacity-50', 'cursor-not-allowed');
     });
   });
 
-  describe('Optional onChange', () => {
-    it('renders without onChange prop', () => {
-      expect(() => {
-        render(<ToggleGlass checked={false} />);
-      }).not.toThrow();
+  describe('Uncontrolled Mode (defaultPressed)', () => {
+    it('renders with defaultPressed=false', () => {
+      render(<ToggleGlass defaultPressed={false} />);
+      const toggle = screen.getByRole('switch');
+      expect(toggle).toHaveAttribute('aria-pressed', 'false');
     });
 
-    it('does not throw error when clicked without onChange', async () => {
+    it('renders with defaultPressed=true', () => {
+      render(<ToggleGlass defaultPressed={true} />);
+      const toggle = screen.getByRole('switch');
+      expect(toggle).toHaveAttribute('aria-pressed', 'true');
+    });
+
+    it('toggles internal state when clicked in uncontrolled mode', async () => {
       const user = userEvent.setup();
-      render(<ToggleGlass checked={false} />);
+      render(<ToggleGlass defaultPressed={false} />);
 
       const toggle = screen.getByRole('switch');
+      expect(toggle).toHaveAttribute('aria-pressed', 'false');
 
-      expect(async () => {
-        await user.click(toggle);
-      }).not.toThrow();
+      await user.click(toggle);
+      expect(toggle).toHaveAttribute('aria-pressed', 'true');
+    });
+
+    it('calls onPressedChange even in uncontrolled mode', async () => {
+      const user = userEvent.setup();
+      const handleChange = vi.fn();
+      render(<ToggleGlass defaultPressed={false} onPressedChange={handleChange} />);
+
+      const toggle = screen.getByRole('switch');
+      await user.click(toggle);
+
+      expect(handleChange).toHaveBeenCalledWith(true);
     });
   });
 
   describe('Forward Ref', () => {
     it('forwards ref to button element', () => {
-      const ref = { current: null } as React.RefObject<HTMLDivElement>;
-      render(<ToggleGlass ref={ref} checked={false} onChange={vi.fn()} />);
+      const ref = { current: null } as React.RefObject<HTMLButtonElement>;
+      render(<ToggleGlass ref={ref} pressed={false} onPressedChange={vi.fn()} />);
 
       expect(ref.current).toBeInstanceOf(HTMLButtonElement);
     });
 
     it('allows ref methods to be called', () => {
-      const ref = { current: null } as React.RefObject<HTMLDivElement>;
-      render(<ToggleGlass ref={ref} checked={false} onChange={vi.fn()} />);
+      const ref = { current: null } as React.RefObject<HTMLButtonElement>;
+      render(<ToggleGlass ref={ref} pressed={false} onPressedChange={vi.fn()} />);
 
       expect(ref.current).not.toBeNull();
       if (ref.current) {
-        (ref.current as HTMLButtonElement).focus();
+        ref.current.focus();
         expect(document.activeElement).toBe(ref.current);
       }
     });
@@ -223,8 +265,8 @@ describe('ToggleGlass', () => {
     it('passes additional HTML attributes to button', () => {
       render(
         <ToggleGlass
-          checked={false}
-          onChange={vi.fn()}
+          pressed={false}
+          onPressedChange={vi.fn()}
           data-testid="custom-toggle"
           aria-describedby="description"
         />
@@ -236,15 +278,15 @@ describe('ToggleGlass', () => {
     });
 
     it('applies id attribute correctly', () => {
-      render(<ToggleGlass checked={false} onChange={vi.fn()} id="my-toggle" />);
+      render(<ToggleGlass pressed={false} onPressedChange={vi.fn()} id="my-toggle" />);
       const toggle = screen.getByRole('switch');
       expect(toggle).toHaveAttribute('id', 'my-toggle');
     });
   });
 
   describe('Theme Styling', () => {
-    it('applies glass theme CSS variables when unchecked', () => {
-      render(<ToggleGlass checked={false} onChange={vi.fn()} />);
+    it('applies glass theme CSS variables when unpressed', () => {
+      render(<ToggleGlass pressed={false} onPressedChange={vi.fn()} />);
       const toggle = screen.getByRole('switch');
 
       expect(toggle).toHaveStyle({
@@ -252,8 +294,8 @@ describe('ToggleGlass', () => {
       });
     });
 
-    it('applies active theme CSS variables when checked', () => {
-      render(<ToggleGlass checked={true} onChange={vi.fn()} />);
+    it('applies active theme CSS variables when pressed', () => {
+      render(<ToggleGlass pressed={true} onPressedChange={vi.fn()} />);
       const toggle = screen.getByRole('switch');
 
       expect(toggle).toHaveStyle({
@@ -262,7 +304,7 @@ describe('ToggleGlass', () => {
     });
 
     it('applies knob CSS variables', () => {
-      const { container } = render(<ToggleGlass checked={false} onChange={vi.fn()} />);
+      const { container } = render(<ToggleGlass pressed={false} onPressedChange={vi.fn()} />);
       const knob = container.querySelector('button > div.rounded-full') as HTMLElement;
 
       expect(knob).toHaveStyle({

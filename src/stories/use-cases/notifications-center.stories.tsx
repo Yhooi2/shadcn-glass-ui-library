@@ -654,7 +654,7 @@ const NotificationsCenter = ({
                 <ButtonGlass variant="ghost" onClick={() => setShowSettings(false)}>
                   Cancel
                 </ButtonGlass>
-                <ButtonGlass variant="primary" onClick={() => setShowSettings(false)}>
+                <ButtonGlass variant="default" onClick={() => setShowSettings(false)}>
                   Save Preferences
                 </ButtonGlass>
               </ModalGlass.Footer>

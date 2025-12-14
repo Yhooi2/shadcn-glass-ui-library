@@ -134,7 +134,7 @@ export const AlignRight: Story = {
 export const PrimaryTrigger: Story = {
   args: {
     trigger: (
-      <ButtonGlass variant="primary" className="flex items-center gap-2">
+      <ButtonGlass variant="default" className="flex items-center gap-2">
         Options
         <ChevronDown className="w-4 h-4" />
       </ButtonGlass>

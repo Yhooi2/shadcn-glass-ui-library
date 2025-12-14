@@ -11,8 +11,8 @@ describe('ButtonGlass', () => {
       expect(screen.getByRole('button', { name: /click me/i })).toBeInTheDocument();
     });
 
-    it('renders with default variant (primary)', () => {
-      render(<ButtonGlass>Primary</ButtonGlass>);
+    it('renders with default variant', () => {
+      render(<ButtonGlass>Default</ButtonGlass>);
       const button = screen.getByRole('button');
       expect(button).toBeInTheDocument();
     });
@@ -24,7 +24,17 @@ describe('ButtonGlass', () => {
     });
 
     it('renders all variant types without errors', () => {
-      const variants = ['primary', 'secondary', 'ghost', 'destructive', 'success', 'text'] as const;
+      // shadcn/ui compatible variants: default, secondary, ghost, destructive, outline, link
+      // glass-ui extension: success
+      const variants = [
+        'default',
+        'secondary',
+        'ghost',
+        'destructive',
+        'outline',
+        'success',
+        'link',
+      ] as const;
 
       variants.forEach((variant) => {
         const { unmount } = render(<ButtonGlass variant={variant}>{variant}</ButtonGlass>);
@@ -35,7 +45,9 @@ describe('ButtonGlass', () => {
     });
 
     it('renders with different sizes without errors', () => {
-      const sizes = ['sm', 'md', 'lg', 'icon'] as const;
+      // shadcn/ui compatible sizes: default, sm, lg, icon
+      // glass-ui extension: xl
+      const sizes = ['default', 'sm', 'lg', 'xl', 'icon'] as const;
 
       sizes.forEach((size) => {
         const { unmount } = render(<ButtonGlass size={size}>{size}</ButtonGlass>);
@@ -60,14 +72,22 @@ describe('ButtonGlass', () => {
     });
 
     it('renders icon on the right when iconPosition is right', () => {
-      render(<ButtonGlass icon={Check} iconPosition="right">With Icon</ButtonGlass>);
+      render(
+        <ButtonGlass icon={Check} iconPosition="right">
+          With Icon
+        </ButtonGlass>
+      );
       const button = screen.getByRole('button');
       const icon = button.querySelector('svg');
       expect(icon).toBeInTheDocument();
     });
 
     it('renders spinner icon when loading', () => {
-      render(<ButtonGlass icon={Check} loading>Loading</ButtonGlass>);
+      render(
+        <ButtonGlass icon={Check} loading>
+          Loading
+        </ButtonGlass>
+      );
       const button = screen.getByRole('button');
       const spinner = button.querySelector('.animate-spin');
       expect(spinner).toBeInTheDocument();
@@ -96,7 +116,11 @@ describe('ButtonGlass', () => {
     it('does not trigger onClick when loading', async () => {
       const user = userEvent.setup();
       const handleClick = vi.fn();
-      render(<ButtonGlass loading onClick={handleClick}>Loading</ButtonGlass>);
+      render(
+        <ButtonGlass loading onClick={handleClick}>
+          Loading
+        </ButtonGlass>
+      );
 
       await user.click(screen.getByRole('button'));
       expect(handleClick).not.toHaveBeenCalled();
@@ -112,7 +136,11 @@ describe('ButtonGlass', () => {
     it('does not trigger onClick when disabled', async () => {
       const user = userEvent.setup();
       const handleClick = vi.fn();
-      render(<ButtonGlass disabled onClick={handleClick}>Disabled</ButtonGlass>);
+      render(
+        <ButtonGlass disabled onClick={handleClick}>
+          Disabled
+        </ButtonGlass>
+      );
 
       await user.click(screen.getByRole('button'));
       expect(handleClick).not.toHaveBeenCalled();
@@ -155,7 +183,11 @@ describe('ButtonGlass', () => {
     });
 
     it('spreads additional props', () => {
-      render(<ButtonGlass data-testid="custom-button" aria-label="Custom">Button</ButtonGlass>);
+      render(
+        <ButtonGlass data-testid="custom-button" aria-label="Custom">
+          Button
+        </ButtonGlass>
+      );
       const button = screen.getByTestId('custom-button');
       expect(button).toHaveAttribute('aria-label', 'Custom');
     });
