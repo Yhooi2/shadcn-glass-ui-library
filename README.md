@@ -60,7 +60,7 @@ function App() {
   return (
     <ThemeProvider defaultTheme="glass">
       <div className="p-8 space-y-4">
-        <ButtonGlass variant="primary" size="lg">
+        <ButtonGlass variant="default" size="lg">
           Click me
         </ButtonGlass>
         <InputGlass placeholder="Enter text..." />
@@ -232,15 +232,34 @@ Centralized color management with **zero hardcoded values**.
 
 ## Full shadcn/ui Compatibility
 
-**Install on top of existing shadcn/ui projects** — no migration required! Same patterns, same CLI.
+### 🎉 v2.0.0: 100% API Compatible
 
-| Feature             | shadcn-glass-ui                                | Standard shadcn/ui      |
-| ------------------- | ---------------------------------------------- | ----------------------- |
-| CLI installation    | `npx shadcn add @shadcn-glass-ui/button-glass` | `npx shadcn add button` |
-| Component structure | Same compound APIs                             | Same                    |
-| Variant props       | `variant`, `size`                              | Same                    |
-| asChild pattern     | Full support                                   | Full support            |
-| TypeScript          | Strict mode                                    | Same                    |
+**Install on top of existing shadcn/ui projects** — no migration required!
+
+All components now follow **exact shadcn/ui API conventions**:
+
+| Component         | shadcn/ui API                      | shadcn-glass-ui v2.0+ | Status |
+| ----------------- | ---------------------------------- | --------------------- | ------ |
+| **ButtonGlass**   | `variant="default"`                | ✅ Same               | 100%   |
+| **ToggleGlass**   | `pressed`, `onPressedChange`       | ✅ Same               | 100%   |
+| **SliderGlass**   | `value: number[]`, `onValueChange` | ✅ Same               | 100%   |
+| **ComboBoxGlass** | `value`, `onValueChange`           | ✅ Same               | 100%   |
+
+**Key improvements in v2.0:**
+
+- `onChange` → `onValueChange` (Select, ComboBox, Slider)
+- `checked` → `pressed` (Toggle components)
+- `variant="primary"` → `variant="default"` (Button)
+- Array-based values for Slider (`number[]` instead of `number`)
+
+| Feature           | shadcn-glass-ui                                 | Standard shadcn/ui      |
+| ----------------- | ----------------------------------------------- | ----------------------- |
+| CLI installation  | `npx shadcn add @shadcn-glass-ui/button-glass`  | `npx shadcn add button` |
+| Core props        | `variant`, `size`, `className`                  | Same                    |
+| Callback names    | `onValueChange`, `onPressedChange`              | Same                    |
+| asChild pattern   | Full support                                    | Full support            |
+| TypeScript        | Strict mode                                     | Same                    |
+| Extended features | `loading`, `icon`, compound APIs, glassmorphism | —                       |
 
 **Mix and match freely:**
 
@@ -252,7 +271,7 @@ function App() {
   return (
     <>
       <Button variant="outline">Standard</Button>
-      <ButtonGlass variant="primary">Glassmorphism</ButtonGlass>
+      <ButtonGlass variant="default">Glassmorphism</ButtonGlass>
     </>
   );
 }

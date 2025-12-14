@@ -13,14 +13,167 @@ guides and automated scripts.
 
 ---
 
-## v2.0.0 — CSS Variables (Token Architecture)
+## v2.0.0 — 100% shadcn/ui API Compatibility + Token Architecture
 
-**Release Date:** 2025-12-11
+**Release Date:** 2025-12-14
 
 ### Summary
 
-v2.0.0 introduces the 3-layer token architecture, replacing color-based CSS variable names with
-semantic names.
+v2.0.0 achieves **100% API compatibility with shadcn/ui** by standardizing all component APIs to
+match shadcn/ui conventions exactly. This release also introduces the 3-layer token architecture,
+replacing color-based CSS variable names with semantic names.
+
+**Major changes:**
+
+1. **Component API migrations** — All components now use shadcn/ui naming (onValueChange, pressed,
+   etc.)
+2. **CSS variable renaming** — Color-based names → semantic names
+3. **Breaking changes** — No backward compatibility for legacy APIs
+
+---
+
+### Component API Changes (shadcn/ui Compatibility)
+
+All components have been migrated to match shadcn/ui API conventions exactly.
+
+#### 1. ButtonGlass — `variant` prop standardization
+
+**Removed variants:**
+
+- `variant="primary"` → Use `variant="default"`
+- `variant="text"` → Use `variant="link"`
+
+**Removed size:**
+
+- `size="md"` → Use `size="default"`
+
+**Added variant:**
+
+- `variant="outline"` (new)
+
+**Migration:**
+
+```tsx
+// Before v2.0
+<ButtonGlass variant="primary" size="md">Click me</ButtonGlass>
+<ButtonGlass variant="text">Link</ButtonGlass>
+
+// After v2.0
+<ButtonGlass variant="default" size="default">Click me</ButtonGlass>
+<ButtonGlass variant="link">Link</ButtonGlass>
+```
+
+---
+
+#### 2. ToggleGlass — `pressed` state (shadcn/ui convention)
+
+**Removed:** `checked`, `defaultChecked`, `onChange`
+
+**Added:** `pressed`, `defaultPressed`, `onPressedChange`
+
+**Migration:**
+
+```tsx
+// Before v2.0
+<ToggleGlass
+  checked={isOn}
+  onChange={(checked) => setIsOn(checked)}
+  size="md"
+/>
+
+// After v2.0
+<ToggleGlass
+  pressed={isOn}
+  onPressedChange={(pressed) => setIsOn(pressed)}
+  size="default"
+/>
+```
+
+**ARIA changes:**
+
+- `aria-checked` → `aria-pressed`
+- `role="checkbox"` → `role="switch"`
+
+---
+
+#### 3. SliderGlass — Array-based values (Radix UI pattern)
+
+**Removed:** `value: number`, `defaultValue: number`, `onChange(value: number)`
+
+**Added:** `value: number[]`, `defaultValue: number[]`, `onValueChange(value: number[])`
+
+**Migration:**
+
+```tsx
+// Before v2.0
+<SliderGlass
+  value={50}
+  onChange={(val) => setValue(val)}
+  min={0}
+  max={100}
+/>
+
+// After v2.0
+<SliderGlass
+  value={[50]}
+  onValueChange={(val) => setValue(val[0])}
+  min={0}
+  max={100}
+/>
+
+// Range slider (new feature in v2.0)
+<SliderGlass
+  value={[25, 75]}
+  onValueChange={setRange}
+/>
+```
+
+**New props:**
+
+- `onValueCommit` — Callback when user finishes dragging (mouse up)
+- `orientation` — `'horizontal' | 'vertical'`
+
+---
+
+#### 4. ComboBoxGlass — `onValueChange` (shadcn/ui convention)
+
+**Removed:** `onChange`
+
+**Added:** `onValueChange`
+
+**Migration:**
+
+```tsx
+// Before v2.0
+<ComboBoxGlass
+  options={options}
+  value={value}
+  onChange={setValue}
+/>
+
+// After v2.0
+<ComboBoxGlass
+  options={options}
+  value={value}
+  onValueChange={setValue}
+/>
+```
+
+---
+
+### Component API Summary
+
+| Component         | v1.x API              | v2.0 API                     | Reason                   |
+| ----------------- | --------------------- | ---------------------------- | ------------------------ |
+| **ButtonGlass**   | `variant="primary"`   | `variant="default"`          | shadcn/ui convention     |
+| **ButtonGlass**   | `variant="text"`      | `variant="link"`             | shadcn/ui convention     |
+| **ButtonGlass**   | `size="md"`           | `size="default"`             | shadcn/ui convention     |
+| **ToggleGlass**   | `checked`, `onChange` | `pressed`, `onPressedChange` | shadcn/ui switch pattern |
+| **SliderGlass**   | `value: number`       | `value: number[]`            | Radix UI + range support |
+| **SliderGlass**   | `onChange`            | `onValueChange`              | shadcn/ui convention     |
+| **ComboBoxGlass** | `onChange`            | `onValueChange`              | shadcn/ui convention     |
+
+---
 
 ### CSS Variables REMOVED
 
@@ -324,35 +477,95 @@ find src/ -name "*.tsx" -exec sed -i '' \
 ```bash
 #!/bin/bash
 
-# CSS Variables: color names → semantic names
+# 1. Component API migrations
+
+# ButtonGlass: variant prop changes
+find src/ -type f -name "*.tsx" -exec sed -i '' \
+  -e 's/variant="primary"/variant="default"/g' \
+  -e 's/variant="text"/variant="link"/g' \
+  -e 's/size="md"/size="default"/g' \
+  {} +
+
+# ToggleGlass: checked → pressed
+find src/ -type f -name "*.tsx" -exec sed -i '' \
+  -e 's/\bChecked={/pressed={/g' \
+  -e 's/defaultChecked=/defaultPressed=/g' \
+  -e 's/onChange={(checked)/onPressedChange={(pressed)/g' \
+  -e 's/onChange={(\([^)]*\))}/onPressedChange={\1}/g' \
+  {} +
+
+# SliderGlass: value → value[], onChange → onValueChange
+# WARNING: Manual review required for array conversion
+echo "⚠️  MANUAL MIGRATION REQUIRED for SliderGlass:"
+echo "   - value={50} → value={[50]}"
+echo "   - onChange={(val) => setValue(val)} → onValueChange={(val) => setValue(val[0])}"
+
+# ComboBoxGlass: onChange → onValueChange
+find src/ -type f -name "*.tsx" -exec sed -i '' \
+  -e 's/<ComboBoxGlass\([^>]*\)onChange=/<ComboBoxGlass\1onValueChange=/g' \
+  {} +
+
+# 2. CSS Variables: color names → semantic names
 find src/ -type f \( -name "*.tsx" -o -name "*.css" \) -exec sed -i '' \
   -e 's/--metric-emerald-/--metric-success-/g' \
   -e 's/--metric-amber-/--metric-warning-/g' \
   -e 's/--metric-blue-/--metric-default-/g' \
   -e 's/--metric-red-/--metric-destructive-/g' \
   {} +
+
+echo "✅ Migration complete! Run tests and fix SliderGlass manually."
+```
+
+**Linux (GNU sed):**
+
+```bash
+#!/bin/bash
+
+# Same as above but without '' after -i
+find src/ -type f -name "*.tsx" -exec sed -i \
+  -e 's/variant="primary"/variant="default"/g' \
+  -e 's/variant="text"/variant="link"/g' \
+  {} +
+
+# ... (repeat other commands with sed -i instead of sed -i '')
 ```
 
 ---
 
 ## Compatibility Table
 
-| Feature                          | v0.x | v1.0.0   | v2.0.0   |
-| -------------------------------- | ---- | -------- | -------- |
-| SelectGlass                      | Yes  | Removed  | Removed  |
-| ModalGlass legacy API            | Yes  | Removed  | Removed  |
-| TabsGlass legacy API             | Yes  | Removed  | Removed  |
-| `variant="danger"`               | Yes  | Removed  | Removed  |
-| `type` prop (Alert/Notification) | Yes  | Removed  | Removed  |
-| `--metric-emerald-*` variables   | Yes  | Yes      | Removed  |
-| Compound APIs                    | No   | Required | Required |
-| 3-layer token system             | No   | No       | Required |
+| Feature                              | v0.x | v1.0.0   | v2.0.0   |
+| ------------------------------------ | ---- | -------- | -------- |
+| **Legacy APIs (v0.x)**               |      |          |          |
+| SelectGlass                          | Yes  | Removed  | Removed  |
+| ModalGlass legacy API                | Yes  | Removed  | Removed  |
+| TabsGlass legacy API                 | Yes  | Removed  | Removed  |
+| `variant="danger"`                   | Yes  | Removed  | Removed  |
+| `type` prop (Alert/Notification)     | Yes  | Removed  | Removed  |
+| **v2.0.0 Breaking Changes**          |      |          |          |
+| `variant="primary"` (ButtonGlass)    | Yes  | Yes      | Removed  |
+| `variant="text"` (ButtonGlass)       | Yes  | Yes      | Removed  |
+| `checked` prop (ToggleGlass)         | Yes  | Yes      | Removed  |
+| `onChange` (SliderGlass)             | Yes  | Yes      | Removed  |
+| `value: number` (SliderGlass)        | Yes  | Yes      | Removed  |
+| `onChange` (ComboBoxGlass)           | Yes  | Yes      | Removed  |
+| `--metric-emerald-*` variables       | Yes  | Yes      | Removed  |
+| **New in v2.0.0**                    |      |          |          |
+| `variant="default"` (ButtonGlass)    | No   | No       | Added    |
+| `variant="link"` (ButtonGlass)       | No   | No       | Added    |
+| `pressed` prop (ToggleGlass)         | No   | No       | Added    |
+| `onValueChange` (Slider/ComboBox)    | No   | No       | Added    |
+| `value: number[]` (SliderGlass)      | No   | No       | Added    |
+| Compound APIs                        | No   | Required | Required |
+| 3-layer token system                 | No   | No       | Required |
+| **100% shadcn/ui API compatibility** | No   | No       | ✅ Yes   |
 
 ---
 
 ## Version History
 
-- **v2.0.0** (2025-12-11) — Token architecture, CSS variable renaming
+- **v2.0.0** (2025-12-14) — 100% shadcn/ui API compatibility, component migrations, token
+  architecture
 - **v1.1.0** (2025-12-10) — SparklineGlass, InsightCardGlass, CLI commands
 - **v1.0.0** (2025-12-05) — API standardization, compound components required
 - **v0.x** — Legacy APIs (all removed in v1.0.0)
