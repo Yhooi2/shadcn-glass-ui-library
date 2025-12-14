@@ -79,8 +79,8 @@ jobs:
           cp package.json package.json.bak
           node -e "const pkg = require('./package.json'); pkg.name = '@Yhooi2/shadcn-glass-ui'; pkg.publishConfig = { registry: 'https://npm.pkg.github.com/', access: 'public' }; require('fs').writeFileSync('package.json', JSON.stringify(pkg, null, 2));"
 
-      - name: Publish to GitHub Packages
-        run: npm publish --access public
+      - name: Publish to GitHub Packages (skip build, reuse npm artifacts)
+        run: npm publish --access public --ignore-scripts
         continue-on-error: true
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
