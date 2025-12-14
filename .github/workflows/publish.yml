@@ -74,11 +74,20 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           scope: '@Yhooi2'
 
+      - name: Update package.json for GitHub Packages
+        run: |
+          cp package.json package.json.bak
+          node -e "const pkg = require('./package.json'); pkg.name = '@Yhooi2/shadcn-glass-ui'; pkg.publishConfig = { registry: 'https://npm.pkg.github.com/', access: 'public' }; require('fs').writeFileSync('package.json', JSON.stringify(pkg, null, 2));"
+
       - name: Publish to GitHub Packages
         run: npm publish --access public
         continue-on-error: true
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Restore original package.json
+        if: always()
+        run: mv package.json.bak package.json
 
       - name: Post summary
         run: |
