@@ -76,6 +76,7 @@ jobs:
 
       - name: Publish to GitHub Packages
         run: npm publish --access public
+        continue-on-error: true
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
