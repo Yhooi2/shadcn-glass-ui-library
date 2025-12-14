@@ -195,7 +195,7 @@ function ThemeSwitcher() {
 This library is optimized for AI coding assistants:
 
 - **Claude Code** — Project-specific instructions in [CLAUDE.md](CLAUDE.md)
-- **Context7** — [Indexed](https://context7.com/yhooi2/shadcn-glass-ui-library) with 59 AI-specific
+- **Context7** — [Indexed](https://context7.com/yhooi2/shadcn-glass-ui-library) with 41 AI-specific
   rules
 - **GitHub Copilot** — TypeScript strict mode + comprehensive JSDoc
 - **ChatGPT/GPT-4** — Machine-readable [EXPORTS_MAP.json](docs/EXPORTS_MAP.json)
