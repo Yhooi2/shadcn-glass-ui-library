@@ -4,7 +4,7 @@
 [![npm downloads](https://img.shields.io/npm/dm/shadcn-glass-ui.svg)](https://www.npmjs.com/package/shadcn-glass-ui)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue)](https://www.typescriptlang.org/)
 [![AI-Friendly](https://img.shields.io/badge/AI-Optimized-blueviolet)](docs/AI_USAGE.md)
-[![Bundle Size](https://img.shields.io/badge/gzip-372KB-success)](https://bundlephobia.com/package/shadcn-glass-ui)
+[![Bundle Size](https://img.shields.io/bundlephobia/minzip/shadcn-glass-ui?cacheSeconds=86400)](https://bundlephobia.com/package/shadcn-glass-ui)
 
 **Glassmorphism UI components for React** — beautiful frosted glass effects, 57 production-ready
 components, 3 themes, drop-in compatible with shadcn/ui.
