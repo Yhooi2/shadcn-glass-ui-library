@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.1] - 2025-12-14
+
+### 🐛 Bug Fixes
+
+#### CI/CD Improvements
+
+- **GitHub Packages Publishing** - Fixed publication to GitHub Packages registry
+  - Added `--ignore-scripts` flag to skip `prepublishOnly` hook during GitHub Packages publish
+  - Reuses build artifacts from npm publish step instead of rebuilding
+  - Prevents API Extractor scope validation error with `@Yhooi2` (uppercase scope)
+  - Added graceful handling for `package.json.bak` restore step
+
+### 📦 Published Packages
+
+- **npm Registry**: [shadcn-glass-ui@2.1.1](https://www.npmjs.com/package/shadcn-glass-ui/v/2.1.1)
+- **GitHub Packages**:
+  [@Yhooi2/shadcn-glass-ui@2.1.1](https://github.com/Yhooi2/shadcn-glass-ui-library/packages)
+
 ## [2.1.0] - 2025-12-14
 
 ### 🎉 Complete v2.0.0 Migration Applied

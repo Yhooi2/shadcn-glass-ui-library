@@ -87,7 +87,13 @@ jobs:
 
       - name: Restore original package.json
         if: always()
-        run: mv package.json.bak package.json
+        run: |
+          if [ -f "package.json.bak" ]; then
+            mv package.json.bak package.json
+            echo "✅ Restored original package.json"
+          else
+            echo "⚠️ Warning: package.json.bak not found, skipping restore"
+          fi
 
       - name: Post summary
         run: |
