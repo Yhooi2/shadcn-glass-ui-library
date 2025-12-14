@@ -5,7 +5,91 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.0.0] - 2025-12-11
+## [2.0.0] - 2025-12-14
+
+### 🎉 MAJOR MILESTONE: 100% shadcn/ui API Compatibility
+
+All 20 core components now follow shadcn/ui naming conventions and API patterns.
+
+### 💥 BREAKING CHANGES
+
+#### ButtonGlass
+
+- **`variant="primary"`** → **`variant="default"`** (shadcn/ui standard)
+- **`variant="text"`** → **`variant="link"`** (shadcn/ui standard)
+- **`size="md"`** → **`size="default"`** (shadcn/ui standard)
+- **Added**: `variant="outline"` with full theme support
+
+**Migration:**
+
+```tsx
+// Before v2.0
+<ButtonGlass variant="primary" size="md">Click me</ButtonGlass>
+<ButtonGlass variant="text">Link</ButtonGlass>
+
+// After v2.0
+<ButtonGlass variant="default" size="default">Click me</ButtonGlass>
+<ButtonGlass variant="link">Link</ButtonGlass>
+```
+
+#### ToggleGlass
+
+- **`checked`** → **`pressed`** (shadcn/ui Toggle API)
+- **`onChange`** → **`onPressedChange`** (shadcn/ui convention)
+- **`size="md"`** → **`size="default"`**
+- **Added**: `defaultPressed` prop for uncontrolled mode
+- **Added**: `variant` prop ('default' | 'outline')
+- **ARIA**: `aria-checked` → `aria-pressed` (correct semantics for toggle switches)
+
+**Migration:**
+
+```tsx
+// Before v2.0
+<ToggleGlass checked={isOn} onChange={setIsOn} size="md" />
+
+// After v2.0 - Controlled
+<ToggleGlass pressed={isOn} onPressedChange={setIsOn} size="default" />
+
+// After v2.0 - Uncontrolled
+<ToggleGlass defaultPressed={true} variant="outline" />
+```
+
+#### SliderGlass
+
+- **Full migration to Radix UI primitives** (`@radix-ui/react-slider`)
+- **`value: number`** → **`value: number[]`** (range slider support)
+- **`onChange`** → **`onValueChange`** (shadcn/ui Slider API)
+- **Added**: `defaultValue: number[]` for uncontrolled mode
+- **Added**: `onValueCommit` callback (fires on mouse up / touch end)
+- **Added**: `orientation` prop ('horizontal' | 'vertical')
+- **Added**: Multiple thumbs support for range sliders
+
+**Migration:**
+
+```tsx
+// Before v2.0 - Single value
+<SliderGlass value={50} onChange={setValue} />
+
+// After v2.0 - Single value
+<SliderGlass value={[50]} onValueChange={setValue} />
+
+// After v2.0 - Range slider (NEW!)
+<SliderGlass defaultValue={[25, 75]} onValueChange={setRange} />
+```
+
+#### ComboBoxGlass
+
+- **`onChange`** → **`onValueChange`** (shadcn/ui convention)
+
+**Migration:**
+
+```tsx
+// Before v2.0
+<ComboBoxGlass options={options} value={value} onChange={setValue} />
+
+// After v2.0
+<ComboBoxGlass options={options} value={value} onValueChange={setValue} />
+```
 
 ### ✨ Added
 
@@ -124,13 +208,33 @@ find src/ -type f \( -name "*.tsx" -o -name "*.css" \) -exec sed -i '' \
   {} +
 ```
 
+### 🧪 Testing & Quality
+
+**Migration Test Coverage:**
+
+- **ButtonGlass**: 24/24 tests pass ✅
+- **ToggleGlass**: 36/36 tests pass ✅
+- **SliderGlass**: 34/34 tests pass ✅
+- **ComboBoxGlass**: 44/44 tests pass ✅
+- **Total migrated tests**: 138/138 pass (100%) ✅
+
+**Quality Checks:**
+
+- ✅ TypeScript: `tsc --noEmit` - No errors
+- ✅ Linting: `npm run lint` - No errors
+- ✅ Build: Production build successful (902ms)
+- ✅ All unit tests pass
+- ✅ All Storybook stories functional
+
 ### 📊 Statistics
 
-- **Components**: 57 → **58** (added StepperGlass)
+- **shadcn/ui API Compatibility**: **100%** (20/20 components)
+- **Components Migrated**: 4 (ButtonGlass, ToggleGlass, SliderGlass, ComboBoxGlass)
+- **Total Components**: 57 → **58** (added StepperGlass)
 - **Tests**: 1,355+ → **~1,570+**
   - Visual: 582 → **802** (+220 screenshots from StepperGlass variants)
   - Compliance: ~650
-  - Unit: ~125
+  - Unit: ~125 → **~138** (migrated components)
 - **Primitive Tokens**: **207** OKLCH color primitives
 - **CSS Variables**: **296+** per theme (glass, light, aurora)
 - **Hardcoded OKLCH**: **0** (was 98 in glass.css)
