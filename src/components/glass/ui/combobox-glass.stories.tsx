@@ -97,7 +97,7 @@ export const Default: Story = {
   },
   render: (args) => {
     const [value, setValue] = useState<string>();
-    return <ComboBoxGlass {...args} value={value} onChange={setValue} />;
+    return <ComboBoxGlass {...args} value={value} onValueChange={setValue} />;
   },
 };
 
@@ -110,7 +110,7 @@ export const WithLabel: Story = {
   },
   render: (args) => {
     const [value, setValue] = useState<string>();
-    return <ComboBoxGlass {...args} value={value} onChange={setValue} />;
+    return <ComboBoxGlass {...args} value={value} onValueChange={setValue} />;
   },
 };
 
@@ -125,7 +125,7 @@ export const WithError: Story = {
   },
   render: (args) => {
     const [value, setValue] = useState<string>();
-    return <ComboBoxGlass {...args} value={value} onChange={setValue} />;
+    return <ComboBoxGlass {...args} value={value} onValueChange={setValue} />;
   },
 };
 
@@ -140,7 +140,7 @@ export const WithSuccess: Story = {
   },
   render: (args) => {
     const [value, setValue] = useState<string>('us');
-    return <ComboBoxGlass {...args} value={value} onChange={setValue} />;
+    return <ComboBoxGlass {...args} value={value} onValueChange={setValue} />;
   },
 };
 
@@ -154,7 +154,7 @@ export const SizeSmall: Story = {
   },
   render: (args) => {
     const [value, setValue] = useState<string>();
-    return <ComboBoxGlass {...args} value={value} onChange={setValue} />;
+    return <ComboBoxGlass {...args} value={value} onValueChange={setValue} />;
   },
 };
 
@@ -167,7 +167,7 @@ export const SizeMedium: Story = {
   },
   render: (args) => {
     const [value, setValue] = useState<string>();
-    return <ComboBoxGlass {...args} value={value} onChange={setValue} />;
+    return <ComboBoxGlass {...args} value={value} onValueChange={setValue} />;
   },
 };
 
@@ -180,7 +180,7 @@ export const SizeLarge: Story = {
   },
   render: (args) => {
     const [value, setValue] = useState<string>();
-    return <ComboBoxGlass {...args} value={value} onChange={setValue} />;
+    return <ComboBoxGlass {...args} value={value} onValueChange={setValue} />;
   },
 };
 
@@ -194,7 +194,7 @@ export const NotSearchable: Story = {
   },
   render: (args) => {
     const [value, setValue] = useState<string>();
-    return <ComboBoxGlass {...args} value={value} onChange={setValue} />;
+    return <ComboBoxGlass {...args} value={value} onValueChange={setValue} />;
   },
 };
 
@@ -208,7 +208,7 @@ export const WithTriggerIcon: Story = {
   },
   render: (args) => {
     const [value, setValue] = useState<string>();
-    return <ComboBoxGlass {...args} value={value} onChange={setValue} />;
+    return <ComboBoxGlass {...args} value={value} onValueChange={setValue} />;
   },
 };
 
@@ -221,7 +221,7 @@ export const WithOptionIcons: Story = {
   },
   render: (args) => {
     const [value, setValue] = useState<string>();
-    return <ComboBoxGlass {...args} value={value} onChange={setValue} />;
+    return <ComboBoxGlass {...args} value={value} onValueChange={setValue} />;
   },
 };
 
@@ -235,7 +235,7 @@ export const Disabled: Story = {
   },
   render: (args) => {
     const [value, setValue] = useState<string>();
-    return <ComboBoxGlass {...args} value={value} onChange={setValue} />;
+    return <ComboBoxGlass {...args} value={value} onValueChange={setValue} />;
   },
 };
 
@@ -250,7 +250,7 @@ export const Clearable: Story = {
   },
   render: (args) => {
     const [value, setValue] = useState<string>('us');
-    return <ComboBoxGlass {...args} value={value} onChange={setValue} />;
+    return <ComboBoxGlass {...args} value={value} onValueChange={setValue} />;
   },
 };
 
@@ -264,7 +264,7 @@ export const GlassVariantFrosted: Story = {
   },
   render: (args) => {
     const [value, setValue] = useState<string>();
-    return <ComboBoxGlass {...args} value={value} onChange={setValue} />;
+    return <ComboBoxGlass {...args} value={value} onValueChange={setValue} />;
   },
 };
 
@@ -293,32 +293,32 @@ export const CompleteForm: Story = {
         <ComboBoxGlass
           options={countries}
           value={country}
-          onChange={setCountry}
+          onValueChange={setCountry}
           label="Country"
           placeholder="Select your country..."
           required
           icon={MapPin}
-          size="md"
+          size="default"
         />
 
         <ComboBoxGlass
           options={departments}
           value={department}
-          onChange={setDepartment}
+          onValueChange={setDepartment}
           label="Department"
           placeholder="Select department..."
           required
-          size="md"
+          size="default"
         />
 
         <ComboBoxGlass
           options={roles}
           value={role}
-          onChange={setRole}
+          onValueChange={setRole}
           label="Role"
           placeholder="Select your role..."
           searchable={false}
-          size="md"
+          size="default"
         />
       </div>
     );

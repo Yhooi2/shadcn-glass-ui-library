@@ -59,7 +59,7 @@ export interface ComboBoxGlassProps<T = string> {
   /** Currently selected value */
   readonly value?: T;
   /** Callback when value changes */
-  readonly onChange?: (value: T | undefined) => void;
+  readonly onValueChange?: (value: T | undefined) => void;
   /** Placeholder text for trigger button */
   readonly placeholder?: string;
   /** Text shown when no results found */
@@ -109,7 +109,7 @@ function ComboBoxGlassInner<T = string>(
   {
     options,
     value,
-    onChange,
+    onValueChange,
     placeholder = 'Select option...',
     emptyText = 'No results found.',
     searchPlaceholder = 'Search...',
@@ -152,14 +152,14 @@ function ComboBoxGlassInner<T = string>(
   const handleSelect = useCallback(
     (optionValue: T) => {
       if (clearable && value === optionValue) {
-        onChange?.(undefined);
+        onValueChange?.(undefined);
       } else {
-        onChange?.(optionValue);
+        onValueChange?.(optionValue);
       }
       setOpen(false);
       setSearch('');
     },
-    [value, onChange, clearable]
+    [value, onValueChange, clearable]
   );
 
   // Get glass variant class

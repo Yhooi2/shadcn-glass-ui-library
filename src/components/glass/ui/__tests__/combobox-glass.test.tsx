@@ -36,9 +36,7 @@ describe('ComboBoxGlass', () => {
       const variants = ['glass', 'frosted', 'fluted', 'crystal'] as const;
 
       variants.forEach((variant) => {
-        const { unmount } = render(
-          <ComboBoxGlass options={mockOptions} glassVariant={variant} />
-        );
+        const { unmount } = render(<ComboBoxGlass options={mockOptions} glassVariant={variant} />);
         expect(screen.getByRole('combobox')).toBeInTheDocument();
         unmount();
       });
@@ -86,10 +84,10 @@ describe('ComboBoxGlass', () => {
   });
 
   describe('Option Selection', () => {
-    it('calls onChange when option is selected', async () => {
+    it('calls onValueChange when option is selected', async () => {
       const user = userEvent.setup();
       const handleChange = vi.fn();
-      render(<ComboBoxGlass options={mockOptions} onChange={handleChange} />);
+      render(<ComboBoxGlass options={mockOptions} onValueChange={handleChange} />);
 
       await user.click(screen.getByRole('combobox'));
       await waitFor(() => {
@@ -102,7 +100,7 @@ describe('ComboBoxGlass', () => {
 
     it('closes popover after selection', async () => {
       const user = userEvent.setup();
-      render(<ComboBoxGlass options={mockOptions} onChange={vi.fn()} />);
+      render(<ComboBoxGlass options={mockOptions} onValueChange={vi.fn()} />);
 
       await user.click(screen.getByRole('combobox'));
       await waitFor(() => {
@@ -117,7 +115,7 @@ describe('ComboBoxGlass', () => {
 
     it('shows check icon for selected option', async () => {
       const user = userEvent.setup();
-      render(<ComboBoxGlass options={mockOptions} value="banana" onChange={vi.fn()} />);
+      render(<ComboBoxGlass options={mockOptions} value="banana" onValueChange={vi.fn()} />);
 
       await user.click(screen.getByRole('combobox'));
       await waitFor(() => {
@@ -134,12 +132,7 @@ describe('ComboBoxGlass', () => {
       const user = userEvent.setup();
       const handleChange = vi.fn();
       render(
-        <ComboBoxGlass
-          options={mockOptions}
-          value="apple"
-          onChange={handleChange}
-          clearable
-        />
+        <ComboBoxGlass options={mockOptions} value="apple" onValueChange={handleChange} clearable />
       );
 
       await user.click(screen.getByRole('combobox'));
@@ -159,12 +152,7 @@ describe('ComboBoxGlass', () => {
       const user = userEvent.setup();
       const handleChange = vi.fn();
       render(
-        <ComboBoxGlass
-          options={mockOptions}
-          value="apple"
-          onChange={handleChange}
-          clearable
-        />
+        <ComboBoxGlass options={mockOptions} value="apple" onValueChange={handleChange} clearable />
       );
 
       await user.click(screen.getByRole('combobox'));
@@ -183,7 +171,7 @@ describe('ComboBoxGlass', () => {
         <ComboBoxGlass
           options={mockOptions}
           value="apple"
-          onChange={handleChange}
+          onValueChange={handleChange}
           clearable={false}
         />
       );
@@ -241,9 +229,7 @@ describe('ComboBoxGlass', () => {
 
     it('uses custom search placeholder', async () => {
       const user = userEvent.setup();
-      render(
-        <ComboBoxGlass options={mockOptions} searchPlaceholder="Type to filter..." />
-      );
+      render(<ComboBoxGlass options={mockOptions} searchPlaceholder="Type to filter..." />);
 
       await user.click(screen.getByRole('combobox'));
       await waitFor(() => {
@@ -270,7 +256,7 @@ describe('ComboBoxGlass', () => {
 
     it('clears search after selection', async () => {
       const user = userEvent.setup();
-      render(<ComboBoxGlass options={mockOptions} onChange={vi.fn()} />);
+      render(<ComboBoxGlass options={mockOptions} onValueChange={vi.fn()} />);
 
       await user.click(screen.getByRole('combobox'));
       await waitFor(() => {
@@ -314,11 +300,7 @@ describe('ComboBoxGlass', () => {
       const handleChange = vi.fn();
 
       render(
-        <ComboBoxGlass<number>
-          options={numericOptions}
-          value={1}
-          onChange={handleChange}
-        />
+        <ComboBoxGlass<number> options={numericOptions} value={1} onValueChange={handleChange} />
       );
 
       expect(screen.getByRole('combobox')).toHaveTextContent('One');
@@ -346,7 +328,7 @@ describe('ComboBoxGlass', () => {
         <ComboBoxGlass<ObjectValue>
           options={objectOptions}
           value={selectedValue}
-          onChange={handleChange}
+          onValueChange={handleChange}
         />
       );
 
@@ -386,7 +368,7 @@ describe('ComboBoxGlass', () => {
       expect(screen.getByRole('combobox')).toBeInTheDocument();
     });
 
-    it('handles undefined onChange gracefully', async () => {
+    it('handles undefined onValueChange gracefully', async () => {
       const user = userEvent.setup();
       render(<ComboBoxGlass options={mockOptions} />);
 
