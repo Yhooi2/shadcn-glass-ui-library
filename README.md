@@ -36,7 +36,7 @@ components, 3 themes, drop-in compatible with shadcn/ui.
 - Works alongside existing shadcn/ui components — same patterns, same CLI
 - AI-first documentation with decision trees and Context7 integration
 - 1,500+ tests (visual regression, compliance, unit)
-- Create custom themes in 15 minutes with 3-layer token system
+- 3-layer token system with zero hardcoded values
 
 ---
 
@@ -192,7 +192,7 @@ function ThemeSwitcher() {
 
 ## 3-Layer Token System
 
-Create custom themes in **15 minutes** instead of 2-3 hours.
+Centralized color management with **zero hardcoded values**.
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -207,7 +207,6 @@ Create custom themes in **15 minutes** instead of 2-3 hours.
 | Metric                  | Before (v1.x)  | After (v2.0)         |
 | ----------------------- | -------------- | -------------------- |
 | Hardcoded OKLCH values  | ~280 per theme | **0**                |
-| Theme creation time     | 2-3 hours      | **15 minutes**       |
 | CSS variables per theme | ~85            | **296+ (inherited)** |
 
 **How it works:**
@@ -217,7 +216,7 @@ Create custom themes in **15 minutes** instead of 2-3 hours.
 3. All 57 components update instantly
 
 ```css
-/* Create a "neon" theme in 15 minutes */
+/* Create a "neon" theme */
 [data-theme='neon'] {
   --semantic-primary: var(--oklch-cyan-400);
   --semantic-surface: var(--oklch-slate-950);
@@ -233,7 +232,7 @@ Create custom themes in **15 minutes** instead of 2-3 hours.
 
 ## Full shadcn/ui Compatibility
 
-Drop-in replacement with **zero learning curve** — same patterns, same CLI, same structure.
+**Install on top of existing shadcn/ui projects** — no migration required! Same patterns, same CLI.
 
 | Feature             | shadcn-glass-ui                                | Standard shadcn/ui      |
 | ------------------- | ---------------------------------------------- | ----------------------- |
@@ -257,6 +256,13 @@ function App() {
     </>
   );
 }
+```
+
+**Add to existing project:**
+
+```bash
+# No migration needed - just add to components.json
+npx shadcn@latest add @shadcn-glass-ui/button-glass
 ```
 
 **[Registry Documentation →](docs/REGISTRY_USAGE.md)**
