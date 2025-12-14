@@ -13,6 +13,21 @@ components, 3 themes, drop-in compatible with shadcn/ui.
 **[Interactive Storybook](https://yhooi2.github.io/shadcn-glass-ui-library/)** |
 **[npm Package](https://www.npmjs.com/package/shadcn-glass-ui)**
 
+<div align="center">
+  <img src="https://yhooi2.github.io/shadcn-glass-ui-library/demo-screenshot.png" alt="shadcn-glass-ui Demo - Glass Theme" width="100%" />
+  <p><em>Glass theme showcase with glassmorphism effects</em></p>
+</div>
+
+<details>
+<summary><strong>🌈 View Aurora theme</strong></summary>
+
+<div align="center">
+  <img src="https://yhooi2.github.io/shadcn-glass-ui-library/demo-screenshot-aurora.png" alt="shadcn-glass-ui Demo - Aurora Theme" width="100%" />
+  <p><em>Aurora theme with gradient glow effects</em></p>
+</div>
+
+</details>
+
 ---
 
 ## Why shadcn-glass-ui?
