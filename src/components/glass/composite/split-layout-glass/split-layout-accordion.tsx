@@ -250,5 +250,3 @@ export const SplitLayoutAccordion = {
   Root: SplitLayoutAccordionRoot,
   Item: SplitLayoutAccordionItem,
 };
-
-export type { SplitLayoutAccordionRootProps, SplitLayoutAccordionItemProps };

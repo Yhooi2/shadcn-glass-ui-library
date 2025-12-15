@@ -536,4 +536,20 @@
      repo-card, sparkline) have been moved to:
      src/styles/demo/demo-tokens.css
      ======================================== */
+
+  /* ========================================
+     SIDEBAR VARIABLES (shadcn/ui compatible)
+     ======================================== */
+  --sidebar-width: 16rem;
+  --sidebar-width-mobile: 18rem;
+  --sidebar-width-icon: 3rem;
+  --sidebar-bg: var(--semantic-surface-muted);
+  --sidebar-border: var(--semantic-border);
+  --sidebar-primary: var(--semantic-primary);
+  --sidebar-primary-foreground: var(--semantic-text-inverse);
+  --sidebar-accent: var(--semantic-surface-elevated);
+  --sidebar-accent-foreground: var(--semantic-text);
+  --sidebar-ring: var(--semantic-primary-muted);
+  --sidebar-glow: 0 0 30px var(--semantic-primary-subtle);
+  --sidebar-backdrop-blur: var(--blur-lg);
 }

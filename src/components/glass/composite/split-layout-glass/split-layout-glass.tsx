@@ -232,7 +232,7 @@ const SplitLayoutSidebar = forwardRef<HTMLElement, SplitLayoutSidebarProps>(
         intensity={intensity}
         padding="none"
         className={cn(
-          'overflow-hidden',
+          'overflow-hidden rounded-xl',
           `${bp}:sticky`,
           `${bp}:top-[var(--sticky-offset)]`,
           `${bp}:max-h-[var(--sticky-max-height)]`,
@@ -290,12 +290,15 @@ export interface SplitLayoutSidebarContentProps extends React.HTMLAttributes<HTM
 const SplitLayoutSidebarContent = forwardRef<HTMLDivElement, SplitLayoutSidebarContentProps>(
   ({ children, scrollable = true, className, ...props }, ref) => {
     if (scrollable) {
+      // Extract only div-compatible props (ScrollArea doesn't accept all HTML div props)
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { dir, ...divProps } = props;
       return (
         <ScrollArea
           ref={ref as React.Ref<HTMLDivElement>}
           data-split-sidebar-content=""
           className={cn('flex-1 min-h-0', className)}
-          {...props}
+          {...divProps}
         >
           <div className="p-4">{children}</div>
         </ScrollArea>
@@ -369,7 +372,7 @@ const SplitLayoutMain = forwardRef<HTMLElement, SplitLayoutMainProps>(
         intensity={intensity}
         padding="none"
         className={cn(
-          'overflow-hidden',
+          'overflow-hidden rounded-xl',
           `${bp}:sticky`,
           `${bp}:top-[var(--sticky-offset)]`,
           `${bp}:max-h-[var(--sticky-max-height)]`,
@@ -427,12 +430,15 @@ export interface SplitLayoutMainContentProps extends React.HTMLAttributes<HTMLDi
 const SplitLayoutMainContent = forwardRef<HTMLDivElement, SplitLayoutMainContentProps>(
   ({ children, scrollable = true, className, ...props }, ref) => {
     if (scrollable) {
+      // Extract only div-compatible props (ScrollArea doesn't accept all HTML div props)
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { dir, ...divProps } = props;
       return (
         <ScrollArea
           ref={ref as React.Ref<HTMLDivElement>}
           data-split-main-content=""
           className={cn('flex-1 min-h-0', className)}
-          {...props}
+          {...divProps}
         >
           <div className="p-6">{children}</div>
         </ScrollArea>

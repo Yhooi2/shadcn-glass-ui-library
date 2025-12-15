@@ -68,6 +68,9 @@ export { StepperGlass } from './components/glass/ui/stepper-glass';
 export { TabsGlass } from './components/glass/ui/tabs-glass';
 export { ToggleGlass } from './components/glass/ui/toggle-glass';
 
+// SidebarGlass - Compound Components (100% shadcn/ui Sidebar compatible)
+export { SidebarGlass, useSidebar } from './components/glass/ui/sidebar-glass';
+
 // TooltipGlass - Compound Components + Simple Wrapper
 export {
   TooltipGlassProvider,
@@ -113,7 +116,12 @@ export { MetricsGridGlass } from './components/glass/composite/metrics-grid-glas
 export { RepositoryCardGlass } from './components/glass/composite/repository-card-glass';
 export { RepositoryHeaderGlass } from './components/glass/composite/repository-header-glass';
 export { RepositoryMetadataGlass } from './components/glass/composite/repository-metadata-glass';
-export { SplitLayoutGlass } from './components/glass/composite/split-layout-glass';
+export {
+  SplitLayoutGlass,
+  SplitLayoutAccordion,
+  useSplitLayout,
+  useSplitLayoutOptional,
+} from './components/glass/composite/split-layout-glass';
 export { TrustScoreDisplayGlass } from './components/glass/composite/trust-score-display-glass';
 export { UserInfoGlass } from './components/glass/composite/user-info-glass';
 export { UserStatsLineGlass } from './components/glass/composite/user-stats-line-glass';
@@ -220,7 +228,56 @@ export type {
   YearCardGlassStat,
 } from './components/glass/composite/year-card-glass';
 
-export type { SplitLayoutGlassProps } from './components/glass/composite/split-layout-glass';
+export type {
+  SplitLayoutContextValue,
+  SplitLayoutProviderProps,
+  SplitLayoutRootProps,
+  SplitLayoutSidebarProps,
+  SplitLayoutSidebarHeaderProps,
+  SplitLayoutSidebarContentProps,
+  SplitLayoutSidebarFooterProps,
+  SplitLayoutMainProps,
+  SplitLayoutMainHeaderProps,
+  SplitLayoutMainContentProps,
+  SplitLayoutMainFooterProps,
+  SplitLayoutTriggerProps,
+  SplitLayoutAccordionRootProps,
+  SplitLayoutAccordionItemProps,
+  Breakpoint as SplitLayoutBreakpoint,
+  MobileMode as SplitLayoutMobileMode,
+} from './components/glass/composite/split-layout-glass';
+
+// SidebarGlass types
+export type {
+  SidebarContextValue,
+  SidebarProviderProps,
+  SidebarSide,
+  SidebarVariant,
+  SidebarCollapsible,
+  SidebarRootProps,
+  SidebarHeaderProps,
+  SidebarContentProps,
+  SidebarFooterProps,
+  SidebarRailProps,
+  SidebarInsetProps,
+  SidebarTriggerProps,
+  SidebarSeparatorProps,
+  SidebarGroupProps,
+  SidebarGroupLabelProps,
+  SidebarGroupActionProps,
+  SidebarGroupContentProps,
+  SidebarMenuProps,
+  SidebarMenuItemProps,
+  SidebarMenuButtonProps,
+  SidebarMenuButtonSize,
+  SidebarMenuButtonVariant,
+  SidebarMenuActionProps,
+  SidebarMenuBadgeProps,
+  SidebarMenuSkeletonProps,
+  SidebarMenuSubProps,
+  SidebarMenuSubItemProps,
+  SidebarMenuSubButtonProps,
+} from './components/glass/ui/sidebar-glass';
 
 // ========================================
 // CHART UTILITIES (shadcn/ui pattern)

@@ -20,8 +20,6 @@ export type {
   // Context types
   SplitLayoutProviderProps,
   SplitLayoutContextValue,
-  Breakpoint,
-  MobileMode,
   // Component props
   SplitLayoutRootProps,
   SplitLayoutSidebarProps,
@@ -34,6 +32,8 @@ export type {
   SplitLayoutMainFooterProps,
   SplitLayoutTriggerProps,
 } from './split-layout-glass';
+
+export type { Breakpoint, MobileMode } from './split-layout-context';
 
 export type {
   SplitLayoutAccordionRootProps,
