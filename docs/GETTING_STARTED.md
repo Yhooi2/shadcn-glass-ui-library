@@ -364,7 +364,7 @@ export function ThemeSwitcher() {
   return (
     <div className="flex gap-2">
       <ButtonGlass
-        variant={theme === 'glass' ? 'primary' : 'ghost'}
+        variant={theme === 'glass' ? 'default' : 'ghost'}
         size="sm"
         onClick={() => setTheme('glass')}
       >
@@ -372,7 +372,7 @@ export function ThemeSwitcher() {
       </ButtonGlass>
 
       <ButtonGlass
-        variant={theme === 'light' ? 'primary' : 'ghost'}
+        variant={theme === 'light' ? 'default' : 'ghost'}
         size="sm"
         onClick={() => setTheme('light')}
       >
@@ -380,7 +380,7 @@ export function ThemeSwitcher() {
       </ButtonGlass>
 
       <ButtonGlass
-        variant={theme === 'aurora' ? 'primary' : 'ghost'}
+        variant={theme === 'aurora' ? 'default' : 'ghost'}
         size="sm"
         onClick={() => setTheme('aurora')}
       >
