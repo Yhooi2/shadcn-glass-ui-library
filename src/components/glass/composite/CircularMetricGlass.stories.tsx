@@ -92,7 +92,7 @@ export const Sizes: Story = {
         <p className="text-xs text-white/60 mt-2">sm (80px)</p>
       </div>
       <div className="text-center">
-        <CircularMetricGlass label="Medium" value={75} color="blue" size="default" />
+        <CircularMetricGlass label="Medium" value={75} color="blue" size="md" />
         <p className="text-xs text-white/60 mt-2">md (112px)</p>
       </div>
     </div>
