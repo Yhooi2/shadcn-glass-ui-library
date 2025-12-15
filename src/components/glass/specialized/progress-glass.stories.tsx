@@ -246,7 +246,7 @@ export const AllSizes: Story = {
         <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
           Medium
         </span>
-        <ProgressGlass value={70} size="default" />
+        <ProgressGlass value={70} size="md" />
       </div>
       <div>
         <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>

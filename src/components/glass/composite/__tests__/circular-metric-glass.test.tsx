@@ -68,7 +68,7 @@ describe('CircularMetricGlass', () => {
     });
 
     it('accepts md size', () => {
-      render(<CircularMetricGlass label="Reg" value={84} size="default" />);
+      render(<CircularMetricGlass label="Reg" value={84} size="md" />);
       expect(screen.getByRole('progressbar')).toBeInTheDocument();
     });
   });

@@ -127,7 +127,7 @@ export const AllSizes: Story = {
         </span>
       </div>
       <div className="flex flex-col items-center gap-2">
-        <CircularProgressGlass value={65} size="default" />
+        <CircularProgressGlass value={65} size="md" />
         <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>
           Medium
         </span>

@@ -84,6 +84,7 @@ export const Sizes: Story = {
   args: {
     label: 'Metric',
     value: 75,
+    size: 'sm',
   },
   render: () => (
     <div className="flex gap-8 items-end">

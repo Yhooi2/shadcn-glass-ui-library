@@ -312,7 +312,7 @@ export const Sizes: Story = {
         <p className="mb-4 text-sm" style={{ color: 'var(--text-secondary)' }}>
           Medium (default)
         </p>
-        <StepperGlass.Root value="step2" size="default">
+        <StepperGlass.Root value="step2" size="md">
           <StepperGlass.List>
             <StepperGlass.Step value="step1" label="Step 1" />
             <StepperGlass.Step value="step2" label="Step 2" />

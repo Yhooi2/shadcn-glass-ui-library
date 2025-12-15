@@ -229,7 +229,7 @@ describe('Visual Regression Tests', () => {
 
     test(`AvatarGlass md online - ${theme}`, async () => {
       renderWithTheme(
-        <AvatarGlass size="default" status="online" name="John Doe" data-testid="avatar" />,
+        <AvatarGlass size="md" status="online" name="John Doe" data-testid="avatar" />,
         theme
       );
       await waitForStability();
@@ -522,7 +522,7 @@ describe('Visual Regression Tests', () => {
     // AvatarGlass status variants
     test(`AvatarGlass offline - ${theme}`, async () => {
       renderWithTheme(
-        <AvatarGlass size="default" status="offline" name="Jane Doe" data-testid="avatar" />,
+        <AvatarGlass size="md" status="offline" name="Jane Doe" data-testid="avatar" />,
         theme
       );
       await waitForStability();
@@ -532,7 +532,7 @@ describe('Visual Regression Tests', () => {
 
     test(`AvatarGlass away - ${theme}`, async () => {
       renderWithTheme(
-        <AvatarGlass size="default" status="away" name="Bob Smith" data-testid="avatar" />,
+        <AvatarGlass size="md" status="away" name="Bob Smith" data-testid="avatar" />,
         theme
       );
       await waitForStability();

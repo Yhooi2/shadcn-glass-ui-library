@@ -84,7 +84,7 @@ describe('RainbowProgressGlass', () => {
     });
 
     it('applies md size', () => {
-      const { container } = render(<RainbowProgressGlass value={50} size="default" />);
+      const { container } = render(<RainbowProgressGlass value={50} size="md" />);
       expect(container.firstChild).toHaveClass('h-3.5');
     });
 

@@ -73,7 +73,7 @@ describe('Phase 2 Components Visual Regression Tests', () => {
       renderWithTheme(
         <div data-testid="icon-button-sizes" className="flex items-center gap-4 p-4">
           <IconButtonGlass icon={Github} size="sm" variant="gradient" aria-label="Small" />
-          <IconButtonGlass icon={Github} size="default" variant="gradient" aria-label="Medium" />
+          <IconButtonGlass icon={Github} size="md" variant="gradient" aria-label="Medium" />
           <IconButtonGlass icon={Github} size="lg" variant="gradient" aria-label="Large" />
           <IconButtonGlass icon={Github} size="touch" variant="gradient" aria-label="Touch" />
         </div>,
@@ -103,7 +103,7 @@ describe('Phase 2 Components Visual Regression Tests', () => {
       renderWithTheme(
         <div data-testid="stat-item-sizes" className="flex flex-col gap-4 p-4">
           <StatItemGlass icon={FolderGit2} value={42} label="repos" size="sm" />
-          <StatItemGlass icon={FolderGit2} value={42} label="repos" size="default" />
+          <StatItemGlass icon={FolderGit2} value={42} label="repos" size="md" />
           <StatItemGlass icon={FolderGit2} value={42} label="repos" size="lg" />
         </div>,
         theme
