@@ -93,11 +93,7 @@ export default meta;
 // ========================================
 
 function SidebarDemo({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="flex min-h-[600px] w-full bg-gradient-to-br from-slate-900 via-purple-900/20 to-slate-900">
-      {children}
-    </div>
-  );
+  return <div className="flex min-h-[600px] w-full">{children}</div>;
 }
 
 function DemoContent() {
@@ -107,15 +103,35 @@ function DemoContent() {
     <div className="p-6">
       <div className="mb-4 flex items-center gap-4">
         <SidebarGlass.Trigger />
-        <h1 className="text-2xl font-bold text-white">Dashboard</h1>
+        <h1 className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>
+          Dashboard
+        </h1>
       </div>
-      <div className="rounded-xl bg-white/5 p-6 backdrop-blur-sm">
-        <p className="text-white/60">
-          Sidebar state: <span className="font-mono text-white">{state}</span>
+      <div
+        className="rounded-xl p-6 backdrop-blur-sm"
+        style={{
+          background: 'var(--semantic-surface-muted)',
+          border: '1px solid var(--semantic-border-muted)',
+        }}
+      >
+        <p style={{ color: 'var(--text-secondary)' }}>
+          Sidebar state:{' '}
+          <span className="font-mono" style={{ color: 'var(--text-primary)' }}>
+            {state}
+          </span>
         </p>
-        <p className="mt-2 text-white/60">
-          Press <kbd className="rounded bg-white/10 px-2 py-0.5 font-mono text-sm">⌘B</kbd> to
-          toggle the sidebar
+        <p className="mt-2" style={{ color: 'var(--text-secondary)' }}>
+          Press{' '}
+          <kbd
+            className="rounded px-2 py-0.5 font-mono text-sm"
+            style={{
+              background: 'var(--semantic-surface-elevated)',
+              color: 'var(--text-primary)',
+            }}
+          >
+            ⌘B
+          </kbd>{' '}
+          to toggle the sidebar
         </p>
         <ButtonGlass onClick={toggleSidebar} className="mt-4">
           Toggle Sidebar
@@ -136,10 +152,15 @@ export const Default: StoryObj = {
         <SidebarGlass.Root>
           <SidebarGlass.Header>
             <div className="flex items-center gap-2 px-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10">
-                <Command className="h-4 w-4 text-white" />
+              <div
+                className="flex h-8 w-8 items-center justify-center rounded-lg"
+                style={{ background: 'var(--semantic-surface-elevated)' }}
+              >
+                <Command className="h-4 w-4" style={{ color: 'var(--text-primary)' }} />
               </div>
-              <span className="font-semibold text-white">Acme Inc</span>
+              <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>
+                Acme Inc
+              </span>
             </div>
           </SidebarGlass.Header>
 
@@ -230,8 +251,11 @@ export const CollapsibleIcon: StoryObj = {
         <SidebarGlass.Root collapsible="icon">
           <SidebarGlass.Header>
             <div className="flex items-center justify-center">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10">
-                <Command className="h-4 w-4 text-white" />
+              <div
+                className="flex h-8 w-8 items-center justify-center rounded-lg"
+                style={{ background: 'var(--semantic-surface-elevated)' }}
+              >
+                <Command className="h-4 w-4" style={{ color: 'var(--text-primary)' }} />
               </div>
             </div>
           </SidebarGlass.Header>
@@ -302,10 +326,15 @@ export const CollapsibleOffcanvas: StoryObj = {
         <SidebarGlass.Root collapsible="offcanvas">
           <SidebarGlass.Header>
             <div className="flex items-center gap-2 px-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10">
-                <Command className="h-4 w-4 text-white" />
+              <div
+                className="flex h-8 w-8 items-center justify-center rounded-lg"
+                style={{ background: 'var(--semantic-surface-elevated)' }}
+              >
+                <Command className="h-4 w-4" style={{ color: 'var(--text-primary)' }} />
               </div>
-              <span className="font-semibold text-white">Acme Inc</span>
+              <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>
+                Acme Inc
+              </span>
             </div>
           </SidebarGlass.Header>
 
@@ -356,10 +385,15 @@ export const FloatingVariant: StoryObj = {
         <SidebarGlass.Root variant="floating">
           <SidebarGlass.Header>
             <div className="flex items-center gap-2 px-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10">
-                <Command className="h-4 w-4 text-white" />
+              <div
+                className="flex h-8 w-8 items-center justify-center rounded-lg"
+                style={{ background: 'var(--semantic-surface-elevated)' }}
+              >
+                <Command className="h-4 w-4" style={{ color: 'var(--text-primary)' }} />
               </div>
-              <span className="font-semibold text-white">Floating</span>
+              <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>
+                Floating
+              </span>
             </div>
           </SidebarGlass.Header>
 
@@ -410,10 +444,15 @@ export const InsetVariant: StoryObj = {
         <SidebarGlass.Root variant="inset">
           <SidebarGlass.Header>
             <div className="flex items-center gap-2 px-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10">
-                <Command className="h-4 w-4 text-white" />
+              <div
+                className="flex h-8 w-8 items-center justify-center rounded-lg"
+                style={{ background: 'var(--semantic-surface-elevated)' }}
+              >
+                <Command className="h-4 w-4" style={{ color: 'var(--text-primary)' }} />
               </div>
-              <span className="font-semibold text-white">Inset</span>
+              <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>
+                Inset
+              </span>
             </div>
           </SidebarGlass.Header>
 
@@ -462,7 +501,9 @@ export const RightSide: StoryObj = {
         <SidebarGlass.Root>
           <SidebarGlass.Header>
             <div className="flex items-center gap-2 px-2">
-              <span className="font-semibold text-white">Right Side</span>
+              <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>
+                Right Side
+              </span>
             </div>
           </SidebarGlass.Header>
 
@@ -510,10 +551,15 @@ export const WithSubmenus: StoryObj = {
         <SidebarGlass.Root>
           <SidebarGlass.Header>
             <div className="flex items-center gap-2 px-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10">
-                <Command className="h-4 w-4 text-white" />
+              <div
+                className="flex h-8 w-8 items-center justify-center rounded-lg"
+                style={{ background: 'var(--semantic-surface-elevated)' }}
+              >
+                <Command className="h-4 w-4" style={{ color: 'var(--text-primary)' }} />
               </div>
-              <span className="font-semibold text-white">With Submenus</span>
+              <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>
+                With Submenus
+              </span>
             </div>
           </SidebarGlass.Header>
 
@@ -605,10 +651,15 @@ export const WithSearch: StoryObj = {
         <SidebarGlass.Root>
           <SidebarGlass.Header>
             <div className="flex items-center gap-2 px-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10">
-                <Command className="h-4 w-4 text-white" />
+              <div
+                className="flex h-8 w-8 items-center justify-center rounded-lg"
+                style={{ background: 'var(--semantic-surface-elevated)' }}
+              >
+                <Command className="h-4 w-4" style={{ color: 'var(--text-primary)' }} />
               </div>
-              <span className="font-semibold text-white">With Search</span>
+              <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>
+                With Search
+              </span>
             </div>
             <div className="mt-2 px-2">
               <InputGlass placeholder="Search..." className="h-8" />
@@ -627,13 +678,13 @@ export const WithSearch: StoryObj = {
                 <SidebarGlass.Menu>
                   <SidebarGlass.MenuItem>
                     <SidebarGlass.MenuButton tooltip="Design System">
-                      <Star className="h-4 w-4 text-yellow-400" />
+                      <Star className="h-4 w-4" style={{ color: 'var(--semantic-warning)' }} />
                       <span>Design System</span>
                     </SidebarGlass.MenuButton>
                   </SidebarGlass.MenuItem>
                   <SidebarGlass.MenuItem>
                     <SidebarGlass.MenuButton tooltip="Marketing">
-                      <Star className="h-4 w-4 text-yellow-400" />
+                      <Star className="h-4 w-4" style={{ color: 'var(--semantic-warning)' }} />
                       <span>Marketing</span>
                     </SidebarGlass.MenuButton>
                   </SidebarGlass.MenuItem>
@@ -694,10 +745,15 @@ export const WithUserMenu: StoryObj = {
         <SidebarGlass.Root>
           <SidebarGlass.Header>
             <div className="flex items-center gap-2 px-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10">
-                <Github className="h-4 w-4 text-white" />
+              <div
+                className="flex h-8 w-8 items-center justify-center rounded-lg"
+                style={{ background: 'var(--semantic-surface-elevated)' }}
+              >
+                <Github className="h-4 w-4" style={{ color: 'var(--text-primary)' }} />
               </div>
-              <span className="font-semibold text-white">GitHub</span>
+              <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>
+                GitHub
+              </span>
             </div>
           </SidebarGlass.Header>
 
@@ -799,10 +855,15 @@ export const Loading: StoryObj = {
         <SidebarGlass.Root>
           <SidebarGlass.Header>
             <div className="flex items-center gap-2 px-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10">
-                <Command className="h-4 w-4 text-white" />
+              <div
+                className="flex h-8 w-8 items-center justify-center rounded-lg"
+                style={{ background: 'var(--semantic-surface-elevated)' }}
+              >
+                <Command className="h-4 w-4" style={{ color: 'var(--text-primary)' }} />
               </div>
-              <span className="font-semibold text-white">Loading</span>
+              <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>
+                Loading
+              </span>
             </div>
           </SidebarGlass.Header>
 
