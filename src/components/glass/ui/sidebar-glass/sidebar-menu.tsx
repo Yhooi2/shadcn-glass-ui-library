@@ -208,7 +208,7 @@ export const SidebarMenuItem = forwardRef<HTMLLIElement, SidebarMenuItemProps>(
       <li
         ref={ref}
         data-sidebar="menu-item"
-        className={cn('group/menu-item relative', className)}
+        className={cn('group/menu-item relative text-[var(--sidebar-foreground)]/60', className)}
         {...props}
       >
         {children}

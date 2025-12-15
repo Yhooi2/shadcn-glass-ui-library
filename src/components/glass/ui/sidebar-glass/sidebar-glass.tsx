@@ -366,6 +366,7 @@ export const SidebarTrigger = forwardRef<HTMLButtonElement, SidebarTriggerProps>
           'h-9 w-9 rounded-lg',
           'text-sm font-medium',
           'transition-colors',
+          'text-[var(--sidebar-foreground)]/60',
           'hover:bg-[var(--sidebar-accent)]',
           'hover:text-[var(--sidebar-accent-foreground)]',
           'focus-visible:outline-none focus-visible:ring-2',
@@ -375,7 +376,7 @@ export const SidebarTrigger = forwardRef<HTMLButtonElement, SidebarTriggerProps>
         )}
         {...props}
       >
-        {children ?? <PanelLeft className="h-4 w-4" />}
+        {children ?? <PanelLeft className="h-6 w-6" />}
         {!children && <span className="sr-only">Toggle Sidebar</span>}
       </Comp>
     );

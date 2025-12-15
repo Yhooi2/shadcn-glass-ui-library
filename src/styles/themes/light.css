@@ -563,4 +563,5 @@
   --sidebar-ring: var(--semantic-primary-muted);
   --sidebar-glow: 0 4px 20px var(--semantic-shadow);
   --sidebar-backdrop-blur: var(--blur-md);
+  --sidebar-foreground: var(--semantic-text);
 }
