@@ -50,7 +50,7 @@ import { ScrollArea } from '@/components/ui/scroll-area'; // Required for scroll
 | `minSidebarWidth`  | `string`                                          | `"300px"`                     | Minimum sidebar width (prevents squeezing)               |
 | `maxSidebarWidth`  | `string`                                          | `undefined`                   | Maximum sidebar width (optional constraint)              |
 | `gap`              | `number \| { mobile?: number; desktop?: number }` | `{ mobile: 16, desktop: 24 }` | Gap between panels in pixels                             |
-| `breakpoint`       | `'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'`           | `'xl'` (1440px)               | Breakpoint for desktop layout                            |
+| `breakpoint`       | `'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'`           | `'md'` (768px)                | Breakpoint for desktop layout (tablet and above)         |
 | `mobileLayout`     | `'stack' \| 'main-only' \| 'sidebar-only'`        | `'stack'`                     | Layout behavior on mobile                                |
 | `stickyOffset`     | `number`                                          | `24`                          | Sticky offset from viewport top in pixels (desktop only) |
 | `intensity`        | `'subtle' \| 'medium' \| 'strong'`                | `'medium'`                    | Glass blur intensity                                     |
@@ -247,9 +247,9 @@ export function DocsLayout() {
 **Breakpoint values:**
 
 - `sm`: 640px
-- `md`: 768px
+- `md`: 768px (default) - Tablet and above
 - `lg`: 1024px
-- `xl`: 1440px (default)
+- `xl`: 1440px
 - `2xl`: 1536px
 
 ---
@@ -331,7 +331,10 @@ export function CareerStats() {
 **Testing responsive behavior:**
 
 ```tsx
-// Resize browser window to see layout change at breakpoint
+// Default: 2-column layout on tablet+ (≥768px), stacks on mobile (<768px)
+<SplitLayoutGlass sidebar={...} main={...} />
+
+// Custom breakpoint for larger screens
 <SplitLayoutGlass breakpoint="xl" sidebar={...} main={...} />
 
 // Test in Storybook with viewport addon

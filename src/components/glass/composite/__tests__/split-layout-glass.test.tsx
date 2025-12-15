@@ -231,17 +231,17 @@ describe('SplitLayoutGlass', () => {
   // ==================== BREAKPOINTS ====================
 
   describe('Breakpoints', () => {
-    it('applies xl breakpoint (default)', () => {
+    it('applies md breakpoint (default)', () => {
       const { container } = render(
         <SplitLayoutGlass sidebar={<div>Sidebar</div>} main={<div>Main</div>} />
       );
 
       const grid = container.firstChild as HTMLElement;
-      expect(grid).toHaveClass('xl:grid-cols-[var(--grid-template)]');
+      expect(grid).toHaveClass('md:grid-cols-[var(--grid-template)]');
 
       const aside = screen.getByRole('complementary');
-      expect(aside).toHaveClass('xl:sticky');
-      expect(aside).toHaveClass('xl:top-[var(--sticky-offset)]');
+      expect(aside).toHaveClass('md:sticky');
+      expect(aside).toHaveClass('md:top-[var(--sticky-offset)]');
     });
 
     it('applies lg breakpoint', () => {
@@ -256,16 +256,16 @@ describe('SplitLayoutGlass', () => {
       expect(aside).toHaveClass('lg:sticky');
     });
 
-    it('applies md breakpoint', () => {
+    it('applies xl breakpoint', () => {
       const { container } = render(
-        <SplitLayoutGlass breakpoint="md" sidebar={<div>Sidebar</div>} main={<div>Main</div>} />
+        <SplitLayoutGlass breakpoint="xl" sidebar={<div>Sidebar</div>} main={<div>Main</div>} />
       );
 
       const grid = container.firstChild as HTMLElement;
-      expect(grid).toHaveClass('md:grid-cols-[var(--grid-template)]');
+      expect(grid).toHaveClass('xl:grid-cols-[var(--grid-template)]');
 
       const aside = screen.getByRole('complementary');
-      expect(aside).toHaveClass('md:sticky');
+      expect(aside).toHaveClass('xl:sticky');
     });
   });
 

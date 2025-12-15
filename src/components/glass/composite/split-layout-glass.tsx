@@ -153,11 +153,11 @@ export interface SplitLayoutGlassProps extends React.HTMLAttributes<HTMLDivEleme
 
   /**
    * Breakpoint for desktop layout
-   * @default "xl" (1440px)
+   * @default "md" (768px) - Shows 2-column layout on tablet and above
    *
    * Tailwind breakpoints:
    * - sm: 640px
-   * - md: 768px
+   * - md: 768px (tablet and above)
    * - lg: 1024px
    * - xl: 1440px
    * - 2xl: 1536px
@@ -237,7 +237,7 @@ export const SplitLayoutGlass = forwardRef<HTMLDivElement, SplitLayoutGlassProps
       minSidebarWidth = '300px',
       maxSidebarWidth,
       gap = { mobile: 16, desktop: 24 },
-      breakpoint = 'xl',
+      breakpoint = 'md',
       mobileLayout = 'stack',
       stickyOffset = 24,
       intensity = 'medium',
