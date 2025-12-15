@@ -57,4 +57,29 @@ export { AICardGlass, type AICardGlassProps } from './ai-card-glass';
 
 export { RepositoryCardGlass, type RepositoryCardGlassProps } from './repository-card-glass';
 
-export { SplitLayoutGlass, type SplitLayoutGlassProps } from './split-layout-glass';
+// SplitLayoutGlass - Compound Components API only (like ModalGlass)
+export {
+  SplitLayoutGlass,
+  SplitLayoutAccordion,
+  useSplitLayout,
+  useSplitLayoutOptional,
+} from './split-layout-glass';
+
+export type {
+  SplitLayoutProviderProps,
+  SplitLayoutContextValue,
+  SplitLayoutRootProps,
+  SplitLayoutSidebarProps,
+  SplitLayoutSidebarHeaderProps,
+  SplitLayoutSidebarContentProps,
+  SplitLayoutSidebarFooterProps,
+  SplitLayoutMainProps,
+  SplitLayoutMainHeaderProps,
+  SplitLayoutMainContentProps,
+  SplitLayoutMainFooterProps,
+  SplitLayoutTriggerProps,
+  Breakpoint as SplitLayoutBreakpoint,
+  MobileMode as SplitLayoutMobileMode,
+  SplitLayoutAccordionRootProps,
+  SplitLayoutAccordionItemProps,
+} from './split-layout-glass';
