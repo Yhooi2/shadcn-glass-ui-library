@@ -13,13 +13,13 @@ const meta = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['primary', 'secondary', 'ghost', 'destructive', 'success', 'text'],
-      description: 'Visual style variant',
+      options: ['default', 'secondary', 'ghost', 'destructive', 'success', 'link', 'outline'],
+      description: 'Visual style variant (v2.0.0: primary→default, text→link)',
     },
     size: {
       control: 'select',
-      options: ['sm', 'md', 'lg', 'icon'],
-      description: 'Size variant',
+      options: ['sm', 'default', 'lg', 'icon'],
+      description: 'Size variant (v2.0.0: md→default)',
     },
     loading: {
       control: 'boolean',
@@ -47,7 +47,7 @@ type Story = StoryObj<typeof meta>;
 // Default button
 export const Default: Story = {
   args: {
-    variant: 'primary',
+    variant: 'default',
     children: 'Click me',
   },
 };
