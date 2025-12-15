@@ -338,7 +338,7 @@ describe('Phase 2 Components Visual Regression Tests', () => {
           style={{ width: '400px' }}
         >
           <TrustScoreDisplayGlass score={85} size="sm" />
-          <TrustScoreDisplayGlass score={85} size="default" />
+          <TrustScoreDisplayGlass score={85} size="md" />
           <TrustScoreDisplayGlass score={85} size="lg" />
         </div>,
         theme

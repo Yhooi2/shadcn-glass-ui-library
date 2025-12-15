@@ -69,7 +69,7 @@ return (
         placeholder="Enter text..."
         className="mb-4"
       />
-<ButtonGlass variant="primary">
+<ButtonGlass variant="default">
 Submit
 </ButtonGlass>
 </GlassCard>
@@ -182,9 +182,10 @@ Glass UI is fully compatible with shadcn/ui API:
 <ButtonGlass variant="outline">Outline</ButtonGlass>
 <ButtonGlass variant="ghost">Ghost</ButtonGlass>
 
-// Extended Glass variants
+// v2.0.0: 100% shadcn/ui compatible variants
+// Note: variant="primary" was removed in v2.0.0 - use variant="default"
 
-<ButtonGlass variant="primary">Primary (Glass)</ButtonGlass>
+<ButtonGlass variant="default">Default (Glass)</ButtonGlass>
 <ButtonGlass variant="success">Success (Glass)</ButtonGlass>`}
   language="tsx"
   dark
