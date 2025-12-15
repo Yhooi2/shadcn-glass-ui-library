@@ -81,6 +81,15 @@ See [DEPENDENCIES.md](docs/technical/DEPENDENCIES.md) for detailed dependency do
 6. Update screenshots via GH workflow: `gh workflow run update-screenshots.yml`
 7. Update registry: `npm run generate:registry`
 
+### Adding a composite component
+
+1. Create component in `src/components/glass/composite/[name]-glass.tsx`
+2. Add unit tests in `src/components/glass/composite/__tests__/[name]-glass.test.tsx`
+3. Add visual tests in `src/components/__visual__/[name].visual.test.tsx`
+4. Add story in `src/components/glass/composite/[name]-glass.stories.tsx`
+5. Update screenshots via GH workflow: `gh workflow run update-screenshots.yml`
+6. Update registry: `npm run generate:registry`
+
 ### Fixing a visual regression test
 
 - **DO NOT** update screenshots locally on macOS
@@ -589,7 +598,7 @@ Single-purpose components with specialized functionality:
 - RainbowProgressGlass - Rainbow gradient progress bar
 - LanguageBarGlass - Language proficiency bar with legend
 
-### Composite Components (5)
+### Composite Components (6)
 
 Multi-element widgets combining core components:
 
@@ -598,6 +607,7 @@ Multi-element widgets combining core components:
 - FlagAlertGlass - Warning/danger flag alert
 - YearCardGlass - Year card for career timeline
 - AICardGlass - AI summary card with feature list
+- **SplitLayoutGlass** - Two-column responsive layout with sticky scroll behavior (new in v2.2.0)
 
 ### Section Components (6)
 

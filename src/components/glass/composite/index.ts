@@ -5,15 +5,9 @@
  * for better reusability and consistency.
  */
 
-export {
-  UserInfoGlass,
-  type UserInfoGlassProps,
-} from './user-info-glass';
+export { UserInfoGlass, type UserInfoGlassProps } from './user-info-glass';
 
-export {
-  UserStatsLineGlass,
-  type UserStatsLineGlassProps,
-} from './user-stats-line-glass';
+export { UserStatsLineGlass, type UserStatsLineGlassProps } from './user-stats-line-glass';
 
 export {
   TrustScoreDisplayGlass,
@@ -49,10 +43,7 @@ export {
 
 // GlassCard moved to ui/ - import from '@/components/glass/ui/glass-card'
 
-export {
-  MetricCardGlass,
-  type MetricCardGlassProps,
-} from './metric-card-glass';
+export { MetricCardGlass, type MetricCardGlassProps } from './metric-card-glass';
 
 export {
   CircularMetricGlass,
@@ -60,17 +51,10 @@ export {
   type CircularMetricColor,
 } from './circular-metric-glass';
 
-export {
-  YearCardGlass,
-  type YearCardGlassProps,
-} from './year-card-glass';
+export { YearCardGlass, type YearCardGlassProps } from './year-card-glass';
 
-export {
-  AICardGlass,
-  type AICardGlassProps,
-} from './ai-card-glass';
+export { AICardGlass, type AICardGlassProps } from './ai-card-glass';
 
-export {
-  RepositoryCardGlass,
-  type RepositoryCardGlassProps,
-} from './repository-card-glass';
+export { RepositoryCardGlass, type RepositoryCardGlassProps } from './repository-card-glass';
+
+export { SplitLayoutGlass, type SplitLayoutGlassProps } from './split-layout-glass';

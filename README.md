@@ -95,13 +95,13 @@ import { ButtonGlass } from '@/components/glass/ui/button-glass';  // Glass vari
 | Category        | Count | Examples                                           |
 | --------------- | ----- | -------------------------------------------------- |
 | **Core UI**     | 18    | ButtonGlass, InputGlass, ModalGlass, TabsGlass     |
-| **Composite**   | 13    | MetricCardGlass, AICardGlass, RepositoryCardGlass  |
+| **Composite**   | 14    | MetricCardGlass, SplitLayoutGlass, AICardGlass     |
 | **Specialized** | 10    | StepperGlass, SparklineGlass, RainbowProgressGlass |
 | **Sections**    | 7     | HeaderNavGlass, ProfileHeaderGlass                 |
 | **Atomic**      | 7     | SearchBoxGlass, ThemeToggleGlass                   |
 | **Primitives**  | 3     | TouchTarget, FormFieldWrapper                      |
 
-[**Browse all 57 components →**](https://yhooi2.github.io/shadcn-glass-ui-library/)
+[**Browse all 58 components →**](https://yhooi2.github.io/shadcn-glass-ui-library/)
 
 ---
 
