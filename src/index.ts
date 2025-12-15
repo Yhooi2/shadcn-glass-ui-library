@@ -102,7 +102,7 @@ export { SparklineGlass } from './components/glass/specialized/sparkline-glass';
 export { StatusIndicatorGlass } from './components/glass/specialized/status-indicator-glass';
 
 // ========================================
-// COMPOSITE COMPONENTS (Level 4 - 13 components)
+// COMPOSITE COMPONENTS (Level 4 - 14 components)
 // ========================================
 export { AICardGlass } from './components/glass/composite/ai-card-glass';
 export { CareerStatsHeaderGlass } from './components/glass/composite/career-stats-header-glass';
@@ -113,6 +113,7 @@ export { MetricsGridGlass } from './components/glass/composite/metrics-grid-glas
 export { RepositoryCardGlass } from './components/glass/composite/repository-card-glass';
 export { RepositoryHeaderGlass } from './components/glass/composite/repository-header-glass';
 export { RepositoryMetadataGlass } from './components/glass/composite/repository-metadata-glass';
+export { SplitLayoutGlass } from './components/glass/composite/split-layout-glass';
 export { TrustScoreDisplayGlass } from './components/glass/composite/trust-score-display-glass';
 export { UserInfoGlass } from './components/glass/composite/user-info-glass';
 export { UserStatsLineGlass } from './components/glass/composite/user-stats-line-glass';
@@ -218,6 +219,8 @@ export type {
   YearCardGlassInsight,
   YearCardGlassStat,
 } from './components/glass/composite/year-card-glass';
+
+export type { SplitLayoutGlassProps } from './components/glass/composite/split-layout-glass';
 
 // ========================================
 // CHART UTILITIES (shadcn/ui pattern)
