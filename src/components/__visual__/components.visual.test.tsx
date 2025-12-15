@@ -240,7 +240,7 @@ describe('Visual Regression Tests', () => {
     test(`SkeletonGlass text - ${theme}`, async () => {
       renderWithTheme(
         <div data-testid="skeleton-container" style={{ width: '200px' }}>
-          <SkeletonGlass variant="link" />
+          <SkeletonGlass variant="text" />
         </div>,
         theme
       );

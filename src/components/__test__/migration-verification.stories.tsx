@@ -97,7 +97,7 @@ export const AvatarGlassCompound: Story = {
           AvatarGlass - Compound API
         </h3>
         <div className="flex items-center gap-4">
-          <AvatarGlass size="default">
+          <AvatarGlass size="md">
             <AvatarGlassFallback>JD</AvatarGlassFallback>
           </AvatarGlass>
 
@@ -116,7 +116,7 @@ export const AvatarGlassCompound: Story = {
           AvatarGlassSimple - Backward Compatible
         </h3>
         <div className="flex items-center gap-4">
-          <AvatarGlassSimple name="John Doe" size="default" />
+          <AvatarGlassSimple name="John Doe" size="md" />
           <AvatarGlassSimple name="Alice Smith" size="lg" status="online" />
           <AvatarGlassSimple name="Bob King" size="xl" status="busy" />
         </div>
@@ -280,9 +280,9 @@ export const AllComponentsTogether: Story = {
             Avatars
           </h3>
           <div className="flex items-center gap-4">
-            <AvatarGlassSimple name="User 1" size="default" />
-            <AvatarGlassSimple name="User 2" size="default" status="online" />
-            <AvatarGlassSimple name="User 3" size="default" status="busy" />
+            <AvatarGlassSimple name="User 1" size="md" />
+            <AvatarGlassSimple name="User 2" size="md" status="online" />
+            <AvatarGlassSimple name="User 3" size="md" status="busy" />
           </div>
         </div>
 
