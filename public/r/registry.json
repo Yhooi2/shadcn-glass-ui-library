@@ -4,6 +4,102 @@
   "homepage": "https://yhooi2.github.io/shadcn-glass-ui-library/",
   "items": [
     {
+      "name": "status-indicator-glass",
+      "type": "registry:component",
+      "title": "Status Indicator Glass",
+      "description": "Status Indicator Glass component with glass effects"
+    },
+    {
+      "name": "sparkline-glass",
+      "type": "registry:component",
+      "title": "Sparkline Glass",
+      "description": "Sparkline Glass component with glass effects"
+    },
+    {
+      "name": "segmented-control-glass",
+      "type": "registry:component",
+      "title": "Segmented Control Glass",
+      "description": "Segmented Control Glass component with glass effects"
+    },
+    {
+      "name": "rainbow-progress-glass",
+      "type": "registry:component",
+      "title": "Rainbow Progress Glass",
+      "description": "Rainbow Progress Glass component with glass effects"
+    },
+    {
+      "name": "progress-glass",
+      "type": "registry:component",
+      "title": "Progress Glass",
+      "description": "Glass-themed progress bar with:"
+    },
+    {
+      "name": "profile-avatar-glass",
+      "type": "registry:component",
+      "title": "Profile Avatar Glass",
+      "description": "Profile-specific size classes (larger than standard AvatarGlass)"
+    },
+    {
+      "name": "language-bar-glass",
+      "type": "registry:component",
+      "title": "Language Bar Glass",
+      "description": "Custom color for the language segment."
+    },
+    {
+      "name": "flag-alert-glass",
+      "type": "registry:component",
+      "title": "Flag Alert Glass",
+      "description": "Flag Alert Glass component with glass effects"
+    },
+    {
+      "name": "base-progress-glass",
+      "type": "registry:component",
+      "title": "Base Progress Glass",
+      "description": "Base progress bar component used as foundation for:"
+    },
+    {
+      "name": "trust-score-card-glass",
+      "type": "registry:block",
+      "title": "Trust Score Card Glass",
+      "description": "Trust Score Card Glass component with glass effects"
+    },
+    {
+      "name": "projects-list-glass",
+      "type": "registry:block",
+      "title": "Projects List Glass",
+      "description": "Projects List Glass component with glass effects"
+    },
+    {
+      "name": "profile-header-glass",
+      "type": "registry:block",
+      "title": "Profile Header Glass",
+      "description": "Profile Header Glass component with glass effects"
+    },
+    {
+      "name": "header-nav-glass",
+      "type": "registry:block",
+      "title": "Header Nav Glass",
+      "description": "Header Nav Glass component with glass effects"
+    },
+    {
+      "name": "header-branding-glass",
+      "type": "registry:block",
+      "title": "Header Branding Glass",
+      "description": "Header Branding Glass component with glass effects"
+    },
+    {
+      "name": "flags-section-glass",
+      "type": "registry:block",
+      "title": "Flags Section Glass",
+      "description": "Flags Section Glass component with glass effects"
+    },
+    {
+      "name": "career-stats-glass",
+      "type": "registry:block",
+      "title": "Career Stats Glass",
+      "description": "Career Stats Glass component with glass effects"
+    },
+    {
       "name": "tooltip-glass",
       "type": "registry:ui",
       "title": "Tooltip Glass",
@@ -122,102 +218,6 @@
       "type": "registry:ui",
       "title": "Alert Glass",
       "description": "Glass-themed alert with:"
-    },
-    {
-      "name": "status-indicator-glass",
-      "type": "registry:component",
-      "title": "Status Indicator Glass",
-      "description": "Status Indicator Glass component with glass effects"
-    },
-    {
-      "name": "sparkline-glass",
-      "type": "registry:component",
-      "title": "Sparkline Glass",
-      "description": "Sparkline Glass component with glass effects"
-    },
-    {
-      "name": "segmented-control-glass",
-      "type": "registry:component",
-      "title": "Segmented Control Glass",
-      "description": "Segmented Control Glass component with glass effects"
-    },
-    {
-      "name": "rainbow-progress-glass",
-      "type": "registry:component",
-      "title": "Rainbow Progress Glass",
-      "description": "Rainbow Progress Glass component with glass effects"
-    },
-    {
-      "name": "progress-glass",
-      "type": "registry:component",
-      "title": "Progress Glass",
-      "description": "Glass-themed progress bar with:"
-    },
-    {
-      "name": "profile-avatar-glass",
-      "type": "registry:component",
-      "title": "Profile Avatar Glass",
-      "description": "Profile-specific size classes (larger than standard AvatarGlass)"
-    },
-    {
-      "name": "language-bar-glass",
-      "type": "registry:component",
-      "title": "Language Bar Glass",
-      "description": "Custom color for the language segment."
-    },
-    {
-      "name": "flag-alert-glass",
-      "type": "registry:component",
-      "title": "Flag Alert Glass",
-      "description": "Flag Alert Glass component with glass effects"
-    },
-    {
-      "name": "base-progress-glass",
-      "type": "registry:component",
-      "title": "Base Progress Glass",
-      "description": "Base progress bar component used as foundation for:"
-    },
-    {
-      "name": "trust-score-card-glass",
-      "type": "registry:block",
-      "title": "Trust Score Card Glass",
-      "description": "Trust Score Card Glass component with glass effects"
-    },
-    {
-      "name": "projects-list-glass",
-      "type": "registry:block",
-      "title": "Projects List Glass",
-      "description": "Projects List Glass component with glass effects"
-    },
-    {
-      "name": "profile-header-glass",
-      "type": "registry:block",
-      "title": "Profile Header Glass",
-      "description": "Profile Header Glass component with glass effects"
-    },
-    {
-      "name": "header-nav-glass",
-      "type": "registry:block",
-      "title": "Header Nav Glass",
-      "description": "Header Nav Glass component with glass effects"
-    },
-    {
-      "name": "header-branding-glass",
-      "type": "registry:block",
-      "title": "Header Branding Glass",
-      "description": "Header Branding Glass component with glass effects"
-    },
-    {
-      "name": "flags-section-glass",
-      "type": "registry:block",
-      "title": "Flags Section Glass",
-      "description": "Flags Section Glass component with glass effects"
-    },
-    {
-      "name": "career-stats-glass",
-      "type": "registry:block",
-      "title": "Career Stats Glass",
-      "description": "Career Stats Glass component with glass effects"
     },
     {
       "name": "touch-target",
