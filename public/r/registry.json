@@ -262,6 +262,12 @@
       "description": "Trust Score Display Glass component with glass effects"
     },
     {
+      "name": "split-layout-glass",
+      "type": "registry:block",
+      "title": "Split Layout Glass",
+      "description": "Props for the SplitLayoutGlass component"
+    },
+    {
       "name": "repository-metadata-glass",
       "type": "registry:block",
       "title": "Repository Metadata Glass",
