@@ -262,12 +262,6 @@
       "description": "Trust Score Display Glass component with glass effects"
     },
     {
-      "name": "split-layout-glass",
-      "type": "registry:block",
-      "title": "Split Layout Glass",
-      "description": "Props for the SplitLayoutGlass component"
-    },
-    {
       "name": "repository-metadata-glass",
       "type": "registry:block",
       "title": "Repository Metadata Glass",
@@ -362,6 +356,42 @@
       "type": "registry:component",
       "title": "Expandable Header Glass",
       "description": "Expandable Header Glass component with glass effects"
+    },
+    {
+      "name": "sidebar-menu",
+      "type": "registry:ui",
+      "title": "Sidebar Menu",
+      "description": "SidebarGlass Menu Components"
+    },
+    {
+      "name": "sidebar-glass",
+      "type": "registry:ui",
+      "title": "Sidebar Glass",
+      "description": "SidebarGlass Core Components"
+    },
+    {
+      "name": "sidebar-context",
+      "type": "registry:ui",
+      "title": "Sidebar Context",
+      "description": "SidebarGlass Context"
+    },
+    {
+      "name": "split-layout-glass",
+      "type": "registry:block",
+      "title": "Split Layout Glass",
+      "description": "SplitLayoutGlass Component (Compound API only)"
+    },
+    {
+      "name": "split-layout-context",
+      "type": "registry:block",
+      "title": "Split Layout Context",
+      "description": "SplitLayoutGlass Context"
+    },
+    {
+      "name": "split-layout-accordion",
+      "type": "registry:block",
+      "title": "Split Layout Accordion",
+      "description": "SplitLayoutGlass Accordion Components"
     }
   ]
 }
