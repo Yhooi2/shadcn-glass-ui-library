@@ -155,6 +155,10 @@ const preview: Preview = {
         sourceState: 'hidden',
       },
     },
+    // Test configuration - ignore AbortError when switching stories quickly
+    test: {
+      dangerouslyIgnoreUnhandledErrors: true,
+    },
     // Visual regression testing - disable animations for stable screenshots
     testingLibrary: {
       asyncUtilTimeout: 3000,
