@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { create } from 'storybook/theming';
 import { ThemeProvider, type Theme } from '../src/lib/theme-context';
 import { AnimatedBackground } from '../src/components/demos/AnimatedBackground';
+import { TooltipGlassProvider } from '../src/components/glass/ui/tooltip-glass';
 import '../src/index.css';
 import '../src/glass-theme.css';
 import './storybook.css';
@@ -67,6 +68,7 @@ const THEME_ORBS = {
 } as const;
 
 // Theme decorator component - uses AnimatedBackground like DesktopShowcase
+// eslint-disable-next-line react-refresh/only-export-components
 function ThemeDecorator({
   children,
   theme,
@@ -93,13 +95,17 @@ function ThemeDecorator({
       ThemeProvider,
       { defaultTheme: theme },
       React.createElement(
-        'div',
-        {
-          className: containerClass,
-          'data-theme': theme,
-        },
-        React.createElement(AnimatedBackground),
-        React.createElement('div', { className: 'relative z-10' }, children)
+        TooltipGlassProvider,
+        null,
+        React.createElement(
+          'div',
+          {
+            className: containerClass,
+            'data-theme': theme,
+          },
+          React.createElement(AnimatedBackground),
+          React.createElement('div', { className: 'relative z-10' }, children)
+        )
       )
     );
   }
@@ -110,17 +116,21 @@ function ThemeDecorator({
     ThemeProvider,
     { defaultTheme: theme },
     React.createElement(
-      'div',
-      {
-        className: containerClass,
-        'data-theme': theme,
-        style: {
-          '--story-bg': 'linear-gradient(135deg, var(--bg-from), var(--bg-via), var(--bg-to))',
-          '--story-orb-1': themeOrbs.orb1,
-          '--story-orb-2': themeOrbs.orb2,
-        } as React.CSSProperties,
-      },
-      children
+      TooltipGlassProvider,
+      null,
+      React.createElement(
+        'div',
+        {
+          className: containerClass,
+          'data-theme': theme,
+          style: {
+            '--story-bg': 'linear-gradient(135deg, var(--bg-from), var(--bg-via), var(--bg-to))',
+            '--story-orb-1': themeOrbs.orb1,
+            '--story-orb-2': themeOrbs.orb2,
+          } as React.CSSProperties,
+        },
+        children
+      )
     )
   );
 }
