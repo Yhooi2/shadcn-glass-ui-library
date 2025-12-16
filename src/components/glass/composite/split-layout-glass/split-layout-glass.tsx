@@ -185,6 +185,8 @@ const SplitLayoutRoot = forwardRef<HTMLDivElement, SplitLayoutRootProps>(
         data-state={context?.state ?? 'expanded'}
         className={cn(
           'grid',
+          // Align items to start so each column has height based on content
+          'items-start',
           mobileLayout === 'stack' && 'grid-cols-1',
           mobileLayout === 'main-only' && 'grid-cols-1 *:data-split-sidebar:hidden',
           mobileLayout === 'sidebar-only' && 'grid-cols-1 *:data-split-main:hidden',
