@@ -19,11 +19,13 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  rollupOptions: {
-    output: {
-      entryFileNames: '[name].[hash].js',
-      chunkFileNames: '[name].[hash].js',
-      assetFileNames: '[name].[hash].[ext]',
+  build: {
+    rollupOptions: {
+      output: {
+        entryFileNames: '[name].[hash].js',
+        chunkFileNames: '[name].[hash].js',
+        assetFileNames: '[name].[hash].[ext]',
+      },
     },
   },
   test: {
