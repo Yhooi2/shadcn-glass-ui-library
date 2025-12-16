@@ -316,7 +316,9 @@ export const MobileStackLayout: Story = {
     <SplitLayoutGlass.Root mobileLayout="stack">
       <SplitLayoutGlass.Sidebar>
         <SplitLayoutGlass.SidebarContent scrollable={false}>
-          <h3 className="text-lg font-semibold mb-2">Sidebar</h3>
+          <h3 className="text-lg font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
+            Sidebar
+          </h3>
           <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
             On mobile (&lt;768px), this appears above the main content
           </p>
@@ -324,7 +326,9 @@ export const MobileStackLayout: Story = {
       </SplitLayoutGlass.Sidebar>
       <SplitLayoutGlass.Main>
         <SplitLayoutGlass.MainContent scrollable={false}>
-          <h3 className="text-lg font-semibold mb-2">Main</h3>
+          <h3 className="text-lg font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
+            Main
+          </h3>
           <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
             On desktop (≥768px), this appears beside the sidebar
           </p>
@@ -351,7 +355,9 @@ export const MobileMainOnly: Story = {
     <SplitLayoutGlass.Root mobileLayout="main-only">
       <SplitLayoutGlass.Sidebar>
         <SplitLayoutGlass.SidebarContent scrollable={false}>
-          <h3 className="text-lg font-semibold mb-2">Complex Filters</h3>
+          <h3 className="text-lg font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
+            Complex Filters
+          </h3>
           <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
             Hidden on mobile, visible on desktop
           </p>
@@ -359,7 +365,9 @@ export const MobileMainOnly: Story = {
       </SplitLayoutGlass.Sidebar>
       <SplitLayoutGlass.Main>
         <SplitLayoutGlass.MainContent scrollable={false}>
-          <h3 className="text-lg font-semibold mb-2">Product List</h3>
+          <h3 className="text-lg font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
+            Product List
+          </h3>
           <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
             Always visible on all screen sizes
           </p>
@@ -456,7 +464,9 @@ export const DifferentBreakpoint: Story = {
     <SplitLayoutGlass.Root breakpoint="lg">
       <SplitLayoutGlass.Sidebar>
         <SplitLayoutGlass.SidebarContent scrollable={false}>
-          <h3 className="text-lg font-semibold mb-2">Sidebar</h3>
+          <h3 className="text-lg font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
+            Sidebar
+          </h3>
           <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
             Two-column layout activates at lg breakpoint (1024px) instead of default md (768px)
           </p>
@@ -464,7 +474,9 @@ export const DifferentBreakpoint: Story = {
       </SplitLayoutGlass.Sidebar>
       <SplitLayoutGlass.Main>
         <SplitLayoutGlass.MainContent scrollable={false}>
-          <h3 className="text-lg font-semibold mb-2">Main</h3>
+          <h3 className="text-lg font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
+            Main
+          </h3>
           <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
             Resize the window to see the layout change at 1024px
           </p>

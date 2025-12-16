@@ -10,7 +10,7 @@ export type IntensityType = 'subtle' | 'medium' | 'strong';
 
 export type PaddingType = 'none' | 'compact' | 'default' | 'featured';
 
-export const cardIntensity = cva('border transition-all duration-300', {
+export const cardIntensity = cva('border transition-all duration-300 text-[var(--text-primary)]', {
   variants: {
     intensity: {
       subtle: '',
@@ -25,9 +25,9 @@ export const cardIntensity = cva('border transition-all duration-300', {
     // Border radius per UI_DESIGN.md: compact=12px, default=16px, featured=20px
     padding: {
       none: '',
-      compact: 'p-4 md:p-5 rounded-lg',      // 16px → 20px padding, 12px radius
-      default: 'p-6 rounded-xl',             // 24px padding, 16px radius
-      featured: 'p-8 rounded-[20px]',        // 32px padding, 20px radius (custom)
+      compact: 'p-4 md:p-5 rounded-lg', // 16px → 20px padding, 12px radius
+      default: 'p-6 rounded-xl', // 24px padding, 16px radius
+      featured: 'p-8 rounded-[20px]', // 32px padding, 20px radius (custom)
     },
   },
   defaultVariants: {

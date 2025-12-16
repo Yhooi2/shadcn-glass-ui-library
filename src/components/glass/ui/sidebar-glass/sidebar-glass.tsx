@@ -91,6 +91,7 @@ export const SidebarRoot = forwardRef<HTMLElement, SidebarRootProps>(
             style={
               {
                 background: 'var(--sidebar-bg)',
+                color: 'var(--sidebar-foreground)',
                 borderRight: side === 'left' ? '1px solid var(--sidebar-border)' : undefined,
                 borderLeft: side === 'right' ? '1px solid var(--sidebar-border)' : undefined,
                 backdropFilter: 'blur(var(--sidebar-backdrop-blur))',
@@ -133,6 +134,7 @@ export const SidebarRoot = forwardRef<HTMLElement, SidebarRootProps>(
           {
             width: collapsible === 'offcanvas' && !open ? 0 : width,
             background: 'var(--sidebar-bg)',
+            color: 'var(--sidebar-foreground)',
             borderRight:
               side === 'left' && variant !== 'floating'
                 ? '1px solid var(--sidebar-border)'
