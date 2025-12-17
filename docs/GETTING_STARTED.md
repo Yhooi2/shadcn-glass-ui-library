@@ -126,7 +126,7 @@ Create or update your `globals.css`:
 @tailwind utilities;
 
 /* Import shadcn-glass-ui styles (if using npm package) */
-@import 'shadcn-glass-ui/dist/styles.css';
+@import 'shadcn-glass-ui/styles.css';
 
 /* Or define variables manually */
 @layer base {

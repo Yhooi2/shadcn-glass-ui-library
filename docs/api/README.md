@@ -97,7 +97,7 @@ npm install shadcn-glass-ui
 
 ```tsx
 import { ButtonGlass, InputGlass, ThemeProvider } from 'shadcn-glass-ui';
-import 'shadcn-glass-ui/dist/styles.css';
+import 'shadcn-glass-ui/styles.css';
 
 function App() {
   return (

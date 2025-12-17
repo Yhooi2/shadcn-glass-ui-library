@@ -11,7 +11,7 @@
     "Use 'variant' prop instead of 'type' for AlertGlass and NotificationGlass (v1.0 breaking change)",
     "Use 'variant=\"destructive\"' instead of 'variant=\"danger\"' for ButtonGlass",
     "Always wrap components with ThemeProvider from 'shadcn-glass-ui'",
-    "Import CSS: '@import \"shadcn-glass-ui/dist/styles.css\"' in main CSS file",
+    "Import CSS: '@import \"shadcn-glass-ui/styles.css\"' in main CSS file",
     "Use TypeScript strict mode - no 'any' types allowed",
     "ModalGlass and TabsGlass use compound component API (e.g., ModalGlass.Root, ModalGlass.Content)",
     "Three themes available: 'glass' (dark), 'light', 'aurora' (gradient)",

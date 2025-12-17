@@ -21,7 +21,7 @@ Always wrap your app with ThemeProvider at the root level:
 
 ```tsx
 import { ThemeProvider } from 'shadcn-glass-ui';
-import 'shadcn-glass-ui/dist/styles.css';
+import 'shadcn-glass-ui/styles.css';
 
 function App() {
   return (

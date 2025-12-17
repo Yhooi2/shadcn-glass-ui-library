@@ -138,7 +138,7 @@ export default {
 In your main CSS file (`src/index.css` or `src/globals.css`):
 
 ```css
-@import 'shadcn-glass-ui/dist/styles.css';
+@import 'shadcn-glass-ui/styles.css';
 ```
 
 **5. Wrap app with theme provider**
@@ -203,7 +203,7 @@ export function Test() {
 **Issue: "Styles not applied"**
 
 - **Cause:** CSS not imported
-- **Fix:** Add `@import 'shadcn-glass-ui/dist/styles.css';` to main CSS
+- **Fix:** Add `@import 'shadcn-glass-ui/styles.css';` to main CSS
 
 ---
 
@@ -541,7 +541,7 @@ npm install shadcn-glass-ui
 
 ```css
 /* src/index.css */
-@import 'shadcn-glass-ui/dist/styles.css';
+@import 'shadcn-glass-ui/styles.css';
 ```
 
 ```typescript
@@ -658,7 +658,7 @@ mcp__context7__get-library-docs /yhooi2/shadcn-glass-ui-library --topic="token a
 ```tsx
 import { ButtonGlass, InputGlass } from 'shadcn-glass-ui';
 import { ThemeProvider, useTheme } from 'shadcn-glass-ui';
-import 'shadcn-glass-ui/dist/styles.css';
+import 'shadcn-glass-ui/styles.css';
 ```
 
 **shadcn CLI:**
@@ -756,7 +756,7 @@ import { ThemeProvider } from '@/lib/theme-context';
    @tailwind base;
    @tailwind components;
    @tailwind utilities;
-   @import 'shadcn-glass-ui/dist/styles.css';
+   @import 'shadcn-glass-ui/styles.css';
    ```
 
 ---
