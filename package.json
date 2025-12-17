@@ -97,7 +97,8 @@
         "default": "./dist/themes.cjs"
       }
     },
-    "./styles.css": "./dist/styles.css"
+    "./styles.css": "./dist/shadcn-glass-ui.css",
+    "./dist/shadcn-glass-ui.css": "./dist/shadcn-glass-ui.css"
   },
   "files": [
     "dist",
