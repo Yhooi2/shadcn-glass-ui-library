@@ -574,13 +574,14 @@ issues:**
 
 ## Glass Components Structure
 
-### Core Components (16)
+### Core Components (17)
 
 Basic UI primitives. See [src/components/glass/ui/](src/components/glass/ui/) for complete list:
 
 - ButtonGlass, InputGlass, GlassCard, ProgressGlass, BadgeGlass, AlertGlass
 - ToggleGlass, CheckboxGlass, TabsGlass, TooltipGlass, SliderGlass
 - SkeletonGlass, ModalGlass, DropdownGlass/DropdownMenuGlass, AvatarGlass, NotificationGlass
+- **SidebarGlass** - Collapsible sidebar navigation (100% shadcn/ui compatible, compound API)
 
 **Dropdown Components:**
 
@@ -588,6 +589,15 @@ Basic UI primitives. See [src/components/glass/ui/](src/components/glass/ui/) fo
 - `DropdownMenuGlass` - Compound component API (shadcn/ui pattern, full control)
   - Sub-components: Trigger, Content, Item, Label, Separator, Group, CheckboxItem, RadioGroup, Sub,
     etc.
+
+**Sidebar Component:**
+
+- `SidebarGlass` - 100% shadcn/ui Sidebar API compatible with compound component pattern
+  - Sub-components: Provider, Root, Header, Content, Footer, Rail, Inset, Trigger, Separator, Group,
+    Menu, MenuItem, MenuButton, etc.
+  - Mobile: Renders as ModalGlass drawer
+  - Desktop: Collapsible modes: offcanvas, icon, none
+  - Hook: `useSidebar()` for context access
 
 ### Atomic Components (4)
 
@@ -598,7 +608,7 @@ Single-purpose components with specialized functionality:
 - RainbowProgressGlass - Rainbow gradient progress bar
 - LanguageBarGlass - Language proficiency bar with legend
 
-### Composite Components (6)
+### Composite Components (7)
 
 Multi-element widgets combining core components:
 
@@ -608,6 +618,10 @@ Multi-element widgets combining core components:
 - YearCardGlass - Year card for career timeline
 - AICardGlass - AI summary card with feature list
 - **SplitLayoutGlass** - Two-column responsive layout with sticky scroll behavior (new in v2.2.0)
+  - Compound API: Provider, Root, Sidebar, SidebarHeader/Content/Footer, Main,
+    MainHeader/Content/Footer, Trigger
+  - Features: Master-detail pattern, sticky scroll, responsive (stack/main-only/sidebar-only)
+  - Hook: `useSplitLayout()` for context access
 
 ### Section Components (6)
 

@@ -94,7 +94,7 @@ import { ButtonGlass } from '@/components/glass/ui/button-glass';  // Glass vari
 
 | Category        | Count | Examples                                           |
 | --------------- | ----- | -------------------------------------------------- |
-| **Core UI**     | 18    | ButtonGlass, InputGlass, ModalGlass, TabsGlass     |
+| **Core UI**     | 19    | ButtonGlass, InputGlass, ModalGlass, SidebarGlass  |
 | **Composite**   | 14    | MetricCardGlass, SplitLayoutGlass, AICardGlass     |
 | **Specialized** | 10    | StepperGlass, SparklineGlass, RainbowProgressGlass |
 | **Sections**    | 7     | HeaderNavGlass, ProfileHeaderGlass                 |
@@ -128,7 +128,7 @@ Built for AI coding assistants:
 
 | Tool             | Integration                                                                    |
 | ---------------- | ------------------------------------------------------------------------------ |
-| **Context7 MCP** | [Auto-indexed](https://context7.com/yhooi2/shadcn-glass-ui-library) — 41 rules |
+| **Context7 MCP** | [Auto-indexed](https://context7.com/yhooi2/shadcn-glass-ui-library) — 63 rules |
 | **Claude Code**  | [CLAUDE.md](CLAUDE.md) — 365 lines of context                                  |
 | **Copilot**      | TypeScript strict + JSDoc                                                      |
 

@@ -2,10 +2,10 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "shadcn-glass-ui Exports Map",
   "description": "Machine-readable export structure for AI assistants and automated tools",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "library": "shadcn-glass-ui",
   "repository": "https://github.com/yhooi2/shadcn-glass-ui",
-  "lastUpdated": "2025-12-06",
+  "lastUpdated": "2025-12-17",
 
   "components": {
     "primitives": {
@@ -76,7 +76,15 @@
           "type": "component",
           "description": "Status badge with multiple variants",
           "props": "BadgeGlassProps",
-          "variants": ["default", "secondary", "destructive", "outline", "success", "warning", "info"],
+          "variants": [
+            "default",
+            "secondary",
+            "destructive",
+            "outline",
+            "success",
+            "warning",
+            "info"
+          ],
           "category": "display",
           "keywords": ["badge", "tag", "label", "status"],
           "shadcnCompatible": true
@@ -169,7 +177,18 @@
           "keywords": ["modal", "dialog", "overlay", "popup"],
           "shadcnCompatible": true,
           "compoundAPI": true,
-          "subComponents": ["Root", "Trigger", "Overlay", "Content", "Header", "Title", "Description", "Body", "Footer", "Close"]
+          "subComponents": [
+            "Root",
+            "Trigger",
+            "Overlay",
+            "Content",
+            "Header",
+            "Title",
+            "Description",
+            "Body",
+            "Footer",
+            "Close"
+          ]
         },
         {
           "name": "NotificationGlass",
@@ -245,6 +264,50 @@
           "category": "overlay",
           "keywords": ["tooltip", "hint", "help", "overlay"],
           "shadcnCompatible": true
+        },
+        {
+          "name": "SidebarGlass",
+          "path": "components/glass/ui/sidebar-glass",
+          "type": "component",
+          "description": "Collapsible sidebar navigation with glassmorphism styling (100% shadcn/ui compatible)",
+          "props": "SidebarGlassProps",
+          "category": "navigation",
+          "keywords": [
+            "sidebar",
+            "navigation",
+            "drawer",
+            "collapsible",
+            "menu",
+            "compound",
+            "rail"
+          ],
+          "shadcnCompatible": true,
+          "compoundAPI": true,
+          "subComponents": [
+            "Provider",
+            "Root",
+            "Header",
+            "Content",
+            "Footer",
+            "Rail",
+            "Inset",
+            "Trigger",
+            "Separator",
+            "Group",
+            "GroupLabel",
+            "GroupAction",
+            "GroupContent",
+            "Menu",
+            "MenuItem",
+            "MenuButton",
+            "MenuAction",
+            "MenuBadge",
+            "MenuSkeleton",
+            "MenuSub",
+            "MenuSubItem",
+            "MenuSubButton"
+          ],
+          "contains": ["ModalGlass", "GlassCard"]
         }
       ]
     },
@@ -525,6 +588,40 @@
           "category": "display",
           "keywords": ["year", "card", "timeline", "career"],
           "contains": ["GlassCard", "StatItemGlass"]
+        },
+        {
+          "name": "SplitLayoutGlass",
+          "path": "components/glass/composite/split-layout-glass",
+          "type": "component",
+          "description": "Two-column responsive layout with sticky scroll behavior and glassmorphism styling",
+          "props": "SplitLayoutGlassProps",
+          "category": "layout",
+          "keywords": [
+            "layout",
+            "split",
+            "sidebar",
+            "responsive",
+            "sticky",
+            "two-column",
+            "master-detail",
+            "compound"
+          ],
+          "compoundAPI": true,
+          "subComponents": [
+            "Provider",
+            "Root",
+            "Sidebar",
+            "SidebarHeader",
+            "SidebarContent",
+            "SidebarFooter",
+            "Main",
+            "MainHeader",
+            "MainContent",
+            "MainFooter",
+            "Trigger",
+            "Accordion"
+          ],
+          "contains": ["GlassCard", "ScrollArea"]
         }
       ]
     },
@@ -709,6 +806,24 @@
         "returns": "{ isDark: boolean; tintColor: string }",
         "category": "theming",
         "keywords": ["wallpaper", "tint", "color", "macos"]
+      },
+      {
+        "name": "useSplitLayout",
+        "path": "components/glass/composite/split-layout-glass",
+        "type": "hook",
+        "description": "Hook for accessing SplitLayoutGlass context (selectedKey, isOpen, isMobile, toggle, state)",
+        "returns": "SplitLayoutContextValue",
+        "category": "layout",
+        "keywords": ["split", "layout", "sidebar", "context", "state"]
+      },
+      {
+        "name": "useSidebar",
+        "path": "components/glass/ui/sidebar-glass",
+        "type": "hook",
+        "description": "Hook for accessing SidebarGlass context (100% shadcn/ui compatible)",
+        "returns": "SidebarContextValue",
+        "category": "navigation",
+        "keywords": ["sidebar", "context", "state", "collapsible"]
       }
     ]
   },
@@ -737,7 +852,15 @@
     ],
     "variants": {
       "AlertType": ["default", "destructive", "success", "warning"],
-      "BadgeVariant": ["default", "secondary", "destructive", "outline", "success", "warning", "info"],
+      "BadgeVariant": [
+        "default",
+        "secondary",
+        "destructive",
+        "outline",
+        "success",
+        "warning",
+        "info"
+      ],
       "NotificationType": ["default", "destructive", "success", "warning"],
       "SkeletonVariant": ["text", "circle", "rectangle"],
       "TooltipPosition": ["top", "bottom", "left", "right"],
@@ -779,21 +902,21 @@
   },
 
   "statistics": {
-    "totalComponents": 55,
+    "totalComponents": 57,
     "byLevel": {
       "primitives": 3,
-      "core": 18,
+      "core": 19,
       "atomic": 6,
       "specialized": 8,
-      "composite": 13,
+      "composite": 14,
       "sections": 7
     },
-    "totalTypes": 45,
-    "totalHooks": 4,
+    "totalTypes": 47,
+    "totalHooks": 6,
     "totalUtilities": 1,
-    "shadcnCompatible": 18,
+    "shadcnCompatible": 19,
     "supportsAsChild": 3,
-    "compoundAPI": 2
+    "compoundAPI": 4
   },
 
   "usage": {
@@ -814,7 +937,9 @@
         "MetricsGridGlass",
         "ProgressGlass",
         "BadgeGlass",
-        "HeaderNavGlass"
+        "HeaderNavGlass",
+        "SidebarGlass",
+        "SplitLayoutGlass"
       ],
       "forms": [
         "InputGlass",
@@ -833,7 +958,8 @@
         "RepositoryCardGlass",
         "TrustScoreCardGlass",
         "LanguageBarGlass"
-      ]
+      ],
+      "layouts": ["SplitLayoutGlass", "SidebarGlass", "GlassCard", "ModalGlass", "TabsGlass"]
     }
   },
 

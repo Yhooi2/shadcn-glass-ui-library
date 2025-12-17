@@ -57,6 +57,8 @@ hardcoded OKLCH values across all components.
 | **RepositoryMetadataGlass**  | Composite   | `src/components/glass/composite/repository-metadata-glass.tsx`  | 6     | Repo metadata display                      |
 | **UserInfoGlass**            | Composite   | `src/components/glass/composite/user-info-glass.tsx`            | 5     | User card, avatar, stats                   |
 | **UserStatsLineGlass**       | Composite   | `src/components/glass/composite/user-stats-line-glass.tsx`      | 4     | Horizontal stats line                      |
+| **SplitLayoutGlass**         | Composite   | `src/components/glass/composite/split-layout-glass/`            | -     | Compound API, sticky scroll, master-detail |
+| **SidebarGlass**             | Core UI     | `src/components/glass/ui/sidebar-glass/`                        | -     | Compound API, shadcn/ui compatible, rail   |
 | **HeaderNavGlass**           | Section     | `src/components/glass/sections/header-nav-glass.tsx`            | 6     | Navigation, search, theme                  |
 | **ProfileHeaderGlass**       | Section     | `src/components/glass/sections/profile-header-glass.tsx`        | 7     | Profile, avatar, stats, langs              |
 | **CareerStatsGlass**         | Section     | `src/components/glass/sections/career-stats-glass.tsx`          | 5     | Career stats, year cards                   |
@@ -857,6 +859,91 @@ content, anchor **API:** Compound component + Legacy wrapper
 </PopoverGlassLegacy>
 ```
 
+#### SidebarGlass (Compound API)
+
+**File:** `src/components/glass/ui/sidebar-glass/sidebar-glass.tsx` **Components:** Provider, Root,
+Header, Content, Footer, Rail, Inset, Trigger, Separator, Group, GroupLabel, GroupAction,
+GroupContent, Menu, MenuItem, MenuButton, MenuAction, MenuBadge, MenuSkeleton, MenuSub, MenuSubItem,
+MenuSubButton **Features:** 100% shadcn/ui compatible, mobile drawer, desktop collapsible
+(offcanvas/icon/none), glassmorphism
+
+**Basic Sidebar:**
+
+```tsx
+<SidebarGlass.Provider>
+  <SidebarGlass.Root>
+    <SidebarGlass.Header>
+      <Logo />
+    </SidebarGlass.Header>
+    <SidebarGlass.Content>
+      <SidebarGlass.Menu>
+        <SidebarGlass.MenuItem>
+          <SidebarGlass.MenuButton isActive>
+            <Home className="w-4 h-4" />
+            Dashboard
+          </SidebarGlass.MenuButton>
+        </SidebarGlass.MenuItem>
+        <SidebarGlass.MenuItem>
+          <SidebarGlass.MenuButton>
+            <Settings className="w-4 h-4" />
+            Settings
+          </SidebarGlass.MenuButton>
+        </SidebarGlass.MenuItem>
+      </SidebarGlass.Menu>
+    </SidebarGlass.Content>
+    <SidebarGlass.Footer>
+      <UserInfo />
+    </SidebarGlass.Footer>
+  </SidebarGlass.Root>
+  <SidebarGlass.Inset>
+    <main>Main Content</main>
+  </SidebarGlass.Inset>
+</SidebarGlass.Provider>
+```
+
+**With Groups and Submenus:**
+
+```tsx
+<SidebarGlass.Provider collapsible="icon" side="left">
+  <SidebarGlass.Root>
+    <SidebarGlass.Content>
+      <SidebarGlass.Group>
+        <SidebarGlass.GroupLabel>Main</SidebarGlass.GroupLabel>
+        <SidebarGlass.GroupContent>
+          <SidebarGlass.Menu>
+            <SidebarGlass.MenuItem>
+              <SidebarGlass.MenuButton tooltip="Dashboard">
+                <Home /> Dashboard
+              </SidebarGlass.MenuButton>
+            </SidebarGlass.MenuItem>
+          </SidebarGlass.Menu>
+        </SidebarGlass.GroupContent>
+      </SidebarGlass.Group>
+    </SidebarGlass.Content>
+    <SidebarGlass.Rail />
+  </SidebarGlass.Root>
+</SidebarGlass.Provider>
+```
+
+**Props (Provider):**
+
+| Prop             | Type                               | Default         | Description                        |
+| ---------------- | ---------------------------------- | --------------- | ---------------------------------- |
+| side             | 'left' \| 'right'                  | 'left'          | Sidebar position                   |
+| variant          | 'sidebar' \| 'floating' \| 'inset' | 'sidebar'       | Visual style                       |
+| collapsible      | 'offcanvas' \| 'icon' \| 'none'    | 'offcanvas'     | Collapse behavior                  |
+| open             | boolean                            | -               | Controlled open state              |
+| onOpenChange     | (open: boolean) => void            | -               | Open state change handler          |
+| defaultOpen      | boolean                            | true            | Initial open state                 |
+| cookieName       | string                             | 'sidebar:state' | Cookie name for persistence        |
+| keyboardShortcut | string \| false                    | 'b'             | Keyboard shortcut (Cmd/Ctrl + key) |
+
+**Hook: useSidebar()**
+
+```tsx
+const { state, open, setOpen, openMobile, setOpenMobile, isMobile, toggleSidebar } = useSidebar();
+```
+
 ---
 
 ### Level 2 - Atomic (7)
@@ -1016,6 +1103,122 @@ feature list **Usage:**
 />
 ```
 
+#### SplitLayoutGlass (Compound API)
+
+**File:** `src/components/glass/composite/split-layout-glass/split-layout-glass.tsx` **Components:**
+Provider, Root, Sidebar, SidebarHeader, SidebarContent, SidebarFooter, Main, MainHeader,
+MainContent, MainFooter, Trigger, Accordion **Features:** Sticky scroll, responsive
+(stack/main-only/sidebar-only), master-detail pattern, keyboard shortcut (Cmd+B)
+
+**Basic Two-Column Layout:**
+
+```tsx
+<SplitLayoutGlass.Provider>
+  <SplitLayoutGlass.Root>
+    <SplitLayoutGlass.Sidebar>
+      <SplitLayoutGlass.SidebarHeader>
+        <h3>Navigation</h3>
+      </SplitLayoutGlass.SidebarHeader>
+      <SplitLayoutGlass.SidebarContent>
+        <nav>
+          <a href="#section1">Section 1</a>
+          <a href="#section2">Section 2</a>
+        </nav>
+      </SplitLayoutGlass.SidebarContent>
+    </SplitLayoutGlass.Sidebar>
+    <SplitLayoutGlass.Main>
+      <SplitLayoutGlass.MainContent>
+        <article>
+          <h1>Main Content</h1>
+          <p>Your content here...</p>
+        </article>
+      </SplitLayoutGlass.MainContent>
+    </SplitLayoutGlass.Main>
+  </SplitLayoutGlass.Root>
+</SplitLayoutGlass.Provider>
+```
+
+**With Master-Detail Pattern:**
+
+```tsx
+<SplitLayoutGlass.Provider
+  defaultSelectedKey="item-1"
+  breakpoint="lg"
+  mobileMode="drawer"
+  intensity="medium"
+>
+  <SplitLayoutGlass.Root ratio={{ sidebar: 1, main: 2 }} minSidebarWidth="300px">
+    <SplitLayoutGlass.Sidebar>
+      <SplitLayoutGlass.SidebarHeader>
+        <h3>Items List</h3>
+        <SplitLayoutGlass.Trigger variant="menu" />
+      </SplitLayoutGlass.SidebarHeader>
+      <SplitLayoutGlass.SidebarContent scrollable>
+        {items.map((item) => (
+          <ItemRow key={item.id} item={item} />
+        ))}
+      </SplitLayoutGlass.SidebarContent>
+    </SplitLayoutGlass.Sidebar>
+    <SplitLayoutGlass.Main>
+      <SplitLayoutGlass.MainHeader>
+        <Breadcrumbs />
+      </SplitLayoutGlass.MainHeader>
+      <SplitLayoutGlass.MainContent>
+        <ItemDetail />
+      </SplitLayoutGlass.MainContent>
+      <SplitLayoutGlass.MainFooter>
+        <Actions />
+      </SplitLayoutGlass.MainFooter>
+    </SplitLayoutGlass.Main>
+  </SplitLayoutGlass.Root>
+</SplitLayoutGlass.Provider>
+```
+
+**Props (Provider):**
+
+| Prop                | Type                                  | Default  | Description                              |
+| ------------------- | ------------------------------------- | -------- | ---------------------------------------- |
+| selectedKey         | string \| null                        | -        | Controlled selected key (master-detail)  |
+| onSelectedKeyChange | (key: string \| null) => void         | -        | Selection change handler                 |
+| defaultSelectedKey  | string \| null                        | -        | Initial selected key                     |
+| open                | boolean                               | -        | Controlled sidebar open state            |
+| onOpenChange        | (open: boolean) => void               | -        | Open state change handler                |
+| defaultOpen         | boolean                               | true     | Initial sidebar open state               |
+| breakpoint          | 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl' | 'md'     | Desktop layout breakpoint                |
+| mobileMode          | 'stack' \| 'accordion' \| 'drawer'    | 'stack'  | Mobile layout behavior                   |
+| intensity           | 'subtle' \| 'medium' \| 'strong'      | 'medium' | Glass blur intensity                     |
+| stickyOffset        | number                                | 24       | Sticky offset in pixels                  |
+| urlParamName        | string                                | -        | URL param name for selection persistence |
+| keyboardShortcut    | string \| false                       | 'b'      | Keyboard shortcut (Cmd/Ctrl + key)       |
+
+**Props (Root):**
+
+| Prop            | Type                                            | Default                     | Description                   |
+| --------------- | ----------------------------------------------- | --------------------------- | ----------------------------- |
+| ratio           | { sidebar: number; main: number }               | { sidebar: 1, main: 2 }     | Column ratio (1:2 = 33%/67%)  |
+| minSidebarWidth | string                                          | '300px'                     | Minimum sidebar width         |
+| maxSidebarWidth | string                                          | -                           | Maximum sidebar width         |
+| gap             | number \| { mobile?: number; desktop?: number } | { mobile: 16, desktop: 24 } | Gap between panels            |
+| breakpoint      | Breakpoint                                      | -                           | Overrides Provider breakpoint |
+| mobileLayout    | 'stack' \| 'main-only' \| 'sidebar-only'        | 'stack'                     | Mobile layout mode            |
+
+**Hook: useSplitLayout()**
+
+```tsx
+const {
+  selectedKey,
+  setSelectedKey,
+  isOpen,
+  setIsOpen,
+  isMobileOpen,
+  setMobileOpen,
+  isMobile,
+  toggle,
+  state,
+  toggleSidebar, // shadcn/ui alias
+} = useSplitLayout();
+```
+
 ---
 
 ### Level 5 - Sections (7)
@@ -1060,6 +1263,14 @@ avatar, stats, languages **Usage:**
 - **DropdownGlass** - Dropdown menus
 - **ButtonGlass** (asChild) - Link buttons
 - **SegmentedControlGlass** - Segmented buttons
+- **SidebarGlass** - Collapsible sidebar navigation (compound API)
+
+### Layouts
+
+- **SplitLayoutGlass** - Two-column responsive layout (compound API)
+- **SidebarGlass** - Sidebar with collapsible rail
+- **GlassCard** - Card containers
+- **ModalGlass** - Modal dialogs (compound API)
 
 ### Feedback
 
@@ -1105,6 +1316,10 @@ For AI assistants: Use Ctrl+F to search by keyword.
 - "avatar, profile, user" → AvatarGlass, ProfileAvatarGlass, ProfileHeaderGlass, UserInfoGlass
 - "badge, tag, label, status" → BadgeGlass, StatusIndicatorGlass
 - "tabs, navigation, switch" → TabsGlass, HeaderNavGlass, SegmentedControlGlass
+- "sidebar, drawer, collapsible, rail" → SidebarGlass
+- "split, two-column, layout, master-detail" → SplitLayoutGlass
+- "compound, compound component" → ModalGlass, TabsGlass, SidebarGlass, SplitLayoutGlass,
+  StepperGlass
 - "theme, dark mode" → ThemeProvider, ThemeToggleGlass, useTheme
 - "tooltip, hint, help" → TooltipGlass
 - "slider, range" → SliderGlass

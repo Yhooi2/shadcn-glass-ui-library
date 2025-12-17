@@ -8,16 +8,20 @@ Responsive two-column layout component with sticky scroll behavior and glassmorp
 features independent scrolling in each panel after sticky positioning activates, making it perfect
 for documentation sites, dashboards, and analytics applications.
 
+**API:** Compound component only (v2.2.0+). Legacy props API has been removed.
+
 ### Key Features
 
+- **Compound Component API** - Provider, Root, Sidebar, Main, and nested components
 - **Sticky Scroll Behavior** - Panels scroll together until reaching sticky offset, then scroll
   independently
 - **Responsive Design** - 2 columns on desktop, configurable mobile layouts
   (stack/main-only/sidebar-only)
+- **Master-Detail Pattern** - Built-in selection state via `selectedKey`
 - **CSS Grid with minmax()** - Minimum sidebar width prevents squeezing
 - **Glassmorphism Styling** - Configurable blur intensity (subtle/medium/strong)
-- **Flexible Ratios** - Customizable sidebar-to-main width ratios
-- **Semantic HTML** - Uses `<aside>` and `<main>` elements with ARIA labels
+- **Keyboard Shortcut** - Toggle sidebar with Cmd/Ctrl + B
+- **URL Persistence** - Optional URL parameter sync for selection state
 - **Theme Support** - Works with all 3 themes (glass, light, aurora)
 
 ### Browser Compatibility
@@ -31,98 +35,223 @@ for documentation sites, dashboards, and analytics applications.
 
 ## Installation
 
-The component is part of the Glass UI library. Import it from the composite components directory:
+The component is part of the Glass UI library. Import it from the composite components:
 
 ```tsx
-import { SplitLayoutGlass } from '@/components/glass/composite/split-layout-glass';
-import { ScrollArea } from '@/components/ui/scroll-area'; // Required for scrollable content
+import { SplitLayoutGlass, useSplitLayout } from 'shadcn-glass-ui';
+```
+
+---
+
+## Compound API Reference
+
+### Component Structure
+
+```tsx
+<SplitLayoutGlass.Provider>
+  {' '}
+  // Context provider (required)
+  <SplitLayoutGlass.Root>
+    {' '}
+    // Grid container
+    <SplitLayoutGlass.Sidebar>
+      {' '}
+      // Sidebar panel (aside element)
+      <SplitLayoutGlass.SidebarHeader /> // Sticky header
+      <SplitLayoutGlass.SidebarContent /> // Scrollable content
+      <SplitLayoutGlass.SidebarFooter /> // Sticky footer
+    </SplitLayoutGlass.Sidebar>
+    <SplitLayoutGlass.Main>
+      {' '}
+      // Main panel (main element)
+      <SplitLayoutGlass.MainHeader /> // Sticky header
+      <SplitLayoutGlass.MainContent /> // Scrollable content
+      <SplitLayoutGlass.MainFooter /> // Sticky footer
+    </SplitLayoutGlass.Main>
+  </SplitLayoutGlass.Root>
+  <SplitLayoutGlass.Trigger /> // Toggle button (optional)
+</SplitLayoutGlass.Provider>
 ```
 
 ---
 
 ## Props API
 
-| Prop               | Type                                              | Default                       | Description                                              |
-| ------------------ | ------------------------------------------------- | ----------------------------- | -------------------------------------------------------- |
-| `sidebar`          | `ReactNode`                                       | Required                      | Sidebar content (left column on desktop)                 |
-| `main`             | `ReactNode`                                       | Required                      | Main content (right column on desktop)                   |
-| `ratio`            | `{ sidebar: number; main: number }`               | `{ sidebar: 1, main: 2 }`     | Sidebar to main ratio in fr units (e.g., 1:2 = 33%/67%)  |
-| `minSidebarWidth`  | `string`                                          | `"300px"`                     | Minimum sidebar width (prevents squeezing)               |
-| `maxSidebarWidth`  | `string`                                          | `undefined`                   | Maximum sidebar width (optional constraint)              |
-| `gap`              | `number \| { mobile?: number; desktop?: number }` | `{ mobile: 16, desktop: 24 }` | Gap between panels in pixels                             |
-| `breakpoint`       | `'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'`           | `'md'` (768px)                | Breakpoint for desktop layout (tablet and above)         |
-| `mobileLayout`     | `'stack' \| 'main-only' \| 'sidebar-only'`        | `'stack'`                     | Layout behavior on mobile                                |
-| `stickyOffset`     | `number`                                          | `24`                          | Sticky offset from viewport top in pixels (desktop only) |
-| `intensity`        | `'subtle' \| 'medium' \| 'strong'`                | `'medium'`                    | Glass blur intensity                                     |
-| `sidebarLabel`     | `string`                                          | `"Sidebar navigation"`        | ARIA label for sidebar region                            |
-| `mainLabel`        | `string`                                          | `"Main content"`              | ARIA label for main region                               |
-| `className`        | `string`                                          | -                             | Custom className for container                           |
-| `sidebarClassName` | `string`                                          | -                             | Custom className for sidebar                             |
-| `mainClassName`    | `string`                                          | -                             | Custom className for main                                |
+### Provider Props
 
-All other standard HTML `div` attributes are supported via spread props.
+| Prop                  | Type                                    | Default    | Description                              |
+| --------------------- | --------------------------------------- | ---------- | ---------------------------------------- |
+| `selectedKey`         | `string \| null`                        | -          | Controlled selected key (master-detail)  |
+| `onSelectedKeyChange` | `(key: string \| null) => void`         | -          | Selection change handler                 |
+| `defaultSelectedKey`  | `string \| null`                        | -          | Initial selected key                     |
+| `open`                | `boolean`                               | -          | Controlled sidebar open state            |
+| `onOpenChange`        | `(open: boolean) => void`               | -          | Open state change handler                |
+| `defaultOpen`         | `boolean`                               | `true`     | Initial sidebar open state               |
+| `breakpoint`          | `'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'` | `'md'`     | Desktop layout breakpoint                |
+| `mobileMode`          | `'stack' \| 'accordion' \| 'drawer'`    | `'stack'`  | Mobile layout behavior                   |
+| `intensity`           | `'subtle' \| 'medium' \| 'strong'`      | `'medium'` | Glass blur intensity                     |
+| `stickyOffset`        | `number`                                | `24`       | Sticky offset in pixels                  |
+| `urlParamName`        | `string`                                | -          | URL param name for selection persistence |
+| `keyboardShortcut`    | `string \| false`                       | `'b'`      | Keyboard shortcut (Cmd/Ctrl + key)       |
+
+### Root Props
+
+| Prop              | Type                                              | Default                       | Description                       |
+| ----------------- | ------------------------------------------------- | ----------------------------- | --------------------------------- |
+| `ratio`           | `{ sidebar: number; main: number }`               | `{ sidebar: 1, main: 2 }`     | Column ratio (1:2 = 33%/67%)      |
+| `minSidebarWidth` | `string`                                          | `'300px'`                     | Minimum sidebar width (CSS value) |
+| `maxSidebarWidth` | `string`                                          | -                             | Maximum sidebar width (CSS value) |
+| `gap`             | `number \| { mobile?: number; desktop?: number }` | `{ mobile: 16, desktop: 24 }` | Gap between panels in pixels      |
+| `breakpoint`      | `Breakpoint`                                      | -                             | Overrides Provider breakpoint     |
+| `mobileLayout`    | `'stack' \| 'main-only' \| 'sidebar-only'`        | `'stack'`                     | Mobile layout mode                |
+| `className`       | `string`                                          | -                             | Custom className for container    |
+
+### Sidebar/Main Props
+
+| Prop        | Type     | Default                                   | Description           |
+| ----------- | -------- | ----------------------------------------- | --------------------- |
+| `label`     | `string` | `'Sidebar navigation'` / `'Main content'` | ARIA label for region |
+| `className` | `string` | -                                         | Custom className      |
+
+### Header/Footer Props
+
+| Prop        | Type     | Default | Description      |
+| ----------- | -------- | ------- | ---------------- |
+| `className` | `string` | -       | Custom className |
+
+### Content Props
+
+| Prop         | Type      | Default | Description                                         |
+| ------------ | --------- | ------- | --------------------------------------------------- |
+| `scrollable` | `boolean` | `true`  | Enable ScrollArea wrapper for independent scrolling |
+| `className`  | `string`  | -       | Custom className                                    |
+
+### Trigger Props
+
+| Prop            | Type                | Default  | Description                                 |
+| --------------- | ------------------- | -------- | ------------------------------------------- |
+| `asChild`       | `boolean`           | `false`  | Use Radix Slot for custom trigger element   |
+| `showOnDesktop` | `boolean`           | `false`  | Show trigger on desktop (hidden by default) |
+| `variant`       | `'menu' \| 'panel'` | `'menu'` | Icon style (hamburger vs panel icons)       |
+| `className`     | `string`            | -        | Custom className                            |
 
 ---
 
 ## Usage Examples
 
-### Basic Usage
+### Basic Two-Column Layout
 
 ```tsx
-import { SplitLayoutGlass } from '@/components/glass/composite/split-layout-glass';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import { SplitLayoutGlass } from 'shadcn-glass-ui';
 
 export function DocsLayout() {
   return (
-    <SplitLayoutGlass
-      sidebar={
-        <>
-          <div className="shrink-0 p-4 border-b border-border">
+    <SplitLayoutGlass.Provider>
+      <SplitLayoutGlass.Root>
+        <SplitLayoutGlass.Sidebar>
+          <SplitLayoutGlass.SidebarHeader>
             <h3 className="text-lg font-semibold">Navigation</h3>
-          </div>
-          <ScrollArea className="flex-1 min-h-0">
-            <div className="p-4 space-y-2">
+          </SplitLayoutGlass.SidebarHeader>
+          <SplitLayoutGlass.SidebarContent>
+            <nav className="space-y-2 p-4">
               <a href="#section-1" className="block p-2 rounded hover:bg-muted">
                 Section 1
               </a>
               <a href="#section-2" className="block p-2 rounded hover:bg-muted">
                 Section 2
               </a>
-              {/* More navigation items */}
-            </div>
-          </ScrollArea>
-        </>
-      }
-      main={
-        <ScrollArea className="h-full">
-          <div className="p-6">
-            <h1 className="text-3xl font-bold mb-4">Content Title</h1>
-            <p>Your main content here...</p>
-          </div>
-        </ScrollArea>
-      }
-    />
+            </nav>
+          </SplitLayoutGlass.SidebarContent>
+        </SplitLayoutGlass.Sidebar>
+        <SplitLayoutGlass.Main>
+          <SplitLayoutGlass.MainContent>
+            <article className="p-6">
+              <h1 className="text-3xl font-bold mb-4">Content Title</h1>
+              <p>Your main content here...</p>
+            </article>
+          </SplitLayoutGlass.MainContent>
+        </SplitLayoutGlass.Main>
+      </SplitLayoutGlass.Root>
+    </SplitLayoutGlass.Provider>
   );
 }
 ```
 
-**Result:** 33%/67% split on desktop (≥1440px), stacked on mobile
+---
+
+### Master-Detail Pattern
+
+```tsx
+import { SplitLayoutGlass, useSplitLayout } from 'shadcn-glass-ui';
+
+function ItemList() {
+  const { selectedKey, setSelectedKey } = useSplitLayout();
+  const items = [
+    { id: '1', name: 'Item 1' },
+    { id: '2', name: 'Item 2' },
+    { id: '3', name: 'Item 3' },
+  ];
+
+  return (
+    <div className="space-y-2">
+      {items.map((item) => (
+        <button
+          key={item.id}
+          onClick={() => setSelectedKey(item.id)}
+          className={cn('w-full p-3 rounded text-left', selectedKey === item.id && 'bg-primary/10')}
+        >
+          {item.name}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function ItemDetail() {
+  const { selectedKey } = useSplitLayout();
+  if (!selectedKey) return <p>Select an item</p>;
+  return <div>Details for item {selectedKey}</div>;
+}
+
+export function MasterDetailLayout() {
+  return (
+    <SplitLayoutGlass.Provider defaultSelectedKey="1" urlParamName="item">
+      <SplitLayoutGlass.Root ratio={{ sidebar: 1, main: 2 }}>
+        <SplitLayoutGlass.Sidebar>
+          <SplitLayoutGlass.SidebarHeader>
+            <h3>Items</h3>
+            <SplitLayoutGlass.Trigger variant="menu" />
+          </SplitLayoutGlass.SidebarHeader>
+          <SplitLayoutGlass.SidebarContent>
+            <ItemList />
+          </SplitLayoutGlass.SidebarContent>
+        </SplitLayoutGlass.Sidebar>
+        <SplitLayoutGlass.Main>
+          <SplitLayoutGlass.MainContent>
+            <ItemDetail />
+          </SplitLayoutGlass.MainContent>
+        </SplitLayoutGlass.Main>
+      </SplitLayoutGlass.Root>
+    </SplitLayoutGlass.Provider>
+  );
+}
+```
 
 ---
 
 ### Custom Ratio and Width
 
 ```tsx
-<SplitLayoutGlass
-  ratio={{ sidebar: 1, main: 3 }} // 25% sidebar, 75% main
-  minSidebarWidth="250px" // Minimum 250px width
-  maxSidebarWidth="400px" // Maximum 400px width
-  sidebar={<Filters />}
-  main={<ProductGrid />}
-/>
+<SplitLayoutGlass.Provider>
+  <SplitLayoutGlass.Root
+    ratio={{ sidebar: 1, main: 3 }} // 25% sidebar, 75% main
+    minSidebarWidth="250px"
+    maxSidebarWidth="400px"
+  >
+    {/* ... */}
+  </SplitLayoutGlass.Root>
+</SplitLayoutGlass.Provider>
 ```
-
-**Use case:** E-commerce product pages where filters need constrained width
 
 ---
 
@@ -130,106 +259,75 @@ export function DocsLayout() {
 
 ```tsx
 // Subtle blur (8px) - minimal glass effect
-<SplitLayoutGlass intensity="subtle" sidebar={...} main={...} />
+<SplitLayoutGlass.Provider intensity="subtle">
+  {/* ... */}
+</SplitLayoutGlass.Provider>
 
 // Medium blur (16px) - standard glass effect (default)
-<SplitLayoutGlass intensity="medium" sidebar={...} main={...} />
+<SplitLayoutGlass.Provider intensity="medium">
+  {/* ... */}
+</SplitLayoutGlass.Provider>
 
 // Strong blur (24px) - heavy glass effect
-<SplitLayoutGlass intensity="strong" sidebar={...} main={...} />
+<SplitLayoutGlass.Provider intensity="strong">
+  {/* ... */}
+</SplitLayoutGlass.Provider>
 ```
 
 ---
 
 ### Mobile Layouts
 
-#### Stack Layout (Default)
-
 ```tsx
-<SplitLayoutGlass
-  mobileLayout="stack" // Sidebar above main on mobile
-  sidebar={<Navigation />}
-  main={<Article />}
-/>
-```
+// Stack Layout (default) - sidebar above main
+<SplitLayoutGlass.Root mobileLayout="stack">
+  {/* ... */}
+</SplitLayoutGlass.Root>
 
-#### Main Only
+// Main Only - hide sidebar on mobile
+<SplitLayoutGlass.Root mobileLayout="main-only">
+  {/* ... */}
+</SplitLayoutGlass.Root>
 
-```tsx
-<SplitLayoutGlass
-  mobileLayout="main-only" // Hide sidebar on mobile
-  sidebar={<ComplexFilters />}
-  main={<ShoppingCart />}
-/>
-```
-
-**Use case:** Shopping cart where filters aren't needed on mobile
-
-#### Sidebar Only
-
-```tsx
-<SplitLayoutGlass
-  mobileLayout="sidebar-only" // Hide main on mobile
-  sidebar={<MobileMenu />}
-  main={<DesktopContent />}
-/>
+// Sidebar Only - hide main on mobile
+<SplitLayoutGlass.Root mobileLayout="sidebar-only">
+  {/* ... */}
+</SplitLayoutGlass.Root>
 ```
 
 ---
 
-### With Scrollable Content (Recommended Pattern)
-
-**⚠️ Important:** User must structure content with `ScrollArea` for independent scrolling
+### With Headers and Footers
 
 ```tsx
-<SplitLayoutGlass
-  sidebar={
-    <>
-      {/* Fixed header - won't scroll */}
-      <div className="shrink-0 p-4 border-b border-border">
-        <h3 className="font-semibold">Sidebar Header</h3>
-        <button>Action Button</button>
-      </div>
-
-      {/* Scrollable content */}
-      <ScrollArea className="flex-1 min-h-0">
-        <div className="p-4 space-y-2">
-          {/* Long list of items */}
-          {items.map((item) => (
-            <div key={item.id}>{item.name}</div>
-          ))}
-        </div>
-      </ScrollArea>
-    </>
-  }
-  main={
-    <ScrollArea className="h-full">
-      <div className="p-6">{/* Long content */}</div>
-    </ScrollArea>
-  }
-/>
-```
-
-**Key classes:**
-
-- `shrink-0` - Prevents header from shrinking
-- `flex-1 min-h-0` - Allows ScrollArea to fill remaining space
-- `h-full` - Main ScrollArea fills entire height
-
----
-
-### Custom Gap
-
-```tsx
-// Single value for all breakpoints
-<SplitLayoutGlass gap={20} sidebar={...} main={...} />
-
-// Different gap for mobile/desktop
-<SplitLayoutGlass
-  gap={{ mobile: 12, desktop: 32 }}
-  sidebar={...}
-  main={...}
-/>
+<SplitLayoutGlass.Provider>
+  <SplitLayoutGlass.Root>
+    <SplitLayoutGlass.Sidebar>
+      <SplitLayoutGlass.SidebarHeader>
+        <Logo />
+        <SplitLayoutGlass.Trigger />
+      </SplitLayoutGlass.SidebarHeader>
+      <SplitLayoutGlass.SidebarContent scrollable>
+        <Navigation />
+      </SplitLayoutGlass.SidebarContent>
+      <SplitLayoutGlass.SidebarFooter>
+        <UserMenu />
+      </SplitLayoutGlass.SidebarFooter>
+    </SplitLayoutGlass.Sidebar>
+    <SplitLayoutGlass.Main>
+      <SplitLayoutGlass.MainHeader>
+        <Breadcrumbs />
+        <SearchBar />
+      </SplitLayoutGlass.MainHeader>
+      <SplitLayoutGlass.MainContent>
+        <PageContent />
+      </SplitLayoutGlass.MainContent>
+      <SplitLayoutGlass.MainFooter>
+        <Pagination />
+      </SplitLayoutGlass.MainFooter>
+    </SplitLayoutGlass.Main>
+  </SplitLayoutGlass.Root>
+</SplitLayoutGlass.Provider>
 ```
 
 ---
@@ -237,73 +335,64 @@ export function DocsLayout() {
 ### Different Breakpoint
 
 ```tsx
-<SplitLayoutGlass
-  breakpoint="lg" // Two-column layout starts at 1024px instead of 1440px
-  sidebar={<TOC />}
-  main={<Article />}
-/>
+<SplitLayoutGlass.Provider breakpoint="lg">
+  <SplitLayoutGlass.Root>
+    {/* Two-column layout starts at 1024px instead of 768px */}
+  </SplitLayoutGlass.Root>
+</SplitLayoutGlass.Provider>
 ```
 
 **Breakpoint values:**
 
 - `sm`: 640px
-- `md`: 768px (default) - Tablet and above
+- `md`: 768px (default)
 - `lg`: 1024px
-- `xl`: 1440px
+- `xl`: 1280px
 - `2xl`: 1536px
 
 ---
 
-### Real-World: GitHub Analytics
+## Hook: useSplitLayout()
+
+Access the SplitLayoutGlass context from any child component:
 
 ```tsx
-export function CareerStats() {
-  const years = [2024, 2023, 2022, 2021, 2020];
-  const [selectedYear, setSelectedYear] = useState(2024);
+import { useSplitLayout } from 'shadcn-glass-ui';
 
-  return (
-    <SplitLayoutGlass
-      ratio={{ sidebar: 1, main: 2 }}
-      sidebar={
-        <>
-          <div className="shrink-0 p-4 border-b">
-            <h3 className="text-lg font-semibold">Career Summary</h3>
-            <BadgeGlass variant="success">Active</BadgeGlass>
-          </div>
-          <ScrollArea className="flex-1 min-h-0">
-            <div className="p-3 space-y-2">
-              {years.map((year) => (
-                <button
-                  key={year}
-                  onClick={() => setSelectedYear(year)}
-                  className={cn(
-                    'w-full p-3 rounded-lg text-left transition-colors',
-                    year === selectedYear && 'bg-primary/10'
-                  )}
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="font-semibold">{year}</span>
-                    <BadgeGlass variant="default" size="sm">
-                      {getCommits(year)}
-                    </BadgeGlass>
-                  </div>
-                  <ProgressGlass value={getProgress(year)} size="sm" />
-                </button>
-              ))}
-            </div>
-          </ScrollArea>
-        </>
-      }
-      main={
-        <ScrollArea className="h-full">
-          <div className="p-6">
-            <h1 className="text-2xl font-bold mb-4">{selectedYear} Contribution Details</h1>
-            {/* Detailed stats */}
-          </div>
-        </ScrollArea>
-      }
-    />
-  );
+function MyComponent() {
+  const {
+    // Selection state (master-detail)
+    selectedKey, // Current selected key
+    setSelectedKey, // Set selected key
+
+    // Desktop state
+    isOpen, // Sidebar open state
+    setIsOpen, // Set open state
+
+    // Mobile state
+    isMobileOpen, // Mobile sidebar open
+    setMobileOpen, // Set mobile open
+
+    // Responsive
+    isMobile, // Is mobile viewport
+    breakpoint, // Current breakpoint
+    mobileMode, // Mobile layout mode
+
+    // Config
+    intensity, // Glass intensity
+    stickyOffset, // Sticky offset
+
+    // Actions
+    toggle, // Toggle sidebar
+
+    // shadcn/ui aliases
+    state, // 'expanded' | 'collapsed'
+    open, // Alias for isOpen
+    openMobile, // Alias for isMobileOpen
+    toggleSidebar, // Alias for toggle
+  } = useSplitLayout();
+
+  return <button onClick={toggle}>{isOpen ? 'Close Sidebar' : 'Open Sidebar'}</button>;
 }
 ```
 
@@ -327,19 +416,6 @@ export function CareerStats() {
   - `sidebar-only`: Hide main, show only sidebar
 - **Sticky:** Disabled (not useful in single column)
 - **Scrolling:** Normal document flow
-
-**Testing responsive behavior:**
-
-```tsx
-// Default: 2-column layout on tablet+ (≥768px), stacks on mobile (<768px)
-<SplitLayoutGlass sidebar={...} main={...} />
-
-// Custom breakpoint for larger screens
-<SplitLayoutGlass breakpoint="xl" sidebar={...} main={...} />
-
-// Test in Storybook with viewport addon
-// Or use browser dev tools responsive mode
-```
 
 ---
 
@@ -370,52 +446,6 @@ export function CareerStats() {
 └─────────────────────────────────────┘
 ```
 
-### Adjusting Sticky Offset
-
-```tsx
-// Default (24px)
-<SplitLayoutGlass stickyOffset={24} sidebar={...} main={...} />
-
-// Smaller offset (16px) - panels stick closer to top
-<SplitLayoutGlass stickyOffset={16} sidebar={...} main={...} />
-
-// Larger offset (48px) - panels stick further from top
-<SplitLayoutGlass stickyOffset={48} sidebar={...} main={...} />
-```
-
----
-
-## CSS Grid Architecture
-
-### Grid Template Calculation
-
-```tsx
-// Without maxSidebarWidth (uses ratio)
-minmax(300px, 1fr) 2fr // Sidebar: min 300px, max 33.3%
-
-// With maxSidebarWidth
-minmax(300px, 400px) 2fr // Sidebar: min 300px, max 400px
-```
-
-### CSS Variables
-
-The component uses CSS variables for dynamic values:
-
-```css
---grid-template: minmax(300px, 1fr) 2fr --sticky-offset: 24px
-  --sticky-max-height: calc(100vh - calc(24px * 2));
-```
-
-### Tailwind Arbitrary Values
-
-Desktop grid is applied via Tailwind arbitrary values:
-
-```tsx
-xl:grid-cols-[var(--grid-template)]
-```
-
-**Why not direct values?** CSS variables allow dynamic computation based on props.
-
 ---
 
 ## Accessibility
@@ -429,38 +459,21 @@ xl:grid-cols-[var(--grid-template)]
 ### ARIA Labels
 
 ```tsx
-<SplitLayoutGlass
-  sidebarLabel="Documentation navigation" // Announces as "Documentation navigation navigation"
-  mainLabel="Article content" // Announces as "Article content main"
-  sidebar={...}
-  main={...}
-/>
+<SplitLayoutGlass.Sidebar label="Documentation navigation">
+  {/* ... */}
+</SplitLayoutGlass.Sidebar>
+
+<SplitLayoutGlass.Main label="Article content">
+  {/* ... */}
+</SplitLayoutGlass.Main>
 ```
 
 ### Keyboard Navigation
 
+- **Cmd/Ctrl + B:** Toggle sidebar (configurable via `keyboardShortcut`)
 - **Tab:** Cycles through focusable elements in document order
 - **Arrow keys:** Scrolls within focused ScrollArea
 - **Space/Page Down:** Scrolls down in focused panel
-- **Shift+Space/Page Up:** Scrolls up in focused panel
-
-### Focus Management
-
-```tsx
-// Ensure interactive elements have visible focus
-<a href="#section" className="focus:ring-2 focus:ring-primary">
-  Section 1
-</a>
-```
-
-### Screen Reader Testing
-
-Test with:
-
-- **NVDA (Windows)** - `NVDA + Down Arrow` to navigate
-- **JAWS (Windows)** - `Insert + Down Arrow`
-- **VoiceOver (macOS)** - `VO + Right Arrow`
-- **TalkBack (Android)** - Swipe right
 
 ---
 
@@ -468,116 +481,42 @@ Test with:
 
 ### Sidebar too narrow
 
-**Problem:** Sidebar shrinks below readable width
-
 **Solution:** Increase `minSidebarWidth`
 
 ```tsx
-<SplitLayoutGlass minSidebarWidth="350px" sidebar={...} main={...} />
+<SplitLayoutGlass.Root minSidebarWidth="350px">
 ```
 
----
-
 ### Sidebar too wide
-
-**Problem:** Sidebar takes too much horizontal space
 
 **Solution:** Set `maxSidebarWidth` or adjust ratio
 
 ```tsx
-<SplitLayoutGlass
-  maxSidebarWidth="400px" // Hard limit
-  ratio={{ sidebar: 1, main: 3 }} // Or change ratio to 25%/75%
-  sidebar={...}
-  main={...}
-/>
+<SplitLayoutGlass.Root maxSidebarWidth="400px" ratio={{ sidebar: 1, main: 3 }} />
 ```
-
----
 
 ### Content not scrolling
 
-**Problem:** Content overflows but doesn't scroll
-
-**Solution:** Ensure proper ScrollArea structure
+**Solution:** Ensure `scrollable` prop is true (default) on Content components
 
 ```tsx
-// ❌ Wrong - missing flex-1 and min-h-0
-<ScrollArea>
-  <div>Content</div>
-</ScrollArea>
-
-// ✅ Correct - with flex-1 and min-h-0
-<ScrollArea className="flex-1 min-h-0">
-  <div>Content</div>
-</ScrollArea>
+<SplitLayoutGlass.SidebarContent scrollable>{/* Long content */}</SplitLayoutGlass.SidebarContent>
 ```
-
----
 
 ### Sticky not working
 
-**Problem:** Panels don't stick at top
+**Possible causes:**
 
-**Causes & Solutions:**
-
-1. **Mobile viewport** - Sticky disabled on mobile (< breakpoint)
-   - Test on desktop viewport (≥1440px for default `xl` breakpoint)
+1. **Mobile viewport** - Sticky disabled on mobile
 2. **Parent overflow** - Parent has `overflow: hidden/auto/scroll`
-   - Remove overflow from parent containers
-3. **Z-index conflict** - Sticky element behind other content
-   - Add `z-10` or higher to `sidebarClassName`/`mainClassName`
-
----
-
-### Gap not applying
-
-**Problem:** Desktop gap doesn't change
-
-**Solution:** Gap is applied via inline `<style>` tag and CSS variable
-
-```tsx
-// Check that desktop gap is defined
-<SplitLayoutGlass
-  gap={{ mobile: 16, desktop: 32 }} // Explicitly set desktop
-  sidebar={...}
-  main={...}
-/>
-```
-
----
-
-## Performance
-
-### Bundle Size
-
-- **Component:** ~2KB gzipped (includes all features)
-- **Dependencies:** GlassCard (~1KB), ScrollArea (from shadcn/ui)
-- **Total:** ~3KB gzipped
-
-### Rendering
-
-- **Re-renders:** Only when props change (React.memo not needed)
-- **CSS Grid:** Hardware accelerated, no JavaScript layout calculations
-- **Sticky:** Native CSS `position: sticky`, no scroll listeners
-
-### Optimization Tips
-
-```tsx
-// Memoize expensive child content
-const sidebar = useMemo(() => (
-  <ExpensiveNavigationTree data={data} />
-), [data]);
-
-<SplitLayoutGlass sidebar={sidebar} main={...} />
-```
+3. **Z-index conflict** - Add `z-10` to className
 
 ---
 
 ## Related Components
 
-- **[GlassCard](./GLASS_CARD.md)** - Base glass container used by SplitLayoutGlass
-- **[ScrollArea](https://ui.shadcn.com/docs/components/scroll-area)** - Scrollable area (shadcn/ui)
+- **[SidebarGlass](./SIDEBAR_GLASS.md)** - Traditional collapsible sidebar (shadcn/ui compatible)
+- **[GlassCard](./GLASS_CARD.md)** - Base glass container
 - **[ModalGlass](./MODAL_GLASS.md)** - Modal with compound API pattern
 
 ---
@@ -586,10 +525,10 @@ const sidebar = useMemo(() => (
 
 ### v2.2.0 (2025-01-XX)
 
-- ✨ Initial release of SplitLayoutGlass
+- Initial release with compound API
+- Legacy props API removed
 - 18 visual tests across 3 themes
-- 20 unit tests with 100% coverage
-- 10 Storybook stories with real-world examples
+- 20+ unit tests with 100% coverage
 - Complete documentation
 
 ---

@@ -101,8 +101,9 @@ Level 5: Sections (7)        → Complete page sections
 └──────────────────┬──────────────────────────┘
                    │
 ┌──────────────────▼──────────────────────────┐
-│ LEVEL 4: COMPOSITE (13 components)          │
-│ MetricCardGlass, AICardGlass, etc.          │
+│ LEVEL 4: COMPOSITE (14 components)          │
+│ MetricCardGlass, AICardGlass,               │
+│ SplitLayoutGlass, etc.                      │
 └──────────────────┬──────────────────────────┘
                    │
 ┌──────────────────▼──────────────────────────┐
@@ -116,8 +117,9 @@ Level 5: Sections (7)        → Complete page sections
 └──────────────────┬──────────────────────────┘
                    │
 ┌──────────────────▼──────────────────────────┐
-│ LEVEL 1: CORE UI (18 components)            │
-│ ButtonGlass, InputGlass, ModalGlass, etc.   │
+│ LEVEL 1: CORE UI (19 components)            │
+│ ButtonGlass, InputGlass, ModalGlass,        │
+│ SidebarGlass, etc.                          │
 └──────────────────┬──────────────────────────┘
                    │
 ┌──────────────────▼──────────────────────────┐
@@ -192,6 +194,12 @@ Primary building blocks for application interfaces. These are the most commonly 
 | `NotificationGlass`     | Toast notification          | `variant`, `title`, `message`, `onClose`    | default, destructive, success, warning                           |
 | `SkeletonGlass`         | Loading skeleton            | `variant`, `width`, `height`                | text, circle, rectangle                                          |
 | `TooltipGlass`          | Tooltip overlay             | `content`, `position`, `children`           | top, bottom, left, right                                         |
+
+#### Navigation (1)
+
+| Export         | Description                    | Key Props                                      | shadcn/ui |
+| -------------- | ------------------------------ | ---------------------------------------------- | --------- |
+| `SidebarGlass` | Collapsible sidebar navigation | `side`, `variant`, `collapsible`, compound API | 100%      |
 
 **Import:**
 
@@ -326,9 +334,15 @@ import { ProgressGlass, RainbowProgressGlass, SegmentedControlGlass } from 'shad
 
 ---
 
-### Level 4: Composite Components (13 components)
+### Level 4: Composite Components (14 components)
 
 Multi-component compositions that combine several elements.
+
+#### Layout (1)
+
+| Export             | Description                  | Contains              | Use Case                    |
+| ------------------ | ---------------------------- | --------------------- | --------------------------- |
+| `SplitLayoutGlass` | Two-column responsive layout | GlassCard, ScrollArea | Docs, dashboards, analytics |
 
 #### Metrics & Stats (4)
 
@@ -546,7 +560,14 @@ console.log(THEME_CONFIG); // [{ name: 'glass', label: 'Glass' }, ...]
 ### React Hooks
 
 ```tsx
-import { useFocus, useHover, useResponsive, useWallpaperTint } from 'shadcn-glass-ui';
+import {
+  useFocus,
+  useHover,
+  useResponsive,
+  useWallpaperTint,
+  useSplitLayout,
+  useSidebar,
+} from 'shadcn-glass-ui';
 
 // Focus management
 function FocusExample() {
@@ -570,6 +591,18 @@ function ResponsiveExample() {
 function WallpaperExample() {
   const { isDark, tintColor } = useWallpaperTint();
   return <div style={{ color: tintColor }}>Adaptive UI</div>;
+}
+
+// SplitLayoutGlass context
+function SplitLayoutExample() {
+  const { selectedKey, isOpen, isMobile, toggle } = useSplitLayout();
+  return <button onClick={toggle}>{isOpen ? 'Close' : 'Open'}</button>;
+}
+
+// SidebarGlass context (shadcn/ui compatible)
+function SidebarExample() {
+  const { state, toggleSidebar, isMobile } = useSidebar();
+  return <button onClick={toggleSidebar}>{state}</button>;
 }
 ```
 
@@ -688,10 +721,10 @@ import {
 ### Component Count by Level
 
 - **Level 0 (Primitives):** 3 components
-- **Level 1 (Core UI):** 18 components
+- **Level 1 (Core UI):** 19 components (including SidebarGlass)
 - **Level 2 (Atomic):** 7 components
 - **Level 3 (Specialized):** 10 components
-- **Level 4 (Composite):** 13 components
+- **Level 4 (Composite):** 14 components (including SplitLayoutGlass)
 - **Level 5 (Sections):** 7 components
 - **Total:** 57 components
 
@@ -700,9 +733,10 @@ import {
 - **Components:** 57 total
 - **Types:** 25+ prop types, 15+ variant types
 - **Utilities:** 1 function (`cn`)
-- **Hooks:** 4 custom hooks
+- **Hooks:** 6 custom hooks (including useSplitLayout, useSidebar)
 - **Theme:** 6 exports (provider, hook, constants, helpers)
 - **CVA Variants:** 15+ variant functions
+- **Compound Components:** ModalGlass, TabsGlass, SidebarGlass, SplitLayoutGlass, StepperGlass
 
 ### shadcn/ui Compatibility
 

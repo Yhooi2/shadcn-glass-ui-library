@@ -48,7 +48,22 @@
     "StepperGlass has 3 variants: numbered (default), icon, dots - use variant prop",
     "StepperGlass orientation: horizontal (default) or vertical",
     "StepperGlass supports linear mode (wizard pattern) - set linear prop to lock future steps",
-    "Use exported hooks: useFocus, useHover, useResponsive, useWallpaperTint for custom components"
+    "Use exported hooks: useFocus, useHover, useResponsive, useWallpaperTint for custom components",
+
+    "SplitLayoutGlass uses compound component API: Provider, Root, Sidebar, SidebarHeader, SidebarContent, SidebarFooter, Main, MainHeader, MainContent, MainFooter, Trigger, Accordion",
+    "SplitLayoutGlass.Provider accepts: selectedKey, onSelectedKeyChange, open, onOpenChange, defaultOpen (true), breakpoint ('sm'|'md'|'lg'|'xl'|'2xl'), mobileMode ('stack'|'accordion'|'drawer'), intensity ('subtle'|'medium'|'strong'), stickyOffset (24), urlParamName, keyboardShortcut ('b')",
+    "SplitLayoutGlass.Root accepts: ratio ({ sidebar: number; main: number }, default 1:2 = 33%/67%), minSidebarWidth ('300px'), maxSidebarWidth, gap (number | { mobile?: number; desktop?: number }), breakpoint, mobileLayout ('stack'|'main-only'|'sidebar-only')",
+    "SplitLayoutGlass.SidebarContent and MainContent have scrollable prop (default true) - enables ScrollArea wrapper for independent panel scrolling",
+    "useSplitLayout() returns: selectedKey, setSelectedKey, isOpen, setIsOpen, isMobileOpen, setMobileOpen, isMobile, toggle, state ('expanded'|'collapsed'), toggleSidebar (shadcn alias)",
+    "SplitLayoutGlass supports master-detail pattern via selectedKey state - use for documentation, dashboards, analytics layouts",
+
+    "SidebarGlass is 100% shadcn/ui Sidebar API compatible with compound component pattern",
+    "SidebarGlass compound components: Provider, Root, Header, Content, Footer, Rail, Inset, Trigger, Separator, Group, GroupLabel, GroupAction, GroupContent, Menu, MenuItem, MenuButton, MenuAction, MenuBadge, MenuSkeleton, MenuSub, MenuSubItem, MenuSubButton",
+    "SidebarGlass.Provider accepts: side ('left'|'right'), variant ('sidebar'|'floating'|'inset'), collapsible ('offcanvas'|'icon'|'none'), open, onOpenChange, defaultOpen (true), cookieName ('sidebar:state'), keyboardShortcut ('b')",
+    "SidebarGlass renders as mobile drawer (ModalGlass sheet) on mobile and collapsible sidebar with glassmorphism on desktop",
+    "SidebarGlass.Rail provides interactive collapse/expand rail with hover indicator - click or drag to toggle sidebar",
+    "SidebarGlass.MenuButton accepts: isActive (boolean), tooltip (string - shown in icon mode), variant ('default'|'outline'), size ('default'|'sm'|'lg')",
+    "useSidebar() returns: state ('expanded'|'collapsed'), open, setOpen, openMobile, setOpenMobile, isMobile, side, variant, collapsible, toggleSidebar"
   ],
   "previousVersions": [
     { "tag": "v2.0.0", "title": "Version 2.0.0 (Latest - Token Architecture)" },
