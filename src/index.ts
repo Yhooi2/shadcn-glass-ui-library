@@ -49,6 +49,19 @@ export {
 } from './components/glass/ui/dropdown-menu-glass';
 
 export { GlassCard } from './components/glass/ui/glass-card';
+
+// CardGlass - Compound Component with shadcn/ui Card API compatibility
+export {
+  CardGlass,
+  CardGlassRoot,
+  CardGlassHeader,
+  CardGlassTitle,
+  CardGlassDescription,
+  CardGlassAction,
+  CardGlassContent,
+  CardGlassFooter,
+} from './components/glass/ui/card-glass';
+
 export { InputGlass } from './components/glass/ui/input-glass';
 export { ModalGlass } from './components/glass/ui/modal-glass';
 export { NotificationGlass } from './components/glass/ui/notification-glass';
@@ -204,6 +217,9 @@ export type {
   SkeletonVariant,
   SliderGlassProps,
 } from './lib/types';
+
+// CardGlass types
+export type { CardGlassRootProps } from './components/glass/ui/card-glass';
 
 // Atomic component types
 export type { InsightCardGlassProps } from './components/glass/atomic/insight-card-glass';

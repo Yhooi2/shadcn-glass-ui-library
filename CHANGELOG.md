@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.2] - 2025-12-19
+
+### Fixed
+
+- **CardGlass exports:** Fixed missing CardGlass compound component exports from main library entry
+  point
+  - Added `CardGlass` object export with compound API (Root, Header, Title, Description, Action,
+    Content, Footer)
+  - Added all named exports for shadcn/ui compatibility (`CardGlassRoot`, `CardGlassHeader`, etc.)
+  - Added `CardGlassRootProps` type export
+  - Resolves [GitHub Issue #4](https://github.com/Yhooi2/shadcn-glass-ui-library/issues/4)
+
+### Changed
+
+- Updated component count from 57 to 59 in all documentation (package.json, README, context7.json,
+  CLAUDE.md)
+
 ## [2.1.1] - 2025-12-14
 
 ### 🐛 Bug Fixes
