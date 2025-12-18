@@ -47,6 +47,7 @@ import React, {
   type ReactNode,
 } from 'react';
 import { X } from 'lucide-react';
+import { Slot } from '@radix-ui/react-slot';
 import { cn } from '@/lib/utils';
 import { useHover } from '@/lib/hooks/use-hover';
 import { useFocus } from '@/lib/hooks/use-focus';
@@ -84,6 +85,7 @@ const delay = (ms: number): Promise<void> => {
 
 interface ModalContextValue {
   isOpen: boolean;
+  onOpen: () => void;
   onClose: () => void;
   size: ModalSize;
   isClosing: boolean;
@@ -198,8 +200,10 @@ const useModalContext = () => {
  * ```
  */
 interface ModalRootProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Open state */
-  open: boolean;
+  /** Controlled open state (optional for uncontrolled mode) */
+  open?: boolean;
+  /** Default open state for uncontrolled mode */
+  defaultOpen?: boolean;
   /** Callback when open state changes */
   onOpenChange?: (open: boolean) => void;
   /** Size variant */
@@ -208,15 +212,39 @@ interface ModalRootProps extends React.HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
 }
 
-const ModalRoot: FC<ModalRootProps> = ({ open, onOpenChange, size = 'md', children, ...props }) => {
+const ModalRoot: FC<ModalRootProps> = ({
+  open: controlledOpen,
+  defaultOpen = false,
+  onOpenChange,
+  size = 'md',
+  children,
+}) => {
+  // Uncontrolled state
+  const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
   const [isClosing, setIsClosing] = useState(false);
+
+  // Determine if controlled or uncontrolled
+  const isControlled = controlledOpen !== undefined;
+  const open = isControlled ? controlledOpen : uncontrolledOpen;
+
+  const handleOpen = useCallback(() => {
+    if (isControlled) {
+      onOpenChange?.(true);
+    } else {
+      setUncontrolledOpen(true);
+    }
+  }, [isControlled, onOpenChange]);
 
   const handleClose = useCallback(async () => {
     setIsClosing(true);
     await delay(MODAL_ANIMATION_DURATION);
     setIsClosing(false);
-    onOpenChange?.(false);
-  }, [onOpenChange]);
+    if (isControlled) {
+      onOpenChange?.(false);
+    } else {
+      setUncontrolledOpen(false);
+    }
+  }, [isControlled, onOpenChange]);
 
   useEffect(() => {
     if (open) {
@@ -244,21 +272,71 @@ const ModalRoot: FC<ModalRootProps> = ({ open, onOpenChange, size = 'md', childr
     };
   }, [open, handleClose]);
 
-  if (!open) return null;
+  // Always render provider for Trigger to work (content is conditional)
+  return (
+    <ModalContext.Provider
+      value={{ isOpen: open, onOpen: handleOpen, onClose: handleClose, size, isClosing }}
+    >
+      {children}
+    </ModalContext.Provider>
+  );
+};
+
+// ========================================
+// COMPOUND COMPONENT: TRIGGER (shadcn/ui DialogTrigger compatible)
+// ========================================
+
+interface ModalTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  /** Render as child element (polymorphic) */
+  asChild?: boolean;
+  children: ReactNode;
+}
+
+const ModalTrigger = forwardRef<HTMLButtonElement, ModalTriggerProps>(
+  ({ asChild = false, children, onClick, ...props }, ref) => {
+    const { onOpen } = useModalContext();
+
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+      onClick?.(event);
+      if (!event.defaultPrevented) {
+        onOpen();
+      }
+    };
+
+    const Comp = asChild ? Slot : 'button';
+
+    return (
+      <Comp ref={ref} type="button" onClick={handleClick} {...props}>
+        {children}
+      </Comp>
+    );
+  }
+);
+ModalTrigger.displayName = 'ModalTrigger';
+
+// ========================================
+// COMPOUND COMPONENT: PORTAL (wraps overlay + content)
+// ========================================
+
+interface ModalPortalProps {
+  children: ReactNode;
+}
+
+const ModalPortal: FC<ModalPortalProps> = ({ children }) => {
+  const { isOpen } = useModalContext();
+
+  if (!isOpen) return null;
 
   return (
-    <ModalContext.Provider value={{ isOpen: open, onClose: handleClose, size, isClosing }}>
-      <div
-        className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="modal-title"
-        aria-describedby="modal-description"
-        {...props}
-      >
-        {children}
-      </div>
-    </ModalContext.Provider>
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+      aria-describedby="modal-description"
+    >
+      {children}
+    </div>
   );
 };
 
@@ -503,6 +581,8 @@ const ModalClose: FC<ModalCloseProps> = ({ className }) => {
  */
 export const ModalGlass = {
   Root: ModalRoot,
+  Trigger: ModalTrigger,
+  Portal: ModalPortal,
   Overlay: ModalOverlay,
   Content: ModalContent,
   Header: ModalHeader,

@@ -5,6 +5,57 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2025-12-18
+
+### 🎉 100% shadcn/ui API Compatibility (Issue #3)
+
+This release achieves full API compatibility with shadcn/ui components, adding 6 new components and
+completing the compound component API patterns.
+
+### ✨ New Components
+
+#### Core UI Components (+6)
+
+- **SeparatorGlass** - Glass-styled divider with horizontal/vertical orientation
+- **ScrollAreaGlass** - Custom scrollable container with glass-themed scrollbar
+  - Sub-components: ScrollAreaGlass, ScrollBarGlass
+- **CollapsibleGlass** - Expandable/collapsible sections with smooth animations
+  - Compound API: Root, Trigger (with asChild), Content
+- **RadioGroupGlass** - Glass-styled radio button group with glow effects
+  - Compound API: Root, Item
+- **ToggleGroupGlass** - Segmented control / toggle button group
+  - Supports type='single'|'multiple', variant='default'|'outline', size='sm'|'default'|'lg'
+- **SheetGlass** - Side panel drawer with glass effects and backdrop blur
+  - Compound API: Root, Trigger, Content, Header, Footer, Title, Description, Close, Portal, Overlay
+  - Supports side='top'|'right'|'bottom'|'left'
+
+#### ModalGlass Enhancements
+
+- **ModalGlass.Trigger** - Added trigger component with asChild support
+- **ModalGlass.Portal** - Added portal component for custom positioning
+- Both controlled and uncontrolled modes now fully supported
+
+### 📦 Component Count
+
+- **Total components:** 57 → 63 (+6)
+- **Core UI:** 18 → 24 (+6)
+
+### 📚 Documentation
+
+- Updated Context7 index with 9 new component rules
+- Updated README.md component counts and examples
+- Updated Storybook Introduction with new statistics
+- Added Storybook stories for all 6 new components
+
+### 🔧 Technical
+
+- All components use Radix UI primitives for accessibility
+- Full TypeScript strict mode support
+- Consistent compound component API pattern across all new components
+- ESLint compliant with react-refresh and TypeScript rules
+
+---
+
 ## [2.1.1] - 2025-12-14
 
 ### 🐛 Bug Fixes

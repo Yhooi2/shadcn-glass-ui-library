@@ -1,7 +1,7 @@
 {
   "$schema": "https://context7.com/schema/context7.json",
   "projectTitle": "shadcn-glass-ui",
-  "description": "Glassmorphism UI library for React - AI-friendly with 57 components, strict TypeScript, and comprehensive docs",
+  "description": "Glassmorphism UI library for React - AI-friendly with 63 components, strict TypeScript, and comprehensive docs",
   "branch": "main",
   "folders": ["docs"],
   "includeFiles": ["README.md", "CLAUDE.md", "CHANGELOG.md"],
@@ -63,10 +63,21 @@
     "SidebarGlass renders as mobile drawer (ModalGlass sheet) on mobile and collapsible sidebar with glassmorphism on desktop",
     "SidebarGlass.Rail provides interactive collapse/expand rail with hover indicator - click or drag to toggle sidebar",
     "SidebarGlass.MenuButton accepts: isActive (boolean), tooltip (string - shown in icon mode), variant ('default'|'outline'), size ('default'|'sm'|'lg')",
-    "useSidebar() returns: state ('expanded'|'collapsed'), open, setOpen, openMobile, setOpenMobile, isMobile, side, variant, collapsible, toggleSidebar"
+    "useSidebar() returns: state ('expanded'|'collapsed'), open, setOpen, openMobile, setOpenMobile, isMobile, side, variant, collapsible, toggleSidebar",
+
+    "SeparatorGlass: Simple glass-styled divider with horizontal/vertical orientation. Use decorative=true (default) for visual-only separators",
+    "ScrollAreaGlass: Custom scrollable container with glass-styled scrollbar. Supports orientation='vertical'|'horizontal'|'both'",
+    "CollapsibleGlass: Expandable/collapsible section with compound API: Root, Trigger (with asChild), Content. Supports controlled/uncontrolled modes",
+    "RadioGroupGlass: Glass-styled radio button group with compound API: Root (value/onValueChange), Item. Uses Radix primitives",
+    "ToggleGroupGlass: Segmented control / toggle button group. Supports type='single'|'multiple', variant='default'|'outline', size='sm'|'default'|'lg'",
+    "SheetGlass: Side panel drawer with compound API: Root, Trigger, Content (side='top'|'right'|'bottom'|'left'), Header, Footer, Title, Description, Close",
+    "ModalGlass.Trigger: Opens modal with asChild support. Use inside ModalGlass.Root for uncontrolled modal (no need for useState)",
+    "ModalGlass uncontrolled mode: Use defaultOpen prop instead of open/onOpenChange for simpler state management",
+    "GlassCard compound components: GlassCardHeader, GlassCardTitle, GlassCardDescription, GlassCardAction, GlassCardContent, GlassCardFooter - 100% shadcn/ui Card compatible"
   ],
   "previousVersions": [
-    { "tag": "v2.0.0", "title": "Version 2.0.0 (Latest - Token Architecture)" },
+    { "tag": "v2.2.0", "title": "Version 2.2.0 (Latest - shadcn/ui API Compatibility)" },
+    { "tag": "v2.0.0", "title": "Version 2.0.0 (Token Architecture)" },
     { "tag": "v1.1.0", "title": "Version 1.1.0" },
     { "tag": "v1.0.11", "title": "Version 1.0.11" },
     { "tag": "v1.0.0", "title": "Version 1.0.0 (Breaking Changes)" }

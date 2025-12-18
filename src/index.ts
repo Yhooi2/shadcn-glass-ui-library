@@ -48,7 +48,16 @@ export {
   DropdownMenuGlassRadioGroup,
 } from './components/glass/ui/dropdown-menu-glass';
 
-export { GlassCard } from './components/glass/ui/glass-card';
+// GlassCard - Compound Components (shadcn/ui Card compatible)
+export {
+  GlassCard,
+  GlassCardHeader,
+  GlassCardTitle,
+  GlassCardDescription,
+  GlassCardAction,
+  GlassCardContent,
+  GlassCardFooter,
+} from './components/glass/ui/glass-card';
 export { InputGlass } from './components/glass/ui/input-glass';
 export { ModalGlass } from './components/glass/ui/modal-glass';
 export { NotificationGlass } from './components/glass/ui/notification-glass';
@@ -68,6 +77,13 @@ export { StepperGlass } from './components/glass/ui/stepper-glass';
 export { TabsGlass } from './components/glass/ui/tabs-glass';
 export { ToggleGlass } from './components/glass/ui/toggle-glass';
 
+// ToggleGroupGlass - Compound Components (100% shadcn/ui ToggleGroup compatible)
+export {
+  ToggleGroupGlass,
+  ToggleGroupGlassRoot,
+  ToggleGroupGlassItem,
+} from './components/glass/ui/toggle-group-glass';
+
 // SidebarGlass - Compound Components (100% shadcn/ui Sidebar compatible)
 export { SidebarGlass, useSidebar } from './components/glass/ui/sidebar-glass';
 
@@ -79,6 +95,42 @@ export {
   TooltipGlassContent,
   TooltipGlassSimple,
 } from './components/glass/ui/tooltip-glass';
+
+// SeparatorGlass - Simple separator (100% shadcn/ui Separator compatible)
+export { SeparatorGlass } from './components/glass/ui/separator-glass';
+
+// ScrollAreaGlass - Compound Components (100% shadcn/ui ScrollArea compatible)
+export { ScrollAreaGlass, ScrollBarGlass } from './components/glass/ui/scroll-area-glass';
+
+// CollapsibleGlass - Compound Components (100% shadcn/ui Collapsible compatible)
+export {
+  CollapsibleGlass,
+  CollapsibleGlassRoot,
+  CollapsibleGlassTrigger,
+  CollapsibleGlassContent,
+} from './components/glass/ui/collapsible-glass';
+
+// RadioGroupGlass - Compound Components (100% shadcn/ui RadioGroup compatible)
+export {
+  RadioGroupGlass,
+  RadioGroupGlassRoot,
+  RadioGroupGlassItem,
+} from './components/glass/ui/radio-group-glass';
+
+// SheetGlass - Compound Components (100% shadcn/ui Sheet compatible)
+export {
+  SheetGlass,
+  SheetGlassRoot,
+  SheetGlassTrigger,
+  SheetGlassClose,
+  SheetGlassPortal,
+  SheetGlassOverlay,
+  SheetGlassContent,
+  SheetGlassHeader,
+  SheetGlassFooter,
+  SheetGlassTitle,
+  SheetGlassDescription,
+} from './components/glass/ui/sheet-glass';
 
 // ========================================
 // ATOMIC COMPONENTS (Level 2 - 7 components)
@@ -278,6 +330,34 @@ export type {
   SidebarMenuSubItemProps,
   SidebarMenuSubButtonProps,
 } from './components/glass/ui/sidebar-glass';
+
+// New component types (v2.2.0)
+export type { SeparatorGlassProps } from './components/glass/ui/separator-glass';
+export type {
+  ScrollAreaGlassProps,
+  ScrollBarGlassProps,
+} from './components/glass/ui/scroll-area-glass';
+export type {
+  CollapsibleGlassRootProps,
+  CollapsibleGlassTriggerProps,
+  CollapsibleGlassContentProps,
+} from './components/glass/ui/collapsible-glass';
+export type {
+  RadioGroupGlassRootProps,
+  RadioGroupGlassItemProps,
+} from './components/glass/ui/radio-group-glass';
+export type {
+  ToggleGroupGlassRootProps,
+  ToggleGroupGlassItemProps,
+} from './components/glass/ui/toggle-group-glass';
+export type {
+  SheetGlassOverlayProps,
+  SheetGlassContentProps,
+  SheetGlassHeaderProps,
+  SheetGlassFooterProps,
+  SheetGlassTitleProps,
+  SheetGlassDescriptionProps,
+} from './components/glass/ui/sheet-glass';
 
 // ========================================
 // CHART UTILITIES (shadcn/ui pattern)

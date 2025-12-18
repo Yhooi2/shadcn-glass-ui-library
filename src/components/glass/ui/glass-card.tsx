@@ -8,11 +8,8 @@
  * - Hover animations
  */
 
-import {
-  forwardRef,
-  type ReactNode,
-  type CSSProperties,
-} from 'react';
+import * as React from 'react';
+import { forwardRef, type ReactNode, type CSSProperties } from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
@@ -31,9 +28,9 @@ import type { GlowType, IntensityType, PaddingType } from '@/lib/variants/glass-
 // - strong: 24px (--glass-blur-lg) - featured cards (was 16px - breaking change)
 
 const blurMap: Record<IntensityType, string> = {
-  subtle: 'var(--blur-sm)',   // 8px
-  medium: 'var(--blur-md)',   // 16px (BREAKING: was 12px)
-  strong: 'var(--blur-lg)',   // 24px (BREAKING: was 16px)
+  subtle: 'var(--blur-sm)', // 8px
+  medium: 'var(--blur-md)', // 16px (BREAKING: was 12px)
+  strong: 'var(--blur-lg)', // 24px (BREAKING: was 16px)
 };
 
 // ========================================
@@ -97,8 +94,7 @@ const blurMap: Record<IntensityType, string> = {
  * ```
  */
 export interface GlassCardProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'style'>,
-    VariantProps<typeof cardIntensity> {
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'style'>, VariantProps<typeof cardIntensity> {
   /**
    * Render as child element instead of div (polymorphic rendering).
    * Useful for making cards clickable links or custom interactive elements.
@@ -189,3 +185,152 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
 );
 
 GlassCard.displayName = 'GlassCard';
+
+// ========================================
+// COMPOUND COMPONENTS (shadcn/ui Card compatible)
+// ========================================
+
+/**
+ * GlassCardHeader - Header section of a GlassCard
+ *
+ * @example
+ * ```tsx
+ * <GlassCard>
+ *   <GlassCardHeader>
+ *     <GlassCardTitle>Card Title</GlassCardTitle>
+ *     <GlassCardDescription>Card description</GlassCardDescription>
+ *   </GlassCardHeader>
+ * </GlassCard>
+ * ```
+ */
+export const GlassCardHeader = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => (
+    <div
+      ref={ref}
+      data-slot="card-header"
+      className={cn(
+        '@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6',
+        className
+      )}
+      {...props}
+    />
+  )
+);
+GlassCardHeader.displayName = 'GlassCardHeader';
+
+/**
+ * GlassCardTitle - Title element for GlassCard
+ *
+ * @example
+ * ```tsx
+ * <GlassCardHeader>
+ *   <GlassCardTitle>My Card Title</GlassCardTitle>
+ * </GlassCardHeader>
+ * ```
+ */
+export const GlassCardTitle = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => (
+    <div
+      ref={ref}
+      data-slot="card-title"
+      className={cn('leading-none font-semibold tracking-tight', className)}
+      {...props}
+    />
+  )
+);
+GlassCardTitle.displayName = 'GlassCardTitle';
+
+/**
+ * GlassCardDescription - Description text for GlassCard
+ *
+ * @example
+ * ```tsx
+ * <GlassCardHeader>
+ *   <GlassCardTitle>Title</GlassCardTitle>
+ *   <GlassCardDescription>A brief description of the card content.</GlassCardDescription>
+ * </GlassCardHeader>
+ * ```
+ */
+export const GlassCardDescription = forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    data-slot="card-description"
+    className={cn('text-muted-foreground text-sm', className)}
+    {...props}
+  />
+));
+GlassCardDescription.displayName = 'GlassCardDescription';
+
+/**
+ * GlassCardAction - Action button area in card header
+ *
+ * @example
+ * ```tsx
+ * <GlassCardHeader>
+ *   <GlassCardTitle>Title</GlassCardTitle>
+ *   <GlassCardAction>
+ *     <ButtonGlass size="sm">Edit</ButtonGlass>
+ *   </GlassCardAction>
+ * </GlassCardHeader>
+ * ```
+ */
+export const GlassCardAction = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => (
+    <div
+      ref={ref}
+      data-slot="card-action"
+      className={cn('col-start-2 row-span-2 row-start-1 self-start justify-self-end', className)}
+      {...props}
+    />
+  )
+);
+GlassCardAction.displayName = 'GlassCardAction';
+
+/**
+ * GlassCardContent - Main content area of a GlassCard
+ *
+ * @example
+ * ```tsx
+ * <GlassCard>
+ *   <GlassCardHeader>...</GlassCardHeader>
+ *   <GlassCardContent>
+ *     <p>This is the main content of the card.</p>
+ *   </GlassCardContent>
+ * </GlassCard>
+ * ```
+ */
+export const GlassCardContent = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => (
+    <div ref={ref} data-slot="card-content" className={cn('px-6', className)} {...props} />
+  )
+);
+GlassCardContent.displayName = 'GlassCardContent';
+
+/**
+ * GlassCardFooter - Footer section of a GlassCard
+ *
+ * @example
+ * ```tsx
+ * <GlassCard>
+ *   <GlassCardContent>...</GlassCardContent>
+ *   <GlassCardFooter>
+ *     <ButtonGlass>Cancel</ButtonGlass>
+ *     <ButtonGlass variant="default">Save</ButtonGlass>
+ *   </GlassCardFooter>
+ * </GlassCard>
+ * ```
+ */
+export const GlassCardFooter = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => (
+    <div
+      ref={ref}
+      data-slot="card-footer"
+      className={cn('flex items-center px-6 [.border-t]:pt-6', className)}
+      {...props}
+    />
+  )
+);
+GlassCardFooter.displayName = 'GlassCardFooter';
