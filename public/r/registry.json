@@ -55,7 +55,7 @@
       "name": "modal-glass",
       "type": "registry:ui",
       "title": "Modal Glass",
-      "description": "ModalGlass Component (Compound API only)"
+      "description": "ModalGlass Component (Radix UI Dialog-based)"
     },
     {
       "name": "input-glass",
@@ -98,6 +98,12 @@
       "type": "registry:ui",
       "title": "Checkbox Glass",
       "description": "Glass-themed checkbox with:"
+    },
+    {
+      "name": "card-glass",
+      "type": "registry:ui",
+      "title": "Card Glass",
+      "description": "CardGlass Compound Component"
     },
     {
       "name": "button-glass",
