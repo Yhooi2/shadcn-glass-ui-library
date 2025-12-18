@@ -382,7 +382,7 @@ const UserProfile = () => {
                         Save
                       </ButtonGlass>
                       <ButtonGlass
-                        variant="ghost"
+                        variant="destructive"
                         size="sm"
                         onClick={handleCancel}
                         aria-label="Cancel editing"
