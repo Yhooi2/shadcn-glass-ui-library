@@ -126,6 +126,7 @@ const AlertGlassRoot = forwardRef<HTMLDivElement, AlertGlassProps>(
     return (
       <div
         ref={ref}
+        data-slot="alert"
         className={cn(alertVariants({ variant: effectiveVariant }), className)}
         style={getAlertStyles(effectiveVariant)}
         role="alert"
@@ -157,13 +158,14 @@ AlertGlassRoot.displayName = 'AlertGlass';
 // COMPOUND COMPONENT: TITLE
 // ========================================
 
-export type AlertGlassTitleProps = React.HTMLAttributes<HTMLParagraphElement>;
+export type AlertGlassTitleProps = React.HTMLAttributes<HTMLDivElement>;
 
-const AlertGlassTitle = forwardRef<HTMLParagraphElement, AlertGlassTitleProps>(
+const AlertGlassTitle = forwardRef<HTMLDivElement, AlertGlassTitleProps>(
   ({ className, style, ...props }, ref) => {
     return (
-      <p
+      <div
         ref={ref}
+        data-slot="alert-title"
         className={cn('font-medium text-xs md:text-sm mb-0.5 md:mb-1', className)}
         style={{ color: 'inherit', ...style }}
         {...props}
@@ -178,13 +180,14 @@ AlertGlassTitle.displayName = 'AlertGlassTitle';
 // COMPOUND COMPONENT: DESCRIPTION
 // ========================================
 
-export type AlertGlassDescriptionProps = React.HTMLAttributes<HTMLParagraphElement>;
+export type AlertGlassDescriptionProps = React.HTMLAttributes<HTMLDivElement>;
 
-const AlertGlassDescription = forwardRef<HTMLParagraphElement, AlertGlassDescriptionProps>(
+const AlertGlassDescription = forwardRef<HTMLDivElement, AlertGlassDescriptionProps>(
   ({ className, style, ...props }, ref) => {
     return (
-      <p
+      <div
         ref={ref}
+        data-slot="alert-description"
         className={cn('text-xs md:text-sm opacity-80', className)}
         style={{ color: 'inherit', ...style }}
         {...props}

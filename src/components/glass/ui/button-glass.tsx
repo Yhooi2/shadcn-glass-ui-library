@@ -294,6 +294,7 @@ export const ButtonGlass = forwardRef<HTMLButtonElement, ButtonGlassProps>(
     return (
       <Comp
         ref={ref}
+        data-slot="button"
         className={cn(
           buttonGlassVariants({ variant, size }),
           isHovered && !isDisabled && 'scale-[1.02]',

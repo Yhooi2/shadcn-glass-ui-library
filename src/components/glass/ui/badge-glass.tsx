@@ -156,6 +156,7 @@ export const BadgeGlass = forwardRef<HTMLSpanElement, BadgeGlassProps>(
     return (
       <span
         ref={ref}
+        data-slot="badge"
         className={cn(badgeVariants({ size }), className)}
         style={getBadgeStyles(variant)}
         {...props}

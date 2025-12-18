@@ -28,11 +28,7 @@ import '@/glass-theme.css';
 // CSS VARIABLE HELPERS
 // ========================================
 
-const getInputStyles = (
-  isFocused: boolean,
-  error?: string,
-  success?: string
-): CSSProperties => {
+const getInputStyles = (isFocused: boolean, error?: string, success?: string): CSSProperties => {
   // Determine border color based on state
   let borderColor = 'var(--input-border)';
   if (error) {
@@ -119,8 +115,7 @@ const getInputStyles = (
  * ```
  */
 export interface InputGlassProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>,
-    VariantProps<typeof inputVariants> {
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>, VariantProps<typeof inputVariants> {
   /**
    * Label text displayed above the input field
    */
@@ -234,11 +229,8 @@ export const InputGlass = forwardRef<HTMLInputElement, InputGlassProps>(
           )}
           <input
             ref={ref}
-            className={cn(
-              inputVariants({ size: sizeValue }),
-              paddingLeft,
-              paddingRight
-            )}
+            data-slot="input"
+            className={cn(inputVariants({ size: sizeValue }), paddingLeft, paddingRight)}
             style={getInputStyles(isFocused, error, success)}
             disabled={disabled}
             onFocus={handleFocus}

@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { AlertGlass } from '../alert-glass';
+import { AlertGlass, AlertGlassTitle, AlertGlassDescription } from '../alert-glass';
 
 describe('AlertGlass', () => {
   describe('Rendering', () => {
@@ -10,14 +10,23 @@ describe('AlertGlass', () => {
       expect(screen.getByText(/test alert message/i)).toBeInTheDocument();
     });
 
-    it('renders with title', () => {
-      render(<AlertGlass title="Alert Title">Message</AlertGlass>);
+    it('renders with compound API (Title and Description)', () => {
+      render(
+        <AlertGlass>
+          <AlertGlassTitle>Alert Title</AlertGlassTitle>
+          <AlertGlassDescription>Message</AlertGlassDescription>
+        </AlertGlass>
+      );
       expect(screen.getByText(/alert title/i)).toBeInTheDocument();
       expect(screen.getByText(/message/i)).toBeInTheDocument();
     });
 
     it('renders without title when not provided', () => {
-      render(<AlertGlass>Only message</AlertGlass>);
+      render(
+        <AlertGlass>
+          <AlertGlassDescription>Only message</AlertGlassDescription>
+        </AlertGlass>
+      );
       expect(screen.getByText(/only message/i)).toBeInTheDocument();
     });
 
@@ -55,7 +64,6 @@ describe('AlertGlass', () => {
       expect(screen.getByText(/warning alert/i)).toBeInTheDocument();
     });
   });
-
 
   describe('Icons', () => {
     it('renders icon for default variant', () => {
@@ -97,7 +105,11 @@ describe('AlertGlass', () => {
     it('calls onDismiss when dismiss button is clicked', async () => {
       const user = userEvent.setup();
       const handleDismiss = vi.fn();
-      render(<AlertGlass dismissible onDismiss={handleDismiss}>Message</AlertGlass>);
+      render(
+        <AlertGlass dismissible onDismiss={handleDismiss}>
+          Message
+        </AlertGlass>
+      );
 
       const dismissButton = screen.getByRole('button', { name: /dismiss/i });
       await user.click(dismissButton);
@@ -125,7 +137,11 @@ describe('AlertGlass', () => {
     });
 
     it('spreads additional props', () => {
-      render(<AlertGlass data-testid="custom-alert" aria-live="polite">Message</AlertGlass>);
+      render(
+        <AlertGlass data-testid="custom-alert" aria-live="polite">
+          Message
+        </AlertGlass>
+      );
       const alert = screen.getByTestId('custom-alert');
       expect(alert).toHaveAttribute('aria-live', 'polite');
     });
@@ -143,10 +159,14 @@ describe('AlertGlass', () => {
       expect(dismissButton).toHaveAttribute('aria-label', 'Dismiss alert');
     });
 
-    it('title is properly marked up', () => {
-      render(<AlertGlass title="Important">Message</AlertGlass>);
+    it('title is properly marked up as div (shadcn/ui v4 pattern)', () => {
+      render(
+        <AlertGlass>
+          <AlertGlassTitle>Important</AlertGlassTitle>
+        </AlertGlass>
+      );
       const title = screen.getByText(/important/i);
-      expect(title.tagName).toBe('P');
+      expect(title.tagName).toBe('DIV');
       expect(title).toHaveClass('font-medium');
     });
 
@@ -154,6 +174,78 @@ describe('AlertGlass', () => {
       render(<AlertGlass aria-describedby="details">Message</AlertGlass>);
       const alert = screen.getByRole('alert');
       expect(alert).toHaveAttribute('aria-describedby', 'details');
+    });
+  });
+
+  describe('Data Slots (shadcn/ui v4 compatibility)', () => {
+    it('has data-slot="alert" on root', () => {
+      render(<AlertGlass>Message</AlertGlass>);
+      const alert = screen.getByRole('alert');
+      expect(alert).toHaveAttribute('data-slot', 'alert');
+    });
+
+    it('has data-slot="alert-title" on title', () => {
+      render(
+        <AlertGlass>
+          <AlertGlassTitle>Title</AlertGlassTitle>
+        </AlertGlass>
+      );
+      const title = document.querySelector('[data-slot="alert-title"]');
+      expect(title).toBeInTheDocument();
+      expect(title).toHaveTextContent('Title');
+    });
+
+    it('has data-slot="alert-description" on description', () => {
+      render(
+        <AlertGlass>
+          <AlertGlassDescription>Description text</AlertGlassDescription>
+        </AlertGlass>
+      );
+      const description = document.querySelector('[data-slot="alert-description"]');
+      expect(description).toBeInTheDocument();
+      expect(description).toHaveTextContent('Description text');
+    });
+
+    it('title renders as div element', () => {
+      render(
+        <AlertGlass>
+          <AlertGlassTitle>Title</AlertGlassTitle>
+        </AlertGlass>
+      );
+      const title = document.querySelector('[data-slot="alert-title"]');
+      expect(title?.tagName).toBe('DIV');
+    });
+
+    it('description renders as div element', () => {
+      render(
+        <AlertGlass>
+          <AlertGlassDescription>Description</AlertGlassDescription>
+        </AlertGlass>
+      );
+      const description = document.querySelector('[data-slot="alert-description"]');
+      expect(description?.tagName).toBe('DIV');
+    });
+  });
+
+  describe('Forward Ref', () => {
+    it('forwards ref to AlertGlassTitle', () => {
+      const ref = vi.fn();
+      render(
+        <AlertGlass>
+          <AlertGlassTitle ref={ref}>Title</AlertGlassTitle>
+        </AlertGlass>
+      );
+      expect(ref).toHaveBeenCalledWith(expect.any(HTMLDivElement));
+    });
+
+    it('forwards ref to AlertGlassDescription', () => {
+      const ref = vi.fn();
+      render(
+        <AlertGlass>
+          <AlertGlassDescription ref={ref}>Description</AlertGlassDescription>
+        </AlertGlass>
+      );
+      expect(ref).toHaveBeenCalledWith(expect.any(HTMLDivElement));
     });
   });
 });
