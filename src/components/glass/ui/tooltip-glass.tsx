@@ -52,7 +52,13 @@ const TooltipGlassProvider: React.FC<TooltipGlassProviderProps> = ({
   delayDuration = 0,
   ...props
 }) => {
-  return <TooltipPrimitive.Provider delayDuration={delayDuration} {...props} />;
+  return (
+    <TooltipPrimitive.Provider
+      data-slot="tooltip-provider"
+      delayDuration={delayDuration}
+      {...props}
+    />
+  );
 };
 
 TooltipGlassProvider.displayName = 'TooltipGlassProvider';
@@ -63,9 +69,17 @@ TooltipGlassProvider.displayName = 'TooltipGlassProvider';
 
 /**
  * TooltipGlassRoot - Individual tooltip instance
- * Wraps Radix TooltipPrimitive.Root
+ * Wraps Radix TooltipPrimitive.Root with auto-included Provider (shadcn/ui pattern)
  */
-const TooltipGlassRoot = TooltipPrimitive.Root;
+function TooltipGlassRoot({
+  ...props
+}: React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Root>) {
+  return (
+    <TooltipGlassProvider>
+      <TooltipPrimitive.Root data-slot="tooltip" {...props} />
+    </TooltipGlassProvider>
+  );
+}
 
 // ========================================
 // COMPOUND COMPONENT: TRIGGER
@@ -97,7 +111,7 @@ type TooltipGlassContentProps = React.ComponentPropsWithoutRef<typeof TooltipPri
 const TooltipGlassContent = React.forwardRef<
   React.ElementRef<typeof TooltipPrimitive.Content>,
   TooltipGlassContentProps
->(({ className, sideOffset = 4, ...props }, ref) => {
+>(({ className, sideOffset = 0, children, ...props }, ref) => {
   const tooltipStyles: React.CSSProperties = {
     background: 'var(--tooltip-bg)',
     color: 'var(--tooltip-text)',
@@ -114,7 +128,7 @@ const TooltipGlassContent = React.forwardRef<
         sideOffset={sideOffset}
         data-slot="tooltip-content"
         className={cn(
-          'z-50 overflow-hidden rounded-md px-3 py-1.5 text-xs text-balance',
+          'z-50 w-fit origin-(--radix-tooltip-content-transform-origin) rounded-md px-3 py-1.5 text-xs text-balance',
           'animate-in fade-in-0 zoom-in-95',
           'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95',
           'data-[side=bottom]:slide-in-from-top-2',
@@ -125,7 +139,16 @@ const TooltipGlassContent = React.forwardRef<
         )}
         style={tooltipStyles}
         {...props}
-      />
+      >
+        {children}
+        <TooltipPrimitive.Arrow
+          className="z-50 size-2.5 translate-y-[calc(-50%-2px)] rotate-45 rounded-xs"
+          style={{
+            fill: 'var(--tooltip-bg)',
+            background: 'var(--tooltip-bg)',
+          }}
+        />
+      </TooltipPrimitive.Content>
     </TooltipPrimitive.Portal>
   );
 });

@@ -161,7 +161,7 @@ describe('ModalGlass', () => {
     it('renders overlay', () => {
       renderModal();
       // Radix Dialog renders overlay with data-slot
-      const overlay = document.querySelector('[data-slot="modal-overlay"]');
+      const overlay = document.querySelector('[data-slot="dialog-overlay"]');
       expect(overlay).toBeInTheDocument();
     });
   });
@@ -309,42 +309,69 @@ describe('ModalGlass', () => {
 
     it('applies overlay CSS variables', () => {
       renderModal();
-      const overlay = document.querySelector('[data-slot="modal-overlay"]') as HTMLElement;
+      const overlay = document.querySelector('[data-slot="dialog-overlay"]') as HTMLElement;
       expect(overlay).toHaveStyle({
         background: 'var(--modal-overlay)',
       });
     });
   });
 
-  describe('Data Slots', () => {
-    it('has data-slot on content', () => {
+  describe('Data Slots (shadcn/ui v4 compatibility)', () => {
+    it('has data-slot="dialog-content" on content', () => {
       renderModal();
       const content = screen.getByRole('dialog');
-      expect(content).toHaveAttribute('data-slot', 'modal-content');
+      expect(content).toHaveAttribute('data-slot', 'dialog-content');
     });
 
-    it('has data-slot on overlay', () => {
+    it('has data-slot="dialog-overlay" on overlay', () => {
       renderModal();
-      const overlay = document.querySelector('[data-slot="modal-overlay"]');
+      const overlay = document.querySelector('[data-slot="dialog-overlay"]');
       expect(overlay).toBeInTheDocument();
     });
 
-    it('has data-slot on header', () => {
+    it('has data-slot="dialog-header" on header', () => {
       renderModal();
-      const header = document.querySelector('[data-slot="modal-header"]');
+      const header = document.querySelector('[data-slot="dialog-header"]');
       expect(header).toBeInTheDocument();
     });
 
-    it('has data-slot on body', () => {
+    it('has data-slot="dialog-body" on body', () => {
       renderModal();
-      const body = document.querySelector('[data-slot="modal-body"]');
+      const body = document.querySelector('[data-slot="dialog-body"]');
       expect(body).toBeInTheDocument();
     });
 
-    it('has data-slot on title', () => {
+    it('has data-slot="dialog-title" on title', () => {
       renderModal();
-      const title = document.querySelector('[data-slot="modal-title"]');
+      const title = document.querySelector('[data-slot="dialog-title"]');
       expect(title).toBeInTheDocument();
+    });
+
+    it('has data-slot="dialog-footer" on footer', () => {
+      render(
+        <ModalGlass.Root open={true} onOpenChange={vi.fn()}>
+          <ModalGlass.Content>
+            <ModalGlass.Header>
+              <ModalGlass.Title>Title</ModalGlass.Title>
+            </ModalGlass.Header>
+            <ModalGlass.Footer data-testid="footer">Footer</ModalGlass.Footer>
+          </ModalGlass.Content>
+        </ModalGlass.Root>
+      );
+      const footer = document.querySelector('[data-slot="dialog-footer"]');
+      expect(footer).toBeInTheDocument();
+    });
+
+    it('has data-slot="dialog-description" on description', () => {
+      renderModal({ description: 'Test description' });
+      const description = document.querySelector('[data-slot="dialog-description"]');
+      expect(description).toBeInTheDocument();
+    });
+
+    it('has data-slot="dialog-close" on close button', () => {
+      renderModal({ showCloseButton: true });
+      const closeButton = document.querySelector('[data-slot="dialog-close"]');
+      expect(closeButton).toBeInTheDocument();
     });
   });
 
@@ -371,7 +398,7 @@ describe('ModalGlass', () => {
   describe('Modal Body', () => {
     it('applies content text color from CSS variables', () => {
       renderModal({ children: <div>Content here</div> });
-      const body = document.querySelector('[data-slot="modal-body"]') as HTMLElement;
+      const body = document.querySelector('[data-slot="dialog-body"]') as HTMLElement;
       expect(body).toHaveStyle({
         color: 'var(--text-secondary)',
       });
@@ -411,7 +438,7 @@ describe('ModalGlass', () => {
       );
 
       const footer = screen.getByTestId('footer');
-      expect(footer).toHaveAttribute('data-slot', 'modal-footer');
+      expect(footer).toHaveAttribute('data-slot', 'dialog-footer');
       expect(footer).toHaveClass('flex');
     });
   });

@@ -88,7 +88,7 @@ interface ModalRootProps extends React.ComponentProps<typeof DialogPrimitive.Roo
 function ModalRoot({ size = 'md', children, ...props }: ModalRootProps) {
   return (
     <ModalContext.Provider value={{ size }}>
-      <DialogPrimitive.Root data-slot="modal" {...props}>
+      <DialogPrimitive.Root data-slot="dialog" {...props}>
         {children}
       </DialogPrimitive.Root>
     </ModalContext.Provider>
@@ -105,7 +105,7 @@ function ModalRoot({ size = 'md', children, ...props }: ModalRootProps) {
  * Use `asChild` to render as the child element instead of a button.
  */
 function ModalTrigger({ ...props }: React.ComponentProps<typeof DialogPrimitive.Trigger>) {
-  return <DialogPrimitive.Trigger data-slot="modal-trigger" {...props} />;
+  return <DialogPrimitive.Trigger data-slot="dialog-trigger" {...props} />;
 }
 
 // ========================================
@@ -116,7 +116,7 @@ function ModalTrigger({ ...props }: React.ComponentProps<typeof DialogPrimitive.
  * ModalGlass.Portal - Renders children into a portal
  */
 function ModalPortal({ ...props }: React.ComponentProps<typeof DialogPrimitive.Portal>) {
-  return <DialogPrimitive.Portal data-slot="modal-portal" {...props} />;
+  return <DialogPrimitive.Portal data-slot="dialog-portal" {...props} />;
 }
 
 // ========================================
@@ -132,7 +132,7 @@ const ModalOverlay = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Overlay
     ref={ref}
-    data-slot="modal-overlay"
+    data-slot="dialog-overlay"
     className={cn(
       'fixed inset-0 z-50',
       'data-[state=open]:animate-in data-[state=closed]:animate-out',
@@ -177,7 +177,7 @@ const ModalContent = React.forwardRef<
       <ModalOverlay />
       <DialogPrimitive.Content
         ref={ref}
-        data-slot="modal-content"
+        data-slot="dialog-content"
         className={cn(
           modalSizes({ size }),
           'fixed top-[50%] left-[50%] z-50',
@@ -210,7 +210,7 @@ const ModalContent = React.forwardRef<
         {/* Close button */}
         {showCloseButton && (
           <DialogPrimitive.Close
-            data-slot="modal-close-button"
+            data-slot="dialog-close"
             className={cn(
               'absolute top-4 right-4',
               'p-1.5 md:p-2 rounded-xl',
@@ -246,7 +246,7 @@ ModalContent.displayName = 'ModalContent';
 function ModalHeader({ className, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
-      data-slot="modal-header"
+      data-slot="dialog-header"
       className={cn('flex flex-col gap-2 text-center sm:text-left mb-4', className)}
       {...props}
     />
@@ -265,7 +265,7 @@ function ModalHeader({ className, ...props }: React.ComponentProps<'div'>) {
 function ModalBody({ className, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
-      data-slot="modal-body"
+      data-slot="dialog-body"
       className={cn('relative', className)}
       style={{ color: 'var(--text-secondary)' }}
       {...props}
@@ -283,7 +283,7 @@ function ModalBody({ className, ...props }: React.ComponentProps<'div'>) {
 function ModalFooter({ className, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
-      data-slot="modal-footer"
+      data-slot="dialog-footer"
       className={cn('flex flex-col-reverse gap-2 sm:flex-row sm:justify-end mt-4', className)}
       {...props}
     />
@@ -303,7 +303,7 @@ const ModalTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Title
     ref={ref}
-    data-slot="modal-title"
+    data-slot="dialog-title"
     className={cn('text-lg md:text-xl font-semibold leading-none tracking-tight', className)}
     style={{ color: 'var(--text-primary)' }}
     {...props}
@@ -324,7 +324,7 @@ const ModalDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Description
     ref={ref}
-    data-slot="modal-description"
+    data-slot="dialog-description"
     className={cn('text-sm', className)}
     style={{ color: 'var(--text-muted)' }}
     {...props}
@@ -349,7 +349,7 @@ ModalDescription.displayName = 'ModalDescription';
  * ```
  */
 function ModalClose({ ...props }: React.ComponentProps<typeof DialogPrimitive.Close>) {
-  return <DialogPrimitive.Close data-slot="modal-close" {...props} />;
+  return <DialogPrimitive.Close data-slot="dialog-close" {...props} />;
 }
 
 // ========================================
