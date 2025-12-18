@@ -280,5 +280,3 @@ export {
   CardGlassContent,
   CardGlassFooter,
 };
-
-export type { CardGlassRootProps };

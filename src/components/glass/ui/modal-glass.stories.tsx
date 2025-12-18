@@ -26,7 +26,6 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: () => (
     <ModalGlass.Root open={true} onOpenChange={fn()} size="sm">
-      <ModalGlass.Overlay />
       <ModalGlass.Content>
         <ModalGlass.Header>
           <ModalGlass.Title>Modal Title</ModalGlass.Title>
@@ -53,7 +52,6 @@ export const Default: Story = {
 export const Small: Story = {
   render: () => (
     <ModalGlass.Root open={true} onOpenChange={fn()} size="sm">
-      <ModalGlass.Overlay />
       <ModalGlass.Content>
         <ModalGlass.Header>
           <ModalGlass.Title>Small Modal</ModalGlass.Title>
@@ -72,8 +70,7 @@ export const Small: Story = {
 
 export const Medium: Story = {
   render: () => (
-    <ModalGlass.Root open={true} onOpenChange={fn()} size="default">
-      <ModalGlass.Overlay />
+    <ModalGlass.Root open={true} onOpenChange={fn()} size="md">
       <ModalGlass.Content>
         <ModalGlass.Header>
           <ModalGlass.Title>Medium Modal</ModalGlass.Title>
@@ -93,7 +90,6 @@ export const Medium: Story = {
 export const Large: Story = {
   render: () => (
     <ModalGlass.Root open={true} onOpenChange={fn()} size="lg">
-      <ModalGlass.Overlay />
       <ModalGlass.Content>
         <ModalGlass.Header>
           <ModalGlass.Title>Large Modal</ModalGlass.Title>
@@ -117,7 +113,6 @@ export const Large: Story = {
 export const ExtraLarge: Story = {
   render: () => (
     <ModalGlass.Root open={true} onOpenChange={fn()} size="xl">
-      <ModalGlass.Overlay />
       <ModalGlass.Content>
         <ModalGlass.Header>
           <ModalGlass.Title>Extra Large Modal</ModalGlass.Title>
@@ -140,7 +135,6 @@ export const ExtraLarge: Story = {
 export const Full: Story = {
   render: () => (
     <ModalGlass.Root open={true} onOpenChange={fn()} size="full">
-      <ModalGlass.Overlay />
       <ModalGlass.Content>
         <ModalGlass.Header>
           <ModalGlass.Title>Full Width Modal</ModalGlass.Title>
@@ -166,8 +160,7 @@ export const Full: Story = {
 
 export const WithActions: Story = {
   render: () => (
-    <ModalGlass.Root open={true} onOpenChange={fn()} size="default">
-      <ModalGlass.Overlay />
+    <ModalGlass.Root open={true} onOpenChange={fn()} size="md">
       <ModalGlass.Content>
         <ModalGlass.Header>
           <ModalGlass.Title>Confirm Action</ModalGlass.Title>
@@ -192,8 +185,7 @@ export const WithActions: Story = {
 
 export const WithForm: Story = {
   render: () => (
-    <ModalGlass.Root open={true} onOpenChange={fn()} size="default">
-      <ModalGlass.Overlay />
+    <ModalGlass.Root open={true} onOpenChange={fn()} size="md">
       <ModalGlass.Content>
         <ModalGlass.Header>
           <ModalGlass.Title>Create New Item</ModalGlass.Title>
@@ -253,8 +245,7 @@ export const WithForm: Story = {
 
 export const WithLongContent: Story = {
   render: () => (
-    <ModalGlass.Root open={true} onOpenChange={fn()} size="default">
-      <ModalGlass.Overlay />
+    <ModalGlass.Root open={true} onOpenChange={fn()} size="md">
       <ModalGlass.Content>
         <ModalGlass.Header>
           <ModalGlass.Title>Terms and Conditions</ModalGlass.Title>
@@ -309,7 +300,6 @@ const InteractiveModalExample = () => {
         Open Modal
       </ButtonGlass>
       <ModalGlass.Root open={open} onOpenChange={setOpen} size="sm">
-        <ModalGlass.Overlay />
         <ModalGlass.Content>
           <ModalGlass.Header>
             <ModalGlass.Title>Modal Title</ModalGlass.Title>
@@ -360,8 +350,7 @@ export const CompoundBasic: Story = {
       <div className="min-h-screen flex items-center justify-center p-8">
         <ButtonGlass onClick={() => setOpen(true)}>Open Compound Modal</ButtonGlass>
 
-        <ModalGlass.Root open={open} onOpenChange={setOpen} size="default">
-          <ModalGlass.Overlay />
+        <ModalGlass.Root open={open} onOpenChange={setOpen} size="md">
           <ModalGlass.Content>
             <ModalGlass.Header>
               <ModalGlass.Title>Compound Component API</ModalGlass.Title>
@@ -390,7 +379,6 @@ export const CompoundWithFooter: Story = {
         <ButtonGlass onClick={() => setOpen(true)}>Open Modal with Footer</ButtonGlass>
 
         <ModalGlass.Root open={open} onOpenChange={setOpen} size="lg">
-          <ModalGlass.Overlay />
           <ModalGlass.Content>
             <ModalGlass.Header>
               <ModalGlass.Title>Confirm Action</ModalGlass.Title>
@@ -449,7 +437,6 @@ export const CompoundMultiStep: Story = {
         </ButtonGlass>
 
         <ModalGlass.Root open={open} onOpenChange={setOpen} size="lg">
-          <ModalGlass.Overlay />
           <ModalGlass.Content>
             <ModalGlass.Header>
               <ModalGlass.Title>Multi-Step Form</ModalGlass.Title>
