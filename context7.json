@@ -1,7 +1,7 @@
 {
   "$schema": "https://context7.com/schema/context7.json",
   "projectTitle": "shadcn-glass-ui",
-  "description": "Glassmorphism UI library for React - AI-friendly with 56 components, strict TypeScript, and comprehensive docs",
+  "description": "Glassmorphism UI library for React - AI-friendly with 59 components, strict TypeScript, and comprehensive docs",
   "branch": "main",
   "folders": ["docs"],
   "includeFiles": ["README.md", "CLAUDE.md", "CHANGELOG.md"],

@@ -574,14 +574,14 @@ issues:**
 
 ## Glass Components Structure
 
-### Core Components (20)
+### Core Components (22)
 
 Basic UI primitives. See [src/components/glass/ui/](src/components/glass/ui/) for complete list:
 
-- ButtonGlass, InputGlass, GlassCard, ProgressGlass, BadgeGlass, AlertGlass
+- ButtonGlass, InputGlass, GlassCard, CardGlass, ProgressGlass, BadgeGlass, AlertGlass
 - ToggleGlass, CheckboxGlass, TabsGlass, TooltipGlass, SliderGlass
-- SkeletonGlass, ModalGlass, DropdownGlass/DropdownMenuGlass, AvatarGlass, NotificationGlass
-- ComboBoxGlass, PopoverGlass, CircularProgressGlass
+- SkeletonGlass, ModalGlass, DropdownGlass, DropdownMenuGlass, AvatarGlass, NotificationGlass
+- ComboBoxGlass, PopoverGlass, CircularProgressGlass, StepperGlass
 - **SidebarGlass** - Collapsible sidebar navigation (100% shadcn/ui compatible, compound API)
 
 **Dropdown Components:**
@@ -612,7 +612,7 @@ Single-purpose components with specialized functionality:
 - ExpandableHeaderGlass - Collapsible header with animation
 - InsightCardGlass - 7 variants, inline/card mode
 
-### Composite Components (13)
+### Composite Components (14)
 
 Multi-element widgets combining core components:
 
@@ -622,8 +622,11 @@ Multi-element widgets combining core components:
 - YearCardGlass - Year card for career timeline
 - AICardGlass - AI summary card with feature list
 - RepositoryCardGlass - Repo info with expandable details
-- TrustScoreCardGlass - Trust score display with metrics
-- SparklineGlass - Time series chart visualization
+- TrustScoreDisplayGlass - Trust score display with metrics
+- CircularMetricGlass - Circular metric display
+- ContributionMetricsGlass - Contribution metrics grid
+- MetricsGridGlass - Metrics grid layout
+- UserInfoGlass, UserStatsLineGlass, RepositoryHeaderGlass, RepositoryMetadataGlass
 - **SplitLayoutGlass** - Two-column responsive layout with sticky scroll behavior
   - Compound API: Provider, Root, Sidebar, SidebarHeader/Content/Footer, Main,
     MainHeader/Content/Footer, Trigger
@@ -635,12 +638,12 @@ Multi-element widgets combining core components:
 Full-featured page sections (GitHub Analytics pattern):
 
 - HeaderNavGlass - Navigation header with search and theme toggle
+- HeaderBrandingGlass - Header branding section
 - ProfileHeaderGlass - User profile header with avatar, stats, languages
 - CareerStatsGlass - Career statistics with expandable year cards
 - FlagsSectionGlass - Expandable flags/warnings section
-- RepoCardGlass - Repository card with expandable details
-- FooterGlass - Page footer with links
-- HeroSectionGlass - Hero section with CTA
+- ProjectsListGlass - Projects list section
+- TrustScoreCardGlass - Trust score card section
 
 ### Blocks (6)
 
