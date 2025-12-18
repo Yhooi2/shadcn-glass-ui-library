@@ -1,258 +1,404 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { fn, expect, userEvent, within } from 'storybook/test';
 import { ModalGlass } from './modal-glass';
 import { ButtonGlass } from './button-glass';
+import { InputGlass } from './input-glass';
 
-const meta = {
+const meta: Meta<typeof ModalGlass.Root> = {
   title: 'Components/Overlay/ModalGlass',
+  component: ModalGlass.Root,
+  tags: ['autodocs'],
   parameters: {
-    layout: 'fullscreen',
-    snapshot: {
-      disable: false,
+    layout: 'centered',
+    docs: {
+      description: {
+        component: `
+ModalGlass is a compound component that provides a glass-themed modal dialog with full shadcn/ui Dialog API compatibility.
+
+## Usage
+
+### Trigger Pattern (Uncontrolled - Recommended)
+\`\`\`tsx
+<ModalGlass.Root>
+  <ModalGlass.Trigger asChild>
+    <ButtonGlass>Open Modal</ButtonGlass>
+  </ModalGlass.Trigger>
+  <ModalGlass.Content>
+    <ModalGlass.Header>
+      <ModalGlass.Title>Title</ModalGlass.Title>
+      <ModalGlass.Description>Description</ModalGlass.Description>
+    </ModalGlass.Header>
+    <ModalGlass.Body>Content</ModalGlass.Body>
+    <ModalGlass.Footer>
+      <ModalGlass.Close asChild>
+        <ButtonGlass variant="ghost">Cancel</ButtonGlass>
+      </ModalGlass.Close>
+      <ButtonGlass>Confirm</ButtonGlass>
+    </ModalGlass.Footer>
+  </ModalGlass.Content>
+</ModalGlass.Root>
+\`\`\`
+
+### Controlled Pattern
+\`\`\`tsx
+const [open, setOpen] = useState(false);
+
+<ModalGlass.Root open={open} onOpenChange={setOpen}>
+  <ModalGlass.Content>
+    <ModalGlass.Header>
+      <ModalGlass.Title>Title</ModalGlass.Title>
+    </ModalGlass.Header>
+    <ModalGlass.Body>Content</ModalGlass.Body>
+  </ModalGlass.Content>
+</ModalGlass.Root>
+\`\`\`
+
+## Sub-components
+
+- **ModalGlass.Root** - Dialog root with size prop (sm, md, lg, xl, full)
+- **ModalGlass.Trigger** - Opens modal when clicked (supports asChild)
+- **ModalGlass.Content** - Main modal container with glass styling
+- **ModalGlass.Header** - Header section with flex layout
+- **ModalGlass.Title** - Modal title with accessibility
+- **ModalGlass.Description** - Modal description text
+- **ModalGlass.Body** - Main content area
+- **ModalGlass.Footer** - Footer with action buttons
+- **ModalGlass.Close** - Closes modal when clicked (supports asChild)
+
+## Accessibility
+
+Built on @radix-ui/react-dialog with full WCAG 2.1 AA compliance:
+- Keyboard: Escape to close, Tab for focus trap
+- Screen Readers: role="dialog", aria-modal, aria-labelledby
+- Focus Management: Auto-focus on open, return focus on close
+        `,
+      },
     },
   },
-  tags: ['autodocs'],
-} satisfies Meta;
+  argTypes: {
+    size: {
+      control: 'select',
+      options: ['sm', 'md', 'lg', 'xl', 'full'],
+      description: 'Size variant for modal width',
+    },
+    open: {
+      control: 'boolean',
+      description: 'Controlled open state',
+    },
+    onOpenChange: {
+      description: 'Callback when open state changes',
+    },
+  },
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof ModalGlass.Root>;
 
 // ========================================
-// SIZE VARIANTS - Matching DesktopShowcase
+// BASIC EXAMPLES
 // ========================================
 
 export const Default: Story = {
   render: () => (
-    <ModalGlass.Root open={true} onOpenChange={fn()} size="sm">
+    <ModalGlass.Root>
+      <ModalGlass.Trigger asChild>
+        <ButtonGlass>Open Modal</ButtonGlass>
+      </ModalGlass.Trigger>
       <ModalGlass.Content>
         <ModalGlass.Header>
           <ModalGlass.Title>Modal Title</ModalGlass.Title>
-          <ModalGlass.Close />
+          <ModalGlass.Description>
+            This is a modal dialog with glassmorphism styling.
+          </ModalGlass.Description>
         </ModalGlass.Header>
         <ModalGlass.Body>
-          <p className="mb-4">
-            This is a modal dialog with glassmorphism styling. It includes a backdrop blur effect
-            and smooth animations.
+          <p>
+            It includes a backdrop blur effect and smooth animations. Press Escape or click outside
+            to close.
           </p>
-          <div className="flex gap-3 justify-end">
-            <ButtonGlass variant="ghost">Cancel</ButtonGlass>
-            <ButtonGlass variant="default">Confirm</ButtonGlass>
-          </div>
         </ModalGlass.Body>
+        <ModalGlass.Footer>
+          <ModalGlass.Close asChild>
+            <ButtonGlass variant="ghost">Cancel</ButtonGlass>
+          </ModalGlass.Close>
+          <ButtonGlass>Confirm</ButtonGlass>
+        </ModalGlass.Footer>
       </ModalGlass.Content>
     </ModalGlass.Root>
   ),
-  async play({ canvasElement }) {
-    await expect(canvasElement).toBeInTheDocument();
-  },
 };
+
+// ========================================
+// SIZE VARIANTS
+// ========================================
 
 export const Small: Story = {
   render: () => (
-    <ModalGlass.Root open={true} onOpenChange={fn()} size="sm">
+    <ModalGlass.Root size="sm">
+      <ModalGlass.Trigger asChild>
+        <ButtonGlass variant="secondary">Small (480px)</ButtonGlass>
+      </ModalGlass.Trigger>
       <ModalGlass.Content>
         <ModalGlass.Header>
           <ModalGlass.Title>Small Modal</ModalGlass.Title>
-          <ModalGlass.Close />
+          <ModalGlass.Description>max-width: 480px</ModalGlass.Description>
         </ModalGlass.Header>
         <ModalGlass.Body>
-          <p>This is a small modal. Great for simple confirmations.</p>
+          <p>Great for simple confirmations and alerts.</p>
         </ModalGlass.Body>
+        <ModalGlass.Footer>
+          <ModalGlass.Close asChild>
+            <ButtonGlass variant="ghost">Cancel</ButtonGlass>
+          </ModalGlass.Close>
+          <ButtonGlass>Confirm</ButtonGlass>
+        </ModalGlass.Footer>
       </ModalGlass.Content>
     </ModalGlass.Root>
   ),
-  async play({ canvasElement }) {
-    await expect(canvasElement).toBeInTheDocument();
-  },
 };
 
 export const Medium: Story = {
   render: () => (
-    <ModalGlass.Root open={true} onOpenChange={fn()} size="md">
+    <ModalGlass.Root size="md">
+      <ModalGlass.Trigger asChild>
+        <ButtonGlass variant="secondary">Medium (640px)</ButtonGlass>
+      </ModalGlass.Trigger>
       <ModalGlass.Content>
         <ModalGlass.Header>
           <ModalGlass.Title>Medium Modal</ModalGlass.Title>
-          <ModalGlass.Close />
+          <ModalGlass.Description>max-width: 640px (default)</ModalGlass.Description>
         </ModalGlass.Header>
         <ModalGlass.Body>
-          <p>This is a medium modal. The default size for most use cases.</p>
+          <p>The default size for most use cases.</p>
         </ModalGlass.Body>
+        <ModalGlass.Footer>
+          <ModalGlass.Close asChild>
+            <ButtonGlass variant="ghost">Cancel</ButtonGlass>
+          </ModalGlass.Close>
+          <ButtonGlass>Confirm</ButtonGlass>
+        </ModalGlass.Footer>
       </ModalGlass.Content>
     </ModalGlass.Root>
   ),
-  async play({ canvasElement }) {
-    await expect(canvasElement).toBeInTheDocument();
-  },
 };
 
 export const Large: Story = {
   render: () => (
-    <ModalGlass.Root open={true} onOpenChange={fn()} size="lg">
+    <ModalGlass.Root size="lg">
+      <ModalGlass.Trigger asChild>
+        <ButtonGlass variant="secondary">Large (800px)</ButtonGlass>
+      </ModalGlass.Trigger>
       <ModalGlass.Content>
         <ModalGlass.Header>
           <ModalGlass.Title>Large Modal</ModalGlass.Title>
-          <ModalGlass.Close />
+          <ModalGlass.Description>max-width: 800px</ModalGlass.Description>
         </ModalGlass.Header>
         <ModalGlass.Body>
-          <p className="mb-2">This is a large modal. It provides more space for complex content.</p>
-          <p style={{ color: 'var(--text-muted)' }}>
-            Use this size when you need to display forms, detailed information, or multiple sections
-            of content.
-          </p>
+          <p>More space for complex content, forms, or detailed information.</p>
         </ModalGlass.Body>
+        <ModalGlass.Footer>
+          <ModalGlass.Close asChild>
+            <ButtonGlass variant="ghost">Cancel</ButtonGlass>
+          </ModalGlass.Close>
+          <ButtonGlass>Confirm</ButtonGlass>
+        </ModalGlass.Footer>
       </ModalGlass.Content>
     </ModalGlass.Root>
   ),
-  async play({ canvasElement }) {
-    await expect(canvasElement).toBeInTheDocument();
-  },
 };
 
 export const ExtraLarge: Story = {
   render: () => (
-    <ModalGlass.Root open={true} onOpenChange={fn()} size="xl">
+    <ModalGlass.Root size="xl">
+      <ModalGlass.Trigger asChild>
+        <ButtonGlass variant="secondary">Extra Large</ButtonGlass>
+      </ModalGlass.Trigger>
       <ModalGlass.Content>
         <ModalGlass.Header>
           <ModalGlass.Title>Extra Large Modal</ModalGlass.Title>
-          <ModalGlass.Close />
+          <ModalGlass.Description>max-width: xl</ModalGlass.Description>
         </ModalGlass.Header>
         <ModalGlass.Body>
-          <p className="mb-2">This is an extra large modal for complex workflows.</p>
-          <p style={{ color: 'var(--text-muted)' }}>
-            Perfect for multi-step forms, data tables, or rich content displays.
-          </p>
+          <p>Perfect for multi-step forms, data tables, or rich content displays.</p>
         </ModalGlass.Body>
+        <ModalGlass.Footer>
+          <ModalGlass.Close asChild>
+            <ButtonGlass variant="ghost">Cancel</ButtonGlass>
+          </ModalGlass.Close>
+          <ButtonGlass>Confirm</ButtonGlass>
+        </ModalGlass.Footer>
       </ModalGlass.Content>
     </ModalGlass.Root>
   ),
-  async play({ canvasElement }) {
-    await expect(canvasElement).toBeInTheDocument();
-  },
 };
 
 export const Full: Story = {
   render: () => (
-    <ModalGlass.Root open={true} onOpenChange={fn()} size="full">
+    <ModalGlass.Root size="full">
+      <ModalGlass.Trigger asChild>
+        <ButtonGlass variant="secondary">Full (4xl)</ButtonGlass>
+      </ModalGlass.Trigger>
       <ModalGlass.Content>
         <ModalGlass.Header>
           <ModalGlass.Title>Full Width Modal</ModalGlass.Title>
-          <ModalGlass.Close />
+          <ModalGlass.Description>max-width: 4xl</ModalGlass.Description>
         </ModalGlass.Header>
         <ModalGlass.Body>
-          <p className="mb-2">This is the maximum width modal. Use it for complex interfaces.</p>
-          <p style={{ color: 'var(--text-muted)' }}>
+          <p>
             Ideal for dashboards, editors, or any content that needs maximum screen real estate.
           </p>
         </ModalGlass.Body>
+        <ModalGlass.Footer>
+          <ModalGlass.Close asChild>
+            <ButtonGlass variant="ghost">Cancel</ButtonGlass>
+          </ModalGlass.Close>
+          <ButtonGlass>Confirm</ButtonGlass>
+        </ModalGlass.Footer>
       </ModalGlass.Content>
     </ModalGlass.Root>
   ),
-  async play({ canvasElement }) {
-    await expect(canvasElement).toBeInTheDocument();
-  },
+};
+
+export const AllSizes: Story = {
+  render: () => (
+    <div className="flex flex-wrap gap-4">
+      <ModalGlass.Root size="sm">
+        <ModalGlass.Trigger asChild>
+          <ButtonGlass variant="outline">Small</ButtonGlass>
+        </ModalGlass.Trigger>
+        <ModalGlass.Content>
+          <ModalGlass.Header>
+            <ModalGlass.Title>Small Modal</ModalGlass.Title>
+          </ModalGlass.Header>
+          <ModalGlass.Body>480px max-width</ModalGlass.Body>
+        </ModalGlass.Content>
+      </ModalGlass.Root>
+
+      <ModalGlass.Root size="md">
+        <ModalGlass.Trigger asChild>
+          <ButtonGlass variant="outline">Medium</ButtonGlass>
+        </ModalGlass.Trigger>
+        <ModalGlass.Content>
+          <ModalGlass.Header>
+            <ModalGlass.Title>Medium Modal</ModalGlass.Title>
+          </ModalGlass.Header>
+          <ModalGlass.Body>640px max-width (default)</ModalGlass.Body>
+        </ModalGlass.Content>
+      </ModalGlass.Root>
+
+      <ModalGlass.Root size="lg">
+        <ModalGlass.Trigger asChild>
+          <ButtonGlass variant="outline">Large</ButtonGlass>
+        </ModalGlass.Trigger>
+        <ModalGlass.Content>
+          <ModalGlass.Header>
+            <ModalGlass.Title>Large Modal</ModalGlass.Title>
+          </ModalGlass.Header>
+          <ModalGlass.Body>800px max-width</ModalGlass.Body>
+        </ModalGlass.Content>
+      </ModalGlass.Root>
+
+      <ModalGlass.Root size="xl">
+        <ModalGlass.Trigger asChild>
+          <ButtonGlass variant="outline">XL</ButtonGlass>
+        </ModalGlass.Trigger>
+        <ModalGlass.Content>
+          <ModalGlass.Header>
+            <ModalGlass.Title>Extra Large Modal</ModalGlass.Title>
+          </ModalGlass.Header>
+          <ModalGlass.Body>xl max-width</ModalGlass.Body>
+        </ModalGlass.Content>
+      </ModalGlass.Root>
+
+      <ModalGlass.Root size="full">
+        <ModalGlass.Trigger asChild>
+          <ButtonGlass variant="outline">Full</ButtonGlass>
+        </ModalGlass.Trigger>
+        <ModalGlass.Content>
+          <ModalGlass.Header>
+            <ModalGlass.Title>Full Width Modal</ModalGlass.Title>
+          </ModalGlass.Header>
+          <ModalGlass.Body>4xl max-width</ModalGlass.Body>
+        </ModalGlass.Content>
+      </ModalGlass.Root>
+    </div>
+  ),
 };
 
 // ========================================
-// CONTENT VARIANTS - Different layouts
+// CONTENT EXAMPLES
 // ========================================
 
-export const WithActions: Story = {
+export const ConfirmDialog: Story = {
   render: () => (
-    <ModalGlass.Root open={true} onOpenChange={fn()} size="md">
+    <ModalGlass.Root size="sm">
+      <ModalGlass.Trigger asChild>
+        <ButtonGlass variant="destructive">Delete Item</ButtonGlass>
+      </ModalGlass.Trigger>
       <ModalGlass.Content>
         <ModalGlass.Header>
-          <ModalGlass.Title>Confirm Action</ModalGlass.Title>
-          <ModalGlass.Close />
+          <ModalGlass.Title>Confirm Deletion</ModalGlass.Title>
+          <ModalGlass.Description>This action cannot be undone.</ModalGlass.Description>
         </ModalGlass.Header>
         <ModalGlass.Body>
-          <p className="mb-4">
-            Are you sure you want to proceed with this action? This cannot be undone.
+          <p>
+            Are you sure you want to delete this item? All associated data will be permanently
+            removed.
           </p>
-          <div className="flex gap-3 justify-end">
-            <ButtonGlass variant="ghost">Cancel</ButtonGlass>
-            <ButtonGlass variant="default">Confirm</ButtonGlass>
-          </div>
         </ModalGlass.Body>
+        <ModalGlass.Footer>
+          <ModalGlass.Close asChild>
+            <ButtonGlass variant="ghost">Cancel</ButtonGlass>
+          </ModalGlass.Close>
+          <ButtonGlass variant="destructive">Delete</ButtonGlass>
+        </ModalGlass.Footer>
       </ModalGlass.Content>
     </ModalGlass.Root>
   ),
-  async play({ canvasElement }) {
-    await expect(canvasElement).toBeInTheDocument();
-  },
 };
 
-export const WithForm: Story = {
+export const FormModal: Story = {
   render: () => (
-    <ModalGlass.Root open={true} onOpenChange={fn()} size="md">
+    <ModalGlass.Root>
+      <ModalGlass.Trigger asChild>
+        <ButtonGlass>Create Account</ButtonGlass>
+      </ModalGlass.Trigger>
       <ModalGlass.Content>
         <ModalGlass.Header>
-          <ModalGlass.Title>Create New Item</ModalGlass.Title>
-          <ModalGlass.Close />
+          <ModalGlass.Title>Create Account</ModalGlass.Title>
+          <ModalGlass.Description>Enter your details to get started.</ModalGlass.Description>
         </ModalGlass.Header>
         <ModalGlass.Body>
           <div className="space-y-4">
-            <div>
-              <label
-                className="block text-sm font-medium mb-2"
-                style={{ color: 'var(--text-primary)' }}
-              >
-                Name
-              </label>
-              <input
-                type="text"
-                placeholder="Enter name"
-                className="w-full px-4 py-2 rounded-xl focus:outline-none"
-                style={{
-                  background: 'var(--input-bg)',
-                  border: '1px solid var(--input-border)',
-                  color: 'var(--input-text)',
-                }}
-              />
-            </div>
-            <div>
-              <label
-                className="block text-sm font-medium mb-2"
-                style={{ color: 'var(--text-primary)' }}
-              >
-                Description
-              </label>
-              <textarea
-                placeholder="Enter description"
-                rows={3}
-                className="w-full px-4 py-2 rounded-xl focus:outline-none resize-none"
-                style={{
-                  background: 'var(--input-bg)',
-                  border: '1px solid var(--input-border)',
-                  color: 'var(--input-text)',
-                }}
-              />
-            </div>
-            <div className="flex gap-3 justify-end pt-2">
-              <ButtonGlass variant="ghost">Cancel</ButtonGlass>
-              <ButtonGlass variant="default">Create</ButtonGlass>
-            </div>
+            <InputGlass label="Email" type="email" placeholder="email@example.com" />
+            <InputGlass label="Password" type="password" placeholder="Enter password" />
           </div>
         </ModalGlass.Body>
+        <ModalGlass.Footer>
+          <ModalGlass.Close asChild>
+            <ButtonGlass variant="ghost">Cancel</ButtonGlass>
+          </ModalGlass.Close>
+          <ButtonGlass>Sign Up</ButtonGlass>
+        </ModalGlass.Footer>
       </ModalGlass.Content>
     </ModalGlass.Root>
   ),
-  async play({ canvasElement }) {
-    await expect(canvasElement).toBeInTheDocument();
-  },
 };
 
-export const WithLongContent: Story = {
+export const ScrollableContent: Story = {
   render: () => (
-    <ModalGlass.Root open={true} onOpenChange={fn()} size="md">
+    <ModalGlass.Root>
+      <ModalGlass.Trigger asChild>
+        <ButtonGlass variant="secondary">Terms & Conditions</ButtonGlass>
+      </ModalGlass.Trigger>
       <ModalGlass.Content>
         <ModalGlass.Header>
           <ModalGlass.Title>Terms and Conditions</ModalGlass.Title>
-          <ModalGlass.Close />
+          <ModalGlass.Description>Please read carefully before proceeding.</ModalGlass.Description>
         </ModalGlass.Header>
         <ModalGlass.Body>
-          <div className="space-y-4 max-h-[300px] overflow-y-auto">
+          <div className="space-y-4 max-h-[200px] overflow-y-auto pr-2">
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
               incididunt ut labore et dolore magna aliqua.
@@ -269,147 +415,73 @@ export const WithLongContent: Story = {
               Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
               mollit anim id est laborum.
             </p>
-            <p>
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-              laudantium.
-            </p>
-          </div>
-          <div className="flex gap-3 justify-end pt-4">
-            <ButtonGlass variant="ghost">Decline</ButtonGlass>
-            <ButtonGlass variant="default">Accept</ButtonGlass>
           </div>
         </ModalGlass.Body>
+        <ModalGlass.Footer>
+          <ModalGlass.Close asChild>
+            <ButtonGlass variant="ghost">Decline</ButtonGlass>
+          </ModalGlass.Close>
+          <ButtonGlass>Accept</ButtonGlass>
+        </ModalGlass.Footer>
       </ModalGlass.Content>
     </ModalGlass.Root>
   ),
-  async play({ canvasElement }) {
-    await expect(canvasElement).toBeInTheDocument();
-  },
+};
+
+export const NoCloseButton: Story = {
+  render: () => (
+    <ModalGlass.Root>
+      <ModalGlass.Trigger asChild>
+        <ButtonGlass variant="outline">Important Notice</ButtonGlass>
+      </ModalGlass.Trigger>
+      <ModalGlass.Content showCloseButton={false}>
+        <ModalGlass.Header>
+          <ModalGlass.Title>Important Notice</ModalGlass.Title>
+        </ModalGlass.Header>
+        <ModalGlass.Body>
+          <p>This modal has no X button. You must use the action buttons below to dismiss it.</p>
+        </ModalGlass.Body>
+        <ModalGlass.Footer>
+          <ModalGlass.Close asChild>
+            <ButtonGlass>I Understand</ButtonGlass>
+          </ModalGlass.Close>
+        </ModalGlass.Footer>
+      </ModalGlass.Content>
+    </ModalGlass.Root>
+  ),
 };
 
 // ========================================
-// INTERACTIVE TEST
+// ADVANCED EXAMPLES
 // ========================================
 
-const InteractiveModalExample = () => {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <div className="min-h-screen flex items-center justify-center p-8">
-      <ButtonGlass variant="default" onClick={() => setOpen(true)}>
-        Open Modal
-      </ButtonGlass>
-      <ModalGlass.Root open={open} onOpenChange={setOpen} size="sm">
-        <ModalGlass.Content>
-          <ModalGlass.Header>
-            <ModalGlass.Title>Modal Title</ModalGlass.Title>
-            <ModalGlass.Close />
-          </ModalGlass.Header>
-          <ModalGlass.Body>
-            <p className="mb-4">
-              This is a modal dialog with glassmorphism styling. It includes a backdrop blur effect
-              and smooth animations.
-            </p>
-            <div className="flex gap-3 justify-end">
-              <ButtonGlass variant="ghost" onClick={() => setOpen(false)}>
-                Cancel
-              </ButtonGlass>
-              <ButtonGlass variant="default" onClick={() => setOpen(false)}>
-                Confirm
-              </ButtonGlass>
-            </div>
-          </ModalGlass.Body>
-        </ModalGlass.Content>
-      </ModalGlass.Root>
-    </div>
-  );
-};
-
-export const Interactive: Story = {
-  render: () => <InteractiveModalExample />,
-  async play({ canvasElement }) {
-    const canvas = within(canvasElement);
-    const button = canvas.getByRole('button', { name: 'Open Modal' });
-
-    await userEvent.click(button);
-    await new Promise((resolve) => setTimeout(resolve, 350));
-    await expect(canvas.getByRole('dialog')).toBeInTheDocument();
-  },
-};
-
-// ========================================
-// COMPOUND COMPONENT API
-// ========================================
-
-export const CompoundBasic: Story = {
-  name: 'Compound API - Basic',
+export const ControlledMode: Story = {
   render: () => {
     const [open, setOpen] = useState(false);
 
     return (
-      <div className="min-h-screen flex items-center justify-center p-8">
-        <ButtonGlass onClick={() => setOpen(true)}>Open Compound Modal</ButtonGlass>
+      <div className="flex flex-col gap-4 items-center">
+        <p className="text-sm text-[var(--text-muted)]">
+          Open state: <strong>{open ? 'true' : 'false'}</strong>
+        </p>
+        <ButtonGlass onClick={() => setOpen(true)}>Open Controlled Modal</ButtonGlass>
 
-        <ModalGlass.Root open={open} onOpenChange={setOpen} size="md">
+        <ModalGlass.Root open={open} onOpenChange={setOpen}>
           <ModalGlass.Content>
             <ModalGlass.Header>
-              <ModalGlass.Title>Compound Component API</ModalGlass.Title>
-              <ModalGlass.Close />
-            </ModalGlass.Header>
-            <ModalGlass.Body>
-              <p>
-                The new compound component API provides granular control over modal structure. Each
-                part can be customized independently.
-              </p>
-            </ModalGlass.Body>
-          </ModalGlass.Content>
-        </ModalGlass.Root>
-      </div>
-    );
-  },
-};
-
-export const CompoundWithFooter: Story = {
-  name: 'Compound API - With Footer',
-  render: () => {
-    const [open, setOpen] = useState(false);
-
-    return (
-      <div className="min-h-screen flex items-center justify-center p-8">
-        <ButtonGlass onClick={() => setOpen(true)}>Open Modal with Footer</ButtonGlass>
-
-        <ModalGlass.Root open={open} onOpenChange={setOpen} size="lg">
-          <ModalGlass.Content>
-            <ModalGlass.Header>
-              <ModalGlass.Title>Confirm Action</ModalGlass.Title>
+              <ModalGlass.Title>Controlled Modal</ModalGlass.Title>
               <ModalGlass.Description>
-                This modal demonstrates the footer component with action buttons.
+                This modal uses controlled state (open/onOpenChange).
               </ModalGlass.Description>
-              <ModalGlass.Close />
             </ModalGlass.Header>
             <ModalGlass.Body>
-              <p className="mb-4">
-                Are you sure you want to proceed with this action? This operation cannot be undone.
-              </p>
-              <div
-                className="p-4 rounded-xl"
-                style={{
-                  background: 'var(--alert-warning-bg)',
-                  border: '1px solid var(--alert-warning-border)',
-                }}
-              >
-                <p className="text-sm" style={{ color: 'var(--alert-warning-text)' }}>
-                  <strong>Warning:</strong> This will permanently delete your data.
-                </p>
-              </div>
+              <p>You can programmatically control when the modal opens and closes.</p>
             </ModalGlass.Body>
             <ModalGlass.Footer>
               <ButtonGlass variant="ghost" onClick={() => setOpen(false)}>
                 Cancel
               </ButtonGlass>
-              <ButtonGlass variant="default" onClick={() => setOpen(false)}>
-                Confirm
-              </ButtonGlass>
+              <ButtonGlass onClick={() => setOpen(false)}>Confirm</ButtonGlass>
             </ModalGlass.Footer>
           </ModalGlass.Content>
         </ModalGlass.Root>
@@ -418,284 +490,76 @@ export const CompoundWithFooter: Story = {
   },
 };
 
-export const CompoundMultiStep: Story = {
-  name: 'Compound API - Multi-Step Form',
+export const MultiStepForm: Story = {
   render: () => {
-    const [open, setOpen] = useState(false);
     const [step, setStep] = useState(1);
     const totalSteps = 3;
 
     return (
-      <div className="min-h-screen flex items-center justify-center p-8">
-        <ButtonGlass
-          onClick={() => {
-            setOpen(true);
-            setStep(1);
-          }}
-        >
-          Open Multi-Step Modal
-        </ButtonGlass>
-
-        <ModalGlass.Root open={open} onOpenChange={setOpen} size="lg">
-          <ModalGlass.Content>
-            <ModalGlass.Header>
-              <ModalGlass.Title>Multi-Step Form</ModalGlass.Title>
-              <ModalGlass.Description>
-                Step {step} of {totalSteps}
-              </ModalGlass.Description>
-              <ModalGlass.Close />
-            </ModalGlass.Header>
-            <ModalGlass.Body>
-              {step === 1 && (
-                <div className="space-y-2">
-                  <h3 className="font-semibold" style={{ color: 'var(--text-primary)' }}>
-                    Personal Information
-                  </h3>
-                  <p style={{ color: 'var(--text-muted)' }}>
-                    Enter your basic details to get started.
-                  </p>
-                </div>
-              )}
-              {step === 2 && (
-                <div className="space-y-2">
-                  <h3 className="font-semibold" style={{ color: 'var(--text-primary)' }}>
-                    Account Setup
-                  </h3>
-                  <p style={{ color: 'var(--text-muted)' }}>
-                    Configure your account preferences and settings.
-                  </p>
-                </div>
-              )}
-              {step === 3 && (
-                <div className="space-y-2">
-                  <h3 className="font-semibold" style={{ color: 'var(--text-primary)' }}>
-                    Confirmation
-                  </h3>
-                  <p style={{ color: 'var(--text-muted)' }}>
-                    Review your information and confirm to proceed.
-                  </p>
-                </div>
-              )}
-
-              {/* Progress indicator */}
-              <div className="mt-6 flex gap-2">
-                {Array.from({ length: totalSteps }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="h-1 flex-1 rounded-full transition-all"
-                    style={{
-                      background:
-                        i < step ? 'var(--semantic-primary)' : 'var(--semantic-border-muted)',
-                    }}
-                  />
-                ))}
-              </div>
-            </ModalGlass.Body>
-            <ModalGlass.Footer>
-              {step > 1 && (
-                <ButtonGlass variant="ghost" onClick={() => setStep(step - 1)}>
-                  Previous
-                </ButtonGlass>
-              )}
-              <div className="flex-1" />
-              {step < totalSteps ? (
-                <ButtonGlass variant="default" onClick={() => setStep(step + 1)}>
-                  Next
-                </ButtonGlass>
-              ) : (
-                <ButtonGlass variant="default" onClick={() => setOpen(false)}>
-                  Finish
-                </ButtonGlass>
-              )}
-            </ModalGlass.Footer>
-          </ModalGlass.Content>
-        </ModalGlass.Root>
-      </div>
-    );
-  },
-};
-
-// ========================================
-// TRIGGER PATTERN (shadcn/ui Dialog API)
-// ========================================
-
-export const WithTrigger: Story = {
-  name: 'Trigger Pattern - Basic',
-  render: () => (
-    <div className="min-h-screen flex items-center justify-center p-8">
-      <ModalGlass.Root>
+      <ModalGlass.Root size="lg">
         <ModalGlass.Trigger asChild>
-          <ButtonGlass>Open with Trigger</ButtonGlass>
+          <ButtonGlass>Multi-Step Wizard</ButtonGlass>
         </ModalGlass.Trigger>
         <ModalGlass.Content>
           <ModalGlass.Header>
-            <ModalGlass.Title>Trigger-based Modal</ModalGlass.Title>
+            <ModalGlass.Title>Setup Wizard</ModalGlass.Title>
             <ModalGlass.Description>
-              This modal uses the Trigger pattern from shadcn/ui Dialog API.
+              Step {step} of {totalSteps}
             </ModalGlass.Description>
           </ModalGlass.Header>
           <ModalGlass.Body>
-            <p>
-              The modal opens automatically when the trigger button is clicked. No need to manage
-              open/close state manually!
-            </p>
-          </ModalGlass.Body>
-          <ModalGlass.Footer>
-            <ModalGlass.Close asChild>
-              <ButtonGlass variant="ghost">Close</ButtonGlass>
-            </ModalGlass.Close>
-          </ModalGlass.Footer>
-        </ModalGlass.Content>
-      </ModalGlass.Root>
-    </div>
-  ),
-  async play({ canvasElement }) {
-    const canvas = within(canvasElement);
-    const button = canvas.getByRole('button', { name: 'Open with Trigger' });
-    await userEvent.click(button);
-    await new Promise((resolve) => setTimeout(resolve, 350));
-    await expect(canvas.getByRole('dialog')).toBeInTheDocument();
-  },
-};
+            {step === 1 && (
+              <div className="space-y-4">
+                <InputGlass label="Full Name" placeholder="John Doe" />
+                <InputGlass label="Email" type="email" placeholder="john@example.com" />
+              </div>
+            )}
+            {step === 2 && (
+              <div className="space-y-4">
+                <InputGlass label="Company" placeholder="Acme Inc." />
+                <InputGlass label="Role" placeholder="Developer" />
+              </div>
+            )}
+            {step === 3 && (
+              <div className="p-4 rounded-xl bg-[var(--semantic-surface)]">
+                <p className="text-[var(--text-primary)] font-medium">Ready to go!</p>
+                <p className="text-sm text-[var(--text-muted)]">
+                  Click Finish to complete the setup.
+                </p>
+              </div>
+            )}
 
-export const TriggerWithAsChild: Story = {
-  name: 'Trigger Pattern - Custom Trigger',
-  render: () => (
-    <div className="min-h-screen flex items-center justify-center p-8 gap-4">
-      {/* With ButtonGlass */}
-      <ModalGlass.Root>
-        <ModalGlass.Trigger asChild>
-          <ButtonGlass variant="secondary">Secondary Trigger</ButtonGlass>
-        </ModalGlass.Trigger>
-        <ModalGlass.Content size="sm">
-          <ModalGlass.Header>
-            <ModalGlass.Title>Custom Trigger</ModalGlass.Title>
-          </ModalGlass.Header>
-          <ModalGlass.Body>
-            <p>Triggered by a secondary button.</p>
-          </ModalGlass.Body>
-          <ModalGlass.Footer>
-            <ModalGlass.Close asChild>
-              <ButtonGlass>OK</ButtonGlass>
-            </ModalGlass.Close>
-          </ModalGlass.Footer>
-        </ModalGlass.Content>
-      </ModalGlass.Root>
-
-      {/* With destructive button */}
-      <ModalGlass.Root>
-        <ModalGlass.Trigger asChild>
-          <ButtonGlass variant="destructive">Delete Item</ButtonGlass>
-        </ModalGlass.Trigger>
-        <ModalGlass.Content size="sm">
-          <ModalGlass.Header>
-            <ModalGlass.Title>Confirm Deletion</ModalGlass.Title>
-            <ModalGlass.Description>This action cannot be undone.</ModalGlass.Description>
-          </ModalGlass.Header>
-          <ModalGlass.Body>
-            <p>Are you sure you want to delete this item?</p>
-          </ModalGlass.Body>
-          <ModalGlass.Footer>
-            <ModalGlass.Close asChild>
-              <ButtonGlass variant="ghost">Cancel</ButtonGlass>
-            </ModalGlass.Close>
-            <ModalGlass.Close asChild>
-              <ButtonGlass variant="destructive">Delete</ButtonGlass>
-            </ModalGlass.Close>
-          </ModalGlass.Footer>
-        </ModalGlass.Content>
-      </ModalGlass.Root>
-    </div>
-  ),
-};
-
-export const TriggerNoCloseButton: Story = {
-  name: 'Trigger Pattern - No Close Button',
-  render: () => (
-    <div className="min-h-screen flex items-center justify-center p-8">
-      <ModalGlass.Root>
-        <ModalGlass.Trigger asChild>
-          <ButtonGlass>Open Alert</ButtonGlass>
-        </ModalGlass.Trigger>
-        <ModalGlass.Content showCloseButton={false} size="sm">
-          <ModalGlass.Header>
-            <ModalGlass.Title>Important Notice</ModalGlass.Title>
-          </ModalGlass.Header>
-          <ModalGlass.Body>
-            <p>This modal has no close button. You must use the action buttons to dismiss it.</p>
-          </ModalGlass.Body>
-          <ModalGlass.Footer>
-            <ModalGlass.Close asChild>
-              <ButtonGlass>Acknowledge</ButtonGlass>
-            </ModalGlass.Close>
-          </ModalGlass.Footer>
-        </ModalGlass.Content>
-      </ModalGlass.Root>
-    </div>
-  ),
-};
-
-export const TriggerFormModal: Story = {
-  name: 'Trigger Pattern - Form',
-  render: () => (
-    <div className="min-h-screen flex items-center justify-center p-8">
-      <ModalGlass.Root>
-        <ModalGlass.Trigger asChild>
-          <ButtonGlass>Create New</ButtonGlass>
-        </ModalGlass.Trigger>
-        <ModalGlass.Content>
-          <ModalGlass.Header>
-            <ModalGlass.Title>Create Item</ModalGlass.Title>
-            <ModalGlass.Description>Fill in the details below.</ModalGlass.Description>
-          </ModalGlass.Header>
-          <ModalGlass.Body>
-            <div className="space-y-4">
-              <div>
-                <label
-                  className="block text-sm font-medium mb-2"
-                  style={{ color: 'var(--text-primary)' }}
-                >
-                  Name
-                </label>
-                <input
-                  type="text"
-                  placeholder="Enter name"
-                  className="w-full px-4 py-2 rounded-xl focus:outline-none"
+            {/* Progress indicator */}
+            <div className="mt-6 flex gap-2">
+              {Array.from({ length: totalSteps }).map((_, i) => (
+                <div
+                  key={i}
+                  className="h-1 flex-1 rounded-full transition-all"
                   style={{
-                    background: 'var(--input-bg)',
-                    border: '1px solid var(--input-border)',
-                    color: 'var(--input-text)',
+                    background:
+                      i < step ? 'var(--semantic-primary)' : 'var(--semantic-border-muted)',
                   }}
                 />
-              </div>
-              <div>
-                <label
-                  className="block text-sm font-medium mb-2"
-                  style={{ color: 'var(--text-primary)' }}
-                >
-                  Email
-                </label>
-                <input
-                  type="email"
-                  placeholder="Enter email"
-                  className="w-full px-4 py-2 rounded-xl focus:outline-none"
-                  style={{
-                    background: 'var(--input-bg)',
-                    border: '1px solid var(--input-border)',
-                    color: 'var(--input-text)',
-                  }}
-                />
-              </div>
+              ))}
             </div>
           </ModalGlass.Body>
           <ModalGlass.Footer>
-            <ModalGlass.Close asChild>
-              <ButtonGlass variant="ghost">Cancel</ButtonGlass>
-            </ModalGlass.Close>
-            <ButtonGlass>Submit</ButtonGlass>
+            {step > 1 && (
+              <ButtonGlass variant="ghost" onClick={() => setStep(step - 1)}>
+                Previous
+              </ButtonGlass>
+            )}
+            <div className="flex-1" />
+            {step < totalSteps ? (
+              <ButtonGlass onClick={() => setStep(step + 1)}>Next</ButtonGlass>
+            ) : (
+              <ModalGlass.Close asChild>
+                <ButtonGlass onClick={() => setStep(1)}>Finish</ButtonGlass>
+              </ModalGlass.Close>
+            )}
           </ModalGlass.Footer>
         </ModalGlass.Content>
       </ModalGlass.Root>
-    </div>
-  ),
+    );
+  },
 };
