@@ -259,7 +259,6 @@ describe('Focus States Compliance Tests', () => {
       render(
         <ThemeTestWrapper theme="glass">
           <ModalGlass.Root open={true} onOpenChange={onOpenChange}>
-            <ModalGlass.Overlay />
             <ModalGlass.Content>
               <ModalGlass.Header>
                 <ModalGlass.Title>Test Modal</ModalGlass.Title>

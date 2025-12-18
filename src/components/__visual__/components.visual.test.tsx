@@ -550,7 +550,6 @@ describe('Visual Regression Tests', () => {
           style={{ width: '600px', height: '400px', position: 'relative' }}
         >
           <ModalGlass.Root open={true} onOpenChange={() => {}}>
-            <ModalGlass.Overlay />
             <ModalGlass.Content>
               <ModalGlass.Header>
                 <ModalGlass.Title>Modal Title</ModalGlass.Title>
@@ -805,7 +804,6 @@ describe('Visual Regression Tests', () => {
           style={{ width: '600px', height: '400px', position: 'relative' }}
         >
           <ModalGlass.Root open={true} onOpenChange={() => {}}>
-            <ModalGlass.Overlay />
             <ModalGlass.Content size="sm">
               <ModalGlass.Header>
                 <ModalGlass.Title>Small Modal</ModalGlass.Title>
@@ -831,7 +829,6 @@ describe('Visual Regression Tests', () => {
           style={{ width: '800px', height: '500px', position: 'relative' }}
         >
           <ModalGlass.Root open={true} onOpenChange={() => {}}>
-            <ModalGlass.Overlay />
             <ModalGlass.Content size="lg">
               <ModalGlass.Header>
                 <ModalGlass.Title>Large Modal</ModalGlass.Title>

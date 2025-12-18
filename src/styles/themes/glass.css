@@ -328,12 +328,12 @@
      MODAL/DROPDOWN/POPOVER VARIABLES (using semantic + primitive tokens)
      ======================================== */
   --modal-bg: var(--semantic-surface-overlay);
-  --modal-border: var(--semantic-border-muted);
+  --modal-border: var(--oklch-white-12);
   --modal-overlay: var(--oklch-black-60);
-  --modal-glow: 0 25px 80px var(--semantic-primary-muted), inset 0 1px 0 var(--semantic-border);
+  --modal-glow: 0 25px 80px var(--oklch-purple-500-35), inset 0 1px 0 var(--oklch-white-15);
   --modal-glow-effect: radial-gradient(
     ellipse at top,
-    var(--semantic-primary-subtle) 0%,
+    var(--oklch-purple-500-15) 0%,
     transparent 50%
   );
   --modal-close-btn-bg: var(--semantic-surface);

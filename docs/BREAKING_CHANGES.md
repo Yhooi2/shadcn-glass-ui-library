@@ -111,7 +111,6 @@ ModalGlass and TabsGlass require compound component API:
 
 ```tsx
 <ModalGlass.Root open={open} onOpenChange={setOpen}>
-  <ModalGlass.Overlay />
   <ModalGlass.Content>
     <ModalGlass.Header>
       <ModalGlass.Title>Title</ModalGlass.Title>

@@ -348,7 +348,6 @@ import { ModalGlass, ButtonGlass } from 'shadcn-glass-ui';
 function ConfirmDialog({ open, onConfirm, onCancel, title, message }: ConfirmDialogProps) {
   return (
     <ModalGlass.Root open={open} onOpenChange={onCancel}>
-      <ModalGlass.Overlay />
       <ModalGlass.Content size="sm">
         <ModalGlass.Header>
           <ModalGlass.Title>{title}</ModalGlass.Title>
@@ -389,7 +388,6 @@ function CreateProjectModal({ open, onClose, onSubmit }) {
 
   return (
     <ModalGlass.Root open={open} onOpenChange={onClose}>
-      <ModalGlass.Overlay />
       <ModalGlass.Content>
         <ModalGlass.Header>
           <ModalGlass.Title>Create Project</ModalGlass.Title>

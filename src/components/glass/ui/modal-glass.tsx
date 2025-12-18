@@ -67,7 +67,7 @@ interface ModalContextValue {
   size: ModalSize;
 }
 
-const ModalContext = React.createContext<ModalContextValue>({ size: 'md' });
+const ModalContext = React.createContext<ModalContextValue>({ size: 'sm' });
 
 const useModalContext = () => React.useContext(ModalContext);
 
@@ -85,7 +85,7 @@ interface ModalRootProps extends React.ComponentProps<typeof DialogPrimitive.Roo
  *
  * Supports both controlled (open/onOpenChange) and uncontrolled (with Trigger) modes.
  */
-function ModalRoot({ size = 'md', children, ...props }: ModalRootProps) {
+function ModalRoot({ size = 'sm', children, ...props }: ModalRootProps) {
   return (
     <ModalContext.Provider value={{ size }}>
       <DialogPrimitive.Root data-slot="dialog" {...props}>

@@ -149,7 +149,6 @@ import { ModalGlass, TabsGlass } from 'shadcn-glass-ui';
 
 // ModalGlass Compound API
 <ModalGlass.Root open={open} onOpenChange={setOpen}>
-  <ModalGlass.Overlay />
   <ModalGlass.Content>
     <ModalGlass.Header>
       <ModalGlass.Title>Confirm Action</ModalGlass.Title>
@@ -226,7 +225,6 @@ support.
 
 // ✅ Use Compound API
 <ModalGlass.Root open={true} onOpenChange={() => {}}>
-  <ModalGlass.Overlay />
   <ModalGlass.Content>
     <ModalGlass.Header>
       <ModalGlass.Title>Test</ModalGlass.Title>

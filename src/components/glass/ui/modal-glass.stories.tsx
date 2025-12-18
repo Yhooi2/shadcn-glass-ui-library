@@ -10,7 +10,7 @@ const meta: Meta<typeof ModalGlass.Root> = {
   component: ModalGlass.Root,
   tags: ['autodocs'],
   parameters: {
-    layout: 'centered',
+    layout: 'fullscreen',
     docs: {
       description: {
         component: `
@@ -56,15 +56,22 @@ const [open, setOpen] = useState(false);
 
 ## Sub-components
 
-- **ModalGlass.Root** - Dialog root with size prop (sm, md, lg, xl, full)
+- **ModalGlass.Root** - Dialog root with size prop (sm (default), md, lg, xl, full)
 - **ModalGlass.Trigger** - Opens modal when clicked (supports asChild)
-- **ModalGlass.Content** - Main modal container with glass styling
+- **ModalGlass.Portal** - Renders modal into portal (optional, Content includes it)
+- **ModalGlass.Overlay** - Backdrop with blur effect (optional, Content includes it)
+- **ModalGlass.Content** - Main modal container with glass styling (includes Portal + Overlay)
 - **ModalGlass.Header** - Header section with flex layout
 - **ModalGlass.Title** - Modal title with accessibility
 - **ModalGlass.Description** - Modal description text
 - **ModalGlass.Body** - Main content area
 - **ModalGlass.Footer** - Footer with action buttons
 - **ModalGlass.Close** - Closes modal when clicked (supports asChild)
+
+## Important Notes
+
+- **Content includes Overlay**: Unlike some Dialog implementations, \`ModalGlass.Content\` automatically renders the overlay backdrop. You don't need to add \`<ModalGlass.Overlay />\` separately.
+- **Glassmorphism effect**: The modal looks best on colorful backgrounds where the backdrop blur effect is visible.
 
 ## Accessibility
 
@@ -90,6 +97,13 @@ Built on @radix-ui/react-dialog with full WCAG 2.1 AA compliance:
       description: 'Callback when open state changes',
     },
   },
+  decorators: [
+    (Story) => (
+      <div className="min-h-screen flex items-center justify-center p-8">
+        <Story />
+      </div>
+    ),
+  ],
 };
 
 export default meta;
@@ -142,10 +156,10 @@ export const Small: Story = {
       <ModalGlass.Content>
         <ModalGlass.Header>
           <ModalGlass.Title>Small Modal</ModalGlass.Title>
-          <ModalGlass.Description>max-width: 480px</ModalGlass.Description>
+          <ModalGlass.Description>max-width: 480px (default)</ModalGlass.Description>
         </ModalGlass.Header>
         <ModalGlass.Body>
-          <p>Great for simple confirmations and alerts.</p>
+          <p>Great for simple confirmations and alerts. This is the default size.</p>
         </ModalGlass.Body>
         <ModalGlass.Footer>
           <ModalGlass.Close asChild>
@@ -167,10 +181,10 @@ export const Medium: Story = {
       <ModalGlass.Content>
         <ModalGlass.Header>
           <ModalGlass.Title>Medium Modal</ModalGlass.Title>
-          <ModalGlass.Description>max-width: 640px (default)</ModalGlass.Description>
+          <ModalGlass.Description>max-width: 640px</ModalGlass.Description>
         </ModalGlass.Header>
         <ModalGlass.Body>
-          <p>The default size for most use cases.</p>
+          <p>Larger size for more content.</p>
         </ModalGlass.Body>
         <ModalGlass.Footer>
           <ModalGlass.Close asChild>
@@ -271,7 +285,7 @@ export const AllSizes: Story = {
           <ModalGlass.Header>
             <ModalGlass.Title>Small Modal</ModalGlass.Title>
           </ModalGlass.Header>
-          <ModalGlass.Body>480px max-width</ModalGlass.Body>
+          <ModalGlass.Body>480px max-width (default)</ModalGlass.Body>
         </ModalGlass.Content>
       </ModalGlass.Root>
 
@@ -283,7 +297,7 @@ export const AllSizes: Story = {
           <ModalGlass.Header>
             <ModalGlass.Title>Medium Modal</ModalGlass.Title>
           </ModalGlass.Header>
-          <ModalGlass.Body>640px max-width (default)</ModalGlass.Body>
+          <ModalGlass.Body>640px max-width</ModalGlass.Body>
         </ModalGlass.Content>
       </ModalGlass.Root>
 

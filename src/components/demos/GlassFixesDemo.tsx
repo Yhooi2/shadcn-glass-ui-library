@@ -153,7 +153,6 @@ export const GlassFixesDemo = () => {
           </ButtonGlass>
 
           <ModalGlass.Root open={modalOpen} onOpenChange={setModalOpen} size="sm">
-            <ModalGlass.Overlay />
             <ModalGlass.Content>
               <ModalGlass.Header>
                 <ModalGlass.Title>Modal Title</ModalGlass.Title>

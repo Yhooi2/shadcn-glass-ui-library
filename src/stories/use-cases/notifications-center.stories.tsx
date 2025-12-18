@@ -634,7 +634,6 @@ const NotificationsCenter = ({
         {/* Settings Modal */}
         {showSettings && (
           <ModalGlass.Root open={showSettings} onOpenChange={setShowSettings}>
-            <ModalGlass.Overlay />
             <ModalGlass.Content>
               <ModalGlass.Header>
                 <ModalGlass.Title>Notification Preferences</ModalGlass.Title>

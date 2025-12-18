@@ -489,40 +489,64 @@ export default function ProductCard() {
 
 ### Modal Dialog
 
+ModalGlass uses a compound component API for maximum flexibility. **Note:** `ModalGlass.Content`
+automatically includes the overlay backdrop - you don't need to add `<ModalGlass.Overlay />`
+separately.
+
 ```tsx
 import { useState } from 'react';
 import { ModalGlass, ButtonGlass } from 'shadcn-glass-ui';
 
-export default function ModalDemo() {
-  const [isOpen, setIsOpen] = useState(false);
+// Trigger Pattern (Uncontrolled - Recommended)
+export function ModalDemo() {
+  return (
+    <ModalGlass.Root>
+      <ModalGlass.Trigger asChild>
+        <ButtonGlass>Open Modal</ButtonGlass>
+      </ModalGlass.Trigger>
+      <ModalGlass.Content>
+        <ModalGlass.Header>
+          <ModalGlass.Title>Confirm Action</ModalGlass.Title>
+          <ModalGlass.Description>This action cannot be undone.</ModalGlass.Description>
+        </ModalGlass.Header>
+        <ModalGlass.Body>
+          <p>Are you sure you want to proceed?</p>
+        </ModalGlass.Body>
+        <ModalGlass.Footer>
+          <ModalGlass.Close asChild>
+            <ButtonGlass variant="ghost">Cancel</ButtonGlass>
+          </ModalGlass.Close>
+          <ButtonGlass>Confirm</ButtonGlass>
+        </ModalGlass.Footer>
+      </ModalGlass.Content>
+    </ModalGlass.Root>
+  );
+}
+
+// Controlled Pattern (when you need programmatic control)
+export function ControlledModalDemo() {
+  const [open, setOpen] = useState(false);
 
   return (
-    <div className="theme-glass p-8">
-      <ButtonGlass onClick={() => setIsOpen(true)}>Open Modal</ButtonGlass>
-
-      <ModalGlass
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        title="Confirm Action"
-        size="default"
-      >
-        <p className="mb-6">Are you sure you want to proceed?</p>
-
-        <div className="flex gap-3 justify-end">
-          <ButtonGlass variant="ghost" onClick={() => setIsOpen(false)}>
-            Cancel
-          </ButtonGlass>
-          <ButtonGlass
-            onClick={() => {
-              console.log('Confirmed');
-              setIsOpen(false);
-            }}
-          >
-            Confirm
-          </ButtonGlass>
-        </div>
-      </ModalGlass>
-    </div>
+    <>
+      <ButtonGlass onClick={() => setOpen(true)}>Open Modal</ButtonGlass>
+      <ModalGlass.Root open={open} onOpenChange={setOpen}>
+        <ModalGlass.Content>
+          <ModalGlass.Header>
+            <ModalGlass.Title>Confirm Action</ModalGlass.Title>
+          </ModalGlass.Header>
+          <ModalGlass.Body>
+            <p>Are you sure you want to proceed?</p>
+          </ModalGlass.Body>
+          <ModalGlass.Footer>
+            <ButtonGlass variant="ghost" onClick={() => setOpen(false)}>
+              Cancel
+            </ButtonGlass>
+            <ButtonGlass onClick={() => setOpen(false)}>Confirm</ButtonGlass>
+          </ModalGlass.Footer>
+        </ModalGlass.Content>
+      </ModalGlass.Root>
+    </>
   );
 }
 ```

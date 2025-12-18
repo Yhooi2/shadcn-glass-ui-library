@@ -574,13 +574,14 @@ issues:**
 
 ## Glass Components Structure
 
-### Core Components (17)
+### Core Components (20)
 
 Basic UI primitives. See [src/components/glass/ui/](src/components/glass/ui/) for complete list:
 
 - ButtonGlass, InputGlass, GlassCard, ProgressGlass, BadgeGlass, AlertGlass
 - ToggleGlass, CheckboxGlass, TabsGlass, TooltipGlass, SliderGlass
 - SkeletonGlass, ModalGlass, DropdownGlass/DropdownMenuGlass, AvatarGlass, NotificationGlass
+- ComboBoxGlass, PopoverGlass, CircularProgressGlass
 - **SidebarGlass** - Collapsible sidebar navigation (100% shadcn/ui compatible, compound API)
 
 **Dropdown Components:**
@@ -599,16 +600,19 @@ Basic UI primitives. See [src/components/glass/ui/](src/components/glass/ui/) fo
   - Desktop: Collapsible modes: offcanvas, icon, none
   - Hook: `useSidebar()` for context access
 
-### Atomic Components (4)
+### Atomic Components (7)
 
 Single-purpose components with specialized functionality:
 
-- StatusIndicatorGlass - Status dots with glow effect
-- SegmentedControlGlass - Segmented button group
-- RainbowProgressGlass - Rainbow gradient progress bar
-- LanguageBarGlass - Language proficiency bar with legend
+- IconButtonGlass - Icon-only button with aria-label
+- ThemeToggleGlass - Theme switcher with animated icon
+- SearchBoxGlass - Search input with icon and clear button
+- SortDropdownGlass - Sort options dropdown
+- StatItemGlass - Label, value, change, trend display
+- ExpandableHeaderGlass - Collapsible header with animation
+- InsightCardGlass - 7 variants, inline/card mode
 
-### Composite Components (7)
+### Composite Components (13)
 
 Multi-element widgets combining core components:
 
@@ -617,22 +621,26 @@ Multi-element widgets combining core components:
 - FlagAlertGlass - Warning/danger flag alert
 - YearCardGlass - Year card for career timeline
 - AICardGlass - AI summary card with feature list
-- **SplitLayoutGlass** - Two-column responsive layout with sticky scroll behavior (new in v2.2.0)
+- RepositoryCardGlass - Repo info with expandable details
+- TrustScoreCardGlass - Trust score display with metrics
+- SparklineGlass - Time series chart visualization
+- **SplitLayoutGlass** - Two-column responsive layout with sticky scroll behavior
   - Compound API: Provider, Root, Sidebar, SidebarHeader/Content/Footer, Main,
     MainHeader/Content/Footer, Trigger
   - Features: Master-detail pattern, sticky scroll, responsive (stack/main-only/sidebar-only)
   - Hook: `useSplitLayout()` for context access
 
-### Section Components (6)
+### Section Components (7)
 
 Full-featured page sections (GitHub Analytics pattern):
 
 - HeaderNavGlass - Navigation header with search and theme toggle
-- TrustScoreCardGlass - Trust score display with metrics
 - ProfileHeaderGlass - User profile header with avatar, stats, languages
 - CareerStatsGlass - Career statistics with expandable year cards
 - FlagsSectionGlass - Expandable flags/warnings section
 - RepoCardGlass - Repository card with expandable details
+- FooterGlass - Page footer with links
+- HeroSectionGlass - Hero section with CTA
 
 ### Blocks (6)
 

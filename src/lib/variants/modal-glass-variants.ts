@@ -24,7 +24,7 @@ export const modalSizes = cva(
       },
     },
     defaultVariants: {
-      size: 'md',
+      size: 'sm',
     },
   }
 );

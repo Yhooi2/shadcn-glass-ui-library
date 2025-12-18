@@ -47,7 +47,6 @@ const renderModal = ({
       <ModalGlass.Root open={open} onOpenChange={onOpenChange}>
         {open && (
           <>
-            <ModalGlass.Overlay />
             <ModalGlass.Content>
               <ModalGlass.Header>
                 <ModalGlass.Title>{title}</ModalGlass.Title>
@@ -195,9 +194,12 @@ describe('Modal Compliance Tests', () => {
         if (closeButton) {
           fireEvent.click(closeButton);
           // Modal has 200ms animation delay before calling onClose
-          await vi.waitFor(() => {
-            expect(onClose).toHaveBeenCalledWith(false);
-          }, { timeout: 500 });
+          await vi.waitFor(
+            () => {
+              expect(onClose).toHaveBeenCalledWith(false);
+            },
+            { timeout: 500 }
+          );
         }
       });
     });

@@ -57,7 +57,6 @@ describe('Blur Compliance - Browser Tests', () => {
         render(
           <ThemeTestWrapper theme={theme}>
             <ModalGlass.Root open={true} onOpenChange={() => {}}>
-              <ModalGlass.Overlay />
               <ModalGlass.Content data-testid="modal">
                 <ModalGlass.Header>
                   <ModalGlass.Title>Test Modal</ModalGlass.Title>

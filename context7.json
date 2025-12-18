@@ -1,7 +1,7 @@
 {
   "$schema": "https://context7.com/schema/context7.json",
   "projectTitle": "shadcn-glass-ui",
-  "description": "Glassmorphism UI library for React - AI-friendly with 57 components, strict TypeScript, and comprehensive docs",
+  "description": "Glassmorphism UI library for React - AI-friendly with 56 components, strict TypeScript, and comprehensive docs",
   "branch": "main",
   "folders": ["docs"],
   "includeFiles": ["README.md", "CLAUDE.md", "CHANGELOG.md"],
@@ -13,7 +13,7 @@
     "Always wrap components with ThemeProvider from 'shadcn-glass-ui'",
     "Import CSS: '@import \"shadcn-glass-ui/styles.css\"' in main CSS file",
     "Use TypeScript strict mode - no 'any' types allowed",
-    "ModalGlass and TabsGlass use compound component API (e.g., ModalGlass.Root, ModalGlass.Content)",
+    "ModalGlass and TabsGlass use compound component API (e.g., ModalGlass.Root, ModalGlass.Content) - ModalGlass.Content automatically includes Overlay, do NOT add <ModalGlass.Overlay /> separately",
     "Three themes available: 'glass' (dark), 'light', 'aurora' (gradient)",
     "WCAG 2.1 AA accessibility compliance required",
     "Use asChild prop on ButtonGlass for polymorphic rendering: <ButtonGlass asChild><Link href='/'>Home</Link></ButtonGlass>",

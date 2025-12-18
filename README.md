@@ -6,7 +6,7 @@
 [![Bundle Size](https://img.shields.io/bundlephobia/minzip/shadcn-glass-ui?cacheSeconds=86400)](https://bundlephobia.com/package/shadcn-glass-ui)
 [![AI-Friendly](https://img.shields.io/badge/AI-Optimized-blueviolet)](docs/AI_USAGE.md)
 
-**Glassmorphism components for React** — drop-in compatible with shadcn/ui. 57 components, 3 themes,
+**Glassmorphism components for React** — drop-in compatible with shadcn/ui. 56 components, 3 themes,
 zero migration.
 
 <div align="center">
@@ -74,7 +74,7 @@ npx shadcn@latest add @shadcn-glass-ui/button-glass
 | ----------------- | ------------------------------- | ------------ |
 | **Themes**        | 3 built-in (Glass/Light/Aurora) | 1 base       |
 | **Glass effects** | Native blur, glow, transparency | Manual CSS   |
-| **Components**    | 57 specialized                  | ~40 base     |
+| **Components**    | 56 specialized                  | ~40 base     |
 | **Custom theme**  | 15 lines CSS                    | Full rewrite |
 | **AI docs**       | Context7, Claude Code, Copilot  | Basic        |
 
@@ -94,14 +94,13 @@ import { ButtonGlass } from '@/components/glass/ui/button-glass';  // Glass vari
 
 | Category        | Count | Examples                                           |
 | --------------- | ----- | -------------------------------------------------- |
-| **Core UI**     | 19    | ButtonGlass, InputGlass, ModalGlass, SidebarGlass  |
-| **Composite**   | 14    | MetricCardGlass, SplitLayoutGlass, AICardGlass     |
-| **Specialized** | 10    | StepperGlass, SparklineGlass, RainbowProgressGlass |
+| **Core UI**     | 20    | ButtonGlass, InputGlass, ModalGlass, SidebarGlass  |
+| **Composite**   | 13    | MetricCardGlass, SplitLayoutGlass, AICardGlass     |
+| **Specialized** | 9     | StepperGlass, SparklineGlass, RainbowProgressGlass |
 | **Sections**    | 7     | HeaderNavGlass, ProfileHeaderGlass                 |
 | **Atomic**      | 7     | SearchBoxGlass, ThemeToggleGlass                   |
-| **Primitives**  | 3     | TouchTarget, FormFieldWrapper                      |
 
-[**Browse all 58 components →**](https://yhooi2.github.io/shadcn-glass-ui-library/)
+[**Browse all 56 components →**](https://yhooi2.github.io/shadcn-glass-ui-library/)
 
 ---
 

@@ -244,7 +244,6 @@ describe('Spacing Compliance Tests', () => {
         render(
           <ThemeTestWrapper theme={theme}>
             <ModalGlass.Root open={true} onOpenChange={() => {}}>
-              <ModalGlass.Overlay />
               <ModalGlass.Content data-testid="test-modal">
                 <ModalGlass.Header>
                   <ModalGlass.Title>Test Modal</ModalGlass.Title>

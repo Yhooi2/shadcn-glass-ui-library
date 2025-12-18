@@ -766,7 +766,6 @@ const DataTable = ({
         {/* Delete Confirmation Modal */}
         {showDeleteModal && (
           <ModalGlass.Root open={showDeleteModal} onOpenChange={setShowDeleteModal}>
-            <ModalGlass.Overlay />
             <ModalGlass.Content>
               <ModalGlass.Header>
                 <ModalGlass.Title>Delete Users</ModalGlass.Title>

@@ -415,7 +415,6 @@ v2.0.0 achieves **complete API compatibility with shadcn/ui**.
 
 ```tsx
 <ModalGlass.Root open={open} onOpenChange={setOpen}>
-  <ModalGlass.Overlay />
   <ModalGlass.Content>
     <ModalGlass.Header>
       <ModalGlass.Title>My Modal</ModalGlass.Title>

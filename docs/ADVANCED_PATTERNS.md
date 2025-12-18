@@ -31,14 +31,19 @@ handles a specific concern.
 **Sub-components:**
 
 - `ModalGlass.Root` - Context provider with open/close state
-- `ModalGlass.Overlay` - Backdrop with blur effect
-- `ModalGlass.Content` - Main modal container
+- `ModalGlass.Trigger` - Opens modal when clicked (supports asChild)
+- `ModalGlass.Content` - Main modal container (**includes Portal + Overlay automatically**)
 - `ModalGlass.Header` - Header layout
 - `ModalGlass.Body` - Content area
 - `ModalGlass.Footer` - Footer with actions
 - `ModalGlass.Title` - Accessible title (ARIA)
 - `ModalGlass.Description` - Accessible description (ARIA)
 - `ModalGlass.Close` - Close button
+- `ModalGlass.Portal` - Portal for rendering (optional, Content includes it)
+- `ModalGlass.Overlay` - Backdrop with blur effect (optional, Content includes it)
+
+> **Important:** `ModalGlass.Content` automatically includes the overlay backdrop. You don't need to
+> add `<ModalGlass.Overlay />` separately.
 
 #### Basic Usage
 
@@ -53,7 +58,6 @@ function MyModal() {
       <ButtonGlass onClick={() => setOpen(true)}>Open Modal</ButtonGlass>
 
       <ModalGlass.Root open={open} onOpenChange={setOpen}>
-        <ModalGlass.Overlay />
         <ModalGlass.Content>
           <ModalGlass.Header>
             <ModalGlass.Title>Confirm Action</ModalGlass.Title>
@@ -81,7 +85,6 @@ function MyModal() {
 
 ```tsx
 <ModalGlass.Root open={open} onOpenChange={setOpen}>
-  <ModalGlass.Overlay />
   <ModalGlass.Content size="lg">
     <ModalGlass.Header>
       <ModalGlass.Title>Create Account</ModalGlass.Title>
@@ -490,7 +493,6 @@ function SettingsModal({ open, onOpenChange }) {
 
   return (
     <ModalGlass.Root open={open} onOpenChange={onOpenChange}>
-      <ModalGlass.Overlay />
       <ModalGlass.Content size="lg">
         <ModalGlass.Header>
           <ModalGlass.Title>Settings</ModalGlass.Title>
