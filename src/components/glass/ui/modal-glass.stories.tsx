@@ -527,3 +527,188 @@ export const CompoundMultiStep: Story = {
     );
   },
 };
+
+// ========================================
+// TRIGGER PATTERN (shadcn/ui Dialog API)
+// ========================================
+
+export const WithTrigger: Story = {
+  name: 'Trigger Pattern - Basic',
+  render: () => (
+    <div className="min-h-screen flex items-center justify-center p-8">
+      <ModalGlass.Root>
+        <ModalGlass.Trigger asChild>
+          <ButtonGlass>Open with Trigger</ButtonGlass>
+        </ModalGlass.Trigger>
+        <ModalGlass.Content>
+          <ModalGlass.Header>
+            <ModalGlass.Title>Trigger-based Modal</ModalGlass.Title>
+            <ModalGlass.Description>
+              This modal uses the Trigger pattern from shadcn/ui Dialog API.
+            </ModalGlass.Description>
+          </ModalGlass.Header>
+          <ModalGlass.Body>
+            <p>
+              The modal opens automatically when the trigger button is clicked. No need to manage
+              open/close state manually!
+            </p>
+          </ModalGlass.Body>
+          <ModalGlass.Footer>
+            <ModalGlass.Close asChild>
+              <ButtonGlass variant="ghost">Close</ButtonGlass>
+            </ModalGlass.Close>
+          </ModalGlass.Footer>
+        </ModalGlass.Content>
+      </ModalGlass.Root>
+    </div>
+  ),
+  async play({ canvasElement }) {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole('button', { name: 'Open with Trigger' });
+    await userEvent.click(button);
+    await new Promise((resolve) => setTimeout(resolve, 350));
+    await expect(canvas.getByRole('dialog')).toBeInTheDocument();
+  },
+};
+
+export const TriggerWithAsChild: Story = {
+  name: 'Trigger Pattern - Custom Trigger',
+  render: () => (
+    <div className="min-h-screen flex items-center justify-center p-8 gap-4">
+      {/* With ButtonGlass */}
+      <ModalGlass.Root>
+        <ModalGlass.Trigger asChild>
+          <ButtonGlass variant="secondary">Secondary Trigger</ButtonGlass>
+        </ModalGlass.Trigger>
+        <ModalGlass.Content size="sm">
+          <ModalGlass.Header>
+            <ModalGlass.Title>Custom Trigger</ModalGlass.Title>
+          </ModalGlass.Header>
+          <ModalGlass.Body>
+            <p>Triggered by a secondary button.</p>
+          </ModalGlass.Body>
+          <ModalGlass.Footer>
+            <ModalGlass.Close asChild>
+              <ButtonGlass>OK</ButtonGlass>
+            </ModalGlass.Close>
+          </ModalGlass.Footer>
+        </ModalGlass.Content>
+      </ModalGlass.Root>
+
+      {/* With destructive button */}
+      <ModalGlass.Root>
+        <ModalGlass.Trigger asChild>
+          <ButtonGlass variant="destructive">Delete Item</ButtonGlass>
+        </ModalGlass.Trigger>
+        <ModalGlass.Content size="sm">
+          <ModalGlass.Header>
+            <ModalGlass.Title>Confirm Deletion</ModalGlass.Title>
+            <ModalGlass.Description>This action cannot be undone.</ModalGlass.Description>
+          </ModalGlass.Header>
+          <ModalGlass.Body>
+            <p>Are you sure you want to delete this item?</p>
+          </ModalGlass.Body>
+          <ModalGlass.Footer>
+            <ModalGlass.Close asChild>
+              <ButtonGlass variant="ghost">Cancel</ButtonGlass>
+            </ModalGlass.Close>
+            <ModalGlass.Close asChild>
+              <ButtonGlass variant="destructive">Delete</ButtonGlass>
+            </ModalGlass.Close>
+          </ModalGlass.Footer>
+        </ModalGlass.Content>
+      </ModalGlass.Root>
+    </div>
+  ),
+};
+
+export const TriggerNoCloseButton: Story = {
+  name: 'Trigger Pattern - No Close Button',
+  render: () => (
+    <div className="min-h-screen flex items-center justify-center p-8">
+      <ModalGlass.Root>
+        <ModalGlass.Trigger asChild>
+          <ButtonGlass>Open Alert</ButtonGlass>
+        </ModalGlass.Trigger>
+        <ModalGlass.Content showCloseButton={false} size="sm">
+          <ModalGlass.Header>
+            <ModalGlass.Title>Important Notice</ModalGlass.Title>
+          </ModalGlass.Header>
+          <ModalGlass.Body>
+            <p>This modal has no close button. You must use the action buttons to dismiss it.</p>
+          </ModalGlass.Body>
+          <ModalGlass.Footer>
+            <ModalGlass.Close asChild>
+              <ButtonGlass>Acknowledge</ButtonGlass>
+            </ModalGlass.Close>
+          </ModalGlass.Footer>
+        </ModalGlass.Content>
+      </ModalGlass.Root>
+    </div>
+  ),
+};
+
+export const TriggerFormModal: Story = {
+  name: 'Trigger Pattern - Form',
+  render: () => (
+    <div className="min-h-screen flex items-center justify-center p-8">
+      <ModalGlass.Root>
+        <ModalGlass.Trigger asChild>
+          <ButtonGlass>Create New</ButtonGlass>
+        </ModalGlass.Trigger>
+        <ModalGlass.Content>
+          <ModalGlass.Header>
+            <ModalGlass.Title>Create Item</ModalGlass.Title>
+            <ModalGlass.Description>Fill in the details below.</ModalGlass.Description>
+          </ModalGlass.Header>
+          <ModalGlass.Body>
+            <div className="space-y-4">
+              <div>
+                <label
+                  className="block text-sm font-medium mb-2"
+                  style={{ color: 'var(--text-primary)' }}
+                >
+                  Name
+                </label>
+                <input
+                  type="text"
+                  placeholder="Enter name"
+                  className="w-full px-4 py-2 rounded-xl focus:outline-none"
+                  style={{
+                    background: 'var(--input-bg)',
+                    border: '1px solid var(--input-border)',
+                    color: 'var(--input-text)',
+                  }}
+                />
+              </div>
+              <div>
+                <label
+                  className="block text-sm font-medium mb-2"
+                  style={{ color: 'var(--text-primary)' }}
+                >
+                  Email
+                </label>
+                <input
+                  type="email"
+                  placeholder="Enter email"
+                  className="w-full px-4 py-2 rounded-xl focus:outline-none"
+                  style={{
+                    background: 'var(--input-bg)',
+                    border: '1px solid var(--input-border)',
+                    color: 'var(--input-text)',
+                  }}
+                />
+              </div>
+            </div>
+          </ModalGlass.Body>
+          <ModalGlass.Footer>
+            <ModalGlass.Close asChild>
+              <ButtonGlass variant="ghost">Cancel</ButtonGlass>
+            </ModalGlass.Close>
+            <ButtonGlass>Submit</ButtonGlass>
+          </ModalGlass.Footer>
+        </ModalGlass.Content>
+      </ModalGlass.Root>
+    </div>
+  ),
+};

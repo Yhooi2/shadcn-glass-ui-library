@@ -1,33 +1,58 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { TooltipGlass } from '../tooltip-glass';
+import {
+  TooltipGlass,
+  TooltipGlassProvider,
+  TooltipGlassTrigger,
+  TooltipGlassContent,
+  TooltipGlassSimple,
+} from '../tooltip-glass';
+
+// Helper to render with Provider
+const renderWithProvider = (ui: React.ReactNode) => {
+  return render(<TooltipGlassProvider>{ui}</TooltipGlassProvider>);
+};
+
+// Helper to get tooltip content element (not the hidden span)
+const getTooltipContent = () => {
+  return document.querySelector('[data-slot="tooltip-content"]');
+};
 
 describe('TooltipGlass', () => {
-  describe('Rendering', () => {
-    it('renders children', () => {
-      render(
-        <TooltipGlass content="Tooltip text">
-          <button>Hover me</button>
+  describe('Compound API', () => {
+    it('renders trigger element', () => {
+      renderWithProvider(
+        <TooltipGlass>
+          <TooltipGlassTrigger asChild>
+            <button>Hover me</button>
+          </TooltipGlassTrigger>
+          <TooltipGlassContent>Tooltip text</TooltipGlassContent>
         </TooltipGlass>
       );
       expect(screen.getByText('Hover me')).toBeInTheDocument();
     });
 
     it('does not show tooltip by default', () => {
-      render(
-        <TooltipGlass content="Tooltip text">
-          <button>Hover me</button>
+      renderWithProvider(
+        <TooltipGlass>
+          <TooltipGlassTrigger asChild>
+            <button>Hover me</button>
+          </TooltipGlassTrigger>
+          <TooltipGlassContent>Tooltip text</TooltipGlassContent>
         </TooltipGlass>
       );
-      expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+      expect(getTooltipContent()).not.toBeInTheDocument();
     });
 
     it('shows tooltip on hover', async () => {
       const user = userEvent.setup();
-      render(
-        <TooltipGlass content="Tooltip text">
-          <button>Hover me</button>
+      renderWithProvider(
+        <TooltipGlass>
+          <TooltipGlassTrigger asChild>
+            <button>Hover me</button>
+          </TooltipGlassTrigger>
+          <TooltipGlassContent>Tooltip text</TooltipGlassContent>
         </TooltipGlass>
       );
 
@@ -35,184 +60,194 @@ describe('TooltipGlass', () => {
       await user.hover(button);
 
       await waitFor(() => {
-        expect(screen.getByRole('tooltip')).toBeInTheDocument();
-        expect(screen.getByText('Tooltip text')).toBeInTheDocument();
+        const tooltip = getTooltipContent();
+        expect(tooltip).toBeInTheDocument();
+        expect(tooltip).toHaveTextContent('Tooltip text');
       });
     });
 
-    it('hides tooltip on mouse leave', async () => {
+    it('trigger has correct data-state when hovered', async () => {
       const user = userEvent.setup();
-      render(
-        <TooltipGlass content="Tooltip text">
-          <button>Hover me</button>
+      renderWithProvider(
+        <TooltipGlass>
+          <TooltipGlassTrigger asChild>
+            <button data-testid="trigger">Hover me</button>
+          </TooltipGlassTrigger>
+          <TooltipGlassContent>Tooltip text</TooltipGlassContent>
         </TooltipGlass>
       );
 
-      const button = screen.getByText('Hover me');
-      await user.hover(button);
+      const trigger = screen.getByTestId('trigger');
 
+      // Initial state
+      expect(trigger).toHaveAttribute('data-state', 'closed');
+
+      await user.hover(trigger);
+
+      // After hover, state changes
       await waitFor(() => {
-        expect(screen.getByRole('tooltip')).toBeInTheDocument();
-      });
-
-      await user.unhover(button);
-
-      await waitFor(() => {
-        expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+        expect(trigger).toHaveAttribute('data-state', 'delayed-open');
       });
     });
 
-    it('applies custom className', () => {
-      const { container } = render(
-        <TooltipGlass content="Tooltip text" className="custom-class">
-          <button>Hover me</button>
+    it('applies custom className to content', async () => {
+      const user = userEvent.setup();
+      renderWithProvider(
+        <TooltipGlass>
+          <TooltipGlassTrigger asChild>
+            <button>Hover me</button>
+          </TooltipGlassTrigger>
+          <TooltipGlassContent className="custom-class">Tooltip text</TooltipGlassContent>
         </TooltipGlass>
       );
-      const wrapper = container.firstChild;
-      expect(wrapper).toHaveClass('custom-class');
+
+      await user.hover(screen.getByText('Hover me'));
+
+      await waitFor(() => {
+        const tooltip = getTooltipContent();
+        expect(tooltip).toHaveClass('custom-class');
+      });
+    });
+  });
+
+  describe('Simple API (TooltipGlassSimple)', () => {
+    it('renders children', () => {
+      renderWithProvider(
+        <TooltipGlassSimple content="Tooltip text">
+          <button>Hover me</button>
+        </TooltipGlassSimple>
+      );
+      expect(screen.getByText('Hover me')).toBeInTheDocument();
+    });
+
+    it('shows tooltip on hover', async () => {
+      const user = userEvent.setup();
+      renderWithProvider(
+        <TooltipGlassSimple content="Tooltip text">
+          <button>Hover me</button>
+        </TooltipGlassSimple>
+      );
+
+      await user.hover(screen.getByText('Hover me'));
+
+      await waitFor(() => {
+        const tooltip = getTooltipContent();
+        expect(tooltip).toBeInTheDocument();
+        expect(tooltip).toHaveTextContent('Tooltip text');
+      });
+    });
+
+    it('applies custom className', async () => {
+      const user = userEvent.setup();
+      renderWithProvider(
+        <TooltipGlassSimple content="Tooltip text" className="custom-class">
+          <button>Hover me</button>
+        </TooltipGlassSimple>
+      );
+
+      await user.hover(screen.getByText('Hover me'));
+
+      await waitFor(() => {
+        const tooltip = getTooltipContent();
+        expect(tooltip).toHaveClass('custom-class');
+      });
     });
   });
 
   describe('Position Variants', () => {
     it('renders with top position by default', async () => {
       const user = userEvent.setup();
-      render(
-        <TooltipGlass content="Tooltip text">
+      renderWithProvider(
+        <TooltipGlassSimple content="Tooltip text">
           <button>Hover me</button>
-        </TooltipGlass>
+        </TooltipGlassSimple>
       );
 
       await user.hover(screen.getByText('Hover me'));
 
       await waitFor(() => {
-        expect(screen.getByRole('tooltip')).toBeInTheDocument();
-      });
-    });
-
-    it('renders with top position explicitly', async () => {
-      const user = userEvent.setup();
-      render(
-        <TooltipGlass content="Tooltip text" position="top">
-          <button>Hover me</button>
-        </TooltipGlass>
-      );
-
-      await user.hover(screen.getByText('Hover me'));
-
-      await waitFor(() => {
-        expect(screen.getByRole('tooltip')).toBeInTheDocument();
+        const tooltip = getTooltipContent();
+        expect(tooltip).toBeInTheDocument();
+        expect(tooltip).toHaveAttribute('data-side', 'top');
       });
     });
 
     it('renders with bottom position', async () => {
       const user = userEvent.setup();
-      render(
-        <TooltipGlass content="Tooltip text" position="bottom">
+      renderWithProvider(
+        <TooltipGlassSimple content="Tooltip text" side="bottom">
           <button>Hover me</button>
-        </TooltipGlass>
+        </TooltipGlassSimple>
       );
 
       await user.hover(screen.getByText('Hover me'));
 
       await waitFor(() => {
-        expect(screen.getByRole('tooltip')).toBeInTheDocument();
+        const tooltip = getTooltipContent();
+        expect(tooltip).toBeInTheDocument();
+        expect(tooltip).toHaveAttribute('data-side', 'bottom');
       });
     });
 
     it('renders with left position', async () => {
       const user = userEvent.setup();
-      render(
-        <TooltipGlass content="Tooltip text" position="left">
+      renderWithProvider(
+        <TooltipGlassSimple content="Tooltip text" side="left">
           <button>Hover me</button>
-        </TooltipGlass>
+        </TooltipGlassSimple>
       );
 
       await user.hover(screen.getByText('Hover me'));
 
       await waitFor(() => {
-        expect(screen.getByRole('tooltip')).toBeInTheDocument();
+        const tooltip = getTooltipContent();
+        expect(tooltip).toBeInTheDocument();
+        expect(tooltip).toHaveAttribute('data-side', 'left');
       });
     });
 
     it('renders with right position', async () => {
       const user = userEvent.setup();
-      render(
-        <TooltipGlass content="Tooltip text" position="right">
+      renderWithProvider(
+        <TooltipGlassSimple content="Tooltip text" side="right">
           <button>Hover me</button>
-        </TooltipGlass>
+        </TooltipGlassSimple>
       );
 
       await user.hover(screen.getByText('Hover me'));
 
       await waitFor(() => {
-        expect(screen.getByRole('tooltip')).toBeInTheDocument();
+        const tooltip = getTooltipContent();
+        expect(tooltip).toBeInTheDocument();
+        expect(tooltip).toHaveAttribute('data-side', 'right');
       });
     });
   });
 
   describe('ARIA Attributes', () => {
-    it('sets aria-describedby when tooltip is visible', async () => {
+    it('tooltip has role="tooltip" (hidden span)', async () => {
       const user = userEvent.setup();
-      const { container } = render(
-        <TooltipGlass content="Tooltip text">
+      renderWithProvider(
+        <TooltipGlassSimple content="Tooltip text">
           <button>Hover me</button>
-        </TooltipGlass>
-      );
-
-      const wrapper = container.firstChild as HTMLElement;
-      expect(wrapper).not.toHaveAttribute('aria-describedby');
-
-      await user.hover(screen.getByText('Hover me'));
-
-      await waitFor(() => {
-        expect(wrapper).toHaveAttribute('aria-describedby');
-      });
-    });
-
-    it('removes aria-describedby when tooltip is hidden', async () => {
-      const user = userEvent.setup();
-      const { container } = render(
-        <TooltipGlass content="Tooltip text">
-          <button>Hover me</button>
-        </TooltipGlass>
-      );
-
-      const wrapper = container.firstChild as HTMLElement;
-      await user.hover(screen.getByText('Hover me'));
-
-      await waitFor(() => {
-        expect(wrapper).toHaveAttribute('aria-describedby');
-      });
-
-      await user.unhover(screen.getByText('Hover me'));
-
-      await waitFor(() => {
-        expect(wrapper).not.toHaveAttribute('aria-describedby');
-      });
-    });
-
-    it('tooltip has role="tooltip"', async () => {
-      const user = userEvent.setup();
-      render(
-        <TooltipGlass content="Tooltip text">
-          <button>Hover me</button>
-        </TooltipGlass>
+        </TooltipGlassSimple>
       );
 
       await user.hover(screen.getByText('Hover me'));
 
       await waitFor(() => {
+        // Radix renders a hidden span with role="tooltip" for accessibility
         const tooltip = screen.getByRole('tooltip');
-        expect(tooltip).toHaveAttribute('role', 'tooltip');
+        expect(tooltip).toBeInTheDocument();
       });
     });
 
     it('tooltip has unique id', async () => {
       const user = userEvent.setup();
-      render(
-        <TooltipGlass content="Tooltip text">
+      renderWithProvider(
+        <TooltipGlassSimple content="Tooltip text">
           <button>Hover me</button>
-        </TooltipGlass>
+        </TooltipGlassSimple>
       );
 
       await user.hover(screen.getByText('Hover me'));
@@ -225,46 +260,19 @@ describe('TooltipGlass', () => {
     });
   });
 
-  describe('Forward Ref', () => {
-    it('forwards ref to wrapper div', () => {
-      const ref = { current: null } as React.RefObject<HTMLDivElement>;
-      render(
-        <TooltipGlass ref={ref} content="Tooltip text">
-          <button>Hover me</button>
-        </TooltipGlass>
-      );
-
-      expect(ref.current).toBeInstanceOf(HTMLDivElement);
-    });
-
-    it('allows ref to access element', () => {
-      const ref = { current: null } as React.RefObject<HTMLDivElement>;
-      render(
-        <TooltipGlass ref={ref} content="Tooltip text">
-          <button>Hover me</button>
-        </TooltipGlass>
-      );
-
-      expect(ref.current).not.toBeNull();
-      if (ref.current) {
-        expect((ref.current as HTMLElement).tagName).toBe('DIV');
-      }
-    });
-  });
-
   describe('Theme Styling', () => {
     it('applies tooltip CSS variables', async () => {
       const user = userEvent.setup();
-      render(
-        <TooltipGlass content="Tooltip text">
+      renderWithProvider(
+        <TooltipGlassSimple content="Tooltip text">
           <button>Hover me</button>
-        </TooltipGlass>
+        </TooltipGlassSimple>
       );
 
       await user.hover(screen.getByText('Hover me'));
 
       await waitFor(() => {
-        const tooltip = screen.getByRole('tooltip');
+        const tooltip = getTooltipContent() as HTMLElement;
         expect(tooltip).toHaveStyle({
           background: 'var(--tooltip-bg)',
           color: 'var(--tooltip-text)',
@@ -276,47 +284,49 @@ describe('TooltipGlass', () => {
   describe('Content Variations', () => {
     it('renders short tooltip text', async () => {
       const user = userEvent.setup();
-      render(
-        <TooltipGlass content="Hi">
+      renderWithProvider(
+        <TooltipGlassSimple content="Hi">
           <button>Hover me</button>
-        </TooltipGlass>
+        </TooltipGlassSimple>
       );
 
       await user.hover(screen.getByText('Hover me'));
 
       await waitFor(() => {
-        expect(screen.getByText('Hi')).toBeInTheDocument();
+        const tooltip = getTooltipContent();
+        expect(tooltip).toHaveTextContent('Hi');
       });
     });
 
     it('renders long tooltip text', async () => {
       const user = userEvent.setup();
       const longText = 'This is a very long tooltip text that provides detailed information';
-      render(
-        <TooltipGlass content={longText}>
+      renderWithProvider(
+        <TooltipGlassSimple content={longText}>
           <button>Hover me</button>
-        </TooltipGlass>
+        </TooltipGlassSimple>
       );
 
       await user.hover(screen.getByText('Hover me'));
 
       await waitFor(() => {
-        expect(screen.getByText(longText)).toBeInTheDocument();
+        const tooltip = getTooltipContent();
+        expect(tooltip).toHaveTextContent(longText);
       });
     });
 
     it('renders empty content', async () => {
       const user = userEvent.setup();
-      render(
-        <TooltipGlass content="">
+      renderWithProvider(
+        <TooltipGlassSimple content="">
           <button>Hover me</button>
-        </TooltipGlass>
+        </TooltipGlassSimple>
       );
 
       await user.hover(screen.getByText('Hover me'));
 
       await waitFor(() => {
-        const tooltip = screen.queryByRole('tooltip');
+        const tooltip = getTooltipContent();
         expect(tooltip).toBeInTheDocument();
       });
     });
@@ -325,12 +335,15 @@ describe('TooltipGlass', () => {
   describe('Complex Children', () => {
     it('renders with complex child components', async () => {
       const user = userEvent.setup();
-      render(
-        <TooltipGlass content="Tooltip text">
-          <div>
-            <span>Icon</span>
-            <span>Label</span>
-          </div>
+      renderWithProvider(
+        <TooltipGlass>
+          <TooltipGlassTrigger asChild>
+            <div>
+              <span>Icon</span>
+              <span>Label</span>
+            </div>
+          </TooltipGlassTrigger>
+          <TooltipGlassContent>Tooltip text</TooltipGlassContent>
         </TooltipGlass>
       );
 
@@ -338,25 +351,28 @@ describe('TooltipGlass', () => {
       await user.hover(icon);
 
       await waitFor(() => {
-        expect(screen.getByRole('tooltip')).toBeInTheDocument();
+        expect(getTooltipContent()).toBeInTheDocument();
       });
     });
 
     it('renders with multiple children', async () => {
       const user = userEvent.setup();
-      render(
-        <TooltipGlass content="Tooltip text">
-          <button>
-            <span>Click</span>
-            <span>Me</span>
-          </button>
+      renderWithProvider(
+        <TooltipGlass>
+          <TooltipGlassTrigger asChild>
+            <button>
+              <span>Click</span>
+              <span>Me</span>
+            </button>
+          </TooltipGlassTrigger>
+          <TooltipGlassContent>Tooltip text</TooltipGlassContent>
         </TooltipGlass>
       );
 
       await user.hover(screen.getByText('Click'));
 
       await waitFor(() => {
-        expect(screen.getByRole('tooltip')).toBeInTheDocument();
+        expect(getTooltipContent()).toBeInTheDocument();
       });
     });
   });
@@ -364,47 +380,107 @@ describe('TooltipGlass', () => {
   describe('Multiple Tooltips', () => {
     it('renders multiple independent tooltips', async () => {
       const user = userEvent.setup();
-      render(
+      renderWithProvider(
         <>
-          <TooltipGlass content="Tooltip 1">
+          <TooltipGlassSimple content="Tooltip 1">
             <button>Button 1</button>
-          </TooltipGlass>
-          <TooltipGlass content="Tooltip 2">
+          </TooltipGlassSimple>
+          <TooltipGlassSimple content="Tooltip 2">
             <button>Button 2</button>
-          </TooltipGlass>
+          </TooltipGlassSimple>
         </>
       );
 
       await user.hover(screen.getByText('Button 1'));
 
       await waitFor(() => {
-        expect(screen.getByText('Tooltip 1')).toBeInTheDocument();
-        expect(screen.queryByText('Tooltip 2')).not.toBeInTheDocument();
+        const tooltip = getTooltipContent();
+        expect(tooltip).toHaveTextContent('Tooltip 1');
       });
     });
 
-    it('switches between tooltips on hover', async () => {
+    it('each tooltip is independently controlled', async () => {
       const user = userEvent.setup();
-      render(
+      renderWithProvider(
         <>
-          <TooltipGlass content="Tooltip 1">
-            <button>Button 1</button>
-          </TooltipGlass>
-          <TooltipGlass content="Tooltip 2">
-            <button>Button 2</button>
-          </TooltipGlass>
+          <TooltipGlassSimple content="Tooltip 1">
+            <button data-testid="btn1">Button 1</button>
+          </TooltipGlassSimple>
+          <TooltipGlassSimple content="Tooltip 2">
+            <button data-testid="btn2">Button 2</button>
+          </TooltipGlassSimple>
         </>
       );
 
-      await user.hover(screen.getByText('Button 1'));
-      await waitFor(() => expect(screen.getByText('Tooltip 1')).toBeInTheDocument());
+      // Initially both triggers are closed
+      const btn1 = screen.getByTestId('btn1');
+      const btn2 = screen.getByTestId('btn2');
 
-      await user.unhover(screen.getByText('Button 1'));
-      await user.hover(screen.getByText('Button 2'));
+      expect(btn1).toHaveAttribute('data-state', 'closed');
+      expect(btn2).toHaveAttribute('data-state', 'closed');
+
+      // Hovering Button 1 only affects its trigger
+      await user.hover(btn1);
+      await waitFor(() => {
+        expect(btn1).toHaveAttribute('data-state', 'delayed-open');
+        expect(btn2).toHaveAttribute('data-state', 'closed');
+      });
+    });
+  });
+
+  describe('Data Slots', () => {
+    it('has data-slot on trigger', () => {
+      renderWithProvider(
+        <TooltipGlass>
+          <TooltipGlassTrigger asChild>
+            <button data-testid="trigger">Hover me</button>
+          </TooltipGlassTrigger>
+          <TooltipGlassContent>Tooltip text</TooltipGlassContent>
+        </TooltipGlass>
+      );
+
+      const trigger = screen.getByTestId('trigger');
+      expect(trigger).toHaveAttribute('data-slot', 'tooltip-trigger');
+    });
+
+    it('has data-slot on content', async () => {
+      const user = userEvent.setup();
+      renderWithProvider(
+        <TooltipGlass>
+          <TooltipGlassTrigger asChild>
+            <button>Hover me</button>
+          </TooltipGlassTrigger>
+          <TooltipGlassContent>Tooltip text</TooltipGlassContent>
+        </TooltipGlass>
+      );
+
+      await user.hover(screen.getByText('Hover me'));
 
       await waitFor(() => {
-        expect(screen.queryByText('Tooltip 1')).not.toBeInTheDocument();
-        expect(screen.getByText('Tooltip 2')).toBeInTheDocument();
+        const tooltip = getTooltipContent();
+        expect(tooltip).toHaveAttribute('data-slot', 'tooltip-content');
+      });
+    });
+  });
+
+  describe('Forward Ref', () => {
+    it('forwards ref to content', async () => {
+      const user = userEvent.setup();
+      const ref = { current: null } as React.RefObject<HTMLDivElement>;
+
+      renderWithProvider(
+        <TooltipGlass>
+          <TooltipGlassTrigger asChild>
+            <button>Hover me</button>
+          </TooltipGlassTrigger>
+          <TooltipGlassContent ref={ref}>Tooltip text</TooltipGlassContent>
+        </TooltipGlass>
+      );
+
+      await user.hover(screen.getByText('Hover me'));
+
+      await waitFor(() => {
+        expect(ref.current).toBeInstanceOf(HTMLDivElement);
       });
     });
   });

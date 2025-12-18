@@ -44,6 +44,19 @@ export type { DropdownGlassProps } from './dropdown-glass';
 export { GlassCard } from './glass-card';
 export type { GlassCardProps } from './glass-card';
 
+// CardGlass - Compound component with shadcn/ui Card API compatibility
+export {
+  CardGlass,
+  CardGlassRoot,
+  CardGlassHeader,
+  CardGlassTitle,
+  CardGlassDescription,
+  CardGlassAction,
+  CardGlassContent,
+  CardGlassFooter,
+} from './card-glass';
+export type { CardGlassRootProps } from './card-glass';
+
 export { InputGlass } from './input-glass';
 export type { InputGlassProps } from './input-glass';
 

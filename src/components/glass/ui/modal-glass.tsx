@@ -1,29 +1,40 @@
 /* eslint-disable react-refresh/only-export-components */
 /**
- * ModalGlass Component (Compound API only)
+ * ModalGlass Component (Radix UI Dialog-based)
  *
- * Glass-themed modal with:
- * - Theme-aware styling (glass/light/aurora)
- * - Smooth open/close animations
- * - Escape key to close
- * - Click outside to close
- * - Body scroll lock
- * - Size variants
- * - Compound component API for advanced composition
+ * Glass-themed modal/dialog with full shadcn/ui Dialog API compatibility.
+ * Built on @radix-ui/react-dialog for accessibility and state management.
  *
- * @example
+ * @example Uncontrolled with Trigger (shadcn/ui pattern)
  * ```tsx
- * <ModalGlass.Root open={open} onOpenChange={setOpen}>
- *   <ModalGlass.Overlay />
+ * <ModalGlass.Root>
+ *   <ModalGlass.Trigger asChild>
+ *     <ButtonGlass>Open Dialog</ButtonGlass>
+ *   </ModalGlass.Trigger>
  *   <ModalGlass.Content>
  *     <ModalGlass.Header>
- *       <ModalGlass.Title>Confirm</ModalGlass.Title>
- *       <ModalGlass.Description>Are you sure?</ModalGlass.Description>
- *       <ModalGlass.Close />
+ *       <ModalGlass.Title>Dialog Title</ModalGlass.Title>
+ *       <ModalGlass.Description>Dialog description</ModalGlass.Description>
  *     </ModalGlass.Header>
- *     <ModalGlass.Body>
- *       <p>Body content</p>
- *     </ModalGlass.Body>
+ *     <ModalGlass.Body>Content here</ModalGlass.Body>
+ *     <ModalGlass.Footer>
+ *       <ModalGlass.Close asChild>
+ *         <ButtonGlass variant="ghost">Cancel</ButtonGlass>
+ *       </ModalGlass.Close>
+ *       <ButtonGlass>Confirm</ButtonGlass>
+ *     </ModalGlass.Footer>
+ *   </ModalGlass.Content>
+ * </ModalGlass.Root>
+ * ```
+ *
+ * @example Controlled mode (programmatic)
+ * ```tsx
+ * <ModalGlass.Root open={open} onOpenChange={setOpen}>
+ *   <ModalGlass.Content>
+ *     <ModalGlass.Header>
+ *       <ModalGlass.Title>Confirm Action</ModalGlass.Title>
+ *     </ModalGlass.Header>
+ *     <ModalGlass.Body>Are you sure?</ModalGlass.Body>
  *     <ModalGlass.Footer>
  *       <ButtonGlass onClick={() => setOpen(false)}>Cancel</ButtonGlass>
  *     </ModalGlass.Footer>
@@ -31,471 +42,354 @@
  * </ModalGlass.Root>
  * ```
  *
- * @since v1.0.0 - Legacy API removed (isOpen/onClose/title props)
+ * @accessibility
+ * - Built on Radix UI Dialog with full WCAG 2.1 AA compliance
+ * - Keyboard: Escape to close, Tab for focus trap
+ * - Screen Readers: role="dialog", aria-modal, aria-labelledby, aria-describedby
+ * - Focus Management: Auto-focus on open, return focus on close
+ *
+ * @since v2.0.0 - Migrated to Radix UI Dialog, added Trigger and Portal
  */
 
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-  useMemo,
-  forwardRef,
-  createContext,
-  useContext,
-  type CSSProperties,
-  type FC,
-  type ReactNode,
-} from 'react';
+import * as React from 'react';
+import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { X } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useHover } from '@/lib/hooks/use-hover';
-import { useFocus } from '@/lib/hooks/use-focus';
 import { modalSizes, type ModalSize } from '@/lib/variants/modal-glass-variants';
 import { ICON_SIZES } from '@/components/glass/primitives';
 import '@/glass-theme.css';
 
 // ========================================
-// TYPES & CONSTANTS
-// ========================================
-
-const MODAL_ANIMATION_DURATION = 200;
-
-// ========================================
-// HELPERS
-// ========================================
-
-const lockBodyScroll = (): void => {
-  if (typeof document === 'undefined') return;
-  document.body.style.overflow = 'hidden';
-};
-
-const unlockBodyScroll = (): void => {
-  if (typeof document === 'undefined') return;
-  document.body.style.overflow = '';
-};
-
-const delay = (ms: number): Promise<void> => {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-};
-
-// ========================================
-// CONTEXT FOR COMPOUND COMPONENTS
+// CONTEXT FOR SIZE (optional enhancement)
 // ========================================
 
 interface ModalContextValue {
-  isOpen: boolean;
-  onClose: () => void;
   size: ModalSize;
-  isClosing: boolean;
 }
 
-const ModalContext = createContext<ModalContextValue | null>(null);
+const ModalContext = React.createContext<ModalContextValue>({ size: 'md' });
 
-const useModalContext = () => {
-  const context = useContext(ModalContext);
-  if (!context) {
-    throw new Error('Modal compound components must be used within ModalGlass.Root');
-  }
-  return context;
-};
+const useModalContext = () => React.useContext(ModalContext);
 
 // ========================================
 // COMPOUND COMPONENT: ROOT
 // ========================================
 
-/**
- * Props for ModalGlass.Root component
- *
- * Root component that provides context and manages open/close state for the modal.
- * Handles keyboard events, body scroll lock, and accessibility attributes.
- *
- * @accessibility
- * - **Keyboard Navigation:** Escape key closes modal, Tab key traps focus within modal content
- * - **Focus Management:** Focus automatically moved to modal on open, returned to trigger on close (WCAG 2.4.3)
- * - **Screen Readers:** Uses `role="dialog"` and `aria-modal="true"` for proper modal semantics (WCAG 4.1.3)
- * - **Title Association:** Modal title automatically linked via `aria-labelledby="modal-title"`
- * - **Description Association:** Optional description linked via `aria-describedby="modal-description"`
- * - **Body Scroll Lock:** Prevents background scrolling when modal is open (improves UX and focus management)
- * - **Touch Targets:** All interactive elements (close button, action buttons) meet 44x44px minimum (WCAG 2.5.5)
- * - **Color Contrast:** Modal content and overlay meet WCAG AA contrast requirements
- * - **Motion:** Open/close animations respect `prefers-reduced-motion` settings
- *
- * @example
- * ```tsx
- * // Basic modal with title and description
- * <ModalGlass.Root open={open} onOpenChange={setOpen}>
- *   <ModalGlass.Overlay />
- *   <ModalGlass.Content>
- *     <ModalGlass.Header>
- *       <ModalGlass.Title>Confirm Action</ModalGlass.Title>
- *       <ModalGlass.Description>
- *         This action cannot be undone.
- *       </ModalGlass.Description>
- *       <ModalGlass.Close />
- *     </ModalGlass.Header>
- *     <ModalGlass.Body>
- *       <p>Are you sure you want to proceed?</p>
- *     </ModalGlass.Body>
- *     <ModalGlass.Footer>
- *       <ButtonGlass variant="ghost" onClick={() => setOpen(false)}>
- *         Cancel
- *       </ButtonGlass>
- *       <ButtonGlass variant="destructive" onClick={handleConfirm}>
- *         Confirm
- *       </ButtonGlass>
- *     </ModalGlass.Footer>
- *   </ModalGlass.Content>
- * </ModalGlass.Root>
- *
- * // Different sizes
- * <ModalGlass.Root open={open} onOpenChange={setOpen} size="sm">
- *   {// Small modal content}
- * </ModalGlass.Root>
- * <ModalGlass.Root open={open} onOpenChange={setOpen} size="lg">
- *   {// Large modal content}
- * </ModalGlass.Root>
- *
- * // Form modal with proper focus management
- * <ModalGlass.Root open={open} onOpenChange={setOpen}>
- *   <ModalGlass.Overlay />
- *   <ModalGlass.Content>
- *     <ModalGlass.Header>
- *       <ModalGlass.Title>Create Account</ModalGlass.Title>
- *       <ModalGlass.Close />
- *     </ModalGlass.Header>
- *     <ModalGlass.Body>
- *       <form id="signup-form" onSubmit={handleSubmit}>
- *         <InputGlass label="Email" type="email" required />
- *         <InputGlass label="Password" type="password" required />
- *       </form>
- *     </ModalGlass.Body>
- *     <ModalGlass.Footer>
- *       <ButtonGlass variant="ghost" onClick={() => setOpen(false)}>
- *         Cancel
- *       </ButtonGlass>
- *       <ButtonGlass type="submit" form="signup-form">
- *         Sign Up
- *       </ButtonGlass>
- *     </ModalGlass.Footer>
- *   </ModalGlass.Content>
- * </ModalGlass.Root>
- *
- * // Alert modal (no close button)
- * <ModalGlass.Root open={showAlert} onOpenChange={setShowAlert}>
- *   <ModalGlass.Overlay />
- *   <ModalGlass.Content>
- *     <ModalGlass.Header>
- *       <ModalGlass.Title>Session Expired</ModalGlass.Title>
- *     </ModalGlass.Header>
- *     <ModalGlass.Body>
- *       Your session has expired. Please log in again.
- *     </ModalGlass.Body>
- *     <ModalGlass.Footer>
- *       <ButtonGlass onClick={handleLogin}>Log In</ButtonGlass>
- *     </ModalGlass.Footer>
- *   </ModalGlass.Content>
- * </ModalGlass.Root>
- * ```
- */
-interface ModalRootProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Open state */
-  open: boolean;
-  /** Callback when open state changes */
-  onOpenChange?: (open: boolean) => void;
-  /** Size variant */
+interface ModalRootProps extends React.ComponentProps<typeof DialogPrimitive.Root> {
+  /** Size variant for the modal */
   size?: ModalSize;
-  /** Child components */
-  children: ReactNode;
 }
 
-const ModalRoot: FC<ModalRootProps> = ({ open, onOpenChange, size = 'md', children, ...props }) => {
-  const [isClosing, setIsClosing] = useState(false);
-
-  const handleClose = useCallback(async () => {
-    setIsClosing(true);
-    await delay(MODAL_ANIMATION_DURATION);
-    setIsClosing(false);
-    onOpenChange?.(false);
-  }, [onOpenChange]);
-
-  useEffect(() => {
-    if (open) {
-      lockBodyScroll();
-    } else {
-      unlockBodyScroll();
-    }
-    return () => {
-      unlockBodyScroll();
-    };
-  }, [open]);
-
-  useEffect(() => {
-    if (!open) return;
-
-    const handleEscape = (event: KeyboardEvent): void => {
-      if (event.key === 'Escape') {
-        handleClose();
-      }
-    };
-
-    document.addEventListener('keydown', handleEscape);
-    return () => {
-      document.removeEventListener('keydown', handleEscape);
-    };
-  }, [open, handleClose]);
-
-  if (!open) return null;
-
+/**
+ * ModalGlass.Root - Dialog root component
+ *
+ * Supports both controlled (open/onOpenChange) and uncontrolled (with Trigger) modes.
+ */
+function ModalRoot({ size = 'md', children, ...props }: ModalRootProps) {
   return (
-    <ModalContext.Provider value={{ isOpen: open, onClose: handleClose, size, isClosing }}>
-      <div
-        className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="modal-title"
-        aria-describedby="modal-description"
-        {...props}
-      >
+    <ModalContext.Provider value={{ size }}>
+      <DialogPrimitive.Root data-slot="modal" {...props}>
         {children}
-      </div>
+      </DialogPrimitive.Root>
     </ModalContext.Provider>
   );
-};
+}
+
+// ========================================
+// COMPOUND COMPONENT: TRIGGER
+// ========================================
+
+/**
+ * ModalGlass.Trigger - Opens the modal when clicked
+ *
+ * Use `asChild` to render as the child element instead of a button.
+ */
+function ModalTrigger({ ...props }: React.ComponentProps<typeof DialogPrimitive.Trigger>) {
+  return <DialogPrimitive.Trigger data-slot="modal-trigger" {...props} />;
+}
+
+// ========================================
+// COMPOUND COMPONENT: PORTAL
+// ========================================
+
+/**
+ * ModalGlass.Portal - Renders children into a portal
+ */
+function ModalPortal({ ...props }: React.ComponentProps<typeof DialogPrimitive.Portal>) {
+  return <DialogPrimitive.Portal data-slot="modal-portal" {...props} />;
+}
 
 // ========================================
 // COMPOUND COMPONENT: OVERLAY
 // ========================================
 
-interface ModalOverlayProps {
-  className?: string;
-}
-
-const ModalOverlay: FC<ModalOverlayProps> = ({ className }) => {
-  const { onClose, isClosing } = useModalContext();
-
-  const overlayStyles: CSSProperties = useMemo(
-    () => ({
+/**
+ * ModalGlass.Overlay - Backdrop with glass blur effect
+ */
+const ModalOverlay = React.forwardRef<
+  React.ElementRef<typeof DialogPrimitive.Overlay>,
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
+>(({ className, ...props }, ref) => (
+  <DialogPrimitive.Overlay
+    ref={ref}
+    data-slot="modal-overlay"
+    className={cn(
+      'fixed inset-0 z-50',
+      'data-[state=open]:animate-in data-[state=closed]:animate-out',
+      'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+      className
+    )}
+    style={{
       background: 'var(--modal-overlay)',
       backdropFilter: 'blur(var(--blur-sm))',
       WebkitBackdropFilter: 'blur(var(--blur-sm))',
-      opacity: isClosing ? 0 : 1,
-      transition: 'all 0.3s',
-    }),
-    [isClosing]
-  );
-
-  return (
-    <div
-      className={cn('absolute inset-0 transition-all duration-300', className)}
-      style={overlayStyles}
-      onClick={onClose}
-      aria-hidden="true"
-    />
-  );
-};
+    }}
+    {...props}
+  />
+));
+ModalOverlay.displayName = 'ModalOverlay';
 
 // ========================================
 // COMPOUND COMPONENT: CONTENT
 // ========================================
 
-interface ModalContentProps {
-  children: ReactNode;
-  className?: string;
+interface ModalContentProps extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> {
+  /** Show close button in top-right corner */
+  showCloseButton?: boolean;
+  /** Override size from Root */
+  size?: ModalSize;
 }
 
-const ModalContent = forwardRef<HTMLDivElement, ModalContentProps>(
-  ({ children, className }, ref) => {
-    const { size, isClosing } = useModalContext();
+/**
+ * ModalGlass.Content - Main modal container with glass styling
+ *
+ * Automatically renders Portal and Overlay.
+ */
+const ModalContent = React.forwardRef<
+  React.ElementRef<typeof DialogPrimitive.Content>,
+  ModalContentProps
+>(({ className, children, showCloseButton = true, size: sizeProp, ...props }, ref) => {
+  const { size: contextSize } = useModalContext();
+  const size = sizeProp ?? contextSize;
 
-    const modalStyles: CSSProperties = useMemo(
-      () => ({
-        background: 'var(--modal-bg)',
-        border: '1px solid var(--modal-border)',
-        boxShadow: 'var(--modal-glow)',
-        backdropFilter: 'blur(var(--blur-lg))',
-        WebkitBackdropFilter: 'blur(var(--blur-lg))',
-        transform: isClosing ? 'scale(0.95) translateY(10px)' : 'scale(1) translateY(0)',
-        opacity: isClosing ? 0 : 1,
-        animation: !isClosing ? 'modalFadeIn 0.3s ease-out' : 'none',
-      }),
-      [isClosing]
-    );
-
-    return (
-      <div ref={ref} className={cn(modalSizes({ size }), className)} style={modalStyles}>
-        {/* Glow effect */}
+  return (
+    <ModalPortal>
+      <ModalOverlay />
+      <DialogPrimitive.Content
+        ref={ref}
+        data-slot="modal-content"
+        className={cn(
+          modalSizes({ size }),
+          'fixed top-[50%] left-[50%] z-50',
+          'translate-x-[-50%] translate-y-[-50%]',
+          'data-[state=open]:animate-in data-[state=closed]:animate-out',
+          'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+          'data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
+          'data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%]',
+          'data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]',
+          'duration-200',
+          className
+        )}
+        style={{
+          background: 'var(--modal-bg)',
+          border: '1px solid var(--modal-border)',
+          boxShadow: 'var(--modal-glow)',
+          backdropFilter: 'blur(var(--blur-lg))',
+          WebkitBackdropFilter: 'blur(var(--blur-lg))',
+        }}
+        {...props}
+      >
+        {/* Glow effect layer */}
         <div
           className="absolute inset-0 rounded-3xl pointer-events-none"
-          style={{
-            background: 'var(--modal-glow-effect)',
-          }}
+          style={{ background: 'var(--modal-glow-effect)' }}
+          aria-hidden="true"
         />
-        {children}
-      </div>
-    );
-  }
-);
-
+        {/* Content */}
+        <div className="relative">{children}</div>
+        {/* Close button */}
+        {showCloseButton && (
+          <DialogPrimitive.Close
+            data-slot="modal-close-button"
+            className={cn(
+              'absolute top-4 right-4',
+              'p-1.5 md:p-2 rounded-xl',
+              'transition-all duration-300',
+              'ring-offset-background',
+              'focus:outline-none focus:ring-2 focus:ring-(--semantic-primary) focus:ring-offset-2',
+              'hover:opacity-100 opacity-70',
+              'disabled:pointer-events-none'
+            )}
+            style={{
+              background: 'var(--modal-close-btn-bg)',
+              border: 'var(--modal-close-btn-border)',
+              color: 'var(--text-muted)',
+            }}
+          >
+            <X className={ICON_SIZES.md} />
+            <span className="sr-only">Close</span>
+          </DialogPrimitive.Close>
+        )}
+      </DialogPrimitive.Content>
+    </ModalPortal>
+  );
+});
 ModalContent.displayName = 'ModalContent';
 
 // ========================================
 // COMPOUND COMPONENT: HEADER
 // ========================================
 
-interface ModalHeaderProps {
-  children: ReactNode;
-  className?: string;
-}
-
-const ModalHeader: FC<ModalHeaderProps> = ({ children, className }) => {
+/**
+ * ModalGlass.Header - Header section with flex layout
+ */
+function ModalHeader({ className, ...props }: React.ComponentProps<'div'>) {
   return (
-    <div className={cn('relative flex items-start justify-between mb-4 md:mb-5', className)}>
-      {children}
-    </div>
+    <div
+      data-slot="modal-header"
+      className={cn('flex flex-col gap-2 text-center sm:text-left mb-4', className)}
+      {...props}
+    />
   );
-};
+}
 
 // ========================================
 // COMPOUND COMPONENT: BODY
 // ========================================
 
-interface ModalBodyProps {
-  children: ReactNode;
-  className?: string;
-}
-
-const ModalBody: FC<ModalBodyProps> = ({ children, className }) => {
+/**
+ * ModalGlass.Body - Main content area
+ *
+ * Note: shadcn/ui Dialog doesn't have DialogBody, but we keep it for convenience.
+ */
+function ModalBody({ className, ...props }: React.ComponentProps<'div'>) {
   return (
-    <div className={cn('relative', className)} style={{ color: 'var(--text-secondary)' }}>
-      {children}
-    </div>
+    <div
+      data-slot="modal-body"
+      className={cn('relative', className)}
+      style={{ color: 'var(--text-secondary)' }}
+      {...props}
+    />
   );
-};
+}
 
 // ========================================
 // COMPOUND COMPONENT: FOOTER
 // ========================================
 
-interface ModalFooterProps {
-  children: ReactNode;
-  className?: string;
-}
-
-const ModalFooter: FC<ModalFooterProps> = ({ children, className }) => {
+/**
+ * ModalGlass.Footer - Footer section with flex layout for actions
+ */
+function ModalFooter({ className, ...props }: React.ComponentProps<'div'>) {
   return (
-    <div className={cn('relative flex gap-3 mt-4 md:mt-5 justify-end', className)}>{children}</div>
+    <div
+      data-slot="modal-footer"
+      className={cn('flex flex-col-reverse gap-2 sm:flex-row sm:justify-end mt-4', className)}
+      {...props}
+    />
   );
-};
+}
 
 // ========================================
 // COMPOUND COMPONENT: TITLE
 // ========================================
 
-interface ModalTitleProps {
-  children: ReactNode;
-  className?: string;
-}
-
-const ModalTitle: FC<ModalTitleProps> = ({ children, className }) => {
-  return (
-    <h3
-      id="modal-title"
-      className={cn('text-lg md:text-xl font-semibold', className)}
-      style={{ color: 'var(--text-primary)' }}
-    >
-      {children}
-    </h3>
-  );
-};
+/**
+ * ModalGlass.Title - Modal title with proper accessibility
+ */
+const ModalTitle = React.forwardRef<
+  React.ElementRef<typeof DialogPrimitive.Title>,
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
+>(({ className, ...props }, ref) => (
+  <DialogPrimitive.Title
+    ref={ref}
+    data-slot="modal-title"
+    className={cn('text-lg md:text-xl font-semibold leading-none tracking-tight', className)}
+    style={{ color: 'var(--text-primary)' }}
+    {...props}
+  />
+));
+ModalTitle.displayName = 'ModalTitle';
 
 // ========================================
 // COMPOUND COMPONENT: DESCRIPTION
 // ========================================
 
-interface ModalDescriptionProps {
-  children: ReactNode;
-  className?: string;
-}
-
-const ModalDescription: FC<ModalDescriptionProps> = ({ children, className }) => {
-  return (
-    <p
-      id="modal-description"
-      className={cn('text-sm md:text-base mt-1', className)}
-      style={{ color: 'var(--text-muted)' }}
-    >
-      {children}
-    </p>
-  );
-};
+/**
+ * ModalGlass.Description - Modal description text
+ */
+const ModalDescription = React.forwardRef<
+  React.ElementRef<typeof DialogPrimitive.Description>,
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
+>(({ className, ...props }, ref) => (
+  <DialogPrimitive.Description
+    ref={ref}
+    data-slot="modal-description"
+    className={cn('text-sm', className)}
+    style={{ color: 'var(--text-muted)' }}
+    {...props}
+  />
+));
+ModalDescription.displayName = 'ModalDescription';
 
 // ========================================
 // COMPOUND COMPONENT: CLOSE
 // ========================================
 
-interface ModalCloseProps {
-  className?: string;
-}
-
-const ModalClose: FC<ModalCloseProps> = ({ className }) => {
-  const { onClose } = useModalContext();
-  const { isHovered, hoverProps } = useHover();
-  const { isFocusVisible, focusProps } = useFocus({ focusVisible: true });
-
-  const closeButtonStyles: CSSProperties = useMemo(
-    () => ({
-      background: 'var(--modal-close-btn-bg)',
-      border: 'var(--modal-close-btn-border)',
-      color: 'var(--text-muted)',
-      boxShadow: isFocusVisible
-        ? 'var(--focus-glow)'
-        : isHovered
-          ? 'var(--modal-close-btn-hover-glow)'
-          : 'none',
-      outline: 'none',
-    }),
-    [isHovered, isFocusVisible]
-  );
-
-  return (
-    <button
-      onClick={onClose}
-      onMouseEnter={hoverProps.onMouseEnter}
-      onMouseLeave={hoverProps.onMouseLeave}
-      onFocus={focusProps.onFocus}
-      onBlur={focusProps.onBlur}
-      className={cn('p-1.5 md:p-2 rounded-xl transition-all duration-300', className)}
-      style={closeButtonStyles}
-      type="button"
-      aria-label="Close modal"
-    >
-      <X className={ICON_SIZES.md} />
-    </button>
-  );
-};
-
-// ========================================
-// EXPORT COMPOUND COMPONENT (v1.0.0+)
-// ========================================
-
 /**
- * ModalGlass - Compound Component API
+ * ModalGlass.Close - Closes the modal when clicked
+ *
+ * Use `asChild` to render as the child element.
  *
  * @example
  * ```tsx
- * <ModalGlass.Root open={open} onOpenChange={setOpen}>
- *   <ModalGlass.Overlay />
+ * <ModalGlass.Close asChild>
+ *   <ButtonGlass variant="ghost">Cancel</ButtonGlass>
+ * </ModalGlass.Close>
+ * ```
+ */
+function ModalClose({ ...props }: React.ComponentProps<typeof DialogPrimitive.Close>) {
+  return <DialogPrimitive.Close data-slot="modal-close" {...props} />;
+}
+
+// ========================================
+// EXPORT COMPOUND COMPONENT
+// ========================================
+
+/**
+ * ModalGlass - Glass-themed Dialog with shadcn/ui API compatibility
+ *
+ * Built on @radix-ui/react-dialog for full accessibility support.
+ *
+ * @example Uncontrolled (with Trigger)
+ * ```tsx
+ * <ModalGlass.Root>
+ *   <ModalGlass.Trigger asChild>
+ *     <ButtonGlass>Open</ButtonGlass>
+ *   </ModalGlass.Trigger>
  *   <ModalGlass.Content>
  *     <ModalGlass.Header>
- *       <ModalGlass.Title>Confirm</ModalGlass.Title>
- *       <ModalGlass.Description>Are you sure?</ModalGlass.Description>
- *       <ModalGlass.Close />
+ *       <ModalGlass.Title>Title</ModalGlass.Title>
  *     </ModalGlass.Header>
- *     <ModalGlass.Body>
- *       <p>Body content</p>
- *     </ModalGlass.Body>
+ *     <ModalGlass.Body>Content</ModalGlass.Body>
  *     <ModalGlass.Footer>
- *       <ButtonGlass>Cancel</ButtonGlass>
+ *       <ModalGlass.Close asChild>
+ *         <ButtonGlass>Close</ButtonGlass>
+ *       </ModalGlass.Close>
+ *     </ModalGlass.Footer>
+ *   </ModalGlass.Content>
+ * </ModalGlass.Root>
+ * ```
+ *
+ * @example Controlled
+ * ```tsx
+ * <ModalGlass.Root open={open} onOpenChange={setOpen}>
+ *   <ModalGlass.Content showCloseButton={false}>
+ *     <ModalGlass.Header>
+ *       <ModalGlass.Title>Confirm</ModalGlass.Title>
+ *     </ModalGlass.Header>
+ *     <ModalGlass.Footer>
+ *       <ButtonGlass onClick={() => setOpen(false)}>OK</ButtonGlass>
  *     </ModalGlass.Footer>
  *   </ModalGlass.Content>
  * </ModalGlass.Root>
@@ -503,6 +397,8 @@ const ModalClose: FC<ModalCloseProps> = ({ className }) => {
  */
 export const ModalGlass = {
   Root: ModalRoot,
+  Trigger: ModalTrigger,
+  Portal: ModalPortal,
   Overlay: ModalOverlay,
   Content: ModalContent,
   Header: ModalHeader,
@@ -512,3 +408,20 @@ export const ModalGlass = {
   Description: ModalDescription,
   Close: ModalClose,
 };
+
+// Named exports for direct imports
+export {
+  ModalRoot,
+  ModalTrigger,
+  ModalPortal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  ModalTitle,
+  ModalDescription,
+  ModalClose,
+};
+
+export type { ModalRootProps, ModalContentProps };

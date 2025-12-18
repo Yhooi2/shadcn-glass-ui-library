@@ -44,6 +44,10 @@ import '@/glass-theme.css';
 
 type TooltipGlassProviderProps = React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Provider>;
 
+/**
+ * TooltipGlassProvider - Context provider for all tooltips
+ * Must wrap TooltipGlass components at the app level.
+ */
 const TooltipGlassProvider: React.FC<TooltipGlassProviderProps> = ({
   delayDuration = 0,
   ...props
@@ -51,17 +55,34 @@ const TooltipGlassProvider: React.FC<TooltipGlassProviderProps> = ({
   return <TooltipPrimitive.Provider delayDuration={delayDuration} {...props} />;
 };
 
+TooltipGlassProvider.displayName = 'TooltipGlassProvider';
+
 // ========================================
 // COMPOUND COMPONENT: ROOT
 // ========================================
 
+/**
+ * TooltipGlassRoot - Individual tooltip instance
+ * Wraps Radix TooltipPrimitive.Root
+ */
 const TooltipGlassRoot = TooltipPrimitive.Root;
 
 // ========================================
 // COMPOUND COMPONENT: TRIGGER
 // ========================================
 
-const TooltipGlassTrigger = TooltipPrimitive.Trigger;
+/**
+ * TooltipGlassTrigger - Element that triggers the tooltip
+ * Supports asChild pattern for custom trigger elements.
+ */
+const TooltipGlassTrigger = React.forwardRef<
+  React.ElementRef<typeof TooltipPrimitive.Trigger>,
+  React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Trigger>
+>(({ ...props }, ref) => (
+  <TooltipPrimitive.Trigger ref={ref} data-slot="tooltip-trigger" {...props} />
+));
+
+TooltipGlassTrigger.displayName = 'TooltipGlassTrigger';
 
 // ========================================
 // COMPOUND COMPONENT: CONTENT
@@ -69,6 +90,10 @@ const TooltipGlassTrigger = TooltipPrimitive.Trigger;
 
 type TooltipGlassContentProps = React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content>;
 
+/**
+ * TooltipGlassContent - Tooltip content with glass styling
+ * Rendered in a portal for proper z-index handling.
+ */
 const TooltipGlassContent = React.forwardRef<
   React.ElementRef<typeof TooltipPrimitive.Content>,
   TooltipGlassContentProps
@@ -87,6 +112,7 @@ const TooltipGlassContent = React.forwardRef<
       <TooltipPrimitive.Content
         ref={ref}
         sideOffset={sideOffset}
+        data-slot="tooltip-content"
         className={cn(
           'z-50 overflow-hidden rounded-md px-3 py-1.5 text-xs text-balance',
           'animate-in fade-in-0 zoom-in-95',

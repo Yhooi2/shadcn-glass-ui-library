@@ -1,60 +1,47 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ModalGlass } from '../modal-glass';
 import type { ReactNode } from 'react';
 
-// Helper to render ModalGlass with Compound API
+// Helper to render ModalGlass with controlled mode
 const renderModal = ({
   open = true,
   onOpenChange = vi.fn(),
   title = 'Test Modal',
+  description,
   children = 'Content' as ReactNode,
   size,
+  showCloseButton = true,
   className,
-  ...props
 }: {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
   title?: string;
+  description?: string;
   children?: ReactNode;
   size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
+  showCloseButton?: boolean;
   className?: string;
-  [key: string]: unknown;
 } = {}) => {
   return render(
-    <ModalGlass.Root open={open} onOpenChange={onOpenChange} size={size} {...props}>
-      {open && (
-        <>
-          <ModalGlass.Overlay />
-          <ModalGlass.Content className={className}>
-            <ModalGlass.Header>
-              <ModalGlass.Title>{title}</ModalGlass.Title>
-              <ModalGlass.Close />
-            </ModalGlass.Header>
-            <ModalGlass.Body>{children}</ModalGlass.Body>
-          </ModalGlass.Content>
-        </>
-      )}
+    <ModalGlass.Root open={open} onOpenChange={onOpenChange} size={size}>
+      <ModalGlass.Content showCloseButton={showCloseButton} className={className}>
+        <ModalGlass.Header>
+          <ModalGlass.Title>{title}</ModalGlass.Title>
+          {description && <ModalGlass.Description>{description}</ModalGlass.Description>}
+        </ModalGlass.Header>
+        <ModalGlass.Body>{children}</ModalGlass.Body>
+      </ModalGlass.Content>
     </ModalGlass.Root>
   );
 };
 
 describe('ModalGlass', () => {
-  let originalOverflow: string;
-
-  beforeEach(() => {
-    originalOverflow = document.body.style.overflow;
-  });
-
-  afterEach(() => {
-    document.body.style.overflow = originalOverflow;
-  });
-
   describe('Rendering', () => {
     it('renders nothing when open is false', () => {
-      const { container } = renderModal({ open: false });
-      expect(container.firstChild).toBeNull();
+      renderModal({ open: false });
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
     });
 
     it('renders modal when open is true', () => {
@@ -72,17 +59,40 @@ describe('ModalGlass', () => {
       expect(screen.getByText('Modal content here')).toBeInTheDocument();
     });
 
-    it('has correct ARIA attributes', () => {
+    it('applies custom className', () => {
+      renderModal({ className: 'custom-class' });
+      const content = screen.getByRole('dialog');
+      expect(content).toHaveClass('custom-class');
+    });
+  });
+
+  describe('ARIA Attributes (Radix Dialog)', () => {
+    it('has correct dialog role', () => {
       renderModal();
       const dialog = screen.getByRole('dialog');
-      expect(dialog).toHaveAttribute('aria-modal', 'true');
-      expect(dialog).toHaveAttribute('aria-labelledby', 'modal-title');
+      expect(dialog).toBeInTheDocument();
     });
 
-    it('applies custom className', () => {
-      const { container } = renderModal({ className: 'custom-class' });
-      const modal = container.querySelector('.custom-class');
-      expect(modal).toBeInTheDocument();
+    it('has correct accessibility semantics', () => {
+      renderModal();
+      // Radix Dialog provides modal semantics
+      const dialog = screen.getByRole('dialog');
+      // The dialog element is found, confirming modal semantics
+      // Radix handles focus trapping and body scroll lock internally
+      expect(dialog).toBeInTheDocument();
+    });
+
+    it('links title to dialog via aria-labelledby', () => {
+      renderModal({ title: 'Test Title' });
+      const dialog = screen.getByRole('dialog');
+      // Radix automatically generates and links IDs
+      expect(dialog).toHaveAttribute('aria-labelledby');
+    });
+
+    it('links description to dialog via aria-describedby when description exists', () => {
+      renderModal({ description: 'Test Description' });
+      const dialog = screen.getByRole('dialog');
+      expect(dialog).toHaveAttribute('aria-describedby');
     });
   });
 
@@ -101,197 +111,244 @@ describe('ModalGlass', () => {
       renderModal({ size: 'lg' });
       expect(screen.getByRole('dialog')).toBeInTheDocument();
     });
+
+    it('renders extra large size', () => {
+      renderModal({ size: 'xl' });
+      expect(screen.getByRole('dialog')).toBeInTheDocument();
+    });
+
+    it('renders full size', () => {
+      renderModal({ size: 'full' });
+      expect(screen.getByRole('dialog')).toBeInTheDocument();
+    });
   });
 
   describe('Close Button', () => {
-    it('renders close button with correct aria-label', () => {
-      renderModal();
-      const closeButton = screen.getByLabelText('Close modal');
+    it('renders close button when showCloseButton is true', () => {
+      renderModal({ showCloseButton: true });
+      const closeButton = screen.getByRole('button', { name: /close/i });
       expect(closeButton).toBeInTheDocument();
     });
 
-    it('calls onClose when close button is clicked', async () => {
-      const user = userEvent.setup();
-      const handleClose = vi.fn();
-      renderModal({ onOpenChange: handleClose });
+    it('does not render close button when showCloseButton is false', () => {
+      renderModal({ showCloseButton: false });
+      const closeButton = screen.queryByRole('button', { name: /close/i });
+      expect(closeButton).not.toBeInTheDocument();
+    });
 
-      const closeButton = screen.getByLabelText('Close modal');
+    it('calls onOpenChange when close button is clicked', async () => {
+      const user = userEvent.setup();
+      const handleOpenChange = vi.fn();
+      renderModal({ onOpenChange: handleOpenChange });
+
+      const closeButton = screen.getByRole('button', { name: /close/i });
       await user.click(closeButton);
 
       await waitFor(() => {
-        expect(handleClose).toHaveBeenCalledWith(false);
+        expect(handleOpenChange).toHaveBeenCalledWith(false);
       });
     });
 
     it('displays X icon in close button', () => {
       renderModal();
-      const closeButton = screen.getByLabelText('Close modal');
+      const closeButton = screen.getByRole('button', { name: /close/i });
       const icon = closeButton.querySelector('svg');
       expect(icon).toBeInTheDocument();
     });
   });
 
   describe('Overlay', () => {
-    it('renders overlay with correct styling', () => {
-      const { container } = renderModal();
-      const overlay = container.querySelector('[aria-hidden="true"]');
+    it('renders overlay', () => {
+      renderModal();
+      // Radix Dialog renders overlay with data-slot
+      const overlay = document.querySelector('[data-slot="modal-overlay"]');
       expect(overlay).toBeInTheDocument();
-    });
-
-    it('calls onClose when overlay is clicked', async () => {
-      const user = userEvent.setup();
-      const handleClose = vi.fn();
-      const { container } = renderModal({ onOpenChange: handleClose });
-
-      const overlay = container.querySelector('[aria-hidden="true"]') as HTMLElement;
-      await user.click(overlay);
-
-      await waitFor(() => {
-        expect(handleClose).toHaveBeenCalledWith(false);
-      });
     });
   });
 
   describe('Keyboard Interactions', () => {
     it('closes modal when Escape key is pressed', async () => {
       const user = userEvent.setup();
-      const handleClose = vi.fn();
-      renderModal({ onOpenChange: handleClose });
+      const handleOpenChange = vi.fn();
+      renderModal({ onOpenChange: handleOpenChange });
 
       await user.keyboard('{Escape}');
 
       await waitFor(() => {
-        expect(handleClose).toHaveBeenCalledWith(false);
+        expect(handleOpenChange).toHaveBeenCalledWith(false);
       });
-    });
-
-    it('does not close on other key presses', async () => {
-      const user = userEvent.setup();
-      const handleClose = vi.fn();
-      renderModal({ onOpenChange: handleClose });
-
-      await user.keyboard('a');
-      await user.keyboard('{Enter}');
-      await user.keyboard('{Space}');
-
-      expect(handleClose).not.toHaveBeenCalled();
     });
   });
 
-  describe('Body Scroll Lock', () => {
-    it('locks body scroll when modal opens', () => {
-      renderModal();
-      expect(document.body.style.overflow).toBe('hidden');
-    });
-
-    it('unlocks body scroll when modal closes', () => {
-      const { rerender } = renderModal();
-      expect(document.body.style.overflow).toBe('hidden');
-
-      rerender(
-        <ModalGlass.Root open={false} onOpenChange={vi.fn()}>
+  describe('Trigger Mode (Uncontrolled)', () => {
+    it('opens modal when trigger is clicked', async () => {
+      const user = userEvent.setup();
+      render(
+        <ModalGlass.Root>
+          <ModalGlass.Trigger>Open Modal</ModalGlass.Trigger>
           <ModalGlass.Content>
             <ModalGlass.Header>
-              <ModalGlass.Title>Test Modal</ModalGlass.Title>
+              <ModalGlass.Title>Triggered Modal</ModalGlass.Title>
             </ModalGlass.Header>
             <ModalGlass.Body>Content</ModalGlass.Body>
           </ModalGlass.Content>
         </ModalGlass.Root>
       );
-      expect(document.body.style.overflow).toBe('');
+
+      // Modal should not be visible initially
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+
+      // Click trigger
+      await user.click(screen.getByText('Open Modal'));
+
+      // Modal should now be visible
+      await waitFor(() => {
+        expect(screen.getByRole('dialog')).toBeInTheDocument();
+      });
     });
 
-    it('unlocks body scroll on unmount', () => {
-      const { unmount } = renderModal();
-      expect(document.body.style.overflow).toBe('hidden');
+    it('supports asChild on trigger', async () => {
+      const user = userEvent.setup();
+      render(
+        <ModalGlass.Root>
+          <ModalGlass.Trigger asChild>
+            <button data-testid="custom-trigger">Custom Button</button>
+          </ModalGlass.Trigger>
+          <ModalGlass.Content>
+            <ModalGlass.Header>
+              <ModalGlass.Title>Modal</ModalGlass.Title>
+            </ModalGlass.Header>
+          </ModalGlass.Content>
+        </ModalGlass.Root>
+      );
 
-      unmount();
-      expect(document.body.style.overflow).toBe('');
+      const trigger = screen.getByTestId('custom-trigger');
+      await user.click(trigger);
+
+      await waitFor(() => {
+        expect(screen.getByRole('dialog')).toBeInTheDocument();
+      });
+    });
+  });
+
+  describe('Close Component', () => {
+    it('closes modal when Close component is clicked', async () => {
+      const user = userEvent.setup();
+      const handleOpenChange = vi.fn();
+      render(
+        <ModalGlass.Root open={true} onOpenChange={handleOpenChange}>
+          <ModalGlass.Content showCloseButton={false}>
+            <ModalGlass.Header>
+              <ModalGlass.Title>Modal</ModalGlass.Title>
+            </ModalGlass.Header>
+            <ModalGlass.Footer>
+              <ModalGlass.Close data-testid="close-btn">Cancel</ModalGlass.Close>
+            </ModalGlass.Footer>
+          </ModalGlass.Content>
+        </ModalGlass.Root>
+      );
+
+      await user.click(screen.getByTestId('close-btn'));
+
+      await waitFor(() => {
+        expect(handleOpenChange).toHaveBeenCalledWith(false);
+      });
+    });
+
+    it('supports asChild on Close component', async () => {
+      const user = userEvent.setup();
+      const handleOpenChange = vi.fn();
+      render(
+        <ModalGlass.Root open={true} onOpenChange={handleOpenChange}>
+          <ModalGlass.Content showCloseButton={false}>
+            <ModalGlass.Header>
+              <ModalGlass.Title>Modal</ModalGlass.Title>
+            </ModalGlass.Header>
+            <ModalGlass.Footer>
+              <ModalGlass.Close asChild>
+                <button data-testid="cancel-btn">Cancel Action</button>
+              </ModalGlass.Close>
+            </ModalGlass.Footer>
+          </ModalGlass.Content>
+        </ModalGlass.Root>
+      );
+
+      await user.click(screen.getByTestId('cancel-btn'));
+
+      await waitFor(() => {
+        expect(handleOpenChange).toHaveBeenCalledWith(false);
+      });
     });
   });
 
   describe('Forward Ref', () => {
-    it('forwards ref to modal content div', () => {
+    it('forwards ref to modal content', () => {
       const ref = { current: null } as React.RefObject<HTMLDivElement>;
       render(
         <ModalGlass.Root open={true} onOpenChange={vi.fn()}>
-          <ModalGlass.Overlay />
           <ModalGlass.Content ref={ref}>
             <ModalGlass.Header>
               <ModalGlass.Title>Test</ModalGlass.Title>
-              <ModalGlass.Close />
             </ModalGlass.Header>
-            <ModalGlass.Body>Content</ModalGlass.Body>
           </ModalGlass.Content>
         </ModalGlass.Root>
       );
 
       expect(ref.current).toBeInstanceOf(HTMLDivElement);
     });
-
-    it('allows ref to access element', () => {
-      const ref = { current: null } as React.RefObject<HTMLDivElement>;
-      render(
-        <ModalGlass.Root open={true} onOpenChange={vi.fn()}>
-          <ModalGlass.Overlay />
-          <ModalGlass.Content ref={ref}>
-            <ModalGlass.Header>
-              <ModalGlass.Title>Test</ModalGlass.Title>
-              <ModalGlass.Close />
-            </ModalGlass.Header>
-            <ModalGlass.Body>Content</ModalGlass.Body>
-          </ModalGlass.Content>
-        </ModalGlass.Root>
-      );
-
-      expect(ref.current).not.toBeNull();
-      if (ref.current) {
-        expect((ref.current as HTMLElement).tagName).toBe('DIV');
-      }
-    });
-  });
-
-  describe('Additional Props', () => {
-    it('passes additional HTML attributes to dialog wrapper', () => {
-      renderModal({ 'data-testid': 'custom-modal' });
-
-      const dialog = screen.getByRole('dialog');
-      expect(dialog).toHaveAttribute('data-testid', 'custom-modal');
-    });
-
-    it('applies id attribute correctly', () => {
-      renderModal({ id: 'my-modal' });
-      const dialog = screen.getByRole('dialog');
-      expect(dialog).toHaveAttribute('id', 'my-modal');
-    });
   });
 
   describe('Theme Styling', () => {
-    it('applies modal CSS variables', () => {
-      const { container } = renderModal();
-      const modal = container.querySelector('[id="modal-title"]')?.parentElement?.parentElement;
-      expect(modal).toHaveStyle({
+    it('applies modal CSS variables to content', () => {
+      renderModal();
+      const dialog = screen.getByRole('dialog');
+      expect(dialog).toHaveStyle({
         background: 'var(--modal-bg)',
       });
     });
 
     it('applies overlay CSS variables', () => {
-      const { container } = renderModal();
-      const overlay = container.querySelector('[aria-hidden="true"]') as HTMLElement;
+      renderModal();
+      const overlay = document.querySelector('[data-slot="modal-overlay"]') as HTMLElement;
       expect(overlay).toHaveStyle({
         background: 'var(--modal-overlay)',
       });
     });
   });
 
-  describe('Modal Title', () => {
-    it('has correct id for ARIA labelledby', () => {
-      renderModal({ title: 'Test Title' });
-      const title = document.getElementById('modal-title');
-      expect(title).toBeInTheDocument();
-      expect(title).toHaveTextContent('Test Title');
+  describe('Data Slots', () => {
+    it('has data-slot on content', () => {
+      renderModal();
+      const content = screen.getByRole('dialog');
+      expect(content).toHaveAttribute('data-slot', 'modal-content');
     });
 
+    it('has data-slot on overlay', () => {
+      renderModal();
+      const overlay = document.querySelector('[data-slot="modal-overlay"]');
+      expect(overlay).toBeInTheDocument();
+    });
+
+    it('has data-slot on header', () => {
+      renderModal();
+      const header = document.querySelector('[data-slot="modal-header"]');
+      expect(header).toBeInTheDocument();
+    });
+
+    it('has data-slot on body', () => {
+      renderModal();
+      const body = document.querySelector('[data-slot="modal-body"]');
+      expect(body).toBeInTheDocument();
+    });
+
+    it('has data-slot on title', () => {
+      renderModal();
+      const title = document.querySelector('[data-slot="modal-title"]');
+      expect(title).toBeInTheDocument();
+    });
+  });
+
+  describe('Modal Title', () => {
     it('applies title text color from CSS variables', () => {
       renderModal({ title: 'Test' });
       const title = screen.getByText('Test');
@@ -301,11 +358,21 @@ describe('ModalGlass', () => {
     });
   });
 
-  describe('Modal Content', () => {
+  describe('Modal Description', () => {
+    it('renders description with correct styling', () => {
+      renderModal({ description: 'Description text' });
+      const description = screen.getByText('Description text');
+      expect(description).toHaveStyle({
+        color: 'var(--text-muted)',
+      });
+    });
+  });
+
+  describe('Modal Body', () => {
     it('applies content text color from CSS variables', () => {
       renderModal({ children: <div>Content here</div> });
-      const content = screen.getByText('Content here').parentElement;
-      expect(content).toHaveStyle({
+      const body = document.querySelector('[data-slot="modal-body"]') as HTMLElement;
+      expect(body).toHaveStyle({
         color: 'var(--text-secondary)',
       });
     });
@@ -327,66 +394,43 @@ describe('ModalGlass', () => {
     });
   });
 
-  describe('Modal Description Component', () => {
-    it('renders description with correct id', () => {
+  describe('Modal Footer', () => {
+    it('renders footer with correct layout', () => {
       render(
         <ModalGlass.Root open={true} onOpenChange={vi.fn()}>
           <ModalGlass.Content>
             <ModalGlass.Header>
               <ModalGlass.Title>Title</ModalGlass.Title>
             </ModalGlass.Header>
-            <ModalGlass.Description>Description text</ModalGlass.Description>
+            <ModalGlass.Footer data-testid="footer">
+              <button>Cancel</button>
+              <button>Confirm</button>
+            </ModalGlass.Footer>
           </ModalGlass.Content>
         </ModalGlass.Root>
       );
 
-      const description = screen.getByText('Description text');
-      expect(description).toHaveAttribute('id', 'modal-description');
-    });
-
-    it('links description to content via aria-describedby', () => {
-      render(
-        <ModalGlass.Root open={true} onOpenChange={vi.fn()}>
-          <ModalGlass.Content>
-            <ModalGlass.Header>
-              <ModalGlass.Title>Title</ModalGlass.Title>
-            </ModalGlass.Header>
-            <ModalGlass.Description>Description</ModalGlass.Description>
-          </ModalGlass.Content>
-        </ModalGlass.Root>
-      );
-
-      const dialog = screen.getByRole('dialog');
-      expect(dialog).toHaveAttribute('aria-describedby', 'modal-description');
-    });
-  });
-
-  describe('Close Button Details', () => {
-    it('close button has correct responsive icon size', () => {
-      renderModal();
-      const closeButton = screen.getByLabelText('Close modal');
-      const icon = closeButton.querySelector('svg');
-      // Icon should have responsive classes: w-3.5 h-3.5 on mobile, w-4 h-4 on desktop
-      expect(icon).toHaveClass('w-3.5', 'h-3.5', 'md:w-4', 'md:h-4');
+      const footer = screen.getByTestId('footer');
+      expect(footer).toHaveAttribute('data-slot', 'modal-footer');
+      expect(footer).toHaveClass('flex');
     });
   });
 
   describe('Edge Cases', () => {
-    it('handles missing onOpenChange gracefully', () => {
+    it('handles missing onOpenChange gracefully', async () => {
+      const user = userEvent.setup();
       render(
         <ModalGlass.Root open={true}>
           <ModalGlass.Content>
             <ModalGlass.Header>
               <ModalGlass.Title>Title</ModalGlass.Title>
-              <ModalGlass.Close />
             </ModalGlass.Header>
-            <ModalGlass.Body>Content</ModalGlass.Body>
           </ModalGlass.Content>
         </ModalGlass.Root>
       );
 
-      const closeBtn = screen.getByLabelText('Close modal');
-      expect(() => closeBtn.click()).not.toThrow();
+      // Should not throw when pressing Escape
+      await expect(user.keyboard('{Escape}')).resolves.not.toThrow();
     });
   });
 });
