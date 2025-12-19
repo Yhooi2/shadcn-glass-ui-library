@@ -274,8 +274,8 @@ describe('DesktopShowcase Visual Tests', () => {
       renderShowcase(theme);
       await waitForStability();
 
-      // Find checkbox - use nth(1) to get the visible div, not the sr-only input
-      const checkbox = page.getByRole('checkbox').nth(1);
+      // Find checkbox - Radix UI renders as button role="checkbox"
+      const checkbox = page.getByRole('checkbox').first();
 
       // Take screenshot in checked state
       await expect(checkbox).toMatchScreenshot(`desktop-checkbox-checked-${theme}`);
