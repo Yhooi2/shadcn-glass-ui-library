@@ -19,7 +19,7 @@
       "name": "tabs-glass",
       "type": "registry:ui",
       "title": "Tabs Glass",
-      "description": "TabsGlass Component (Compound API only)"
+      "description": "TabsGlass Component (Radix UI based)"
     },
     {
       "name": "stepper-glass",
@@ -97,7 +97,7 @@
       "name": "checkbox-glass",
       "type": "registry:ui",
       "title": "Checkbox Glass",
-      "description": "Glass-themed checkbox with:"
+      "description": "Glass-themed checkbox built on Radix UI primitives with:"
     },
     {
       "name": "card-glass",
