@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.5] - 2025-12-19
+
+### Added
+
+- **TabsGlass:** shadcn/ui API compatibility
+  - New exports: `Tabs`, `TabsList`, `TabsTrigger`, `TabsContent` (separate named exports)
+  - Added `defaultValue` prop for uncontrolled mode
+  - New types: `TabsRootProps`, `TabsListProps`, `TabsTriggerProps`, `TabsContentProps`
+- **CheckboxGlass:** shadcn/ui API compatibility
+  - Added `onCheckedChange` callback (shadcn/ui pattern)
+  - Added `indeterminate` state support with visual indicator (Minus icon)
+  - Added `defaultChecked` prop for uncontrolled mode
+  - New alias export: `Checkbox`
+  - New type: `CheckedState = boolean | 'indeterminate'`
+  - Backwards compatible: legacy `onChange` prop still works (deprecated)
+
+### Fixed
+
+- **Issue #5:** API incompatibility with shadcn/ui components resolved
+  - Tabs and Checkbox now support drop-in replacement patterns
+  - InputGlass was already compatible (extends `InputHTMLAttributes`)
+
 ## [2.2.4] - 2025-12-19
 
 ### Fixed

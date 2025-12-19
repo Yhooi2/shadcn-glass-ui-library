@@ -1,6 +1,7 @@
 // ========================================
 // SHADCN GLASS UI - MAIN ENTRY POINT
 // Modern glassmorphism UI component library
+// v2.2.5 - shadcn/ui API compatibility for Tabs and Checkbox
 // ========================================
 
 // ========================================
