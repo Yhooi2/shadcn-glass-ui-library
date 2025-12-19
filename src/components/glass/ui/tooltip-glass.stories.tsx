@@ -19,10 +19,10 @@ const meta = {
   },
   tags: ['autodocs'],
   argTypes: {
-    position: {
+    side: {
       control: 'select',
       options: ['top', 'bottom', 'left', 'right'],
-      description: 'Tooltip position',
+      description: 'Tooltip side placement',
     },
     content: {
       control: 'text',
@@ -46,7 +46,7 @@ export const Default: Story = {
 
 export const Top: Story = {
   args: {
-    position: 'top',
+    side: 'top',
     content: 'Tooltip on top',
     children: <ButtonGlass>Top</ButtonGlass>,
   },
@@ -57,7 +57,7 @@ export const Top: Story = {
 
 export const Bottom: Story = {
   args: {
-    position: 'bottom',
+    side: 'bottom',
     content: 'Tooltip on bottom',
     children: <ButtonGlass>Bottom</ButtonGlass>,
   },
@@ -68,7 +68,7 @@ export const Bottom: Story = {
 
 export const Left: Story = {
   args: {
-    position: 'left',
+    side: 'left',
     content: 'Tooltip on left',
     children: <ButtonGlass>Left</ButtonGlass>,
   },
@@ -79,7 +79,7 @@ export const Left: Story = {
 
 export const Right: Story = {
   args: {
-    position: 'right',
+    side: 'right',
     content: 'Tooltip on right',
     children: <ButtonGlass>Right</ButtonGlass>,
   },
@@ -109,22 +109,22 @@ export const AllPositions: Story = {
   },
   render: () => (
     <div className="flex gap-8 p-8">
-      <TooltipGlass position="top" content="Top tooltip">
+      <TooltipGlass side="top" content="Top tooltip">
         <ButtonGlass variant="ghost" size="icon">
           <HelpCircle className="w-4 h-4" />
         </ButtonGlass>
       </TooltipGlass>
-      <TooltipGlass position="bottom" content="Bottom tooltip">
+      <TooltipGlass side="bottom" content="Bottom tooltip">
         <ButtonGlass variant="ghost" size="icon">
           <HelpCircle className="w-4 h-4" />
         </ButtonGlass>
       </TooltipGlass>
-      <TooltipGlass position="left" content="Left tooltip">
+      <TooltipGlass side="left" content="Left tooltip">
         <ButtonGlass variant="ghost" size="icon">
           <HelpCircle className="w-4 h-4" />
         </ButtonGlass>
       </TooltipGlass>
-      <TooltipGlass position="right" content="Right tooltip">
+      <TooltipGlass side="right" content="Right tooltip">
         <ButtonGlass variant="ghost" size="icon">
           <HelpCircle className="w-4 h-4" />
         </ButtonGlass>

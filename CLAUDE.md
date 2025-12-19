@@ -23,10 +23,12 @@ gh workflow run update-screenshots.yml  # ✅ Actual update (Linux)
 npm run build                   # Production build
 npm run build-storybook        # Static Storybook
 
-# Linting & Fixing
+# Linting & Type Checking
 npm run lint                    # Check issues
 npm run lint:fix               # Auto-fix ESLint issues
-npm run typecheck              # TypeScript check without build
+npm run typecheck              # TypeScript check (production code only)
+npm run typecheck:stories      # TypeScript check (stories + components)
+npm run typecheck:all          # TypeScript check (everything)
 
 # Git & CI
 ./scripts/clean-local-screenshots.sh  # Clean local screenshots (macOS/Windows)
@@ -39,8 +41,9 @@ git add .                        # Stage changes
 git commit -m "feat: message"    # Husky runs lint-staged + screenshot check
 # Pre-commit hooks:
 #   1. Blocks screenshot commits (use GitHub Actions instead)
-#   2. Runs ESLint --max-warnings=0 on staged TS/TSX files
-#   3. Runs Prettier on all staged files
+#   2. Runs typecheck:stories when .stories.tsx files are staged
+#   3. Runs ESLint --max-warnings=0 on staged TS/TSX files
+#   4. Runs Prettier on all staged files
 # Commit message triggers auto-release:
 #   feat: -> minor version bump (1.0.0 -> 1.1.0)
 #   fix:  -> patch version bump (1.0.0 -> 1.0.1)

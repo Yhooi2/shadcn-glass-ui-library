@@ -1,14 +1,13 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { ComboBoxGlass } from './combobox-glass';
+import { ComboBoxGlass, type ComboBoxOption } from './combobox-glass';
 import { User, MapPin, Building } from 'lucide-react';
 import { ThemeProvider } from '@/lib/theme-context';
 import '@/glass-theme.css';
 
-const meta = {
+const meta: Meta = {
   title: 'Components/Overlay/ComboBoxGlass',
-  component: ComboBoxGlass,
   parameters: {
     layout: 'centered',
     backgrounds: { disable: true },
@@ -65,13 +64,13 @@ const meta = {
       );
     },
   ],
-} satisfies Meta<typeof ComboBoxGlass>;
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj;
 
-// Sample data
-const countries = [
+// Sample data - typed for ComboBoxGlass
+const countries: ComboBoxOption<string>[] = [
   { value: 'us', label: 'United States' },
   { value: 'uk', label: 'United Kingdom' },
   { value: 'ca', label: 'Canada' },
@@ -82,7 +81,7 @@ const countries = [
   { value: 'cn', label: 'China' },
 ];
 
-const countriesWithIcons = [
+const countriesWithIcons: ComboBoxOption<string>[] = [
   { value: 'us', label: 'United States', icon: MapPin },
   { value: 'uk', label: 'United Kingdom', icon: MapPin },
   { value: 'ca', label: 'Canada', icon: MapPin },
@@ -91,180 +90,217 @@ const countriesWithIcons = [
 
 // Default story
 export const Default: Story = {
-  args: {
-    options: countries,
-    placeholder: 'Select country...',
-  },
-  render: (args) => {
+  render: () => {
     const [value, setValue] = useState<string>();
-    return <ComboBoxGlass {...args} value={value} onValueChange={setValue} />;
+    return (
+      <ComboBoxGlass
+        options={countries}
+        placeholder="Select country..."
+        value={value}
+        onValueChange={setValue}
+      />
+    );
   },
 };
 
 // With Label
 export const WithLabel: Story = {
-  args: {
-    options: countries,
-    label: 'Country',
-    placeholder: 'Select country...',
-  },
-  render: (args) => {
+  render: () => {
     const [value, setValue] = useState<string>();
-    return <ComboBoxGlass {...args} value={value} onValueChange={setValue} />;
+    return (
+      <ComboBoxGlass
+        options={countries}
+        label="Country"
+        placeholder="Select country..."
+        value={value}
+        onValueChange={setValue}
+      />
+    );
   },
 };
 
 // With Error
 export const WithError: Story = {
-  args: {
-    options: countries,
-    label: 'Country',
-    error: 'Please select a country',
-    required: true,
-    placeholder: 'Select country...',
-  },
-  render: (args) => {
+  render: () => {
     const [value, setValue] = useState<string>();
-    return <ComboBoxGlass {...args} value={value} onValueChange={setValue} />;
+    return (
+      <ComboBoxGlass
+        options={countries}
+        label="Country"
+        error="Please select a country"
+        required
+        placeholder="Select country..."
+        value={value}
+        onValueChange={setValue}
+      />
+    );
   },
 };
 
 // With Success
 export const WithSuccess: Story = {
-  args: {
-    options: countries,
-    label: 'Country',
-    success: 'Country selected successfully',
-    placeholder: 'Select country...',
-    value: 'us',
-  },
-  render: (args) => {
-    const [value, setValue] = useState<string>('us');
-    return <ComboBoxGlass {...args} value={value} onValueChange={setValue} />;
+  render: () => {
+    const [value, setValue] = useState<string | undefined>('us');
+    return (
+      <ComboBoxGlass
+        options={countries}
+        label="Country"
+        success="Country selected successfully"
+        placeholder="Select country..."
+        value={value}
+        onValueChange={setValue}
+      />
+    );
   },
 };
 
 // Size Variants
 export const SizeSmall: Story = {
-  args: {
-    options: countries,
-    label: 'Country (Small)',
-    size: 'sm',
-    placeholder: 'Select country...',
-  },
-  render: (args) => {
+  render: () => {
     const [value, setValue] = useState<string>();
-    return <ComboBoxGlass {...args} value={value} onValueChange={setValue} />;
+    return (
+      <ComboBoxGlass
+        options={countries}
+        label="Country (Small)"
+        size="sm"
+        placeholder="Select country..."
+        value={value}
+        onValueChange={setValue}
+      />
+    );
   },
 };
 
 export const SizeMedium: Story = {
-  args: {
-    options: countries,
-    label: 'Country (Medium)',
-    size: 'md',
-    placeholder: 'Select country...',
-  },
-  render: (args) => {
+  render: () => {
     const [value, setValue] = useState<string>();
-    return <ComboBoxGlass {...args} value={value} onValueChange={setValue} />;
+    return (
+      <ComboBoxGlass
+        options={countries}
+        label="Country (Medium)"
+        size="md"
+        placeholder="Select country..."
+        value={value}
+        onValueChange={setValue}
+      />
+    );
   },
 };
 
 export const SizeLarge: Story = {
-  args: {
-    options: countries,
-    label: 'Country (Large)',
-    size: 'lg',
-    placeholder: 'Select country...',
-  },
-  render: (args) => {
+  render: () => {
     const [value, setValue] = useState<string>();
-    return <ComboBoxGlass {...args} value={value} onValueChange={setValue} />;
+    return (
+      <ComboBoxGlass
+        options={countries}
+        label="Country (Large)"
+        size="lg"
+        placeholder="Select country..."
+        value={value}
+        onValueChange={setValue}
+      />
+    );
   },
 };
 
 // Not Searchable
 export const NotSearchable: Story = {
-  args: {
-    options: countries,
-    label: 'Country (No Search)',
-    searchable: false,
-    placeholder: 'Select country...',
-  },
-  render: (args) => {
+  render: () => {
     const [value, setValue] = useState<string>();
-    return <ComboBoxGlass {...args} value={value} onValueChange={setValue} />;
+    return (
+      <ComboBoxGlass
+        options={countries}
+        label="Country (No Search)"
+        searchable={false}
+        placeholder="Select country..."
+        value={value}
+        onValueChange={setValue}
+      />
+    );
   },
 };
 
 // With Trigger Icon
 export const WithTriggerIcon: Story = {
-  args: {
-    options: countries,
-    label: 'Location',
-    icon: MapPin,
-    placeholder: 'Select location...',
-  },
-  render: (args) => {
+  render: () => {
     const [value, setValue] = useState<string>();
-    return <ComboBoxGlass {...args} value={value} onValueChange={setValue} />;
+    return (
+      <ComboBoxGlass
+        options={countries}
+        label="Location"
+        icon={MapPin}
+        placeholder="Select location..."
+        value={value}
+        onValueChange={setValue}
+      />
+    );
   },
 };
 
 // With Option Icons
 export const WithOptionIcons: Story = {
-  args: {
-    options: countriesWithIcons,
-    label: 'Country',
-    placeholder: 'Select country...',
-  },
-  render: (args) => {
+  render: () => {
     const [value, setValue] = useState<string>();
-    return <ComboBoxGlass {...args} value={value} onValueChange={setValue} />;
+    return (
+      <ComboBoxGlass
+        options={countriesWithIcons}
+        label="Country"
+        placeholder="Select country..."
+        value={value}
+        onValueChange={setValue}
+      />
+    );
   },
 };
 
 // Disabled
 export const Disabled: Story = {
-  args: {
-    options: countries,
-    label: 'Country',
-    disabled: true,
-    placeholder: 'Select country...',
-  },
-  render: (args) => {
+  render: () => {
     const [value, setValue] = useState<string>();
-    return <ComboBoxGlass {...args} value={value} onValueChange={setValue} />;
+    return (
+      <ComboBoxGlass
+        options={countries}
+        label="Country"
+        disabled
+        placeholder="Select country..."
+        value={value}
+        onValueChange={setValue}
+      />
+    );
   },
 };
 
 // Clearable
 export const Clearable: Story = {
-  args: {
-    options: countries,
-    label: 'Country',
-    clearable: true,
-    placeholder: 'Select country...',
-    value: 'us',
-  },
-  render: (args) => {
-    const [value, setValue] = useState<string>('us');
-    return <ComboBoxGlass {...args} value={value} onValueChange={setValue} />;
+  render: () => {
+    const [value, setValue] = useState<string | undefined>('us');
+    return (
+      <ComboBoxGlass
+        options={countries}
+        label="Country"
+        clearable
+        placeholder="Select country..."
+        value={value}
+        onValueChange={setValue}
+      />
+    );
   },
 };
 
 // Glass Variants
 export const GlassVariantFrosted: Story = {
-  args: {
-    options: countries,
-    label: 'Country (Frosted)',
-    glassVariant: 'frosted',
-    placeholder: 'Select country...',
-  },
-  render: (args) => {
+  render: () => {
     const [value, setValue] = useState<string>();
-    return <ComboBoxGlass {...args} value={value} onValueChange={setValue} />;
+    return (
+      <ComboBoxGlass
+        options={countries}
+        label="Country (Frosted)"
+        glassVariant="frosted"
+        placeholder="Select country..."
+        value={value}
+        onValueChange={setValue}
+      />
+    );
   },
 };
 
@@ -275,14 +311,14 @@ export const CompleteForm: Story = {
     const [department, setDepartment] = useState<string>();
     const [role, setRole] = useState<string>();
 
-    const departments = [
+    const departments: ComboBoxOption<string>[] = [
       { value: 'eng', label: 'Engineering', icon: Building },
       { value: 'des', label: 'Design', icon: Building },
       { value: 'mkt', label: 'Marketing', icon: Building },
       { value: 'sales', label: 'Sales', icon: Building },
     ];
 
-    const roles = [
+    const roles: ComboBoxOption<string>[] = [
       { value: 'dev', label: 'Developer', icon: User },
       { value: 'pm', label: 'Product Manager', icon: User },
       { value: 'des', label: 'Designer', icon: User },
@@ -298,7 +334,6 @@ export const CompleteForm: Story = {
           placeholder="Select your country..."
           required
           icon={MapPin}
-          size="default"
         />
 
         <ComboBoxGlass
@@ -308,7 +343,6 @@ export const CompleteForm: Story = {
           label="Department"
           placeholder="Select department..."
           required
-          size="default"
         />
 
         <ComboBoxGlass
@@ -318,7 +352,6 @@ export const CompleteForm: Story = {
           label="Role"
           placeholder="Select your role..."
           searchable={false}
-          size="default"
         />
       </div>
     );

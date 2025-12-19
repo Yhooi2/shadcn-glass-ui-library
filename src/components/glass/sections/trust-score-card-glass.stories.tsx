@@ -27,10 +27,10 @@ export const Default: Story = {
   args: {
     score: 72,
     metrics: [
-      { label: 'Regularity', value: 84, color: 'emerald' },
-      { label: 'Diversity', value: 78, color: 'blue' },
-      { label: 'Impact', value: 45, color: 'amber' },
-      { label: 'Collaboration', value: 12, color: 'red' },
+      { title: 'Regularity', value: 84, variant: 'success' },
+      { title: 'Diversity', value: 78, variant: 'default' },
+      { title: 'Impact', value: 45, variant: 'warning' },
+      { title: 'Collaboration', value: 12, variant: 'destructive' },
     ],
   },
   async play({ canvasElement }) {
@@ -42,10 +42,10 @@ export const HighScore: Story = {
   args: {
     score: 92,
     metrics: [
-      { label: 'Regularity', value: 95, color: 'emerald' },
-      { label: 'Diversity', value: 88, color: 'blue' },
-      { label: 'Impact', value: 91, color: 'emerald' },
-      { label: 'Collaboration', value: 94, color: 'emerald' },
+      { title: 'Regularity', value: 95, variant: 'success' },
+      { title: 'Diversity', value: 88, variant: 'default' },
+      { title: 'Impact', value: 91, variant: 'success' },
+      { title: 'Collaboration', value: 94, variant: 'success' },
     ],
   },
   async play({ canvasElement }) {
@@ -57,10 +57,10 @@ export const LowScore: Story = {
   args: {
     score: 28,
     metrics: [
-      { label: 'Regularity', value: 35, color: 'amber' },
-      { label: 'Diversity', value: 22, color: 'red' },
-      { label: 'Impact', value: 18, color: 'red' },
-      { label: 'Collaboration', value: 38, color: 'amber' },
+      { title: 'Regularity', value: 35, variant: 'warning' },
+      { title: 'Diversity', value: 22, variant: 'destructive' },
+      { title: 'Impact', value: 18, variant: 'destructive' },
+      { title: 'Collaboration', value: 38, variant: 'warning' },
     ],
   },
   async play({ canvasElement }) {
@@ -72,10 +72,10 @@ export const MediumScore: Story = {
   args: {
     score: 55,
     metrics: [
-      { label: 'Regularity', value: 62, color: 'blue' },
-      { label: 'Diversity', value: 48, color: 'amber' },
-      { label: 'Impact', value: 55, color: 'blue' },
-      { label: 'Collaboration', value: 55, color: 'blue' },
+      { title: 'Regularity', value: 62, variant: 'default' },
+      { title: 'Diversity', value: 48, variant: 'warning' },
+      { title: 'Impact', value: 55, variant: 'default' },
+      { title: 'Collaboration', value: 55, variant: 'default' },
     ],
   },
   async play({ canvasElement }) {
@@ -97,10 +97,10 @@ export const PerfectScore: Story = {
   args: {
     score: 100,
     metrics: [
-      { label: 'Regularity', value: 100, color: 'emerald' },
-      { label: 'Diversity', value: 100, color: 'emerald' },
-      { label: 'Impact', value: 100, color: 'emerald' },
-      { label: 'Collaboration', value: 100, color: 'emerald' },
+      { title: 'Regularity', value: 100, variant: 'success' },
+      { title: 'Diversity', value: 100, variant: 'success' },
+      { title: 'Impact', value: 100, variant: 'success' },
+      { title: 'Collaboration', value: 100, variant: 'success' },
     ],
   },
   async play({ canvasElement }) {
@@ -112,10 +112,10 @@ export const ZeroScore: Story = {
   args: {
     score: 0,
     metrics: [
-      { label: 'Regularity', value: 0, color: 'red' },
-      { label: 'Diversity', value: 0, color: 'red' },
-      { label: 'Impact', value: 0, color: 'red' },
-      { label: 'Collaboration', value: 0, color: 'red' },
+      { title: 'Regularity', value: 0, variant: 'destructive' },
+      { title: 'Diversity', value: 0, variant: 'destructive' },
+      { title: 'Impact', value: 0, variant: 'destructive' },
+      { title: 'Collaboration', value: 0, variant: 'destructive' },
     ],
   },
   async play({ canvasElement }) {
@@ -127,8 +127,8 @@ export const TwoMetrics: Story = {
   args: {
     score: 65,
     metrics: [
-      { label: 'Code Quality', value: 75, color: 'blue' },
-      { label: 'Documentation', value: 55, color: 'amber' },
+      { title: 'Code Quality', value: 75, variant: 'default' },
+      { title: 'Documentation', value: 55, variant: 'warning' },
     ],
   },
   async play({ canvasElement }) {

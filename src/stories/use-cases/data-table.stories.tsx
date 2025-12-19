@@ -43,6 +43,8 @@ import {
   CheckboxGlass,
   ButtonGlass,
   PopoverGlass,
+  PopoverGlassTrigger,
+  PopoverGlassContent,
   SkeletonGlass,
   ModalGlass,
   AlertGlass,
@@ -356,7 +358,7 @@ const DataTable = ({
 
       {/* Content */}
       <div className="relative z-10 p-6">
-        <GlassCard intensity="high" className="p-6">
+        <GlassCard intensity="strong" className="p-6">
           {/* Header */}
           <div className="flex items-center justify-between mb-6">
             <div>
@@ -384,8 +386,8 @@ const DataTable = ({
             </div>
 
             {/* Filters */}
-            <PopoverGlass
-              trigger={
+            <PopoverGlass>
+              <PopoverGlassTrigger asChild>
                 <ButtonGlass variant="ghost">
                   <Filter className="w-4 h-4 mr-2" />
                   Filters
@@ -395,52 +397,53 @@ const DataTable = ({
                     </BadgeGlass>
                   )}
                 </ButtonGlass>
-              }
-            >
-              <div className="w-64 p-4 space-y-4">
-                <div>
-                  <h3 className="font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
-                    Status
-                  </h3>
-                  <div className="space-y-2">
-                    {['active', 'inactive', 'pending'].map((status) => (
-                      <CheckboxGlass
-                        key={status}
-                        checked={statusFilter.includes(status)}
-                        onCheckedChange={(checked) => {
-                          if (checked) {
-                            setStatusFilter([...statusFilter, status]);
-                          } else {
-                            setStatusFilter(statusFilter.filter((s) => s !== status));
-                          }
-                        }}
-                        label={status.charAt(0).toUpperCase() + status.slice(1)}
-                      />
-                    ))}
+              </PopoverGlassTrigger>
+              <PopoverGlassContent>
+                <div className="w-64 p-4 space-y-4">
+                  <div>
+                    <h3 className="font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
+                      Status
+                    </h3>
+                    <div className="space-y-2">
+                      {['active', 'inactive', 'pending'].map((status) => (
+                        <CheckboxGlass
+                          key={status}
+                          checked={statusFilter.includes(status)}
+                          onCheckedChange={(checked) => {
+                            if (checked) {
+                              setStatusFilter([...statusFilter, status]);
+                            } else {
+                              setStatusFilter(statusFilter.filter((s) => s !== status));
+                            }
+                          }}
+                          label={status.charAt(0).toUpperCase() + status.slice(1)}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
+                      Role
+                    </h3>
+                    <div className="space-y-2">
+                      {['admin', 'editor', 'viewer'].map((role) => (
+                        <CheckboxGlass
+                          key={role}
+                          checked={roleFilter.includes(role)}
+                          onCheckedChange={(checked) => {
+                            if (checked) {
+                              setRoleFilter([...roleFilter, role]);
+                            } else {
+                              setRoleFilter(roleFilter.filter((r) => r !== role));
+                            }
+                          }}
+                          label={role.charAt(0).toUpperCase() + role.slice(1)}
+                        />
+                      ))}
+                    </div>
                   </div>
                 </div>
-                <div>
-                  <h3 className="font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
-                    Role
-                  </h3>
-                  <div className="space-y-2">
-                    {['admin', 'editor', 'viewer'].map((role) => (
-                      <CheckboxGlass
-                        key={role}
-                        checked={roleFilter.includes(role)}
-                        onCheckedChange={(checked) => {
-                          if (checked) {
-                            setRoleFilter([...roleFilter, role]);
-                          } else {
-                            setRoleFilter(roleFilter.filter((r) => r !== role));
-                          }
-                        }}
-                        label={role.charAt(0).toUpperCase() + role.slice(1)}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
+              </PopoverGlassContent>
             </PopoverGlass>
 
             {/* Bulk Actions */}
@@ -739,7 +742,7 @@ const DataTable = ({
                   {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
                     <ButtonGlass
                       key={page}
-                      variant={currentPage === page ? 'primary' : 'ghost'}
+                      variant={currentPage === page ? 'default' : 'ghost'}
                       size="sm"
                       onClick={() => setCurrentPage(page)}
                       aria-label={`Page ${page}`}
@@ -827,7 +830,7 @@ export const WithSelection: Story = {
         <div className="min-h-screen font-sans">
           <AnimatedBackground />
           <div className="relative z-10 p-6">
-            <GlassCard intensity="high" className="p-6">
+            <GlassCard intensity="strong" className="p-6">
               <div className="flex items-center justify-between mb-6">
                 <div>
                   <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>

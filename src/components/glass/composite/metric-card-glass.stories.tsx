@@ -57,6 +57,7 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+type RenderOnlyStory = Omit<Story, 'args'>;
 
 // ========================================
 // NEW API EXAMPLES (v1.x)
@@ -140,7 +141,7 @@ export const FullFeatured: Story = {
 };
 
 /** All variant types showcase */
-export const AllVariants: Story = {
+export const AllVariants: RenderOnlyStory = {
   render: () => (
     <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 w-auto p-4">
       <MetricCardGlass
@@ -199,9 +200,9 @@ export const AllVariants: Story = {
 
 export const LegacyDefault: Story = {
   args: {
-    label: 'Completion',
+    title: 'Completion',
     value: 75,
-    color: 'blue',
+    variant: 'default',
   },
 };
 
@@ -209,9 +210,9 @@ export const LegacyDefault: Story = {
 export const LegacyWithSparkline: Story = {
   name: '🔴 Legacy: With Sparkline',
   args: {
-    label: 'Performance',
+    title: 'Performance',
     value: 82,
-    color: 'emerald',
+    variant: 'success',
     sparklineData: [65, 68, 72, 75, 78, 80, 82],
   },
 };

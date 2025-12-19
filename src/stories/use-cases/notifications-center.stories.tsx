@@ -369,7 +369,7 @@ const NotificationsCenter = ({
         </div>
 
         {/* Main Content */}
-        <GlassCard intensity="high" className="p-6 max-w-2xl mx-auto">
+        <GlassCard intensity="strong" className="p-6 max-w-2xl mx-auto">
           {/* Tabs for filtering */}
           <TabsGlass.Root
             value={activeFilter}
@@ -578,7 +578,7 @@ const NotificationsCenter = ({
                 </div>
               ) : (
                 filteredNotifications.map((notification) => (
-                  <GlassCard key={notification.id} intensity="low" className="p-4 opacity-75">
+                  <GlassCard key={notification.id} intensity="subtle" className="p-4 opacity-75">
                     <div className="flex items-start gap-4">
                       <div className="flex-shrink-0">{getNotificationIcon(notification.type)}</div>
                       <div className="flex-1">

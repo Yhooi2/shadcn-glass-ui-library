@@ -197,7 +197,7 @@ export const AllSizes: Story = {
       <BadgeGlass size="sm" variant="info">
         Small
       </BadgeGlass>
-      <BadgeGlass size="default" variant="info">
+      <BadgeGlass size="md" variant="info">
         Medium
       </BadgeGlass>
       <BadgeGlass size="lg" variant="info">

@@ -193,13 +193,11 @@ const UserProfile = () => {
 
         {/* Profile Header */}
         <ProfileHeaderGlass
+          name="Alex Developer"
           username="alexdev"
-          bio={bio}
-          avatarUrl="https://api.dicebear.com/7.x/avataaars/svg?seed=alex"
-          joinDate="Joined March 2020"
+          joinDate="March 2020"
           stats={{
-            repositories: 42,
-            contributions: 2847,
+            repos: 42,
             followers: 1234,
             following: 567,
           }}
@@ -323,31 +321,45 @@ const UserProfile = () => {
             {/* Career Timeline Tab */}
             <TabsGlass.Content value="career" className="mt-6">
               <CareerStatsGlass
-                totalExperience="8 years 6 months"
+                totalCommits={3715}
+                totalPRs={156}
+                totalRepos={45}
                 years={[
                   {
                     year: '2024',
-                    contributions: 847,
-                    repositories: 12,
-                    issues: ['Consistent activity', 'High quality commits'],
+                    emoji: '🚀',
+                    label: 'Breakthrough',
+                    commits: '847',
+                    progress: 85,
+                    prs: 42,
+                    repos: 12,
                   },
                   {
                     year: '2023',
-                    contributions: 1234,
-                    repositories: 15,
-                    issues: [],
+                    emoji: '📈',
+                    label: 'Growth',
+                    commits: '1,234',
+                    progress: 92,
+                    prs: 56,
+                    repos: 15,
                   },
                   {
                     year: '2022',
-                    contributions: 956,
-                    repositories: 10,
-                    issues: ['Uneven activity in Q3'],
+                    emoji: '🎯',
+                    label: 'Focused',
+                    commits: '956',
+                    progress: 75,
+                    prs: 38,
+                    repos: 10,
                   },
                   {
                     year: '2021',
-                    contributions: 678,
-                    repositories: 8,
-                    issues: [],
+                    emoji: '🌱',
+                    label: 'Starting',
+                    commits: '678',
+                    progress: 55,
+                    prs: 20,
+                    repos: 8,
                   },
                 ]}
               />
@@ -521,13 +533,11 @@ export const EditMode: Story = {
               </ButtonGlass>
             </div>
             <ProfileHeaderGlass
+              name="Alex Developer"
               username="alexdev"
-              bio={bio}
-              avatarUrl="https://api.dicebear.com/7.x/avataaars/svg?seed=alex"
-              joinDate="Joined March 2020"
+              joinDate="March 2020"
               stats={{
-                repositories: 42,
-                contributions: 2847,
+                repos: 42,
                 followers: 1234,
                 following: 567,
               }}
@@ -600,13 +610,11 @@ export const PublicView: Story = {
               </ButtonGlass>
             </div>
             <ProfileHeaderGlass
+              name="Alex Developer"
               username="alexdev"
-              bio="Senior Software Engineer passionate about building scalable systems and elegant user experiences. Open source contributor and tech community advocate."
-              avatarUrl="https://api.dicebear.com/7.x/avataaars/svg?seed=alex"
-              joinDate="Joined March 2020"
+              joinDate="March 2020"
               stats={{
-                repositories: 42,
-                contributions: 2847,
+                repos: 42,
                 followers: 1234,
                 following: 567,
               }}

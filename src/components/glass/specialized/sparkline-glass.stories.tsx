@@ -28,6 +28,7 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+type RenderOnlyStory = Omit<Story, 'args'>;
 
 export const Default: Story = { args: { data: sampleData } };
 
@@ -52,7 +53,7 @@ export const CustomColors: Story = {
   },
 };
 
-export const Sizes: Story = {
+export const Sizes: RenderOnlyStory = {
   render: () => (
     <div className="space-y-4 w-64">
       <div className="text-xs text-[var(--text-muted)] mb-1">Small (16px)</div>
@@ -100,7 +101,7 @@ export const WithChartConfig: Story = {
   },
 };
 
-export const FullFeatured: Story = {
+export const FullFeatured: RenderOnlyStory = {
   render: () => (
     <div className="space-y-4 w-80">
       <div className="text-sm font-medium text-[var(--text-primary)] mb-2">

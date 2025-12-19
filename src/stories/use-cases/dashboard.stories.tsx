@@ -109,7 +109,7 @@ const Dashboard = () => {
         </div>
 
         {/* Header */}
-        <HeaderNavGlass onSearch={(query) => setSearchQuery(query)} userName="Admin User" />
+        <HeaderNavGlass onSearch={(query) => setSearchQuery(query)} username="Admin User" />
 
         {/* Primary Metrics Row */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -171,9 +171,9 @@ const Dashboard = () => {
               Performance Score
             </h3>
             <div className="flex justify-around items-center">
-              <CircularMetricGlass value={85} label="Overall" size="lg" />
-              <CircularMetricGlass value={92} label="Speed" size="default" />
-              <CircularMetricGlass value={78} label="SEO" size="default" />
+              <CircularMetricGlass value={85} label="Overall" size="md" />
+              <CircularMetricGlass value={92} label="Speed" size="sm" />
+              <CircularMetricGlass value={78} label="SEO" size="sm" />
             </div>
           </GlassCard>
 
@@ -374,7 +374,7 @@ export const WithSearchQuery: Story = {
               </ButtonGlass>
             </div>
 
-            <HeaderNavGlass onSearch={setSearchQuery} userName="Admin User" />
+            <HeaderNavGlass onSearch={setSearchQuery} username="Admin User" />
 
             <div className="mt-6">
               <GlassCard intensity="medium" className="p-6 max-w-6xl">

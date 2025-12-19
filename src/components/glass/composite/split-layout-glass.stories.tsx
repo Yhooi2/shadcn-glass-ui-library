@@ -4,9 +4,10 @@ import { BadgeGlass } from '@/components/glass/ui/badge-glass';
 import { ProgressGlass } from '@/components/glass/specialized/progress-glass';
 import { TrendingUp, Calendar, GitBranch, Star } from 'lucide-react';
 
-const meta = {
+const meta: Meta = {
   title: 'Components/Composite/SplitLayoutGlass',
-  component: SplitLayoutGlass.Root,
+  // Не указываем component для compound components —
+  // они используются через render(), а не через args
   parameters: {
     layout: 'fullscreen',
     docs: {
@@ -17,10 +18,10 @@ const meta = {
     },
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof SplitLayoutGlass.Root>;
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj;
 
 // ========================================
 // STORY 1: Default

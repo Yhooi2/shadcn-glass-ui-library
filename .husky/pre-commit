@@ -19,5 +19,21 @@ if [ -n "$SCREENSHOTS" ]; then
   exit 1
 fi
 
+# Check for stories files being committed - run typecheck:stories
+STORIES=$(git diff --cached --name-only | grep '\.stories\.tsx\?$' || true)
+
+if [ -n "$STORIES" ]; then
+  echo "📖 Stories files detected, running typecheck..."
+  if ! npm run typecheck:stories --silent 2>/dev/null; then
+    echo ""
+    echo "⚠️  Stories typecheck failed!"
+    echo "   Run 'npm run typecheck:stories' to see errors."
+    echo "   Use 'git commit --no-verify' to skip this check."
+    echo ""
+    exit 1
+  fi
+  echo "✅ Stories typecheck passed"
+fi
+
 # Run lint-staged
 npx lint-staged

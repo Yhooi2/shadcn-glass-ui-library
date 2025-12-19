@@ -198,7 +198,7 @@ const FormWizard = () => {
 
       {/* Content */}
       <div className="relative z-10 p-6 flex items-center justify-center min-h-screen">
-        <GlassCard intensity="high" className="w-full max-w-2xl p-8">
+        <GlassCard intensity="strong" className="w-full max-w-2xl p-8">
           {/* Header */}
           <div className="flex items-center justify-between mb-6">
             <div>
@@ -225,7 +225,7 @@ const FormWizard = () => {
               </span>
               <span>{Math.round(progress)}% Complete</span>
             </div>
-            <ProgressGlass value={progress} gradient="rainbow" showValue={false} />
+            <ProgressGlass value={progress} gradient="violet" showLabel={false} />
           </div>
 
           {/* Form Steps */}
@@ -398,8 +398,10 @@ const FormWizard = () => {
                   setBillingInfo({ ...billingInfo, agreeToTerms: !!checked })
                 }
                 label="I agree to the Terms of Service and Privacy Policy"
-                error={errors.agreeToTerms}
               />
+              {errors.agreeToTerms && (
+                <span className="text-xs text-red-500">{errors.agreeToTerms}</span>
+              )}
               {Object.keys(errors).length > 0 && (
                 <AlertGlass variant="destructive" title="Validation Error">
                   Please fix the errors above before submitting

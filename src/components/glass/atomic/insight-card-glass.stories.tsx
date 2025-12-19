@@ -25,6 +25,9 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+// Type for stories with custom render (no args required)
+type RenderOnlyStory = Omit<Story, 'args'>;
+
 export const Default: Story = {
   args: { text: 'Best month: April', detail: '156 commits' },
 };
@@ -49,7 +52,7 @@ export const Clickable: Story = {
   args: { text: 'Learn more', onClick: fn(), showArrow: true },
 };
 
-export const AllVariants: Story = {
+export const AllVariants: RenderOnlyStory = {
   render: () => (
     <div className="space-y-3 w-80">
       <InsightCardGlass variant="default" text="Default" />
