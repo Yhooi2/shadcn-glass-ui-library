@@ -38,8 +38,8 @@ jobs:
       - name: Analyze bundle size
         id: bundle
         run: |
-          # Get sizes of built files
-          JS_SIZE=$(stat -c%s dist/index.js 2>/dev/null || stat -f%z dist/index.js)
+          # Get sizes of built files (ESM is .mjs, CJS is .cjs)
+          JS_SIZE=$(stat -c%s dist/index.mjs 2>/dev/null || stat -f%z dist/index.mjs)
           CJS_SIZE=$(stat -c%s dist/index.cjs 2>/dev/null || stat -f%z dist/index.cjs)
           CSS_SIZE=$(stat -c%s dist/shadcn-glass-ui.css 2>/dev/null || stat -f%z dist/shadcn-glass-ui.css)
 
@@ -55,9 +55,9 @@ jobs:
           echo "total_size=$TOTAL_KB" >> $GITHUB_OUTPUT
 
           # Get gzipped sizes
-          gzip -c dist/index.js > /tmp/index.js.gz
+          gzip -c dist/index.mjs > /tmp/index.mjs.gz
           gzip -c dist/shadcn-glass-ui.css > /tmp/shadcn-glass-ui.css.gz
-          JS_GZ=$(stat -c%s /tmp/index.js.gz 2>/dev/null || stat -f%z /tmp/index.js.gz)
+          JS_GZ=$(stat -c%s /tmp/index.mjs.gz 2>/dev/null || stat -f%z /tmp/index.mjs.gz)
           CSS_GZ=$(stat -c%s /tmp/shadcn-glass-ui.css.gz 2>/dev/null || stat -f%z /tmp/shadcn-glass-ui.css.gz)
 
           JS_GZ_KB=$(echo "scale=2; $JS_GZ / 1024" | bc)
@@ -81,7 +81,7 @@ jobs:
 
             | File | Size | Gzipped |
             |------|------|---------|
-            | \`dist/index.js\` (ESM) | ${jsSize} KB | ${jsGzip} KB |
+            | \`dist/index.mjs\` (ESM) | ${jsSize} KB | ${jsGzip} KB |
             | \`dist/index.cjs\` (CJS) | ${cjsSize} KB | - |
             | \`dist/shadcn-glass-ui.css\` | ${cssSize} KB | ${cssGzip} KB |
             | **Total** | **${totalSize} KB** | - |

@@ -121,8 +121,8 @@ jobs:
 
       - name: Verify build artifacts
         run: |
-          if [ ! -f dist/index.js ]; then
-            echo "❌ dist/index.js not found"
+          if [ ! -f dist/index.mjs ]; then
+            echo "❌ dist/index.mjs not found"
             exit 1
           fi
           if [ ! -f dist/index.cjs ]; then
