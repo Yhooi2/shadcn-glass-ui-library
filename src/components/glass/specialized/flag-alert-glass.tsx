@@ -49,7 +49,10 @@ export const FlagAlertGlass = forwardRef<HTMLDivElement, FlagAlertGlassProps>(
     return (
       <div
         ref={ref}
-        className={cn('p-2.5 md:p-3 rounded-xl border transition-all duration-300', className)}
+        className={cn(
+          'p-2.5 md:p-3 rounded-xl border transition-all duration-300 max-w-md',
+          className
+        )}
         style={alertStyles}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}

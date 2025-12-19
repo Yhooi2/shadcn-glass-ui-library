@@ -1,375 +1,198 @@
 /* eslint-disable react-refresh/only-export-components */
 /**
- * TabsGlass Component (Compound API only)
+ * TabsGlass Component (Radix UI based)
  *
- * Glass-themed tab navigation with:
+ * Glass-themed tab navigation built on Radix UI primitives with:
+ * - 100% shadcn/ui type compatibility
  * - Theme-aware styling (glass/light/aurora)
  * - Active tab indicator
- * - Smooth transitions
- * - Compound component API for advanced composition
+ * - Full keyboard navigation (Arrow keys, Home, End)
+ * - Support for orientation, dir, activationMode
  *
- * @example
- * ```tsx
- * <TabsGlass.Root value={activeTab} onValueChange={setActiveTab}>
- *   <TabsGlass.List>
- *     <TabsGlass.Trigger value="overview">Overview</TabsGlass.Trigger>
- *     <TabsGlass.Trigger value="analytics">Analytics</TabsGlass.Trigger>
- *     <TabsGlass.Trigger value="settings">Settings</TabsGlass.Trigger>
- *   </TabsGlass.List>
- *   <TabsGlass.Content value="overview">
- *     Overview content
- *   </TabsGlass.Content>
- *   <TabsGlass.Content value="analytics">
- *     Analytics content
- *   </TabsGlass.Content>
- *   <TabsGlass.Content value="settings">
- *     Settings content
- *   </TabsGlass.Content>
- * </TabsGlass.Root>
- * ```
- *
- * @since v1.0.0 - Legacy API removed (tabs/activeTab/onChange props)
+ * @since v2.2.6 - Migrated to Radix UI primitives for full type compatibility
  */
 
-import {
-  forwardRef,
-  createContext,
-  useContext,
-  useState,
-  type CSSProperties,
-  type FC,
-  type ReactNode,
-} from 'react';
+import * as React from 'react';
+import * as TabsPrimitive from '@radix-ui/react-tabs';
 import { cn } from '@/lib/utils';
-import { useFocus } from '@/lib/hooks/use-focus';
 import '@/glass-theme.css';
 
 // ========================================
 // TYPES
 // ========================================
 
+/**
+ * Legacy TabItem interface for backwards compatibility
+ */
 export interface TabItem {
   readonly id: string;
   readonly label: string;
 }
 
-// ========================================
-// CONTEXT FOR COMPOUND COMPONENTS
-// ========================================
-
-interface TabsContextValue {
-  value: string;
-  onValueChange?: (value: string) => void;
-}
-
-const TabsContext = createContext<TabsContextValue | null>(null);
-
-const useTabsContext = () => {
-  const context = useContext(TabsContext);
-  if (!context) {
-    throw new Error('Tabs compound components must be used within TabsGlass.Root');
-  }
-  return context;
-};
-
-// ========================================
-// COMPOUND COMPONENT: ROOT
-// ========================================
-
 /**
- * Props for TabsGlass.Root component
+ * Props for TabsGlass Root component
  *
- * Root component that manages tab state and provides context for child components.
- * Features accessible keyboard navigation and ARIA attributes.
+ * Extends Radix UI Tabs.Root props for 100% shadcn/ui compatibility.
+ * All Radix props are supported including: value, defaultValue, onValueChange,
+ * orientation, dir, activationMode.
+ *
+ * **Type Compatibility (v2.3.1+):**
+ * - Extends `React.ComponentPropsWithoutRef<typeof TabsPrimitive.Root>`
+ * - No more `as unknown as` type assertions needed
+ * - Full IntelliSense for all Radix props
+ *
+ * **New props from Radix:**
+ * - `orientation`: 'horizontal' | 'vertical' - Tab layout direction
+ * - `dir`: 'ltr' | 'rtl' - Text direction for RTL support
+ * - `activationMode`: 'automatic' | 'manual' - Tab activation behavior
  *
  * @accessibility
- * - **Keyboard Navigation:** Arrow keys navigate between tabs, Tab moves to tab panel content (WCAG 2.1.1)
- * - **Focus Management:** Visible focus ring on active tab using `--focus-glow` CSS variable (WCAG 2.4.7)
- * - **Screen Readers:** Uses `role="tablist"`, `role="tab"`, `role="tabpanel"` for proper tab semantics (WCAG 4.1.3)
- * - **ARIA Attributes:** Tabs marked with `aria-selected`, panels with `aria-hidden` for state announcement
- * - **Active State:** Visual indicator (underline) plus color change for multi-modal feedback
- * - **Touch Targets:** Tab triggers meet minimum 44x44px touch target (WCAG 2.5.5)
- * - **Color Contrast:** Active and inactive tab text meet WCAG AA contrast ratio 4.5:1
- * - **Motion:** Transitions and indicator animations respect `prefers-reduced-motion` settings
+ * - **Keyboard Navigation:** Arrow keys navigate between tabs (respects orientation)
+ * - **Focus Management:** Visible focus ring using CSS variables
+ * - **Screen Readers:** Radix UI handles all ARIA attributes automatically
+ * - **RTL Support:** Full RTL support via `dir` prop
  *
  * @example
  * ```tsx
- * // Basic tabs
- * <TabsGlass.Root value={activeTab} onValueChange={setActiveTab}>
- *   <TabsGlass.List>
- *     <TabsGlass.Trigger value="overview">Overview</TabsGlass.Trigger>
- *     <TabsGlass.Trigger value="analytics">Analytics</TabsGlass.Trigger>
- *     <TabsGlass.Trigger value="settings">Settings</TabsGlass.Trigger>
- *   </TabsGlass.List>
- *   <TabsGlass.Content value="overview">
- *     <h2>Overview</h2>
- *     <p>Overview content here</p>
- *   </TabsGlass.Content>
- *   <TabsGlass.Content value="analytics">
- *     <h2>Analytics</h2>
- *     <p>Analytics content here</p>
- *   </TabsGlass.Content>
- *   <TabsGlass.Content value="settings">
- *     <h2>Settings</h2>
- *     <p>Settings content here</p>
- *   </TabsGlass.Content>
- * </TabsGlass.Root>
+ * // Basic usage
+ * <Tabs defaultValue="tab1">
+ *   <TabsList>
+ *     <TabsTrigger value="tab1">Tab 1</TabsTrigger>
+ *     <TabsTrigger value="tab2">Tab 2</TabsTrigger>
+ *   </TabsList>
+ *   <TabsContent value="tab1">Content 1</TabsContent>
+ *   <TabsContent value="tab2">Content 2</TabsContent>
+ * </Tabs>
  *
- * // Tabs with icons (ensure accessible labels)
- * <TabsGlass.Root value={activeTab} onValueChange={setActiveTab}>
- *   <TabsGlass.List>
- *     <TabsGlass.Trigger value="home" aria-label="Home dashboard">
- *       <Home className="w-4 h-4" />
- *     </TabsGlass.Trigger>
- *     <TabsGlass.Trigger value="search" aria-label="Search">
- *       <Search className="w-4 h-4" />
- *     </TabsGlass.Trigger>
- *   </TabsGlass.List>
- *   <TabsGlass.Content value="home">Dashboard content</TabsGlass.Content>
- *   <TabsGlass.Content value="search">Search content</TabsGlass.Content>
- * </TabsGlass.Root>
+ * // Vertical tabs
+ * <Tabs defaultValue="tab1" orientation="vertical">
+ *   <TabsList>
+ *     <TabsTrigger value="tab1">Tab 1</TabsTrigger>
+ *     <TabsTrigger value="tab2">Tab 2</TabsTrigger>
+ *   </TabsList>
+ *   <TabsContent value="tab1">Content 1</TabsContent>
+ * </Tabs>
  *
- * // Disabled tab (announced to screen readers)
- * <TabsGlass.Root value={activeTab} onValueChange={setActiveTab}>
- *   <TabsGlass.List>
- *     <TabsGlass.Trigger value="tab1">Available Tab</TabsGlass.Trigger>
- *     <TabsGlass.Trigger value="tab2" disabled>
- *       Locked Tab
- *     </TabsGlass.Trigger>
- *   </TabsGlass.List>
- *   <TabsGlass.Content value="tab1">Content 1</TabsGlass.Content>
- * </TabsGlass.Root>
- *
- * // Form tabs with proper focus management
- * <TabsGlass.Root value={currentStep} onValueChange={setCurrentStep}>
- *   <TabsGlass.List aria-label="Registration steps">
- *     <TabsGlass.Trigger value="account">Account Info</TabsGlass.Trigger>
- *     <TabsGlass.Trigger value="profile">Profile Details</TabsGlass.Trigger>
- *     <TabsGlass.Trigger value="confirm">Confirmation</TabsGlass.Trigger>
- *   </TabsGlass.List>
- *   <TabsGlass.Content value="account">
- *     <InputGlass label="Email" type="email" />
- *   </TabsGlass.Content>
- *   <TabsGlass.Content value="profile">
- *     <InputGlass label="Name" />
- *   </TabsGlass.Content>
- *   <TabsGlass.Content value="confirm">
- *     <p>Review your information</p>
- *   </TabsGlass.Content>
- * </TabsGlass.Root>
+ * // Manual activation (click required, not focus)
+ * <Tabs defaultValue="tab1" activationMode="manual">
+ *   ...
+ * </Tabs>
  * ```
+ *
+ * @since v2.3.0 - Added shadcn/ui compatible separate exports
+ * @since v2.2.6 - Migrated to Radix UI primitives
  */
+export type TabsRootProps = React.ComponentPropsWithoutRef<typeof TabsPrimitive.Root>;
+
 /**
- * Props for TabsGlass Root component (shadcn/ui compatible)
+ * Props for TabsList component
  */
-export interface TabsRootProps {
-  /** Current active tab value (controlled) */
-  value?: string;
-  /** Default active tab value (uncontrolled) */
-  defaultValue?: string;
-  /** Callback when tab value changes */
-  onValueChange?: (value: string) => void;
-  /** Child components */
-  children: ReactNode;
-  /** Optional className for container */
-  className?: string;
-}
+export type TabsListProps = React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>;
 
-const TabsRoot: FC<TabsRootProps> = ({
-  value: controlledValue,
-  defaultValue,
-  onValueChange,
-  children,
-  className,
-}) => {
-  // Support both controlled and uncontrolled modes (shadcn/ui pattern)
-  const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue ?? '');
-  const isControlled = controlledValue !== undefined;
-  const value = isControlled ? controlledValue : uncontrolledValue;
+/**
+ * Props for TabsTrigger component
+ */
+export type TabsTriggerProps = React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>;
 
-  const handleValueChange = (newValue: string) => {
-    if (!isControlled) {
-      setUncontrolledValue(newValue);
-    }
-    onValueChange?.(newValue);
-  };
+/**
+ * Props for TabsContent component
+ */
+export type TabsContentProps = React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>;
 
+// ========================================
+// COMPONENTS
+// ========================================
+
+/**
+ * TabsRoot - Root container for tabs
+ */
+function TabsRoot({ className, ...props }: TabsRootProps) {
   return (
-    <TabsContext.Provider value={{ value, onValueChange: handleValueChange }}>
-      <div className={cn('tabs-glass-root', className)}>{children}</div>
-    </TabsContext.Provider>
+    <TabsPrimitive.Root data-slot="tabs" className={cn('tabs-glass-root', className)} {...props} />
   );
-};
-
-// ========================================
-// COMPOUND COMPONENT: LIST
-// ========================================
-
-export interface TabsListProps extends React.HTMLAttributes<HTMLDivElement> {
-  children: ReactNode;
-  className?: string;
 }
 
-const TabsList = forwardRef<HTMLDivElement, TabsListProps>(
-  ({ children, className, ...props }, ref) => {
-    const containerStyles: CSSProperties = {
-      background: 'var(--tab-container-bg)',
-      border: '1px solid var(--tab-container-border)',
-    };
-
-    return (
-      <div
-        ref={ref}
-        className={cn('inline-flex gap-0.5 md:gap-1 p-0.5 md:p-1 rounded-xl', className)}
-        style={containerStyles}
-        role="tablist"
-        {...props}
-      >
-        {children}
-      </div>
-    );
-  }
+/**
+ * TabsList - Container for tab triggers
+ */
+const TabsList = React.forwardRef<React.ElementRef<typeof TabsPrimitive.List>, TabsListProps>(
+  ({ className, ...props }, ref) => (
+    <TabsPrimitive.List
+      ref={ref}
+      data-slot="tabs-list"
+      className={cn(
+        'inline-flex gap-0.5 md:gap-1 p-0.5 md:p-1 rounded-xl',
+        'bg-(--tab-container-bg) border border-(--tab-container-border)',
+        className
+      )}
+      {...props}
+    />
+  )
 );
 
 TabsList.displayName = 'TabsList';
 
-// ========================================
-// COMPOUND COMPONENT: TRIGGER
-// ========================================
-
-export interface TabsTriggerProps {
-  /** Value of this tab */
-  value: string;
-  /** Tab label/content */
-  children: ReactNode;
-  /** Optional className */
-  className?: string;
-  /** Disabled state */
-  disabled?: boolean;
-}
-
-const TabsTrigger = forwardRef<HTMLButtonElement, TabsTriggerProps>(
-  ({ value, children, className, disabled }, ref) => {
-    const { value: activeValue, onValueChange } = useTabsContext();
-    const { isFocusVisible, focusProps } = useFocus({ focusVisible: true });
-    const isActive = activeValue === value;
-
-    const tabStyles: CSSProperties = {
-      background: isActive ? 'var(--tab-active-bg)' : 'var(--tab-bg)',
-      color: isActive ? 'var(--tab-active-text)' : 'var(--text-secondary)',
-      boxShadow: isFocusVisible && !disabled ? 'var(--focus-glow)' : 'none',
-    };
-
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
-      if (disabled) return;
-
-      const tablist = e.currentTarget.closest('[role="tablist"]');
-      if (!tablist) return;
-
-      const tabs = Array.from(
-        tablist.querySelectorAll('[role="tab"]:not([disabled])')
-      ) as HTMLButtonElement[];
-      const currentIndex = tabs.indexOf(e.currentTarget);
-
-      let nextIndex = currentIndex;
-
-      switch (e.key) {
-        case 'ArrowRight':
-          e.preventDefault();
-          nextIndex = currentIndex + 1 >= tabs.length ? 0 : currentIndex + 1;
-          break;
-        case 'ArrowLeft':
-          e.preventDefault();
-          nextIndex = currentIndex - 1 < 0 ? tabs.length - 1 : currentIndex - 1;
-          break;
-        case 'Home':
-          e.preventDefault();
-          nextIndex = 0;
-          break;
-        case 'End':
-          e.preventDefault();
-          nextIndex = tabs.length - 1;
-          break;
-        default:
-          return;
-      }
-
-      const nextTab = tabs[nextIndex];
-      if (nextTab) {
-        nextTab.focus();
-        // Get the value from the button's data attribute or find it in context
-        const nextValue = nextTab.getAttribute('data-value');
-        if (nextValue && onValueChange) {
-          onValueChange(nextValue);
-        }
-      }
-    };
-
-    return (
-      <button
-        ref={ref}
-        type="button"
-        role="tab"
-        aria-selected={isActive}
-        disabled={disabled}
-        data-value={value}
-        className={cn(
-          'relative px-2.5 py-1.5 md:px-4 md:py-2 rounded-lg text-xs md:text-sm font-medium transition-[background-color,color,opacity] duration-300',
-          disabled && 'opacity-50 cursor-not-allowed',
-          className
-        )}
-        style={tabStyles}
-        onClick={() => !disabled && onValueChange?.(value)}
-        onKeyDown={handleKeyDown}
-        onFocus={focusProps.onFocus}
-        onBlur={focusProps.onBlur}
-      >
-        {children}
-        {isActive && (
-          <div
-            className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 md:w-8 h-0.5 rounded-full"
-            style={{ background: 'var(--tab-indicator)' }}
-          />
-        )}
-      </button>
-    );
-  }
-);
+/**
+ * TabsTrigger - Individual tab button
+ */
+const TabsTrigger = React.forwardRef<
+  React.ElementRef<typeof TabsPrimitive.Trigger>,
+  TabsTriggerProps
+>(({ className, children, ...props }, ref) => (
+  <TabsPrimitive.Trigger
+    ref={ref}
+    data-slot="tabs-trigger"
+    className={cn(
+      'relative px-2.5 py-1.5 md:px-4 md:py-2 rounded-lg',
+      'text-xs md:text-sm font-medium',
+      'transition-[background-color,color,opacity,box-shadow] duration-300',
+      // Inactive state
+      'bg-(--tab-bg) text-(--text-secondary)',
+      // Active state
+      'data-[state=active]:bg-(--tab-active-bg) data-[state=active]:text-(--tab-active-text)',
+      // Focus state
+      'focus-visible:outline-none focus-visible:shadow-(--focus-glow)',
+      // Disabled state
+      'disabled:opacity-50 disabled:cursor-not-allowed',
+      // Indicator (using ::after pseudo-element)
+      'after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2',
+      'after:w-6 md:after:w-8 after:h-0.5 after:rounded-full',
+      'after:bg-(--tab-indicator)',
+      'after:opacity-0 data-[state=active]:after:opacity-100',
+      'after:transition-opacity after:duration-300',
+      className
+    )}
+    {...props}
+  >
+    {children}
+  </TabsPrimitive.Trigger>
+));
 
 TabsTrigger.displayName = 'TabsTrigger';
 
-// ========================================
-// COMPOUND COMPONENT: CONTENT
-// ========================================
+/**
+ * TabsContent - Content panel for a tab
+ */
+const TabsContent = React.forwardRef<
+  React.ElementRef<typeof TabsPrimitive.Content>,
+  TabsContentProps
+>(({ className, ...props }, ref) => (
+  <TabsPrimitive.Content
+    ref={ref}
+    data-slot="tabs-content"
+    className={cn(
+      'animate-in fade-in-0 duration-200 outline-none',
+      'focus-visible:outline-none',
+      className
+    )}
+    {...props}
+  />
+));
 
-export interface TabsContentProps {
-  /** Value of the tab this content belongs to */
-  value: string;
-  /** Content to display when tab is active */
-  children: ReactNode;
-  /** Optional className */
-  className?: string;
-}
-
-const TabsContent: FC<TabsContentProps> = ({ value, children, className }) => {
-  const { value: activeValue } = useTabsContext();
-  const isActive = activeValue === value;
-
-  if (!isActive) return null;
-
-  return (
-    <div
-      role="tabpanel"
-      aria-hidden={!isActive}
-      className={cn('animate-in fade-in-0 duration-200', className)}
-    >
-      {children}
-    </div>
-  );
-};
+TabsContent.displayName = 'TabsContent';
 
 // ========================================
-// EXPORT COMPOUND COMPONENT (v1.0.0+)
+// COMPOUND COMPONENT EXPORT
 // ========================================
 
 /**
@@ -405,6 +228,7 @@ const TabsContent: FC<TabsContentProps> = ({ value, children, className }) => {
  *
  * @since v1.0.0 - Legacy API removed (tabs/activeTab/onChange props)
  * @since v2.3.0 - Added shadcn/ui compatible separate exports
+ * @since v2.2.6 - Migrated to Radix UI primitives
  */
 export const TabsGlass = {
   Root: TabsRoot,
@@ -414,39 +238,12 @@ export const TabsGlass = {
 };
 
 // ========================================
-// SHADCN/UI COMPATIBLE EXPORTS (v2.3.0+)
+// SHADCN/UI COMPATIBLE EXPORTS
 // ========================================
 
 /**
  * Tabs - shadcn/ui compatible alias for TabsGlass.Root
- *
- * @example
- * ```tsx
- * import { Tabs, TabsList, TabsTrigger, TabsContent } from 'shadcn-glass-ui'
- *
- * <Tabs defaultValue="account">
- *   <TabsList>
- *     <TabsTrigger value="account">Account</TabsTrigger>
- *     <TabsTrigger value="password">Password</TabsTrigger>
- *   </TabsList>
- *   <TabsContent value="account">Account settings</TabsContent>
- *   <TabsContent value="password">Password settings</TabsContent>
- * </Tabs>
- * ```
  */
 export const Tabs = TabsRoot;
 
-/**
- * TabsList - shadcn/ui compatible alias for TabsGlass.List
- */
-export { TabsList };
-
-/**
- * TabsTrigger - shadcn/ui compatible alias for TabsGlass.Trigger
- */
-export { TabsTrigger };
-
-/**
- * TabsContent - shadcn/ui compatible alias for TabsGlass.Content
- */
-export { TabsContent };
+export { TabsList, TabsTrigger, TabsContent };

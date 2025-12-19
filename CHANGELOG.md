@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.6] - 2025-12-19
+
+### Fixed
+
+- **Issue #6:** TypeScript types now extend Radix UI primitives directly
+  - `CheckboxGlass` types extend `React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>`
+  - `TabsGlass` types extend corresponding Radix primitive types
+  - No more `as unknown as` type assertions needed when using with shadcn/ui
+
+### Changed
+
+- **CheckboxGlass:** Migrated to Radix UI primitives internally
+  - Ref type changed from `HTMLInputElement` to `HTMLButtonElement` (Radix pattern)
+  - Now uses `data-[state=checked/unchecked/indeterminate]` for styling
+  - Enter key no longer toggles checkbox (WCAG 2.1.1 standard - Space only)
+  - Added `data-slot="checkbox"` for shadcn/ui v4 compatibility
+- **TabsGlass:** Migrated to Radix UI primitives internally
+  - Keyboard navigation handled by Radix (Arrow keys, Home, End)
+  - New props available: `orientation`, `dir`, `activationMode` (from Radix)
+  - Added `data-slot` attributes for shadcn/ui v4 compatibility
+  - Tab indicator now uses CSS `::after` pseudo-element
+
+### Deprecated
+
+- **CheckboxGlass:** `onChange` prop - use `onCheckedChange` instead (will be removed in v4.0)
+
 ## [2.2.5] - 2025-12-19
 
 ### Added

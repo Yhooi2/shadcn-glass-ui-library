@@ -126,7 +126,7 @@ describe('Visual Regression Tests', () => {
       renderWithTheme(
         <CheckboxGlass
           checked={true}
-          onPressedChange={() => {}}
+          onCheckedChange={() => {}}
           label="Checked"
           data-testid="checkbox"
         />,
@@ -508,7 +508,7 @@ describe('Visual Regression Tests', () => {
       renderWithTheme(
         <CheckboxGlass
           checked={false}
-          onPressedChange={() => {}}
+          onCheckedChange={() => {}}
           label="Unchecked"
           data-testid="checkbox"
         />,
@@ -654,7 +654,7 @@ describe('Visual Regression Tests', () => {
       renderWithTheme(
         <CheckboxGlass
           checked={true}
-          onPressedChange={() => {}}
+          onCheckedChange={() => {}}
           disabled
           label="Disabled Checked"
           data-testid="checkbox"
@@ -670,7 +670,7 @@ describe('Visual Regression Tests', () => {
       renderWithTheme(
         <CheckboxGlass
           checked={false}
-          onPressedChange={() => {}}
+          onCheckedChange={() => {}}
           disabled
           label="Disabled Unchecked"
           data-testid="checkbox"

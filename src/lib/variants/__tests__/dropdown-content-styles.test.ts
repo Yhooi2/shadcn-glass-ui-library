@@ -74,9 +74,8 @@ describe('dropdown-content-styles', () => {
 
       expect(classes).toContain('w-full');
       expect(classes).toContain('px-3');
-      expect(classes).toContain('py-2');
-      expect(classes).toContain('text-xs');
-      expect(classes).toContain('md:text-sm');
+      expect(classes).toContain('py-2.5');
+      expect(classes).toContain('text-sm');
       expect(classes).toContain('flex');
       expect(classes).toContain('items-center');
       expect(classes).toContain('gap-2');
@@ -86,7 +85,7 @@ describe('dropdown-content-styles', () => {
       const classes = getDropdownItemClasses();
 
       expect(classes).toContain('outline-none');
-      expect(classes).toContain('cursor-default');
+      expect(classes).toContain('cursor-pointer');
       expect(classes).toContain('select-none');
       expect(classes).toContain('transition-colors');
     });
@@ -94,36 +93,39 @@ describe('dropdown-content-styles', () => {
     it('should apply danger styling when danger is true', () => {
       const classes = getDropdownItemClasses({ danger: true });
 
-      expect(classes).toContain('text-[var(--alert-danger-text)]');
+      // Tailwind v4 syntax: text-(--variable)
+      expect(classes).toContain('text-(--alert-danger-text)');
     });
 
     it('should apply normal text color when danger is false', () => {
       const classes = getDropdownItemClasses({ danger: false });
 
-      expect(classes).toContain('text-[var(--dropdown-item-text)]');
+      // Tailwind v4 syntax: text-(--variable)
+      expect(classes).toContain('text-(--dropdown-item-text)');
     });
 
     it('should apply highlighted background', () => {
       const classes = getDropdownItemClasses({ highlighted: true });
 
-      expect(classes).toContain('bg-[var(--dropdown-item-hover)]');
+      // Tailwind v4 syntax: bg-(--variable)
+      expect(classes).toContain('bg-(--dropdown-item-hover)');
     });
 
     it('should apply selected styling', () => {
       const classes = getDropdownItemClasses({ selected: true });
 
-      // Selected state applies background
-      expect(classes).toContain('bg-[var(--select-item-selected-bg)]');
+      // Selected state applies background (Tailwind v4 syntax)
+      expect(classes).toContain('bg-(--select-item-selected-bg)');
 
       // Note: text color is overridden by danger/normal state (known behavior)
-      // The implementation applies selected bg+text, but then applies danger/normal text after
-      expect(classes).toContain('text-[var(--dropdown-item-text)]');
+      expect(classes).toContain('text-(--dropdown-item-text)');
     });
 
     it('should include Radix data-highlighted state', () => {
       const classes = getDropdownItemClasses();
 
-      expect(classes).toContain('data-[highlighted]:bg-[var(--dropdown-item-hover)]');
+      // Tailwind v4 syntax with data attribute
+      expect(classes).toContain('data-[highlighted]:bg-(--dropdown-item-hover)');
     });
 
     it('should handle multiple states simultaneously', () => {
@@ -133,23 +135,24 @@ describe('dropdown-content-styles', () => {
         selected: true,
       });
 
-      expect(classes).toContain('text-[var(--alert-danger-text)]');
-      expect(classes).toContain('bg-[var(--dropdown-item-hover)]');
-      expect(classes).toContain('bg-[var(--select-item-selected-bg)]');
+      // Tailwind v4 syntax
+      expect(classes).toContain('text-(--alert-danger-text)');
+      expect(classes).toContain('bg-(--dropdown-item-hover)');
+      expect(classes).toContain('bg-(--select-item-selected-bg)');
     });
 
     it('should work with empty options', () => {
       const classes = getDropdownItemClasses({});
 
       expect(classes).toContain('w-full');
-      expect(classes).toContain('text-[var(--dropdown-item-text)]');
+      expect(classes).toContain('text-(--dropdown-item-text)');
     });
 
     it('should work with undefined options', () => {
       const classes = getDropdownItemClasses(undefined);
 
       expect(classes).toContain('w-full');
-      expect(classes).toContain('text-[var(--dropdown-item-text)]');
+      expect(classes).toContain('text-(--dropdown-item-text)');
     });
   });
 
@@ -166,6 +169,7 @@ describe('dropdown-content-styles', () => {
     it('should apply danger icon color when danger is true', () => {
       const classes = getDropdownIconClasses({ danger: true });
 
+      // Icon classes still use Tailwind v3 syntax
       expect(classes).toContain('text-[var(--alert-danger-text)]');
     });
 
@@ -201,6 +205,7 @@ describe('dropdown-content-styles', () => {
     });
 
     it('should include border color', () => {
+      // Separator classes still use Tailwind v3 syntax
       expect(dropdownSeparatorClasses).toContain('bg-[var(--dropdown-border)]');
     });
   });
@@ -219,6 +224,7 @@ describe('dropdown-content-styles', () => {
     });
 
     it('should include muted text color', () => {
+      // Label classes still use Tailwind v3 syntax
       expect(dropdownLabelClasses).toContain('text-[var(--text-muted)]');
     });
   });
@@ -236,7 +242,7 @@ describe('dropdown-content-styles', () => {
 
       // Items should have proper spacing
       expect(itemClasses).toContain('px-3');
-      expect(itemClasses).toContain('py-2');
+      expect(itemClasses).toContain('py-2.5');
 
       // Icons should have consistent sizing
       expect(iconClasses).toContain('w-3.5');
@@ -244,21 +250,21 @@ describe('dropdown-content-styles', () => {
     });
 
     it('should support all dropdown component variants', () => {
-      // Normal item
+      // Normal item (Tailwind v4 syntax)
       const normalItem = getDropdownItemClasses();
-      expect(normalItem).toContain('text-[var(--dropdown-item-text)]');
+      expect(normalItem).toContain('text-(--dropdown-item-text)');
 
       // Danger item
       const dangerItem = getDropdownItemClasses({ danger: true });
-      expect(dangerItem).toContain('text-[var(--alert-danger-text)]');
+      expect(dangerItem).toContain('text-(--alert-danger-text)');
 
       // Selected item
       const selectedItem = getDropdownItemClasses({ selected: true });
-      expect(selectedItem).toContain('bg-[var(--select-item-selected-bg)]');
+      expect(selectedItem).toContain('bg-(--select-item-selected-bg)');
 
       // Highlighted item
       const highlightedItem = getDropdownItemClasses({ highlighted: true });
-      expect(highlightedItem).toContain('bg-[var(--dropdown-item-hover)]');
+      expect(highlightedItem).toContain('bg-(--dropdown-item-hover)');
     });
   });
 });

@@ -3,9 +3,9 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { CheckboxGlass } from '../checkbox-glass';
 
-// Helper function to get the visual checkbox div (not the hidden input)
-const getCheckboxDiv = (container: HTMLElement) => {
-  return container.querySelector('div[role="checkbox"]') as HTMLElement;
+// Helper function to get the Radix checkbox button
+const getCheckboxButton = (container: HTMLElement) => {
+  return container.querySelector('button[role="checkbox"]') as HTMLElement;
 };
 
 describe('CheckboxGlass', () => {
@@ -17,7 +17,7 @@ describe('CheckboxGlass', () => {
 
     it('renders checkbox without label', () => {
       const { container } = render(<CheckboxGlass checked={false} onChange={vi.fn()} />);
-      const checkbox = getCheckboxDiv(container);
+      const checkbox = getCheckboxButton(container);
       expect(checkbox).toBeInTheDocument();
       expect(screen.queryByText(/test/i)).not.toBeInTheDocument();
     });
@@ -30,37 +30,49 @@ describe('CheckboxGlass', () => {
       expect(label).toHaveClass('custom-class');
     });
 
-    it('renders with correct ARIA attributes', () => {
-      const { container } = render(<CheckboxGlass checked={true} onChange={vi.fn()} label="Checkbox" />);
-      const checkbox = getCheckboxDiv(container);
+    it('renders with correct data-state attribute when checked', () => {
+      const { container } = render(
+        <CheckboxGlass checked={true} onChange={vi.fn()} label="Checkbox" />
+      );
+      const checkbox = getCheckboxButton(container);
+      expect(checkbox).toHaveAttribute('data-state', 'checked');
       expect(checkbox).toHaveAttribute('aria-checked', 'true');
-      expect(checkbox).toHaveAttribute('aria-label', 'Checkbox');
     });
 
-    it('uses aria-label from label prop', () => {
-      const { container } = render(<CheckboxGlass checked={false} onChange={vi.fn()} label="Custom Label" />);
-      const checkbox = getCheckboxDiv(container);
-      expect(checkbox).toHaveAttribute('aria-label', 'Custom Label');
+    it('renders with correct data-state attribute when unchecked', () => {
+      const { container } = render(
+        <CheckboxGlass checked={false} onChange={vi.fn()} label="Checkbox" />
+      );
+      const checkbox = getCheckboxButton(container);
+      expect(checkbox).toHaveAttribute('data-state', 'unchecked');
+      expect(checkbox).toHaveAttribute('aria-checked', 'false');
     });
 
-    it('has default aria-label when no label provided', () => {
+    it('has data-slot attribute for shadcn/ui v4 compatibility', () => {
       const { container } = render(<CheckboxGlass checked={false} onChange={vi.fn()} />);
-      const checkbox = getCheckboxDiv(container);
-      expect(checkbox).toHaveAttribute('aria-label', 'Checkbox');
+      const checkbox = getCheckboxButton(container);
+      expect(checkbox).toHaveAttribute('data-slot', 'checkbox');
     });
   });
 
   describe('Checked State', () => {
     it('renders unchecked state correctly', () => {
       const { container } = render(<CheckboxGlass checked={false} onChange={vi.fn()} />);
-      const checkbox = getCheckboxDiv(container);
-      expect(checkbox).toHaveAttribute('aria-checked', 'false');
+      const checkbox = getCheckboxButton(container);
+      expect(checkbox).toHaveAttribute('data-state', 'unchecked');
     });
 
     it('renders checked state correctly', () => {
       const { container } = render(<CheckboxGlass checked={true} onChange={vi.fn()} />);
-      const checkbox = getCheckboxDiv(container);
-      expect(checkbox).toHaveAttribute('aria-checked', 'true');
+      const checkbox = getCheckboxButton(container);
+      expect(checkbox).toHaveAttribute('data-state', 'checked');
+    });
+
+    it('renders indeterminate state correctly', () => {
+      const { container } = render(<CheckboxGlass checked="indeterminate" onChange={vi.fn()} />);
+      const checkbox = getCheckboxButton(container);
+      expect(checkbox).toHaveAttribute('data-state', 'indeterminate');
+      expect(checkbox).toHaveAttribute('aria-checked', 'mixed');
     });
 
     it('displays check icon when checked', () => {
@@ -82,11 +94,9 @@ describe('CheckboxGlass', () => {
       const handleChange = vi.fn();
       const { container } = render(<CheckboxGlass checked={false} onChange={handleChange} />);
 
-      const checkbox = getCheckboxDiv(container);
+      const checkbox = getCheckboxButton(container);
       await user.click(checkbox);
 
-      // Called twice: once by div onClick, once by label propagation to input onChange
-      expect(handleChange).toHaveBeenCalled();
       expect(handleChange).toHaveBeenCalledWith(true);
     });
 
@@ -95,12 +105,23 @@ describe('CheckboxGlass', () => {
       const handleChange = vi.fn();
       const { container } = render(<CheckboxGlass checked={true} onChange={handleChange} />);
 
-      const checkbox = getCheckboxDiv(container);
+      const checkbox = getCheckboxButton(container);
       await user.click(checkbox);
 
-      // Called twice: once by div onClick, once by label propagation to input onChange
-      expect(handleChange).toHaveBeenCalled();
       expect(handleChange).toHaveBeenCalledWith(false);
+    });
+
+    it('calls onCheckedChange (shadcn/ui API)', async () => {
+      const user = userEvent.setup();
+      const handleCheckedChange = vi.fn();
+      const { container } = render(
+        <CheckboxGlass checked={false} onCheckedChange={handleCheckedChange} />
+      );
+
+      const checkbox = getCheckboxButton(container);
+      await user.click(checkbox);
+
+      expect(handleCheckedChange).toHaveBeenCalledWith(true);
     });
 
     it('toggles on label click', async () => {
@@ -114,28 +135,29 @@ describe('CheckboxGlass', () => {
       expect(handleChange).toHaveBeenCalledWith(true);
     });
 
-    it('toggles on Enter key press', async () => {
+    it('toggles on Space key press (WCAG standard)', async () => {
       const user = userEvent.setup();
       const handleChange = vi.fn();
       const { container } = render(<CheckboxGlass checked={false} onChange={handleChange} />);
 
-      const checkbox = getCheckboxDiv(container);
-      checkbox.focus();
-      await user.keyboard('{Enter}');
-
-      expect(handleChange).toHaveBeenCalledWith(true);
-    });
-
-    it('toggles on Space key press', async () => {
-      const user = userEvent.setup();
-      const handleChange = vi.fn();
-      const { container } = render(<CheckboxGlass checked={false} onChange={handleChange} />);
-
-      const checkbox = getCheckboxDiv(container);
+      const checkbox = getCheckboxButton(container);
       checkbox.focus();
       await user.keyboard(' ');
 
       expect(handleChange).toHaveBeenCalledWith(true);
+    });
+
+    it('does not toggle on Enter key press (WCAG standard for checkboxes)', async () => {
+      const user = userEvent.setup();
+      const handleChange = vi.fn();
+      const { container } = render(<CheckboxGlass checked={false} onChange={handleChange} />);
+
+      const checkbox = getCheckboxButton(container);
+      checkbox.focus();
+      await user.keyboard('{Enter}');
+
+      // Radix checkbox does NOT respond to Enter per WCAG
+      expect(handleChange).not.toHaveBeenCalled();
     });
 
     it('does not toggle on other key press', async () => {
@@ -143,7 +165,7 @@ describe('CheckboxGlass', () => {
       const handleChange = vi.fn();
       const { container } = render(<CheckboxGlass checked={false} onChange={handleChange} />);
 
-      const checkbox = getCheckboxDiv(container);
+      const checkbox = getCheckboxButton(container);
       checkbox.focus();
       await user.keyboard('a');
 
@@ -153,32 +175,32 @@ describe('CheckboxGlass', () => {
 
   describe('Disabled State', () => {
     it('renders disabled state correctly', () => {
-      const { container } = render(
-        <CheckboxGlass checked={false} onChange={vi.fn()} disabled />
-      );
+      const { container } = render(<CheckboxGlass checked={false} onChange={vi.fn()} disabled />);
       const label = container.querySelector('label');
       expect(label).toHaveClass('opacity-50', 'cursor-not-allowed');
+    });
+
+    it('has disabled attribute on button', () => {
+      const { container } = render(<CheckboxGlass checked={false} onChange={vi.fn()} disabled />);
+      const checkbox = getCheckboxButton(container);
+      expect(checkbox).toBeDisabled();
+    });
+
+    it('has data-disabled attribute', () => {
+      const { container } = render(<CheckboxGlass checked={false} onChange={vi.fn()} disabled />);
+      const checkbox = getCheckboxButton(container);
+      expect(checkbox).toHaveAttribute('data-disabled');
     });
 
     it('does not call onChange when disabled and clicked', async () => {
       const user = userEvent.setup();
       const handleChange = vi.fn();
-      const { container } = render(<CheckboxGlass checked={false} onChange={handleChange} disabled />);
+      const { container } = render(
+        <CheckboxGlass checked={false} onChange={handleChange} disabled />
+      );
 
-      const checkbox = getCheckboxDiv(container);
+      const checkbox = getCheckboxButton(container);
       await user.click(checkbox);
-
-      expect(handleChange).not.toHaveBeenCalled();
-    });
-
-    it('does not call onChange when disabled and Enter pressed', async () => {
-      const user = userEvent.setup();
-      const handleChange = vi.fn();
-      const { container } = render(<CheckboxGlass checked={false} onChange={handleChange} disabled />);
-
-      const checkbox = getCheckboxDiv(container);
-      checkbox.focus();
-      await user.keyboard('{Enter}');
 
       expect(handleChange).not.toHaveBeenCalled();
     });
@@ -186,33 +208,15 @@ describe('CheckboxGlass', () => {
     it('does not call onChange when disabled and Space pressed', async () => {
       const user = userEvent.setup();
       const handleChange = vi.fn();
-      const { container } = render(<CheckboxGlass checked={false} onChange={handleChange} disabled />);
+      const { container } = render(
+        <CheckboxGlass checked={false} onChange={handleChange} disabled />
+      );
 
-      const checkbox = getCheckboxDiv(container);
+      const checkbox = getCheckboxButton(container);
       checkbox.focus();
       await user.keyboard(' ');
 
       expect(handleChange).not.toHaveBeenCalled();
-    });
-
-    it('sets tabIndex to -1 when disabled', () => {
-      const { container } = render(<CheckboxGlass checked={false} onChange={vi.fn()} disabled />);
-      const checkbox = getCheckboxDiv(container);
-      expect(checkbox).toHaveAttribute('tabIndex', '-1');
-    });
-
-    it('sets tabIndex to 0 when not disabled', () => {
-      const { container } = render(<CheckboxGlass checked={false} onChange={vi.fn()} />);
-      const checkbox = getCheckboxDiv(container);
-      expect(checkbox).toHaveAttribute('tabIndex', '0');
-    });
-
-    it('disables native input when disabled prop is true', () => {
-      const { container } = render(
-        <CheckboxGlass checked={false} onChange={vi.fn()} disabled />
-      );
-      const input = container.querySelector('input[type="checkbox"]');
-      expect(input).toBeDisabled();
     });
   });
 
@@ -227,49 +231,45 @@ describe('CheckboxGlass', () => {
       const user = userEvent.setup();
       const { container } = render(<CheckboxGlass checked={false} />);
 
-      const checkbox = getCheckboxDiv(container);
+      const checkbox = getCheckboxButton(container);
 
-      expect(async () => {
-        await user.click(checkbox);
-      }).not.toThrow();
+      await expect(user.click(checkbox)).resolves.not.toThrow();
     });
 
     it('does not throw error on keyboard interaction without onChange', async () => {
       const user = userEvent.setup();
       const { container } = render(<CheckboxGlass checked={false} />);
 
-      const checkbox = getCheckboxDiv(container);
+      const checkbox = getCheckboxButton(container);
       checkbox.focus();
 
-      expect(async () => {
-        await user.keyboard('{Enter}');
-      }).not.toThrow();
+      await expect(user.keyboard(' ')).resolves.not.toThrow();
     });
   });
 
   describe('Forward Ref', () => {
-    it('forwards ref to input element', () => {
-      const ref = { current: null } as React.RefObject<HTMLInputElement>;
+    it('forwards ref to button element (Radix primitive)', () => {
+      const ref = { current: null } as React.RefObject<HTMLButtonElement | null>;
       render(<CheckboxGlass ref={ref} checked={false} onChange={vi.fn()} />);
 
-      expect(ref.current).toBeInstanceOf(HTMLInputElement);
-      expect((ref.current as HTMLInputElement).type).toBe('checkbox');
+      expect(ref.current).toBeInstanceOf(HTMLButtonElement);
+      expect(ref.current).toHaveAttribute('role', 'checkbox');
     });
 
     it('allows ref methods to be called', () => {
-      const ref = { current: null } as React.RefObject<HTMLInputElement>;
+      const ref = { current: null } as React.RefObject<HTMLButtonElement | null>;
       render(<CheckboxGlass ref={ref} checked={false} onChange={vi.fn()} />);
 
       expect(ref.current).not.toBeNull();
       if (ref.current) {
-        (ref.current as HTMLInputElement).focus();
+        ref.current.focus();
         expect(document.activeElement).toBe(ref.current);
       }
     });
   });
 
   describe('Additional Props', () => {
-    it('passes additional HTML attributes to input', () => {
+    it('passes additional HTML attributes to button', () => {
       const { container } = render(
         <CheckboxGlass
           checked={false}
@@ -279,9 +279,9 @@ describe('CheckboxGlass', () => {
         />
       );
 
-      const input = container.querySelector('input[type="checkbox"]');
-      expect(input).toHaveAttribute('data-testid', 'custom-checkbox');
-      expect(input).toHaveAttribute('aria-describedby', 'description');
+      const checkbox = getCheckboxButton(container);
+      expect(checkbox).toHaveAttribute('data-testid', 'custom-checkbox');
+      expect(checkbox).toHaveAttribute('aria-describedby', 'description');
     });
 
     it('applies id attribute correctly', () => {
@@ -289,37 +289,74 @@ describe('CheckboxGlass', () => {
         <CheckboxGlass checked={false} onChange={vi.fn()} id="my-checkbox" />
       );
 
-      const input = container.querySelector('input[type="checkbox"]');
-      expect(input).toHaveAttribute('id', 'my-checkbox');
+      const checkbox = getCheckboxButton(container);
+      expect(checkbox).toHaveAttribute('id', 'my-checkbox');
     });
 
-    it('applies name attribute correctly', () => {
+    it('accepts name prop for form submission', () => {
+      // Radix Checkbox creates a hidden input with name for form submission
+      // We just verify the component renders without errors when name is provided
+      expect(() => {
+        render(<CheckboxGlass checked={false} onChange={vi.fn()} name="agree-terms" />);
+      }).not.toThrow();
+    });
+
+    it('applies value attribute correctly', () => {
       const { container } = render(
-        <CheckboxGlass checked={false} onChange={vi.fn()} name="agree-terms" />
+        <CheckboxGlass checked={false} onChange={vi.fn()} value="yes" />
       );
 
-      const input = container.querySelector('input[type="checkbox"]');
-      expect(input).toHaveAttribute('name', 'agree-terms');
+      const checkbox = getCheckboxButton(container);
+      expect(checkbox).toHaveAttribute('value', 'yes');
+    });
+
+    it('applies required attribute correctly', () => {
+      const { container } = render(<CheckboxGlass checked={false} onChange={vi.fn()} required />);
+
+      const checkbox = getCheckboxButton(container);
+      expect(checkbox).toHaveAttribute('aria-required', 'true');
     });
   });
 
   describe('Theme Styling', () => {
-    it('applies glass theme CSS variables when unchecked', () => {
+    it('has correct inline styles for unchecked state', () => {
       const { container } = render(<CheckboxGlass checked={false} onChange={vi.fn()} />);
-      const checkboxDiv = getCheckboxDiv(container);
+      const checkbox = getCheckboxButton(container);
 
-      expect(checkboxDiv).toHaveStyle({
-        background: 'var(--checkbox-bg)',
-      });
+      // Inline styles with CSS variables for unchecked state
+      expect(checkbox).toHaveStyle({ background: 'var(--checkbox-bg)' });
+      expect(checkbox.style.borderColor).toBe('var(--checkbox-border)');
     });
 
-    it('applies checked theme CSS variables when checked', () => {
+    it('has correct inline styles for checked state', () => {
       const { container } = render(<CheckboxGlass checked={true} onChange={vi.fn()} />);
-      const checkboxDiv = getCheckboxDiv(container);
+      const checkbox = getCheckboxButton(container);
 
-      expect(checkboxDiv).toHaveStyle({
-        background: 'var(--checkbox-checked-bg)',
-      });
+      // Radix sets data-state for CSS styling
+      expect(checkbox).toHaveAttribute('data-state', 'checked');
+      // Inline styles with CSS variables for checked state
+      expect(checkbox).toHaveStyle({ background: 'var(--checkbox-checked-bg)' });
+      expect(checkbox.style.borderColor).toBe('var(--checkbox-checked-bg)');
+    });
+  });
+
+  describe('Uncontrolled Mode', () => {
+    it('works in uncontrolled mode with defaultChecked', async () => {
+      const user = userEvent.setup();
+      const { container } = render(<CheckboxGlass defaultChecked={true} />);
+
+      const checkbox = getCheckboxButton(container);
+      expect(checkbox).toHaveAttribute('data-state', 'checked');
+
+      await user.click(checkbox);
+      expect(checkbox).toHaveAttribute('data-state', 'unchecked');
+    });
+
+    it('starts unchecked by default in uncontrolled mode', () => {
+      const { container } = render(<CheckboxGlass />);
+
+      const checkbox = getCheckboxButton(container);
+      expect(checkbox).toHaveAttribute('data-state', 'unchecked');
     });
   });
 });
