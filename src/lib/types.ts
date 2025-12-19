@@ -44,12 +44,18 @@ export type { AlertType } from '@/lib/variants/alert-glass-variants';
 
 export type { ToggleGlassProps } from '@/components/glass/ui/toggle-glass';
 
-export type { CheckboxGlassProps } from '@/components/glass/ui/checkbox-glass';
+export type { CheckboxGlassProps, CheckedState } from '@/components/glass/ui/checkbox-glass';
 
 // TooltipGlass is now Radix-based compound component - no props to export
 // Use TooltipGlassSimple for simple cases
 
-export type { TabItem } from '@/components/glass/ui/tabs-glass';
+export type {
+  TabItem,
+  TabsRootProps,
+  TabsListProps,
+  TabsTriggerProps,
+  TabsContentProps,
+} from '@/components/glass/ui/tabs-glass';
 
 export type { SkeletonGlassProps } from '@/components/glass/ui/skeleton-glass';
 export type { SkeletonVariant } from '@/lib/variants/skeleton-glass-variants';

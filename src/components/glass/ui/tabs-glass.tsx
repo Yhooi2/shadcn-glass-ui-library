@@ -35,6 +35,7 @@ import {
   forwardRef,
   createContext,
   useContext,
+  useState,
   type CSSProperties,
   type FC,
   type ReactNode,
@@ -158,9 +159,14 @@ const useTabsContext = () => {
  * </TabsGlass.Root>
  * ```
  */
-interface TabsRootProps {
-  /** Current active tab value */
-  value: string;
+/**
+ * Props for TabsGlass Root component (shadcn/ui compatible)
+ */
+export interface TabsRootProps {
+  /** Current active tab value (controlled) */
+  value?: string;
+  /** Default active tab value (uncontrolled) */
+  defaultValue?: string;
   /** Callback when tab value changes */
   onValueChange?: (value: string) => void;
   /** Child components */
@@ -169,9 +175,27 @@ interface TabsRootProps {
   className?: string;
 }
 
-const TabsRoot: FC<TabsRootProps> = ({ value, onValueChange, children, className }) => {
+const TabsRoot: FC<TabsRootProps> = ({
+  value: controlledValue,
+  defaultValue,
+  onValueChange,
+  children,
+  className,
+}) => {
+  // Support both controlled and uncontrolled modes (shadcn/ui pattern)
+  const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue ?? '');
+  const isControlled = controlledValue !== undefined;
+  const value = isControlled ? controlledValue : uncontrolledValue;
+
+  const handleValueChange = (newValue: string) => {
+    if (!isControlled) {
+      setUncontrolledValue(newValue);
+    }
+    onValueChange?.(newValue);
+  };
+
   return (
-    <TabsContext.Provider value={{ value, onValueChange }}>
+    <TabsContext.Provider value={{ value, onValueChange: handleValueChange }}>
       <div className={cn('tabs-glass-root', className)}>{children}</div>
     </TabsContext.Provider>
   );
@@ -181,7 +205,7 @@ const TabsRoot: FC<TabsRootProps> = ({ value, onValueChange, children, className
 // COMPOUND COMPONENT: LIST
 // ========================================
 
-interface TabsListProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface TabsListProps extends React.HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
   className?: string;
 }
@@ -213,7 +237,7 @@ TabsList.displayName = 'TabsList';
 // COMPOUND COMPONENT: TRIGGER
 // ========================================
 
-interface TabsTriggerProps {
+export interface TabsTriggerProps {
   /** Value of this tab */
   value: string;
   /** Tab label/content */
@@ -318,7 +342,7 @@ TabsTrigger.displayName = 'TabsTrigger';
 // COMPOUND COMPONENT: CONTENT
 // ========================================
 
-interface TabsContentProps {
+export interface TabsContentProps {
   /** Value of the tab this content belongs to */
   value: string;
   /** Content to display when tab is active */
@@ -353,6 +377,7 @@ const TabsContent: FC<TabsContentProps> = ({ value, children, className }) => {
  *
  * @example
  * ```tsx
+ * // Compound API (TabsGlass.Root pattern)
  * <TabsGlass.Root value={activeTab} onValueChange={setActiveTab}>
  *   <TabsGlass.List>
  *     <TabsGlass.Trigger value="tab1">Overview</TabsGlass.Trigger>
@@ -365,9 +390,21 @@ const TabsContent: FC<TabsContentProps> = ({ value, children, className }) => {
  *     <p>Analytics content</p>
  *   </TabsGlass.Content>
  * </TabsGlass.Root>
+ *
+ * // shadcn/ui compatible API (separate imports)
+ * import { Tabs, TabsList, TabsTrigger, TabsContent } from 'shadcn-glass-ui'
+ * <Tabs defaultValue="tab1">
+ *   <TabsList>
+ *     <TabsTrigger value="tab1">Overview</TabsTrigger>
+ *     <TabsTrigger value="tab2">Analytics</TabsTrigger>
+ *   </TabsList>
+ *   <TabsContent value="tab1">Overview content</TabsContent>
+ *   <TabsContent value="tab2">Analytics content</TabsContent>
+ * </Tabs>
  * ```
  *
  * @since v1.0.0 - Legacy API removed (tabs/activeTab/onChange props)
+ * @since v2.3.0 - Added shadcn/ui compatible separate exports
  */
 export const TabsGlass = {
   Root: TabsRoot,
@@ -375,3 +412,41 @@ export const TabsGlass = {
   Trigger: TabsTrigger,
   Content: TabsContent,
 };
+
+// ========================================
+// SHADCN/UI COMPATIBLE EXPORTS (v2.3.0+)
+// ========================================
+
+/**
+ * Tabs - shadcn/ui compatible alias for TabsGlass.Root
+ *
+ * @example
+ * ```tsx
+ * import { Tabs, TabsList, TabsTrigger, TabsContent } from 'shadcn-glass-ui'
+ *
+ * <Tabs defaultValue="account">
+ *   <TabsList>
+ *     <TabsTrigger value="account">Account</TabsTrigger>
+ *     <TabsTrigger value="password">Password</TabsTrigger>
+ *   </TabsList>
+ *   <TabsContent value="account">Account settings</TabsContent>
+ *   <TabsContent value="password">Password settings</TabsContent>
+ * </Tabs>
+ * ```
+ */
+export const Tabs = TabsRoot;
+
+/**
+ * TabsList - shadcn/ui compatible alias for TabsGlass.List
+ */
+export { TabsList };
+
+/**
+ * TabsTrigger - shadcn/ui compatible alias for TabsGlass.Trigger
+ */
+export { TabsTrigger };
+
+/**
+ * TabsContent - shadcn/ui compatible alias for TabsGlass.Content
+ */
+export { TabsContent };

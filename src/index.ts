@@ -24,7 +24,8 @@ export {
 
 export { BadgeGlass } from './components/glass/ui/badge-glass';
 export { ButtonGlass } from './components/glass/ui/button-glass';
-export { CheckboxGlass } from './components/glass/ui/checkbox-glass';
+export { CheckboxGlass, Checkbox } from './components/glass/ui/checkbox-glass';
+export type { CheckedState } from './components/glass/ui/checkbox-glass';
 export { CircularProgressGlass } from './components/glass/ui/circular-progress-glass';
 export { ComboBoxGlass } from './components/glass/ui/combobox-glass';
 
@@ -78,7 +79,20 @@ export {
 export { SkeletonGlass } from './components/glass/ui/skeleton-glass';
 export { SliderGlass } from './components/glass/ui/slider-glass';
 export { StepperGlass } from './components/glass/ui/stepper-glass';
-export { TabsGlass } from './components/glass/ui/tabs-glass';
+// TabsGlass - Compound Components + shadcn/ui compatible separate exports
+export {
+  TabsGlass,
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+} from './components/glass/ui/tabs-glass';
+export type {
+  TabsRootProps,
+  TabsListProps,
+  TabsTriggerProps,
+  TabsContentProps,
+} from './components/glass/ui/tabs-glass';
 export { ToggleGlass } from './components/glass/ui/toggle-glass';
 
 // SidebarGlass - Compound Components (100% shadcn/ui Sidebar compatible)
