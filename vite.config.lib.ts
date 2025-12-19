@@ -4,6 +4,7 @@ import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts';
 
 // Library build configuration
+// Produces clean ESM bundles without CommonJS shims (following @radix-ui patterns)
 export default defineConfig({
   plugins: [
     react(),
@@ -23,7 +24,10 @@ export default defineConfig({
         'src/main.tsx',
         'src/App.tsx',
       ],
-      rollupTypes: true,
+      // Disable rollupTypes to preserve full type structure
+      // rollupTypes breaks on complex re-exports (export *, recharts re-export)
+      rollupTypes: false,
+      entryRoot: 'src',
     }),
   ],
   resolve: {
@@ -41,48 +45,61 @@ export default defineConfig({
         themes: path.resolve(__dirname, 'src/themes.ts'),
         'cli/index': path.resolve(__dirname, 'src/cli/index.ts'),
       },
-      formats: ['es', 'cjs'],
-      fileName: (format, entryName) => {
-        const ext = format === 'es' ? 'js' : 'cjs';
-        return `${entryName}.${ext}`;
-      },
+      // Note: formats and fileName are set per-output below for proper chunk extensions
     },
     rollupOptions: {
+      // ALL runtime dependencies must be external to produce clean ESM
+      // This prevents bundling CommonJS code into the ESM output
       external: [
+        // React ecosystem
         'react',
         'react-dom',
         'react/jsx-runtime',
-        '@radix-ui/react-avatar',
-        '@radix-ui/react-checkbox',
-        '@radix-ui/react-dialog',
-        '@radix-ui/react-dropdown-menu',
-        '@radix-ui/react-progress',
-        '@radix-ui/react-slot',
-        '@radix-ui/react-tabs',
-        '@radix-ui/react-toggle',
-        '@radix-ui/react-tooltip',
+        // All Radix UI packages (use regex to catch all)
+        /^@radix-ui\//,
+        // Utility libraries
         'class-variance-authority',
         'clsx',
-        'lucide-react',
         'tailwind-merge',
+        // Icon library
+        'lucide-react',
+        // Animation
+        'framer-motion',
+        // Chart library (contains lodash CommonJS code)
+        'recharts',
+        // Command menu
+        'cmdk',
+        // Toast notifications
+        'sonner',
+        // Theme management
+        'next-themes',
         // Node.js built-ins for CLI
         'node:util',
         'node:fs',
         'node:path',
         'node:url',
       ],
-      output: {
-        preserveModules: false,
-        exports: 'named',
-        globals: {
-          react: 'React',
-          'react-dom': 'ReactDOM',
-          'react/jsx-runtime': 'jsxRuntime',
+      output: [
+        // ESM output - all files use .mjs extension
+        {
+          format: 'es',
+          entryFileNames: '[name].mjs',
+          chunkFileNames: '[name]-[hash].mjs',
+          exports: 'named',
         },
-      },
+        // CommonJS output - all files use .cjs extension
+        {
+          format: 'cjs',
+          entryFileNames: '[name].cjs',
+          chunkFileNames: '[name]-[hash].cjs',
+          exports: 'named',
+        },
+      ],
     },
     sourcemap: true,
     minify: false,
     cssCodeSplit: false,
+    // Target modern browsers that support ESM natively
+    target: 'es2020',
   },
 });

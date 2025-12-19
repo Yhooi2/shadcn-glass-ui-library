@@ -5,6 +5,40 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.0] - 2025-12-19
+
+### Fixed
+
+- **ES Module Build:** Removed CommonJS shims (`__require`, `__commonJS`) from ESM bundle
+  - Library now works in Vite/ESM environments without `optimizeDeps.include` workaround
+  - All runtime dependencies properly externalized (recharts, framer-motion, cmdk, sonner,
+    next-themes)
+  - Bundle size reduced: `index.mjs` 66KB (was 107KB), chunks 150KB (was 1MB)
+
+### Changed
+
+- **File Extensions:** ESM files now use `.mjs`, CJS files use `.cjs` (following @radix-ui pattern)
+  - Entry points: `index.mjs`, `components.mjs`, `hooks.mjs`, `utils.mjs`, `themes.mjs`
+  - All chunks use matching extensions for consistent module resolution
+- **Type Declarations:** Disabled `rollupTypes` in vite-plugin-dts to fix empty `index.d.ts`
+  - All 160 type declaration files now generated correctly
+  - Complex re-exports (`export *`, recharts re-export) now work properly
+
+### Technical Details
+
+```typescript
+// Before (v2.2.3) - ESM bundle contained CommonJS shims
+var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : ...);
+// ERROR in Vite: "require is not defined"
+
+// After (v2.3.0) - Clean ESM imports
+import { Bar, BarChart } from "recharts";
+// Works without workarounds
+```
+
+**Migration:** No breaking changes. Update to v2.3.0 and remove any `optimizeDeps.include`
+workarounds from your Vite config.
+
 ## [2.2.3] - 2025-12-19
 
 ### Fixed
