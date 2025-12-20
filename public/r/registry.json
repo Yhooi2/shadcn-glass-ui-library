@@ -40,6 +40,12 @@
       "description": "Glass-themed loading skeleton with:"
     },
     {
+      "name": "sheet-glass",
+      "type": "registry:ui",
+      "title": "Sheet Glass",
+      "description": "SheetGlass Component (Radix UI Dialog-based)"
+    },
+    {
       "name": "popover-glass",
       "type": "registry:ui",
       "title": "Popover Glass",
@@ -157,7 +163,7 @@
       "name": "progress-glass",
       "type": "registry:component",
       "title": "Progress Glass",
-      "description": "Glass-themed progress bar with:"
+      "description": "Glass-themed progress bar with enhanced features beyond shadcn/ui Progress.\n *\n * ## shadcn/ui Compatibility\n *\n * This component is **backward compatible** with shadcn/ui Progress:"
     },
     {
       "name": "profile-avatar-glass",
