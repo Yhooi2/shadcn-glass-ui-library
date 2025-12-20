@@ -135,9 +135,6 @@ export const WithDot: Story = {
 };
 
 export const AllVariants: Story = {
-  args: {
-    children: 'Badge',
-  },
   render: () => (
     <div className="flex flex-wrap gap-3">
       <BadgeGlass variant="default">Default</BadgeGlass>

@@ -245,9 +245,6 @@ const AllStatesDemo = () => {
 };
 
 export const AllStates: Story = {
-  args: {
-    pressed: false,
-  },
   render: () => <AllStatesDemo />,
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
