@@ -163,7 +163,7 @@
       "name": "progress-glass",
       "type": "registry:component",
       "title": "Progress Glass",
-      "description": "Glass-themed progress bar with enhanced features beyond shadcn/ui Progress.\n *\n * ## shadcn/ui Compatibility\n *\n * This component is **backward compatible** with shadcn/ui Progress:"
+      "description": "Glass-themed progress bar with 100% shadcn/ui Progress API compatibility.\n *\n * ## shadcn/ui Compatibility\n *\n * This component is **fully compatible** with shadcn/ui Progress API:"
     },
     {
       "name": "profile-avatar-glass",
