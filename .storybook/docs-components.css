@@ -41,7 +41,7 @@
 }
 
 .docs-hero-title {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 1rem;
   background: linear-gradient(135deg, #818cf8, #c084fc);
@@ -52,13 +52,13 @@
 }
 
 .docs-hero-subtitle {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   color: var(--text-secondary, rgba(255, 255, 255, 0.6));
   position: relative;
 }
 
 .docs-hero-desc {
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: var(--text-secondary, rgba(255, 255, 255, 0.6));
   opacity: 0.8;
   position: relative;
@@ -591,7 +591,15 @@
   }
 
   .docs-hero-title {
-    font-size: 2rem;
+    font-size: 1.75rem;
+  }
+
+  .docs-hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .docs-hero-desc {
+    font-size: 0.875rem;
   }
 
   .docs-features-grid,
