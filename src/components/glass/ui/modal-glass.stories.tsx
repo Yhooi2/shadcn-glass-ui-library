@@ -1,7 +1,17 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { ModalGlass } from './modal-glass';
+import {
+  ModalGlass,
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogClose,
+} from './modal-glass';
 import { ButtonGlass } from './button-glass';
 import { InputGlass } from './input-glass';
 
@@ -576,4 +586,93 @@ export const MultiStepForm: Story = {
       </ModalGlass.Root>
     );
   },
+};
+
+// ========================================
+// SHADCN/UI API COMPATIBILITY
+// ========================================
+
+/**
+ * Example using shadcn/ui-compatible Dialog API.
+ * This demonstrates that you can use Dialog instead of ModalGlass.
+ */
+export const ShadcnUICompatible: Story = {
+  name: 'shadcn/ui Compatible',
+  render: () => (
+    <Dialog>
+      <DialogTrigger asChild>
+        <ButtonGlass>Open Dialog (shadcn/ui API)</ButtonGlass>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>shadcn/ui Compatible API</DialogTitle>
+          <DialogDescription>
+            This modal uses the shadcn/ui Dialog import pattern.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="py-4" style={{ color: 'var(--text-secondary)' }}>
+          <p className="mb-3">
+            You can import and use <code className="px-1 bg-white/10 rounded">Dialog</code> instead
+            of <code className="px-1 bg-white/10 rounded">ModalGlass</code>.
+          </p>
+          <p className="mb-3">
+            Content can go directly inside{' '}
+            <code className="px-1 bg-white/10 rounded">DialogContent</code> without needing a Body
+            wrapper (matching shadcn/ui pattern).
+          </p>
+          <div className="p-3 rounded-lg bg-(--semantic-surface)">
+            <p className="text-sm text-(--text-primary)">
+              💡 Both APIs work identically - use whichever you prefer!
+            </p>
+          </div>
+        </div>
+        <DialogFooter>
+          <DialogClose asChild>
+            <ButtonGlass variant="ghost">Cancel</ButtonGlass>
+          </DialogClose>
+          <ButtonGlass>Confirm</ButtonGlass>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  ),
+};
+
+/**
+ * Example showing content without Body wrapper (shadcn/ui pattern).
+ */
+export const WithoutBodyWrapper: Story = {
+  render: () => (
+    <ModalGlass.Root>
+      <ModalGlass.Trigger asChild>
+        <ButtonGlass variant="secondary">No Body Wrapper</ButtonGlass>
+      </ModalGlass.Trigger>
+      <ModalGlass.Content>
+        <ModalGlass.Header>
+          <ModalGlass.Title>Direct Content</ModalGlass.Title>
+          <ModalGlass.Description>
+            Content can go directly in ModalGlass.Content
+          </ModalGlass.Description>
+        </ModalGlass.Header>
+        {/* Content directly in ModalGlass.Content - no Body wrapper needed */}
+        <div className="py-4" style={{ color: 'var(--text-secondary)' }}>
+          <p className="mb-3">
+            This content is placed directly inside ModalGlass.Content without using ModalGlass.Body.
+          </p>
+          <p className="mb-3">
+            This matches the shadcn/ui DialogContent pattern where content goes directly inside.
+          </p>
+          <div className="p-3 rounded-lg bg-(--semantic-surface)">
+            <p className="text-sm text-(--text-primary)">
+              ✅ ModalGlass.Body is optional - use it when you want the text-secondary color applied
+            </p>
+          </div>
+        </div>
+        <ModalGlass.Footer>
+          <ModalGlass.Close asChild>
+            <ButtonGlass variant="ghost">Close</ButtonGlass>
+          </ModalGlass.Close>
+        </ModalGlass.Footer>
+      </ModalGlass.Content>
+    </ModalGlass.Root>
+  ),
 };

@@ -65,8 +65,54 @@ export {
 } from './components/glass/ui/card-glass';
 
 export { InputGlass } from './components/glass/ui/input-glass';
-export { ModalGlass } from './components/glass/ui/modal-glass';
+
+// ModalGlass - Compound Components + shadcn/ui Dialog compatible aliases
+export {
+  ModalGlass,
+  ModalRoot,
+  ModalTrigger,
+  ModalPortal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  ModalTitle,
+  ModalDescription,
+  ModalClose,
+  // shadcn/ui Dialog-compatible aliases
+  Dialog,
+  DialogTrigger,
+  DialogPortal,
+  DialogOverlay,
+  DialogContent,
+  DialogHeader,
+  DialogFooter,
+  DialogTitle,
+  DialogDescription,
+  DialogClose,
+} from './components/glass/ui/modal-glass';
+export type { ModalRootProps, ModalContentProps } from './components/glass/ui/modal-glass';
+
 export { NotificationGlass } from './components/glass/ui/notification-glass';
+
+// SheetGlass - Compound Components + shadcn/ui Sheet compatible aliases
+export {
+  SheetGlass,
+  SheetRoot,
+  SheetTrigger,
+  SheetPortal,
+  SheetOverlay,
+  SheetContent,
+  SheetHeader,
+  SheetFooter,
+  SheetTitle,
+  SheetDescription,
+  SheetClose,
+  // shadcn/ui Sheet-compatible alias
+  Sheet,
+} from './components/glass/ui/sheet-glass';
+export type { SheetContentProps, SheetSide } from './components/glass/ui/sheet-glass';
 
 // PopoverGlass - Compound Components + Legacy Wrapper
 export {

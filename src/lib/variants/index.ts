@@ -16,6 +16,7 @@ export * from './input-glass-variants';
 export * from './insight-card-glass-variants';
 export * from './modal-glass-variants';
 export * from './notification-glass-variants';
+export * from './sheet-glass-variants';
 export * from './progress-glass-variants';
 export * from './skeleton-glass-variants';
 export * from './sparkline-glass-variants';

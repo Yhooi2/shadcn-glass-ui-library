@@ -460,4 +460,52 @@ describe('ModalGlass', () => {
       await expect(user.keyboard('{Escape}')).resolves.not.toThrow();
     });
   });
+
+  describe('shadcn/ui Dialog Compatibility', () => {
+    it('Dialog alias works identically to ModalGlass.Root', async () => {
+      const { Dialog, DialogContent, DialogTitle } = await import('../modal-glass');
+      render(
+        <Dialog open={true}>
+          <DialogContent>
+            <DialogTitle>Test</DialogTitle>
+          </DialogContent>
+        </Dialog>
+      );
+      expect(screen.getByRole('dialog')).toBeInTheDocument();
+    });
+
+    it('supports shadcn/ui import pattern with all components', async () => {
+      const user = userEvent.setup();
+      const {
+        Dialog,
+        DialogTrigger,
+        DialogContent,
+        DialogHeader,
+        DialogTitle,
+        DialogFooter,
+        DialogClose,
+      } = await import('../modal-glass');
+
+      render(
+        <Dialog>
+          <DialogTrigger>Open</DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Title</DialogTitle>
+            </DialogHeader>
+            <p>Content without Body wrapper</p>
+            <DialogFooter>
+              <DialogClose>Close</DialogClose>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      );
+
+      await user.click(screen.getByText('Open'));
+      await waitFor(() => {
+        expect(screen.getByRole('dialog')).toBeInTheDocument();
+        expect(screen.getByText('Content without Body wrapper')).toBeInTheDocument();
+      });
+    });
+  });
 });

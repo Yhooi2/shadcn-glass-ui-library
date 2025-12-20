@@ -258,9 +258,33 @@ function ModalHeader({ className, ...props }: React.ComponentProps<'div'>) {
 // ========================================
 
 /**
- * ModalGlass.Body - Main content area
+ * ModalGlass.Body - Optional wrapper for main content area
  *
- * Note: shadcn/ui Dialog doesn't have DialogBody, but we keep it for convenience.
+ * Note: This component is OPTIONAL. Unlike some implementations, content can go
+ * directly inside ModalGlass.Content (matching shadcn/ui DialogContent pattern).
+ * Use Body when you want the text-secondary color styling applied.
+ *
+ * @example Direct content (shadcn/ui pattern)
+ * ```tsx
+ * <ModalGlass.Content>
+ *   <ModalGlass.Header>
+ *     <ModalGlass.Title>Title</ModalGlass.Title>
+ *   </ModalGlass.Header>
+ *   <p>Content goes here directly</p>
+ *   <ModalGlass.Footer>...</ModalGlass.Footer>
+ * </ModalGlass.Content>
+ * ```
+ *
+ * @example With Body wrapper (original pattern)
+ * ```tsx
+ * <ModalGlass.Content>
+ *   <ModalGlass.Header>...</ModalGlass.Header>
+ *   <ModalGlass.Body>
+ *     <p>Content with text-secondary styling</p>
+ *   </ModalGlass.Body>
+ *   <ModalGlass.Footer>...</ModalGlass.Footer>
+ * </ModalGlass.Content>
+ * ```
  */
 function ModalBody({ className, ...props }: React.ComponentProps<'div'>) {
   return (
@@ -425,3 +449,56 @@ export {
 };
 
 export type { ModalRootProps, ModalContentProps };
+
+// ========================================
+// SHADCN/UI COMPATIBLE ALIASES
+// ========================================
+
+/**
+ * Dialog - shadcn/ui compatible alias for ModalGlass.Root
+ *
+ * @example shadcn/ui compatible usage
+ * ```tsx
+ * import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle } from 'shadcn-glass-ui'
+ *
+ * <Dialog>
+ *   <DialogTrigger asChild>
+ *     <Button>Open</Button>
+ *   </DialogTrigger>
+ *   <DialogContent>
+ *     <DialogHeader>
+ *       <DialogTitle>Title</DialogTitle>
+ *     </DialogHeader>
+ *     <p>Content goes directly here (no DialogBody needed)</p>
+ *   </DialogContent>
+ * </Dialog>
+ * ```
+ */
+export const Dialog = ModalRoot;
+
+/** DialogTrigger - shadcn/ui compatible alias for ModalGlass.Trigger */
+export const DialogTrigger = ModalTrigger;
+
+/** DialogPortal - shadcn/ui compatible alias for ModalGlass.Portal */
+export const DialogPortal = ModalPortal;
+
+/** DialogOverlay - shadcn/ui compatible alias for ModalGlass.Overlay */
+export const DialogOverlay = ModalOverlay;
+
+/** DialogContent - shadcn/ui compatible alias for ModalGlass.Content */
+export const DialogContent = ModalContent;
+
+/** DialogHeader - shadcn/ui compatible alias for ModalGlass.Header */
+export const DialogHeader = ModalHeader;
+
+/** DialogFooter - shadcn/ui compatible alias for ModalGlass.Footer */
+export const DialogFooter = ModalFooter;
+
+/** DialogTitle - shadcn/ui compatible alias for ModalGlass.Title */
+export const DialogTitle = ModalTitle;
+
+/** DialogDescription - shadcn/ui compatible alias for ModalGlass.Description */
+export const DialogDescription = ModalDescription;
+
+/** DialogClose - shadcn/ui compatible alias for ModalGlass.Close */
+export const DialogClose = ModalClose;

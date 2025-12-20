@@ -1,11 +1,42 @@
 /**
  * ProgressGlass Component
  *
- * Glass-themed progress bar with:
+ * Glass-themed progress bar with enhanced features beyond shadcn/ui Progress.
+ *
+ * ## shadcn/ui Compatibility
+ *
+ * This component is **backward compatible** with shadcn/ui Progress:
+ * - The `value` prop works identically
+ * - Extra props (`size`, `gradient`, `showLabel`) have sensible defaults
+ * - Drop-in replacement: `<Progress value={50} />` → `<ProgressGlass value={50} />`
+ *
+ * @example Drop-in replacement from shadcn/ui
+ * ```tsx
+ * // shadcn/ui
+ * <Progress value={50} />
+ *
+ * // ProgressGlass (identical behavior)
+ * <ProgressGlass value={50} />
+ * ```
+ *
+ * @example Enhanced features (not in shadcn/ui)
+ * ```tsx
+ * <ProgressGlass
+ *   value={75}
+ *   size="lg"           // 'sm' | 'md' | 'lg' | 'xl' (default: 'md')
+ *   gradient="emerald"  // 'violet' | 'blue' | 'cyan' | 'amber' | 'emerald' | 'rose' (default: 'violet')
+ *   showLabel           // Show percentage label (default: false)
+ * />
+ * ```
+ *
+ * ## Features
  * - Theme-aware styling (glass/light/aurora)
- * - Gradient fill with glow
- * - Size variants
- * - Optional label
+ * - Gradient fill with glow effects
+ * - Responsive size variants
+ * - Optional percentage label
+ *
+ * @accessibility
+ * - role="progressbar" with aria-valuenow, aria-valuemin, aria-valuemax
  */
 
 import { forwardRef, type CSSProperties } from 'react';
