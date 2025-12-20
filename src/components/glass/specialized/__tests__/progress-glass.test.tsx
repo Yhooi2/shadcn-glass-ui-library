@@ -315,5 +315,23 @@ describe('ProgressGlass', () => {
       const fill = container.querySelector('[role="progressbar"]') as HTMLElement;
       expect(fill).toHaveStyle({ width: '25%' });
     });
+
+    it('accepts custom aria-label prop', () => {
+      render(<ProgressGlass value={85} aria-label="Activity score: 85% - High" />);
+      const progressbar = screen.getByRole('progressbar');
+      expect(progressbar).toHaveAttribute('aria-label', 'Activity score: 85% - High');
+    });
+
+    it('uses default aria-label when not provided', () => {
+      render(<ProgressGlass value={75} />);
+      const progressbar = screen.getByRole('progressbar');
+      expect(progressbar).toHaveAttribute('aria-label', 'Progress: 75 of 100');
+    });
+
+    it('custom aria-label works with max prop', () => {
+      render(<ProgressGlass value={50} max={200} aria-label="Upload progress" />);
+      const progressbar = screen.getByRole('progressbar');
+      expect(progressbar).toHaveAttribute('aria-label', 'Upload progress');
+    });
   });
 });

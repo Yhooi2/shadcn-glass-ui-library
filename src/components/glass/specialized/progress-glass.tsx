@@ -82,7 +82,16 @@ const getGradientColor = (
 
 export const ProgressGlass = forwardRef<HTMLDivElement, ProgressGlassProps>(
   (
-    { className, size = 'md', value = 0, max = 100, gradient = 'violet', showLabel, ...props },
+    {
+      className,
+      size = 'md',
+      value = 0,
+      max = 100,
+      gradient = 'violet',
+      showLabel,
+      'aria-label': ariaLabel,
+      ...props
+    },
     ref
   ) => {
     // Calculate percentage based on max value
@@ -120,7 +129,7 @@ export const ProgressGlass = forwardRef<HTMLDivElement, ProgressGlassProps>(
             aria-valuenow={value}
             aria-valuemin={0}
             aria-valuemax={max}
-            aria-label={`Progress: ${value} of ${max}`}
+            aria-label={ariaLabel ?? `Progress: ${value} of ${max}`}
           />
         </div>
       </div>
