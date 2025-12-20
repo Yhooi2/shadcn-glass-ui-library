@@ -19,7 +19,7 @@ const meta = {
   },
   decorators: [
     (Story) => (
-      <div className="w-64 p-4 bg-[var(--glass-bg)] rounded-xl">
+      <div className="w-80 p-4 bg-(--glass-bg) rounded-xl">
         <Story />
       </div>
     ),
@@ -55,12 +55,12 @@ export const CustomColors: Story = {
 
 export const Sizes: RenderOnlyStory = {
   render: () => (
-    <div className="space-y-4 w-64">
-      <div className="text-xs text-[var(--text-muted)] mb-1">Small (16px)</div>
+    <div className="space-y-4">
+      <div className="text-xs text-(--text-muted) mb-1">Small (16px)</div>
       <SparklineGlass data={sampleData} height="sm" />
-      <div className="text-xs text-[var(--text-muted)] mb-1">Medium (24px)</div>
+      <div className="text-xs text-(--text-muted) mb-1">Medium (24px)</div>
       <SparklineGlass data={sampleData} height="md" />
-      <div className="text-xs text-[var(--text-muted)] mb-1">Large (32px)</div>
+      <div className="text-xs text-(--text-muted) mb-1">Large (32px)</div>
       <SparklineGlass data={sampleData} height="lg" />
     </div>
   ),
@@ -103,10 +103,8 @@ export const WithChartConfig: Story = {
 
 export const FullFeatured: RenderOnlyStory = {
   render: () => (
-    <div className="space-y-4 w-80">
-      <div className="text-sm font-medium text-[var(--text-primary)] mb-2">
-        Monthly Activity 2024
-      </div>
+    <div className="space-y-4">
+      <div className="text-sm font-medium text-(--text-primary) mb-2">Monthly Activity 2024</div>
       <SparklineGlass
         data={sampleData}
         labels={monthLabels}
@@ -117,7 +115,7 @@ export const FullFeatured: RenderOnlyStory = {
         showTooltip
         valueFormatter={(value) => `${value} commits`}
       />
-      <div className="text-xs text-[var(--text-muted)]">Peak: April (80 commits)</div>
+      <div className="text-xs text-(--text-muted)">Peak: April (80 commits)</div>
     </div>
   ),
 };
