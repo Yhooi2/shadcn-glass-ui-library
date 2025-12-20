@@ -16,7 +16,7 @@ describe('ProgressGlass', () => {
       expect(progressbar).toHaveAttribute('aria-valuenow', '75');
       expect(progressbar).toHaveAttribute('aria-valuemin', '0');
       expect(progressbar).toHaveAttribute('aria-valuemax', '100');
-      expect(progressbar).toHaveAttribute('aria-label', 'Progress: 75%');
+      expect(progressbar).toHaveAttribute('aria-label', 'Progress: 75 of 100');
     });
 
     it('applies custom className', () => {
@@ -238,6 +238,66 @@ describe('ProgressGlass', () => {
       const fills = container.querySelectorAll('[role="progressbar"]') as NodeListOf<HTMLElement>;
       expect(fills[0]).toHaveStyle({ width: '30%' });
       expect(fills[1]).toHaveStyle({ width: '60%' });
+    });
+  });
+
+  describe('shadcn/ui API Compatibility', () => {
+    it('supports max prop (default 100)', () => {
+      render(<ProgressGlass value={50} />);
+      const progressbar = screen.getByRole('progressbar');
+      expect(progressbar).toHaveAttribute('aria-valuemax', '100');
+    });
+
+    it('supports custom max value', () => {
+      render(<ProgressGlass value={50} max={200} />);
+      const progressbar = screen.getByRole('progressbar');
+      expect(progressbar).toHaveAttribute('aria-valuemax', '200');
+      expect(progressbar).toHaveAttribute('aria-valuenow', '50');
+    });
+
+    it('calculates percentage correctly with custom max', () => {
+      const { container } = render(<ProgressGlass value={50} max={200} />);
+      const fill = container.querySelector('[role="progressbar"]') as HTMLElement;
+      // 50 out of 200 = 25%
+      expect(fill).toHaveStyle({ width: '25%' });
+    });
+
+    it('calculates percentage correctly with max=150', () => {
+      const { container } = render(<ProgressGlass value={75} max={150} />);
+      const fill = container.querySelector('[role="progressbar"]') as HTMLElement;
+      // 75 out of 150 = 50%
+      expect(fill).toHaveStyle({ width: '50%' });
+    });
+
+    it('shows correct percentage in label with custom max', () => {
+      render(<ProgressGlass value={100} max={200} showLabel />);
+      // 100 out of 200 = 50%
+      expect(screen.getByText('50%')).toBeInTheDocument();
+    });
+
+    it('clamps percentage at 100% even with custom max', () => {
+      const { container } = render(<ProgressGlass value={300} max={200} />);
+      const fill = container.querySelector('[role="progressbar"]') as HTMLElement;
+      // 300 > 200, should clamp at 100%
+      expect(fill).toHaveStyle({ width: '100%' });
+    });
+
+    it('handles value exceeding max correctly in ARIA', () => {
+      render(<ProgressGlass value={250} max={200} />);
+      const progressbar = screen.getByRole('progressbar');
+      expect(progressbar).toHaveAttribute('aria-valuenow', '250');
+      expect(progressbar).toHaveAttribute('aria-valuemax', '200');
+      expect(progressbar).toHaveAttribute('aria-label', 'Progress: 250 of 200');
+    });
+
+    it('works identically to shadcn/ui Progress with default props', () => {
+      const { container } = render(<ProgressGlass value={60} />);
+      const fill = container.querySelector('[role="progressbar"]') as HTMLElement;
+      const progressbar = screen.getByRole('progressbar');
+
+      expect(fill).toHaveStyle({ width: '60%' });
+      expect(progressbar).toHaveAttribute('aria-valuenow', '60');
+      expect(progressbar).toHaveAttribute('aria-valuemax', '100');
     });
   });
 });

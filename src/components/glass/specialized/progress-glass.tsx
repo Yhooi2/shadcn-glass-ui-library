@@ -1,12 +1,13 @@
 /**
  * ProgressGlass Component
  *
- * Glass-themed progress bar with enhanced features beyond shadcn/ui Progress.
+ * Glass-themed progress bar with 100% shadcn/ui Progress API compatibility.
  *
  * ## shadcn/ui Compatibility
  *
- * This component is **backward compatible** with shadcn/ui Progress:
- * - The `value` prop works identically
+ * This component is **fully compatible** with shadcn/ui Progress API:
+ * - `value` prop works identically
+ * - `max` prop supported (default: 100)
  * - Extra props (`size`, `gradient`, `showLabel`) have sensible defaults
  * - Drop-in replacement: `<Progress value={50} />` → `<ProgressGlass value={50} />`
  *
@@ -14,15 +15,18 @@
  * ```tsx
  * // shadcn/ui
  * <Progress value={50} />
+ * <Progress value={50} max={200} />
  *
  * // ProgressGlass (identical behavior)
  * <ProgressGlass value={50} />
+ * <ProgressGlass value={50} max={200} />
  * ```
  *
  * @example Enhanced features (not in shadcn/ui)
  * ```tsx
  * <ProgressGlass
  *   value={75}
+ *   max={100}           // Custom max value (default: 100)
  *   size="lg"           // 'sm' | 'md' | 'lg' | 'xl' (default: 'md')
  *   gradient="emerald"  // 'violet' | 'blue' | 'cyan' | 'amber' | 'emerald' | 'rose' (default: 'violet')
  *   showLabel           // Show percentage label (default: false)
@@ -52,6 +56,7 @@ import '@/glass-theme.css';
 export interface ProgressGlassProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'style'>, VariantProps<typeof progressSizes> {
   readonly value: number;
+  readonly max?: number;
   readonly gradient?: ProgressGradient;
   readonly showLabel?: boolean;
 }
@@ -76,8 +81,12 @@ const getGradientColor = (
 };
 
 export const ProgressGlass = forwardRef<HTMLDivElement, ProgressGlassProps>(
-  ({ className, size = 'md', value = 0, gradient = 'violet', showLabel, ...props }, ref) => {
-    const clampedValue = Math.min(100, Math.max(0, value));
+  (
+    { className, size = 'md', value = 0, max = 100, gradient = 'violet', showLabel, ...props },
+    ref
+  ) => {
+    // Calculate percentage based on max value
+    const percentage = Math.min(100, Math.max(0, (value / max) * 100));
     const { colorVar, glowVar } = getGradientColor(gradient);
 
     const trackStyles: CSSProperties = {
@@ -85,7 +94,7 @@ export const ProgressGlass = forwardRef<HTMLDivElement, ProgressGlassProps>(
     };
 
     const fillStyles: CSSProperties = {
-      width: `${clampedValue}%`,
+      width: `${percentage}%`,
       background: `var(${colorVar})`,
       boxShadow: `var(${glowVar})`,
     };
@@ -98,7 +107,7 @@ export const ProgressGlass = forwardRef<HTMLDivElement, ProgressGlassProps>(
               Progress
             </span>
             <span className="text-(length:--font-size-2xs) md:text-xs font-medium text-(--text-secondary)">
-              {clampedValue}%
+              {Math.round(percentage)}%
             </span>
           </div>
         )}
@@ -108,10 +117,10 @@ export const ProgressGlass = forwardRef<HTMLDivElement, ProgressGlassProps>(
             className="h-full rounded-full transition-all duration-700 ease-out"
             style={fillStyles}
             role="progressbar"
-            aria-valuenow={clampedValue}
+            aria-valuenow={value}
             aria-valuemin={0}
-            aria-valuemax={100}
-            aria-label={`Progress: ${clampedValue}%`}
+            aria-valuemax={max}
+            aria-label={`Progress: ${value} of ${max}`}
           />
         </div>
       </div>
