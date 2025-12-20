@@ -6,16 +6,16 @@ on:
   push:
     branches: [main]
     paths:
-      - "src/**"
-      - "package.json"
-      - "!src/**/*.test.ts"
-      - "!src/**/*.test.tsx"
-      - "!src/**/*.stories.tsx"
-      - "!src/**/*.stories.ts"
-      - "!src/**/*.mdx"
-      - "!src/test/**"
-      - "!src/**/__tests__/**"
-      - "!src/**/__visual__/**"
+      - 'src/**'
+      - 'package.json'
+      - '!src/**/*.test.ts'
+      - '!src/**/*.test.tsx'
+      - '!src/**/*.stories.tsx'
+      - '!src/**/*.stories.ts'
+      - '!src/**/*.mdx'
+      - '!src/test/**'
+      - '!src/**/__tests__/**'
+      - '!src/**/__visual__/**'
 
 # Prevent concurrent releases
 concurrency:
@@ -105,8 +105,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "22"
-          cache: "npm"
+          node-version: '22'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -156,8 +156,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "22"
-          cache: "npm"
+          node-version: '22'
+          cache: 'npm'
 
       - name: Configure Git
         run: |
@@ -217,53 +217,18 @@ jobs:
           draft: false
           prerelease: false
           generate_release_notes: false
-
-  # Publish to npm directly (release events from GITHUB_TOKEN don't trigger other workflows)
-  publish:
-    name: Publish to npm
+  # Publish to npm (triggered by release event in publish.yml)
+  notify:
+    name: Notify
     needs: [check-release, release]
     if: needs.check-release.outputs.should_release == 'true'
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ needs.release.outputs.tag }}
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-          cache: "npm"
-          registry-url: "https://registry.npmjs.org"
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Verify version
-        run: |
-          PACKAGE_VERSION=$(node -p "require('./package.json').version")
-          EXPECTED_VERSION="${{ needs.check-release.outputs.new_version }}"
-          echo "Package version: $PACKAGE_VERSION"
-          echo "Expected version: $EXPECTED_VERSION"
-          if [ "$PACKAGE_VERSION" != "$EXPECTED_VERSION" ]; then
-            echo "⚠️ Version mismatch, but continuing (tag checkout may have old version)"
-          fi
-
-      - name: Publish to npm with provenance
-        run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          # Note: NPM_TOKEN secret must be configured in repository settings
-          # Settings -> Secrets and variables -> Actions -> New repository secret
-
       - name: Summary
         run: |
           echo "## 🚀 Auto-Release Complete" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Version:** ${{ needs.check-release.outputs.new_version }}" >> $GITHUB_STEP_SUMMARY
           echo "**Tag:** ${{ needs.release.outputs.tag }}" >> $GITHUB_STEP_SUMMARY
-          echo "**npm:** https://www.npmjs.com/package/shadcn-glass-ui" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "The publish workflow will now be triggered automatically." >> $GITHUB_STEP_SUMMARY
