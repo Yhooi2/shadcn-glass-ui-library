@@ -577,11 +577,11 @@ issues:**
 
 ## Glass Components Structure
 
-### Core Components (22)
+### Core Components (24)
 
 Basic UI primitives. See [src/components/glass/ui/](src/components/glass/ui/) for complete list:
 
-- ButtonGlass, InputGlass, GlassCard, CardGlass, ProgressGlass, BadgeGlass, AlertGlass
+- ButtonGlass, InputGlass, GlassCard, CardGlass, BadgeGlass, AlertGlass
 - ToggleGlass, CheckboxGlass, TabsGlass, TooltipGlass, SliderGlass
 - SkeletonGlass, ModalGlass, DropdownGlass, DropdownMenuGlass, AvatarGlass, NotificationGlass
 - ComboBoxGlass, PopoverGlass, CircularProgressGlass, StepperGlass
@@ -614,6 +614,20 @@ Single-purpose components with specialized functionality:
 - StatItemGlass - Label, value, change, trend display
 - ExpandableHeaderGlass - Collapsible header with animation
 - InsightCardGlass - 7 variants, inline/card mode
+
+### Specialized Components (9)
+
+Advanced visualization and feedback components:
+
+- ProgressGlass - Linear progress bar with color variants
+- RainbowProgressGlass - Multi-color animated progress
+- CircularProgressGlass - Circular progress indicator (also in UI)
+- SparklineGlass - Mini chart visualization
+- LanguageBarGlass - Language distribution bar
+- ProfileAvatarGlass - Large avatar with glow animation
+- FlagAlertGlass - Warning/danger flag alert
+- StatusIndicatorGlass - Status dot with label
+- SegmentedControlGlass - Segmented button group
 
 ### Composite Components (14)
 

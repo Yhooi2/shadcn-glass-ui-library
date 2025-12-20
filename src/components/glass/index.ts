@@ -2,11 +2,13 @@
  * Glass Components Library - Root Barrel Exports
  *
  * Unified export point for all Glass UI components across all levels:
- * - Level 1: UI Components (17 components)
- * - Level 2: Atomic Components (6 components)
- * - Level 2: Specialized Components (8 components)
- * - Level 3: Composite Components (8 components)
- * - Level 4: Section Components (1 component)
+ * - Level 1: UI Components (24 components)
+ * - Level 2: Atomic Components (7 components)
+ * - Level 2: Specialized Components (9 components)
+ * - Level 3: Composite Components (14 components)
+ * - Level 4: Section Components (7 components)
+ *
+ * Total: 61 components
  */
 
 // ========================================

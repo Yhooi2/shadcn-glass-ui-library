@@ -1,7 +1,7 @@
 /**
  * Glass UI Components - Barrel Exports
  *
- * Level 1: UI Components (18 components)
+ * Level 1: UI Components (24 components)
  * Base glassmorphism components with theme-aware styling
  * Note: ProgressGlass moved to specialized/
  * Note: SelectGlass removed in v1.0.0 (replaced by ComboBoxGlass)
@@ -92,3 +92,78 @@ export {
   TooltipGlassContent,
   TooltipGlassSimple,
 } from './tooltip-glass';
+
+// DropdownMenuGlass - Compound component with shadcn/ui DropdownMenu API compatibility
+export {
+  DropdownMenuGlass,
+  DropdownMenuGlassTrigger,
+  DropdownMenuGlassContent,
+  DropdownMenuGlassItem,
+  DropdownMenuGlassCheckboxItem,
+  DropdownMenuGlassRadioItem,
+  DropdownMenuGlassLabel,
+  DropdownMenuGlassSeparator,
+  DropdownMenuGlassShortcut,
+  DropdownMenuGlassGroup,
+  DropdownMenuGlassPortal,
+  DropdownMenuGlassSub,
+  DropdownMenuGlassSubContent,
+  DropdownMenuGlassSubTrigger,
+  DropdownMenuGlassRadioGroup,
+} from './dropdown-menu-glass';
+export type { DropdownMenuGlassItemProps } from './dropdown-menu-glass';
+
+// StepperGlass - Compound component for step-by-step navigation
+export {
+  StepperGlass,
+  StepperRoot,
+  StepperList,
+  StepperStep,
+  StepperContent,
+} from './stepper-glass';
+export type {
+  StepperRootProps,
+  StepperListProps,
+  StepperStepProps,
+  StepperContentProps,
+  StepperOrientation,
+  StepperVariant,
+  StepperSize,
+  StepStatus,
+} from './stepper-glass';
+
+// SidebarGlass - Compound component with 100% shadcn/ui Sidebar API compatibility
+export {
+  SidebarGlass,
+  SidebarProvider,
+  useSidebar,
+  SidebarRoot,
+  SidebarHeader,
+  SidebarContent,
+  SidebarFooter,
+  SidebarRail,
+  SidebarInset,
+  SidebarTrigger,
+  SidebarSeparator,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarGroupAction,
+  SidebarGroupContent,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+  SidebarMenuAction,
+  SidebarMenuBadge,
+  SidebarMenuSkeleton,
+  SidebarMenuSub,
+  SidebarMenuSubItem,
+  SidebarMenuSubButton,
+} from './sidebar-glass';
+export type {
+  SidebarContextValue,
+  SidebarProviderProps,
+  SidebarSide,
+  SidebarVariant,
+  SidebarCollapsible,
+  SidebarRootProps,
+} from './sidebar-glass';
