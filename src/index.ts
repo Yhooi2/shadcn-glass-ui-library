@@ -145,13 +145,18 @@ export { ToggleGlass } from './components/glass/ui/toggle-glass';
 // SidebarGlass - Compound Components (100% shadcn/ui Sidebar compatible)
 export { SidebarGlass, useSidebar } from './components/glass/ui/sidebar-glass';
 
-// TooltipGlass - Compound Components + Simple Wrapper
+// TooltipGlass - Compound Components + Simple Wrapper + shadcn/ui aliases
 export {
   TooltipGlassProvider,
   TooltipGlass,
   TooltipGlassTrigger,
   TooltipGlassContent,
   TooltipGlassSimple,
+  // shadcn/ui compatible aliases
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
 } from './components/glass/ui/tooltip-glass';
 
 // ========================================

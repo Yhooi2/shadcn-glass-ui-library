@@ -1,6 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect } from 'storybook/test';
-import { TooltipGlassProvider, TooltipGlassSimple as TooltipGlass } from './tooltip-glass';
+import {
+  TooltipGlassProvider,
+  TooltipGlassSimple as TooltipGlass,
+  // shadcn/ui compatible imports
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
+} from './tooltip-glass';
 import { ButtonGlass } from './button-glass';
 import { Info, HelpCircle, Settings } from 'lucide-react';
 
@@ -155,6 +163,45 @@ export const WithDifferentTriggers: Story = {
         </ButtonGlass>
       </TooltipGlass>
     </div>
+  ),
+  async play({ canvasElement }) {
+    await expect(canvasElement).toBeInTheDocument();
+  },
+};
+
+/**
+ * Using shadcn/ui compatible import aliases.
+ * These can be used as drop-in replacements for shadcn/ui Tooltip.
+ */
+export const ShadcnUICompatible: Story = {
+  name: 'shadcn/ui Compatible',
+  args: {
+    content: 'Tooltip',
+    children: <ButtonGlass>Hover</ButtonGlass>,
+  },
+  render: () => (
+    <TooltipProvider>
+      <div className="flex gap-4">
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <ButtonGlass>Hover me (shadcn/ui API)</ButtonGlass>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>This uses shadcn/ui compatible imports</p>
+          </TooltipContent>
+        </Tooltip>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <ButtonGlass variant="ghost" size="icon">
+              <HelpCircle className="w-4 h-4" />
+            </ButtonGlass>
+          </TooltipTrigger>
+          <TooltipContent side="bottom">
+            <p>Help tooltip</p>
+          </TooltipContent>
+        </Tooltip>
+      </div>
+    </TooltipProvider>
   ),
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();

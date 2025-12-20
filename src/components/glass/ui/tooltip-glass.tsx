@@ -189,3 +189,33 @@ const TooltipGlassSimple: React.FC<TooltipGlassSimpleProps> = ({
 // Compound API (shadcn/ui pattern)
 export const TooltipGlass = TooltipGlassRoot;
 export { TooltipGlassProvider, TooltipGlassTrigger, TooltipGlassContent, TooltipGlassSimple };
+
+// ========================================
+// SHADCN/UI COMPATIBLE ALIASES
+// ========================================
+
+/**
+ * Tooltip - shadcn/ui compatible alias for TooltipGlass
+ *
+ * @example Drop-in replacement for shadcn/ui Tooltip
+ * ```tsx
+ * import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from 'shadcn-glass-ui'
+ *
+ * <TooltipProvider>
+ *   <Tooltip>
+ *     <TooltipTrigger>Hover</TooltipTrigger>
+ *     <TooltipContent>Tooltip text</TooltipContent>
+ *   </Tooltip>
+ * </TooltipProvider>
+ * ```
+ */
+export const Tooltip = TooltipGlassRoot;
+
+/** TooltipTrigger - shadcn/ui compatible alias for TooltipGlassTrigger */
+export const TooltipTrigger = TooltipGlassTrigger;
+
+/** TooltipContent - shadcn/ui compatible alias for TooltipGlassContent */
+export const TooltipContent = TooltipGlassContent;
+
+/** TooltipProvider - shadcn/ui compatible alias for TooltipGlassProvider */
+export const TooltipProvider = TooltipGlassProvider;

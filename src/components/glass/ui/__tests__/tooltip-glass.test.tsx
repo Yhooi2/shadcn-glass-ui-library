@@ -7,6 +7,11 @@ import {
   TooltipGlassTrigger,
   TooltipGlassContent,
   TooltipGlassSimple,
+  // shadcn/ui compatible aliases
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
 } from '../tooltip-glass';
 
 // Helper to render with Provider
@@ -482,6 +487,79 @@ describe('TooltipGlass', () => {
       await waitFor(() => {
         expect(ref.current).toBeInstanceOf(HTMLDivElement);
       });
+    });
+  });
+
+  describe('shadcn/ui API Compatibility', () => {
+    it('Tooltip alias works identically to TooltipGlass', () => {
+      render(
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button>Hover me</button>
+            </TooltipTrigger>
+            <TooltipContent>Tooltip text</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      );
+      expect(screen.getByText('Hover me')).toBeInTheDocument();
+    });
+
+    it('shows tooltip on hover with shadcn/ui API', async () => {
+      const user = userEvent.setup();
+      render(
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button>Hover me</button>
+            </TooltipTrigger>
+            <TooltipContent>Tooltip content</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      );
+
+      await user.hover(screen.getByText('Hover me'));
+
+      await waitFor(() => {
+        const tooltip = getTooltipContent();
+        expect(tooltip).toBeInTheDocument();
+        expect(tooltip).toHaveTextContent('Tooltip content');
+      });
+    });
+
+    it('supports side prop with shadcn/ui API', async () => {
+      const user = userEvent.setup();
+      render(
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button>Hover me</button>
+            </TooltipTrigger>
+            <TooltipContent side="bottom">Bottom tooltip</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      );
+
+      await user.hover(screen.getByText('Hover me'));
+
+      await waitFor(() => {
+        const tooltip = getTooltipContent();
+        expect(tooltip).toHaveAttribute('data-side', 'bottom');
+      });
+    });
+
+    it('all shadcn/ui compatible exports are defined', () => {
+      expect(Tooltip).toBeDefined();
+      expect(TooltipTrigger).toBeDefined();
+      expect(TooltipContent).toBeDefined();
+      expect(TooltipProvider).toBeDefined();
+    });
+
+    it('shadcn/ui aliases are same as TooltipGlass exports', () => {
+      expect(Tooltip).toBe(TooltipGlass);
+      expect(TooltipTrigger).toBe(TooltipGlassTrigger);
+      expect(TooltipContent).toBe(TooltipGlassContent);
+      expect(TooltipProvider).toBe(TooltipGlassProvider);
     });
   });
 });
