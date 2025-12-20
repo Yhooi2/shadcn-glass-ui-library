@@ -129,3 +129,20 @@ export const ProgressGlass = forwardRef<HTMLDivElement, ProgressGlassProps>(
 );
 
 ProgressGlass.displayName = 'ProgressGlass';
+
+// ========================================
+// SHADCN/UI COMPATIBLE ALIAS
+// ========================================
+
+/**
+ * Progress - shadcn/ui compatible alias for ProgressGlass
+ *
+ * @example Drop-in replacement for shadcn/ui Progress
+ * ```tsx
+ * import { Progress } from 'shadcn-glass-ui'
+ *
+ * <Progress value={50} />
+ * <Progress value={50} max={200} />
+ * ```
+ */
+export const Progress = ProgressGlass;

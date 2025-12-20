@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { ProgressGlass } from '../progress-glass';
+import { ProgressGlass, Progress } from '../progress-glass';
 
 describe('ProgressGlass', () => {
   describe('Rendering', () => {
@@ -298,6 +298,22 @@ describe('ProgressGlass', () => {
       expect(fill).toHaveStyle({ width: '60%' });
       expect(progressbar).toHaveAttribute('aria-valuenow', '60');
       expect(progressbar).toHaveAttribute('aria-valuemax', '100');
+    });
+
+    it('Progress alias is same as ProgressGlass', () => {
+      expect(Progress).toBe(ProgressGlass);
+    });
+
+    it('Progress alias works as drop-in replacement', () => {
+      render(<Progress value={50} />);
+      const progressbar = screen.getByRole('progressbar');
+      expect(progressbar).toHaveAttribute('aria-valuenow', '50');
+    });
+
+    it('Progress alias supports max prop', () => {
+      const { container } = render(<Progress value={50} max={200} />);
+      const fill = container.querySelector('[role="progressbar"]') as HTMLElement;
+      expect(fill).toHaveStyle({ width: '25%' });
     });
   });
 });

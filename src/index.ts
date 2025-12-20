@@ -177,7 +177,7 @@ export { BaseProgressGlass } from './components/glass/specialized/base-progress-
 export { FlagAlertGlass } from './components/glass/specialized/flag-alert-glass';
 export { LanguageBarGlass } from './components/glass/specialized/language-bar-glass';
 export { ProfileAvatarGlass } from './components/glass/specialized/profile-avatar-glass';
-export { ProgressGlass } from './components/glass/specialized/progress-glass';
+export { ProgressGlass, Progress } from './components/glass/specialized/progress-glass';
 export { RainbowProgressGlass } from './components/glass/specialized/rainbow-progress-glass';
 export { SegmentedControlGlass } from './components/glass/specialized/segmented-control-glass';
 export { SparklineGlass } from './components/glass/specialized/sparkline-glass';
