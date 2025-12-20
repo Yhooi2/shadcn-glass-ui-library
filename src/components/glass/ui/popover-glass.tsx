@@ -46,19 +46,32 @@ import '@/glass-theme.css';
 // COMPOUND COMPONENT: ROOT
 // ========================================
 
-const PopoverGlassRoot = PopoverPrimitive.Root;
+// Note: PopoverPrimitive.Root is a context provider and doesn't render DOM,
+// so data-slot is applied to Content instead. This matches shadcn/ui pattern.
+const PopoverGlassRoot = (props: React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Root>) => (
+  <PopoverPrimitive.Root {...props} />
+);
+PopoverGlassRoot.displayName = 'PopoverGlass';
 
 // ========================================
 // COMPOUND COMPONENT: TRIGGER
 // ========================================
 
-const PopoverGlassTrigger = PopoverPrimitive.Trigger;
+const PopoverGlassTrigger = React.forwardRef<
+  React.ComponentRef<typeof PopoverPrimitive.Trigger>,
+  React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Trigger>
+>((props, ref) => <PopoverPrimitive.Trigger data-slot="popover-trigger" ref={ref} {...props} />);
+PopoverGlassTrigger.displayName = 'PopoverGlassTrigger';
 
 // ========================================
 // COMPOUND COMPONENT: ANCHOR
 // ========================================
 
-const PopoverGlassAnchor = PopoverPrimitive.Anchor;
+const PopoverGlassAnchor = React.forwardRef<
+  React.ComponentRef<typeof PopoverPrimitive.Anchor>,
+  React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Anchor>
+>((props, ref) => <PopoverPrimitive.Anchor data-slot="popover-anchor" ref={ref} {...props} />);
+PopoverGlassAnchor.displayName = 'PopoverGlassAnchor';
 
 // ========================================
 // COMPOUND COMPONENT: CONTENT
@@ -93,6 +106,7 @@ const PopoverGlassContent = React.forwardRef<
     <PopoverPrimitive.Portal>
       <PopoverPrimitive.Content
         ref={ref}
+        data-slot="popover-content"
         align={align}
         sideOffset={sideOffset}
         className={cn(

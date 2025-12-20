@@ -160,6 +160,7 @@ export const SliderGlass = forwardRef<
         {customLabel}
         <SliderPrimitive.Root
           ref={ref}
+          data-slot="slider"
           value={value}
           defaultValue={defaultValue}
           onValueChange={onValueChange}
@@ -180,6 +181,7 @@ export const SliderGlass = forwardRef<
           {...props}
         >
           <SliderPrimitive.Track
+            data-slot="slider-track"
             className={cn(
               'relative grow rounded-full',
               orientation === 'horizontal' ? 'h-2.5 md:h-2 w-full' : 'w-2.5 md:w-2 h-full'
@@ -187,6 +189,7 @@ export const SliderGlass = forwardRef<
             style={trackStyles}
           >
             <SliderPrimitive.Range
+              data-slot="slider-range"
               className={cn(
                 'absolute rounded-full transition-shadow duration-150',
                 orientation === 'horizontal' ? 'h-full' : 'w-full',
@@ -199,6 +202,7 @@ export const SliderGlass = forwardRef<
           {currentValue.map((_, index) => (
             <SliderPrimitive.Thumb
               key={index}
+              data-slot="slider-thumb"
               className={cn(
                 'block rounded-full shadow-md transition-all duration-150',
                 'w-6 h-6 md:w-5 md:h-5',

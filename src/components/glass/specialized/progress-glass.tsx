@@ -60,7 +60,7 @@ export const ProgressGlass = forwardRef<HTMLDivElement, ProgressGlassProps>(
     };
 
     return (
-      <div ref={ref} className={cn('w-full', className)} {...props}>
+      <div ref={ref} data-slot="progress" className={cn('w-full', className)} {...props}>
         {showLabel && (
           <div className="flex justify-between mb-1 md:mb-1.5">
             <span className="text-(length:--font-size-2xs) md:text-xs text-(--text-muted)">
@@ -73,6 +73,7 @@ export const ProgressGlass = forwardRef<HTMLDivElement, ProgressGlassProps>(
         )}
         <div className={cn(progressSizes({ size }))} style={trackStyles}>
           <div
+            data-slot="progress-indicator"
             className="h-full rounded-full transition-all duration-700 ease-out"
             style={fillStyles}
             role="progressbar"

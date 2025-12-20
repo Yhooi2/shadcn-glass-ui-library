@@ -104,6 +104,7 @@ const AvatarGlassRoot = React.forwardRef<
   return (
     <AvatarGlassContext.Provider value={{ size, status, glowing }}>
       <div
+        data-slot="avatar"
         className={cn('relative inline-flex', className)}
         onMouseEnter={hoverProps.onMouseEnter}
         onMouseLeave={hoverProps.onMouseLeave}
@@ -123,6 +124,7 @@ const AvatarGlassRoot = React.forwardRef<
         {/* Status indicator */}
         {status && (
           <span
+            data-slot="avatar-status"
             className={cn(statusSizes({ size }))}
             style={{
               background: getStatusVars(status).bg,
@@ -152,6 +154,7 @@ const AvatarGlassImage = React.forwardRef<
   return (
     <AvatarPrimitive.Image
       ref={ref}
+      data-slot="avatar-image"
       className={cn('aspect-square h-full w-full object-cover', className)}
       {...props}
     />
@@ -173,6 +176,7 @@ const AvatarGlassFallback = React.forwardRef<
   return (
     <AvatarPrimitive.Fallback
       ref={ref}
+      data-slot="avatar-fallback"
       className={cn(
         'flex h-full w-full items-center justify-center font-semibold uppercase',
         className

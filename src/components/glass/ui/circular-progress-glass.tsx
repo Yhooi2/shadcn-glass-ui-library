@@ -141,7 +141,12 @@ export const CircularProgressGlass = forwardRef<HTMLDivElement, CircularProgress
     const glowId = `circular-glow-${uniqueId}`;
 
     return (
-      <div ref={ref} className={cn(circularProgressVariants({ size }), className)} {...props}>
+      <div
+        ref={ref}
+        data-slot="circular-progress"
+        className={cn(circularProgressVariants({ size }), className)}
+        {...props}
+      >
         <svg
           width={svgSize}
           height={svgSize}

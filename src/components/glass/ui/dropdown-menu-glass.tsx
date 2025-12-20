@@ -65,19 +65,38 @@ import '@/glass-theme.css';
 // ROOT
 // ========================================
 
-const DropdownMenuGlass = DropdownMenuPrimitive.Root;
+// Note: DropdownMenuPrimitive.Root is a context provider and doesn't render DOM,
+// so data-slot is applied to Content instead. This matches shadcn/ui pattern.
+const DropdownMenuGlassRoot = (
+  props: React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Root>
+) => <DropdownMenuPrimitive.Root {...props} />;
+DropdownMenuGlassRoot.displayName = 'DropdownMenuGlass';
+
+const DropdownMenuGlass = DropdownMenuGlassRoot;
 
 // ========================================
 // TRIGGER
 // ========================================
 
-const DropdownMenuGlassTrigger = DropdownMenuPrimitive.Trigger;
+const DropdownMenuGlassTrigger = React.forwardRef<
+  React.ComponentRef<typeof DropdownMenuPrimitive.Trigger>,
+  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Trigger>
+>((props, ref) => (
+  <DropdownMenuPrimitive.Trigger data-slot="dropdown-menu-trigger" ref={ref} {...props} />
+));
+DropdownMenuGlassTrigger.displayName = 'DropdownMenuGlassTrigger';
 
 // ========================================
 // GROUP
 // ========================================
 
-const DropdownMenuGlassGroup = DropdownMenuPrimitive.Group;
+const DropdownMenuGlassGroup = React.forwardRef<
+  React.ComponentRef<typeof DropdownMenuPrimitive.Group>,
+  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Group>
+>((props, ref) => (
+  <DropdownMenuPrimitive.Group data-slot="dropdown-menu-group" ref={ref} {...props} />
+));
+DropdownMenuGlassGroup.displayName = 'DropdownMenuGlassGroup';
 
 // ========================================
 // PORTAL
@@ -89,13 +108,24 @@ const DropdownMenuGlassPortal = DropdownMenuPrimitive.Portal;
 // SUB
 // ========================================
 
-const DropdownMenuGlassSub = DropdownMenuPrimitive.Sub;
+// Note: DropdownMenuPrimitive.Sub is a context provider and doesn't render DOM,
+// so data-slot is applied to SubContent instead. This matches shadcn/ui pattern.
+const DropdownMenuGlassSub = (
+  props: React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Sub>
+) => <DropdownMenuPrimitive.Sub {...props} />;
+DropdownMenuGlassSub.displayName = 'DropdownMenuGlassSub';
 
 // ========================================
 // RADIO GROUP
 // ========================================
 
-const DropdownMenuGlassRadioGroup = DropdownMenuPrimitive.RadioGroup;
+const DropdownMenuGlassRadioGroup = React.forwardRef<
+  React.ComponentRef<typeof DropdownMenuPrimitive.RadioGroup>,
+  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.RadioGroup>
+>((props, ref) => (
+  <DropdownMenuPrimitive.RadioGroup data-slot="dropdown-menu-radio-group" ref={ref} {...props} />
+));
+DropdownMenuGlassRadioGroup.displayName = 'DropdownMenuGlassRadioGroup';
 
 // ========================================
 // SUB TRIGGER
@@ -109,6 +139,7 @@ const DropdownMenuGlassSubTrigger = React.forwardRef<
 >(({ className, inset, children, ...props }, ref) => (
   <DropdownMenuPrimitive.SubTrigger
     ref={ref}
+    data-slot="dropdown-menu-sub-trigger"
     className={cn(
       getDropdownItemClasses(),
       'data-[state=open]:bg-[var(--dropdown-item-hover)]',
@@ -133,6 +164,7 @@ const DropdownMenuGlassSubContent = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DropdownMenuPrimitive.SubContent
     ref={ref}
+    data-slot="dropdown-menu-sub-content"
     className={cn(dropdownContentClasses, 'p-1.5', className)}
     style={getDropdownContentStyles()}
     {...props}
@@ -151,6 +183,7 @@ const DropdownMenuGlassContent = React.forwardRef<
   <DropdownMenuPrimitive.Portal>
     <DropdownMenuPrimitive.Content
       ref={ref}
+      data-slot="dropdown-menu-content"
       sideOffset={sideOffset}
       className={cn(dropdownContentClasses, 'p-1.5', className)}
       style={getDropdownContentStyles()}
@@ -177,6 +210,7 @@ const DropdownMenuGlassItem = React.forwardRef<
 >(({ className, inset, variant = 'default', ...props }, ref) => (
   <DropdownMenuPrimitive.Item
     ref={ref}
+    data-slot="dropdown-menu-item"
     className={cn(
       getDropdownItemClasses({ danger: variant === 'destructive' }),
       inset && 'pl-8',
@@ -197,6 +231,7 @@ const DropdownMenuGlassCheckboxItem = React.forwardRef<
 >(({ className, children, checked, ...props }, ref) => (
   <DropdownMenuPrimitive.CheckboxItem
     ref={ref}
+    data-slot="dropdown-menu-checkbox-item"
     className={cn(getDropdownItemClasses(), 'pl-8 pr-2', className)}
     checked={checked}
     {...props}
@@ -221,6 +256,7 @@ const DropdownMenuGlassRadioItem = React.forwardRef<
 >(({ className, children, ...props }, ref) => (
   <DropdownMenuPrimitive.RadioItem
     ref={ref}
+    data-slot="dropdown-menu-radio-item"
     className={cn(getDropdownItemClasses(), 'pl-8 pr-2', className)}
     {...props}
   >
@@ -246,6 +282,7 @@ const DropdownMenuGlassLabel = React.forwardRef<
 >(({ className, inset, ...props }, ref) => (
   <DropdownMenuPrimitive.Label
     ref={ref}
+    data-slot="dropdown-menu-label"
     className={cn(dropdownLabelClasses, inset && 'pl-8', className)}
     {...props}
   />
@@ -262,6 +299,7 @@ const DropdownMenuGlassSeparator = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DropdownMenuPrimitive.Separator
     ref={ref}
+    data-slot="dropdown-menu-separator"
     className={cn(dropdownSeparatorClasses, '-mx-1 my-1', className)}
     {...props}
   />
@@ -278,6 +316,7 @@ const DropdownMenuGlassShortcut = ({
 }: React.HTMLAttributes<HTMLSpanElement>) => {
   return (
     <span
+      data-slot="dropdown-menu-shortcut"
       className={cn('ml-auto text-xs tracking-widest text-(--text-muted)', className)}
       {...props}
     />

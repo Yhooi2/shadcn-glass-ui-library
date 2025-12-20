@@ -109,7 +109,7 @@ export interface DropdownGlassProps {
 export const DropdownGlass = React.forwardRef<HTMLDivElement, DropdownGlassProps>(
   ({ trigger, items, align = 'left', className }, ref) => {
     return (
-      <div ref={ref} className={cn('relative inline-block', className)}>
+      <div ref={ref} data-slot="dropdown" className={cn('relative inline-block', className)}>
         <DropdownMenuGlass>
           <DropdownMenuGlassTrigger asChild>{trigger}</DropdownMenuGlassTrigger>
 

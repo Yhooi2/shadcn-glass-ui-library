@@ -8,11 +8,7 @@
  * - Hover animations
  */
 
-import {
-  forwardRef,
-  type ReactNode,
-  type CSSProperties,
-} from 'react';
+import { forwardRef, type ReactNode, type CSSProperties } from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
@@ -31,9 +27,9 @@ import type { GlowType, IntensityType, PaddingType } from '@/lib/variants/glass-
 // - strong: 24px (--glass-blur-lg) - featured cards (was 16px - breaking change)
 
 const blurMap: Record<IntensityType, string> = {
-  subtle: 'var(--blur-sm)',   // 8px
-  medium: 'var(--blur-md)',   // 16px (BREAKING: was 12px)
-  strong: 'var(--blur-lg)',   // 24px (BREAKING: was 16px)
+  subtle: 'var(--blur-sm)', // 8px
+  medium: 'var(--blur-md)', // 16px (BREAKING: was 12px)
+  strong: 'var(--blur-lg)', // 24px (BREAKING: was 16px)
 };
 
 // ========================================
@@ -97,8 +93,7 @@ const blurMap: Record<IntensityType, string> = {
  * ```
  */
 export interface GlassCardProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'style'>,
-    VariantProps<typeof cardIntensity> {
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'style'>, VariantProps<typeof cardIntensity> {
   /**
    * Render as child element instead of div (polymorphic rendering).
    * Useful for making cards clickable links or custom interactive elements.
@@ -176,6 +171,7 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
     return (
       <Comp
         ref={ref}
+        data-slot="card"
         className={cn(cardIntensity({ intensity, hover, padding }), className)}
         style={cardStyles}
         onMouseEnter={hoverProps.onMouseEnter}

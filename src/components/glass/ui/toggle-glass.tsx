@@ -141,6 +141,7 @@ export const ToggleGlass = forwardRef<HTMLButtonElement, ToggleGlassProps>(
       <span className="inline-flex items-center justify-center min-h-11">
         <button
           ref={ref}
+          data-slot="toggle"
           type="button"
           role="switch"
           aria-pressed={isPressed}

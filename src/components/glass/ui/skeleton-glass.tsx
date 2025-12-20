@@ -18,8 +18,7 @@ import '@/glass-theme.css';
 // ========================================
 
 export interface SkeletonGlassProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof skeletonVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof skeletonVariants> {
   readonly width?: string | number;
   readonly height?: string | number;
 }
@@ -29,21 +28,12 @@ export interface SkeletonGlassProps
 // ========================================
 
 export const SkeletonGlass = forwardRef<HTMLDivElement, SkeletonGlassProps>(
-  (
-    {
-      className,
-      variant = 'text',
-      width,
-      height,
-      style,
-      ...props
-    },
-    ref
-  ) => {
+  ({ className, variant = 'text', width, height, style, ...props }, ref) => {
     const skeletonStyles: CSSProperties = {
       width,
       height,
-      background: 'linear-gradient(90deg, var(--skeleton-bg) 25%, var(--skeleton-shine) 50%, var(--skeleton-bg) 75%)',
+      background:
+        'linear-gradient(90deg, var(--skeleton-bg) 25%, var(--skeleton-shine) 50%, var(--skeleton-bg) 75%)',
       backgroundSize: '200% 100%',
       animation: 'skeleton-loading 1.5s infinite',
       ...style,
@@ -52,6 +42,7 @@ export const SkeletonGlass = forwardRef<HTMLDivElement, SkeletonGlassProps>(
     return (
       <div
         ref={ref}
+        data-slot="skeleton"
         className={cn(skeletonVariants({ variant }), className)}
         style={skeletonStyles}
         aria-hidden="true"

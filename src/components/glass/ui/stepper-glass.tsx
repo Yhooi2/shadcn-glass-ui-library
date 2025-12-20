@@ -181,6 +181,7 @@ const StepperRoot: FC<StepperRootProps> = ({
   return (
     <StepperContext.Provider value={contextValue}>
       <div
+        data-slot="stepper"
         className={cn(stepperRootVariants({ orientation }), className)}
         aria-label="Progress steps"
       >
@@ -206,6 +207,7 @@ const StepperList = forwardRef<HTMLDivElement, StepperListProps>(
     return (
       <div
         ref={ref}
+        data-slot="stepper-list"
         role="tablist"
         aria-orientation={orientation}
         className={cn(stepperListVariants({ orientation }), className)}
@@ -409,7 +411,10 @@ const StepperStep = forwardRef<HTMLButtonElement, StepperStepProps>(
     if (orientation === 'horizontal') {
       return (
         <>
-          <div className={cn(stepperStepContainerVariants({ orientation }), className)}>
+          <div
+            data-slot="stepper-item"
+            className={cn(stepperStepContainerVariants({ orientation }), className)}
+          >
             <button
               ref={ref}
               type="button"
@@ -459,6 +464,7 @@ const StepperStep = forwardRef<HTMLButtonElement, StepperStepProps>(
           {/* Connector line between steps */}
           {!isLast && (
             <div
+              data-slot="stepper-separator"
               className={cn(stepperConnectorVariants({ orientation }))}
               style={connectorStyles}
               aria-hidden="true"
@@ -471,7 +477,10 @@ const StepperStep = forwardRef<HTMLButtonElement, StepperStepProps>(
     // Vertical orientation
     return (
       <div className="flex flex-col">
-        <div className={cn(stepperStepContainerVariants({ orientation }), className)}>
+        <div
+          data-slot="stepper-item"
+          className={cn(stepperStepContainerVariants({ orientation }), className)}
+        >
           <button
             ref={ref}
             type="button"
@@ -517,6 +526,7 @@ const StepperStep = forwardRef<HTMLButtonElement, StepperStepProps>(
         {/* Vertical connector */}
         {!isLast && (
           <div
+            data-slot="stepper-separator"
             className={cn(stepperConnectorVariants({ orientation }))}
             style={connectorStyles}
             aria-hidden="true"
@@ -551,6 +561,7 @@ const StepperContent: FC<StepperContentProps> = ({ value, children, className })
   return (
     <div
       role="tabpanel"
+      data-slot="stepper-content"
       aria-hidden={!isActive}
       className={cn(stepperContentVariants({ orientation }), className)}
     >

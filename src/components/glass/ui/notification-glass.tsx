@@ -35,7 +35,8 @@ const NOTIFICATION_ICONS = {
 // ========================================
 
 export interface NotificationGlassProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title' | 'style'>,
+  extends
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'title' | 'style'>,
     VariantProps<typeof notificationVariants> {
   readonly title: string;
   readonly message: string;
@@ -51,12 +52,30 @@ export interface NotificationGlassProps
 // ========================================
 
 // Type-specific CSS variable mapping
-const getTypeVars = (notifType: NotificationType): { color: string; glow: string; iconBg: string } => {
+const getTypeVars = (
+  notifType: NotificationType
+): { color: string; glow: string; iconBg: string } => {
   const configs: Record<NotificationType, { color: string; glow: string; iconBg: string }> = {
-    info: { color: 'var(--notification-info-color)', glow: 'var(--notification-info-glow)', iconBg: 'var(--notification-info-icon-bg)' },
-    success: { color: 'var(--notification-success-color)', glow: 'var(--notification-success-glow)', iconBg: 'var(--notification-success-icon-bg)' },
-    warning: { color: 'var(--notification-warning-color)', glow: 'var(--notification-warning-glow)', iconBg: 'var(--notification-warning-icon-bg)' },
-    error: { color: 'var(--notification-error-color)', glow: 'var(--notification-error-glow)', iconBg: 'var(--notification-error-icon-bg)' },
+    info: {
+      color: 'var(--notification-info-color)',
+      glow: 'var(--notification-info-glow)',
+      iconBg: 'var(--notification-info-icon-bg)',
+    },
+    success: {
+      color: 'var(--notification-success-color)',
+      glow: 'var(--notification-success-glow)',
+      iconBg: 'var(--notification-success-icon-bg)',
+    },
+    warning: {
+      color: 'var(--notification-warning-color)',
+      glow: 'var(--notification-warning-glow)',
+      iconBg: 'var(--notification-warning-icon-bg)',
+    },
+    error: {
+      color: 'var(--notification-error-color)',
+      glow: 'var(--notification-error-glow)',
+      iconBg: 'var(--notification-error-icon-bg)',
+    },
   };
   return configs[notifType];
 };
@@ -105,6 +124,7 @@ export const NotificationGlass = forwardRef<HTMLDivElement, NotificationGlassPro
     return (
       <div
         ref={ref}
+        data-slot="notification"
         className={cn(notificationVariants({ type: effectiveType }), className)}
         style={containerStyles}
         role="alert"
@@ -123,7 +143,10 @@ export const NotificationGlass = forwardRef<HTMLDivElement, NotificationGlassPro
 
         {/* Content */}
         <div className="flex-1 min-w-0">
-          <p className="font-semibold text-xs md:text-sm mb-0.5 md:mb-1" style={{ color: 'var(--text-primary)' }}>
+          <p
+            className="font-semibold text-xs md:text-sm mb-0.5 md:mb-1"
+            style={{ color: 'var(--text-primary)' }}
+          >
             {title}
           </p>
           <p className="text-xs md:text-sm" style={{ color: 'var(--text-secondary)' }}>
