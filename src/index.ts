@@ -252,7 +252,27 @@ export { CircularMetricGlass } from './components/glass/composite/circular-metri
 export { ContributionMetricsGlass } from './components/glass/composite/contribution-metrics-glass';
 export { MetricCardGlass } from './components/glass/composite/metric-card-glass';
 export { MetricsGridGlass } from './components/glass/composite/metrics-grid-glass';
-export { RepositoryCardGlass } from './components/glass/composite/repository-card-glass';
+
+// RepositoryCardGlass - Compound Components (Issue #15)
+export {
+  RepositoryCardGlass,
+  RepositoryCardRoot,
+  RepositoryCardHeader,
+  RepositoryCardName,
+  RepositoryCardStatus,
+  RepositoryCardStars,
+  RepositoryCardMeta,
+  RepositoryCardLanguages,
+  RepositoryCardStatsLine,
+  RepositoryCardExpandedContent,
+  RepositoryCardIssues,
+  RepositoryCardMetrics,
+  RepositoryCardMetricItem,
+  RepositoryCardActions,
+  useRepositoryCard,
+  useRepositoryCardOptional,
+} from './components/glass/composite/repository-card-glass';
+
 export { RepositoryHeaderGlass } from './components/glass/composite/repository-header-glass';
 export { RepositoryMetadataGlass } from './components/glass/composite/repository-metadata-glass';
 export {
@@ -264,7 +284,26 @@ export {
 export { TrustScoreDisplayGlass } from './components/glass/composite/trust-score-display-glass';
 export { UserInfoGlass } from './components/glass/composite/user-info-glass';
 export { UserStatsLineGlass } from './components/glass/composite/user-stats-line-glass';
-export { YearCardGlass } from './components/glass/composite/year-card-glass';
+
+// YearCardGlass - Compound Components (Issue #15)
+export {
+  YearCardGlass,
+  YearCardRoot,
+  YearCardHeader,
+  YearCardYear,
+  YearCardBadge,
+  YearCardValue,
+  YearCardProgress,
+  YearCardSparkline,
+  YearCardExpandedContent,
+  YearCardStats,
+  YearCardStatItem,
+  YearCardInsights,
+  YearCardInsightItem,
+  YearCardAction,
+  useYearCard,
+  useYearCardOptional,
+} from './components/glass/composite/year-card-glass';
 
 // ========================================
 // SECTION COMPONENTS (Level 5 - 7 components)
@@ -367,11 +406,44 @@ export type {
   TrendDirection,
 } from './components/glass/composite/metric-card-glass';
 
+// YearCardGlass types (Issue #15)
 export type {
   YearCardGlassProps,
   YearCardGlassInsight,
   YearCardGlassStat,
+  YearCardRootProps,
+  YearCardHeaderProps,
+  YearCardYearProps,
+  YearCardBadgeProps,
+  YearCardValueProps,
+  YearCardProgressProps,
+  YearCardSparklineProps,
+  YearCardExpandedContentProps,
+  YearCardStatsProps,
+  YearCardStatItemProps,
+  YearCardInsightsProps,
+  YearCardInsightItemProps,
+  YearCardActionProps,
 } from './components/glass/composite/year-card-glass';
+
+// RepositoryCardGlass types (Issue #15)
+export type {
+  RepositoryCardGlassLegacyProps as RepositoryCardGlassProps,
+  RepositoryCardRootProps,
+  RepositoryCardHeaderProps,
+  RepositoryCardNameProps,
+  RepositoryCardStatusProps,
+  RepositoryCardStarsProps,
+  RepositoryCardMetaProps,
+  RepositoryCardLanguagesProps,
+  RepositoryCardStatsProps,
+  RepositoryCardExpandedContentProps,
+  RepositoryCardIssuesProps,
+  RepositoryCardMetricsProps,
+  RepositoryCardMetricItemProps,
+  RepositoryCardActionsProps,
+  RepositoryFlagType,
+} from './components/glass/composite/repository-card-glass';
 
 export type {
   SplitLayoutContextValue,
