@@ -4,7 +4,9 @@
   "type": "registry:block",
   "title": "Year Card Context",
   "description": "Hook to access YearCardGlass context",
-  "dependencies": ["react"],
+  "dependencies": [
+    "react"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,5 +15,7 @@
       "content": "/* eslint-disable react-refresh/only-export-components */\n// ========================================\n// YEAR CARD GLASS CONTEXT\n// Context for compound component state\n// ========================================\n\nimport { createContext, useContext } from 'react';\n\nexport interface YearCardContextValue {\n  /** Whether the card is selected */\n  isSelected: boolean;\n  /** Whether the card is expanded */\n  isExpanded: boolean;\n  /** Callback when selection is triggered */\n  onSelect?: () => void;\n  /** Callback when expanded state changes */\n  onExpandedChange?: (expanded: boolean) => void;\n}\n\nconst YearCardContext = createContext<YearCardContextValue | null>(null);\n\n/**\n * Hook to access YearCardGlass context\n * @throws Error if used outside of YearCardGlass.Root\n */\nexport function useYearCard(): YearCardContextValue {\n  const context = useContext(YearCardContext);\n  if (!context) {\n    throw new Error('[YearCardGlass] useYearCard must be used within YearCardGlass.Root');\n  }\n  return context;\n}\n\n/**\n * Hook to optionally access YearCardGlass context\n * Returns null if used outside of YearCardGlass.Root\n */\nexport function useYearCardOptional(): YearCardContextValue | null {\n  return useContext(YearCardContext);\n}\n\nexport { YearCardContext };\n"
     }
   ],
-  "categories": ["composite"]
+  "categories": [
+    "composite"
+  ]
 }

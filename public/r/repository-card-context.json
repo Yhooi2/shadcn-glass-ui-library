@@ -4,7 +4,9 @@
   "type": "registry:block",
   "title": "Repository Card Context",
   "description": "Hook to access RepositoryCardGlass context",
-  "dependencies": ["react"],
+  "dependencies": [
+    "react"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,5 +15,7 @@
       "content": "/* eslint-disable react-refresh/only-export-components */\n// ========================================\n// REPOSITORY CARD GLASS CONTEXT\n// Context for compound component state\n// ========================================\n\nimport { createContext, useContext } from 'react';\n\nexport interface RepositoryCardContextValue {\n  /** Whether the card is expanded */\n  expanded: boolean;\n  /** Toggle expanded state */\n  onToggle?: () => void;\n}\n\nconst RepositoryCardContext = createContext<RepositoryCardContextValue | null>(null);\n\n/**\n * Hook to access RepositoryCardGlass context\n * @throws Error if used outside of RepositoryCardGlass.Root\n */\nexport function useRepositoryCard(): RepositoryCardContextValue {\n  const context = useContext(RepositoryCardContext);\n  if (!context) {\n    throw new Error(\n      '[RepositoryCardGlass] useRepositoryCard must be used within RepositoryCardGlass.Root'\n    );\n  }\n  return context;\n}\n\n/**\n * Hook to optionally access RepositoryCardGlass context\n * Returns null if used outside of RepositoryCardGlass.Root\n */\nexport function useRepositoryCardOptional(): RepositoryCardContextValue | null {\n  return useContext(RepositoryCardContext);\n}\n\nexport { RepositoryCardContext };\n"
     }
   ],
-  "categories": ["composite"]
+  "categories": [
+    "composite"
+  ]
 }
