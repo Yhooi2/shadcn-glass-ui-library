@@ -57,6 +57,44 @@ Glass-themed alert with full shadcn/ui Alert API compatibility.
 - **Variants:** default, destructive, success, warning (+ aliases: info, error)
 - **Highlights:** Auto icons, dismissible option, responsive sizing
 
+#### [CardGlass](./CARD_GLASS.md)
+
+Glass-themed card with full shadcn/ui Card API compatibility.
+
+- **Status:** Stable (v2.6.0+)
+- **Sub-components:** 7 (Root, Header, Title, Description, Action, Content, Footer)
+- **Based on:** CSS Grid layout pattern
+- **Highlights:** 3 intensity variants, glow effects, hover states, automatic action positioning
+
+#### [SheetGlass](./SHEET_GLASS.md)
+
+Glass-themed sheet/drawer with full shadcn/ui Sheet API compatibility.
+
+- **Status:** Stable (v2.4.0+)
+- **Sub-components:** 10 (Root, Trigger, Portal, Overlay, Content, Header, Footer, Title,
+  Description, Close)
+- **Based on:** `@radix-ui/react-dialog`
+- **Highlights:** 4 slide directions (top/right/bottom/left), auto close button, focus trap, escape
+  to close
+
+#### [StepperGlass](./STEPPER_GLASS.md)
+
+Glass-themed step indicator for multi-step workflows.
+
+- **Status:** Stable (v2.0.0+)
+- **Sub-components:** 4 (Root, List, Step, Content)
+- **Variants:** numbered (default), icon, dots
+- **Highlights:** Horizontal/vertical orientations, linear mode, keyboard navigation, custom icons
+
+#### [PopoverGlass](./POPOVER_GLASS.md)
+
+Glass-themed popover with full shadcn/ui Popover API compatibility.
+
+- **Status:** Stable (v2.0.0+)
+- **Sub-components:** 4 (Root, Trigger, Content, Anchor)
+- **Based on:** `@radix-ui/react-popover`
+- **Highlights:** 12 position options, arrow pointer, controlled & uncontrolled, legacy API support
+
 ### Composite Components
 
 #### [YearCardGlass](./YEAR_CARD_GLASS.md)
@@ -190,6 +228,10 @@ All documented components provide **100% API compatibility** with shadcn/ui:
 | ModalGlass         | Dialog               | ✅ 100%                     |
 | TabsGlass          | Tabs                 | ✅ 100%                     |
 | AlertGlass         | Alert                | ✅ 100% + extended variants |
+| CardGlass          | Card                 | ✅ 100% + glass effects     |
+| SheetGlass         | Sheet                | ✅ 100%                     |
+| StepperGlass       | -                    | ⚠️ Custom implementation    |
+| PopoverGlass       | Popover              | ✅ 100%                     |
 | DropdownMenuGlass  | DropdownMenu         | ✅ 100%                     |
 | SidebarGlass       | Sidebar              | ✅ 100%                     |
 
