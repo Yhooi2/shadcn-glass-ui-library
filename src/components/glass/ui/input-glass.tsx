@@ -255,3 +255,43 @@ export const InputGlass = forwardRef<HTMLInputElement, InputGlassProps>(
 );
 
 InputGlass.displayName = 'InputGlass';
+
+// ========================================
+// SIMPLE INPUT (SHADCN/UI COMPATIBLE)
+// ========================================
+
+/**
+ * Input - Simple glass-styled input element (shadcn/ui compatible)
+ *
+ * This is a minimal input component without label/error/success wrapper.
+ * Use `InputGlass` when you need the full form field with validation states.
+ *
+ * @example
+ * ```tsx
+ * import { Input } from 'shadcn-glass-ui'
+ *
+ * <Input placeholder="Enter email" />
+ * <Input type="password" className="w-full" />
+ * <Input disabled value="Disabled input" />
+ * ```
+ * @since v2.5.0
+ */
+export const Input = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputElement>>(
+  ({ className, ...props }, ref) => {
+    return (
+      <input
+        ref={ref}
+        data-slot="input"
+        className={cn(inputVariants({ size: 'md' }), className)}
+        style={{
+          background: 'var(--input-bg)',
+          border: '1px solid var(--input-border)',
+          color: 'var(--input-text)',
+        }}
+        {...props}
+      />
+    );
+  }
+);
+
+Input.displayName = 'Input';

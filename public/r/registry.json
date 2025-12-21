@@ -22,6 +22,12 @@
       "description": "TabsGlass Component (Radix UI based)"
     },
     {
+      "name": "switch-glass",
+      "type": "registry:ui",
+      "title": "Switch Glass",
+      "description": "Glass-themed switch component with shadcn/ui compatible API.\n * Built on @radix-ui/react-switch for accessibility and keyboard navigation.\n *\n * **shadcn/ui compatible props:**"
+    },
+    {
       "name": "stepper-glass",
       "type": "registry:ui",
       "title": "Stepper Glass",
@@ -44,6 +50,12 @@
       "type": "registry:ui",
       "title": "Sheet Glass",
       "description": "SheetGlass Component (Radix UI Dialog-based)"
+    },
+    {
+      "name": "select-glass",
+      "type": "registry:ui",
+      "title": "Select Glass",
+      "description": "SelectGlass - Compound Component"
     },
     {
       "name": "popover-glass",

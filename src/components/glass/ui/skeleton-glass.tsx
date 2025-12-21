@@ -53,3 +53,21 @@ export const SkeletonGlass = forwardRef<HTMLDivElement, SkeletonGlassProps>(
 );
 
 SkeletonGlass.displayName = 'SkeletonGlass';
+
+// ========================================
+// SHADCN/UI COMPATIBLE ALIAS
+// ========================================
+
+/**
+ * Skeleton - shadcn/ui compatible alias for SkeletonGlass
+ *
+ * @example
+ * ```tsx
+ * import { Skeleton } from 'shadcn-glass-ui'
+ *
+ * <Skeleton className="h-4 w-[200px]" />
+ * <Skeleton className="h-12 w-12 rounded-full" />
+ * ```
+ * @since v2.5.0
+ */
+export const Skeleton = SkeletonGlass;

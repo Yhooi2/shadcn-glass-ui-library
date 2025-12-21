@@ -48,6 +48,22 @@ export {
   DropdownMenuGlassSubContent,
   DropdownMenuGlassSubTrigger,
   DropdownMenuGlassRadioGroup,
+  // shadcn/ui compatible aliases
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuCheckboxItem,
+  DropdownMenuRadioItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuGroup,
+  DropdownMenuPortal,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuRadioGroup,
 } from './components/glass/ui/dropdown-menu-glass';
 
 export { GlassCard } from './components/glass/ui/glass-card';
@@ -64,7 +80,8 @@ export {
   CardGlassFooter,
 } from './components/glass/ui/card-glass';
 
-export { InputGlass } from './components/glass/ui/input-glass';
+// InputGlass - Full form field + simple Input alias
+export { InputGlass, Input } from './components/glass/ui/input-glass';
 
 // ModalGlass - Compound Components + shadcn/ui Dialog compatible aliases
 export {
@@ -123,7 +140,7 @@ export {
   PopoverGlassLegacy,
 } from './components/glass/ui/popover-glass';
 
-export { SkeletonGlass } from './components/glass/ui/skeleton-glass';
+export { SkeletonGlass, Skeleton } from './components/glass/ui/skeleton-glass';
 export { SliderGlass } from './components/glass/ui/slider-glass';
 export { StepperGlass } from './components/glass/ui/stepper-glass';
 // TabsGlass - Compound Components + shadcn/ui compatible separate exports
@@ -140,7 +157,35 @@ export type {
   TabsTriggerProps,
   TabsContentProps,
 } from './components/glass/ui/tabs-glass';
-export { ToggleGlass } from './components/glass/ui/toggle-glass';
+export { ToggleGlass, Toggle } from './components/glass/ui/toggle-glass';
+
+// SwitchGlass - Radix Switch based + shadcn/ui alias
+export { SwitchGlass, Switch } from './components/glass/ui/switch-glass';
+
+// SelectGlass - Compound Components + shadcn/ui aliases
+export {
+  SelectGlass,
+  SelectGlassGroup,
+  SelectGlassValue,
+  SelectGlassTrigger,
+  SelectGlassScrollUpButton,
+  SelectGlassScrollDownButton,
+  SelectGlassContent,
+  SelectGlassLabel,
+  SelectGlassItem,
+  SelectGlassSeparator,
+  // shadcn/ui compatible aliases
+  Select,
+  SelectGroup,
+  SelectValue,
+  SelectTrigger,
+  SelectScrollUpButton,
+  SelectScrollDownButton,
+  SelectContent,
+  SelectLabel,
+  SelectItem,
+  SelectSeparator,
+} from './components/glass/ui/select-glass';
 
 // SidebarGlass - Compound Components (100% shadcn/ui Sidebar compatible)
 export { SidebarGlass, useSidebar } from './components/glass/ui/sidebar-glass';
@@ -286,6 +331,9 @@ export type {
 
 // CardGlass types
 export type { CardGlassRootProps } from './components/glass/ui/card-glass';
+
+// SwitchGlass types
+export type { SwitchGlassProps } from './components/glass/ui/switch-glass';
 
 // Atomic component types
 export type { InsightCardGlassProps } from './components/glass/atomic/insight-card-glass';

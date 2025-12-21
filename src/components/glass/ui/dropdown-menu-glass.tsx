@@ -345,3 +345,45 @@ export {
   DropdownMenuGlassSubTrigger,
   DropdownMenuGlassRadioGroup,
 };
+
+// ========================================
+// SHADCN/UI COMPATIBLE ALIASES
+// ========================================
+
+/**
+ * shadcn/ui compatible aliases for DropdownMenuGlass components
+ *
+ * @example
+ * ```tsx
+ * import {
+ *   DropdownMenu,
+ *   DropdownMenuTrigger,
+ *   DropdownMenuContent,
+ *   DropdownMenuItem,
+ * } from 'shadcn-glass-ui'
+ *
+ * <DropdownMenu>
+ *   <DropdownMenuTrigger>Open</DropdownMenuTrigger>
+ *   <DropdownMenuContent>
+ *     <DropdownMenuItem>Profile</DropdownMenuItem>
+ *     <DropdownMenuItem>Settings</DropdownMenuItem>
+ *   </DropdownMenuContent>
+ * </DropdownMenu>
+ * ```
+ * @since v2.5.0
+ */
+export const DropdownMenu = DropdownMenuGlass;
+export const DropdownMenuTrigger = DropdownMenuGlassTrigger;
+export const DropdownMenuContent = DropdownMenuGlassContent;
+export const DropdownMenuItem = DropdownMenuGlassItem;
+export const DropdownMenuCheckboxItem = DropdownMenuGlassCheckboxItem;
+export const DropdownMenuRadioItem = DropdownMenuGlassRadioItem;
+export const DropdownMenuLabel = DropdownMenuGlassLabel;
+export const DropdownMenuSeparator = DropdownMenuGlassSeparator;
+export const DropdownMenuShortcut = DropdownMenuGlassShortcut;
+export const DropdownMenuGroup = DropdownMenuGlassGroup;
+export const DropdownMenuPortal = DropdownMenuGlassPortal;
+export const DropdownMenuSub = DropdownMenuGlassSub;
+export const DropdownMenuSubContent = DropdownMenuGlassSubContent;
+export const DropdownMenuSubTrigger = DropdownMenuGlassSubTrigger;
+export const DropdownMenuRadioGroup = DropdownMenuGlassRadioGroup;

@@ -192,3 +192,28 @@ export const ToggleGlass = forwardRef<HTMLButtonElement, ToggleGlassProps>(
 );
 
 ToggleGlass.displayName = 'ToggleGlass';
+
+// ========================================
+// SHADCN/UI COMPATIBLE ALIAS
+// ========================================
+
+/**
+ * Toggle - shadcn/ui compatible alias for ToggleGlass
+ *
+ * @example
+ * ```tsx
+ * import { Toggle } from 'shadcn-glass-ui'
+ *
+ * // Controlled
+ * <Toggle pressed={isOn} onPressedChange={setIsOn}>
+ *   <Bold className="h-4 w-4" />
+ * </Toggle>
+ *
+ * // Uncontrolled
+ * <Toggle defaultPressed>
+ *   <Italic className="h-4 w-4" />
+ * </Toggle>
+ * ```
+ * @since v2.5.0
+ */
+export const Toggle = ToggleGlass;
