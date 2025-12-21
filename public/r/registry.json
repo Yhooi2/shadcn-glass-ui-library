@@ -262,12 +262,6 @@
       "description": "Unified wrapper for form controls with label, validation states, and messages.\n * Eliminates code duplication across InputGlass, SliderGlass, ComboBoxGlass, etc.\n *\n * Handles:"
     },
     {
-      "name": "year-card-glass",
-      "type": "registry:block",
-      "title": "Year Card Glass",
-      "description": "Year Card Glass component with glass effects"
-    },
-    {
       "name": "user-stats-line-glass",
       "type": "registry:block",
       "title": "User Stats Line Glass",
@@ -296,12 +290,6 @@
       "type": "registry:block",
       "title": "Repository Header Glass",
       "description": "Repository Header Glass component with glass effects"
-    },
-    {
-      "name": "repository-card-glass",
-      "type": "registry:block",
-      "title": "Repository Card Glass",
-      "description": "Repository Card Glass component with glass effects"
     },
     {
       "name": "metrics-grid-glass",
@@ -400,6 +388,18 @@
       "description": "SidebarGlass Context"
     },
     {
+      "name": "year-card-glass",
+      "type": "registry:block",
+      "title": "Year Card Glass",
+      "description": "YearCardGlass - Year card with compound API for career timeline"
+    },
+    {
+      "name": "year-card-context",
+      "type": "registry:block",
+      "title": "Year Card Context",
+      "description": "Hook to access YearCardGlass context"
+    },
+    {
       "name": "split-layout-glass",
       "type": "registry:block",
       "title": "Split Layout Glass",
@@ -416,6 +416,18 @@
       "type": "registry:block",
       "title": "Split Layout Accordion",
       "description": "SplitLayoutGlass Accordion Components"
+    },
+    {
+      "name": "repository-card-glass",
+      "type": "registry:block",
+      "title": "Repository Card Glass",
+      "description": "RepositoryCardGlass - Expandable repository card with compound API"
+    },
+    {
+      "name": "repository-card-context",
+      "type": "registry:block",
+      "title": "Repository Card Context",
+      "description": "Hook to access RepositoryCardGlass context"
     }
   ]
 }

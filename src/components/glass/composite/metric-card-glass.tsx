@@ -5,7 +5,7 @@
 // ========================================
 
 import { forwardRef, type CSSProperties, type ReactNode } from 'react';
-import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
+import { TrendingUp, TrendingDown, Minus, HelpCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ProgressGlass } from '../specialized/progress-glass';
 import { SparklineGlass } from '../specialized/sparkline-glass';
@@ -129,6 +129,19 @@ export interface MetricCardGlassProps extends React.HTMLAttributes<HTMLDivElemen
   readonly progress?: number;
 
   // ========================================
+  // SCORE DISPLAY (Issue #15)
+  // ========================================
+
+  /** Max score for ratio display (renders as value/maxScore, e.g., "85/100") */
+  readonly maxScore?: number;
+
+  /** Callback when "explain" action is triggered */
+  readonly onExplain?: () => void;
+
+  /** Show explain button (defaults to true if onExplain is provided) */
+  readonly showExplain?: boolean;
+
+  // ========================================
   // DEPRECATED (backward compatibility)
   // ========================================
 
@@ -243,6 +256,10 @@ export const MetricCardGlass = forwardRef<HTMLDivElement, MetricCardGlassProps>(
       valueFormatter,
       valueSuffix,
       trend,
+      // Score display (Issue #15)
+      maxScore,
+      onExplain,
+      showExplain,
       // Common props
       icon,
       sparklineData,
@@ -301,13 +318,21 @@ export const MetricCardGlass = forwardRef<HTMLDivElement, MetricCardGlassProps>(
     }
 
     // Support old `valueFormatter`
-    const displayValue =
+    let displayValue =
       typeof value === 'number' && valueFormatter ? valueFormatter(value) : String(value);
     if (valueFormatter) {
       console.warn(
         '[MetricCardGlass] Deprecated prop `valueFormatter` used. Please format value before passing. Will be removed in v2.0'
       );
     }
+
+    // Format as ratio if maxScore is provided (e.g., "85/100")
+    if (maxScore !== undefined) {
+      displayValue = `${displayValue}/${maxScore}`;
+    }
+
+    // Determine if explain button should be shown
+    const shouldShowExplain = showExplain ?? onExplain !== undefined;
 
     // Get actual progress value (use prop or infer from value if it's 0-100)
     const actualProgress =
@@ -393,12 +418,24 @@ export const MetricCardGlass = forwardRef<HTMLDivElement, MetricCardGlassProps>(
 
         {/* Value display */}
         <div className="flex flex-col items-center mb-2 md:mb-3 gap-1">
-          <span
-            className="font-bold text-lg sm:text-xl md:text-2xl whitespace-nowrap"
-            style={valueStyles}
-          >
-            {displayValue}
-          </span>
+          <div className="flex items-center gap-2">
+            <span
+              className="font-bold text-lg sm:text-xl md:text-2xl whitespace-nowrap"
+              style={valueStyles}
+            >
+              {displayValue}
+            </span>
+            {shouldShowExplain && onExplain && (
+              <button
+                type="button"
+                onClick={onExplain}
+                className="p-1 rounded-md text-(--text-muted) hover:text-(--text-secondary) hover:bg-(--glass-bg-hover) transition-colors"
+                aria-label="Explain this metric"
+              >
+                <HelpCircle className="w-4 h-4" />
+              </button>
+            )}
+          </div>
           {actualDescription && (
             <span className="text-(length:--font-size-2xs) text-(--text-muted)">
               {actualDescription}

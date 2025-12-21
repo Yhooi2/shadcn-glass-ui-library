@@ -10,6 +10,8 @@ export * from './alert-glass-variants';
 export * from './avatar-glass-variants';
 export * from './badge-glass-variants';
 export * from './button-glass-variants';
+// shadcn/ui compatible alias for asChild pattern (Issue #14)
+export { buttonGlassVariants as buttonVariants } from './button-glass-variants';
 export * from './dropdown-glass-variants';
 export * from './glass-card-variants';
 export * from './input-glass-variants';

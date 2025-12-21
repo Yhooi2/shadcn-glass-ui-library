@@ -51,11 +51,83 @@ export {
   type CircularMetricColor,
 } from './circular-metric-glass';
 
-export { YearCardGlass, type YearCardGlassProps } from './year-card-glass';
+// YearCardGlass - Compound Components API (Issue #15)
+export {
+  YearCardGlass,
+  YearCardRoot,
+  YearCardHeader,
+  YearCardYear,
+  YearCardBadge,
+  YearCardValue,
+  YearCardProgress,
+  YearCardSparkline,
+  YearCardExpandedContent,
+  YearCardStats,
+  YearCardStatItem,
+  YearCardInsights,
+  YearCardInsightItem,
+  YearCardAction,
+  useYearCard,
+  useYearCardOptional,
+} from './year-card-glass';
+
+export type {
+  YearCardGlassInsight,
+  YearCardGlassStat,
+  YearCardRootProps,
+  YearCardHeaderProps,
+  YearCardYearProps,
+  YearCardBadgeProps,
+  YearCardValueProps,
+  YearCardProgressProps,
+  YearCardSparklineProps,
+  YearCardExpandedContentProps,
+  YearCardStatsProps,
+  YearCardStatItemProps,
+  YearCardInsightsProps,
+  YearCardInsightItemProps,
+  YearCardActionProps,
+  YearCardGlassLegacyProps as YearCardGlassProps,
+} from './year-card-glass';
 
 export { AICardGlass, type AICardGlassProps } from './ai-card-glass';
 
-export { RepositoryCardGlass, type RepositoryCardGlassProps } from './repository-card-glass';
+// RepositoryCardGlass - Compound Components API (Issue #15)
+export {
+  RepositoryCardGlass,
+  RepositoryCardRoot,
+  RepositoryCardHeader,
+  RepositoryCardName,
+  RepositoryCardStatus,
+  RepositoryCardStars,
+  RepositoryCardMeta,
+  RepositoryCardLanguages,
+  RepositoryCardStatsLine,
+  RepositoryCardExpandedContent,
+  RepositoryCardIssues,
+  RepositoryCardMetrics,
+  RepositoryCardMetricItem,
+  RepositoryCardActions,
+  useRepositoryCard,
+  useRepositoryCardOptional,
+} from './repository-card-glass';
+
+export type {
+  RepositoryCardRootProps,
+  RepositoryCardHeaderProps,
+  RepositoryCardNameProps,
+  RepositoryCardStatusProps,
+  RepositoryCardStarsProps,
+  RepositoryCardMetaProps,
+  RepositoryCardLanguagesProps,
+  RepositoryCardStatsProps,
+  RepositoryCardExpandedContentProps,
+  RepositoryCardIssuesProps,
+  RepositoryCardMetricsProps,
+  RepositoryCardMetricItemProps,
+  RepositoryCardActionsProps,
+  RepositoryCardGlassLegacyProps as RepositoryCardGlassProps,
+} from './repository-card-glass';
 
 // SplitLayoutGlass - Compound Components API only (like ModalGlass)
 export {
