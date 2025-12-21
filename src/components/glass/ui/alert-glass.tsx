@@ -205,3 +205,26 @@ AlertGlassDescription.displayName = 'AlertGlassDescription';
 // Compound API (shadcn/ui pattern)
 export const AlertGlass = AlertGlassRoot;
 export { AlertGlassTitle, AlertGlassDescription };
+
+// ========================================
+// SHADCN/UI COMPATIBLE ALIASES
+// ========================================
+
+/**
+ * Alert - shadcn/ui compatible alias for AlertGlass
+ *
+ * @example
+ * ```tsx
+ * import { Alert, AlertTitle, AlertDescription } from 'shadcn-glass-ui'
+ *
+ * <Alert variant="destructive">
+ *   <AlertTitle>Error</AlertTitle>
+ *   <AlertDescription>Something went wrong.</AlertDescription>
+ * </Alert>
+ * ```
+ *
+ * @since v2.6.0
+ */
+export const Alert = AlertGlass;
+export const AlertTitle = AlertGlassTitle;
+export const AlertDescription = AlertGlassDescription;

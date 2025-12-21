@@ -375,3 +375,19 @@ export const ButtonGlass = forwardRef<HTMLButtonElement, ButtonGlassProps>(
 );
 
 ButtonGlass.displayName = 'ButtonGlass';
+
+/**
+ * Button - shadcn/ui compatible alias for ButtonGlass
+ *
+ * @example
+ * ```tsx
+ * import { Button } from 'shadcn-glass-ui'
+ *
+ * <Button variant="default">Click me</Button>
+ * <Button variant="destructive">Delete</Button>
+ * <Button asChild><a href="/">Home</a></Button>
+ * ```
+ *
+ * @since v2.6.0
+ */
+export const Button = ButtonGlass;

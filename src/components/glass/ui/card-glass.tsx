@@ -280,3 +280,33 @@ export {
   CardGlassContent,
   CardGlassFooter,
 };
+
+// ========================================
+// SHADCN/UI COMPATIBLE ALIASES
+// ========================================
+
+/**
+ * Card - shadcn/ui compatible alias for CardGlass
+ *
+ * @example
+ * ```tsx
+ * import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from 'shadcn-glass-ui'
+ *
+ * <Card>
+ *   <CardHeader>
+ *     <CardTitle>Card Title</CardTitle>
+ *     <CardDescription>Card description</CardDescription>
+ *   </CardHeader>
+ *   <CardContent>Content</CardContent>
+ *   <CardFooter>Footer</CardFooter>
+ * </Card>
+ * ```
+ *
+ * @since v2.6.0
+ */
+export const Card = CardGlassRoot;
+export const CardHeader = CardGlassHeader;
+export const CardTitle = CardGlassTitle;
+export const CardDescription = CardGlassDescription;
+export const CardContent = CardGlassContent;
+export const CardFooter = CardGlassFooter;

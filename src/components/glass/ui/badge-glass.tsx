@@ -174,3 +174,19 @@ export const BadgeGlass = forwardRef<HTMLSpanElement, BadgeGlassProps>(
 );
 
 BadgeGlass.displayName = 'BadgeGlass';
+
+/**
+ * Badge - shadcn/ui compatible alias for BadgeGlass
+ *
+ * @example
+ * ```tsx
+ * import { Badge } from 'shadcn-glass-ui'
+ *
+ * <Badge variant="default">Default</Badge>
+ * <Badge variant="destructive">Error</Badge>
+ * <Badge variant="success">Success</Badge>
+ * ```
+ *
+ * @since v2.6.0
+ */
+export const Badge = BadgeGlass;

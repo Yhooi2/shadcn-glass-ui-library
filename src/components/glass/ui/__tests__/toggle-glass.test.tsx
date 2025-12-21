@@ -23,8 +23,8 @@ describe('ToggleGlass', () => {
       expect(toggle).toHaveClass('custom-class');
     });
 
-    it('applies custom className to label wrapper when label is provided', () => {
-      const { container } = render(
+    it('applies custom className to toggle even with label (shadcn/ui pattern)', () => {
+      render(
         <ToggleGlass
           pressed={false}
           onPressedChange={vi.fn()}
@@ -32,8 +32,37 @@ describe('ToggleGlass', () => {
           className="custom-class"
         />
       );
+      const toggle = screen.getByRole('switch');
+      expect(toggle).toHaveClass('custom-class');
+    });
+
+    it('applies wrapperClassName to label wrapper when label is provided', () => {
+      const { container } = render(
+        <ToggleGlass
+          pressed={false}
+          onPressedChange={vi.fn()}
+          label="Label"
+          wrapperClassName="wrapper-class"
+        />
+      );
       const label = container.querySelector('label');
-      expect(label).toHaveClass('custom-class');
+      expect(label).toHaveClass('wrapper-class');
+    });
+
+    it('applies both className and wrapperClassName correctly with label', () => {
+      const { container } = render(
+        <ToggleGlass
+          pressed={false}
+          onPressedChange={vi.fn()}
+          label="Label"
+          className="toggle-class"
+          wrapperClassName="wrapper-class"
+        />
+      );
+      const toggle = screen.getByRole('switch');
+      const label = container.querySelector('label');
+      expect(toggle).toHaveClass('toggle-class');
+      expect(label).toHaveClass('wrapper-class');
     });
 
     it('renders with correct ARIA attributes (aria-pressed)', () => {

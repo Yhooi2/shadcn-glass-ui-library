@@ -8,23 +8,31 @@
 // CORE UI COMPONENTS (Level 1 - 18 components)
 // ========================================
 
-// AlertGlass - Compound Components
+// AlertGlass - Compound Components + shadcn/ui aliases
 export {
   AlertGlass,
   AlertGlassTitle,
   AlertGlassDescription,
+  // shadcn/ui compatible aliases
+  Alert,
+  AlertTitle,
+  AlertDescription,
 } from './components/glass/ui/alert-glass';
 
-// AvatarGlass - Compound Components + Simple Wrapper
+// AvatarGlass - Compound Components + Simple Wrapper + shadcn/ui aliases
 export {
   AvatarGlass,
   AvatarGlassImage,
   AvatarGlassFallback,
   AvatarGlassSimple,
+  // shadcn/ui compatible aliases
+  Avatar,
+  AvatarImage,
+  AvatarFallback,
 } from './components/glass/ui/avatar-glass';
 
-export { BadgeGlass } from './components/glass/ui/badge-glass';
-export { ButtonGlass } from './components/glass/ui/button-glass';
+export { BadgeGlass, Badge } from './components/glass/ui/badge-glass';
+export { ButtonGlass, Button } from './components/glass/ui/button-glass';
 export { CheckboxGlass, Checkbox } from './components/glass/ui/checkbox-glass';
 export type { CheckedState } from './components/glass/ui/checkbox-glass';
 export { CircularProgressGlass } from './components/glass/ui/circular-progress-glass';
@@ -78,6 +86,13 @@ export {
   CardGlassAction,
   CardGlassContent,
   CardGlassFooter,
+  // shadcn/ui compatible aliases
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
 } from './components/glass/ui/card-glass';
 
 // InputGlass - Full form field + simple Input alias

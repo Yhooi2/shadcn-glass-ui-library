@@ -73,6 +73,13 @@ export interface ToggleGlassProps
    * Optional label text
    */
   readonly label?: string;
+  /**
+   * className for the wrapper label element (when label is provided).
+   * Use this for spacing, layout, or wrapper-specific styling.
+   * Note: `className` always applies to the toggle button (shadcn/ui pattern).
+   * @since v2.6.0
+   */
+  readonly wrapperClassName?: string;
 }
 
 // ========================================
@@ -83,6 +90,7 @@ export const ToggleGlass = forwardRef<HTMLButtonElement, ToggleGlassProps>(
   (
     {
       className,
+      wrapperClassName,
       size = 'default',
       variant = 'default',
       pressed: controlledPressed,
@@ -150,7 +158,7 @@ export const ToggleGlass = forwardRef<HTMLButtonElement, ToggleGlassProps>(
           className={cn(
             toggleSizes({ size, variant }),
             disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
-            !label && className
+            className
           )}
           style={getTrackStyles()}
           onClick={handleToggle}
@@ -176,7 +184,7 @@ export const ToggleGlass = forwardRef<HTMLButtonElement, ToggleGlassProps>(
           className={cn(
             'inline-flex items-center gap-2 md:gap-2.5',
             disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
-            className
+            wrapperClassName
           )}
         >
           {toggle}

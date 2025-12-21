@@ -2,10 +2,57 @@
 
 This document lists breaking changes in shadcn-glass-ui v2.0.0 and later.
 
-**Current Version:** 2.1.0 (2025-12-14)
+**Current Version:** 2.5.1 (2025-12-21)
 
 > **Note:** As of v2.1.0, all v2.0.0 migrations are complete across the entire codebase. All
 > components, examples, and documentation now use the new API.
+
+---
+
+## v2.5.1 — className Behavior Fix (Issue #13)
+
+### Summary
+
+v2.5.1 fixes `className` handling in CheckboxGlass and ToggleGlass to match the shadcn/ui pattern
+where `className` applies to the root interactive element, not wrapper elements.
+
+**Bug fix:** `className` was incorrectly applied to wrapper label instead of root element.
+
+**New shadcn/ui aliases added:** Button, Badge, Alert, AlertTitle, AlertDescription, Avatar,
+AvatarImage, AvatarFallback, Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter
+
+---
+
+### CheckboxGlass
+
+**Fixed:** `className` now applies to the checkbox root element (button), not the label wrapper.
+
+**Added:** `wrapperClassName` prop for styling the label wrapper.
+
+```tsx
+// className now correctly styles the checkbox root (shadcn/ui pattern)
+<CheckboxGlass className="w-8 h-8" label="Accept" />
+
+// Use wrapperClassName for wrapper styling:
+<CheckboxGlass wrapperClassName="gap-4 p-2" label="Accept" />
+```
+
+---
+
+### ToggleGlass
+
+**Fixed:** `className` now ALWAYS applies to the toggle button, regardless of whether a label is
+provided.
+
+**Added:** `wrapperClassName` prop for styling the label wrapper.
+
+```tsx
+// className now always styles the toggle button (shadcn/ui pattern)
+<ToggleGlass className="w-14 h-8" label="Dark mode" pressed={on} onPressedChange={setOn} />
+
+// Use wrapperClassName for wrapper styling:
+<ToggleGlass wrapperClassName="gap-4" label="Dark mode" pressed={on} onPressedChange={setOn} />
+```
 
 ---
 

@@ -22,12 +22,36 @@ describe('CheckboxGlass', () => {
       expect(screen.queryByText(/test/i)).not.toBeInTheDocument();
     });
 
-    it('applies custom className to label', () => {
+    it('applies custom className to checkbox root (shadcn/ui pattern)', () => {
       const { container } = render(
         <CheckboxGlass checked={false} onChange={vi.fn()} className="custom-class" />
       );
+      const checkbox = getCheckboxButton(container);
+      expect(checkbox).toHaveClass('custom-class');
+    });
+
+    it('applies wrapperClassName to label wrapper', () => {
+      const { container } = render(
+        <CheckboxGlass checked={false} onChange={vi.fn()} wrapperClassName="wrapper-class" />
+      );
       const label = container.querySelector('label');
-      expect(label).toHaveClass('custom-class');
+      expect(label).toHaveClass('wrapper-class');
+    });
+
+    it('applies both className and wrapperClassName correctly', () => {
+      const { container } = render(
+        <CheckboxGlass
+          checked={false}
+          onChange={vi.fn()}
+          className="checkbox-class"
+          wrapperClassName="wrapper-class"
+          label="Test"
+        />
+      );
+      const checkbox = getCheckboxButton(container);
+      const label = container.querySelector('label');
+      expect(checkbox).toHaveClass('checkbox-class');
+      expect(label).toHaveClass('wrapper-class');
     });
 
     it('renders with correct data-state attribute when checked', () => {

@@ -238,3 +238,26 @@ export { AvatarGlassImage, AvatarGlassFallback };
 
 // Simple wrapper (backward compatibility)
 export { AvatarGlassSimple };
+
+// ========================================
+// SHADCN/UI COMPATIBLE ALIASES
+// ========================================
+
+/**
+ * Avatar - shadcn/ui compatible alias for AvatarGlass
+ *
+ * @example
+ * ```tsx
+ * import { Avatar, AvatarImage, AvatarFallback } from 'shadcn-glass-ui'
+ *
+ * <Avatar>
+ *   <AvatarImage src="/avatar.jpg" alt="User" />
+ *   <AvatarFallback>JD</AvatarFallback>
+ * </Avatar>
+ * ```
+ *
+ * @since v2.6.0
+ */
+export const Avatar = AvatarGlass;
+export const AvatarImage = AvatarGlassImage;
+export const AvatarFallback = AvatarGlassFallback;
