@@ -46,14 +46,14 @@ const meta = {
       description: '⚠️ DEPRECATED: Use `variant` instead',
     },
   },
-  decorators: [
-    (Story) => (
-      <div className="w-48 p-4">
-        <Story />
-      </div>
-    ),
-  ],
 } satisfies Meta<typeof MetricCardGlass>;
+
+// Shared decorator for single-card stories
+const singleCardDecorator = (Story: React.ComponentType) => (
+  <div className="w-56 p-4">
+    <Story />
+  </div>
+);
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -71,6 +71,7 @@ export const SimpleMetric: Story = {
     variant: 'success',
     icon: <DollarSign className="w-4 h-4" />,
   },
+  decorators: [singleCardDecorator],
 };
 
 /** Metric with string change indicator */
@@ -82,6 +83,7 @@ export const WithStringChange: Story = {
     variant: 'default',
     icon: <Users className="w-4 h-4" />,
   },
+  decorators: [singleCardDecorator],
 };
 
 /** Metric with detailed change object */
@@ -98,6 +100,7 @@ export const WithDetailedChange: Story = {
     variant: 'success',
     icon: <TrendingUp className="w-4 h-4" />,
   },
+  decorators: [singleCardDecorator],
 };
 
 /** Metric with progress bar */
@@ -110,6 +113,7 @@ export const WithProgress: Story = {
     variant: 'success',
     showProgress: true,
   },
+  decorators: [singleCardDecorator],
 };
 
 /** Metric with sparkline chart */
@@ -122,6 +126,7 @@ export const WithSparkline: Story = {
     sparklineData: [70, 75, 78, 82, 86, 90, 92],
     showSparkline: true,
   },
+  decorators: [singleCardDecorator],
 };
 
 /** Full-featured metric card */
@@ -138,6 +143,7 @@ export const FullFeatured: Story = {
     showProgress: true,
     showSparkline: true,
   },
+  decorators: [singleCardDecorator],
 };
 
 /** All variant types showcase */
@@ -204,6 +210,7 @@ export const LegacyDefault: Story = {
     value: 75,
     variant: 'default',
   },
+  decorators: [singleCardDecorator],
 };
 
 /** @deprecated Use new API examples above */
@@ -215,4 +222,5 @@ export const LegacyWithSparkline: Story = {
     variant: 'success',
     sparklineData: [65, 68, 72, 75, 78, 80, 82],
   },
+  decorators: [singleCardDecorator],
 };
