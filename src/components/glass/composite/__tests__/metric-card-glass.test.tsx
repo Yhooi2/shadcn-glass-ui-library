@@ -452,4 +452,61 @@ describe('MetricCardGlass', () => {
       expect(screen.getByRole('img', { name: /activity score trend/i })).toBeInTheDocument();
     });
   });
+
+  describe('Explain Button', () => {
+    it('renders explain button when onExplain is provided', () => {
+      const onExplain = vi.fn();
+      render(<MetricCardGlass title="Trust Score" value="85%" onExplain={onExplain} />);
+
+      const button = screen.getByRole('button', { name: 'Explain Trust Score metric' });
+      expect(button).toBeInTheDocument();
+    });
+
+    it('calls onExplain when explain button is clicked', async () => {
+      const user = userEvent.setup();
+      const onExplain = vi.fn();
+      render(<MetricCardGlass title="Activity Index" value="92%" onExplain={onExplain} />);
+
+      const button = screen.getByRole('button', { name: 'Explain Activity Index metric' });
+      await user.click(button);
+      expect(onExplain).toHaveBeenCalledTimes(1);
+    });
+
+    it('uses actualTitle in aria-label', () => {
+      render(<MetricCardGlass title="Performance Score" value="78%" onExplain={() => {}} />);
+
+      expect(
+        screen.getByRole('button', { name: 'Explain Performance Score metric' })
+      ).toBeInTheDocument();
+    });
+
+    it('does not render explain button when onExplain is not provided', () => {
+      render(<MetricCardGlass title="Test" value="50%" />);
+
+      expect(screen.queryByRole('button', { name: /explain/i })).not.toBeInTheDocument();
+    });
+
+    it('hides explain button when showExplain is false', () => {
+      render(<MetricCardGlass title="Test" value="50%" onExplain={() => {}} showExplain={false} />);
+
+      expect(screen.queryByRole('button', { name: /explain/i })).not.toBeInTheDocument();
+    });
+
+    it('handles multi-word titles in aria-label', () => {
+      render(
+        <MetricCardGlass title="Customer Satisfaction Index" value="95%" onExplain={() => {}} />
+      );
+
+      expect(
+        screen.getByRole('button', { name: 'Explain Customer Satisfaction Index metric' })
+      ).toBeInTheDocument();
+    });
+
+    it('handles maxScore with explain button', () => {
+      render(<MetricCardGlass title="Test Score" value={85} maxScore={100} onExplain={() => {}} />);
+
+      expect(screen.getByText('85/100')).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: 'Explain Test Score metric' })).toBeInTheDocument();
+    });
+  });
 });

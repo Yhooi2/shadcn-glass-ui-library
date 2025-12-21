@@ -97,6 +97,16 @@ Glass-themed popover with full shadcn/ui Popover API compatibility.
 
 ### Composite Components
 
+#### [MetricCardGlass](./METRIC_CARD_GLASS.md)
+
+Glass-themed metric display card with progress, sparkline, and trend visualization.
+
+- **Status:** Stable (v1.0.0+)
+- **Variants:** 5 semantic variants (default, secondary, success, warning, destructive)
+- **Use Cases:** Dashboards, analytics, KPI displays, score cards
+- **Highlights:** Progress bars, sparkline charts, trend indicators, explain button with accessible
+  aria-labels, ratio display (value/maxScore), backward compatible with v1.x API
+
 #### [YearCardGlass](./YEAR_CARD_GLASS.md)
 
 Expandable year card component for career timelines with glassmorphism design.

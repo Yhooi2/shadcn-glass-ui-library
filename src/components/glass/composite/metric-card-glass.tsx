@@ -132,13 +132,61 @@ export interface MetricCardGlassProps extends React.HTMLAttributes<HTMLDivElemen
   // SCORE DISPLAY (Issue #15)
   // ========================================
 
-  /** Max score for ratio display (renders as value/maxScore, e.g., "85/100") */
+  /**
+   * Max score for ratio display
+   *
+   * When provided, formats the value as a ratio (e.g., "85/100").
+   * Useful for displaying scores, completion rates, or progress out of a maximum value.
+   *
+   * @example
+   * ```tsx
+   * <MetricCardGlass
+   *   title="Test Score"
+   *   value={85}
+   *   maxScore={100}
+   * />
+   * // Displays: "85/100"
+   * ```
+   */
   readonly maxScore?: number;
 
-  /** Callback when "explain" action is triggered */
+  /**
+   * Callback when explain button is clicked
+   *
+   * Enables an interactive "explain" button (HelpCircle icon) next to the metric value.
+   * Use to show tooltips, modals, or contextual help about the metric's meaning.
+   * The button includes an accessible aria-label: "Explain {title} metric"
+   *
+   * @example
+   * ```tsx
+   * <MetricCardGlass
+   *   title="Trust Score"
+   *   value="85%"
+   *   onExplain={() => setShowExplanationModal(true)}
+   * />
+   * ```
+   */
   readonly onExplain?: () => void;
 
-  /** Show explain button (defaults to true if onExplain is provided) */
+  /**
+   * Control explain button visibility
+   *
+   * Defaults to `true` if `onExplain` is provided. Set to `false` to hide the button
+   * even when `onExplain` callback exists.
+   *
+   * @default true (when onExplain is provided)
+   *
+   * @example
+   * ```tsx
+   * // Conditionally show explain button
+   * <MetricCardGlass
+   *   title="Metric"
+   *   value="50%"
+   *   onExplain={handleExplain}
+   *   showExplain={userHasPermission}
+   * />
+   * ```
+   */
   readonly showExplain?: boolean;
 
   // ========================================
@@ -430,7 +478,7 @@ export const MetricCardGlass = forwardRef<HTMLDivElement, MetricCardGlassProps>(
                 type="button"
                 onClick={onExplain}
                 className="p-1 rounded-md text-(--text-muted) hover:text-(--text-secondary) hover:bg-(--glass-bg-hover) transition-colors"
-                aria-label="Explain this metric"
+                aria-label={`Explain ${actualTitle} metric`}
               >
                 <HelpCircle className="w-4 h-4" />
               </button>

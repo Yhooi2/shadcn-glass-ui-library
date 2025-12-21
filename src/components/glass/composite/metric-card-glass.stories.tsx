@@ -27,8 +27,21 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component:
-          'A metric display card following shadcn/ui patterns with Glass UI extensions for progress, sparkline, and trends.',
+        component: `
+A versatile metric display card with Glass UI styling, following shadcn/ui variant patterns.
+
+## Features
+- 5 semantic variants (default, secondary, success, warning, destructive)
+- Optional progress bar and sparkline visualization
+- Change/trend indicators with direction
+- Score ratio display (value/maxScore)
+- Explain button with accessible aria-labels
+- Icon support
+- Backward compatible with v1.x API
+
+## Props Reference
+See component documentation for complete API: [METRIC_CARD_GLASS.md](/docs/components/METRIC_CARD_GLASS.md)
+        `.trim(),
       },
     },
   },
@@ -129,6 +142,31 @@ export const WithSparkline: Story = {
   decorators: [singleCardDecorator],
 };
 
+/** Metric with explain button */
+export const WithExplainButton: Story = {
+  args: {
+    title: 'Trust Score',
+    value: '85%',
+    description: 'Overall reliability',
+    variant: 'success',
+    icon: <Activity className="w-4 h-4" />,
+    progress: 85,
+    onExplain: () =>
+      alert(
+        'This metric measures overall reliability based on contribution history, code quality, and community engagement.'
+      ),
+  },
+  decorators: [singleCardDecorator],
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Demonstrates explain button with contextual aria-label for accessibility. The button includes the metric title for screen reader context.',
+      },
+    },
+  },
+};
+
 /** Full-featured metric card */
 export const FullFeatured: Story = {
   args: {
@@ -142,6 +180,8 @@ export const FullFeatured: Story = {
     progress: 94,
     showProgress: true,
     showSparkline: true,
+    onExplain: () =>
+      alert('Activity Index combines commit frequency, PR reviews, and issue responses.'),
   },
   decorators: [singleCardDecorator],
 };
