@@ -1,7 +1,8 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { RepositoryCardGlass } from '../repository-card-glass';
+import type { ContributorRole } from '../repository-card-glass';
 
 describe('RepositoryCardGlass', () => {
   const defaultProps = {
@@ -249,5 +250,235 @@ describe('RepositoryCardGlass', () => {
       // Should render without error
       expect(screen.getByText('Your Contribution')).toBeInTheDocument();
     });
+  });
+});
+
+// ========================================
+// NEW SUB-COMPONENTS TESTS (Issue #28)
+// ========================================
+
+describe('RepositoryCardGlass.ContributionBadge', () => {
+  it('renders percentage', () => {
+    render(<RepositoryCardGlass.ContributionBadge percent={45} />);
+    expect(screen.getByText('45%')).toBeInTheDocument();
+  });
+
+  it('applies destructive variant for 0-25%', () => {
+    const { container } = render(<RepositoryCardGlass.ContributionBadge percent={20} />);
+    // BadgeGlass destructive variant check
+    expect(container.firstChild).toBeInTheDocument();
+  });
+
+  it('applies warning variant for 26-50%', () => {
+    const { container } = render(<RepositoryCardGlass.ContributionBadge percent={40} />);
+    expect(container.firstChild).toBeInTheDocument();
+  });
+
+  it('applies default variant for 51-75%', () => {
+    const { container } = render(<RepositoryCardGlass.ContributionBadge percent={60} />);
+    expect(container.firstChild).toBeInTheDocument();
+  });
+
+  it('applies success variant for 76-100%', () => {
+    const { container } = render(<RepositoryCardGlass.ContributionBadge percent={85} />);
+    expect(container.firstChild).toBeInTheDocument();
+  });
+});
+
+describe('RepositoryCardGlass.ForkBadge', () => {
+  it('renders Fork text', () => {
+    render(<RepositoryCardGlass.ForkBadge />);
+    expect(screen.getByText('Fork')).toBeInTheDocument();
+  });
+
+  it('renders fork icon', () => {
+    const { container } = render(<RepositoryCardGlass.ForkBadge />);
+    expect(container.querySelector('svg')).toBeInTheDocument();
+  });
+
+  it('shows forkedFrom info on hover when provided', async () => {
+    const user = userEvent.setup();
+    render(<RepositoryCardGlass.ForkBadge forkedFrom="facebook/react" />);
+
+    const badge = screen.getByText('Fork');
+    await user.hover(badge);
+
+    await waitFor(() => {
+      expect(screen.getByText('facebook/react')).toBeInTheDocument();
+    });
+  });
+});
+
+describe('RepositoryCardGlass.Language', () => {
+  it('renders language name', () => {
+    render(<RepositoryCardGlass.Language name="TypeScript" />);
+    expect(screen.getByText('TypeScript')).toBeInTheDocument();
+  });
+
+  it('renders percentage when provided', () => {
+    render(<RepositoryCardGlass.Language name="TypeScript" percent={65} />);
+    expect(screen.getByText('TypeScript')).toBeInTheDocument();
+    expect(screen.getByText('65%')).toBeInTheDocument();
+  });
+
+  it('renders color dot', () => {
+    const { container } = render(<RepositoryCardGlass.Language name="TypeScript" />);
+    const colorDot = container.querySelector('.rounded-full');
+    expect(colorDot).toBeInTheDocument();
+  });
+
+  it('uses custom color when provided', () => {
+    const { container } = render(<RepositoryCardGlass.Language name="Custom" color="#ff0000" />);
+    const colorDot = container.querySelector('.rounded-full');
+    expect(colorDot).toHaveStyle({ backgroundColor: '#ff0000' });
+  });
+});
+
+describe('RepositoryCardGlass.ActivityStatus', () => {
+  it('renders Active for recent activity', () => {
+    const today = new Date().toISOString();
+    render(<RepositoryCardGlass.ActivityStatus lastActivityDate={today} />);
+    expect(screen.getByText('Active')).toBeInTheDocument();
+  });
+
+  it('renders Recent for 7-30 days ago', () => {
+    const twoWeeksAgo = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString();
+    render(<RepositoryCardGlass.ActivityStatus lastActivityDate={twoWeeksAgo} />);
+    expect(screen.getByText('Recent')).toBeInTheDocument();
+  });
+
+  it('renders Stale for 30-90 days ago', () => {
+    const sixtyDaysAgo = new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString();
+    render(<RepositoryCardGlass.ActivityStatus lastActivityDate={sixtyDaysAgo} />);
+    expect(screen.getByText('Stale')).toBeInTheDocument();
+  });
+
+  it('renders Inactive for >90 days ago', () => {
+    const sixMonthsAgo = new Date(Date.now() - 180 * 24 * 60 * 60 * 1000).toISOString();
+    render(<RepositoryCardGlass.ActivityStatus lastActivityDate={sixMonthsAgo} />);
+    expect(screen.getByText('Inactive')).toBeInTheDocument();
+  });
+});
+
+describe('RepositoryCardGlass.RoleBadge', () => {
+  const roles: ContributorRole[] = ['owner', 'lead', 'core', 'maintainer', 'contributor'];
+
+  it.each(roles)('renders %s role', (role) => {
+    render(<RepositoryCardGlass.RoleBadge role={role} />);
+    // Each role should render a capitalized label
+    expect(screen.getByText(role.charAt(0).toUpperCase() + role.slice(1))).toBeInTheDocument();
+  });
+});
+
+describe('RepositoryCardGlass.TeamAvatars', () => {
+  const members = [
+    { id: '1', name: 'Alice Johnson', avatar: 'https://example.com/alice.png' },
+    { id: '2', name: 'Bob Smith' },
+    { id: '3', name: 'Charlie Brown' },
+  ];
+
+  it('renders member avatars', () => {
+    const { container } = render(<RepositoryCardGlass.TeamAvatars members={members} />);
+    // Should have 3 avatar containers
+    const avatars = container.querySelectorAll('[class*="rounded-full"]');
+    expect(avatars.length).toBeGreaterThanOrEqual(3);
+  });
+
+  it('shows +N indicator when more than max', () => {
+    render(<RepositoryCardGlass.TeamAvatars members={members} max={2} total={10} />);
+    expect(screen.getByText('+8')).toBeInTheDocument();
+  });
+
+  it('respects max prop', () => {
+    const { container } = render(<RepositoryCardGlass.TeamAvatars members={members} max={2} />);
+    // Should only show 2 avatars plus the +N indicator
+    expect(container.firstChild).toBeInTheDocument();
+  });
+
+  it('shows member info on hover', async () => {
+    const user = userEvent.setup();
+    render(<RepositoryCardGlass.TeamAvatars members={members} />);
+
+    // Find an avatar and hover
+    const avatarContainers = screen.getAllByText('AJ'); // Alice Johnson initials
+    await user.hover(avatarContainers[0]);
+
+    await waitFor(() => {
+      expect(screen.getByText('Alice Johnson')).toBeInTheDocument();
+    });
+  });
+});
+
+describe('RepositoryCardGlass.HealthStatus', () => {
+  it('renders Healthy for recent push', () => {
+    const today = new Date().toISOString();
+    render(<RepositoryCardGlass.HealthStatus pushedAt={today} />);
+    expect(screen.getByText('Healthy')).toBeInTheDocument();
+  });
+
+  it('renders Maintenance for 90-365 days', () => {
+    const fourMonthsAgo = new Date(Date.now() - 120 * 24 * 60 * 60 * 1000).toISOString();
+    render(<RepositoryCardGlass.HealthStatus pushedAt={fourMonthsAgo} />);
+    expect(screen.getByText('Maintenance')).toBeInTheDocument();
+  });
+
+  it('renders Stale for >365 days', () => {
+    const twoYearsAgo = new Date(Date.now() - 730 * 24 * 60 * 60 * 1000).toISOString();
+    render(<RepositoryCardGlass.HealthStatus pushedAt={twoYearsAgo} />);
+    expect(screen.getByText('Stale')).toBeInTheDocument();
+  });
+
+  it('renders Archived when isArchived=true', () => {
+    const today = new Date().toISOString();
+    render(<RepositoryCardGlass.HealthStatus pushedAt={today} isArchived={true} />);
+    expect(screen.getByText('Archived')).toBeInTheDocument();
+  });
+});
+
+describe('RepositoryCardGlass.ContributionProgress', () => {
+  it('renders commits progress', () => {
+    render(<RepositoryCardGlass.ContributionProgress userCommits={150} totalCommits={500} />);
+    expect(screen.getByText(/150/)).toBeInTheDocument();
+    expect(screen.getByText(/500/)).toBeInTheDocument();
+    expect(screen.getByText(/30%/)).toBeInTheDocument();
+  });
+
+  it('renders PRs merged when provided', () => {
+    render(
+      <RepositoryCardGlass.ContributionProgress
+        userCommits={100}
+        totalCommits={500}
+        prsMerged={12}
+      />
+    );
+    expect(screen.getByText('PRs Merged')).toBeInTheDocument();
+    expect(screen.getByText('12')).toBeInTheDocument();
+  });
+
+  it('renders reviews when provided', () => {
+    render(
+      <RepositoryCardGlass.ContributionProgress userCommits={100} totalCommits={500} reviews={28} />
+    );
+    expect(screen.getByText('Reviews')).toBeInTheDocument();
+    expect(screen.getByText('28')).toBeInTheDocument();
+  });
+
+  it('renders both PRs and reviews', () => {
+    render(
+      <RepositoryCardGlass.ContributionProgress
+        userCommits={100}
+        totalCommits={500}
+        prsMerged={12}
+        reviews={28}
+      />
+    );
+    expect(screen.getByText('PRs Merged')).toBeInTheDocument();
+    expect(screen.getByText('Reviews')).toBeInTheDocument();
+  });
+
+  it('handles large numbers with suffix', () => {
+    render(<RepositoryCardGlass.ContributionProgress userCommits={1500} totalCommits={10000} />);
+    expect(screen.getByText(/1\.5k/)).toBeInTheDocument();
+    expect(screen.getByText(/10\.0k/)).toBeInTheDocument();
   });
 });

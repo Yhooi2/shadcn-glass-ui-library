@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "separator-glass",
+  "type": "registry:ui",
+  "title": "Separator Glass",
+  "description": "A glass-themed separator/divider component for visual content separation.\n * Based on @radix-ui/react-separator with glassmorphism styling.\n *\n * Issue #27: Feature request for standalone SeparatorGlass\n *\n * @example\n * ```tsx\n * // Horizontal separator (default)\n * <SeparatorGlass />\n *\n * // Vertical separator\n * <SeparatorGlass orientation=\"vertical\" className=\"h-4\" />\n *\n * // With glow effect\n * <SeparatorGlass glow />\n *\n * // Decorative (hidden from screen readers)\n * <SeparatorGlass decorative />\n * ```",
+  "dependencies": ["@radix-ui/react-separator", "react"],
+  "registryDependencies": ["cn"],
+  "files": [
+    {
+      "path": "components/glass/ui/separator-glass.tsx",
+      "type": "registry:component",
+      "content": "/**\n * SeparatorGlass Component\n *\n * A glass-themed separator/divider component for visual content separation.\n * Based on @radix-ui/react-separator with glassmorphism styling.\n *\n * Issue #27: Feature request for standalone SeparatorGlass\n *\n * @example\n * ```tsx\n * // Horizontal separator (default)\n * <SeparatorGlass />\n *\n * // Vertical separator\n * <SeparatorGlass orientation=\"vertical\" className=\"h-4\" />\n *\n * // With glow effect\n * <SeparatorGlass glow />\n *\n * // Decorative (hidden from screen readers)\n * <SeparatorGlass decorative />\n * ```\n */\n\nimport * as React from 'react';\nimport * as SeparatorPrimitive from '@radix-ui/react-separator';\nimport { cn } from '@/lib/utils';\nimport '@/glass-theme.css';\n\n// ========================================\n// TYPES\n// ========================================\n\nexport interface SeparatorGlassProps\n  extends React.ComponentPropsWithoutRef<typeof SeparatorPrimitive.Root> {\n  /**\n   * The orientation of the separator.\n   * @default 'horizontal'\n   */\n  orientation?: 'horizontal' | 'vertical';\n\n  /**\n   * When true, signifies that it is purely visual and not a semantic separator.\n   * @default true\n   */\n  decorative?: boolean;\n\n  /**\n   * Enable glow effect for the separator.\n   * @default false\n   */\n  glow?: boolean;\n}\n\n// ========================================\n// STYLES\n// ========================================\n\n/** Generate inline styles for separator */\nfunction getSeparatorStyles(glow: boolean): React.CSSProperties {\n  return {\n    background: 'var(--separator-bg)',\n    ...(glow && { boxShadow: 'var(--separator-glow)' }),\n  };\n}\n\n// ========================================\n// COMPONENT\n// ========================================\n\n/**\n * SeparatorGlass - A glass-themed visual separator\n *\n * Renders a horizontal or vertical line to separate content sections.\n * Supports glassmorphism styling with optional glow effect.\n *\n * @example\n * ```tsx\n * <div className=\"space-y-4\">\n *   <p>Section 1</p>\n *   <SeparatorGlass />\n *   <p>Section 2</p>\n * </div>\n * ```\n */\nconst SeparatorGlass = React.forwardRef<\n  React.ComponentRef<typeof SeparatorPrimitive.Root>,\n  SeparatorGlassProps\n>(({ className, orientation = 'horizontal', decorative = true, glow = false, ...props }, ref) => (\n  <SeparatorPrimitive.Root\n    ref={ref}\n    data-slot=\"separator-glass\"\n    decorative={decorative}\n    orientation={orientation}\n    className={cn(\n      // Base styles\n      'shrink-0',\n\n      // Orientation-specific sizing\n      'data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full',\n      'data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px',\n\n      // Transition for glow\n      'transition-shadow duration-200',\n\n      className\n    )}\n    style={getSeparatorStyles(glow)}\n    {...props}\n  />\n));\n\nSeparatorGlass.displayName = 'SeparatorGlass';\n\n// ========================================\n// EXPORTS\n// ========================================\n\nexport { SeparatorGlass };\n\n// shadcn/ui compatible alias\nexport { SeparatorGlass as Separator };\n"
+    }
+  ],
+  "categories": ["ui"],
+  "cssVars": {
+    "light": {
+      "--glass-bg": "rgba(255, 255, 255, 0.1)",
+      "--glass-border": "rgba(255, 255, 255, 0.2)",
+      "--blur-sm": "8px",
+      "--blur-md": "16px",
+      "--blur-lg": "24px"
+    },
+    "dark": {
+      "--glass-bg": "rgba(255, 255, 255, 0.05)",
+      "--glass-border": "rgba(255, 255, 255, 0.1)",
+      "--blur-sm": "8px",
+      "--blur-md": "16px",
+      "--blur-lg": "24px"
+    }
+  }
+}

@@ -84,6 +84,24 @@ interface PopoverGlassContentProps extends React.ComponentPropsWithoutRef<
   showArrow?: boolean;
 }
 
+/**
+ * PopoverGlassContent - Content container for PopoverGlass
+ *
+ * Defaults (matches shadcn/ui):
+ * - `p-4` (16px padding)
+ * - `w-72` (288px width)
+ * - Both can be overridden via className prop
+ *
+ * @example
+ * <PopoverGlassContent className="w-96 p-6"> // Custom size
+ *   <p>Content</p>
+ * </PopoverGlassContent>
+ *
+ * @example
+ * <PopoverGlassContent className="p-0"> // Remove padding
+ *   <div className="custom-padding">Content</div>
+ * </PopoverGlassContent>
+ */
 const PopoverGlassContent = React.forwardRef<
   React.ElementRef<typeof PopoverPrimitive.Content>,
   PopoverGlassContentProps
@@ -110,7 +128,7 @@ const PopoverGlassContent = React.forwardRef<
         align={align}
         sideOffset={sideOffset}
         className={cn(
-          'z-50003 rounded-2xl',
+          'z-50003 w-72 rounded-2xl p-4',
           'animate-in fade-in-0 zoom-in-95 duration-200',
           'data-[side=bottom]:slide-in-from-top-2',
           'data-[side=top]:slide-in-from-bottom-2',

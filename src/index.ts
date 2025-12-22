@@ -155,6 +155,40 @@ export {
   PopoverGlassLegacy,
 } from './components/glass/ui/popover-glass';
 
+// HoverCardGlass - Hover-triggered floating glass container
+export {
+  HoverCardGlass,
+  HoverCardGlassTrigger,
+  HoverCardGlassContent,
+  HoverCardGlassLegacy,
+  // shadcn/ui compatible aliases
+  HoverCard,
+  HoverCardTrigger,
+  HoverCardContent,
+} from './components/glass/ui/hover-card-glass';
+export type {
+  HoverCardGlassRootProps,
+  HoverCardGlassContentProps,
+  HoverCardGlassLegacyProps,
+} from './components/glass/ui/hover-card-glass';
+
+// SeparatorGlass - Standalone glass separator
+export { SeparatorGlass, Separator } from './components/glass/ui/separator-glass';
+export type { SeparatorGlassProps } from './components/glass/ui/separator-glass';
+
+// ScrollAreaGlass - Glass-themed scroll container
+export {
+  ScrollAreaGlass,
+  ScrollBarGlass,
+  ScrollAreaGlassViewport,
+  ScrollArea,
+  ScrollBar,
+} from './components/glass/ui/scroll-area-glass';
+export type {
+  ScrollAreaGlassProps,
+  ScrollBarGlassProps,
+} from './components/glass/ui/scroll-area-glass';
+
 export { SkeletonGlass, Skeleton } from './components/glass/ui/skeleton-glass';
 export { SliderGlass } from './components/glass/ui/slider-glass';
 export { StepperGlass } from './components/glass/ui/stepper-glass';

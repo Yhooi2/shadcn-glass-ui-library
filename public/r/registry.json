@@ -52,10 +52,22 @@
       "description": "SheetGlass Component (Radix UI Dialog-based)"
     },
     {
+      "name": "separator-glass",
+      "type": "registry:ui",
+      "title": "Separator Glass",
+      "description": "A glass-themed separator/divider component for visual content separation.\n * Based on @radix-ui/react-separator with glassmorphism styling.\n *\n * Issue #27: Feature request for standalone SeparatorGlass\n *\n * @example\n * ```tsx\n * // Horizontal separator (default)\n * <SeparatorGlass />\n *\n * // Vertical separator\n * <SeparatorGlass orientation=\"vertical\" className=\"h-4\" />\n *\n * // With glow effect\n * <SeparatorGlass glow />\n *\n * // Decorative (hidden from screen readers)\n * <SeparatorGlass decorative />\n * ```"
+    },
+    {
       "name": "select-glass",
       "type": "registry:ui",
       "title": "Select Glass",
       "description": "SelectGlass - Compound Component"
+    },
+    {
+      "name": "scroll-area-glass",
+      "type": "registry:ui",
+      "title": "Scroll Area Glass",
+      "description": "A glass-themed ScrollArea component for custom scrollable containers.\n * Based on @radix-ui/react-scroll-area with glassmorphism styling.\n *\n * Issue #26: Feature request for ScrollAreaGlass\n *\n * @example\n * ```tsx\n * // Simple usage\n * <ScrollAreaGlass className=\"h-[400px]\">\n *   <div className=\"space-y-2\">\n *     {items.map(item => <Item key={item.id} {...item} />)}\n *   </div>\n * </ScrollAreaGlass>\n *\n * // With horizontal scrolling\n * <ScrollAreaGlass className=\"w-96\" orientation=\"horizontal\">\n *   <div className=\"flex space-x-4\">\n *     {items.map(item => <Card key={item.id} {...item} />)}\n *   </div>\n * </ScrollAreaGlass>\n *\n * // Both directions\n * <ScrollAreaGlass className=\"h-[400px] w-full\" orientation=\"both\">\n *   <LargeContent />\n * </ScrollAreaGlass>\n * ```"
     },
     {
       "name": "popover-glass",
@@ -80,6 +92,12 @@
       "type": "registry:ui",
       "title": "Input Glass",
       "description": "Glass-themed input with:"
+    },
+    {
+      "name": "hover-card-glass",
+      "type": "registry:ui",
+      "title": "Hover Card Glass",
+      "description": "Hover-triggered floating glass-themed container for rich content previews with:"
     },
     {
       "name": "glass-card",
@@ -421,7 +439,7 @@
       "name": "repository-card-glass",
       "type": "registry:block",
       "title": "Repository Card Glass",
-      "description": "RepositoryCardGlass - Expandable repository card with compound API"
+      "description": "ContributionBadge - Shows contribution percentage with color-coded variant"
     },
     {
       "name": "repository-card-context",

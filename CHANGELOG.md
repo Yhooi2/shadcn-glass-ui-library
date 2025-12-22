@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.3] - 2025-12-22
+
+### Changed
+
+- **PopoverGlass:** Added default padding (`p-4`) and width (`w-72`) to align with shadcn/ui Popover
+  API
+  - ⚠️ **Minor breaking change:** If you manually added `p-4` or `w-*` to PopoverGlassContent
+    children, you may get double padding or unexpected width
+  - **Migration:** Remove manual padding/width from content divs, or override with
+    `className="p-0 w-auto"` on PopoverGlassContent
+  - **Benefit:** Consistent spacing across all usages, matches shadcn/ui defaults
+
+### Fixed
+
+- **PopoverGlass stories:** Removed manual padding wrappers, leveraging component defaults
+  - All stories now demonstrate proper usage without redundant padding
+  - Alignment stories use `className="w-48"` to override default width where needed
+
 ## [2.2.6] - 2025-12-19
 
 ### Fixed

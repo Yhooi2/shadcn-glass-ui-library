@@ -349,12 +349,28 @@
   --dropdown-glow:
     0 15px 50px var(--semantic-primary-muted), inset 0 1px 0 var(--semantic-border-muted);
 
+  /* Separator Variables */
+  --separator-bg: var(--semantic-border);
+  --separator-glow: 0 0 8px var(--semantic-primary-subtle);
+
+  /* ScrollArea Variables */
+  --scroll-thumb-bg: var(--semantic-surface-elevated);
+  --scroll-thumb-hover-bg: var(--semantic-primary-muted);
+  --scroll-thumb-border: var(--semantic-border-subtle);
+  --scroll-track-bg: var(--semantic-surface-muted);
+
   /* Popover Variables (using semantic + primitive tokens) */
   --popover-bg: var(--semantic-surface);
   --popover-border: var(--semantic-border);
   --popover-shadow:
     0 15px 50px var(--semantic-primary-muted), inset 0 1px 0 var(--semantic-border-muted);
   --popover-arrow-bg: var(--semantic-surface);
+
+  /* HoverCard Variables */
+  --hovercard-bg: var(--semantic-surface);
+  --hovercard-border: var(--semantic-border);
+  --hovercard-shadow: var(--popover-shadow);
+  --hovercard-arrow-bg: var(--semantic-surface);
 
   /* Select Variables (using semantic + primitive tokens) - Used by ComboBoxGlass */
   --select-item-hover-bg: var(--semantic-surface-elevated);

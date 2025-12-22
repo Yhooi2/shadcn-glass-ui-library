@@ -74,6 +74,34 @@ export {
 } from './popover-glass';
 export type { PopoverGlassLegacyProps } from './popover-glass';
 
+export {
+  HoverCardGlass,
+  HoverCardGlassTrigger,
+  HoverCardGlassContent,
+  HoverCardGlassLegacy,
+  // shadcn/ui compatible aliases
+  HoverCard,
+  HoverCardTrigger,
+  HoverCardContent,
+} from './hover-card-glass';
+export type {
+  HoverCardGlassRootProps,
+  HoverCardGlassContentProps,
+  HoverCardGlassLegacyProps,
+} from './hover-card-glass';
+
+export { SeparatorGlass, Separator } from './separator-glass';
+export type { SeparatorGlassProps } from './separator-glass';
+
+export {
+  ScrollAreaGlass,
+  ScrollBarGlass,
+  ScrollAreaGlassViewport,
+  ScrollArea,
+  ScrollBar,
+} from './scroll-area-glass';
+export type { ScrollAreaGlassProps, ScrollBarGlassProps } from './scroll-area-glass';
+
 export { SkeletonGlass } from './skeleton-glass';
 export type { SkeletonGlassProps } from './skeleton-glass';
 

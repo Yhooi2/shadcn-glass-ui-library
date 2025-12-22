@@ -6,16 +6,48 @@
 // ========================================
 
 import { forwardRef, type CSSProperties, type ReactNode, useMemo } from 'react';
-import { ChevronDown, ChevronUp, Star, ExternalLink, Sparkles, AlertTriangle } from 'lucide-react';
+import {
+  ChevronDown,
+  ChevronUp,
+  Star,
+  ExternalLink,
+  Sparkles,
+  AlertTriangle,
+  GitFork,
+  Activity,
+  Shield,
+} from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { StatusIndicatorGlass } from '../../specialized/status-indicator-glass';
 import { ButtonGlass } from '../../ui/button-glass';
+import { BadgeGlass } from '../../ui/badge-glass';
+import { AvatarGlass, AvatarGlassImage, AvatarGlassFallback } from '../../ui/avatar-glass';
+import { ProgressGlass } from '../../specialized/progress-glass';
+import {
+  HoverCardGlass,
+  HoverCardGlassTrigger,
+  HoverCardGlassContent,
+} from '../../ui/hover-card-glass';
 import { InteractiveCard } from '../../primitives';
 import {
   RepositoryCardContext,
   useRepositoryCard,
   type RepositoryCardContextValue,
 } from './repository-card-context';
+import {
+  getContributionBadgeVariant,
+  getActivityStatus,
+  getActivityStatusInfo,
+  getRoleBadgeVariant,
+  getRoleLabel,
+  getHealthStatus,
+  getHealthStatusInfo,
+  getLanguageColor,
+  calculateContributionPercent,
+  formatNumberWithSuffix,
+  type ContributorRole,
+  type TeamMember,
+} from './repository-card-utils';
 import '@/glass-theme.css';
 
 // ========================================
@@ -94,6 +126,90 @@ export interface RepositoryCardMetricItemProps extends React.HTMLAttributes<HTML
 /** Props for RepositoryCardGlass.Actions */
 export interface RepositoryCardActionsProps extends React.HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
+}
+
+// ========================================
+// NEW SUB-COMPONENT TYPES (Issue #28)
+// ========================================
+
+/** Props for RepositoryCardGlass.ContributionBadge */
+export interface RepositoryCardContributionBadgeProps {
+  /** Contribution percentage (0-100) */
+  percent: number;
+  /** Optional className */
+  className?: string;
+}
+
+/** Props for RepositoryCardGlass.ForkBadge */
+export interface RepositoryCardForkBadgeProps {
+  /** Original repository name (e.g., "facebook/react") */
+  forkedFrom?: string;
+  /** Optional className */
+  className?: string;
+}
+
+/** Props for RepositoryCardGlass.Language */
+export interface RepositoryCardLanguageProps {
+  /** Language name */
+  name: string;
+  /** Custom color (defaults to GitHub language color) */
+  color?: string;
+  /** Percentage of codebase */
+  percent?: number;
+  /** Optional className */
+  className?: string;
+}
+
+/** Props for RepositoryCardGlass.ActivityStatus */
+export interface RepositoryCardActivityStatusProps {
+  /** Last activity date (ISO string or Date) */
+  lastActivityDate: string | Date;
+  /** Optional className */
+  className?: string;
+}
+
+/** Props for RepositoryCardGlass.RoleBadge */
+export interface RepositoryCardRoleBadgeProps {
+  /** Contributor role */
+  role: ContributorRole;
+  /** Optional className */
+  className?: string;
+}
+
+/** Props for RepositoryCardGlass.TeamAvatars */
+export interface RepositoryCardTeamAvatarsProps {
+  /** Team members */
+  members: TeamMember[];
+  /** Total team size (for "+N" indicator) */
+  total?: number;
+  /** Max avatars to show */
+  max?: number;
+  /** Optional className */
+  className?: string;
+}
+
+/** Props for RepositoryCardGlass.HealthStatus */
+export interface RepositoryCardHealthStatusProps {
+  /** Whether the repo is archived */
+  isArchived?: boolean;
+  /** Last push date (ISO string or Date) */
+  pushedAt: string | Date;
+  /** Optional className */
+  className?: string;
+}
+
+/** Props for RepositoryCardGlass.ContributionProgress */
+export interface RepositoryCardContributionProgressProps {
+  /** User's commits */
+  userCommits: number;
+  /** Total project commits */
+  totalCommits: number;
+  /** PRs merged by user */
+  prsMerged?: number;
+  /** Code reviews by user */
+  reviews?: number;
+  /** Optional className */
+  className?: string;
 }
 
 /** Legacy props for backward compatibility */
@@ -363,6 +479,274 @@ const RepositoryCardActions = forwardRef<HTMLDivElement, RepositoryCardActionsPr
 RepositoryCardActions.displayName = 'RepositoryCardGlass.Actions';
 
 // ========================================
+// NEW SUB-COMPONENTS (Issue #28)
+// ========================================
+
+/**
+ * ContributionBadge - Shows contribution percentage with color-coded variant
+ * 0-25%: destructive, 26-50%: warning, 51-75%: default, 76-100%: success
+ */
+const RepositoryCardContributionBadge = forwardRef<
+  HTMLDivElement,
+  RepositoryCardContributionBadgeProps
+>(({ percent, className }, ref) => {
+  const variant = getContributionBadgeVariant(percent);
+
+  return (
+    <BadgeGlass ref={ref} variant={variant} size="sm" className={className}>
+      {percent}%
+    </BadgeGlass>
+  );
+});
+RepositoryCardContributionBadge.displayName = 'RepositoryCardGlass.ContributionBadge';
+
+/**
+ * ForkBadge - Indicates the repository is a fork
+ */
+const RepositoryCardForkBadge = forwardRef<HTMLDivElement, RepositoryCardForkBadgeProps>(
+  ({ forkedFrom, className }, ref) => {
+    if (forkedFrom) {
+      return (
+        <HoverCardGlass openDelay={200}>
+          <HoverCardGlassTrigger asChild>
+            <span className={cn('inline-flex', className)}>
+              <BadgeGlass ref={ref} variant="secondary" size="sm">
+                <GitFork className="w-3 h-3 mr-1" />
+                Fork
+              </BadgeGlass>
+            </span>
+          </HoverCardGlassTrigger>
+          <HoverCardGlassContent side="top" className="w-auto">
+            <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>
+              Forked from{' '}
+              <span className="font-medium" style={{ color: 'var(--text-primary)' }}>
+                {forkedFrom}
+              </span>
+            </p>
+          </HoverCardGlassContent>
+        </HoverCardGlass>
+      );
+    }
+
+    return (
+      <BadgeGlass ref={ref} variant="secondary" size="sm" className={className}>
+        <GitFork className="w-3 h-3 mr-1" />
+        Fork
+      </BadgeGlass>
+    );
+  }
+);
+RepositoryCardForkBadge.displayName = 'RepositoryCardGlass.ForkBadge';
+
+/**
+ * Language - Single language with color dot and optional percentage
+ */
+const RepositoryCardLanguage = forwardRef<HTMLSpanElement, RepositoryCardLanguageProps>(
+  ({ name, color, percent, className }, ref) => {
+    const languageColor = getLanguageColor(name, color);
+
+    return (
+      <span
+        ref={ref}
+        className={cn('inline-flex items-center gap-1.5 text-xs', className)}
+        style={{ color: 'var(--text-secondary)' }}
+      >
+        <span
+          className="w-2 h-2 rounded-full shrink-0"
+          style={{ backgroundColor: languageColor }}
+        />
+        <span>{name}</span>
+        {percent !== undefined && <span style={{ color: 'var(--text-muted)' }}>{percent}%</span>}
+      </span>
+    );
+  }
+);
+RepositoryCardLanguage.displayName = 'RepositoryCardGlass.Language';
+
+/**
+ * ActivityStatus - Shows repository activity status based on last activity date
+ */
+const RepositoryCardActivityStatus = forwardRef<HTMLDivElement, RepositoryCardActivityStatusProps>(
+  ({ lastActivityDate, className }, ref) => {
+    const status = getActivityStatus(lastActivityDate);
+    const { label, variant } = getActivityStatusInfo(status);
+
+    return (
+      <BadgeGlass ref={ref} variant={variant} size="sm" className={className}>
+        <Activity className="w-3 h-3 mr-1" />
+        {label}
+      </BadgeGlass>
+    );
+  }
+);
+RepositoryCardActivityStatus.displayName = 'RepositoryCardGlass.ActivityStatus';
+
+/**
+ * RoleBadge - Shows contributor role
+ */
+const RepositoryCardRoleBadge = forwardRef<HTMLDivElement, RepositoryCardRoleBadgeProps>(
+  ({ role, className }, ref) => {
+    const variant = getRoleBadgeVariant(role);
+    const label = getRoleLabel(role);
+
+    return (
+      <BadgeGlass ref={ref} variant={variant} size="sm" className={className}>
+        {label}
+      </BadgeGlass>
+    );
+  }
+);
+RepositoryCardRoleBadge.displayName = 'RepositoryCardGlass.RoleBadge';
+
+/**
+ * TeamAvatars - Shows team member avatars with HoverCard previews
+ */
+const RepositoryCardTeamAvatars = forwardRef<HTMLDivElement, RepositoryCardTeamAvatarsProps>(
+  ({ members, total, max = 5, className }, ref) => {
+    const visibleMembers = members.slice(0, max);
+    const remaining = total ? total - max : members.length - max;
+
+    return (
+      <div ref={ref} className={cn('flex items-center -space-x-2', className)}>
+        {visibleMembers.map((member) => (
+          <HoverCardGlass key={member.id} openDelay={200}>
+            <HoverCardGlassTrigger asChild>
+              <span className="inline-flex">
+                <AvatarGlass size="sm" className="border-2 border-(--card-bg) cursor-pointer">
+                  {member.avatar ? (
+                    <AvatarGlassImage src={member.avatar} alt={member.name} />
+                  ) : null}
+                  <AvatarGlassFallback>
+                    {member.name
+                      .split(' ')
+                      .map((n) => n[0])
+                      .join('')
+                      .toUpperCase()
+                      .slice(0, 2)}
+                  </AvatarGlassFallback>
+                </AvatarGlass>
+              </span>
+            </HoverCardGlassTrigger>
+            <HoverCardGlassContent side="top" className="w-auto">
+              <div className="flex items-center gap-2">
+                <AvatarGlass size="md">
+                  {member.avatar ? (
+                    <AvatarGlassImage src={member.avatar} alt={member.name} />
+                  ) : null}
+                  <AvatarGlassFallback>
+                    {member.name
+                      .split(' ')
+                      .map((n) => n[0])
+                      .join('')
+                      .toUpperCase()
+                      .slice(0, 2)}
+                  </AvatarGlassFallback>
+                </AvatarGlass>
+                <div>
+                  <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
+                    {member.name}
+                  </p>
+                  {member.role && (
+                    <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
+                      {getRoleLabel(member.role)}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </HoverCardGlassContent>
+          </HoverCardGlass>
+        ))}
+
+        {remaining > 0 && (
+          <span
+            className="flex items-center justify-center w-8 h-8 rounded-full text-xs font-medium border-2"
+            style={{
+              backgroundColor: 'var(--card-bg)',
+              borderColor: 'var(--card-border)',
+              color: 'var(--text-muted)',
+            }}
+          >
+            +{remaining}
+          </span>
+        )}
+      </div>
+    );
+  }
+);
+RepositoryCardTeamAvatars.displayName = 'RepositoryCardGlass.TeamAvatars';
+
+/**
+ * HealthStatus - Shows repository health based on last push and archive status
+ */
+const RepositoryCardHealthStatus = forwardRef<HTMLDivElement, RepositoryCardHealthStatusProps>(
+  ({ isArchived = false, pushedAt, className }, ref) => {
+    const status = getHealthStatus(pushedAt, isArchived);
+    const { label, variant } = getHealthStatusInfo(status);
+
+    return (
+      <BadgeGlass ref={ref} variant={variant} size="sm" className={className}>
+        <Shield className="w-3 h-3 mr-1" />
+        {label}
+      </BadgeGlass>
+    );
+  }
+);
+RepositoryCardHealthStatus.displayName = 'RepositoryCardGlass.HealthStatus';
+
+/**
+ * ContributionProgress - Shows contribution metrics with progress bars
+ */
+const RepositoryCardContributionProgress = forwardRef<
+  HTMLDivElement,
+  RepositoryCardContributionProgressProps
+>(({ userCommits, totalCommits, prsMerged, reviews, className }, ref) => {
+  const commitPercent = calculateContributionPercent(userCommits, totalCommits);
+
+  return (
+    <div ref={ref} className={cn('space-y-3', className)}>
+      {/* Commits progress */}
+      <div>
+        <div className="flex justify-between text-xs mb-1">
+          <span style={{ color: 'var(--text-secondary)' }}>Commits</span>
+          <span style={{ color: 'var(--text-primary)' }}>
+            {formatNumberWithSuffix(userCommits)} / {formatNumberWithSuffix(totalCommits)} (
+            {commitPercent}%)
+          </span>
+        </div>
+        <ProgressGlass value={commitPercent} size="sm" gradient="violet" />
+      </div>
+
+      {/* Additional metrics */}
+      {(prsMerged !== undefined || reviews !== undefined) && (
+        <div className="flex gap-4">
+          {prsMerged !== undefined && (
+            <div className="flex-1">
+              <div className="text-xs mb-0.5" style={{ color: 'var(--text-muted)' }}>
+                PRs Merged
+              </div>
+              <div className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
+                {prsMerged}
+              </div>
+            </div>
+          )}
+          {reviews !== undefined && (
+            <div className="flex-1">
+              <div className="text-xs mb-0.5" style={{ color: 'var(--text-muted)' }}>
+                Reviews
+              </div>
+              <div className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
+                {reviews}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+});
+RepositoryCardContributionProgress.displayName = 'RepositoryCardGlass.ContributionProgress';
+
+// ========================================
 // LEGACY COMPONENT (backward compatibility)
 // ========================================
 
@@ -513,6 +897,15 @@ export const RepositoryCardGlass = Object.assign(RepositoryCardGlassLegacy, {
   Metrics: RepositoryCardMetrics,
   MetricItem: RepositoryCardMetricItem,
   Actions: RepositoryCardActions,
+  // Issue #28: New sub-components
+  ContributionBadge: RepositoryCardContributionBadge,
+  ForkBadge: RepositoryCardForkBadge,
+  Language: RepositoryCardLanguage,
+  ActivityStatus: RepositoryCardActivityStatus,
+  RoleBadge: RepositoryCardRoleBadge,
+  TeamAvatars: RepositoryCardTeamAvatars,
+  HealthStatus: RepositoryCardHealthStatus,
+  ContributionProgress: RepositoryCardContributionProgress,
 });
 
 // Named exports for direct imports
@@ -530,7 +923,24 @@ export {
   RepositoryCardMetrics,
   RepositoryCardMetricItem,
   RepositoryCardActions,
+  // Issue #28: New sub-components
+  RepositoryCardContributionBadge,
+  RepositoryCardForkBadge,
+  RepositoryCardLanguage,
+  RepositoryCardActivityStatus,
+  RepositoryCardRoleBadge,
+  RepositoryCardTeamAvatars,
+  RepositoryCardHealthStatus,
+  RepositoryCardContributionProgress,
 };
 
 // Re-export context hook
 export { useRepositoryCard, useRepositoryCardOptional } from './repository-card-context';
+
+// Re-export utility types
+export type {
+  ActivityStatusType,
+  ContributorRole,
+  HealthStatusType,
+  TeamMember,
+} from './repository-card-utils';
