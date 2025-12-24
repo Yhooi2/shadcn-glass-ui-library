@@ -415,7 +415,7 @@
       "name": "year-card-glass",
       "type": "registry:block",
       "title": "Year Card Glass",
-      "description": "YearCardGlass - Year card with compound API for career timeline"
+      "description": "@deprecated This prop is no longer used. Sparkline is now only shown in expanded view."
     },
     {
       "name": "year-card-context",
