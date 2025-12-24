@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useArgs } from 'storybook/preview-api';
 import { expect } from 'storybook/test';
 import { SegmentedControlGlass } from './segmented-control-glass';
 
@@ -13,13 +13,26 @@ const meta = {
   argTypes: {
     options: {
       description: 'Array of segment options',
+      control: 'object',
     },
     value: {
       description: 'Currently selected value',
+      control: 'text',
     },
     onChange: {
       description: 'Callback when selection changes',
+      action: 'changed',
     },
+  },
+  render: function Render(args) {
+    const [{ value }, updateArgs] = useArgs<{ value: string }>();
+    return (
+      <SegmentedControlGlass
+        {...args}
+        value={value}
+        onChange={(newValue) => updateArgs({ value: newValue })}
+      />
+    );
   },
 } satisfies Meta<typeof SegmentedControlGlass>;
 
@@ -68,31 +81,14 @@ export const FourSegments: Story = {
   },
 };
 
-export const Interactive: Story = {
+export const WithLongLabels: Story = {
   args: {
     options: [
-      { value: 'overview', label: 'Overview' },
-      { value: 'repos', label: 'Repositories' },
-      { value: 'activity', label: 'Activity' },
+      { value: 'short', label: 'A' },
+      { value: 'medium', label: 'Medium' },
+      { value: 'long', label: 'Very Long Label' },
     ],
-    value: 'overview',
-  },
-  render: function InteractiveSegmented() {
-    const [value, setValue] = useState('overview');
-    return (
-      <div className="flex flex-col gap-4 items-center">
-        <SegmentedControlGlass
-          options={[
-            { value: 'overview', label: 'Overview' },
-            { value: 'repos', label: 'Repositories' },
-            { value: 'activity', label: 'Activity' },
-          ]}
-          value={value}
-          onChange={setValue}
-        />
-        <span style={{ color: 'var(--text-muted)', fontSize: '12px' }}>Selected: {value}</span>
-      </div>
-    );
+    value: 'short',
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();

@@ -35,7 +35,7 @@ export const SegmentedControlGlass = forwardRef<HTMLDivElement, SegmentedControl
     return (
       <div
         ref={ref}
-        className={cn('inline-flex rounded-xl overflow-hidden', className)}
+        className={cn('inline-flex w-fit rounded-xl overflow-hidden', className)}
         style={containerStyles}
         role="tablist"
         {...props}
@@ -51,7 +51,7 @@ export const SegmentedControlGlass = forwardRef<HTMLDivElement, SegmentedControl
             <button
               key={opt.value}
               onClick={() => onChange?.(opt.value)}
-              className="px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm font-medium transition-all duration-300"
+              className="flex-1 px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm font-medium text-center transition-all duration-300"
               style={buttonStyles}
               type="button"
               role="tab"
