@@ -62,6 +62,7 @@ export { FlagsSectionGlass } from './components/glass/sections/flags-section-gla
 export { HeaderBrandingGlass } from './components/glass/sections/header-branding-glass';
 export { HeaderNavGlass } from './components/glass/sections/header-nav-glass';
 export { ProfileHeaderGlass } from './components/glass/sections/profile-header-glass';
+export { ProfileHeaderExtendedGlass } from './components/glass/sections/profile-header-extended-glass';
 export { ProjectsListGlass } from './components/glass/sections/projects-list-glass';
 export { TrustScoreCardGlass } from './components/glass/sections/trust-score-card-glass';
 

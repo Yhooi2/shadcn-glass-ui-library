@@ -238,6 +238,12 @@
       "description": "Profile Header Glass component with glass effects"
     },
     {
+      "name": "profile-header-extended-glass",
+      "type": "registry:block",
+      "title": "Profile Header Extended Glass",
+      "description": "Formats ISO 8601 date to human-readable format"
+    },
+    {
       "name": "header-nav-glass",
       "type": "registry:block",
       "title": "Header Nav Glass",
