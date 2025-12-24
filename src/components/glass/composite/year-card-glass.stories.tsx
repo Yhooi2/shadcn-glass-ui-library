@@ -39,6 +39,7 @@ export const WithSparkline: Story = {
     commits: '1,567 commits',
     progress: 85,
     gradient: 'emerald',
+    isExpanded: true,
     sparklineData: [120, 145, 167, 189, 201, 223, 245, 267, 289, 312, 334, 356],
   },
 };
@@ -151,7 +152,6 @@ export const LowProgress: Story = {
     commits: '456 commits',
     progress: 35,
     gradient: 'emerald',
-    sparklineData: [12, 23, 34, 45, 56, 67, 78, 89, 101, 112, 123, 134],
   },
 };
 
@@ -185,7 +185,7 @@ export const HighProgressExpanded: Story = {
   },
 };
 
-// NEW: With Month Labels
+// With Month Labels
 export const WithSparklineLabels: Story = {
   args: {
     year: 2024,
@@ -212,7 +212,6 @@ export const WithSparklineLabels: Story = {
       'Nov',
       'Dec',
     ],
-    showSparklineCollapsed: false,
     onShowYear: () => console.log('Show year clicked'),
   },
 };
@@ -264,7 +263,6 @@ export const WithValueFormatter: Story = {
     commits: '3456',
     progress: 92,
     gradient: 'emerald',
-    sparklineData: [200, 234, 267, 301, 334, 367, 401, 434, 467, 501, 534, 567],
     valueFormatter: (commits) =>
       `${(parseInt(commits.replace(/,/g, '')) / 1000).toFixed(1)}k commits`,
   },
@@ -295,7 +293,7 @@ export const WithChildrenContent: Story = {
   },
 };
 
-// NEW: Sparkline in Collapsed Only
+// Sparkline only shown when expanded (default behavior)
 export const SparklineInExpandedOnly: Story = {
   args: {
     year: 2024,
@@ -304,14 +302,13 @@ export const SparklineInExpandedOnly: Story = {
     commits: '2,123 commits',
     progress: 83,
     gradient: 'blue',
-    isExpanded: false,
-    showSparklineCollapsed: false,
+    isExpanded: true,
     sparklineData: [134, 156, 178, 201, 223, 245, 267, 289, 312, 334, 356, 378],
     sparklineLabels: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
   },
 };
 
-// NEW: Full Featured (All New Props)
+// Full Featured (All Props)
 export const CompleteExample: Story = {
   args: {
     year: 2024,
@@ -336,7 +333,6 @@ export const CompleteExample: Story = {
       'Nov',
       'Dec',
     ],
-    showSparklineCollapsed: false,
     valueFormatter: (commits) => `${(parseInt(commits) / 1000).toFixed(1)}k`,
     stats: [
       { label: 'Commits', value: '4.6k', icon: <GitCommit className="w-4 h-4" /> },
@@ -487,10 +483,7 @@ function CompoundAPIWithSparklineDemo() {
         <YearCardGlass.Value>2,345 commits</YearCardGlass.Value>
       </YearCardGlass.Header>
 
-      <div className="flex items-center gap-2">
-        <YearCardGlass.Progress value={85} gradient="blue" />
-        <YearCardGlass.Sparkline data={monthlyData} height="sm" className="w-20" />
-      </div>
+      <YearCardGlass.Progress value={85} gradient="blue" />
 
       <YearCardGlass.ExpandedContent>
         <YearCardGlass.Sparkline
@@ -682,9 +675,9 @@ export const CompoundAPIWithSparkline: CompoundStory = {
     docs: {
       description: {
         story: `
-Full-featured card with sparkline in both collapsed and expanded states.
+Full-featured card with sparkline in expanded state only.
 
-- **Collapsed**: Shows mini sparkline next to progress bar
+- **Collapsed**: Shows only progress bar
 - **Expanded**: Shows full sparkline with month labels and detailed stats
         `,
       },

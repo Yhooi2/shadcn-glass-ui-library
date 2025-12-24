@@ -140,6 +140,9 @@ export interface YearCardGlassLegacyProps extends React.HTMLAttributes<HTMLDivEl
   readonly insights?: readonly YearCardGlassInsight[];
   readonly stats?: readonly YearCardGlassStat[];
   readonly actionLabel?: string;
+  /**
+   * @deprecated This prop is no longer used. Sparkline is now only shown in expanded view.
+   */
   readonly showSparklineCollapsed?: boolean;
   readonly valueFormatter?: (commits: string) => string;
   readonly children?: ReactNode;
@@ -457,7 +460,9 @@ const YearCardGlassLegacy = forwardRef<HTMLDivElement, YearCardGlassLegacyProps>
       insights,
       stats,
       actionLabel,
-      showSparklineCollapsed = true,
+      // @deprecated - showSparklineCollapsed is no longer used, sparkline only shows in expanded view
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      showSparklineCollapsed: _showSparklineCollapsed,
       valueFormatter,
       children,
       className,
@@ -502,18 +507,8 @@ const YearCardGlassLegacy = forwardRef<HTMLDivElement, YearCardGlassLegacyProps>
           <YearCardValue>{displayCommits}</YearCardValue>
         </YearCardHeader>
 
-        {/* Progress + Sparkline (collapsed view) */}
-        <div className="flex items-center gap-2">
-          <YearCardProgress value={progress} gradient={gradient} />
-          {showSparklineCollapsed && sparklineData && sparklineData.length > 0 && (
-            <YearCardSparkline
-              data={sparklineData}
-              labels={sparklineLabels}
-              height="sm"
-              className="w-16 md:w-20"
-            />
-          )}
-        </div>
+        {/* Progress bar */}
+        <YearCardProgress value={progress} gradient={gradient} />
 
         <YearCardExpandedContent>
           {/* Stats Grid */}
@@ -528,8 +523,8 @@ const YearCardGlassLegacy = forwardRef<HTMLDivElement, YearCardGlassLegacyProps>
             ))}
           </YearCardStats>
 
-          {/* Expanded Sparkline with labels (if not shown in collapsed) */}
-          {!showSparklineCollapsed && sparklineData && sparklineData.length > 0 && (
+          {/* Sparkline with labels (only in expanded view) */}
+          {sparklineData && sparklineData.length > 0 && (
             <YearCardSparkline
               data={sparklineData}
               labels={sparklineLabels}
