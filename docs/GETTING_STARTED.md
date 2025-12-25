@@ -6,6 +6,7 @@ Complete guide to integrating shadcn-glass-ui into your React application.
 
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
+- [CSS Import](#css-import)
 - [Project Setup](#project-setup)
 - [Theme Configuration](#theme-configuration)
 - [First Component](#first-component)
@@ -63,6 +64,67 @@ cp shadcn-glass-ui-library/src/components/glass/ui/button-glass.tsx ./src/compon
 cp shadcn-glass-ui-library/src/lib/variants/button-glass-variants.ts ./src/lib/variants/
 cp shadcn-glass-ui-library/src/lib/utils.ts ./src/lib/
 ```
+
+## CSS Import
+
+### Required Import
+
+When using the npm package, import the CSS in your app entry point:
+
+```tsx
+// app.tsx, main.tsx, or layout.tsx
+import 'shadcn-glass-ui/styles.css';
+```
+
+This single import is **required** for all components to work correctly. It includes:
+
+- Tailwind CSS v4 utilities
+- 3 complete themes (glass, light, aurora)
+- 500+ CSS variables for all components
+
+### Bundle Size
+
+| Metric       | Size      |
+| ------------ | --------- |
+| Uncompressed | 193 KB    |
+| **Gzipped**  | **30 KB** |
+
+The 30 KB gzipped size is comparable to other UI libraries (Material-UI, Chakra UI).
+
+### Why Full Import?
+
+Unlike shadcn/ui (copy-paste model where you configure Tailwind yourself), this library ships as an
+npm package with pre-built CSS. All components rely on CSS variables like `var(--btn-primary-bg)`
+which are defined in the bundle.
+
+**What breaks without CSS import:**
+
+- No theme colors (all transparent)
+- No Tailwind utilities (classes have no effect)
+- No animations or transitions
+- No component styling
+
+### Optimization Tips
+
+1. **Preload CSS** for faster initial render:
+
+   ```html
+   <link rel="preload" href="/path/to/styles.css" as="style" />
+   ```
+
+2. **CDN caching** - CSS rarely changes between versions, so browsers cache it effectively
+
+3. **HTTP/2** - Modern servers multiplex CSS with other assets, minimizing overhead
+
+### Why Not Per-Component CSS?
+
+Per-component CSS imports would:
+
+- Duplicate 207 OKLCH primitive tokens in each file
+- Break theme switching (all themes need to load together)
+- Add complexity with no real bundle size benefit
+
+The monolithic approach is intentional and optimized for this library's architecture.
 
 ## Project Setup
 
