@@ -2,12 +2,26 @@
  * AnimatedBackgroundGlass Component
  *
  * Animated gradient background with floating orbs for glassmorphism UIs.
+ * Provides an immersive atmosphere with theme-aware styling.
  *
  * ## Features
  * - Theme-aware gradient background (glass/light/aurora)
- * - Floating animated orbs with blur effects
+ * - 5 floating animated orbs with blur effects
  * - Fixed positioning for full-page backgrounds
- * - Performance-optimized CSS animations
+ * - Performance-optimized CSS animations (8s cycle)
+ * - Configurable center orb visibility
+ *
+ * ## Orb Configuration
+ * - **Orb 1:** Top-left, 600px, purple/blue tones
+ * - **Orb 2:** Bottom-right, 700px, blue/violet tones, 2s delay
+ * - **Orb 3:** Center-right, 500px, pink/cyan tones, 4s delay
+ * - **Orb 4:** Bottom-left, 450px, cyan/violet tones, 6s delay
+ * - **Orb 5:** Center, 500px, violet (glass theme only by default)
+ *
+ * ## CSS Variables
+ * Customize colors via theme CSS variables:
+ * - `--orb-1` through `--orb-5`: Orb colors (OKLCH with opacity)
+ * - `--bg-from`, `--bg-via`, `--bg-to`: Gradient stops
  *
  * @example Basic usage
  * ```tsx
@@ -25,14 +39,32 @@
  * }
  * ```
  *
- * @example With custom className
+ * @example With center orb forced on
+ * ```tsx
+ * <AnimatedBackgroundGlass showCenterOrb={true} />
+ * ```
+ *
+ * @example With reduced opacity
  * ```tsx
  * <AnimatedBackgroundGlass className="opacity-50" />
  * ```
  *
+ * @example With dark overlay for better contrast
+ * ```tsx
+ * <>
+ *   <AnimatedBackgroundGlass />
+ *   <div className="fixed inset-0 bg-black/30 z-[1]" />
+ *   <main className="relative z-10">Content</main>
+ * </>
+ * ```
+ *
  * @accessibility
- * - Uses aria-hidden="true" as purely decorative
+ * - Uses `aria-hidden="true"` as purely decorative element
  * - Does not interfere with keyboard navigation
+ * - No interactive elements within the component
+ * - Animation uses CSS (respects `prefers-reduced-motion` when configured)
+ *
+ * @since v1.0.0
  */
 
 import { forwardRef, type CSSProperties } from 'react';
@@ -44,11 +76,35 @@ import '@/glass-theme.css';
 // PROPS INTERFACE
 // ========================================
 
+/**
+ * Props for AnimatedBackgroundGlass component.
+ *
+ * Extends standard div attributes (excluding `style`) for maximum flexibility.
+ * The `style` prop is excluded because the component uses internal inline styles
+ * for the gradient background.
+ *
+ * @example
+ * ```tsx
+ * const props: AnimatedBackgroundGlassProps = {
+ *   showCenterOrb: true,
+ *   className: 'opacity-75',
+ * };
+ * ```
+ */
 export interface AnimatedBackgroundGlassProps extends Omit<
   React.HTMLAttributes<HTMLDivElement>,
   'style'
 > {
-  /** Whether to show the center orb (only visible in glass theme by default) */
+  /**
+   * Whether to show the center orb (Orb 5).
+   *
+   * - In `glass` theme: defaults to `true`
+   * - In `light` and `aurora` themes: defaults to `false`
+   *
+   * Override to force visibility in any theme.
+   *
+   * @default undefined (auto-detected based on theme)
+   */
   readonly showCenterOrb?: boolean;
 }
 

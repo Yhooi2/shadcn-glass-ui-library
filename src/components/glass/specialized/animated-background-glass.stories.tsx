@@ -11,8 +11,31 @@ const meta = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component:
-          'Animated gradient background with floating orbs. Creates an immersive glassmorphism atmosphere for your application.',
+        component: `
+Animated gradient background with floating orbs for glassmorphism UIs.
+
+## Features
+- **Theme-aware:** Automatically adapts to glass/light/aurora themes
+- **5 Animated Orbs:** Floating blurred circles with staggered animations (8s cycle)
+- **Center Orb Control:** Show/hide the center orb (auto-enabled in glass theme)
+- **Full-screen:** Fixed positioning covers the entire viewport
+- **Performance:** CSS-only animations with GPU acceleration
+
+## Usage Pattern
+Always render the background first, then your content with \`z-index\`:
+
+\`\`\`tsx
+<>
+  <AnimatedBackgroundGlass />
+  <main className="relative z-10">Your content</main>
+</>
+\`\`\`
+
+## CSS Variables
+Customize via theme CSS:
+- \`--orb-1\` to \`--orb-5\`: Orb colors (OKLCH with opacity)
+- \`--bg-from\`, \`--bg-via\`, \`--bg-to\`: Gradient colors
+        `,
       },
     },
   },
@@ -20,11 +43,18 @@ const meta = {
   argTypes: {
     showCenterOrb: {
       control: 'boolean',
-      description: 'Show center orb (auto-enabled in glass theme)',
+      description: 'Show center orb (Orb 5). Auto-enabled in glass theme, hidden in light/aurora.',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'undefined (theme-dependent)' },
+      },
     },
     className: {
       control: 'text',
-      description: 'Additional CSS classes',
+      description: 'Additional CSS classes for customization (e.g., opacity, filters)',
+      table: {
+        type: { summary: 'string' },
+      },
     },
   },
   decorators: [
@@ -43,22 +73,38 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+/**
+ * Default background with theme-detected settings.
+ * Center orb visibility depends on current theme (visible in glass, hidden in light/aurora).
+ */
 export const Default: Story = {
   args: {},
 };
 
+/**
+ * Force center orb to be visible regardless of theme.
+ * Useful for light/aurora themes where it's hidden by default.
+ */
 export const WithCenterOrb: Story = {
   args: {
     showCenterOrb: true,
   },
 };
 
+/**
+ * Explicitly hide center orb in all themes.
+ * Use when you want a more subtle background, even in glass theme.
+ */
 export const WithoutCenterOrb: Story = {
   args: {
     showCenterOrb: false,
   },
 };
 
+/**
+ * Typical usage pattern with content overlay.
+ * Demonstrates z-index layering with GlassCard and buttons.
+ */
 export const WithContent: Story = {
   render: (args) => (
     <>
@@ -79,6 +125,10 @@ export const WithContent: Story = {
   ),
 };
 
+/**
+ * Reduced opacity for subtle backgrounds.
+ * Use className to adjust opacity when content needs more focus.
+ */
 export const ReducedOpacity: Story = {
   args: {
     className: 'opacity-50',
@@ -93,6 +143,10 @@ export const ReducedOpacity: Story = {
   ),
 };
 
+/**
+ * With semi-transparent dark overlay.
+ * Improves text contrast for light-colored content.
+ */
 export const DarkOverlay: Story = {
   render: (args) => (
     <>
