@@ -1,7 +1,7 @@
 // ========================================
 // SHADCN GLASS UI - MAIN ENTRY POINT
 // Modern glassmorphism UI component library
-// v2.3.2 - Optimized package size (90% reduction)
+// v2.11.1 - Enhanced JSDoc documentation for 30 components
 // ========================================
 
 // ========================================
