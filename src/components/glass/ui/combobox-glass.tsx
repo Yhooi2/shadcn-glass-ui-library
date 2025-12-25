@@ -1,17 +1,106 @@
 /**
  * ComboBoxGlass Component
  *
- * Glass-themed combobox (searchable select) with:
- * - Keyboard navigation support
- * - Search/filter functionality
- * - Custom rendering options
- * - Async data loading support
- * - Glass styling with theme support
- * - Accessibility features
- * - Form field wrapper support (label, error, success)
- * - Size variants (sm, md, lg, xl)
- * - Optional searchable mode
- * - Icon support for trigger and options
+ * Glass-themed combobox (searchable select) combining autocomplete and dropdown functionality.
+ * Built on Radix UI Popover and cmdk for robust keyboard navigation and filtering.
+ *
+ * ## Features
+ * - Search/filter functionality with real-time results
+ * - Keyboard navigation (Arrow keys, Enter, Escape, Tab)
+ * - Optional FormFieldWrapper integration (label, error, success states)
+ * - Size variants (sm, md, lg, xl) via InputGlass variants
+ * - Icon support for both trigger button and individual options
+ * - Glass variant styles (glass, frosted, fluted, crystal)
+ * - Clearable selection (click selected item to deselect)
+ * - Customizable empty state and search placeholder
+ * - Disabled state with visual feedback
+ * - Popover positioning (side, align) configuration
+ *
+ * ## CSS Variables
+ * - `--input-bg` - Trigger button background
+ * - `--input-border` - Trigger button border
+ * - `--input-text` - Trigger button text
+ * - `--dropdown-bg` - Content background
+ * - `--dropdown-border` - Content border
+ * - `--dropdown-item-hover` - Item hover background
+ * - `--dropdown-item-text` - Item text color
+ * - `--dropdown-icon` - Option icon color
+ * - `--dropdown-glow` - Content box shadow
+ * - `--text-accent` - Check icon color when selected
+ * - `--text-muted` - Search icon and empty state text
+ *
+ * @example Basic usage
+ * ```tsx
+ * import { ComboBoxGlass, type ComboBoxOption } from 'shadcn-glass-ui'
+ * import { useState } from 'react'
+ *
+ * const options: ComboBoxOption[] = [
+ *   { value: 'react', label: 'React' },
+ *   { value: 'vue', label: 'Vue' },
+ *   { value: 'angular', label: 'Angular' },
+ * ]
+ *
+ * function FrameworkSelector() {
+ *   const [value, setValue] = useState<string>()
+ *   return (
+ *     <ComboBoxGlass
+ *       options={options}
+ *       value={value}
+ *       onValueChange={setValue}
+ *       placeholder="Select framework..."
+ *     />
+ *   )
+ * }
+ * ```
+ *
+ * @example With form field wrapper
+ * ```tsx
+ * <ComboBoxGlass
+ *   options={countries}
+ *   value={country}
+ *   onValueChange={setCountry}
+ *   label="Country"
+ *   error="Please select a country"
+ *   required
+ *   placeholder="Select country..."
+ * />
+ * ```
+ *
+ * @example With icons
+ * ```tsx
+ * import { MapPin, Building } from 'lucide-react'
+ *
+ * const options: ComboBoxOption[] = [
+ *   { value: 'us', label: 'United States', icon: MapPin },
+ *   { value: 'uk', label: 'United Kingdom', icon: MapPin },
+ * ]
+ *
+ * <ComboBoxGlass
+ *   options={options}
+ *   value={value}
+ *   onValueChange={setValue}
+ *   icon={Building} // Trigger icon
+ *   label="Location"
+ * />
+ * ```
+ *
+ * @example Size variants
+ * ```tsx
+ * <ComboBoxGlass options={options} size="sm" label="Small" />
+ * <ComboBoxGlass options={options} size="md" label="Medium" />
+ * <ComboBoxGlass options={options} size="lg" label="Large" />
+ * ```
+ *
+ * @accessibility
+ * - WCAG 2.1 AA compliant via Radix UI and cmdk primitives
+ * - Full keyboard navigation: Arrow keys, Enter, Escape, Tab
+ * - Proper ARIA roles: `combobox`, `listbox`, `option`
+ * - Screen reader announcements for search results and selection
+ * - Focus management with visible indicators
+ * - Error and success states announced to screen readers
+ * - Disabled state properly communicated
+ *
+ * @since v1.0.0
  */
 
 'use client';
@@ -43,60 +132,143 @@ import '@/glass-theme.css';
 // TYPES
 // ========================================
 
+/**
+ * Glass variant style options for the combobox content.
+ */
 export type GlassVariant = 'glass' | 'frosted' | 'fluted' | 'crystal';
 
+/**
+ * Option item for ComboBoxGlass.
+ *
+ * @template T - Value type (defaults to string)
+ *
+ * @example
+ * ```tsx
+ * const option: ComboBoxOption = {
+ *   value: 'react',
+ *   label: 'React',
+ *   icon: Code,
+ *   disabled: false,
+ * };
+ * ```
+ */
 export interface ComboBoxOption<T = string> {
+  /** Unique value for the option */
   readonly value: T;
+  /** Display label for the option */
   readonly label: string;
+  /** Whether the option is disabled */
   readonly disabled?: boolean;
-  /** Optional icon component for the option */
+  /** Optional icon component displayed before the label */
   readonly icon?: LucideIcon;
 }
 
+/**
+ * Props for ComboBoxGlass component.
+ *
+ * @template T - Value type (defaults to string)
+ *
+ * @example
+ * ```tsx
+ * const props: ComboBoxGlassProps = {
+ *   options: [
+ *     { value: 'us', label: 'United States' },
+ *     { value: 'uk', label: 'United Kingdom' },
+ *   ],
+ *   value: 'us',
+ *   onValueChange: (val) => setValue(val),
+ *   label: 'Country',
+ *   size: 'md',
+ *   searchable: true,
+ * };
+ * ```
+ */
 export interface ComboBoxGlassProps<T = string> {
-  /** Available options */
+  /** Available options to display in the dropdown */
   readonly options: readonly ComboBoxOption<T>[];
-  /** Currently selected value */
+
+  /** Currently selected value (controlled mode) */
   readonly value?: T;
-  /** Callback when value changes */
+
+  /** Callback when value changes
+   * @param value - New selected value (undefined if cleared)
+   */
   readonly onValueChange?: (value: T | undefined) => void;
-  /** Placeholder text for trigger button */
+
+  /** Placeholder text for trigger button when no value selected
+   * @default "Select option..."
+   */
   readonly placeholder?: string;
-  /** Text shown when no results found */
+
+  /** Text shown when search yields no results
+   * @default "No results found."
+   */
   readonly emptyText?: string;
-  /** Placeholder for search input */
+
+  /** Placeholder for search input
+   * @default "Search..."
+   */
   readonly searchPlaceholder?: string;
-  /** Glass variant style */
+
+  /** Glass variant style for dropdown content
+   * @default "glass"
+   */
   readonly glassVariant?: GlassVariant;
-  /** Disabled state */
+
+  /** Disabled state
+   * @default false
+   */
   readonly disabled?: boolean;
-  /** Custom className for container */
+
+  /** Custom className for trigger button container */
   readonly className?: string;
+
   /** Custom className for popover content */
   readonly popoverClassName?: string;
-  /** Allow clearing selection */
+
+  /** Allow clearing selection by clicking selected item
+   * @default false
+   */
   readonly clearable?: boolean;
-  /** Popover side */
+
+  /** Popover placement side
+   * @default "bottom"
+   */
   readonly side?: 'top' | 'right' | 'bottom' | 'left';
-  /** Popover alignment */
+
+  /** Popover alignment
+   * @default "start"
+   */
   readonly align?: 'start' | 'center' | 'end';
 
   // ========================================
-  // NEW PROPS (Week 3 Enhancement)
+  // FORM FIELD INTEGRATION
   // ========================================
 
-  /** Label text displayed above the field */
+  /** Label text displayed above the field (enables FormFieldWrapper) */
   readonly label?: string;
+
   /** Error message - displays in red below the field */
   readonly error?: string;
+
   /** Success message - displays in green if no error */
   readonly success?: string;
-  /** Shows required asterisk (*) next to label */
+
+  /** Shows required asterisk (*) next to label
+   * @default false
+   */
   readonly required?: boolean;
-  /** Size variant (affects trigger button height and padding) */
+
+  /** Size variant (affects trigger button height and padding)
+   * @default "md"
+   */
   readonly size?: InputGlassSize;
-  /** Enable/disable search functionality */
+
+  /** Enable/disable search functionality
+   * @default true
+   */
   readonly searchable?: boolean;
+
   /** Optional icon for trigger button (displayed before text) */
   readonly icon?: LucideIcon;
 }

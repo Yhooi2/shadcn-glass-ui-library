@@ -1,26 +1,73 @@
 /**
  * SwitchGlass Component
  *
- * Glass-themed switch component with shadcn/ui compatible API.
- * Built on @radix-ui/react-switch for accessibility and keyboard navigation.
+ * Glass-themed toggle switch with smooth animations and accessibility features.
+ * Built on @radix-ui/react-switch for robust state management and keyboard navigation.
  *
- * **shadcn/ui compatible props:**
- * - `checked` / `defaultChecked` - Control checked state
- * - `onCheckedChange` - Callback when state changes
- * - `disabled` - Disable the switch
+ * ## Features
+ * - Full shadcn/ui API compatibility (drop-in replacement)
+ * - Smooth sliding thumb animation (300ms duration)
+ * - Optional integrated label with proper touch targets (44px minimum)
+ * - Glass morphism styling with gradient backgrounds when active
+ * - Controlled and uncontrolled modes
+ * - Accessible ARIA attributes and keyboard support (Space/Enter)
+ * - Disabled state with visual feedback
+ * - Active state glow effect via CSS variables
  *
- * @example
+ * ## CSS Variables
+ * - `--toggle-bg` - Background when unchecked
+ * - `--toggle-active-bg` - Gradient background when checked
+ * - `--toggle-knob` - Thumb/knob color
+ * - `--toggle-glow` - Box shadow when checked
+ * - `--text-secondary` - Label text color
+ *
+ * @example Basic usage (controlled)
  * ```tsx
- * // Controlled
- * <SwitchGlass checked={isOn} onCheckedChange={setIsOn} />
+ * import { SwitchGlass } from 'shadcn-glass-ui'
+ * import { useState } from 'react'
  *
- * // Uncontrolled
- * <SwitchGlass defaultChecked />
+ * function Settings() {
+ *   const [enabled, setEnabled] = useState(false)
  *
- * // With label
- * <SwitchGlass label="Airplane Mode" checked={isOn} onCheckedChange={setIsOn} />
+ *   return (
+ *     <SwitchGlass
+ *       checked={enabled}
+ *       onCheckedChange={setEnabled}
+ *     />
+ *   )
+ * }
  * ```
  *
+ * @example Uncontrolled with default value
+ * ```tsx
+ * <SwitchGlass defaultChecked />
+ * ```
+ *
+ * @example With integrated label
+ * ```tsx
+ * <SwitchGlass
+ *   label="Airplane Mode"
+ *   checked={isOn}
+ *   onCheckedChange={setIsOn}
+ * />
+ * ```
+ *
+ * @example shadcn/ui compatible alias
+ * ```tsx
+ * import { Switch } from 'shadcn-glass-ui'
+ *
+ * <Switch checked={enabled} onCheckedChange={setEnabled} />
+ * ```
+ *
+ * @accessibility
+ * - WCAG 2.1 AA compliant via Radix UI primitives
+ * - Keyboard navigation: Space and Enter keys toggle state
+ * - Proper ARIA role: `switch` with `aria-checked` attribute
+ * - Focus visible indicator for keyboard navigation
+ * - 44px minimum touch target (Apple HIG compliant) when label is used
+ * - Disabled state properly communicated to screen readers
+ *
+ * @since v1.0.0
  * @see https://www.radix-ui.com/primitives/docs/components/switch
  */
 
@@ -35,13 +82,62 @@ import '@/glass-theme.css';
 // PROPS INTERFACE
 // ========================================
 
+/**
+ * Props for SwitchGlass component.
+ *
+ * Extends Radix UI Switch.Root props with optional label support.
+ * Supports both controlled and uncontrolled modes.
+ *
+ * @example
+ * ```tsx
+ * const props: SwitchGlassProps = {
+ *   checked: true,
+ *   onCheckedChange: (checked) => console.log(checked),
+ *   label: 'Enable notifications',
+ *   disabled: false,
+ * };
+ * ```
+ */
 export interface SwitchGlassProps extends React.ComponentPropsWithoutRef<
   typeof SwitchPrimitive.Root
 > {
   /**
-   * Optional label text displayed next to the switch
+   * Optional label text displayed next to the switch.
+   * When provided, the switch is wrapped in a label element with proper touch targets.
+   *
+   * @default undefined
    */
   readonly label?: string;
+
+  /**
+   * Controlled checked state.
+   * Use with `onCheckedChange` for controlled mode.
+   *
+   * @default undefined
+   */
+  readonly checked?: boolean;
+
+  /**
+   * Default checked state for uncontrolled mode.
+   *
+   * @default false
+   */
+  readonly defaultChecked?: boolean;
+
+  /**
+   * Callback fired when the checked state changes.
+   *
+   * @param checked - New checked state
+   * @default undefined
+   */
+  readonly onCheckedChange?: (checked: boolean) => void;
+
+  /**
+   * Whether the switch is disabled.
+   *
+   * @default false
+   */
+  readonly disabled?: boolean;
 }
 
 // ========================================

@@ -11,42 +11,182 @@ const meta: Meta = {
   parameters: {
     layout: 'centered',
     backgrounds: { disable: true },
+    docs: {
+      description: {
+        component: `
+Glass-themed combobox (searchable select) combining autocomplete and dropdown functionality.
+
+## Features
+- **Search/Filter**: Real-time filtering with keyboard navigation
+- **Form Integration**: Optional label, error, success states via FormFieldWrapper
+- **Size Variants**: sm, md, lg, xl (via InputGlass variants)
+- **Icon Support**: Trigger button and individual option icons
+- **Glass Variants**: glass, frosted, fluted, crystal styles
+- **Clearable**: Click selected item to deselect
+- **Keyboard Navigation**: Arrow keys, Enter, Escape, Tab
+- **Accessibility**: Full ARIA support and screen reader announcements
+
+## Usage Pattern
+\`\`\`tsx
+import { ComboBoxGlass, type ComboBoxOption } from 'shadcn-glass-ui'
+import { useState } from 'react'
+
+const options: ComboBoxOption[] = [
+  { value: 'react', label: 'React' },
+  { value: 'vue', label: 'Vue' },
+]
+
+function Selector() {
+  const [value, setValue] = useState<string>()
+  return (
+    <ComboBoxGlass
+      options={options}
+      value={value}
+      onValueChange={setValue}
+      placeholder="Select framework..."
+    />
+  )
+}
+
+// With form field wrapper
+<ComboBoxGlass
+  options={options}
+  value={value}
+  onValueChange={setValue}
+  label="Country"
+  error="Please select a country"
+  required
+/>
+
+// With icons
+import { MapPin } from 'lucide-react'
+const optionsWithIcons: ComboBoxOption[] = [
+  { value: 'us', label: 'United States', icon: MapPin },
+]
+<ComboBoxGlass options={optionsWithIcons} icon={Building} />
+\`\`\`
+
+## CSS Variables
+- \`--input-bg\` - Trigger background
+- \`--input-border\` - Trigger border
+- \`--input-text\` - Trigger text
+- \`--dropdown-bg\` - Content background
+- \`--dropdown-border\` - Content border
+- \`--dropdown-item-hover\` - Item hover background
+- \`--dropdown-item-text\` - Item text color
+- \`--dropdown-icon\` - Option icon color
+- \`--dropdown-glow\` - Content shadow
+- \`--text-accent\` - Check icon color
+- \`--text-muted\` - Search icon color
+        `,
+      },
+    },
   },
   tags: ['autodocs'],
   argTypes: {
+    options: {
+      description: 'Available options to display in the dropdown',
+      table: {
+        type: { summary: 'readonly ComboBoxOption<T>[]' },
+      },
+    },
+    value: {
+      description: 'Currently selected value (controlled mode)',
+      table: {
+        type: { summary: 'T' },
+        defaultValue: { summary: 'undefined' },
+      },
+    },
+    onValueChange: {
+      description: 'Callback when value changes',
+      table: {
+        type: { summary: '(value: T | undefined) => void' },
+      },
+    },
+    placeholder: {
+      control: 'text',
+      description: 'Placeholder text for trigger button',
+      table: {
+        type: { summary: 'string' },
+        defaultValue: { summary: '"Select option..."' },
+      },
+    },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg', 'xl'],
       description: 'Size variant (affects trigger button height)',
+      table: {
+        type: { summary: 'InputGlassSize' },
+        defaultValue: { summary: '"md"' },
+      },
     },
     searchable: {
       control: 'boolean',
       description: 'Enable/disable search functionality',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'true' },
+      },
     },
     disabled: {
       control: 'boolean',
+      description: 'Disabled state',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
     },
     clearable: {
       control: 'boolean',
+      description: 'Allow clearing selection by clicking selected item',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
     },
     required: {
       control: 'boolean',
+      description: 'Shows required asterisk (*) next to label',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
     },
     label: {
       control: 'text',
+      description: 'Label text displayed above the field',
+      table: {
+        type: { summary: 'string' },
+      },
     },
     error: {
       control: 'text',
+      description: 'Error message - displays in red below the field',
+      table: {
+        type: { summary: 'string' },
+      },
     },
     success: {
       control: 'text',
-    },
-    placeholder: {
-      control: 'text',
+      description: 'Success message - displays in green if no error',
+      table: {
+        type: { summary: 'string' },
+      },
     },
     glassVariant: {
       control: 'select',
       options: ['glass', 'frosted', 'fluted', 'crystal'],
+      description: 'Glass variant style for dropdown content',
+      table: {
+        type: { summary: 'GlassVariant' },
+        defaultValue: { summary: '"glass"' },
+      },
+    },
+    icon: {
+      description: 'Optional icon for trigger button',
+      table: {
+        type: { summary: 'LucideIcon' },
+      },
     },
   },
   decorators: [
@@ -88,7 +228,10 @@ const countriesWithIcons: ComboBoxOption<string>[] = [
   { value: 'au', label: 'Australia', icon: MapPin },
 ];
 
-// Default story
+/**
+ * Default combobox with basic country options.
+ * Demonstrates the minimal setup with search functionality enabled.
+ */
 export const Default: Story = {
   render: () => {
     const [value, setValue] = useState<string>();
@@ -103,7 +246,10 @@ export const Default: Story = {
   },
 };
 
-// With Label
+/**
+ * Combobox with label using FormFieldWrapper.
+ * Shows the component integrated into a form context.
+ */
 export const WithLabel: Story = {
   render: () => {
     const [value, setValue] = useState<string>();
@@ -119,7 +265,10 @@ export const WithLabel: Story = {
   },
 };
 
-// With Error
+/**
+ * Combobox with error state.
+ * Demonstrates validation error display with required indicator.
+ */
 export const WithError: Story = {
   render: () => {
     const [value, setValue] = useState<string>();
@@ -137,7 +286,10 @@ export const WithError: Story = {
   },
 };
 
-// With Success
+/**
+ * Combobox with success state.
+ * Shows positive feedback after successful selection.
+ */
 export const WithSuccess: Story = {
   render: () => {
     const [value, setValue] = useState<string | undefined>('us');
@@ -154,7 +306,10 @@ export const WithSuccess: Story = {
   },
 };
 
-// Size Variants
+/**
+ * Small size variant (sm).
+ * Demonstrates the smallest trigger button size.
+ */
 export const SizeSmall: Story = {
   render: () => {
     const [value, setValue] = useState<string>();
@@ -171,6 +326,10 @@ export const SizeSmall: Story = {
   },
 };
 
+/**
+ * Medium size variant (md) - default.
+ * Shows the standard trigger button size.
+ */
 export const SizeMedium: Story = {
   render: () => {
     const [value, setValue] = useState<string>();
@@ -187,6 +346,10 @@ export const SizeMedium: Story = {
   },
 };
 
+/**
+ * Large size variant (lg).
+ * Demonstrates larger trigger button for improved touch targets.
+ */
 export const SizeLarge: Story = {
   render: () => {
     const [value, setValue] = useState<string>();
@@ -203,7 +366,10 @@ export const SizeLarge: Story = {
   },
 };
 
-// Not Searchable
+/**
+ * Combobox with search disabled.
+ * Behaves like a traditional select dropdown without filtering.
+ */
 export const NotSearchable: Story = {
   render: () => {
     const [value, setValue] = useState<string>();
@@ -220,7 +386,10 @@ export const NotSearchable: Story = {
   },
 };
 
-// With Trigger Icon
+/**
+ * Combobox with trigger icon.
+ * Shows icon displayed before the selected value.
+ */
 export const WithTriggerIcon: Story = {
   render: () => {
     const [value, setValue] = useState<string>();
@@ -237,7 +406,10 @@ export const WithTriggerIcon: Story = {
   },
 };
 
-// With Option Icons
+/**
+ * Combobox with icons on individual options.
+ * Demonstrates icon display within dropdown items.
+ */
 export const WithOptionIcons: Story = {
   render: () => {
     const [value, setValue] = useState<string>();
@@ -253,7 +425,10 @@ export const WithOptionIcons: Story = {
   },
 };
 
-// Disabled
+/**
+ * Disabled combobox state.
+ * Shows reduced opacity and prevents interaction.
+ */
 export const Disabled: Story = {
   render: () => {
     const [value, setValue] = useState<string>();
@@ -270,7 +445,10 @@ export const Disabled: Story = {
   },
 };
 
-// Clearable
+/**
+ * Clearable combobox with pre-selected value.
+ * Click the selected item again to clear the selection.
+ */
 export const Clearable: Story = {
   render: () => {
     const [value, setValue] = useState<string | undefined>('us');
@@ -287,7 +465,10 @@ export const Clearable: Story = {
   },
 };
 
-// Glass Variants
+/**
+ * Frosted glass variant for dropdown content.
+ * Demonstrates alternative glass styling option.
+ */
 export const GlassVariantFrosted: Story = {
   render: () => {
     const [value, setValue] = useState<string>();
@@ -304,7 +485,10 @@ export const GlassVariantFrosted: Story = {
   },
 };
 
-// Form Example (Complete)
+/**
+ * Complete form example with multiple comboboxes.
+ * Demonstrates real-world usage with different configurations.
+ */
 export const CompleteForm: Story = {
   render: () => {
     const [country, setCountry] = useState<string>();

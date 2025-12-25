@@ -1,13 +1,36 @@
 /**
- * SelectGlass - Compound Component
+ * SelectGlass Component
  *
- * Glass-themed select component with shadcn/ui compatible API.
- * Built on @radix-ui/react-select for accessibility and keyboard navigation.
+ * Glass-themed select dropdown with compound component API for flexible composition.
+ * Built on @radix-ui/react-select for accessibility, keyboard navigation, and robust selection behavior.
+ *
+ * ## Features
+ * - Compound API with 9 sub-components for maximum flexibility
+ * - Full shadcn/ui API compatibility (drop-in replacement)
+ * - Keyboard navigation (Arrow keys, Enter, Escape, Home/End)
+ * - Grouped options with labels and separators
+ * - Custom scroll buttons for long lists
+ * - Glass morphism styling with theme-aware CSS variables
+ * - Accessible ARIA attributes and focus management
+ * - Type-safe value handling with TypeScript generics
+ *
+ * ## CSS Variables
+ * - `--input-bg` - Trigger button background
+ * - `--input-border` - Trigger button border color
+ * - `--input-text` - Trigger button text color
+ * - `--dropdown-bg` - Content background
+ * - `--dropdown-border` - Content border color
+ * - `--dropdown-item-hover` - Item hover background
+ * - `--dropdown-item-text` - Item text color
+ * - `--dropdown-glow` - Content box shadow
+ * - `--text-secondary` - Scroll button icon color
  *
  * @example Basic usage
  * ```tsx
+ * import { SelectGlass, SelectGlassTrigger, SelectGlassValue, SelectGlassContent, SelectGlassItem } from 'shadcn-glass-ui'
+ *
  * <SelectGlass>
- *   <SelectGlassTrigger>
+ *   <SelectGlassTrigger className="w-[180px]">
  *     <SelectGlassValue placeholder="Select a fruit" />
  *   </SelectGlassTrigger>
  *   <SelectGlassContent>
@@ -40,6 +63,45 @@
  * </SelectGlass>
  * ```
  *
+ * @example Controlled state
+ * ```tsx
+ * const [value, setValue] = useState('react')
+ *
+ * <SelectGlass value={value} onValueChange={setValue}>
+ *   <SelectGlassTrigger className="w-[200px]">
+ *     <SelectGlassValue />
+ *   </SelectGlassTrigger>
+ *   <SelectGlassContent>
+ *     <SelectGlassItem value="react">React</SelectGlassItem>
+ *     <SelectGlassItem value="vue">Vue</SelectGlassItem>
+ *   </SelectGlassContent>
+ * </SelectGlass>
+ * ```
+ *
+ * @example shadcn/ui compatible aliases
+ * ```tsx
+ * import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from 'shadcn-glass-ui'
+ *
+ * <Select>
+ *   <SelectTrigger className="w-[180px]">
+ *     <SelectValue placeholder="Theme" />
+ *   </SelectTrigger>
+ *   <SelectContent>
+ *     <SelectItem value="light">Light</SelectItem>
+ *     <SelectItem value="dark">Dark</SelectItem>
+ *   </SelectContent>
+ * </Select>
+ * ```
+ *
+ * @accessibility
+ * - WCAG 2.1 AA compliant via Radix UI primitives
+ * - Full keyboard navigation support (Arrow keys, Enter, Space, Escape)
+ * - Proper ARIA roles: `combobox`, `listbox`, `option`
+ * - Screen reader announcements for selection changes
+ * - Focus management with visible focus indicators
+ * - Disabled state properly communicated to assistive technologies
+ *
+ * @since v1.0.0
  * @see https://www.radix-ui.com/primitives/docs/components/select
  */
 
