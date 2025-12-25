@@ -7,68 +7,69 @@ hardcoded OKLCH values across all components.
 
 ## Quick Reference Table
 
-| Component                    | Level       | File                                                            | Props | Key Features                               |
-| ---------------------------- | ----------- | --------------------------------------------------------------- | ----- | ------------------------------------------ |
-| **ButtonGlass**              | Core UI     | `src/components/glass/ui/button-glass.tsx`                      | 7     | asChild, loading, icon, ripple, 6 variants |
-| **InputGlass**               | Core UI     | `src/components/glass/ui/input-glass.tsx`                       | 8     | label, error, success, icon, validation    |
-| **CheckboxGlass**            | Core UI     | `src/components/glass/ui/checkbox-glass.tsx`                    | 5     | label, checked, glow effect                |
-| **ToggleGlass**              | Core UI     | `src/components/glass/ui/toggle-glass.tsx`                      | 5     | label, switch variant, accessible          |
-| **SliderGlass**              | Core UI     | `src/components/glass/ui/slider-glass.tsx`                      | 6     | min/max/step, label, single/range          |
-| **ModalGlass**               | Core UI     | `src/components/glass/ui/modal-glass.tsx`                       | -     | Compound API, overlay, 3 sizes             |
-| **TabsGlass**                | Core UI     | `src/components/glass/ui/tabs-glass.tsx`                        | -     | Compound API, animated                     |
-| **DropdownGlass**            | Core UI     | `src/components/glass/ui/dropdown-glass.tsx`                    | 8     | Radix UI based, submenu support            |
-| **TooltipGlass**             | Core UI     | `src/components/glass/ui/tooltip-glass.tsx`                     | 6     | Radix UI, 4 sides, delay config            |
-| **AlertGlass**               | Core UI     | `src/components/glass/ui/alert-glass.tsx`                       | 5     | 4 variants, icon, dismissable              |
-| **NotificationGlass**        | Core UI     | `src/components/glass/ui/notification-glass.tsx`                | 6     | Toast style, 4 variants, auto-close        |
-| **BadgeGlass**               | Core UI     | `src/components/glass/ui/badge-glass.tsx`                       | 4     | 7 variants, dot variant                    |
-| **AvatarGlass**              | Core UI     | `src/components/glass/ui/avatar-glass.tsx`                      | 5     | asChild, status, 4 sizes, fallback         |
-| **GlassCard**                | Core UI     | `src/components/glass/ui/glass-card.tsx`                        | 6     | asChild, 4 variants, 3 intensities         |
-| **ProgressGlass**            | Core UI     | `src/components/glass/ui/progress-glass.tsx`                    | 5     | value, max, label, variants                |
-| **CircularProgressGlass**    | Core UI     | `src/components/glass/ui/circular-progress-glass.tsx`           | 6     | value, size, stroke, label                 |
-| **SkeletonGlass**            | Core UI     | `src/components/glass/ui/skeleton-glass.tsx`                    | 5     | width, height, circle, variants            |
-| **ComboBoxGlass**            | Core UI     | `src/components/glass/ui/combobox-glass.tsx`                    | 8     | searchable, multi-select, async            |
-| **PopoverGlass**             | Core UI     | `src/components/glass/ui/popover-glass.tsx`                     | 6     | Radix UI, trigger, content                 |
-| **IconButtonGlass**          | Atomic      | `src/components/glass/atomic/icon-button-glass.tsx`             | 5     | Icon-only, aria-label, 4 sizes             |
-| **ThemeToggleGlass**         | Atomic      | `src/components/glass/atomic/theme-toggle-glass.tsx`            | 3     | 3 themes, icon animated                    |
-| **SearchBoxGlass**           | Atomic      | `src/components/glass/atomic/search-box-glass.tsx`              | 6     | Search icon, clear button                  |
-| **SortDropdownGlass**        | Atomic      | `src/components/glass/atomic/sort-dropdown-glass.tsx`           | 5     | Sort options, ascending/descending         |
-| **StatItemGlass**            | Atomic      | `src/components/glass/atomic/stat-item-glass.tsx`               | 5     | Label, value, change, trend                |
-| **ExpandableHeaderGlass**    | Atomic      | `src/components/glass/atomic/expandable-header-glass.tsx`       | 5     | Collapsible, animated                      |
-| **InsightCardGlass**         | Atomic      | `src/components/glass/atomic/insight-card-glass.tsx`            | 7     | 7 variants, inline/card mode, clickable    |
-| **StatusIndicatorGlass**     | Specialized | `src/components/glass/specialized/status-indicator-glass.tsx`   | 4     | Status dot, 4 states, glow                 |
-| **SegmentedControlGlass**    | Specialized | `src/components/glass/specialized/segmented-control-glass.tsx`  | 5     | Button group, exclusive selection          |
-| **RainbowProgressGlass**     | Specialized | `src/components/glass/specialized/rainbow-progress-glass.tsx`   | 4     | Gradient progress, animated                |
-| **LanguageBarGlass**         | Specialized | `src/components/glass/specialized/language-bar-glass.tsx`       | 5     | Proficiency bar, legend                    |
-| **ProfileAvatarGlass**       | Specialized | `src/components/glass/specialized/profile-avatar-glass.tsx`     | 5     | Large avatar, glow animation               |
-| **FlagAlertGlass**           | Specialized | `src/components/glass/specialized/flag-alert-glass.tsx`         | 5     | Warning/danger, icon, dismissable          |
-| **ProgressGlass**            | Specialized | `src/components/glass/specialized/progress-glass.tsx`           | 5     | Enhanced progress bar                      |
-| **BaseProgressGlass**        | Specialized | `src/components/glass/specialized/base-progress-glass.tsx`      | 4     | Base progress component                    |
-| **SparklineGlass**           | Specialized | `src/components/glass/specialized/sparkline-glass.tsx`          | 6     | Time series chart, height/gap variants     |
-| **MetricCardGlass**          | Composite   | `src/components/glass/composite/metric-card-glass.tsx`          | 6     | Metric display, progress, trend            |
-| **YearCardGlass**            | Composite   | `src/components/glass/composite/year-card-glass.tsx`            | 5     | Timeline card, expandable                  |
-| **AICardGlass**              | Composite   | `src/components/glass/composite/ai-card-glass.tsx`              | 5     | AI summary, feature list                   |
-| **RepositoryCardGlass**      | Composite   | `src/components/glass/composite/repository-card-glass.tsx`      | 7     | Repo info, expandable, stats               |
-| **TrustScoreDisplayGlass**   | Composite   | `src/components/glass/composite/trust-score-display-glass.tsx`  | 5     | Score, visual indicator                    |
-| **CareerStatsHeaderGlass**   | Composite   | `src/components/glass/composite/career-stats-header-glass.tsx`  | 5     | Career stats, timeline                     |
-| **CircularMetricGlass**      | Composite   | `src/components/glass/composite/circular-metric-glass.tsx`      | 5     | Circular progress, metric                  |
-| **ContributionMetricsGlass** | Composite   | `src/components/glass/composite/contribution-metrics-glass.tsx` | 5     | Contribution grid                          |
-| **MetricsGridGlass**         | Composite   | `src/components/glass/composite/metrics-grid-glass.tsx`         | 4     | Grid layout, responsive                    |
-| **RepositoryHeaderGlass**    | Composite   | `src/components/glass/composite/repository-header-glass.tsx`    | 6     | Repo header, metadata                      |
-| **RepositoryMetadataGlass**  | Composite   | `src/components/glass/composite/repository-metadata-glass.tsx`  | 6     | Repo metadata display                      |
-| **UserInfoGlass**            | Composite   | `src/components/glass/composite/user-info-glass.tsx`            | 5     | User card, avatar, stats                   |
-| **UserStatsLineGlass**       | Composite   | `src/components/glass/composite/user-stats-line-glass.tsx`      | 4     | Horizontal stats line                      |
-| **SplitLayoutGlass**         | Composite   | `src/components/glass/composite/split-layout-glass/`            | -     | Compound API, sticky scroll, master-detail |
-| **SidebarGlass**             | Core UI     | `src/components/glass/ui/sidebar-glass/`                        | -     | Compound API, shadcn/ui compatible, rail   |
-| **HeaderNavGlass**           | Section     | `src/components/glass/sections/header-nav-glass.tsx`            | 6     | Navigation, search, theme                  |
-| **ProfileHeaderGlass**       | Section     | `src/components/glass/sections/profile-header-glass.tsx`        | 7     | Profile, avatar, stats, langs              |
-| **CareerStatsGlass**         | Section     | `src/components/glass/sections/career-stats-glass.tsx`          | 5     | Career stats, year cards                   |
-| **FlagsSectionGlass**        | Section     | `src/components/glass/sections/flags-section-glass.tsx`         | 5     | Expandable flags/warnings                  |
-| **TrustScoreCardGlass**      | Section     | `src/components/glass/sections/trust-score-card-glass.tsx`      | 6     | Trust score, metrics                       |
-| **ProjectsListGlass**        | Section     | `src/components/glass/sections/projects-list-glass.tsx`         | 6     | Projects, filtering, sorting               |
-| **HeaderBrandingGlass**      | Section     | `src/components/glass/sections/header-branding-glass.tsx`       | 5     | Branded header, logo, nav                  |
-| **FormFieldWrapper**         | Primitive   | `src/components/glass/primitives/form-field-wrapper.tsx`        | 6     | Unified form field structure               |
-| **InteractiveCard**          | Primitive   | `src/components/glass/primitives/interactive-card.tsx`          | 5     | Hover animations, glass effects            |
-| **TouchTarget**              | Primitive   | `src/components/glass/primitives/touch-target.tsx`              | 4     | Touch-friendly wrapper, 44px min           |
+| Component                      | Level       | File                                                              | Props | Key Features                                 |
+| ------------------------------ | ----------- | ----------------------------------------------------------------- | ----- | -------------------------------------------- |
+| **ButtonGlass**                | Core UI     | `src/components/glass/ui/button-glass.tsx`                        | 7     | asChild, loading, icon, ripple, 6 variants   |
+| **InputGlass**                 | Core UI     | `src/components/glass/ui/input-glass.tsx`                         | 8     | label, error, success, icon, validation      |
+| **CheckboxGlass**              | Core UI     | `src/components/glass/ui/checkbox-glass.tsx`                      | 5     | label, checked, glow effect                  |
+| **ToggleGlass**                | Core UI     | `src/components/glass/ui/toggle-glass.tsx`                        | 5     | label, switch variant, accessible            |
+| **SliderGlass**                | Core UI     | `src/components/glass/ui/slider-glass.tsx`                        | 6     | min/max/step, label, single/range            |
+| **ModalGlass**                 | Core UI     | `src/components/glass/ui/modal-glass.tsx`                         | -     | Compound API, overlay, 3 sizes               |
+| **TabsGlass**                  | Core UI     | `src/components/glass/ui/tabs-glass.tsx`                          | -     | Compound API, animated                       |
+| **DropdownGlass**              | Core UI     | `src/components/glass/ui/dropdown-glass.tsx`                      | 8     | Radix UI based, submenu support              |
+| **TooltipGlass**               | Core UI     | `src/components/glass/ui/tooltip-glass.tsx`                       | 6     | Radix UI, 4 sides, delay config              |
+| **AlertGlass**                 | Core UI     | `src/components/glass/ui/alert-glass.tsx`                         | 5     | 4 variants, icon, dismissable                |
+| **NotificationGlass**          | Core UI     | `src/components/glass/ui/notification-glass.tsx`                  | 6     | Toast style, 4 variants, auto-close          |
+| **BadgeGlass**                 | Core UI     | `src/components/glass/ui/badge-glass.tsx`                         | 4     | 7 variants, dot variant                      |
+| **AvatarGlass**                | Core UI     | `src/components/glass/ui/avatar-glass.tsx`                        | 5     | asChild, status, 4 sizes, fallback           |
+| **GlassCard**                  | Core UI     | `src/components/glass/ui/glass-card.tsx`                          | 6     | asChild, 4 variants, 3 intensities           |
+| **ProgressGlass**              | Core UI     | `src/components/glass/ui/progress-glass.tsx`                      | 5     | value, max, label, variants                  |
+| **CircularProgressGlass**      | Core UI     | `src/components/glass/ui/circular-progress-glass.tsx`             | 6     | value, size, stroke, label                   |
+| **SkeletonGlass**              | Core UI     | `src/components/glass/ui/skeleton-glass.tsx`                      | 5     | width, height, circle, variants              |
+| **ComboBoxGlass**              | Core UI     | `src/components/glass/ui/combobox-glass.tsx`                      | 8     | searchable, multi-select, async              |
+| **PopoverGlass**               | Core UI     | `src/components/glass/ui/popover-glass.tsx`                       | 6     | Radix UI, trigger, content                   |
+| **IconButtonGlass**            | Atomic      | `src/components/glass/atomic/icon-button-glass.tsx`               | 5     | Icon-only, aria-label, 4 sizes               |
+| **ThemeToggleGlass**           | Atomic      | `src/components/glass/atomic/theme-toggle-glass.tsx`              | 3     | 3 themes, icon animated                      |
+| **SearchBoxGlass**             | Atomic      | `src/components/glass/atomic/search-box-glass.tsx`                | 6     | Search icon, clear button                    |
+| **SortDropdownGlass**          | Atomic      | `src/components/glass/atomic/sort-dropdown-glass.tsx`             | 5     | Sort options, ascending/descending           |
+| **StatItemGlass**              | Atomic      | `src/components/glass/atomic/stat-item-glass.tsx`                 | 5     | Label, value, change, trend                  |
+| **ExpandableHeaderGlass**      | Atomic      | `src/components/glass/atomic/expandable-header-glass.tsx`         | 5     | Collapsible, animated                        |
+| **InsightCardGlass**           | Atomic      | `src/components/glass/atomic/insight-card-glass.tsx`              | 7     | 7 variants, inline/card mode, clickable      |
+| **StatusIndicatorGlass**       | Specialized | `src/components/glass/specialized/status-indicator-glass.tsx`     | 4     | Status dot, 4 states, glow                   |
+| **SegmentedControlGlass**      | Specialized | `src/components/glass/specialized/segmented-control-glass.tsx`    | 5     | Button group, exclusive selection            |
+| **RainbowProgressGlass**       | Specialized | `src/components/glass/specialized/rainbow-progress-glass.tsx`     | 4     | Gradient progress, animated                  |
+| **LanguageBarGlass**           | Specialized | `src/components/glass/specialized/language-bar-glass.tsx`         | 5     | Proficiency bar, legend                      |
+| **ProfileAvatarGlass**         | Specialized | `src/components/glass/specialized/profile-avatar-glass.tsx`       | 5     | Large avatar, glow animation                 |
+| **FlagAlertGlass**             | Specialized | `src/components/glass/specialized/flag-alert-glass.tsx`           | 5     | Warning/danger, icon, dismissable            |
+| **ProgressGlass**              | Specialized | `src/components/glass/specialized/progress-glass.tsx`             | 5     | Enhanced progress bar                        |
+| **BaseProgressGlass**          | Specialized | `src/components/glass/specialized/base-progress-glass.tsx`        | 4     | Base progress component                      |
+| **SparklineGlass**             | Specialized | `src/components/glass/specialized/sparkline-glass.tsx`            | 6     | Time series chart, height/gap variants       |
+| **MetricCardGlass**            | Composite   | `src/components/glass/composite/metric-card-glass.tsx`            | 6     | Metric display, progress, trend              |
+| **YearCardGlass**              | Composite   | `src/components/glass/composite/year-card-glass.tsx`              | 5     | Timeline card, expandable                    |
+| **AICardGlass**                | Composite   | `src/components/glass/composite/ai-card-glass.tsx`                | 5     | AI summary, feature list                     |
+| **RepositoryCardGlass**        | Composite   | `src/components/glass/composite/repository-card-glass.tsx`        | 7     | Repo info, expandable, stats                 |
+| **TrustScoreDisplayGlass**     | Composite   | `src/components/glass/composite/trust-score-display-glass.tsx`    | 5     | Score, visual indicator                      |
+| **CareerStatsHeaderGlass**     | Composite   | `src/components/glass/composite/career-stats-header-glass.tsx`    | 5     | Career stats, timeline                       |
+| **CircularMetricGlass**        | Composite   | `src/components/glass/composite/circular-metric-glass.tsx`        | 5     | Circular progress, metric                    |
+| **ContributionMetricsGlass**   | Composite   | `src/components/glass/composite/contribution-metrics-glass.tsx`   | 5     | Contribution grid                            |
+| **MetricsGridGlass**           | Composite   | `src/components/glass/composite/metrics-grid-glass.tsx`           | 4     | Grid layout, responsive                      |
+| **RepositoryHeaderGlass**      | Composite   | `src/components/glass/composite/repository-header-glass.tsx`      | 6     | Repo header, metadata                        |
+| **RepositoryMetadataGlass**    | Composite   | `src/components/glass/composite/repository-metadata-glass.tsx`    | 6     | Repo metadata display                        |
+| **UserInfoGlass**              | Composite   | `src/components/glass/composite/user-info-glass.tsx`              | 5     | User card, avatar, stats                     |
+| **UserStatsLineGlass**         | Composite   | `src/components/glass/composite/user-stats-line-glass.tsx`        | 4     | Horizontal stats line                        |
+| **SplitLayoutGlass**           | Composite   | `src/components/glass/composite/split-layout-glass/`              | -     | Compound API, sticky scroll, master-detail   |
+| **SidebarGlass**               | Core UI     | `src/components/glass/ui/sidebar-glass/`                          | -     | Compound API, shadcn/ui compatible, rail     |
+| **HeaderNavGlass**             | Section     | `src/components/glass/sections/header-nav-glass.tsx`              | 6     | Navigation, search, theme                    |
+| **ProfileHeaderGlass**         | Section     | `src/components/glass/sections/profile-header-glass.tsx`          | 7     | Profile, avatar, stats, langs, transparent   |
+| **ProfileHeaderExtendedGlass** | Section     | `src/components/glass/sections/profile-header-extended-glass.tsx` | 10    | Extended profile, bio, location, transparent |
+| **CareerStatsGlass**           | Section     | `src/components/glass/sections/career-stats-glass.tsx`            | 5     | Career stats, year cards                     |
+| **FlagsSectionGlass**          | Section     | `src/components/glass/sections/flags-section-glass.tsx`           | 5     | Expandable flags/warnings                    |
+| **TrustScoreCardGlass**        | Section     | `src/components/glass/sections/trust-score-card-glass.tsx`        | 6     | Trust score, metrics                         |
+| **ProjectsListGlass**          | Section     | `src/components/glass/sections/projects-list-glass.tsx`           | 6     | Projects, filtering, sorting                 |
+| **HeaderBrandingGlass**        | Section     | `src/components/glass/sections/header-branding-glass.tsx`         | 5     | Branded header, logo, nav                    |
+| **FormFieldWrapper**           | Primitive   | `src/components/glass/primitives/form-field-wrapper.tsx`          | 6     | Unified form field structure                 |
+| **InteractiveCard**            | Primitive   | `src/components/glass/primitives/interactive-card.tsx`            | 5     | Hover animations, glass effects              |
+| **TouchTarget**                | Primitive   | `src/components/glass/primitives/touch-target.tsx`                | 4     | Touch-friendly wrapper, 44px min             |
 
 ---
 
@@ -1234,10 +1235,34 @@ search, theme toggle **Usage:**
 #### ProfileHeaderGlass
 
 **File:** `src/components/glass/sections/profile-header-glass.tsx` **Features:** User profile,
-avatar, stats, languages **Usage:**
+avatar, stats, languages, AI card **Props:** `transparent` - removes glass background **Usage:**
 
 ```tsx
+// With glass background (default)
 <ProfileHeaderGlass user={userData} stats={userStats} languages={userLanguages} />
+
+// Without glass background
+<ProfileHeaderGlass user={userData} stats={userStats} languages={userLanguages} transparent />
+```
+
+#### ProfileHeaderExtendedGlass
+
+**File:** `src/components/glass/sections/profile-header-extended-glass.tsx` **Features:** Extended
+profile with GitHub/GitLab-compatible fields (bio, location, gists, actions slot) **Props:**
+`transparent` - removes glass background **Usage:**
+
+```tsx
+// With glass background (default)
+<ProfileHeaderExtendedGlass user={user} />
+
+// Without glass background
+<ProfileHeaderExtendedGlass user={user} transparent />
+
+// With actions slot
+<ProfileHeaderExtendedGlass
+  user={user}
+  actions={<ButtonGlass size="sm">Follow</ButtonGlass>}
+/>
 ```
 
 ---
