@@ -3,7 +3,7 @@
    Dark glassmorphism theme with purple accent
    ======================================== */
 
-:root {
+[data-theme='glass'] {
   /* ========================================
      BASE COLORS (HSL format for oklch conversion)
      ======================================== */
