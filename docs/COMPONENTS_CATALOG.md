@@ -1,6 +1,6 @@
 # Component Catalog
 
-Searchable index of all **59 components** in shadcn-glass-ui.
+Searchable index of all **60 components** in shadcn-glass-ui.
 
 **v2.0.0 Update:** All components now use the 3-layer token system with semantic CSS variables. Zero
 hardcoded OKLCH values across all components.
@@ -44,6 +44,7 @@ hardcoded OKLCH values across all components.
 | **ProgressGlass**              | Specialized | `src/components/glass/specialized/progress-glass.tsx`             | 5     | Enhanced progress bar                        |
 | **BaseProgressGlass**          | Specialized | `src/components/glass/specialized/base-progress-glass.tsx`        | 4     | Base progress component                      |
 | **SparklineGlass**             | Specialized | `src/components/glass/specialized/sparkline-glass.tsx`            | 6     | Time series chart, height/gap variants       |
+| **AnimatedBackgroundGlass**    | Specialized | `src/components/glass/specialized/animated-background-glass.tsx`  | 2     | Theme-aware gradient bg, 5 animated orbs     |
 | **MetricCardGlass**            | Composite   | `src/components/glass/composite/metric-card-glass.tsx`            | 6     | Metric display, progress, trend              |
 | **YearCardGlass**              | Composite   | `src/components/glass/composite/year-card-glass.tsx`              | 5     | Timeline card, expandable                    |
 | **AICardGlass**                | Composite   | `src/components/glass/composite/ai-card-glass.tsx`                | 5     | AI summary, feature list                     |
@@ -1007,7 +1008,7 @@ animated, chevron icon **Usage:**
 
 ---
 
-### Level 3 - Specialized (9)
+### Level 3 - Specialized (10)
 
 Advanced specialized components for specific use cases.
 
@@ -1072,6 +1073,40 @@ language legend, color-coded **Usage:**
   This action requires admin privileges
 </FlagAlertGlass>
 ```
+
+#### AnimatedBackgroundGlass
+
+**File:** `src/components/glass/specialized/animated-background-glass.tsx` **Features:** Theme-aware
+gradient background, 5 floating animated orbs, CSS variable customization **Props:**
+`showCenterOrb`, `className`
+
+**Basic Usage:**
+
+```tsx
+<AnimatedBackgroundGlass />
+<main className="relative z-10">Your content here</main>
+```
+
+**With Center Orb Forced On:**
+
+```tsx
+<AnimatedBackgroundGlass showCenterOrb={true} />
+```
+
+**With Dark Overlay for Better Contrast:**
+
+```tsx
+<>
+  <AnimatedBackgroundGlass />
+  <div className="fixed inset-0 bg-black/30 z-1" />
+  <main className="relative z-10">Content</main>
+</>
+```
+
+**CSS Variables (customize in theme):**
+
+- `--orb-1` through `--orb-5`: Orb colors (OKLCH with opacity)
+- `--bg-from`, `--bg-via`, `--bg-to`: Gradient stops
 
 ---
 
@@ -1432,6 +1467,7 @@ For AI assistants: Use Ctrl+F to search by keyword.
 - "expandable, collapsible, accordion" → ExpandableHeaderGlass
 - "touch, mobile, accessibility" → TouchTarget
 - "primitive, wrapper, container" → FormFieldWrapper, InteractiveCard, TouchTarget
+- "background, gradient, orbs, animated, atmosphere" → AnimatedBackgroundGlass
 
 ---
 
