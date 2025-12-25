@@ -295,19 +295,19 @@
       "name": "user-stats-line-glass",
       "type": "registry:block",
       "title": "User Stats Line Glass",
-      "description": "User Stats Line Glass component with glass effects"
+      "description": "User statistics line displaying repos, followers, and following counts.\n * Extracted from ProfileHeaderGlass for reusable user metrics displays.\n *\n * ## Features"
     },
     {
       "name": "user-info-glass",
       "type": "registry:block",
       "title": "User Info Glass",
-      "description": "User Info Glass component with glass effects"
+      "description": "User name, username, and join date display component.\n * Extracted from ProfileHeaderGlass for reusable user identity sections.\n *\n * ## Features"
     },
     {
       "name": "trust-score-display-glass",
       "type": "registry:block",
       "title": "Trust Score Display Glass",
-      "description": "Trust Score Display Glass component with glass effects"
+      "description": "Large animated trust score display with gradient text and pulsing animation.\n * Extracted from TrustScoreCardGlass for reusability across layouts.\n *\n * ## Features"
     },
     {
       "name": "repository-metadata-glass",
@@ -325,25 +325,25 @@
       "name": "metrics-grid-glass",
       "type": "registry:block",
       "title": "Metrics Grid Glass",
-      "description": "Metrics Grid Glass component with glass effects"
+      "description": "Responsive grid layout for displaying multiple MetricCardGlass components.\n * Extracted from TrustScoreCardGlass for reusable metric dashboard layouts.\n *\n * ## Features"
     },
     {
       "name": "metric-card-glass",
       "type": "registry:block",
       "title": "Metric Card Glass",
-      "description": "Metric variant system (following AlertGlass, BadgeGlass pattern)"
+      "description": "Rich metric display card with progress bars, sparklines, and trend indicators.\n * Follows shadcn/ui variant system with Glass UI extensions for data visualization.\n *\n * ## Features"
     },
     {
       "name": "contribution-metrics-glass",
       "type": "registry:block",
       "title": "Contribution Metrics Glass",
-      "description": "Contribution Metrics Glass component with glass effects"
+      "description": "Repository contribution metrics grid displaying user and project statistics.\n * Extracted from RepositoryCardGlass for reusable contribution displays.\n *\n * ## Features"
     },
     {
       "name": "circular-metric-glass",
       "type": "registry:block",
       "title": "Circular Metric Glass",
-      "description": "CircularMetricGlass - Compact circular progress metric display"
+      "description": "Compact circular progress metric display optimized for mobile layouts.\n * Combines CircularProgressGlass with a label for space-efficient metric visualization.\n *\n * ## Features"
     },
     {
       "name": "career-stats-header-glass",
@@ -355,49 +355,49 @@
       "name": "ai-card-glass",
       "type": "registry:block",
       "title": "Ai Card Glass",
-      "description": "Ai Card Glass component with glass effects"
+      "description": "AI-themed interactive card with feature list and generate button.\n * Designed for AI analysis, report generation, and ML-powered features.\n *\n * ## Features"
     },
     {
       "name": "theme-toggle-glass",
       "type": "registry:component",
       "title": "Theme Toggle Glass",
-      "description": "Theme Toggle Glass component with glass effects"
+      "description": "Theme cycling button that switches between Light, Aurora, and Glass themes.\n * Displays animated icon transitions with theme-aware styling.\n *\n * ## Features"
     },
     {
       "name": "stat-item-glass",
       "type": "registry:component",
       "title": "Stat Item Glass",
-      "description": "Stat Item Glass component with glass effects"
+      "description": "Compact statistic display component with icon, value, and label for profile cards and dashboards.\n * Designed for inline metrics with automatic value formatting and flexible layouts.\n *\n * ## Features"
     },
     {
       "name": "sort-dropdown-glass",
       "type": "registry:component",
       "title": "Sort Dropdown Glass",
-      "description": "Atomic component for sorting controls built on DropdownMenuGlass primitives.\n *\n * Features:"
+      "description": "Atomic sorting control built on DropdownMenuGlass primitives for data table and list sorting.\n * Provides intuitive sort field selection with visual indicators for active sort and direction.\n *\n * ## Features"
     },
     {
       "name": "search-box-glass",
       "type": "registry:component",
       "title": "Search Box Glass",
-      "description": "Search Box Glass component with glass effects"
+      "description": "Search input with glassmorphism styling and integrated submit button.\n * Provides a cohesive search experience with visual feedback and keyboard support.\n *\n * ## Features"
     },
     {
       "name": "insight-card-glass",
       "type": "registry:component",
       "title": "Insight Card Glass",
-      "description": "Insight Card Glass component with glass effects"
+      "description": "Versatile insight display component with emoji icons, text, and optional interactivity.\n * Supports 7 semantic variants with distinct styling and multiple display modes for dashboards,\n * analytics, and feedback interfaces.\n *\n * ## Features"
     },
     {
       "name": "icon-button-glass",
       "type": "registry:component",
       "title": "Icon Button Glass",
-      "description": "Icon Button Glass component with glass effects"
+      "description": "Icon-only button with glassmorphism styling and touch-friendly sizing.\n * Perfect for toolbar actions, header controls, and compact interfaces.\n *\n * ## Features"
     },
     {
       "name": "expandable-header-glass",
       "type": "registry:component",
       "title": "Expandable Header Glass",
-      "description": "Expandable Header Glass component with glass effects"
+      "description": "Collapsible section header with animated chevron for accordion-style interfaces.\n * Provides accessible expand/collapse controls with theme-aware styling.\n *\n * ## Features"
     },
     {
       "name": "sidebar-menu",
