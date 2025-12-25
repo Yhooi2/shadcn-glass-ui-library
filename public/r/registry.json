@@ -223,7 +223,7 @@
       "name": "animated-background-glass",
       "type": "registry:component",
       "title": "Animated Background Glass",
-      "description": "Animated gradient background with floating orbs for glassmorphism UIs.\n *\n * ## Features"
+      "description": "Animated gradient background with floating orbs for glassmorphism UIs.\n * Provides an immersive atmosphere with theme-aware styling.\n *\n * ## Features"
     },
     {
       "name": "trust-score-card-glass",
