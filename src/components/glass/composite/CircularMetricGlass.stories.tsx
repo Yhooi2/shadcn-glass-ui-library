@@ -6,26 +6,83 @@ const meta = {
   component: CircularMetricGlass,
   parameters: {
     layout: 'centered',
+    docs: {
+      description: {
+        component: `
+Compact circular progress metric display optimized for mobile layouts.
+
+## Features
+- **Mobile-Optimized Design:** 80px-112px diameter for space-efficient display
+- **4 Color Variants:** Semantic colors (emerald/amber/blue/red) for metric status
+- **Percentage Display:** Value shown inside circular progress ring
+- **Glow Effects:** Medium intensity glow on progress ring
+- **2 Size Variants:** sm (80px) for mobile, md (112px) for tablet/desktop
+- **Grid-Friendly:** Perfect for 2x2 mobile metric grids
+
+## Use Cases
+- Mobile dashboard metrics (2x2 grid layouts)
+- KPI scorecard displays
+- Compact metric visualizations
+- Space-constrained metric cards
+- Trust score breakdowns
+
+## CSS Variables
+Inherits color variables from semantic token system:
+- \`--metric-success-text\` (emerald)
+- \`--metric-warning-text\` (amber)
+- \`--metric-default-text\` (blue)
+- \`--metric-destructive-text\` (red)
+        `,
+      },
+    },
   },
   tags: ['autodocs'],
   argTypes: {
     label: {
       control: 'text',
-      description: 'Metric label',
+      description:
+        'Metric label displayed below the circular progress. Typically 2-6 characters (e.g., "Reg", "Imp").',
+      table: {
+        category: 'Content',
+        type: { summary: 'string' },
+      },
     },
     value: {
       control: { type: 'range', min: 0, max: 100, step: 1 },
-      description: 'Progress value (0-100)',
+      description: 'Metric value as percentage (0-100). Controls progress fill and center text.',
+      table: {
+        category: 'Content',
+        type: { summary: 'number' },
+      },
     },
     color: {
       control: 'select',
       options: ['emerald', 'amber', 'blue', 'red'],
-      description: 'Metric color',
+      description:
+        'Color theme: emerald (success), amber (warning), blue (default), red (destructive).',
+      table: {
+        category: 'Appearance',
+        type: { summary: 'CircularMetricColor' },
+        defaultValue: { summary: 'blue' },
+      },
     },
     size: {
       control: 'select',
       options: ['sm', 'md'],
-      description: 'Size variant',
+      description: 'Size variant: sm (80px, 6px thickness) or md (112px, 8px thickness).',
+      table: {
+        category: 'Layout',
+        type: { summary: 'sm | md' },
+        defaultValue: { summary: 'sm' },
+      },
+    },
+    className: {
+      control: 'text',
+      description: 'Additional CSS classes for custom styling.',
+      table: {
+        category: 'Styling',
+        type: { summary: 'string' },
+      },
     },
   },
 } satisfies Meta<typeof CircularMetricGlass>;
