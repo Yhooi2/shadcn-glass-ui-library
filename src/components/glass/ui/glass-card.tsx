@@ -10,7 +10,7 @@
  * - Optional glow effects (blue, violet, cyan)
  * - Hover animations with scale and glow effects
  * - Polymorphic rendering via `asChild` (Radix UI Slot pattern)
- * - Padding variants (none, sm, default, lg, xl)
+ * - Padding variants (none, compact, default, featured)
  * - Touch-friendly interactions (minimum 44x44px for interactive use)
  *
  * ## CSS Variables

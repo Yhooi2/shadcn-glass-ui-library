@@ -16,22 +16,79 @@ import {
 import { DropdownGlass, type DropdownItem } from './dropdown-glass';
 import { ButtonGlass } from './button-glass';
 
+/**
+ * DropdownGlass Stories
+ *
+ * Demonstrates the DropdownGlass component with various configurations:
+ * - Simple API with items prop (quick setup)
+ * - Compound API for advanced use cases (see dropdown-menu-glass.stories.tsx)
+ * - Left and right alignment options
+ * - Icon and text-only items
+ * - Danger/destructive item variant
+ * - Dividers for visual grouping
+ */
+
 const meta = {
   title: 'Components/Navigation/DropdownGlass',
   component: DropdownGlass,
   parameters: {
     layout: 'centered',
     snapshot: {
-      // Enable visual snapshot testing
       disable: false,
     },
     tags: ['autodocs'],
+    docs: {
+      description: {
+        component: `
+Glass-themed dropdown menu with simple and compound APIs.
+
+## Features
+- **Two APIs:** Simple (items prop) and Compound (DropdownMenuGlass.*)
+- **Glass Styling:** Theme-aware glassmorphism with backdrop blur
+- **Alignment:** Left or right positioning
+- **Icons:** Optional icon support for menu items
+- **Danger Variant:** Red destructive item styling
+- **Dividers:** Visual grouping with separators
+- **Accessibility:** Keyboard navigation, focus management, screen reader support
+
+## CSS Variables
+\`\`\`css
+--dropdown-bg           /* Background color */
+--dropdown-border       /* Border color */
+--dropdown-item-hover   /* Item hover background */
+--dropdown-item-text    /* Item text color */
+--dropdown-icon         /* Icon color */
+--dropdown-icon-hover   /* Icon color on hover */
+--dropdown-divider      /* Divider background */
+--dropdown-glow         /* Box shadow with glow */
+\`\`\`
+
+## Usage
+\`\`\`tsx
+import { DropdownGlass } from '@/components/glass/ui/dropdown-glass';
+
+<DropdownGlass
+  trigger={<ButtonGlass>Menu</ButtonGlass>}
+  items={[
+    { label: 'Edit', icon: Edit, onClick: handleEdit },
+    { divider: true },
+    { label: 'Delete', icon: Trash, onClick: handleDelete, danger: true }
+  ]}
+/>
+\`\`\`
+        `,
+      },
+    },
   },
   argTypes: {
     align: {
       control: 'select',
       options: ['left', 'right'],
       description: 'The alignment of the dropdown menu',
+      table: {
+        type: { summary: "'left' | 'right'" },
+        defaultValue: { summary: 'left' },
+      },
     },
   },
   decorators: [

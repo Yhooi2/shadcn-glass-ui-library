@@ -6,6 +6,17 @@ import { PopoverGlassLegacy as PopoverGlass } from './popover-glass';
 import { ButtonGlass } from './button-glass';
 import { InputGlass } from './input-glass';
 
+/**
+ * PopoverGlass Stories
+ *
+ * Demonstrates the PopoverGlass component with various configurations:
+ * - Compound API (recommended) and Legacy API (backward compatible)
+ * - All 12 positioning options (4 sides × 3 alignments)
+ * - Arrow pointer (optional)
+ * - Controlled state for programmatic control
+ * - Form integration examples
+ */
+
 const meta = {
   title: 'Components/Overlay/PopoverGlass',
   component: PopoverGlass,
@@ -15,25 +26,84 @@ const meta = {
       disable: false,
     },
     tags: ['autodocs'],
+    docs: {
+      description: {
+        component: `
+Floating glass-themed container for tooltips, dropdowns, and contextual overlays.
+
+## Features
+- **Two APIs:** Compound (recommended) and Legacy (backward compatible)
+- **Positioning:** 12 options (4 sides × 3 alignments)
+- **Glass Styling:** Theme-aware glassmorphism with backdrop blur
+- **Arrow Pointer:** Optional arrow with glass styling
+- **Accessibility:** Keyboard navigation, focus trap, screen reader support
+
+## Sub-Components
+- **PopoverGlass.Root** - Context provider with open/close state
+- **PopoverGlassTrigger** - Trigger element (supports asChild)
+- **PopoverGlassAnchor** - Optional positioning anchor
+- **PopoverGlassContent** - Content container with glass styling
+
+## CSS Variables
+\`\`\`css
+--popover-bg            /* Background color */
+--popover-border        /* Border color */
+--popover-shadow        /* Box shadow with glow */
+--popover-arrow-bg      /* Arrow background color */
+--blur-md               /* Backdrop blur (16px) */
+\`\`\`
+
+## Usage
+\`\`\`tsx
+import { PopoverGlass, PopoverGlassTrigger, PopoverGlassContent } from '@/components/glass/ui/popover-glass';
+
+<PopoverGlass>
+  <PopoverGlassTrigger asChild>
+    <ButtonGlass>Open</ButtonGlass>
+  </PopoverGlassTrigger>
+  <PopoverGlassContent side="top">
+    <div className="p-4">Content</div>
+  </PopoverGlassContent>
+</PopoverGlass>
+\`\`\`
+        `,
+      },
+    },
   },
   argTypes: {
     side: {
       control: 'select',
       options: ['top', 'right', 'bottom', 'left'],
       description: 'The preferred side of the trigger to render against',
+      table: {
+        type: { summary: "'top' | 'right' | 'bottom' | 'left'" },
+        defaultValue: { summary: 'bottom' },
+      },
     },
     align: {
       control: 'select',
       options: ['start', 'center', 'end'],
       description: 'The preferred alignment against the trigger',
+      table: {
+        type: { summary: "'start' | 'center' | 'end'" },
+        defaultValue: { summary: 'center' },
+      },
     },
     sideOffset: {
       control: 'number',
       description: 'The distance in pixels from the trigger',
+      table: {
+        type: { summary: 'number' },
+        defaultValue: { summary: '8' },
+      },
     },
     showArrow: {
       control: 'boolean',
       description: 'Whether to show the arrow pointer',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'true' },
+      },
     },
   },
   decorators: [
@@ -52,6 +122,10 @@ type Story = StoryObj<typeof meta>;
 // BASIC POPOVER TESTS
 // ========================================
 
+/**
+ * Default popover with bottom positioning and center alignment.
+ * Shows the legacy API with simple trigger and content.
+ */
 export const Default: Story = {
   args: {
     trigger: <ButtonGlass variant="secondary">Open Popover</ButtonGlass>,
@@ -73,6 +147,10 @@ export const Default: Story = {
   },
 };
 
+/**
+ * Popover with form elements inside.
+ * Demonstrates integration with InputGlass and ButtonGlass components.
+ */
 export const WithForm: Story = {
   args: {
     trigger: (
@@ -110,6 +188,10 @@ export const WithForm: Story = {
 // POSITION TESTS - All sides
 // ========================================
 
+/**
+ * Demonstrates all four positioning sides: top, right, bottom, left.
+ * Each popover uses the same ghost button trigger.
+ */
 export const Positions: Story = {
   args: {
     trigger: <div>Trigger</div>,
@@ -158,6 +240,10 @@ export const Positions: Story = {
 // ALIGNMENT TESTS - start/center/end
 // ========================================
 
+/**
+ * Demonstrates all three alignment options: start, center, end.
+ * All positioned at the bottom with different alignments.
+ */
 export const Alignments: Story = {
   args: {
     trigger: <div>Trigger</div>,
@@ -208,6 +294,10 @@ export const Alignments: Story = {
 // CONTROLLED STATE TEST
 // ========================================
 
+/**
+ * Controlled popover with external state management.
+ * Shows programmatic open/close control.
+ */
 export const Controlled: Story = {
   args: {
     trigger: <div>Trigger</div>,
@@ -253,6 +343,10 @@ export const Controlled: Story = {
 // NO ARROW TEST
 // ========================================
 
+/**
+ * Popover without arrow pointer.
+ * Demonstrates the showArrow prop set to false.
+ */
 export const NoArrow: Story = {
   args: {
     trigger: <ButtonGlass variant="ghost">No Arrow</ButtonGlass>,
@@ -279,6 +373,10 @@ export const NoArrow: Story = {
 // OPEN STATE TESTS - Glass theme styling
 // ========================================
 
+/**
+ * Visual test for opened popover with glass theme styling.
+ * Captures the glassmorphism effect with backdrop blur.
+ */
 export const OpenedDefault: Story = {
   args: {
     trigger: <ButtonGlass variant="ghost">Open Popover</ButtonGlass>,

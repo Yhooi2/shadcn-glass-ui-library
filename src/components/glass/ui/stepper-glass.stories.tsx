@@ -30,17 +30,47 @@ const meta: Meta<typeof StepperGlass.Root> = {
     docs: {
       description: {
         component: `
-Glass-themed step indicator with compound component API.
+Glass-themed step indicator for multi-step workflows with theme-aware styling.
 
 ## Features
 - **Orientations:** Horizontal and vertical layouts
 - **Variants:** Numbered, icon, and dots styles
-- **Sizes:** Small, medium, and large
+- **Sizes:** Small, medium, and large (sm, md, lg)
 - **Linear mode:** Lock future steps until previous are completed
 - **Full accessibility:** Keyboard navigation, ARIA attributes, focus management
+- **Custom icons:** Override default icons and completed icons
+- **Touch targets:** 44x44px minimum (WCAG 2.5.5)
+
+## Sub-Components
+- **StepperGlass.Root** - Context provider with value/onValueChange
+- **StepperGlass.List** - Visual container (uses \`role="tablist"\`)
+- **StepperGlass.Step** - Individual step button with indicator
+- **StepperGlass.Content** - Content panel (uses \`role="tabpanel"\`)
+
+## CSS Variables
+\`\`\`css
+--stepper-step-bg                 /* Pending step background */
+--stepper-step-active-bg          /* Active step background */
+--stepper-step-completed-bg       /* Completed step (purple) */
+--stepper-step-disabled-bg        /* Disabled step background */
+--stepper-step-border             /* Step indicator border */
+--stepper-step-active-border      /* Active border + glow */
+--stepper-step-completed-border   /* Completed border */
+--stepper-step-text               /* Step number/icon color */
+--stepper-step-active-text        /* Active text (purple) */
+--stepper-step-completed-text     /* Completed text (white) */
+--stepper-connector-bg            /* Connector line (default) */
+--stepper-connector-active-bg     /* Connector (completed) */
+--stepper-step-glow               /* Completed glow effect */
+--stepper-step-active-glow        /* Active glow effect */
+--stepper-label-text              /* Label text color */
+--stepper-description-text        /* Description (subtle) */
+\`\`\`
 
 ## Usage
 \`\`\`tsx
+import { StepperGlass } from '@/components/glass/ui/stepper-glass';
+
 <StepperGlass.Root value={step} onValueChange={setStep}>
   <StepperGlass.List>
     <StepperGlass.Step value="step1" label="Account" />
@@ -65,6 +95,10 @@ type Story = StoryObj<typeof StepperGlass.Root>;
 // DEFAULT (HORIZONTAL)
 // ========================================
 
+/**
+ * Default horizontal stepper with numbered variant.
+ * Shows interactive navigation with Next/Back buttons.
+ */
 export const Default: Story = {
   render: function Render() {
     const [step, setStep] = useState('step1');
@@ -108,6 +142,10 @@ export const Default: Story = {
 // VERTICAL
 // ========================================
 
+/**
+ * Vertical orientation for order tracking workflows.
+ * Shows progression from top to bottom.
+ */
 export const Vertical: Story = {
   render: function Render() {
     const [step, setStep] = useState('step2');
@@ -139,6 +177,10 @@ export const Vertical: Story = {
 // WITH ICONS
 // ========================================
 
+/**
+ * Icon variant with custom icons for each step.
+ * Icons replace step numbers for visual clarity.
+ */
 export const WithIcons: Story = {
   render: function Render() {
     const [step, setStep] = useState('step1');
@@ -227,6 +269,10 @@ export const Dots: Story = {
 // LINEAR MODE
 // ========================================
 
+/**
+ * Linear mode locks future steps until current is completed.
+ * Demonstrates form wizard pattern with step content.
+ */
 export const LinearMode: Story = {
   render: function Render() {
     const [step, setStep] = useState('step1');

@@ -1,19 +1,43 @@
 /**
  * PopoverGlass Component
  *
- * Floating glass-themed container for tooltips, dropdowns, and overlays with:
- * - Theme-aware styling (glass/light/aurora)
+ * Floating glass-themed container for tooltips, dropdowns, and contextual overlays.
+ * Provides compound and legacy APIs for maximum flexibility.
+ *
+ * ## Features
+ * - Theme-aware glassmorphism styling (glass/light/aurora)
+ * - Compound component API (PopoverGlass.Root, Trigger, Content, Anchor, Close)
+ * - Legacy API for backward compatibility
+ * - Arrow pointer with glass styling (optional)
+ * - 12 positioning options (4 sides × 3 alignments)
  * - Smooth animations with fade-in effect
- * - Arrow pointer with glass styling
  * - ESC key and click-outside to close
  * - Focus trap for accessibility
- * - All position/alignment options (top/right/bottom/left × start/center/end)
+ * - Customizable width and padding via className
+ * - Portal rendering for z-index isolation
+ *
+ * ## Sub-Components
+ * - **PopoverGlass.Root** (or `PopoverGlass`) - Context provider with open/close state
+ * - **PopoverGlassTrigger** - Trigger element (supports asChild pattern)
+ * - **PopoverGlassAnchor** - Optional anchor for positioning
+ * - **PopoverGlassContent** - Content container with glass styling
+ * - **PopoverGlassLegacy** - Legacy wrapper API (backward compatible)
+ *
+ * ## CSS Variables
+ * Customize appearance via theme CSS variables:
+ * - `--popover-bg` - Background color (glass theme: `rgba(255,255,255,0.08)`)
+ * - `--popover-border` - Border color (glass theme: `rgba(255,255,255,0.15)`)
+ * - `--popover-shadow` - Box shadow with glow effect
+ * - `--popover-arrow-bg` - Arrow pointer background color
+ * - `--blur-md` - Backdrop blur amount (default: `16px`)
  *
  * @example Compound API (recommended)
  * ```tsx
+ * import { PopoverGlass, PopoverGlassTrigger, PopoverGlassContent } from 'shadcn-glass-ui'
+ *
  * <PopoverGlass>
  *   <PopoverGlassTrigger asChild>
- *     <ButtonGlass>Open</ButtonGlass>
+ *     <ButtonGlass>Open Popover</ButtonGlass>
  *   </PopoverGlassTrigger>
  *   <PopoverGlassContent side="top">
  *     <div className="p-4">
@@ -26,6 +50,8 @@
  *
  * @example Legacy API (backward compatible)
  * ```tsx
+ * import { PopoverGlassLegacy } from 'shadcn-glass-ui'
+ *
  * <PopoverGlassLegacy
  *   trigger={<ButtonGlass>Open</ButtonGlass>}
  *   side="top"
@@ -33,6 +59,36 @@
  *   <div className="p-4">Content</div>
  * </PopoverGlassLegacy>
  * ```
+ *
+ * @example Controlled state
+ * ```tsx
+ * const [open, setOpen] = useState(false)
+ *
+ * <PopoverGlass open={open} onOpenChange={setOpen}>
+ *   <PopoverGlassTrigger>Open</PopoverGlassTrigger>
+ *   <PopoverGlassContent>
+ *     <ButtonGlass onClick={() => setOpen(false)}>Close</ButtonGlass>
+ *   </PopoverGlassContent>
+ * </PopoverGlass>
+ * ```
+ *
+ * @example Without arrow
+ * ```tsx
+ * <PopoverGlassContent showArrow={false}>
+ *   Content without arrow pointer
+ * </PopoverGlassContent>
+ * ```
+ *
+ * @accessibility
+ * - **Keyboard Navigation:** ESC key closes popover (WCAG 2.1.1)
+ * - **Focus Management:** Focus trapped within popover when open (WCAG 2.4.3)
+ * - **Click Outside:** Clicking outside closes popover (WCAG 2.1.1)
+ * - **Screen Readers:** Uses `role="dialog"` for content (WCAG 4.1.3)
+ * - **ARIA Attributes:** Proper labeling for trigger and content relationship
+ * - **Portal Rendering:** Content rendered outside DOM hierarchy to avoid z-index issues
+ * - **Animations:** Smooth transitions that don't interfere with screen readers
+ *
+ * @since v1.0.0
  */
 
 'use client';
@@ -77,10 +133,28 @@ PopoverGlassAnchor.displayName = 'PopoverGlassAnchor';
 // COMPOUND COMPONENT: CONTENT
 // ========================================
 
+/**
+ * Props for PopoverGlassContent component.
+ *
+ * @example
+ * ```tsx
+ * const props: PopoverGlassContentProps = {
+ *   side: 'top',
+ *   align: 'center',
+ *   sideOffset: 8,
+ *   showArrow: true,
+ *   className: 'w-96 p-6',
+ * };
+ * ```
+ */
 interface PopoverGlassContentProps extends React.ComponentPropsWithoutRef<
   typeof PopoverPrimitive.Content
 > {
-  /** Whether to show the arrow pointer */
+  /**
+   * Whether to show the arrow pointer.
+   *
+   * @default true
+   */
   showArrow?: boolean;
 }
 
@@ -161,22 +235,53 @@ PopoverGlassContent.displayName = 'PopoverGlassContent';
 // LEGACY API (backward compatible)
 // ========================================
 
+/**
+ * Props for PopoverGlassLegacy component (backward compatible API).
+ *
+ * @example
+ * ```tsx
+ * const props: PopoverGlassLegacyProps = {
+ *   trigger: <ButtonGlass>Open</ButtonGlass>,
+ *   children: <div>Content</div>,
+ *   side: 'top',
+ *   align: 'center',
+ *   sideOffset: 8,
+ *   showArrow: true,
+ * };
+ * ```
+ */
 export interface PopoverGlassLegacyProps {
   /** The trigger element that opens the popover */
   readonly trigger: React.ReactNode;
   /** The content to display inside the popover */
   readonly children: React.ReactNode;
-  /** The preferred side of the trigger to render against */
+  /**
+   * The preferred side of the trigger to render against.
+   *
+   * @default "bottom"
+   */
   readonly side?: 'top' | 'right' | 'bottom' | 'left';
-  /** The preferred alignment against the trigger */
+  /**
+   * The preferred alignment against the trigger.
+   *
+   * @default "center"
+   */
   readonly align?: 'start' | 'center' | 'end';
-  /** The distance in pixels from the trigger */
+  /**
+   * The distance in pixels from the trigger.
+   *
+   * @default 8
+   */
   readonly sideOffset?: number;
   /** Controlled open state */
   readonly open?: boolean;
   /** Callback when open state changes */
   readonly onOpenChange?: (open: boolean) => void;
-  /** Whether to show the arrow pointer */
+  /**
+   * Whether to show the arrow pointer.
+   *
+   * @default true
+   */
   readonly showArrow?: boolean;
   /** Additional class name for the content wrapper */
   readonly className?: string;

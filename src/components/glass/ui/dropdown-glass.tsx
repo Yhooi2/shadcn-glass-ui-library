@@ -1,17 +1,41 @@
 /**
  * DropdownGlass Component
  *
- * Glass-themed dropdown menu with two APIs:
+ * Glass-themed dropdown menu with simple and compound APIs for maximum flexibility.
+ * Wrapper around DropdownMenuGlass for quick menu creation.
  *
- * 1. **Simple API** (items prop) - Quick setup for basic menus
- * 2. **Compound API** (DropdownMenuGlass.*) - Full shadcn/ui pattern for complex menus
+ * ## Features
+ * - Two APIs: Simple (items prop) and Compound (DropdownMenuGlass.*)
+ * - Theme-aware glassmorphism styling (glass/light/aurora)
+ * - Keyboard navigation (Arrow keys, Enter, Escape)
+ * - Focus management and trap
+ * - Icon support for menu items
+ * - Danger/destructive item variant
+ * - Left/right alignment options
+ * - Dividers for visual grouping
+ * - Uses `--dropdown-*` CSS variables
+ *
+ * ## APIs
+ * **1. Simple API (items prop)** - Quick setup for basic dropdowns
+ * **2. Compound API (DropdownMenuGlass.*)** - Full shadcn/ui pattern for complex menus
+ *
+ * ## CSS Variables
+ * Inherits from DropdownMenuGlass:
+ * - `--dropdown-bg` - Background color (glass theme: `rgba(255,255,255,0.08)`)
+ * - `--dropdown-border` - Border color (glass theme: `rgba(255,255,255,0.15)`)
+ * - `--dropdown-item-hover` - Item hover background
+ * - `--dropdown-item-text` - Item text color
+ * - `--dropdown-icon` - Icon color
+ * - `--dropdown-icon-hover` - Icon color on hover
+ * - `--dropdown-divider` - Divider background
+ * - `--dropdown-glow` - Box shadow with glow effect
  *
  * @example Simple API (recommended for basic dropdowns)
  * ```tsx
- * import { DropdownGlass } from '@/components/glass/ui/dropdown-glass';
+ * import { DropdownGlass } from 'shadcn-glass-ui'
  *
  * <DropdownGlass
- *   trigger={<button><MoreVertical /></button>}
+ *   trigger={<ButtonGlass><MoreVertical /></ButtonGlass>}
  *   items={[
  *     { label: 'Edit', icon: Edit, onClick: handleEdit },
  *     { divider: true },
@@ -28,11 +52,11 @@
  *   DropdownMenuGlassContent,
  *   DropdownMenuGlassItem,
  *   DropdownMenuGlassSeparator,
- * } from '@/components/glass/ui/dropdown-menu-glass';
+ * } from 'shadcn-glass-ui'
  *
  * <DropdownMenuGlass>
  *   <DropdownMenuGlassTrigger asChild>
- *     <Button>Open Menu</Button>
+ *     <ButtonGlass>Open Menu</ButtonGlass>
  *   </DropdownMenuGlassTrigger>
  *   <DropdownMenuGlassContent>
  *     <DropdownMenuGlassItem>Edit</DropdownMenuGlassItem>
@@ -42,6 +66,34 @@
  * </DropdownMenuGlass>
  * ```
  *
+ * @example With alignment
+ * ```tsx
+ * <DropdownGlass
+ *   trigger={<ButtonGlass>Menu</ButtonGlass>}
+ *   items={items}
+ *   align="right"
+ * />
+ * ```
+ *
+ * @example Text-only items (no icons)
+ * ```tsx
+ * <DropdownGlass
+ *   trigger={<ButtonGlass>Options</ButtonGlass>}
+ *   items={[
+ *     { label: 'Option 1', onClick: () => {} },
+ *     { label: 'Option 2', onClick: () => {} },
+ *     { label: 'Option 3', onClick: () => {} },
+ *   ]}
+ * />
+ * ```
+ *
+ * @accessibility
+ * - **Keyboard Navigation:** Arrow keys navigate, Enter/Space activates, Escape closes (WCAG 2.1.1)
+ * - **Focus Management:** Focus trapped within menu when open (WCAG 2.4.3)
+ * - **Screen Readers:** Uses `role="menu"` and `role="menuitem"` (WCAG 4.1.3)
+ * - **Touch Targets:** All items meet minimum 44x44px (WCAG 2.5.5)
+ *
+ * @since v1.0.0
  * @see ./dropdown-menu-glass.tsx for compound component exports
  */
 
@@ -77,20 +129,31 @@ export interface DropdownItem {
 // ========================================
 
 /**
- * Props for the DropdownGlass component (Simple API)
+ * Props for the DropdownGlass component (Simple API).
  *
- * @accessibility
- * - **Keyboard Navigation:** Arrow keys navigate, Enter/Space activates, Escape closes
- * - **Focus Management:** Focus trapped within menu when open
- * - **Screen Readers:** Uses role="menu" and role="menuitem"
- * - **Touch Targets:** All items meet minimum 44x44px
+ * @example
+ * ```tsx
+ * const props: DropdownGlassProps = {
+ *   trigger: <ButtonGlass>Menu</ButtonGlass>,
+ *   items: [
+ *     { label: 'Edit', icon: Edit, onClick: handleEdit },
+ *     { divider: true },
+ *     { label: 'Delete', icon: Trash, onClick: handleDelete, danger: true }
+ *   ],
+ *   align: 'left',
+ * };
+ * ```
  */
 export interface DropdownGlassProps {
   /** Trigger element (button, etc.) */
   readonly trigger: React.ReactNode;
   /** Menu items array */
   readonly items: readonly DropdownItem[];
-  /** Dropdown alignment */
+  /**
+   * Dropdown alignment.
+   *
+   * @default "left"
+   */
   readonly align?: 'left' | 'right';
   /** Additional className */
   readonly className?: string;

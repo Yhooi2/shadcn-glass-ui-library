@@ -2,25 +2,100 @@
 /**
  * StepperGlass Component (Compound API)
  *
- * Glass-themed step indicator with:
- * - Theme-aware styling (glass/light/aurora)
- * - Horizontal and vertical orientations
- * - Numbered, icon, and dots variants
- * - Linear mode (lock future steps)
- * - Animated connector lines
- * - Compound component API for advanced composition
+ * Glass-themed step indicator for multi-step workflows with theme-aware styling
+ * and full accessibility support.
  *
- * @example
+ * ## Features
+ * - Theme-aware glassmorphism styling (glass/light/aurora)
+ * - Horizontal and vertical orientations
+ * - Three visual variants: numbered, icon, dots
+ * - Three sizes: small, medium, large
+ * - Linear mode to lock future steps
+ * - Animated connector lines between steps
+ * - Compound component API for maximum flexibility
+ * - Keyboard navigation with arrow keys
+ * - 44x44px minimum touch targets (WCAG 2.5.5)
+ * - Custom icons and completed icon overrides
+ *
+ * ## Sub-Components
+ * - **StepperGlass.Root** - Context provider with value/onValueChange
+ * - **StepperGlass.List** - Visual container for step triggers (uses `role="tablist"`)
+ * - **StepperGlass.Step** - Individual step button with indicator and label
+ * - **StepperGlass.Content** - Content panel for each step (uses `role="tabpanel"`)
+ *
+ * ## CSS Variables
+ * Customize appearance via theme CSS variables:
+ * - `--stepper-step-bg` - Pending step background
+ * - `--stepper-step-active-bg` - Active step background
+ * - `--stepper-step-completed-bg` - Completed step background (purple gradient)
+ * - `--stepper-step-disabled-bg` - Disabled step background
+ * - `--stepper-step-border` - Step indicator border
+ * - `--stepper-step-active-border` - Active step border with subtle glow
+ * - `--stepper-step-completed-border` - Completed step border
+ * - `--stepper-step-disabled-border` - Disabled step border (muted)
+ * - `--stepper-step-text` - Step number/icon text color
+ * - `--stepper-step-active-text` - Active step text (purple)
+ * - `--stepper-step-completed-text` - Completed step text (white)
+ * - `--stepper-step-disabled-text` - Disabled step text (muted)
+ * - `--stepper-connector-bg` - Connector line background (default)
+ * - `--stepper-connector-active-bg` - Connector line background (completed, purple)
+ * - `--stepper-step-glow` - Completed step glow effect
+ * - `--stepper-step-active-glow` - Active step glow effect
+ * - `--stepper-label-text` - Label text color
+ * - `--stepper-description-text` - Description text color (subtle)
+ *
+ * @example Basic usage (numbered variant)
  * ```tsx
- * <StepperGlass.Root value="step2" onValueChange={setStep}>
+ * import { StepperGlass } from 'shadcn-glass-ui'
+ *
+ * function Wizard() {
+ *   const [step, setStep] = useState('step1')
+ *
+ *   return (
+ *     <StepperGlass.Root value={step} onValueChange={setStep}>
+ *       <StepperGlass.List>
+ *         <StepperGlass.Step value="step1" label="Account" description="Create your account" />
+ *         <StepperGlass.Step value="step2" label="Profile" description="Setup your profile" />
+ *         <StepperGlass.Step value="step3" label="Complete" description="Finish setup" />
+ *       </StepperGlass.List>
+ *       <StepperGlass.Content value="step1">Step 1 content</StepperGlass.Content>
+ *       <StepperGlass.Content value="step2">Step 2 content</StepperGlass.Content>
+ *       <StepperGlass.Content value="step3">Step 3 content</StepperGlass.Content>
+ *     </StepperGlass.Root>
+ *   )
+ * }
+ * ```
+ *
+ * @example Icon variant with custom icons
+ * ```tsx
+ * <StepperGlass.Root value={step} variant="icon">
  *   <StepperGlass.List>
- *     <StepperGlass.Step value="step1" label="Account" description="Create your account" />
- *     <StepperGlass.Step value="step2" label="Profile" description="Setup your profile" />
- *     <StepperGlass.Step value="step3" label="Complete" description="Finish setup" />
+ *     <StepperGlass.Step value="step1" label="Account" icon={<User className="w-4 h-4" />} />
+ *     <StepperGlass.Step value="step2" label="Payment" icon={<CreditCard className="w-4 h-4" />} />
+ *     <StepperGlass.Step value="step3" label="Done" icon={<CheckCircle className="w-4 h-4" />} />
  *   </StepperGlass.List>
- *   <StepperGlass.Content value="step1">Step 1 content</StepperGlass.Content>
- *   <StepperGlass.Content value="step2">Step 2 content</StepperGlass.Content>
- *   <StepperGlass.Content value="step3">Step 3 content</StepperGlass.Content>
+ * </StepperGlass.Root>
+ * ```
+ *
+ * @example Linear mode (lock future steps)
+ * ```tsx
+ * <StepperGlass.Root value={step} onValueChange={setStep} linear>
+ *   <StepperGlass.List>
+ *     <StepperGlass.Step value="step1" label="Email" />
+ *     <StepperGlass.Step value="step2" label="Password" />
+ *     <StepperGlass.Step value="step3" label="Done" />
+ *   </StepperGlass.List>
+ * </StepperGlass.Root>
+ * ```
+ *
+ * @example Vertical orientation
+ * ```tsx
+ * <StepperGlass.Root value={step} orientation="vertical">
+ *   <StepperGlass.List>
+ *     <StepperGlass.Step value="step1" label="Order Confirmed" />
+ *     <StepperGlass.Step value="step2" label="Processing" />
+ *     <StepperGlass.Step value="step3" label="Shipped" />
+ *   </StepperGlass.List>
  * </StepperGlass.Root>
  * ```
  *
@@ -31,7 +106,9 @@
  * - **ARIA Attributes:** `aria-current="step"`, `aria-disabled` for state
  * - **Touch Targets:** 44x44px minimum touch targets (WCAG 2.5.5)
  * - **Color Contrast:** All states meet WCAG AA 4.5:1 ratio
- * - **Motion:** Respects `prefers-reduced-motion`
+ * - **Motion:** Connector line animations respect `prefers-reduced-motion`
+ *
+ * @since v1.0.0
  */
 
 import {
@@ -118,18 +195,49 @@ function getStepStatus(
 // ROOT COMPONENT
 // ========================================
 
+/**
+ * Props for StepperGlass.Root component.
+ *
+ * @example
+ * ```tsx
+ * const props: StepperRootProps = {
+ *   value: 'step2',
+ *   onValueChange: (value) => setStep(value),
+ *   orientation: 'horizontal',
+ *   variant: 'numbered',
+ *   size: 'md',
+ *   linear: false,
+ * };
+ * ```
+ */
 interface StepperRootProps {
   /** Current active step value */
   value: string;
   /** Callback when step value changes */
   onValueChange?: (value: string) => void;
-  /** Orientation of the stepper */
+  /**
+   * Orientation of the stepper.
+   *
+   * @default "horizontal"
+   */
   orientation?: StepperOrientation;
-  /** Visual variant */
+  /**
+   * Visual variant.
+   *
+   * @default "numbered"
+   */
   variant?: StepperVariant;
-  /** Size of step indicators */
+  /**
+   * Size of step indicators.
+   *
+   * @default "md"
+   */
   size?: StepperSize;
-  /** Lock future steps (require sequential completion) */
+  /**
+   * Lock future steps (require sequential completion).
+   *
+   * @default false
+   */
   linear?: boolean;
   /** Child components */
   children: ReactNode;

@@ -2,8 +2,38 @@
  * SidebarGlass Core Components
  *
  * Layout components for building sidebars with glassmorphism effects.
- * 100% API compatible with shadcn/ui Sidebar.
+ * **100% API compatible with shadcn/ui Sidebar.**
  *
+ * ## Features
+ * - shadcn/ui Sidebar API compatibility
+ * - Theme-aware glassmorphism styling (glass/light/aurora)
+ * - Compound component API (13+ sub-components)
+ * - Three collapsible modes: offcanvas, icon, none
+ * - Three variants: sidebar (default), floating, inset
+ * - Left/right side positioning
+ * - Mobile drawer (automatic ModalGlass integration)
+ * - Keyboard shortcut (Cmd/Ctrl + B to toggle)
+ * - Cookie persistence for open/closed state
+ * - Nested submenu support
+ * - Loading skeletons
+ * - Badge notifications
+ *
+ * ## CSS Variables
+ * - `--sidebar-width` - Desktop width (default: `16rem`)
+ * - `--sidebar-width-mobile` - Mobile drawer width (default: `18rem`)
+ * - `--sidebar-width-icon` - Icon mode width (default: `3rem`)
+ * - `--sidebar-bg` - Background color
+ * - `--sidebar-border` - Border color
+ * - `--sidebar-primary` - Primary accent color
+ * - `--sidebar-primary-foreground` - Primary text color
+ * - `--sidebar-accent` - Hover background
+ * - `--sidebar-accent-foreground` - Hover text color
+ * - `--sidebar-ring` - Focus ring color
+ * - `--sidebar-glow` - Box shadow with glow effect
+ * - `--sidebar-backdrop-blur` - Backdrop blur amount
+ * - `--sidebar-foreground` - Text color
+ *
+ * @since v1.0.0
  * @module sidebar-glass
  */
 
