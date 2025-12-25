@@ -25,7 +25,7 @@
       "name": "switch-glass",
       "type": "registry:ui",
       "title": "Switch Glass",
-      "description": "Glass-themed switch component with shadcn/ui compatible API.\n * Built on @radix-ui/react-switch for accessibility and keyboard navigation.\n *\n * **shadcn/ui compatible props:**"
+      "description": "Glass-themed toggle switch with smooth animations and accessibility features.\n * Built on @radix-ui/react-switch for robust state management and keyboard navigation.\n *\n * ## Features"
     },
     {
       "name": "stepper-glass",
@@ -49,7 +49,7 @@
       "name": "sheet-glass",
       "type": "registry:ui",
       "title": "Sheet Glass",
-      "description": "SheetGlass Component (Radix UI Dialog-based)"
+      "description": "Glass-themed sheet/drawer component with full shadcn/ui Sheet API compatibility.\n * Slides in from top, right, bottom, or left edges with backdrop overlay and blur effects.\n *\n * ## Features"
     },
     {
       "name": "separator-glass",
@@ -61,25 +61,25 @@
       "name": "select-glass",
       "type": "registry:ui",
       "title": "Select Glass",
-      "description": "SelectGlass - Compound Component"
+      "description": "Glass-themed select dropdown with compound component API for flexible composition.\n * Built on @radix-ui/react-select for accessibility, keyboard navigation, and robust selection behavior.\n *\n * ## Features"
     },
     {
       "name": "scroll-area-glass",
       "type": "registry:ui",
       "title": "Scroll Area Glass",
-      "description": "A glass-themed ScrollArea component for custom scrollable containers.\n * Based on @radix-ui/react-scroll-area with glassmorphism styling.\n *\n * Issue #26: Feature request for ScrollAreaGlass\n *\n * @example\n * ```tsx\n * // Simple usage\n * <ScrollAreaGlass className=\"h-[400px]\">\n *   <div className=\"space-y-2\">\n *     {items.map(item => <Item key={item.id} {...item} />)}\n *   </div>\n * </ScrollAreaGlass>\n *\n * // With horizontal scrolling\n * <ScrollAreaGlass className=\"w-96\" orientation=\"horizontal\">\n *   <div className=\"flex space-x-4\">\n *     {items.map(item => <Card key={item.id} {...item} />)}\n *   </div>\n * </ScrollAreaGlass>\n *\n * // Both directions\n * <ScrollAreaGlass className=\"h-[400px] w-full\" orientation=\"both\">\n *   <LargeContent />\n * </ScrollAreaGlass>\n * ```"
+      "description": "Custom scrollable container with glass-themed scrollbars.\n * Built on @radix-ui/react-scroll-area for cross-browser consistency.\n *\n * ## Features"
     },
     {
       "name": "popover-glass",
       "type": "registry:ui",
       "title": "Popover Glass",
-      "description": "Floating glass-themed container for tooltips, dropdowns, and overlays with:"
+      "description": "Floating glass-themed container for tooltips, dropdowns, and contextual overlays.\n * Provides compound and legacy APIs for maximum flexibility.\n *\n * ## Features"
     },
     {
       "name": "notification-glass",
       "type": "registry:ui",
       "title": "Notification Glass",
-      "description": "Glass-themed toast notification with:"
+      "description": "Glass-themed toast notification with variant-based styling, icons, and dismiss functionality.\n * Provides visual feedback for user actions and system events.\n *\n * ## Features"
     },
     {
       "name": "modal-glass",
@@ -97,13 +97,13 @@
       "name": "hover-card-glass",
       "type": "registry:ui",
       "title": "Hover Card Glass",
-      "description": "Hover-triggered floating glass-themed container for rich content previews with:"
+      "description": "Hover-triggered floating glass-themed container for rich content previews.\n * Unlike PopoverGlass (click-triggered), HoverCardGlass opens on hover after a configurable delay.\n *\n * ## Features"
     },
     {
       "name": "glass-card",
       "type": "registry:ui",
       "title": "Glass Card",
-      "description": "Glass-themed container with:"
+      "description": "Glass-themed container with backdrop blur, glow effects, and hover animations.\n * Provides a foundational card component for glassmorphism UIs.\n *\n * ## Features"
     },
     {
       "name": "dropdown-menu-glass",
@@ -115,19 +115,19 @@
       "name": "dropdown-glass",
       "type": "registry:ui",
       "title": "Dropdown Glass",
-      "description": "Glass-themed dropdown menu with two APIs:\n *\n * 1. **Simple API** (items prop) - Quick setup for basic menus\n * 2. **Compound API** (DropdownMenuGlass.*) - Full shadcn/ui pattern for complex menus\n *\n * @example Simple API (recommended for basic dropdowns)\n * ```tsx\n * import { DropdownGlass } from '@/components/glass/ui/dropdown-glass';\n *\n * <DropdownGlass\n *   trigger={<button><MoreVertical /></button>}\n *   items={[\n *     { label: 'Edit', icon: Edit, onClick: handleEdit },\n *     { divider: true },\n *     { label: 'Delete', icon: Trash, onClick: handleDelete, danger: true }\n *   ]}\n * />\n * ```\n *\n * @example Compound API (for complex dropdowns)\n * ```tsx\n * import {\n *   DropdownMenuGlass,\n *   DropdownMenuGlassTrigger,\n *   DropdownMenuGlassContent,\n *   DropdownMenuGlassItem,\n *   DropdownMenuGlassSeparator,\n * } from '@/components/glass/ui/dropdown-menu-glass';\n *\n * <DropdownMenuGlass>\n *   <DropdownMenuGlassTrigger asChild>\n *     <Button>Open Menu</Button>\n *   </DropdownMenuGlassTrigger>\n *   <DropdownMenuGlassContent>\n *     <DropdownMenuGlassItem>Edit</DropdownMenuGlassItem>\n *     <DropdownMenuGlassSeparator />\n *     <DropdownMenuGlassItem variant=\"destructive\">Delete</DropdownMenuGlassItem>\n *   </DropdownMenuGlassContent>\n * </DropdownMenuGlass>\n * ```\n *\n * @see ./dropdown-menu-glass.tsx for compound component exports"
+      "description": "Glass-themed dropdown menu with simple and compound APIs for maximum flexibility.\n * Wrapper around DropdownMenuGlass for quick menu creation.\n *\n * ## Features"
     },
     {
       "name": "combobox-glass",
       "type": "registry:ui",
       "title": "Combobox Glass",
-      "description": "Glass-themed combobox (searchable select) with:"
+      "description": "Glass-themed combobox (searchable select) combining autocomplete and dropdown functionality.\n * Built on Radix UI Popover and cmdk for robust keyboard navigation and filtering.\n *\n * ## Features"
     },
     {
       "name": "circular-progress-glass",
       "type": "registry:ui",
       "title": "Circular Progress Glass",
-      "description": "SVG-based circular progress indicator with:"
+      "description": "SVG-based circular progress indicator with gradient colors and glow effects.\n * Supports both determinate (0-100%) and indeterminate (spinner) variants.\n *\n * ## Features"
     },
     {
       "name": "checkbox-glass",
