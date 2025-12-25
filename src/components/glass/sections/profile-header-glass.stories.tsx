@@ -32,8 +32,24 @@ The profile section blends with the background while the AI card stands out.`,
       control: 'text',
       description: 'Account creation date (ISO or formatted string)',
     },
+    bio: {
+      control: 'text',
+      description: 'User biography/description (Issue #30)',
+    },
+    location: {
+      control: 'text',
+      description: 'User location (Issue #30)',
+    },
+    avatar: {
+      control: 'text',
+      description: 'Avatar URL (Issue #30)',
+    },
+    url: {
+      control: 'text',
+      description: 'Profile URL (Issue #30)',
+    },
     stats: {
-      description: 'Profile statistics object `{ repos, followers, following }`',
+      description: 'Profile statistics object `{ repos, followers, following, gists? }`',
     },
     languages: {
       description: 'Programming languages array `[{ name, percent, color? }]`',
@@ -165,6 +181,39 @@ export const PolyglotDeveloper: Story = {
       { name: 'Ruby', percent: 8, color: '#701516' },
       { name: 'PHP', percent: 7, color: '#4F5D95' },
       { name: 'JavaScript', percent: 10, color: '#f7df1e' },
+    ],
+    onAIGenerate: fn(),
+  },
+  async play({ canvasElement }) {
+    await expect(canvasElement).toBeInTheDocument();
+  },
+};
+
+/**
+ * Issue #30: Full profile with extended fields
+ * Demonstrates bio, location, avatar, url, and gists support
+ */
+export const WithExtendedFields: Story = {
+  args: {
+    name: 'The Octocat',
+    username: 'octocat',
+    avatar: 'https://avatars.githubusercontent.com/u/583231?v=4',
+    bio: 'GitHub mascot and cat enthusiast. Lover of open source and collaborative coding.',
+    location: 'San Francisco, CA',
+    url: 'https://github.com/octocat',
+    joinDate: '2011-01-25T18:44:36Z',
+    stats: {
+      repos: 42,
+      followers: 12500,
+      following: 50,
+      gists: 25,
+    },
+    languages: [
+      { name: 'TypeScript', percent: 35, color: '#3178c6' },
+      { name: 'JavaScript', percent: 28, color: '#f7df1e' },
+      { name: 'Ruby', percent: 20, color: '#701516' },
+      { name: 'Go', percent: 12, color: '#00ADD8' },
+      { name: 'Shell', percent: 5, color: '#89e051' },
     ],
     onAIGenerate: fn(),
   },

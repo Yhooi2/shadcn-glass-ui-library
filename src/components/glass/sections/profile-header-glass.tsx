@@ -14,12 +14,17 @@ export interface ProfileStats {
   readonly repos?: number;
   readonly followers?: number;
   readonly following?: number;
+  readonly gists?: number;
 }
 
 export interface ProfileHeaderGlassProps extends React.HTMLAttributes<HTMLDivElement> {
   readonly name?: string;
   readonly username?: string;
   readonly joinDate?: string;
+  readonly bio?: string | null;
+  readonly location?: string | null;
+  readonly avatar?: string;
+  readonly url?: string;
   readonly stats?: ProfileStats;
   readonly languages?: readonly LanguageData[];
   readonly onAIGenerate?: () => void;
@@ -31,13 +36,32 @@ export interface ProfileHeaderGlassProps extends React.HTMLAttributes<HTMLDivEle
  * The profile header is rendered without glass background (transparent),
  * while AICardGlass retains its glass styling.
  *
+ * Layout (desktop ≥1024px):
+ * - ProfileHeaderExtendedGlass: 50% width (left half)
+ * - AICardGlass: centered in remaining 50% (right half)
+ *
  * @example
  * ```tsx
+ * // Basic usage
  * <ProfileHeaderGlass
  *   name="John Doe"
  *   username="johndoe"
  *   joinDate="Jan 2023"
  *   stats={{ repos: 42, followers: 100, following: 50 }}
+ *   languages={[{ name: "TypeScript", percent: 60 }]}
+ *   onAIGenerate={() => console.log("Generate AI summary")}
+ * />
+ *
+ * // With extended fields (Issue #30)
+ * <ProfileHeaderGlass
+ *   name="The Octocat"
+ *   username="octocat"
+ *   avatar="https://github.com/octocat.png"
+ *   bio="GitHub mascot and cat enthusiast"
+ *   location="San Francisco"
+ *   url="https://github.com/octocat"
+ *   joinDate="2011-01-25T18:44:36Z"
+ *   stats={{ repos: 42, followers: 1000, following: 50, gists: 10 }}
  *   languages={[{ name: "TypeScript", percent: 60 }]}
  *   onAIGenerate={() => console.log("Generate AI summary")}
  * />
@@ -49,6 +73,10 @@ export const ProfileHeaderGlass = forwardRef<HTMLDivElement, ProfileHeaderGlassP
       name = 'Artem Safronov',
       username = 'Yhooi2',
       joinDate = 'Jan 2023',
+      bio,
+      location,
+      avatar = '',
+      url = '#',
       stats = {},
       languages = [],
       onAIGenerate,
@@ -61,13 +89,16 @@ export const ProfileHeaderGlass = forwardRef<HTMLDivElement, ProfileHeaderGlassP
     const user = {
       name,
       login: username,
-      avatar: '', // No avatar URL - will use initials via ProfileAvatarGlass
-      url: '#',
+      avatar,
+      url,
       createdAt: joinDate,
+      bio,
+      location,
       stats: {
         repos: stats.repos ?? 11,
         followers: stats.followers ?? 1,
         following: stats.following ?? 5,
+        gists: stats.gists ?? 0,
       },
       languages,
     };

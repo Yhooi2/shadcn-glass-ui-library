@@ -60,7 +60,7 @@ hardcoded OKLCH values across all components.
 | **SplitLayoutGlass**           | Composite   | `src/components/glass/composite/split-layout-glass/`              | -     | Compound API, sticky scroll, master-detail   |
 | **SidebarGlass**               | Core UI     | `src/components/glass/ui/sidebar-glass/`                          | -     | Compound API, shadcn/ui compatible, rail     |
 | **HeaderNavGlass**             | Section     | `src/components/glass/sections/header-nav-glass.tsx`              | 6     | Navigation, search, theme                    |
-| **ProfileHeaderGlass**         | Section     | `src/components/glass/sections/profile-header-glass.tsx`          | 6     | Composite: Extended (transparent) + AICard   |
+| **ProfileHeaderGlass**         | Section     | `src/components/glass/sections/profile-header-glass.tsx`          | 10    | Composite: Extended (transparent) + AICard   |
 | **ProfileHeaderExtendedGlass** | Section     | `src/components/glass/sections/profile-header-extended-glass.tsx` | 10    | Extended profile, bio, location, transparent |
 | **CareerStatsGlass**           | Section     | `src/components/glass/sections/career-stats-glass.tsx`            | 5     | Career stats, year cards                     |
 | **FlagsSectionGlass**          | Section     | `src/components/glass/sections/flags-section-glass.tsx`           | 5     | Expandable flags/warnings                    |
@@ -1243,16 +1243,30 @@ search, theme toggle **Usage:**
 - `ProfileHeaderExtendedGlass` (transparent, no glass) - user info, avatar, stats, languages
 - `AICardGlass` (with glass effect) - AI summary generation card
 
-**Props:** | Prop | Type | Default | Description | |------|------|---------|-------------| | `name`
-| `string` | `"Artem Safronov"` | User's display name | | `username` | `string` | `"Yhooi2"` |
-GitHub/GitLab username | | `joinDate` | `string` | `"Jan 2023"` | Account creation date | | `stats`
-| `{ repos?, followers?, following? }` | `{}` | Profile statistics | | `languages` |
-`LanguageData[]` | `[]` | Programming languages | | `onAIGenerate` | `() => void` | - | Callback for
-AI report generation |
+**Layout (desktop ≥1024px):**
+
+- ProfileHeaderExtendedGlass: 50% width (left half)
+- AICardGlass: centered in remaining 50% (right half)
+
+**Props:**
+
+| Prop           | Type                                        | Default            | Description                |
+| -------------- | ------------------------------------------- | ------------------ | -------------------------- |
+| `name`         | `string`                                    | `"Artem Safronov"` | User's display name        |
+| `username`     | `string`                                    | `"Yhooi2"`         | GitHub/GitLab username     |
+| `joinDate`     | `string`                                    | `"Jan 2023"`       | Account creation date      |
+| `bio`          | `string \| null`                            | `undefined`        | User biography (Issue #30) |
+| `location`     | `string \| null`                            | `undefined`        | User location (Issue #30)  |
+| `avatar`       | `string`                                    | `""`               | Avatar URL (Issue #30)     |
+| `url`          | `string`                                    | `"#"`              | Profile URL (Issue #30)    |
+| `stats`        | `{ repos?, followers?, following?, gists?}` | `{}`               | Profile statistics         |
+| `languages`    | `LanguageData[]`                            | `[]`               | Programming languages      |
+| `onAIGenerate` | `() => void`                                | `undefined`        | Callback for AI report     |
 
 **Usage:**
 
 ```tsx
+// Basic usage
 <ProfileHeaderGlass
   name="Evan You"
   username="yyx990803"
@@ -1263,6 +1277,24 @@ AI report generation |
     { name: 'JavaScript', percent: 30, color: '#f7df1e' },
   ]}
   onAIGenerate={() => console.log('Generate AI report')}
+/>
+
+// With extended fields (Issue #30)
+<ProfileHeaderGlass
+  name="The Octocat"
+  username="octocat"
+  avatar="https://github.com/octocat.png"
+  bio="GitHub mascot and cat enthusiast"
+  location="San Francisco"
+  url="https://github.com/octocat"
+  joinDate="2011-01-25T18:44:36Z"
+  stats={{ repos: 42, followers: 1000, following: 50, gists: 10 }}
+  languages={[
+    { name: 'TypeScript', percent: 60, color: '#3178c6' },
+    { name: 'JavaScript', percent: 25, color: '#f7df1e' },
+    { name: 'CSS', percent: 15, color: '#1572b6' },
+  ]}
+  onAIGenerate={() => console.log('Generate AI summary')}
 />
 ```
 
