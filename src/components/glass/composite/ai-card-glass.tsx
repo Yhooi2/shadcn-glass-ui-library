@@ -1,7 +1,79 @@
-// ========================================
-// AI CARD GLASS COMPONENT
-// AI summary card with feature list
-// ========================================
+/**
+ * AICardGlass Component
+ *
+ * AI-themed interactive card with feature list and generate button.
+ * Designed for AI analysis, report generation, and ML-powered features.
+ *
+ * ## Features
+ * - AI-themed Sparkles icon with accent color
+ * - Customizable features list with checkmark icons (default: 3 items)
+ * - Generate button with Zap icon for action trigger
+ * - Estimated time display with Clock icon
+ * - Hover lift effect via InteractiveCard primitive
+ * - Responsive sizing (full-width on mobile, fixed width on desktop)
+ * - Theme-aware accent colors for icons and title
+ *
+ * ## CSS Variables
+ * - `--ai-card-bg` - Card background color
+ * - `--ai-card-border` - Card border color
+ * - `--ai-card-hover-glow` - Glow effect on hover
+ * - `--text-accent` - Accent color for title and Sparkles icon
+ * - `--text-secondary` - Description text color
+ * - `--text-muted` - Feature list and time text color
+ * - `--status-online` - Green checkmark color for features
+ *
+ * @example Basic usage
+ * ```tsx
+ * import { AICardGlass } from 'shadcn-glass-ui'
+ *
+ * function Dashboard() {
+ *   return (
+ *     <AICardGlass
+ *       onGenerate={() => console.log('Generating report...')}
+ *     />
+ *   )
+ * }
+ * ```
+ *
+ * @example Custom features and timing
+ * ```tsx
+ * <AICardGlass
+ *   features={[
+ *     'Security analysis',
+ *     'Performance metrics',
+ *     'Optimization suggestions',
+ *     'Dependency audit',
+ *   ]}
+ *   estimatedTime="~45 seconds"
+ *   onGenerate={handleGenerateReport}
+ * />
+ * ```
+ *
+ * @example With custom styling
+ * ```tsx
+ * <AICardGlass
+ *   className="lg:w-80"
+ *   onGenerate={() => setIsGenerating(true)}
+ * />
+ * ```
+ *
+ * @example Without generate handler
+ * ```tsx
+ * <AICardGlass
+ *   features={['Feature detection', 'Pattern recognition', 'Recommendations']}
+ * />
+ * // Button is still displayed but onClick is undefined
+ * ```
+ *
+ * @accessibility
+ * - ButtonGlass has built-in keyboard navigation (Enter/Space)
+ * - Sparkles icon includes implicit decorative role
+ * - High contrast icons (Sparkles, Check, Zap, Clock) for visual clarity
+ * - Responsive text sizing (2xs on mobile, xs on desktop)
+ * - Feature list uses semantic `<ul>` and `<li>` elements
+ *
+ * @since v1.0.0
+ */
 
 import { forwardRef } from 'react';
 import { Sparkles, Check, Zap, Clock } from 'lucide-react';
@@ -10,9 +82,74 @@ import { ButtonGlass } from '../ui/button-glass';
 import { InteractiveCard } from '../primitives';
 import '@/glass-theme.css';
 
+/**
+ * Props for AICardGlass component.
+ *
+ * Extends standard div attributes with AI card-specific props.
+ *
+ * @example
+ * ```tsx
+ * const props: AICardGlassProps = {
+ *   onGenerate: () => handleGenerateReport(),
+ *   features: ['Security audit', 'Performance analysis'],
+ *   estimatedTime: '~1 minute',
+ * };
+ * ```
+ */
 export interface AICardGlassProps extends React.HTMLAttributes<HTMLDivElement> {
+  /**
+   * Callback when generate button is clicked.
+   *
+   * Triggers the AI report generation or analysis action.
+   * Button remains visible even if undefined.
+   *
+   * @example
+   * ```tsx
+   * <AICardGlass
+   *   onGenerate={() => {
+   *     setIsLoading(true);
+   *     generateReport().then(setReport);
+   *   }}
+   * />
+   * ```
+   */
   readonly onGenerate?: () => void;
+
+  /**
+   * List of features included in the AI analysis.
+   *
+   * Each feature is displayed with a green checkmark icon.
+   * Defaults to: "Code quality assessment", "Architecture patterns", "Best practices".
+   *
+   * @default ['Code quality assessment', 'Architecture patterns', 'Best practices']
+   *
+   * @example
+   * ```tsx
+   * <AICardGlass
+   *   features={[
+   *     'Security analysis',
+   *     'Performance metrics',
+   *     'Code coverage',
+   *     'Dependency audit',
+   *   ]}
+   * />
+   * ```
+   */
   readonly features?: readonly string[];
+
+  /**
+   * Estimated time for report generation.
+   *
+   * Displayed below the generate button with a Clock icon.
+   *
+   * @default "~30 seconds"
+   *
+   * @example
+   * ```tsx
+   * <AICardGlass estimatedTime="~2 minutes" />
+   * <AICardGlass estimatedTime="< 1 minute" />
+   * ```
+   */
   readonly estimatedTime?: string;
 }
 

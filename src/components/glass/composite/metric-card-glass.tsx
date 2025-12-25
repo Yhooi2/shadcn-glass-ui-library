@@ -1,8 +1,96 @@
-// ========================================
-// METRIC CARD GLASS COMPONENT
-// Metric display card with progress, sparkline, and trend
-// Domain-specific composite component following shadcn/ui patterns
-// ========================================
+/**
+ * MetricCardGlass Component
+ *
+ * Rich metric display card with progress bars, sparklines, and trend indicators.
+ * Follows shadcn/ui variant system with Glass UI extensions for data visualization.
+ *
+ * ## Features
+ * - 5 semantic variants (default, secondary, success, warning, destructive)
+ * - Trend indicators with directional arrows (up/down/neutral)
+ * - Optional progress bar with gradient colors matched to variant
+ * - Optional sparkline chart for trend visualization
+ * - Flexible change display (string, number, or detailed MetricChange object)
+ * - Score ratio display (e.g., "85/100") via maxScore prop
+ * - Optional explain button with HelpCircle icon
+ * - Hover lift effect via InteractiveCard primitive
+ * - Responsive sizing (sm, md, lg text scales)
+ * - Theme-aware with per-variant CSS variables
+ *
+ * ## CSS Variables
+ * Per-variant variables (5 variants × 4 properties = 20 variables):
+ * - `--metric-default-bg`, `--metric-default-text`, `--metric-default-border`, `--metric-default-glow`
+ * - `--metric-secondary-bg`, `--metric-secondary-text`, `--metric-secondary-border`, `--metric-secondary-glow`
+ * - `--metric-success-bg`, `--metric-success-text`, `--metric-success-border`, `--metric-success-glow`
+ * - `--metric-warning-bg`, `--metric-warning-text`, `--metric-warning-border`, `--metric-warning-glow`
+ * - `--metric-destructive-bg`, `--metric-destructive-text`, `--metric-destructive-border`, `--metric-destructive-glow`
+ *
+ * @example Basic metric card (shadcn/ui style)
+ * ```tsx
+ * import { MetricCardGlass } from 'shadcn-glass-ui'
+ * import { DollarSign } from 'lucide-react'
+ *
+ * function Dashboard() {
+ *   return (
+ *     <MetricCardGlass
+ *       title="Total Revenue"
+ *       value="$45,231"
+ *       change="+12.5%"
+ *       variant="success"
+ *       icon={<DollarSign className="w-4 h-4" />}
+ *     />
+ *   )
+ * }
+ * ```
+ *
+ * @example With progress bar and sparkline
+ * ```tsx
+ * <MetricCardGlass
+ *   title="Completion Rate"
+ *   value="85%"
+ *   description="Project milestones"
+ *   change={{ value: 5.2, direction: 'up', period: 'vs last month' }}
+ *   variant="success"
+ *   progress={85}
+ *   sparklineData={[70, 75, 78, 80, 82, 84, 85]}
+ *   showProgress
+ *   showSparkline
+ * />
+ * ```
+ *
+ * @example Score ratio display
+ * ```tsx
+ * <MetricCardGlass
+ *   title="Test Coverage"
+ *   value={92}
+ *   maxScore={100}
+ *   description="Unit tests"
+ *   variant="success"
+ *   progress={92}
+ *   showProgress
+ * />
+ * // Displays: "92/100"
+ * ```
+ *
+ * @example With explain button
+ * ```tsx
+ * <MetricCardGlass
+ *   title="Trust Score"
+ *   value="85%"
+ *   onExplain={() => setShowExplanationModal(true)}
+ *   variant="default"
+ * />
+ * // Shows HelpCircle icon button next to value
+ * ```
+ *
+ * @accessibility
+ * - Trend icons include `aria-hidden="true"` (direction conveyed via text and color)
+ * - Explain button has descriptive `aria-label`: "Explain {title} metric"
+ * - Sparkline includes `aria-label` with metric title context
+ * - High contrast text colors meet WCAG 2.1 AA (4.5:1 ratio)
+ * - Trend colors use semantic alert CSS variables for consistency
+ *
+ * @since v1.0.0
+ */
 
 import { forwardRef, type CSSProperties, type ReactNode } from 'react';
 import { TrendingUp, TrendingDown, Minus, HelpCircle } from 'lucide-react';
@@ -58,35 +146,21 @@ export interface MetricTrend {
 }
 
 /**
- * MetricCardGlass Props
+ * Props for MetricCardGlass component.
  *
- * Follows shadcn/ui Card pattern with Glass UI extensions.
- * Compatible with AlertGlass, BadgeGlass, ButtonGlass variant system.
+ * Extends standard div attributes with metric-specific props.
+ * Follows shadcn/ui Card pattern with Glass UI extensions for data visualization.
  *
- * @example Simple usage (shadcn/ui style)
+ * @example
  * ```tsx
- * <MetricCardGlass
- *   title="Total Revenue"
- *   value="$45,231"
- *   change="+12.5%"
- *   variant="success"
- *   icon={<DollarSign />}
- * />
- * ```
- *
- * @example With progress and sparkline (Glass UI extensions)
- * ```tsx
- * <MetricCardGlass
- *   title="Completion Rate"
- *   value="85%"
- *   description="Project milestones"
- *   change={{ value: 5.2, direction: 'up', period: 'vs last month' }}
- *   variant="success"
- *   progress={85}
- *   sparklineData={[70, 75, 78, 80, 82, 84, 85]}
- *   showProgress
- *   showSparkline
- * />
+ * const props: MetricCardGlassProps = {
+ *   title: "Active Users",
+ *   value: "12,345",
+ *   change: { value: 8.2, direction: 'up', period: 'vs last week' },
+ *   variant: "success",
+ *   progress: 75,
+ *   showProgress: true,
+ * };
  * ```
  */
 export interface MetricCardGlassProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -94,38 +168,182 @@ export interface MetricCardGlassProps extends React.HTMLAttributes<HTMLDivElemen
   // CORE PROPS (shadcn/ui compatible)
   // ========================================
 
-  /** Metric title (shadcn/ui Card: title) */
+  /**
+   * Metric title displayed above the value.
+   *
+   * @example
+   * ```tsx
+   * <MetricCardGlass title="Total Revenue" value="$45,231" />
+   * ```
+   */
   readonly title: string;
 
-  /** Display value (shadcn/ui Card: value) */
+  /**
+   * Primary display value for the metric.
+   *
+   * Can be a string (e.g., "$45,231") or number (e.g., 85).
+   * If `maxScore` is provided, formats as ratio (e.g., "85/100").
+   *
+   * @example
+   * ```tsx
+   * <MetricCardGlass title="Revenue" value="$45,231" />
+   * <MetricCardGlass title="Score" value={85} maxScore={100} />
+   * // Second example displays: "85/100"
+   * ```
+   */
   readonly value: string | number;
 
-  /** Optional description/subtitle (shadcn/ui Card: description) */
+  /**
+   * Optional description or subtitle displayed below the title.
+   *
+   * @example
+   * ```tsx
+   * <MetricCardGlass
+   *   title="Completion Rate"
+   *   value="85%"
+   *   description="Project milestones"
+   * />
+   * ```
+   */
   readonly description?: string;
 
-  /** Change indicator (shadcn/ui: change). Can be string "+12.5%" or detailed object */
+  /**
+   * Change indicator showing metric trend.
+   *
+   * Accepts three formats:
+   * - String: "+12.5%", "-5.3", etc.
+   * - Number: 12.5, -5.3, etc.
+   * - MetricChange object: `{ value: 12.5, direction: 'up', period: 'vs last month' }`
+   *
+   * Direction is auto-detected from value if not explicitly set.
+   *
+   * @example
+   * ```tsx
+   * <MetricCardGlass title="Revenue" value="$1M" change="+12.5%" />
+   * <MetricCardGlass title="Sales" value="500" change={-5} />
+   * <MetricCardGlass
+   *   title="Users"
+   *   value="1,234"
+   *   change={{ value: 8.2, direction: 'up', period: 'vs last week' }}
+   * />
+   * ```
+   */
   readonly change?: string | number | MetricChange;
 
-  /** Semantic variant (follows AlertGlass, BadgeGlass pattern) */
+  /**
+   * Semantic variant defining color scheme.
+   *
+   * Follows shadcn/ui + Glass UI variant system:
+   * - `default`: Blue (primary metrics)
+   * - `secondary`: Gray (neutral metrics)
+   * - `success`: Green (positive metrics)
+   * - `warning`: Yellow (caution metrics)
+   * - `destructive`: Red (negative metrics)
+   *
+   * @default "default"
+   *
+   * @example
+   * ```tsx
+   * <MetricCardGlass title="Revenue" value="$1M" variant="success" />
+   * <MetricCardGlass title="Errors" value="23" variant="destructive" />
+   * ```
+   */
   readonly variant?: MetricVariant;
 
-  /** Icon to display */
+  /**
+   * Icon displayed next to the title.
+   *
+   * @example
+   * ```tsx
+   * import { DollarSign } from 'lucide-react'
+   *
+   * <MetricCardGlass
+   *   title="Revenue"
+   *   value="$1M"
+   *   icon={<DollarSign className="w-4 h-4" />}
+   * />
+   * ```
+   */
   readonly icon?: ReactNode;
 
   // ========================================
   // GLASS UI EXTENSIONS
   // ========================================
 
-  /** Data for sparkline visualization */
+  /**
+   * Data points for sparkline visualization.
+   *
+   * Array of numeric values rendered as a mini bar chart.
+   * Automatically highlights the maximum value.
+   *
+   * @example
+   * ```tsx
+   * <MetricCardGlass
+   *   title="Daily Sales"
+   *   value="$12,345"
+   *   sparklineData={[100, 120, 115, 130, 125, 140, 135]}
+   *   showSparkline
+   * />
+   * ```
+   */
   readonly sparklineData?: readonly number[];
 
-  /** Show sparkline chart */
+  /**
+   * Whether to display the sparkline chart.
+   *
+   * Requires `sparklineData` prop to be provided.
+   *
+   * @default true
+   *
+   * @example
+   * ```tsx
+   * <MetricCardGlass
+   *   title="Revenue"
+   *   value="$1M"
+   *   sparklineData={[70, 75, 80, 85, 90]}
+   *   showSparkline
+   * />
+   * ```
+   */
   readonly showSparkline?: boolean;
 
-  /** Show progress bar (requires progress prop) */
+  /**
+   * Whether to display the progress bar.
+   *
+   * Requires `progress` prop to be provided.
+   * Progress bar uses gradient colors matched to the variant.
+   *
+   * @default true
+   *
+   * @example
+   * ```tsx
+   * <MetricCardGlass
+   *   title="Goal Progress"
+   *   value="75%"
+   *   progress={75}
+   *   showProgress
+   *   variant="success"
+   * />
+   * ```
+   */
   readonly showProgress?: boolean;
 
-  /** Progress percentage (0-100, separate from display value) */
+  /**
+   * Progress percentage for the progress bar.
+   *
+   * Value between 0 and 100. If not provided, the component attempts
+   * to infer from `value` prop if it's a number in range 0-100.
+   *
+   * @example
+   * ```tsx
+   * <MetricCardGlass
+   *   title="Completion"
+   *   value="85%"
+   *   progress={85}
+   *   showProgress
+   * />
+   * ```
+   */
   readonly progress?: number;
 
   // ========================================
