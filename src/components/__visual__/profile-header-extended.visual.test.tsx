@@ -186,4 +186,16 @@ describe('ProfileHeaderExtendedGlass Visual Tests', () => {
       await expect(container).toMatchScreenshot(`profile-extended-with-actions-${theme}.png`);
     });
   });
+
+  // ==================== TEST 6: TRANSPARENT ====================
+
+  describe.each(THEMES)('Transparent - Theme: %s', (theme) => {
+    test(`profile-extended-transparent-${theme}`, async () => {
+      renderWithTheme(<ProfileHeaderExtendedGlass user={mockUsers.full} transparent />, theme);
+
+      await waitForStability();
+      const container = page.getByTestId('visual-test-container');
+      await expect(container).toMatchScreenshot(`profile-extended-transparent-${theme}.png`);
+    });
+  });
 });

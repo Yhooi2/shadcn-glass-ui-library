@@ -220,6 +220,12 @@
       "description": "Base progress bar component used as foundation for:"
     },
     {
+      "name": "animated-background-glass",
+      "type": "registry:component",
+      "title": "Animated Background Glass",
+      "description": "Animated gradient background with floating orbs for glassmorphism UIs.\n *\n * ## Features"
+    },
+    {
       "name": "trust-score-card-glass",
       "type": "registry:block",
       "title": "Trust Score Card Glass",

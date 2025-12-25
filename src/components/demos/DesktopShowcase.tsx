@@ -6,7 +6,7 @@
 import { useState } from 'react';
 import { Sun, Moon, Palette, ChevronDown, User, Settings, Folder, LogOut } from 'lucide-react';
 import { useTheme, type ThemeName } from '@/lib/theme-context';
-import { AnimatedBackground } from './AnimatedBackground';
+import { AnimatedBackground } from '@/components/glass/specialized/animated-background-glass';
 
 // Blocks
 import {

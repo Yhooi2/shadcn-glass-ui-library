@@ -276,6 +276,11 @@ export { RainbowProgressGlass } from './components/glass/specialized/rainbow-pro
 export { SegmentedControlGlass } from './components/glass/specialized/segmented-control-glass';
 export { SparklineGlass } from './components/glass/specialized/sparkline-glass';
 export { StatusIndicatorGlass } from './components/glass/specialized/status-indicator-glass';
+export {
+  AnimatedBackgroundGlass,
+  AnimatedBackground,
+} from './components/glass/specialized/animated-background-glass';
+export type { AnimatedBackgroundGlassProps } from './components/glass/specialized/animated-background-glass';
 
 // ========================================
 // COMPOSITE COMPONENTS (Level 4 - 14 components)

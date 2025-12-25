@@ -200,4 +200,39 @@ describe('ProfileHeaderExtendedGlass', () => {
       expect(screen.getByTestId('profile-header-extended')).toBeInTheDocument();
     });
   });
+
+  describe('Transparent Mode', () => {
+    it('renders with GlassCard by default (transparent=false)', () => {
+      const { container } = render(<ProfileHeaderExtendedGlass user={mockUser} />);
+      // GlassCard has data-slot="card" attribute
+      expect(container.querySelector('[data-slot="card"]')).toBeInTheDocument();
+    });
+
+    it('renders without GlassCard when transparent=true', () => {
+      const { container } = render(<ProfileHeaderExtendedGlass user={mockUser} transparent />);
+      // Should not have the GlassCard data-slot attribute
+      expect(container.querySelector('[data-slot="card"]')).not.toBeInTheDocument();
+    });
+
+    it('preserves className when transparent', () => {
+      const { container } = render(
+        <ProfileHeaderExtendedGlass user={mockUser} transparent className="custom-class" />
+      );
+      expect(container.firstChild).toHaveClass('custom-class');
+      expect(container.firstChild).toHaveClass('p-5');
+    });
+
+    it('forwards ref when transparent', () => {
+      const ref = vi.fn();
+      render(<ProfileHeaderExtendedGlass user={mockUser} transparent ref={ref} />);
+      expect(ref).toHaveBeenCalledWith(expect.any(HTMLDivElement));
+    });
+
+    it('spreads props when transparent', () => {
+      render(
+        <ProfileHeaderExtendedGlass user={mockUser} transparent data-testid="transparent-header" />
+      );
+      expect(screen.getByTestId('transparent-header')).toBeInTheDocument();
+    });
+  });
 });

@@ -32,6 +32,10 @@ const meta = {
     onAIGenerate: {
       description: 'Callback when AI generate button is clicked',
     },
+    transparent: {
+      control: 'boolean',
+      description: 'Removes glass background, renders as plain div. AICardGlass keeps its glass.',
+    },
   },
 } satisfies Meta<typeof ProfileHeaderGlass>;
 
@@ -159,6 +163,31 @@ export const MinimalStats: Story = {
       following: 0,
     },
     languages: [],
+    onAIGenerate: fn(),
+  },
+  async play({ canvasElement }) {
+    await expect(canvasElement).toBeInTheDocument();
+  },
+};
+
+export const Transparent: Story = {
+  args: {
+    name: 'Artem Safronov',
+    username: 'Yhooi2',
+    joinDate: 'Jan 2023',
+    stats: {
+      repos: 11,
+      followers: 1,
+      following: 5,
+    },
+    languages: [
+      { name: 'TypeScript', percent: 45 },
+      { name: 'JavaScript', percent: 25 },
+      { name: 'Python', percent: 15 },
+      { name: 'HTML', percent: 10 },
+      { name: 'CSS', percent: 5 },
+    ],
+    transparent: true,
     onAIGenerate: fn(),
   },
   async play({ canvasElement }) {

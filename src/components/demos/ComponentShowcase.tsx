@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { User, Settings, LogOut, ChevronDown } from 'lucide-react';
 
 import { useTheme, THEMES, THEME_CONFIG } from '@/lib/theme-context';
-import { AnimatedBackground } from './AnimatedBackground';
+import { AnimatedBackground } from '@/components/glass/specialized/animated-background-glass';
 
 // Blocks
 import {

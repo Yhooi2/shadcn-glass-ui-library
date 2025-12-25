@@ -26,6 +26,10 @@ const meta = {
     actions: {
       description: 'Custom action slot (React node)',
     },
+    transparent: {
+      control: 'boolean',
+      description: 'Removes glass background, renders as plain div',
+    },
   },
 } satisfies Meta<typeof ProfileHeaderExtendedGlass>;
 
@@ -277,6 +281,36 @@ export const LongBio: Story = {
         gists: 34,
       },
     },
+  },
+  async play({ canvasElement }) {
+    await expect(canvasElement).toBeInTheDocument();
+  },
+};
+
+export const Transparent: Story = {
+  args: {
+    user: {
+      name: 'Evan You',
+      login: 'yyx990803',
+      avatar: 'https://avatars.githubusercontent.com/u/499550?v=4',
+      url: 'https://github.com/yyx990803',
+      createdAt: '2011-11-29T08:07:38Z',
+      bio: 'Creator of Vue.js & Vite',
+      location: 'Singapore',
+      stats: {
+        repos: 156,
+        followers: 92500,
+        following: 0,
+        gists: 43,
+      },
+      languages: [
+        { name: 'TypeScript', percent: 55, color: '#3178c6' },
+        { name: 'JavaScript', percent: 30, color: '#f7df1e' },
+        { name: 'Vue', percent: 10, color: '#42b883' },
+        { name: 'HTML', percent: 5, color: '#e34c26' },
+      ],
+    },
+    transparent: true,
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();

@@ -49,6 +49,8 @@ export interface ProfileHeaderExtendedGlassProps extends React.HTMLAttributes<HT
   readonly status?: 'online' | 'offline' | 'away' | 'busy';
   /** Custom action slot (replaces default external link behavior) */
   readonly actions?: React.ReactNode;
+  /** Removes glass background, renders as plain div */
+  readonly transparent?: boolean;
 }
 
 /**
@@ -122,25 +124,29 @@ function getInitials(name: string | null, login: string): string {
 export const ProfileHeaderExtendedGlass = forwardRef<
   HTMLDivElement,
   ProfileHeaderExtendedGlassProps
->(({ user, showStatus = false, status = 'online', actions, className, ...props }, ref) => {
-  const displayName = user.name || user.login;
-  const stats = {
-    repos: 0,
-    followers: 0,
-    following: 0,
-    gists: 0,
-    ...user.stats,
-  };
+>(
+  (
+    {
+      user,
+      showStatus = false,
+      status = 'online',
+      actions,
+      transparent = false,
+      className,
+      ...props
+    },
+    ref
+  ) => {
+    const displayName = user.name || user.login;
+    const stats = {
+      repos: 0,
+      followers: 0,
+      following: 0,
+      gists: 0,
+      ...user.stats,
+    };
 
-  return (
-    <GlassCard
-      ref={ref}
-      className={cn('p-5', className)}
-      intensity="strong"
-      glow="violet"
-      hover={false}
-      {...props}
-    >
+    const content = (
       <div className="flex flex-col gap-4">
         {/* Top section: Avatar + Identity */}
         <div className="flex gap-4">
@@ -256,8 +262,29 @@ export const ProfileHeaderExtendedGlass = forwardRef<
           <LanguageBarGlass languages={user.languages} />
         )}
       </div>
-    </GlassCard>
-  );
-});
+    );
+
+    if (transparent) {
+      return (
+        <div ref={ref} className={cn('p-5', className)} {...props}>
+          {content}
+        </div>
+      );
+    }
+
+    return (
+      <GlassCard
+        ref={ref}
+        className={cn('p-5', className)}
+        intensity="strong"
+        glow="violet"
+        hover={false}
+        {...props}
+      >
+        {content}
+      </GlassCard>
+    );
+  }
+);
 
 ProfileHeaderExtendedGlass.displayName = 'ProfileHeaderExtendedGlass';
