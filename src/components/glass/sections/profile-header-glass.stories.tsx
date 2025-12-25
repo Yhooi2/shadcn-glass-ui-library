@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect } from 'storybook/test';
 import { fn } from 'storybook/test';
-import { ProfileHeaderGlass } from './profile-header-glass';
+import { ProfileHeaderGlass, type ExtendedProfileUser } from './profile-header-glass';
 
 const meta = {
   title: 'Components/Sections/ProfileHeaderGlass',
@@ -14,7 +14,27 @@ const meta = {
 - **ProfileHeaderExtendedGlass** (transparent, no glass) - user info, stats, languages
 - **AICardGlass** (with glass effect) - AI summary card
 
-The profile section blends with the background while the AI card stands out.`,
+The profile section blends with the background while the AI card stands out.
+
+## Compound Component API (Issue #31)
+
+For maximum flexibility, use the compound component pattern:
+
+\`\`\`tsx
+<ProfileHeaderGlass.Root layout="horizontal">
+  <ProfileHeaderGlass.Profile user={user} showStatus status="online" />
+  <ProfileHeaderGlass.AI
+    onGenerate={handleGenerate}
+    features={['Custom feature 1', 'Custom feature 2']}
+    estimatedTime="~1 minute"
+  />
+</ProfileHeaderGlass.Root>
+\`\`\`
+
+This allows:
+- Custom AICardGlass props (features, estimatedTime, className)
+- Replacing AICardGlass with a custom component entirely
+- Fine-grained control over layout and styling`,
       },
     },
   },
@@ -216,6 +236,129 @@ export const WithExtendedFields: Story = {
       { name: 'Shell', percent: 5, color: '#89e051' },
     ],
     onAIGenerate: fn(),
+  },
+  async play({ canvasElement }) {
+    await expect(canvasElement).toBeInTheDocument();
+  },
+};
+
+// ========================================
+// COMPOUND COMPONENT API STORIES (Issue #31)
+// ========================================
+
+const compoundUser: ExtendedProfileUser = {
+  name: 'Sarah Chen',
+  login: 'sarahchen',
+  avatar: 'https://avatars.githubusercontent.com/u/1234567?v=4',
+  url: 'https://github.com/sarahchen',
+  createdAt: '2020-03-15',
+  bio: 'Full-stack developer passionate about TypeScript and React. Building tools for developers.',
+  location: 'Seattle, WA',
+  stats: {
+    repos: 68,
+    followers: 2450,
+    following: 180,
+    gists: 12,
+  },
+  languages: [
+    { name: 'TypeScript', percent: 45, color: '#3178c6' },
+    { name: 'JavaScript', percent: 25, color: '#f7df1e' },
+    { name: 'Python', percent: 20, color: '#3572A5' },
+    { name: 'Go', percent: 10, color: '#00ADD8' },
+  ],
+};
+
+/**
+ * Compound Component API with custom AI features.
+ * Use `ProfileHeaderGlass.Root`, `.Profile`, and `.AI` for full control.
+ */
+export const CompoundAPICustomFeatures: Story = {
+  render: () => (
+    <ProfileHeaderGlass.Root layout="horizontal">
+      <ProfileHeaderGlass.Profile user={compoundUser} showStatus status="online" />
+      <ProfileHeaderGlass.AI
+        onGenerate={() => console.log('Generate custom report')}
+        features={['Code quality assessment', 'Security vulnerabilities', 'Performance insights']}
+        estimatedTime="~45 seconds"
+      />
+    </ProfileHeaderGlass.Root>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: `Demonstrates the **Compound Component API** with custom AI features.
+
+\`\`\`tsx
+<ProfileHeaderGlass.Root layout="horizontal">
+  <ProfileHeaderGlass.Profile user={user} showStatus status="online" />
+  <ProfileHeaderGlass.AI
+    features={['Custom feature 1', 'Custom feature 2']}
+    estimatedTime="~45 seconds"
+  />
+</ProfileHeaderGlass.Root>
+\`\`\``,
+      },
+    },
+  },
+  async play({ canvasElement }) {
+    await expect(canvasElement).toBeInTheDocument();
+  },
+};
+
+/**
+ * Compound API with stacked layout - vertical arrangement on all breakpoints
+ */
+export const CompoundAPIStackedLayout: Story = {
+  render: () => (
+    <ProfileHeaderGlass.Root layout="stacked">
+      <ProfileHeaderGlass.Profile user={compoundUser} showStatus status="away" />
+      <ProfileHeaderGlass.AI
+        onGenerate={() => console.log('Generate report')}
+        features={['Architecture analysis', 'Dependency audit', 'Best practices review']}
+        estimatedTime="~1 minute"
+      />
+    </ProfileHeaderGlass.Root>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: `Stacked layout - profile and AI card arranged vertically on all breakpoints.`,
+      },
+    },
+  },
+  async play({ canvasElement }) {
+    await expect(canvasElement).toBeInTheDocument();
+  },
+};
+
+/**
+ * Compound API with custom component replacing AICardGlass entirely
+ */
+export const CompoundAPICustomComponent: Story = {
+  render: () => (
+    <ProfileHeaderGlass.Root layout="horizontal">
+      <ProfileHeaderGlass.Profile user={compoundUser} showStatus status="online" />
+      <div className="lg:w-1/2 lg:flex lg:items-center lg:justify-center">
+        <div className="w-full sm:w-56 md:w-64 p-4 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/30 backdrop-blur-sm">
+          <h3 className="text-sm font-semibold text-purple-300 mb-2">Custom Analytics</h3>
+          <p className="text-xs text-gray-400 mb-3">
+            Replace the default AI card with your own component.
+          </p>
+          <button className="w-full px-3 py-2 text-xs font-medium bg-purple-500/20 hover:bg-purple-500/30 border border-purple-500/40 rounded-lg text-purple-200 transition-colors">
+            View Custom Analytics
+          </button>
+        </div>
+      </div>
+    </ProfileHeaderGlass.Root>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: `Demonstrates replacing AICardGlass entirely with a custom component.
+
+The compound API allows you to use any component in place of ProfileHeaderGlass.AI.`,
+      },
+    },
   },
   async play({ canvasElement }) {
     await expect(canvasElement).toBeInTheDocument();
