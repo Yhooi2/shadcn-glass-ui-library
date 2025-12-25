@@ -241,7 +241,7 @@
       "name": "profile-header-glass",
       "type": "registry:block",
       "title": "Profile Header Glass",
-      "description": "ProfileHeaderGlass - Composite component combining ProfileHeaderExtendedGlass + AICardGlass"
+      "description": "Layout mode for the profile header"
     },
     {
       "name": "profile-header-extended-glass",
