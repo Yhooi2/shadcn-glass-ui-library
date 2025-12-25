@@ -656,7 +656,7 @@ Full-featured page sections (GitHub Analytics pattern):
 
 - HeaderNavGlass - Navigation header with search and theme toggle
 - HeaderBrandingGlass - Header branding section
-- ProfileHeaderGlass - User profile header with avatar, stats, languages (`transparent` prop)
+- ProfileHeaderGlass - Composite: ProfileHeaderExtendedGlass (transparent) + AICardGlass
 - ProfileHeaderExtendedGlass - Extended profile header with GitHub-compatible fields (`transparent`
   prop)
 - CareerStatsGlass - Career statistics with expandable year cards

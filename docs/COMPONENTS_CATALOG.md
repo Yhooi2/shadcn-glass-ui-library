@@ -60,7 +60,7 @@ hardcoded OKLCH values across all components.
 | **SplitLayoutGlass**           | Composite   | `src/components/glass/composite/split-layout-glass/`              | -     | Compound API, sticky scroll, master-detail   |
 | **SidebarGlass**               | Core UI     | `src/components/glass/ui/sidebar-glass/`                          | -     | Compound API, shadcn/ui compatible, rail     |
 | **HeaderNavGlass**             | Section     | `src/components/glass/sections/header-nav-glass.tsx`              | 6     | Navigation, search, theme                    |
-| **ProfileHeaderGlass**         | Section     | `src/components/glass/sections/profile-header-glass.tsx`          | 7     | Profile, avatar, stats, langs, transparent   |
+| **ProfileHeaderGlass**         | Section     | `src/components/glass/sections/profile-header-glass.tsx`          | 6     | Composite: Extended (transparent) + AICard   |
 | **ProfileHeaderExtendedGlass** | Section     | `src/components/glass/sections/profile-header-extended-glass.tsx` | 10    | Extended profile, bio, location, transparent |
 | **CareerStatsGlass**           | Section     | `src/components/glass/sections/career-stats-glass.tsx`            | 5     | Career stats, year cards                     |
 | **FlagsSectionGlass**          | Section     | `src/components/glass/sections/flags-section-glass.tsx`           | 5     | Expandable flags/warnings                    |
@@ -1046,9 +1046,9 @@ language legend, color-coded **Usage:**
 ```tsx
 <LanguageBarGlass
   languages={[
-    { name: 'TypeScript', percentage: 45, color: '#3178c6' },
-    { name: 'JavaScript', percentage: 30, color: '#f7df1e' },
-    { name: 'CSS', percentage: 25, color: '#1572b6' },
+    { name: 'TypeScript', percent: 45, color: '#3178c6' },
+    { name: 'JavaScript', percent: 30, color: '#f7df1e' },
+    { name: 'CSS', percent: 25, color: '#1572b6' },
   ]}
 />
 ```
@@ -1234,28 +1234,73 @@ search, theme toggle **Usage:**
 
 #### ProfileHeaderGlass
 
-**File:** `src/components/glass/sections/profile-header-glass.tsx` **Features:** User profile,
-avatar, stats, languages, AI card **Props:** `transparent` - removes glass background **Usage:**
+**File:** `src/components/glass/sections/profile-header-glass.tsx`
+
+**Type:** Composite component
+
+**Structure:**
+
+- `ProfileHeaderExtendedGlass` (transparent, no glass) - user info, avatar, stats, languages
+- `AICardGlass` (with glass effect) - AI summary generation card
+
+**Props:** | Prop | Type | Default | Description | |------|------|---------|-------------| | `name`
+| `string` | `"Artem Safronov"` | User's display name | | `username` | `string` | `"Yhooi2"` |
+GitHub/GitLab username | | `joinDate` | `string` | `"Jan 2023"` | Account creation date | | `stats`
+| `{ repos?, followers?, following? }` | `{}` | Profile statistics | | `languages` |
+`LanguageData[]` | `[]` | Programming languages | | `onAIGenerate` | `() => void` | - | Callback for
+AI report generation |
+
+**Usage:**
 
 ```tsx
-// With glass background (default)
-<ProfileHeaderGlass user={userData} stats={userStats} languages={userLanguages} />
-
-// Without glass background
-<ProfileHeaderGlass user={userData} stats={userStats} languages={userLanguages} transparent />
+<ProfileHeaderGlass
+  name="Evan You"
+  username="yyx990803"
+  joinDate="2011-11-29"
+  stats={{ repos: 156, followers: 92500, following: 0 }}
+  languages={[
+    { name: 'TypeScript', percent: 55, color: '#3178c6' },
+    { name: 'JavaScript', percent: 30, color: '#f7df1e' },
+  ]}
+  onAIGenerate={() => console.log('Generate AI report')}
+/>
 ```
 
 #### ProfileHeaderExtendedGlass
 
-**File:** `src/components/glass/sections/profile-header-extended-glass.tsx` **Features:** Extended
-profile with GitHub/GitLab-compatible fields (bio, location, gists, actions slot) **Props:**
-`transparent` - removes glass background **Usage:**
+**File:** `src/components/glass/sections/profile-header-extended-glass.tsx`
+
+**Type:** Section component with optional glass background
+
+**Props:** | Prop | Type | Default | Description | |------|------|---------|-------------| | `user`
+| `ExtendedProfileUser` | required | User profile data object | | `showStatus` | `boolean` | `false`
+| Show avatar status indicator | | `status` | `'online' \| 'offline' \| 'away' \| 'busy'` |
+`'online'` | Avatar status | | `actions` | `ReactNode` | - | Custom action slot | | `transparent` |
+`boolean` | `false` | Remove glass background |
+
+**ExtendedProfileUser type:**
+
+```typescript
+interface ExtendedProfileUser {
+  name: string | null; // Display name
+  login: string; // Username
+  avatar: string; // Avatar URL
+  url: string; // Profile URL
+  createdAt: string; // Join date (ISO 8601)
+  bio?: string | null; // Biography
+  location?: string | null; // Location
+  stats?: { repos?; followers?; following?; gists? };
+  languages?: LanguageData[];
+}
+```
+
+**Usage:**
 
 ```tsx
 // With glass background (default)
 <ProfileHeaderExtendedGlass user={user} />
 
-// Without glass background
+// Without glass background (transparent)
 <ProfileHeaderExtendedGlass user={user} transparent />
 
 // With actions slot

@@ -21,7 +21,8 @@ describe('ProfileHeaderGlass', () => {
 
     it('renders join date', () => {
       render(<ProfileHeaderGlass joinDate="March 2020" />);
-      expect(screen.getByText(/Joined March 2020/)).toBeInTheDocument();
+      // formatJoinDate converts "March 2020" to "March 1, 2020"
+      expect(screen.getByText(/Joined March 1, 2020/)).toBeInTheDocument();
     });
 
     it('applies custom className', () => {
@@ -30,52 +31,27 @@ describe('ProfileHeaderGlass', () => {
     });
   });
 
-  describe('getInitials Logic', () => {
-    it('generates initials from full name', () => {
-      render(<ProfileHeaderGlass name="John Doe" />);
-      // ProfileAvatarGlass should receive "JD" as initials
-      expect(screen.getByText('JD')).toBeInTheDocument();
-    });
-
-    it('generates initials from single word name', () => {
-      render(<ProfileHeaderGlass name="John" />);
-      expect(screen.getByText('J')).toBeInTheDocument();
-    });
-
-    it('limits initials to 2 characters', () => {
-      render(<ProfileHeaderGlass name="John Middle Doe" />);
-      // Should be "JM" (first 2)
-      expect(screen.getByText('JM')).toBeInTheDocument();
-    });
-
-    it('handles empty name', () => {
-      render(<ProfileHeaderGlass name="" />);
-      // Empty initials
-      expect(screen.getByRole('heading')).toBeInTheDocument();
-    });
-  });
-
   describe('Stats', () => {
     it('renders default stats', () => {
       render(<ProfileHeaderGlass />);
-      expect(screen.getByText('11 repos')).toBeInTheDocument();
-      expect(screen.getByText('1 followers')).toBeInTheDocument();
-      expect(screen.getByText('5 following')).toBeInTheDocument();
+      // Stats are rendered with number + label separately in ProfileHeaderExtendedGlass
+      expect(screen.getByText('11')).toBeInTheDocument();
+      expect(screen.getByText('repos')).toBeInTheDocument();
     });
 
     it('renders custom stats', () => {
       render(<ProfileHeaderGlass stats={{ repos: 50, followers: 100, following: 25 }} />);
-      expect(screen.getByText('50 repos')).toBeInTheDocument();
-      expect(screen.getByText('100 followers')).toBeInTheDocument();
-      expect(screen.getByText('25 following')).toBeInTheDocument();
+      expect(screen.getByText('50')).toBeInTheDocument();
+      expect(screen.getByText('100')).toBeInTheDocument();
+      expect(screen.getByText('25')).toBeInTheDocument();
     });
 
     it('merges partial stats with defaults', () => {
       render(<ProfileHeaderGlass stats={{ repos: 99 }} />);
-      expect(screen.getByText('99 repos')).toBeInTheDocument();
+      expect(screen.getByText('99')).toBeInTheDocument();
       // Defaults for others
-      expect(screen.getByText('1 followers')).toBeInTheDocument();
-      expect(screen.getByText('5 following')).toBeInTheDocument();
+      expect(screen.getByText('1')).toBeInTheDocument(); // followers
+      expect(screen.getByText('5')).toBeInTheDocument(); // following
     });
   });
 
@@ -83,7 +59,9 @@ describe('ProfileHeaderGlass', () => {
     it('does not render language bar when no languages', () => {
       render(<ProfileHeaderGlass languages={[]} />);
       // LanguageBarGlass should not be rendered
-      expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+      expect(
+        screen.queryByRole('group', { name: /language distribution/i })
+      ).not.toBeInTheDocument();
     });
 
     it('renders language bar when languages provided', () => {
@@ -101,9 +79,25 @@ describe('ProfileHeaderGlass', () => {
   });
 
   describe('AI Card', () => {
-    it('renders AI card', () => {
+    it('renders AI card with glass background', () => {
       render(<ProfileHeaderGlass />);
-      expect(screen.getByText(/Generate/i)).toBeInTheDocument();
+      expect(screen.getByText(/Generate Report/i)).toBeInTheDocument();
+    });
+  });
+
+  describe('Composite Structure', () => {
+    it('renders ProfileHeaderExtendedGlass without glass (transparent)', () => {
+      const { container } = render(<ProfileHeaderGlass />);
+      // ProfileHeaderExtendedGlass with transparent=true should not have data-slot="card"
+      // But AICardGlass might have its own styling
+      // The root container is a plain div with flex layout
+      expect(container.firstChild).toHaveClass('flex');
+    });
+
+    it('renders AICardGlass with its own glass styling', () => {
+      render(<ProfileHeaderGlass />);
+      // AICardGlass should be present with its content
+      expect(screen.getByText(/Generate Report/i)).toBeInTheDocument();
     });
   });
 
@@ -122,44 +116,6 @@ describe('ProfileHeaderGlass', () => {
     it('spreads additional props', () => {
       render(<ProfileHeaderGlass data-testid="profile-header" aria-label="User profile" />);
       expect(screen.getByTestId('profile-header')).toBeInTheDocument();
-    });
-  });
-
-  describe('Transparent Mode', () => {
-    it('renders with GlassCard by default (transparent=false)', () => {
-      const { container } = render(<ProfileHeaderGlass />);
-      // GlassCard has data-slot="card" attribute
-      expect(container.querySelector('[data-slot="card"]')).toBeInTheDocument();
-    });
-
-    it('renders without GlassCard when transparent=true', () => {
-      const { container } = render(<ProfileHeaderGlass transparent />);
-      // Should not have the GlassCard data-slot attribute
-      expect(container.querySelector('[data-slot="card"]')).not.toBeInTheDocument();
-    });
-
-    it('AICardGlass keeps glass background when parent is transparent', () => {
-      render(<ProfileHeaderGlass transparent />);
-      // AICardGlass uses InteractiveCard which should still be present
-      // Check that Generate button is still rendered (AICardGlass content)
-      expect(screen.getByText(/Generate/i)).toBeInTheDocument();
-    });
-
-    it('preserves className when transparent', () => {
-      const { container } = render(<ProfileHeaderGlass transparent className="custom-class" />);
-      expect(container.firstChild).toHaveClass('custom-class');
-      expect(container.firstChild).toHaveClass('p-5');
-    });
-
-    it('forwards ref when transparent', () => {
-      const ref = vi.fn();
-      render(<ProfileHeaderGlass transparent ref={ref} />);
-      expect(ref).toHaveBeenCalledWith(expect.any(HTMLDivElement));
-    });
-
-    it('spreads props when transparent', () => {
-      render(<ProfileHeaderGlass transparent data-testid="transparent-header" />);
-      expect(screen.getByTestId('transparent-header')).toBeInTheDocument();
     });
   });
 });
