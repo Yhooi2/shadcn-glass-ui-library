@@ -2,7 +2,7 @@ import type { Preview } from '@storybook/react-vite';
 import React, { useEffect } from 'react';
 import { create } from 'storybook/theming';
 import { ThemeProvider, type Theme } from '../src/lib/theme-context';
-import { AnimatedBackground } from '../src/components/demos/AnimatedBackground';
+import { AnimatedBackground } from '../src/components/glass/specialized/animated-background-glass';
 import { TooltipGlassProvider } from '../src/components/glass/ui/tooltip-glass';
 import '../src/index.css';
 import '../src/glass-theme.css';
