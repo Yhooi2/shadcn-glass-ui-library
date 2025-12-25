@@ -8,16 +8,77 @@ const meta = {
   component: ScrollAreaGlass,
   parameters: {
     layout: 'centered',
+    docs: {
+      description: {
+        component: `
+Custom scrollable container with glass-themed scrollbars.
+
+## Features
+- **Glass-Styled Scrollbars:** Custom scrollbars with theme-aware glass styling
+- **Multi-Directional:** Supports vertical, horizontal, or bidirectional scrolling
+- **Auto-Hide Behavior:** Scrollbars fade in on hover, hide when inactive
+- **Cross-Browser Consistency:** Built on Radix UI for uniform behavior across browsers
+- **Keyboard Accessible:** Full keyboard navigation support (arrow keys, Page Up/Down, Home/End)
+- **Focus States:** Visible focus ring for keyboard users
+- **Smooth Transitions:** Animated scrollbar appearance and hover states
+- **Customizable:** Theme CSS variables for colors and effects
+
+## Usage Pattern
+Set a fixed height/width and let content overflow:
+
+\`\`\`tsx
+// Vertical scrolling
+<ScrollAreaGlass className="h-[400px]">
+  <div className="space-y-2">
+    {longList.map(item => <Item key={item.id} {...item} />)}
+  </div>
+</ScrollAreaGlass>
+
+// Horizontal scrolling
+<ScrollAreaGlass orientation="horizontal" className="w-96">
+  <div className="flex space-x-4">
+    {cards.map(card => <Card key={card.id} {...card} />)}
+  </div>
+</ScrollAreaGlass>
+
+// Both directions
+<ScrollAreaGlass orientation="both" className="h-96 w-full">
+  <LargeDataTable />
+</ScrollAreaGlass>
+\`\`\`
+
+## CSS Variables
+Customize via theme CSS:
+- \`--scroll-thumb-bg\`: Scrollbar thumb background color
+- \`--scroll-thumb-hover-bg\`: Scrollbar thumb hover background color
+- \`--scroll-thumb-border\`: Scrollbar thumb border color
+- \`--scroll-track-bg\`: Scrollbar track and corner background color
+        `,
+      },
+    },
   },
   tags: ['autodocs'],
   argTypes: {
     orientation: {
       control: 'select',
       options: ['vertical', 'horizontal', 'both'],
-      description: 'Which scrollbars to show',
+      description: 'Which scrollbars to display (vertical, horizontal, or both)',
       table: {
         type: { summary: "'vertical' | 'horizontal' | 'both'" },
-        defaultValue: { summary: 'vertical' },
+        defaultValue: { summary: "'vertical'" },
+      },
+    },
+    className: {
+      control: 'text',
+      description: 'Additional CSS classes (typically used for setting height/width)',
+      table: {
+        type: { summary: 'string' },
+      },
+    },
+    children: {
+      description: 'Content to be scrolled',
+      table: {
+        type: { summary: 'ReactNode' },
       },
     },
   },
@@ -43,7 +104,8 @@ const items = [
 ];
 
 /**
- * Default vertical scroll area with a list of tags
+ * Default vertical scrolling with a list of version tags.
+ * Demonstrates auto-hide scrollbar behavior and separator usage.
  */
 export const Default: Story = {
   render: () => (
@@ -73,7 +135,8 @@ export const Default: Story = {
 };
 
 /**
- * Horizontal scroll area for a gallery of items
+ * Horizontal scrolling for wide content.
+ * Use `orientation="horizontal"` for image galleries or card carousels.
  */
 export const Horizontal: Story = {
   render: () => (
@@ -103,7 +166,8 @@ export const Horizontal: Story = {
 };
 
 /**
- * Both vertical and horizontal scrolling for large content
+ * Bidirectional scrolling for large data tables.
+ * Use `orientation="both"` when content overflows in both dimensions.
  */
 export const Both: Story = {
   render: () => (
@@ -137,7 +201,8 @@ export const Both: Story = {
 };
 
 /**
- * Scroll area with a list of documentation items
+ * Interactive documentation list with hover states.
+ * Demonstrates combining ScrollAreaGlass with clickable items and proper spacing.
  */
 export const DocumentationList: Story = {
   render: () => (
@@ -170,7 +235,8 @@ export const DocumentationList: Story = {
 };
 
 /**
- * Scroll area in a card context
+ * ScrollAreaGlass inside a GlassCard with header and separator.
+ * Common pattern for activity feeds, notification lists, and sidebars.
  */
 export const InCard: Story = {
   render: () => (
@@ -224,7 +290,8 @@ export const InCard: Story = {
 };
 
 /**
- * Empty scroll area (no scrollbar when content fits)
+ * Content that fits without scrolling.
+ * ScrollAreaGlass automatically hides scrollbars when content doesn't overflow.
  */
 export const NoScrollNeeded: Story = {
   render: () => (
