@@ -1,11 +1,95 @@
 /**
  * NotificationGlass Component
  *
- * Glass-themed toast notification with:
- * - Theme-aware styling (glass/light/aurora)
- * - Type variants (info/success/warning/error)
- * - Glow effect on hover
- * - Dismissible
+ * Glass-themed toast notification with variant-based styling, icons, and dismiss functionality.
+ * Provides visual feedback for user actions and system events.
+ *
+ * ## Features
+ * - **shadcn/ui Compatible** - Variant API (default, destructive, success, warning)
+ * - **Theme-aware styling** - Works with all 3 themes (glass, light, aurora) via CSS variables
+ * - **Variant-specific icons** - Info (default), CheckCircle (success), AlertTriangle (warning), AlertCircle (error)
+ * - **Glow effects on hover** - Variant-specific glow colors (blue, green, yellow, red)
+ * - **Dismissible** - Close button with X icon
+ * - **Responsive sizing** - Different text/icon sizes for mobile and desktop
+ * - **ARIA support** - role="alert", aria-live="polite" for screen reader announcements
+ *
+ * ## CSS Variables
+ * Customize styling via theme CSS variables:
+ * - `--notification-bg` - Notification background color
+ * - `--notification-border` - Notification border color
+ * - `--notification-shadow` - Default box shadow
+ * - `--notification-info-color` - Info icon color (blue)
+ * - `--notification-info-icon-bg` - Info icon background
+ * - `--notification-info-glow` - Info hover glow
+ * - `--notification-success-color` - Success icon color (green)
+ * - `--notification-success-icon-bg` - Success icon background
+ * - `--notification-success-glow` - Success hover glow
+ * - `--notification-warning-color` - Warning icon color (yellow)
+ * - `--notification-warning-icon-bg` - Warning icon background
+ * - `--notification-warning-glow` - Warning hover glow
+ * - `--notification-error-color` - Error icon color (red)
+ * - `--notification-error-icon-bg` - Error icon background
+ * - `--notification-error-glow` - Error hover glow
+ * - `--text-primary`, `--text-secondary`, `--text-muted` - Text colors
+ *
+ * @example Basic usage (default variant)
+ * ```tsx
+ * import { NotificationGlass } from 'shadcn-glass-ui'
+ *
+ * function MyComponent() {
+ *   const [showNotif, setShowNotif] = useState(true)
+ *
+ *   return showNotif ? (
+ *     <NotificationGlass
+ *       variant="default"
+ *       title="New update available"
+ *       message="Version 2.0 is ready to install with new features."
+ *       onClose={() => setShowNotif(false)}
+ *     />
+ *   ) : null
+ * }
+ * ```
+ *
+ * @example Success notification
+ * ```tsx
+ * <NotificationGlass
+ *   variant="success"
+ *   title="Payment successful"
+ *   message="Your payment has been processed successfully."
+ *   onClose={() => console.log('Closed')}
+ * />
+ * ```
+ *
+ * @example Warning notification
+ * ```tsx
+ * <NotificationGlass
+ *   variant="warning"
+ *   title="Storage almost full"
+ *   message="You're using 90% of your available storage."
+ *   onClose={() => console.log('Closed')}
+ * />
+ * ```
+ *
+ * @example Destructive (error) notification
+ * ```tsx
+ * <NotificationGlass
+ *   variant="destructive"
+ *   title="Connection failed"
+ *   message="Unable to connect to the server. Please try again."
+ *   onClose={() => console.log('Closed')}
+ * />
+ * ```
+ *
+ * @accessibility
+ * - **Screen Readers:** role="alert" and aria-live="polite" announce notifications to screen readers
+ * - **Keyboard Navigation:** Close button is keyboard accessible (Tab to focus, Enter/Space to activate)
+ * - **Focus Management:** Close button receives focus outline on keyboard navigation
+ * - **ARIA Labels:** Close button has aria-label="Close notification" for screen readers
+ * - **Touch Targets:** Close button meets minimum 44x44px touch target (WCAG 2.5.5)
+ * - **Color Contrast:** All text and icons meet WCAG AA contrast ratio 4.5:1 minimum
+ * - **Motion:** Hover transform animation respects `prefers-reduced-motion` settings
+ *
+ * @since v1.0.0
  */
 
 import { forwardRef, type CSSProperties } from 'react';
@@ -34,16 +118,54 @@ const NOTIFICATION_ICONS = {
 // PROPS INTERFACE
 // ========================================
 
+/**
+ * Props for the NotificationGlass component.
+ *
+ * Toast notification with variant-based styling, icons, and dismiss functionality.
+ *
+ * @example
+ * ```tsx
+ * const props: NotificationGlassProps = {
+ *   variant: 'success',
+ *   title: 'Success',
+ *   message: 'Operation completed successfully',
+ *   onClose: () => console.log('Closed'),
+ * };
+ * ```
+ */
 export interface NotificationGlassProps
   extends
     Omit<React.HTMLAttributes<HTMLDivElement>, 'title' | 'style'>,
     VariantProps<typeof notificationVariants> {
+  /**
+   * Notification title displayed in bold.
+   */
   readonly title: string;
+
+  /**
+   * Notification message displayed below the title.
+   */
   readonly message: string;
-  /** Notification variant (shadcn/ui compatible) */
+
+  /**
+   * Notification variant (shadcn/ui compatible).
+   * - `default` - Info notification (blue)
+   * - `destructive` - Error notification (red)
+   * - `success` - Success notification (green)
+   * - `warning` - Warning notification (yellow)
+   *
+   * @default "default"
+   */
   readonly variant?: 'default' | 'destructive' | 'success' | 'warning';
-  /** @deprecated Use variant prop instead. Will be removed in next major version. */
+
+  /**
+   * @deprecated Use variant prop instead. Will be removed in next major version.
+   */
   readonly type?: NotificationType;
+
+  /**
+   * Callback function when the close button is clicked.
+   */
   readonly onClose: () => void;
 }
 

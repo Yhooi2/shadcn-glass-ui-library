@@ -7,22 +7,87 @@ const meta = {
   component: GlassCard,
   parameters: {
     layout: 'centered',
+    docs: {
+      description: {
+        component: `
+GlassCard is a foundational glass-themed container component with backdrop blur, glow effects, and hover animations.
+
+## Features
+
+- **Theme-aware styling** - Works with all 3 themes (glass, light, aurora) via CSS variables
+- **Configurable blur intensity** - subtle (8px), medium (16px), strong (24px)
+- **Optional glow effects** - blue, violet, cyan, or neutral
+- **Hover animations** - Scale and glow effects on hover
+- **Polymorphic rendering** - Use \`asChild\` to render as any element (links, buttons, articles)
+- **Padding variants** - none, sm, default, lg, xl
+- **Touch-friendly** - Minimum 44x44px for interactive use (WCAG 2.5.5)
+
+## Usage
+
+\`\`\`tsx
+import { GlassCard } from 'shadcn-glass-ui'
+
+<GlassCard intensity="medium" glow="blue">
+  <h3>Card Title</h3>
+  <p>Card content goes here</p>
+</GlassCard>
+\`\`\`
+
+## CSS Variables
+
+- \`--card-subtle-bg\`, \`--card-medium-bg\`, \`--card-strong-bg\` - Background colors
+- \`--card-subtle-border\`, \`--card-medium-border\`, \`--card-strong-border\` - Border colors
+- \`--card-hover-bg\`, \`--card-hover-border\`, \`--card-hover-glow\` - Hover states
+- \`--glow-blue\`, \`--glow-violet\`, \`--glow-cyan\`, \`--glow-neutral\` - Glow effects
+- \`--blur-sm\` (8px), \`--blur-md\` (16px), \`--blur-lg\` (24px) - Backdrop blur
+        `,
+      },
+    },
   },
   tags: ['autodocs'],
   argTypes: {
     intensity: {
       control: 'select',
       options: ['subtle', 'medium', 'strong'],
-      description: 'Glass intensity level',
+      description: 'Glass blur intensity level',
+      table: {
+        type: { summary: "'subtle' | 'medium' | 'strong'" },
+        defaultValue: { summary: 'medium' },
+      },
     },
     glow: {
       control: 'select',
       options: ['none', 'blue', 'violet', 'cyan'],
-      description: 'Glow effect color',
+      description: 'Glow effect color applied to card shadow',
+      table: {
+        type: { summary: "'blue' | 'violet' | 'cyan' | null" },
+        defaultValue: { summary: 'null (neutral glow)' },
+      },
     },
     hover: {
       control: 'boolean',
-      description: 'Enable hover effects',
+      description: 'Enable hover scale and glow effects',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'true' },
+      },
+    },
+    padding: {
+      control: 'select',
+      options: ['none', 'sm', 'default', 'lg', 'xl'],
+      description: 'Padding size variant',
+      table: {
+        type: { summary: "'none' | 'sm' | 'default' | 'lg' | 'xl'" },
+        defaultValue: { summary: 'default' },
+      },
+    },
+    asChild: {
+      control: 'boolean',
+      description: 'Render as child element instead of div (polymorphic rendering)',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
     },
   },
   args: {
@@ -34,6 +99,10 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+/**
+ * Default card with medium blur intensity and standard padding.
+ * Demonstrates the basic glassmorphism effect with backdrop blur and semi-transparent background.
+ */
 export const Default: Story = {
   args: {
     children: (
@@ -52,6 +121,9 @@ export const Default: Story = {
   },
 };
 
+/**
+ * Subtle blur intensity (8px) - lighter glass effect for less prominent cards.
+ */
 export const SubtleIntensity: Story = {
   args: {
     intensity: 'subtle',
@@ -71,6 +143,9 @@ export const SubtleIntensity: Story = {
   },
 };
 
+/**
+ * Strong blur intensity (24px) - more pronounced glass effect for featured cards.
+ */
 export const StrongIntensity: Story = {
   args: {
     intensity: 'strong',
@@ -90,6 +165,9 @@ export const StrongIntensity: Story = {
   },
 };
 
+/**
+ * Card with blue glow effect applied to the box shadow.
+ */
 export const BlueGlow: Story = {
   args: {
     glow: 'blue',
@@ -166,6 +244,9 @@ export const WithHover: Story = {
   },
 };
 
+/**
+ * Comparison of all glow variants (none, blue, violet, cyan).
+ */
 export const AllGlows: Story = {
   render: () => (
     <div className="flex gap-4">
@@ -188,6 +269,9 @@ export const AllGlows: Story = {
   },
 };
 
+/**
+ * Comparison of all blur intensity levels (subtle, medium, strong).
+ */
 export const AllIntensities: Story = {
   render: () => (
     <div className="flex gap-4">

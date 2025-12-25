@@ -2,10 +2,49 @@
  * DropdownMenuGlass - Compound Component
  *
  * Glass-themed dropdown menu following shadcn/ui compound component pattern.
- * Built on Radix UI primitives with unified glass styling.
+ * Built on Radix UI primitives with unified glass styling and full keyboard navigation.
+ *
+ * ## Features
+ * - **Compound Component API** - Root, Trigger, Content, Item, and more sub-components
+ * - **Radix UI Primitives** - Built on @radix-ui/react-dropdown-menu for robust accessibility
+ * - **Glassmorphism Styling** - Backdrop blur, glow effects, CSS variables
+ * - **Theme Support** - Works with all 3 themes (glass, light, aurora)
+ * - **shadcn/ui Compatible** - 100% API compatibility with shadcn/ui DropdownMenu
+ * - **Rich Features** - Checkboxes, radio groups, sub-menus, labels, separators, shortcuts
+ * - **Keyboard Accessible** - Full keyboard navigation (Tab, Arrow keys, Enter, Escape)
+ * - **Variant Support** - Default and destructive item variants
+ *
+ * ## Sub-Components
+ * - `DropdownMenuGlass` - Root context provider
+ * - `DropdownMenuGlassTrigger` - Opens menu when clicked (supports asChild)
+ * - `DropdownMenuGlassContent` - Main menu container with glass styling
+ * - `DropdownMenuGlassItem` - Individual menu item (supports variant prop)
+ * - `DropdownMenuGlassCheckboxItem` - Checkbox menu item with checked state
+ * - `DropdownMenuGlassRadioItem` - Radio button menu item
+ * - `DropdownMenuGlassRadioGroup` - Container for radio items
+ * - `DropdownMenuGlassLabel` - Label for menu sections
+ * - `DropdownMenuGlassSeparator` - Visual divider
+ * - `DropdownMenuGlassGroup` - Groups related items
+ * - `DropdownMenuGlassSub` - Sub-menu context
+ * - `DropdownMenuGlassSubTrigger` - Opens sub-menu
+ * - `DropdownMenuGlassSubContent` - Sub-menu content
+ * - `DropdownMenuGlassShortcut` - Keyboard shortcut display
+ *
+ * ## CSS Variables
+ * Customize styling via theme CSS variables:
+ * - `--dropdown-bg` - Menu background color
+ * - `--dropdown-border` - Menu border color
+ * - `--dropdown-glow` - Menu box shadow
+ * - `--dropdown-item-hover` - Item hover background
+ * - `--dropdown-item-danger` - Destructive item color
+ * - `--dropdown-item-danger-hover` - Destructive item hover background
+ * - `--text-primary`, `--text-secondary`, `--text-muted` - Text colors
+ * - `--blur-md` (16px) - Backdrop blur for menu
  *
  * @example Basic usage
  * ```tsx
+ * import { DropdownMenuGlass, DropdownMenuGlassTrigger, DropdownMenuGlassContent, DropdownMenuGlassItem } from 'shadcn-glass-ui'
+ *
  * <DropdownMenuGlass>
  *   <DropdownMenuGlassTrigger asChild>
  *     <Button>Open Menu</Button>
@@ -43,7 +82,48 @@
  * </DropdownMenuGlass>
  * ```
  *
+ * @example With keyboard shortcuts
+ * ```tsx
+ * <DropdownMenuGlassContent>
+ *   <DropdownMenuGlassItem>
+ *     <Copy className="mr-2 h-4 w-4" />
+ *     Copy
+ *     <DropdownMenuGlassShortcut>⌘C</DropdownMenuGlassShortcut>
+ *   </DropdownMenuGlassItem>
+ *   <DropdownMenuGlassItem>
+ *     <Paste className="mr-2 h-4 w-4" />
+ *     Paste
+ *     <DropdownMenuGlassShortcut>⌘V</DropdownMenuGlassShortcut>
+ *   </DropdownMenuGlassItem>
+ * </DropdownMenuGlassContent>
+ * ```
+ *
+ * @example With checkboxes
+ * ```tsx
+ * const [showStatusBar, setShowStatusBar] = useState(true)
+ *
+ * <DropdownMenuGlassContent>
+ *   <DropdownMenuGlassCheckboxItem
+ *     checked={showStatusBar}
+ *     onCheckedChange={setShowStatusBar}
+ *   >
+ *     Status Bar
+ *   </DropdownMenuGlassCheckboxItem>
+ * </DropdownMenuGlassContent>
+ * ```
+ *
+ * @accessibility
+ * - **Keyboard Navigation:** Full keyboard support with Tab, Arrow keys, Enter to select, Escape to close
+ * - **Focus Management:** Auto-focus on open, returns focus to trigger on close
+ * - **Screen Readers:** Proper ARIA attributes (role="menu", aria-haspopup, aria-expanded)
+ * - **Item Variants:** Destructive items have appropriate visual styling for dangerous actions
+ * - **Checkboxes/Radio:** Proper indicator icons and checked state announcements
+ * - **Sub-menus:** Arrow icon indicator and keyboard navigation support
+ * - **Touch Targets:** All items meet minimum 44x44px touch target (WCAG 2.5.5)
+ * - **Color Contrast:** All text meets WCAG AA contrast ratio 4.5:1 minimum
+ *
  * @see https://www.radix-ui.com/primitives/docs/components/dropdown-menu
+ * @since v1.0.0
  */
 
 'use client';
@@ -197,10 +277,42 @@ DropdownMenuGlassContent.displayName = 'DropdownMenuGlassContent';
 // ITEM
 // ========================================
 
+/**
+ * Props for DropdownMenuGlassItem component.
+ *
+ * Individual menu item with support for icons, variants, and keyboard shortcuts.
+ *
+ * @example
+ * ```tsx
+ * const props: DropdownMenuGlassItemProps = {
+ *   variant: 'destructive',
+ *   onSelect: () => handleDelete(),
+ *   children: (
+ *     <>
+ *       <Trash className="mr-2 h-4 w-4" />
+ *       Delete
+ *     </>
+ *   ),
+ * };
+ * ```
+ */
 export interface DropdownMenuGlassItemProps extends React.ComponentPropsWithoutRef<
   typeof DropdownMenuPrimitive.Item
 > {
+  /**
+   * Adds left padding to align with items that have icons.
+   *
+   * @default false
+   */
   inset?: boolean;
+
+  /**
+   * Visual variant of the menu item.
+   * - `default` - Standard menu item styling
+   * - `destructive` - Red styling for dangerous actions
+   *
+   * @default "default"
+   */
   variant?: 'default' | 'destructive';
 }
 

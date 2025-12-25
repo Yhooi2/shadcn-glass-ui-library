@@ -1,11 +1,97 @@
 /**
  * GlassCard Component
  *
- * Glass-themed container with:
- * - Theme-aware styling (glass/light/aurora)
- * - Configurable blur intensity
- * - Optional glow effects
- * - Hover animations
+ * Glass-themed container with backdrop blur, glow effects, and hover animations.
+ * Provides a foundational card component for glassmorphism UIs.
+ *
+ * ## Features
+ * - Theme-aware styling (glass/light/aurora) via CSS variables
+ * - Configurable blur intensity (subtle 8px, medium 16px, strong 24px)
+ * - Optional glow effects (blue, violet, cyan)
+ * - Hover animations with scale and glow effects
+ * - Polymorphic rendering via `asChild` (Radix UI Slot pattern)
+ * - Padding variants (none, sm, default, lg, xl)
+ * - Touch-friendly interactions (minimum 44x44px for interactive use)
+ *
+ * ## CSS Variables
+ * Customize styling via theme CSS variables:
+ * - `--card-subtle-bg`, `--card-medium-bg`, `--card-strong-bg` - Background colors
+ * - `--card-subtle-border`, `--card-medium-border`, `--card-strong-border` - Border colors
+ * - `--card-hover-bg`, `--card-hover-border`, `--card-hover-glow` - Hover states
+ * - `--glow-blue`, `--glow-violet`, `--glow-cyan`, `--glow-neutral` - Glow effects
+ * - `--blur-sm` (8px), `--blur-md` (16px), `--blur-lg` (24px) - Backdrop blur
+ *
+ * @example Basic card with medium intensity
+ * ```tsx
+ * import { GlassCard } from 'shadcn-glass-ui'
+ *
+ * function MyCard() {
+ *   return (
+ *     <GlassCard intensity="medium" className="p-6">
+ *       <h3>Card Title</h3>
+ *       <p>Card content goes here</p>
+ *     </GlassCard>
+ *   )
+ * }
+ * ```
+ *
+ * @example With glow effects
+ * ```tsx
+ * <GlassCard glow="blue" intensity="strong">
+ *   <h3>Highlighted Card</h3>
+ *   <p>This card has a blue glow effect</p>
+ * </GlassCard>
+ *
+ * <GlassCard glow="violet" hover={true}>
+ *   <h3>Interactive Card</h3>
+ *   <p>Hover over this card for effects</p>
+ * </GlassCard>
+ * ```
+ *
+ * @example As clickable link (asChild pattern)
+ * ```tsx
+ * <GlassCard asChild intensity="medium" hover={true}>
+ *   <a href="/product/123" aria-label="View product details">
+ *     <img src="/product.jpg" alt="Product" />
+ *     <h3>Product Name</h3>
+ *     <p>$99.99</p>
+ *   </a>
+ * </GlassCard>
+ *
+ * // With Next.js Link
+ * <GlassCard asChild>
+ *   <Link href="/dashboard">
+ *     <Dashboard className="w-6 h-6" />
+ *     <span>Go to Dashboard</span>
+ *   </Link>
+ * </GlassCard>
+ * ```
+ *
+ * @example Different intensity levels
+ * ```tsx
+ * <div className="grid grid-cols-3 gap-4">
+ *   <GlassCard intensity="subtle">
+ *     Subtle blur (8px)
+ *   </GlassCard>
+ *   <GlassCard intensity="medium">
+ *     Medium blur (16px)
+ *   </GlassCard>
+ *   <GlassCard intensity="strong">
+ *     Strong blur (24px)
+ *   </GlassCard>
+ * </div>
+ * ```
+ *
+ * @accessibility
+ * - **Keyboard Navigation:** When used with `asChild` as a link/button, inherits native keyboard support (Enter/Space activation)
+ * - **Focus Management:** Focus ring applied to child element when using `asChild` pattern with interactive elements
+ * - **Screen Readers:** Semantic HTML preserved via `asChild` - use appropriate elements (`<a>`, `<button>`, `<article>`)
+ * - **Hover State:** Hover effects are purely visual and do not affect functionality (progressive enhancement)
+ * - **Touch Targets:** When interactive, ensure child element meets minimum 44x44px touch target (WCAG 2.5.5)
+ * - **Color Contrast:** Card border and background meet WCAG AA contrast requirements, content contrast is consumer's responsibility
+ * - **Motion:** Hover scale animation respects `prefers-reduced-motion` settings via CSS transitions
+ *
+ * @since v1.0.0
  */
 
 import { forwardRef, type ReactNode, type CSSProperties } from 'react';
@@ -42,54 +128,15 @@ const blurMap: Record<IntensityType, string> = {
  * A glass-themed container with configurable blur, glow effects, and hover animations.
  * Features polymorphic rendering via `asChild` for semantic HTML flexibility.
  *
- * @accessibility
- * - **Keyboard Navigation:** When used with `asChild` as a link/button, inherits native keyboard support (Enter/Space activation)
- * - **Focus Management:** Focus ring applied to child element when using `asChild` pattern with interactive elements
- * - **Screen Readers:** Semantic HTML preserved via `asChild` - use appropriate elements (`<a>`, `<button>`, `<article>`)
- * - **Hover State:** Hover effects are purely visual and do not affect functionality (progressive enhancement)
- * - **Touch Targets:** When interactive, ensure child element meets minimum 44x44px touch target (WCAG 2.5.5)
- * - **Color Contrast:** Card border and background meet WCAG AA contrast requirements, content contrast is consumer's responsibility
- * - **Motion:** Hover scale animation respects `prefers-reduced-motion` settings via CSS transitions
- *
- * @example
+ * @example Basic usage
  * ```tsx
- * // Basic card
- * <GlassCard intensity="medium">Content</GlassCard>
- *
- * // As a clickable link with accessible name
- * <GlassCard asChild intensity="medium">
- *   <a href="/details" aria-label="View product details">
- *     <h3>Product Title</h3>
- *     <p>Description</p>
- *   </a>
- * </GlassCard>
- *
- * // Different intensity levels
- * <GlassCard intensity="subtle">Subtle blur</GlassCard>
- * <GlassCard intensity="medium">Standard blur</GlassCard>
- * <GlassCard intensity="strong">Heavy blur</GlassCard>
- *
- * // With glow effects
- * <GlassCard glow="blue">Blue glow card</GlassCard>
- * <GlassCard glow="violet">Violet glow card</GlassCard>
- * <GlassCard glow="cyan">Cyan glow card</GlassCard>
- *
- * // As a button (interactive) with role
- * <GlassCard asChild hover intensity="medium">
- *   <button onClick={handleClick} aria-label="Open settings">
- *     <Settings className="w-6 h-6" />
- *     <span>Settings</span>
- *   </button>
- * </GlassCard>
- *
- * // Article card with semantic HTML
- * <GlassCard asChild intensity="medium" padding="lg">
- *   <article>
- *     <header><h2>Article Title</h2></header>
- *     <p>Article content...</p>
- *     <footer>Published: Jan 1, 2025</footer>
- *   </article>
- * </GlassCard>
+ * const props: GlassCardProps = {
+ *   intensity: 'medium',
+ *   glow: 'blue',
+ *   hover: true,
+ *   padding: 'default',
+ *   children: <p>Content</p>,
+ * };
  * ```
  */
 export interface GlassCardProps
@@ -97,6 +144,7 @@ export interface GlassCardProps
   /**
    * Render as child element instead of div (polymorphic rendering).
    * Useful for making cards clickable links or custom interactive elements.
+   *
    * @default false
    * @example
    * ```tsx
@@ -107,8 +155,23 @@ export interface GlassCardProps
    */
   readonly asChild?: boolean;
 
+  /**
+   * Card content to display.
+   */
   readonly children: ReactNode;
+
+  /**
+   * Glow effect color applied to card shadow.
+   *
+   * @default null (neutral glow)
+   */
   readonly glow?: GlowType;
+
+  /**
+   * Padding size variant.
+   *
+   * @default "default"
+   */
   readonly padding?: PaddingType;
 }
 

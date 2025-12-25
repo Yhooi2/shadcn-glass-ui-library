@@ -115,6 +115,10 @@ type Story = StoryObj<typeof DropdownMenuGlass>;
 // BASIC EXAMPLES
 // ========================================
 
+/**
+ * Basic dropdown menu with items, separator, and destructive variant.
+ * Demonstrates the core functionality and glass styling.
+ */
 export const Basic: Story = {
   render: () => (
     <DropdownMenuGlass>
@@ -132,6 +136,10 @@ export const Basic: Story = {
   ),
 };
 
+/**
+ * Menu items with lucide-react icons positioned on the left.
+ * Icons are 16x16 (h-4 w-4) with right margin (mr-2) for spacing.
+ */
 export const WithIcons: Story = {
   render: () => (
     <DropdownMenuGlass>
@@ -164,6 +172,10 @@ export const WithIcons: Story = {
   ),
 };
 
+/**
+ * Menu items with keyboard shortcuts displayed on the right.
+ * Uses DropdownMenuGlassShortcut component with ml-auto for alignment.
+ */
 export const WithShortcuts: Story = {
   render: () => (
     <DropdownMenuGlass>
@@ -197,6 +209,10 @@ export const WithShortcuts: Story = {
   ),
 };
 
+/**
+ * Menu with labels and groups for organizing related items.
+ * Labels provide section headers, groups provide semantic grouping.
+ */
 export const WithLabels: Story = {
   render: () => (
     <DropdownMenuGlass>
@@ -241,6 +257,10 @@ export const WithLabels: Story = {
 // ADVANCED EXAMPLES
 // ========================================
 
+/**
+ * Menu with checkbox items for toggling boolean states.
+ * Uses DropdownMenuGlassCheckboxItem with checked/onCheckedChange props.
+ */
 export const WithCheckboxItems: Story = {
   render: () => {
     const [showStatusBar, setShowStatusBar] = useState(true);
@@ -273,6 +293,10 @@ export const WithCheckboxItems: Story = {
   },
 };
 
+/**
+ * Menu with radio group for selecting one option from multiple choices.
+ * Uses DropdownMenuGlassRadioGroup with value/onValueChange props.
+ */
 export const WithRadioGroup: Story = {
   render: () => {
     const [position, setPosition] = useState('bottom');
@@ -296,6 +320,10 @@ export const WithRadioGroup: Story = {
   },
 };
 
+/**
+ * Menu with nested sub-menus for hierarchical navigation.
+ * Uses DropdownMenuGlassSub, SubTrigger, and SubContent components.
+ */
 export const WithSubMenus: Story = {
   render: () => (
     <DropdownMenuGlass>
@@ -363,6 +391,15 @@ export const WithSubMenus: Story = {
   ),
 };
 
+/**
+ * Kitchen sink example demonstrating all DropdownMenuGlass features:
+ * - Items with icons and shortcuts
+ * - Checkbox items
+ * - Radio groups
+ * - Sub-menus
+ * - Labels and separators
+ * - Destructive variant
+ */
 export const Complex: Story = {
   name: 'Complex (Kitchen Sink)',
   render: () => {

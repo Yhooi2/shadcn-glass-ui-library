@@ -11,6 +11,47 @@ const meta = {
       // Enable visual snapshot testing
       disable: false,
     },
+    docs: {
+      description: {
+        component: `
+NotificationGlass is a glass-themed toast notification component with variant-based styling, icons, and dismiss functionality.
+
+## Features
+
+- **shadcn/ui Compatible** - Variant API (default, destructive, success, warning)
+- **Theme-aware styling** - Works with all 3 themes (glass, light, aurora) via CSS variables
+- **Variant-specific icons** - Info, CheckCircle, AlertTriangle, AlertCircle from lucide-react
+- **Glow effects on hover** - Variant-specific glow colors (blue, green, yellow, red)
+- **Dismissible** - Close button with X icon
+- **Responsive sizing** - Different text/icon sizes for mobile and desktop
+- **ARIA support** - role="alert", aria-live="polite" for screen reader announcements
+
+## Usage
+
+\`\`\`tsx
+import { NotificationGlass } from 'shadcn-glass-ui'
+
+const [showNotif, setShowNotif] = useState(true)
+
+{showNotif && (
+  <NotificationGlass
+    variant="success"
+    title="Payment successful"
+    message="Your payment has been processed successfully."
+    onClose={() => setShowNotif(false)}
+  />
+)}
+\`\`\`
+
+## Variants
+
+- **default** - Info notification with blue icon (Info icon)
+- **success** - Success notification with green icon (CheckCircle icon)
+- **warning** - Warning notification with yellow icon (AlertTriangle icon)
+- **destructive** - Error notification with red icon (AlertCircle icon)
+        `,
+      },
+    },
   },
   tags: ['autodocs'],
   argTypes: {
@@ -25,16 +66,22 @@ const meta = {
     },
     title: {
       control: 'text',
-      description: 'The notification title',
+      description: 'Notification title displayed in bold',
       table: {
         type: { summary: 'string' },
       },
     },
     message: {
       control: 'text',
-      description: 'The notification message',
+      description: 'Notification message displayed below the title',
       table: {
         type: { summary: 'string' },
+      },
+    },
+    onClose: {
+      description: 'Callback function when the close button is clicked',
+      table: {
+        type: { summary: '() => void' },
       },
     },
   },
@@ -52,6 +99,10 @@ type Story = StoryObj<typeof meta>;
 // Box-shadow: 0 8px 32px rgba(168,85,247,0.20), inset 0 1px 0 rgba(255,255,255,0.10)
 // ========================================
 
+/**
+ * Default variant (info) - Blue icon and glow effect.
+ * Used for general information and updates.
+ */
 export const Default: Story = {
   args: {
     variant: 'default',
@@ -66,6 +117,10 @@ export const Default: Story = {
   },
 };
 
+/**
+ * Success variant - Green CheckCircle icon and glow effect.
+ * Used for successful operations and positive feedback.
+ */
 export const Success: Story = {
   args: {
     variant: 'success',
@@ -80,6 +135,10 @@ export const Success: Story = {
   },
 };
 
+/**
+ * Warning variant - Yellow AlertTriangle icon and glow effect.
+ * Used for warnings and important notices.
+ */
 export const Warning: Story = {
   args: {
     variant: 'warning',
@@ -94,6 +153,10 @@ export const Warning: Story = {
   },
 };
 
+/**
+ * Destructive variant (error) - Red AlertCircle icon and glow effect.
+ * Used for errors and critical failures.
+ */
 export const Destructive: Story = {
   args: {
     variant: 'destructive',
@@ -141,6 +204,10 @@ export const LongContent: Story = {
 // ALL TYPES TOGETHER - Critical snapshot
 // ========================================
 
+/**
+ * All notification variants displayed together for visual comparison.
+ * Critical for preserving consistent glass theme styling across variants.
+ */
 export const AllVariants: Story = {
   render: (args) => (
     <div className="flex flex-col gap-4">
