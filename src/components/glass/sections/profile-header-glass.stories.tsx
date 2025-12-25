@@ -19,20 +19,6 @@ The profile section blends with the background while the AI card stands out.`,
     },
   },
   tags: ['autodocs'],
-  decorators: [
-    (Story) => (
-      <div
-        style={{
-          background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)',
-          padding: '2rem',
-          borderRadius: '1rem',
-          minWidth: '700px',
-        }}
-      >
-        <Story />
-      </div>
-    ),
-  ],
   argTypes: {
     name: {
       control: 'text',

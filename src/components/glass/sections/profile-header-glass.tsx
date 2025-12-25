@@ -75,17 +75,21 @@ export const ProfileHeaderGlass = forwardRef<HTMLDivElement, ProfileHeaderGlassP
     return (
       <div
         ref={ref}
-        className={cn('flex flex-col md:flex-row gap-3 md:gap-6', className)}
+        className={cn('flex flex-col lg:flex-row gap-3 lg:gap-0', className)}
         {...props}
       >
+        {/* Left half: ProfileHeaderExtendedGlass takes exactly 50% on desktop */}
         <ProfileHeaderExtendedGlass
           user={user}
           showStatus
           status="online"
           transparent
-          className="flex-1 p-0"
+          className="lg:w-1/2 lg:shrink-0 p-0"
         />
-        <AICardGlass onGenerate={onAIGenerate} />
+        {/* Right half: AICardGlass centered in the remaining 50% */}
+        <div className="lg:w-1/2 lg:flex lg:items-center lg:justify-center">
+          <AICardGlass onGenerate={onAIGenerate} />
+        </div>
       </div>
     );
   }
