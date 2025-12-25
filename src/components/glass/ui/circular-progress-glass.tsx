@@ -1,13 +1,78 @@
 /**
  * CircularProgressGlass Component
  *
- * SVG-based circular progress indicator with:
- * - Determinate and indeterminate variants
- * - Configurable size and thickness
- * - Glow effect with SVG filters
- * - Theme-aware styling
- * - Optional label in center
- * - Gradient colors support
+ * SVG-based circular progress indicator with gradient colors and glow effects.
+ * Supports both determinate (0-100%) and indeterminate (spinner) variants.
+ *
+ * ## Features
+ * - Determinate (0-100%) and indeterminate (spinner) variants
+ * - 4 sizes: sm (64px), md (96px), lg (128px), xl (160px)
+ * - 6 gradient colors: violet, blue, cyan, amber, emerald, rose
+ * - Configurable stroke thickness and track width
+ * - Optional center label (percentage or custom text)
+ * - SVG glow filters with 3 intensity levels (low, medium, high)
+ * - Smooth transitions with configurable animation duration
+ * - Theme-aware styling via CSS variables
+ * - Screen reader accessible with ARIA progressbar
+ *
+ * ## CSS Variables
+ * Customize colors via theme CSS variables:
+ * - `--progress-bg`: Progress bar background color
+ * - `--progress-glow`: Default glow color
+ * - `--progress-glow-violet`: Glow for violet gradient
+ * - `--progress-glow-blue`: Glow for blue gradient
+ * - `--progress-glow-cyan`: Glow for cyan gradient
+ * - `--progress-glow-amber`: Glow for amber gradient
+ * - `--progress-glow-emerald`: Glow for emerald gradient
+ * - `--progress-glow-rose`: Glow for rose gradient
+ *
+ * @example Determinate progress with default settings
+ * ```tsx
+ * import { CircularProgressGlass } from 'shadcn-glass-ui'
+ *
+ * function UploadProgress() {
+ *   const [progress, setProgress] = React.useState(0)
+ *
+ *   return (
+ *     <CircularProgressGlass value={progress} color="violet" />
+ *   )
+ * }
+ * ```
+ *
+ * @example Indeterminate spinner
+ * ```tsx
+ * <CircularProgressGlass variant="indeterminate" showLabel={false} />
+ * ```
+ *
+ * @example With custom label and color
+ * ```tsx
+ * <CircularProgressGlass
+ *   value={75}
+ *   label="Loading..."
+ *   color="emerald"
+ *   showLabel={true}
+ * />
+ * ```
+ *
+ * @example Large size with high glow intensity
+ * ```tsx
+ * <CircularProgressGlass
+ *   value={80}
+ *   size="xl"
+ *   color="cyan"
+ *   glowIntensity="high"
+ *   thickness={12}
+ * />
+ * ```
+ *
+ * @accessibility
+ * - Uses ARIA `role="progressbar"` for screen reader support
+ * - Provides `aria-valuenow`, `aria-valuemin`, `aria-valuemax` for determinate variant
+ * - Includes `aria-label` and `aria-valuetext` for context
+ * - Visual indicator uses `aria-hidden="true"` (screen readers use hidden progressbar)
+ * - Custom label text overrides default percentage announcement
+ *
+ * @since v1.0.0
  */
 
 import { forwardRef, useMemo, useId } from 'react';
@@ -39,35 +104,171 @@ const circularProgressVariants = cva('relative inline-flex items-center justify-
 
 export type CircularProgressGradient = 'violet' | 'blue' | 'cyan' | 'amber' | 'emerald' | 'rose';
 
+/**
+ * Props for CircularProgressGlass component.
+ *
+ * Extends standard div attributes (excluding `children`) with progress-specific props.
+ *
+ * @example
+ * ```tsx
+ * const props: CircularProgressGlassProps = {
+ *   value: 75,
+ *   variant: 'determinate',
+ *   size: 'lg',
+ *   color: 'violet',
+ *   showLabel: true,
+ *   glowIntensity: 'medium',
+ * };
+ * ```
+ */
 export interface CircularProgressGlassProps
   extends
     Omit<React.HTMLAttributes<HTMLDivElement>, 'children'>,
     VariantProps<typeof circularProgressVariants> {
-  /** Progress value (0-100) for determinate variant */
+  /**
+   * Progress value (0-100) for determinate variant.
+   * Values outside this range are clamped automatically.
+   *
+   * @default 0
+   * @example
+   * ```tsx
+   * <CircularProgressGlass value={65} />
+   * ```
+   */
   readonly value?: number;
-  /** Variant type */
+
+  /**
+   * Variant type.
+   * - `determinate`: Shows specific progress from 0-100%
+   * - `indeterminate`: Spinning animation for unknown duration
+   *
+   * @default 'determinate'
+   * @example
+   * ```tsx
+   * <CircularProgressGlass variant="indeterminate" />
+   * ```
+   */
   readonly variant?: 'determinate' | 'indeterminate';
-  /** Stroke width in pixels */
+
+  /**
+   * Stroke width in pixels for the progress circle.
+   *
+   * @default 8
+   * @example
+   * ```tsx
+   * <CircularProgressGlass thickness={12} />
+   * ```
+   */
   readonly thickness?: number;
-  /** Background track width in pixels */
+
+  /**
+   * Background track width in pixels.
+   *
+   * @default 8
+   * @example
+   * ```tsx
+   * <CircularProgressGlass trackWidth={10} />
+   * ```
+   */
   readonly trackWidth?: number;
-  /** Progress color gradient */
+
+  /**
+   * Progress color gradient.
+   *
+   * @default 'violet'
+   * @example
+   * ```tsx
+   * <CircularProgressGlass color="emerald" />
+   * ```
+   */
   readonly color?: CircularProgressGradient;
-  /** Track color (background circle) */
+
+  /**
+   * Track color (background circle).
+   *
+   * @default 'oklch(100% 0 0 / 0.1)'
+   * @example
+   * ```tsx
+   * <CircularProgressGlass trackColor="oklch(0% 0 0 / 0.2)" />
+   * ```
+   */
   readonly trackColor?: string;
-  /** Show percentage label in center */
+
+  /**
+   * Show percentage label in center.
+   *
+   * @default true
+   * @example
+   * ```tsx
+   * <CircularProgressGlass showLabel={false} />
+   * ```
+   */
   readonly showLabel?: boolean;
-  /** Custom label text (overrides percentage) */
+
+  /**
+   * Custom label text (overrides percentage).
+   *
+   * @default undefined (shows percentage if showLabel is true)
+   * @example
+   * ```tsx
+   * <CircularProgressGlass label="Loading..." />
+   * ```
+   */
   readonly label?: string;
-  /** Custom color for the center label text */
+
+  /**
+   * Custom color for the center label text.
+   *
+   * @default undefined (uses gradient 'to' color)
+   * @example
+   * ```tsx
+   * <CircularProgressGlass labelColor="oklch(100% 0 0)" />
+   * ```
+   */
   readonly labelColor?: string;
-  /** Show glow effect */
+
+  /**
+   * Show glow effect using SVG filters.
+   *
+   * @default true
+   * @example
+   * ```tsx
+   * <CircularProgressGlass showGlow={false} />
+   * ```
+   */
   readonly showGlow?: boolean;
-  /** Glow intensity */
+
+  /**
+   * Glow intensity level.
+   *
+   * @default 'medium'
+   * @example
+   * ```tsx
+   * <CircularProgressGlass glowIntensity="high" />
+   * ```
+   */
   readonly glowIntensity?: 'low' | 'medium' | 'high';
-  /** Stroke linecap style */
+
+  /**
+   * Stroke linecap style.
+   *
+   * @default 'round'
+   * @example
+   * ```tsx
+   * <CircularProgressGlass strokeLinecap="butt" />
+   * ```
+   */
   readonly strokeLinecap?: 'round' | 'butt' | 'square';
-  /** Animation duration in seconds */
+
+  /**
+   * Animation duration in seconds for value transitions.
+   *
+   * @default 1
+   * @example
+   * ```tsx
+   * <CircularProgressGlass animationDuration={0.5} />
+   * ```
+   */
   readonly animationDuration?: number;
 }
 

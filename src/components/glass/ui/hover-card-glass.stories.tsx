@@ -20,8 +20,62 @@ const meta = {
     },
     docs: {
       description: {
-        component:
-          'Hover-triggered floating glass-themed container for rich content previews. Unlike PopoverGlass (click-triggered), HoverCardGlass opens on hover.',
+        component: `
+Hover-triggered floating glass-themed container for rich content previews. Unlike PopoverGlass (click-triggered), HoverCardGlass opens on hover after a configurable delay.
+
+## Features
+- Hover-triggered (vs click for PopoverGlass)
+- Configurable delays: openDelay (200ms) and closeDelay (100ms)
+- Arrow pointer with glass styling (shown by default)
+- 12 positioning options: 4 sides × 3 alignments
+- Fade animations with slide-in effects
+- Portal rendering (always in document.body)
+- Compound component API (recommended)
+- Legacy API for backward compatibility
+- Theme-aware glass styling via CSS variables
+- 100% shadcn/ui compatible API
+
+## Sub-Components
+- **HoverCardGlass / HoverCard**: Root component with delay configuration
+- **HoverCardGlassTrigger / HoverCardTrigger**: Element that triggers hover (supports asChild)
+- **HoverCardGlassContent / HoverCardContent**: Content container with glass styling and arrow
+
+## CSS Variables
+- \`--hovercard-bg\`: Card background color (glass effect)
+- \`--hovercard-border\`: Card border color
+- \`--hovercard-shadow\`: Card shadow/glow effect
+- \`--hovercard-arrow-bg\`: Arrow pointer background color
+
+## Usage Pattern
+\`\`\`tsx
+// User preview card
+<HoverCardGlass openDelay={200} closeDelay={100}>
+  <HoverCardGlassTrigger asChild>
+    <span className="underline">@shadcn</span>
+  </HoverCardGlassTrigger>
+  <HoverCardGlassContent side="bottom" align="start">
+    <div className="flex gap-4">
+      <Avatar src="..." />
+      <div>
+        <h4>shadcn</h4>
+        <p>Creator of shadcn/ui</p>
+      </div>
+    </div>
+  </HoverCardGlassContent>
+</HoverCardGlass>
+
+// Link preview
+<HoverCardGlass>
+  <HoverCardGlassTrigger asChild>
+    <a href="https://github.com">GitHub</a>
+  </HoverCardGlassTrigger>
+  <HoverCardGlassContent>
+    <h4>GitHub</h4>
+    <p>Where developers shape the future of software</p>
+  </HoverCardGlassContent>
+</HoverCardGlass>
+\`\`\`
+        `,
       },
     },
   },
@@ -30,27 +84,51 @@ const meta = {
       control: 'select',
       options: ['top', 'right', 'bottom', 'left'],
       description: 'The preferred side of the trigger to render against',
+      table: {
+        type: { summary: "'top' | 'right' | 'bottom' | 'left'" },
+        defaultValue: { summary: "'bottom'" },
+      },
     },
     align: {
       control: 'select',
       options: ['start', 'center', 'end'],
       description: 'The preferred alignment against the trigger',
+      table: {
+        type: { summary: "'start' | 'center' | 'end'" },
+        defaultValue: { summary: "'center'" },
+      },
     },
     sideOffset: {
       control: 'number',
       description: 'The distance in pixels from the trigger',
+      table: {
+        type: { summary: 'number' },
+        defaultValue: { summary: '8' },
+      },
     },
     openDelay: {
       control: 'number',
       description: 'Delay in milliseconds before the hover card opens',
+      table: {
+        type: { summary: 'number' },
+        defaultValue: { summary: '200' },
+      },
     },
     closeDelay: {
       control: 'number',
       description: 'Delay in milliseconds before the hover card closes',
+      table: {
+        type: { summary: 'number' },
+        defaultValue: { summary: '100' },
+      },
     },
     showArrow: {
       control: 'boolean',
       description: 'Whether to show the arrow pointer',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'true' },
+      },
     },
   },
   decorators: [
@@ -69,6 +147,10 @@ type Story = StoryObj<typeof meta>;
 // BASIC HOVER CARD
 // ========================================
 
+/**
+ * Basic hover card with user profile preview.
+ * Displays avatar, name, description, and joined date.
+ */
 export const Default: Story = {
   args: {
     trigger: (
@@ -113,6 +195,10 @@ export const Default: Story = {
 // USER PROFILE PREVIEW
 // ========================================
 
+/**
+ * Extended user profile preview with follower/repo counts.
+ * Common use case: GitHub-style user mentions.
+ */
 export const UserProfile: Story = {
   args: {
     trigger: (
@@ -162,6 +248,10 @@ export const UserProfile: Story = {
 // LINK PREVIEW
 // ========================================
 
+/**
+ * Link preview card with site metadata.
+ * Common use case: Rich link previews, social media style.
+ */
 export const LinkPreview: Story = {
   args: {
     trigger: (
@@ -206,6 +296,10 @@ export const LinkPreview: Story = {
 // POSITIONS
 // ========================================
 
+/**
+ * Demonstration of all 4 positioning options: top, right, bottom, left.
+ * Each position adapts to available screen space.
+ */
 export const Positions: Story = {
   args: {
     trigger: <div>Trigger</div>,
@@ -282,6 +376,10 @@ export const Positions: Story = {
 // CUSTOM DELAYS
 // ========================================
 
+/**
+ * Custom delay configuration: slow to open (500ms), fast to close (50ms).
+ * Prevents accidental triggers while allowing quick dismissal.
+ */
 export const CustomDelays: Story = {
   args: {
     trigger: (
@@ -312,6 +410,10 @@ export const CustomDelays: Story = {
 // NO ARROW
 // ========================================
 
+/**
+ * Hover card without arrow pointer.
+ * Cleaner appearance for certain design styles.
+ */
 export const NoArrow: Story = {
   args: {
     trigger: (
@@ -341,6 +443,10 @@ export const NoArrow: Story = {
 // COMPOUND API EXAMPLE
 // ========================================
 
+/**
+ * Using the compound component API (recommended approach).
+ * Provides more flexibility and better tree-shaking.
+ */
 export const CompoundAPI: Story = {
   args: {
     trigger: <div>Trigger</div>,
@@ -389,6 +495,10 @@ export const CompoundAPI: Story = {
 // OPENED STATE TESTS
 // ========================================
 
+/**
+ * Hover card in opened state for visual testing.
+ * Automatically opens on hover with 0ms delay.
+ */
 export const Opened: Story = {
   args: {
     trigger: (
@@ -438,6 +548,10 @@ export const Opened: Story = {
   },
 };
 
+/**
+ * Hover card positioned on the right side in opened state.
+ * Visual test for right-side positioning.
+ */
 export const OpenedRightSide: Story = {
   args: {
     trigger: (

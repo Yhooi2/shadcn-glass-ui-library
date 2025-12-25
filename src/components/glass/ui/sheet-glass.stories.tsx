@@ -24,72 +24,69 @@ const meta: Meta<typeof SheetGlass.Root> = {
     docs: {
       description: {
         component: `
-SheetGlass is a glass-themed sheet/drawer component with full shadcn/ui Sheet API compatibility.
+Glass-themed sheet/drawer component with full shadcn/ui Sheet API compatibility. Slides in from top, right, bottom, or left edges with backdrop overlay and blur effects.
 
-## Usage
+## Features
+- 4 slide directions: top, right, bottom, left
+- Backdrop overlay with blur effect and click-to-close
+- Auto close button in corner (optional via showCloseButton)
+- ESC key and click-outside to dismiss
+- Focus trap and keyboard navigation
+- Portal rendering (always in document.body)
+- Controlled and uncontrolled modes
+- 100% shadcn/ui compatible API
+- Theme-aware glass styling via CSS variables
 
-### Compound Component Pattern
+## Sub-Components
+- **SheetGlass.Root / Sheet**: Sheet root with open/onOpenChange state
+- **SheetGlass.Trigger / SheetTrigger**: Opens sheet when clicked (supports asChild)
+- **SheetGlass.Portal / SheetPortal**: Renders children into portal
+- **SheetGlass.Overlay / SheetOverlay**: Backdrop with glass blur effect
+- **SheetGlass.Content / SheetContent**: Main container with side prop and glass styling
+- **SheetGlass.Header / SheetHeader**: Header section with flex layout
+- **SheetGlass.Title / SheetTitle**: Sheet title with accessibility
+- **SheetGlass.Description / SheetDescription**: Sheet description text
+- **SheetGlass.Footer / SheetFooter**: Footer with action buttons layout
+- **SheetGlass.Close / SheetClose**: Closes sheet when clicked (supports asChild)
+
+## CSS Variables
+Uses ModalGlass CSS variables for consistent styling:
+- \`--modal-bg\`: Sheet background color (glass effect)
+- \`--modal-border\`: Sheet border color
+- \`--modal-glow\`: Sheet shadow/glow effect
+- \`--modal-glow-effect\`: Inner glow layer
+- \`--modal-overlay\`: Backdrop overlay color
+- \`--modal-close-btn-bg\`: Close button background
+- \`--modal-close-btn-border\`: Close button border
+
+## Usage Pattern
 \`\`\`tsx
+// Navigation drawer (left)
 <SheetGlass.Root>
   <SheetGlass.Trigger asChild>
-    <ButtonGlass>Open Sheet</ButtonGlass>
+    <ButtonGlass>Menu</ButtonGlass>
+  </SheetGlass.Trigger>
+  <SheetGlass.Content side="left">
+    <SheetGlass.Header>
+      <SheetGlass.Title>Navigation</SheetGlass.Title>
+    </SheetGlass.Header>
+    <nav>...</nav>
+  </SheetGlass.Content>
+</SheetGlass.Root>
+
+// Filters panel (right)
+<SheetGlass.Root>
+  <SheetGlass.Trigger asChild>
+    <ButtonGlass variant="outline">Filters</ButtonGlass>
   </SheetGlass.Trigger>
   <SheetGlass.Content side="right">
     <SheetGlass.Header>
-      <SheetGlass.Title>Title</SheetGlass.Title>
-      <SheetGlass.Description>Description</SheetGlass.Description>
+      <SheetGlass.Title>Filter Options</SheetGlass.Title>
     </SheetGlass.Header>
-    <p>Content</p>
-    <SheetGlass.Footer>
-      <SheetGlass.Close asChild>
-        <ButtonGlass variant="ghost">Cancel</ButtonGlass>
-      </SheetGlass.Close>
-    </SheetGlass.Footer>
+    <div>Filter controls...</div>
   </SheetGlass.Content>
 </SheetGlass.Root>
 \`\`\`
-
-### shadcn/ui Compatible Imports
-\`\`\`tsx
-import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from 'shadcn-glass-ui'
-
-<Sheet>
-  <SheetTrigger asChild>
-    <Button>Open</Button>
-  </SheetTrigger>
-  <SheetContent side="left">
-    <SheetHeader>
-      <SheetTitle>Navigation</SheetTitle>
-    </SheetHeader>
-    <nav>...</nav>
-  </SheetContent>
-</Sheet>
-\`\`\`
-
-## Side Variants
-
-- **right** (default) - Slides in from the right
-- **left** - Slides in from the left
-- **top** - Slides in from the top
-- **bottom** - Slides in from the bottom
-
-## Sub-components
-
-- **SheetGlass.Root / Sheet** - Sheet root with open/onOpenChange
-- **SheetGlass.Trigger / SheetTrigger** - Opens sheet when clicked (supports asChild)
-- **SheetGlass.Content / SheetContent** - Main container with side prop and glass styling
-- **SheetGlass.Header / SheetHeader** - Header section
-- **SheetGlass.Title / SheetTitle** - Sheet title with accessibility
-- **SheetGlass.Description / SheetDescription** - Sheet description text
-- **SheetGlass.Footer / SheetFooter** - Footer with action buttons
-- **SheetGlass.Close / SheetClose** - Closes sheet when clicked (supports asChild)
-
-## Accessibility
-
-Built on @radix-ui/react-dialog with full WCAG 2.1 AA compliance:
-- Keyboard: Escape to close, Tab for focus trap
-- Screen Readers: role="dialog", aria-modal, aria-labelledby
-- Focus Management: Auto-focus on open, return focus on close
         `,
       },
     },
@@ -98,9 +95,16 @@ Built on @radix-ui/react-dialog with full WCAG 2.1 AA compliance:
     open: {
       control: 'boolean',
       description: 'Controlled open state',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'undefined' },
+      },
     },
     onOpenChange: {
       description: 'Callback when open state changes',
+      table: {
+        type: { summary: '(open: boolean) => void' },
+      },
     },
   },
   decorators: [
@@ -116,7 +120,8 @@ export default meta;
 type Story = StoryObj<typeof SheetGlass.Root>;
 
 /**
- * Default sheet that slides in from the right side.
+ * Default sheet sliding from the right with form inputs.
+ * Common use case: Edit profile, settings panels.
  */
 export const Default: Story = {
   render: () => (
@@ -148,7 +153,8 @@ export const Default: Story = {
 };
 
 /**
- * Sheet that slides in from the left, commonly used for navigation.
+ * Navigation drawer sliding from the left.
+ * Common use case: Mobile menu, sidebar navigation.
  */
 export const LeftSide: Story = {
   render: () => (
@@ -197,7 +203,8 @@ export const LeftSide: Story = {
 };
 
 /**
- * Sheet that slides in from the top, useful for search or notifications.
+ * Search panel sliding from the top.
+ * Common use case: Search bars, command palettes, notifications.
  */
 export const TopSide: Story = {
   render: () => (
@@ -219,7 +226,8 @@ export const TopSide: Story = {
 };
 
 /**
- * Sheet that slides in from the bottom, ideal for mobile action menus.
+ * Actions menu sliding from the bottom.
+ * Common use case: Mobile action sheets, context menus, iOS-style pickers.
  */
 export const BottomSide: Story = {
   render: () => (
@@ -252,7 +260,8 @@ export const BottomSide: Story = {
 };
 
 /**
- * All four side variants shown together.
+ * Demonstration of all 4 slide directions: top, right, bottom, left.
+ * Each direction suitable for different use cases.
  */
 export const AllSides: Story = {
   render: () => (
@@ -281,6 +290,7 @@ export const AllSides: Story = {
 
 /**
  * Controlled mode with external state management.
+ * Open and close the sheet programmatically from outside.
  */
 export const Controlled: Story = {
   render: () => {
@@ -318,7 +328,8 @@ export const Controlled: Story = {
 };
 
 /**
- * Sheet without the close button.
+ * Sheet without the X close button in the corner.
+ * User must use footer button or press Escape to close.
  */
 export const NoCloseButton: Story = {
   render: () => (
@@ -348,6 +359,7 @@ export const NoCloseButton: Story = {
 
 /**
  * Using shadcn/ui compatible import aliases.
+ * Import as: Sheet, SheetContent, SheetTrigger, etc.
  */
 export const ShadcnUICompatible: Story = {
   name: 'shadcn/ui Compatible',
@@ -381,7 +393,8 @@ export const ShadcnUICompatible: Story = {
 };
 
 /**
- * Sheet with scrollable content.
+ * Sheet with long scrollable content.
+ * Content area scrolls independently while header/footer remain fixed.
  */
 export const ScrollableContent: Story = {
   render: () => (

@@ -1,55 +1,124 @@
 /* eslint-disable react-refresh/only-export-components */
 /**
- * SheetGlass Component (Radix UI Dialog-based)
+ * SheetGlass Component
  *
- * Glass-themed sheet/drawer with full shadcn/ui Sheet API compatibility.
- * Built on @radix-ui/react-dialog for accessibility and state management.
+ * Glass-themed sheet/drawer component with full shadcn/ui Sheet API compatibility.
+ * Slides in from top, right, bottom, or left edges with backdrop overlay and blur effects.
  *
- * @example Basic usage
+ * ## Features
+ * - 4 slide directions: top, right, bottom, left
+ * - Backdrop overlay with blur effect and click-to-close
+ * - Auto close button in corner (optional via showCloseButton)
+ * - ESC key and click-outside to dismiss
+ * - Focus trap and keyboard navigation
+ * - Portal rendering (always in document.body)
+ * - Controlled and uncontrolled modes
+ * - 100% shadcn/ui compatible API
+ * - Theme-aware glass styling via CSS variables
+ *
+ * ## Sub-Components
+ * - **SheetGlass.Root / Sheet**: Sheet root with open/onOpenChange state
+ * - **SheetGlass.Trigger / SheetTrigger**: Opens sheet when clicked (supports asChild)
+ * - **SheetGlass.Portal / SheetPortal**: Renders children into portal
+ * - **SheetGlass.Overlay / SheetOverlay**: Backdrop with glass blur effect
+ * - **SheetGlass.Content / SheetContent**: Main container with side prop and glass styling
+ * - **SheetGlass.Header / SheetHeader**: Header section with flex layout
+ * - **SheetGlass.Title / SheetTitle**: Sheet title with accessibility
+ * - **SheetGlass.Description / SheetDescription**: Sheet description text
+ * - **SheetGlass.Footer / SheetFooter**: Footer with action buttons layout
+ * - **SheetGlass.Close / SheetClose**: Closes sheet when clicked (supports asChild)
+ *
+ * ## CSS Variables
+ * Uses ModalGlass CSS variables for consistent styling:
+ * - `--modal-bg`: Sheet background color (glass effect)
+ * - `--modal-border`: Sheet border color
+ * - `--modal-glow`: Sheet shadow/glow effect
+ * - `--modal-glow-effect`: Inner glow layer
+ * - `--modal-overlay`: Backdrop overlay color
+ * - `--modal-close-btn-bg`: Close button background
+ * - `--modal-close-btn-border`: Close button border
+ *
+ * @example Navigation drawer (left side)
+ * ```tsx
+ * import { SheetGlass, ButtonGlass } from 'shadcn-glass-ui'
+ *
+ * function Navigation() {
+ *   return (
+ *     <SheetGlass.Root>
+ *       <SheetGlass.Trigger asChild>
+ *         <ButtonGlass>Menu</ButtonGlass>
+ *       </SheetGlass.Trigger>
+ *       <SheetGlass.Content side="left">
+ *         <SheetGlass.Header>
+ *           <SheetGlass.Title>Navigation</SheetGlass.Title>
+ *         </SheetGlass.Header>
+ *         <nav>...</nav>
+ *       </SheetGlass.Content>
+ *     </SheetGlass.Root>
+ *   )
+ * }
+ * ```
+ *
+ * @example Filters panel (right side)
  * ```tsx
  * <SheetGlass.Root>
  *   <SheetGlass.Trigger asChild>
- *     <ButtonGlass>Open Sheet</ButtonGlass>
+ *     <ButtonGlass variant="outline">Filters</ButtonGlass>
  *   </SheetGlass.Trigger>
  *   <SheetGlass.Content side="right">
  *     <SheetGlass.Header>
- *       <SheetGlass.Title>Sheet Title</SheetGlass.Title>
- *       <SheetGlass.Description>Description</SheetGlass.Description>
+ *       <SheetGlass.Title>Filter Options</SheetGlass.Title>
  *     </SheetGlass.Header>
- *     <p>Content here</p>
+ *     <div>Filter controls...</div>
  *     <SheetGlass.Footer>
  *       <SheetGlass.Close asChild>
  *         <ButtonGlass variant="ghost">Cancel</ButtonGlass>
  *       </SheetGlass.Close>
+ *       <ButtonGlass>Apply Filters</ButtonGlass>
  *     </SheetGlass.Footer>
  *   </SheetGlass.Content>
  * </SheetGlass.Root>
  * ```
  *
- * @example shadcn/ui compatible imports
+ * @example Notifications panel (top)
  * ```tsx
- * import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from 'shadcn-glass-ui'
+ * <SheetGlass.Root>
+ *   <SheetGlass.Trigger asChild>
+ *     <ButtonGlass>Notifications</ButtonGlass>
+ *   </SheetGlass.Trigger>
+ *   <SheetGlass.Content side="top">
+ *     <SheetGlass.Header>
+ *       <SheetGlass.Title>Recent Activity</SheetGlass.Title>
+ *     </SheetGlass.Header>
+ *     <div>Notifications list...</div>
+ *   </SheetGlass.Content>
+ * </SheetGlass.Root>
+ * ```
  *
- * <Sheet>
- *   <SheetTrigger asChild>
- *     <Button>Open</Button>
- *   </SheetTrigger>
- *   <SheetContent side="left">
- *     <SheetHeader>
- *       <SheetTitle>Navigation</SheetTitle>
- *     </SheetHeader>
- *     <nav>...</nav>
- *   </SheetContent>
- * </Sheet>
+ * @example Mobile actions menu (bottom)
+ * ```tsx
+ * <SheetGlass.Root>
+ *   <SheetGlass.Trigger asChild>
+ *     <ButtonGlass>Actions</ButtonGlass>
+ *   </SheetGlass.Trigger>
+ *   <SheetGlass.Content side="bottom">
+ *     <SheetGlass.Header>
+ *       <SheetGlass.Title>Choose an action</SheetGlass.Title>
+ *     </SheetGlass.Header>
+ *     <div>Action buttons...</div>
+ *   </SheetGlass.Content>
+ * </SheetGlass.Root>
  * ```
  *
  * @accessibility
  * - Built on Radix UI Dialog with full WCAG 2.1 AA compliance
- * - Keyboard: Escape to close, Tab for focus trap
- * - Screen Readers: role="dialog", aria-modal, aria-labelledby, aria-describedby
- * - Focus Management: Auto-focus on open, return focus on close
+ * - Keyboard: Escape to close, Tab/Shift+Tab for focus navigation
+ * - Screen Readers: role="dialog", aria-modal="true", aria-labelledby, aria-describedby
+ * - Focus Management: Auto-focus first focusable element, return focus on close
+ * - Focus Trap: Prevents tabbing outside sheet while open
+ * - Close Button: Always includes accessible "Close" label for screen readers
  *
- * @since v2.4.0 - Initial implementation for shadcn/ui API compatibility
+ * @since v2.4.0
  */
 
 import * as React from 'react';
@@ -131,10 +200,38 @@ SheetOverlay.displayName = 'SheetOverlay';
 // COMPOUND COMPONENT: CONTENT
 // ========================================
 
+/**
+ * Props for SheetContent component.
+ *
+ * @example
+ * ```tsx
+ * const props: SheetContentProps = {
+ *   side: 'right',
+ *   showCloseButton: true,
+ * };
+ * ```
+ */
 interface SheetContentProps extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> {
-  /** Side from which the sheet slides in */
+  /**
+   * Side from which the sheet slides in.
+   *
+   * @default 'right'
+   * @example
+   * ```tsx
+   * <SheetGlass.Content side="left">...</SheetGlass.Content>
+   * ```
+   */
   side?: SheetSide;
-  /** Show close button in top-right corner */
+
+  /**
+   * Show close button (X) in top-right corner.
+   *
+   * @default true
+   * @example
+   * ```tsx
+   * <SheetGlass.Content showCloseButton={false}>...</SheetGlass.Content>
+   * ```
+   */
   showCloseButton?: boolean;
 }
 
